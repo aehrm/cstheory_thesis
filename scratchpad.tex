@@ -1,0 +1,557 @@
+\documentclass[nofonts]{uebung}
+%\setmainfont{NewCM10-Book}[ItalicFont={NewCM10-BookItalic}, BoldFont={NewCM10-Bold}]
+%\setmathfont{NewCMMath-Book}
+\usepackage[margin=3cm]{geometry}
+\setmainfont{Latin Modern Roman}
+\usepackage{unicode-math}
+\setmathfont{Latin Modern Math}
+\setmathfont[version=lm,range={\sqsubsetneq,\setminus}, Scale=MatchUppercase]{STIX Two Math}
+
+\setmainlanguage{german}
+
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Behauptung}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{definition}[theorem]{Definition}
+
+
+\setlist[enumerate]{label=(\arabic*), itemsep=0pt}
+\setlist[itemize]{itemsep=0pt}
+\setlist{beginpenalty=10000, midpenalty=10000}
+
+\newlist{statements}{enumerate}{1}
+\setlist[statements]{resume,label=(A\arabic*)}
+
+\usepackage{turnstile}
+
+\def\P{\ensuremath{\mathrm{P}}}
+\def\NP{\ensuremath{\mathrm{NP}}}
+\def\NE{\ensuremath{\mathrm{NE}}}
+\def\NEE{\ensuremath{\mathrm{NEE}}}
+\def\FP{\ensuremath{\mathrm{FP}}}
+\def\UP{\ensuremath{\mathrm{UP}}}
+\def\DisjNP{\ensuremath{\mathrm{DisjNP}}}
+\def\DisjCoNP{\ensuremath{\mathrm{DisjCoNP}}}
+\def\DisjUP{\ensuremath{\mathrm{DisjUP}}}
+\def\DisjCoUP{\ensuremath{\mathrm{DisjCoUP}}}
+\def\coNP{\ensuremath{\mathrm{coNP}}}
+\def\coNE{\ensuremath{\mathrm{coNE}}}
+\def\coNEE{\ensuremath{\mathrm{coNEE}}}
+\def\coUP{\ensuremath{\mathrm{coUP}}}
+\def\NPcoNP{\ensuremath{\mathrm{NP}\cap\mathrm{coNP}}}
+\def\TFNP{\ensuremath{\mathrm{TFNP}}}
+\def\TALLY{\ensuremath{\mathrm{TALLY}}}
+\def\NPMV{\ensuremath{\mathrm{NPMV}}}
+\def\NPMVt{\ensuremath{\mathrm{NPMV_t}}}
+\def\NPSV{\ensuremath{\mathrm{NPSV}}}
+\def\NPSVt{\ensuremath{\mathrm{NPSV_t}}}
+\def\NPbV{\ensuremath{\mathrm{NPbV}}}
+\def\NPbVt{\ensuremath{\mathrm{NPbV_t}}}
+\def\NPkV{\ensuremath{\mathrm{NP}k\mathrm{V}}}
+\def\NPkVt{\ensuremath{\mathrm{NP}k\mathrm{V_t}}}
+\def\TAUT{\ensuremath{\mathrm{TAUT}}}
+\def\SAT{\ensuremath{\mathrm{SAT}}}
+\def\PF{\ensuremath{\mathrm{PF}}}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\supp}{supp}
+\def\hUP{\ensuremath{\mathsf{UP}}}
+\def\hDisjNP{\ensuremath{\mathsf{DisjNP}}}
+\def\hDisjCoNP{\ensuremath{\mathsf{DisjCoNP}}}
+\def\hNPcoNP{\ensuremath{\mathsf{NP}{}\cap{}\mathsf{coNP}}}
+\def\hCON{\ensuremath{\mathsf{CON}}}
+\def\hSAT{\ensuremath{\mathsf{SAT}}}
+\def\hTFNP{\ensuremath{\mathsf{TFNP}}}
+\def\leqmpp{\ensuremath{\leq_\mathrm{m}^\mathrm{pp}}}
+\def\leqmp{\ensuremath{\leq_\mathrm{m}^\mathrm{p}}}
+
+
+\begin{document}
+
+\renewcommand{\phi}{\varphi}
+\noindent
+%Sei $B\in\mathrm P$, $B\subseteq\Sigma^*\times\Sigma^*$ mit folgender Padding-Eigenschaft:
+Sei $A\in\mathrm {NP}$ mit folgender Padding-Eigenschaft:
+es existiert eine Menge $B\in\mathrm P$ sodass $A=\{x\mid \exists y, |y|\leq p(|x|), (x,y)\in B\}$ und 
+für alle $n\in\mathbb N$ gilt
+\[ (x,y)\in B \iff (\mathit{pad}(x, 1^n), y)\in B. \]
+wobei $\mathit{pad}\in\mathrm{FP}$ und verlängernd ist.
+Die folgenden Aussagen sind äquivalent:
+\begin{statements}
+    \item Für alle NPTM $N$ mit $L(N)=A$ lassen sich akzepierende Rechenwege von $N$ in Zertifikate umrechnen: es existiert eine Funktion $f\in\mathrm{FP}$ sodass
+        \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,f(x,\alpha))\in B. \]
+    \item Das Standard-Beweissystem $\mathit{std}_B$ bzgl. $B$ ist p-optimal. Dieses ist
+        \[ \mathit{std}_B(w) = \begin{cases} x & \text{wenn $w=(x,y)$ und $(x,y)\in B$}\\
+        \top & \text{sonst}\end{cases}. \] 
+\end{statements}
+
+\begin{center}\ast\end{center}
+
+\noindent
+Diese Padding-Eigenschaft erfüllen folgende Mengen:
+\begin{itemize}
+    \item $\mathrm{SAT}=\{ \phi\mid \exists y. \phi(y)=1 \}$, Padding durch Anhängen von Tautologien.
+        Hier ist $\mathit{std}_B$ das Standard-Beweissystem für SAT.
+    \item Das kanonische vollständige Problem \[ K=\{ (N,x,1^i) \mid \exists \alpha, |\alpha|\leq i, N(x)\text{ akz. mit RW $\alpha$} \},\]Padding durch „Verlängern“ von $N$ mit nicht erreichbaren Zuständen.
+
+        Hier lässt sich (A1) auch wie folgt interpretieren: jede universelle NP-Maschine $U$ mit $L(U)=K$ ist „transparent“ in dem Sinn dass ein akzeptierender Rechenweg $\alpha$ von $U(N,x,1^i)$ sich effizient in einen akzeptierenden Rechenweg $\beta$ für $N(x)$ umrechnen lassen kann.
+
+    \item Jede Menge $A\in\mathrm{NP}$, die im klassischen Sinn paddable ist, also für die eine Funktion $g$ mit $g,g^{-1}\in\mathrm{FP}$ existiert sodass $x\in A \iff g(x,z)\in A$.
+\end{itemize}
+
+
+\begin{center}\ast\end{center}
+
+\noindent
+%Sei $R\in\mathrm{NPMV}$ vollständig unter folgenden Begriff von Reduktion (vgl. die Definition von Pudlák zur Reduktion zwischen TFNP-Funktionen):
+%$S$ ist reduzierbar auf $S$ wenn zwei Funktionen $f,g\in\mathrm{FP}$ existieren sodass
+%\[ R(f(x),z)=S(x,g(x,z)). \]
+%(Vgl. auch Levin-Reduktion von Suchproblemen.)
+%
+%Ein Suchproblem $R$ ist eine Menge in P sodass wenn $(x,y)\in R$ dann ist $y$ höchstens polynomiell länger als $x$.
+%Sei $L(R)=\{x\mid \exists y\mid (x,y)\in R\}\in\mathrm{NP}$ das zugehörige Entscheidungsproblem.
+
+%Ein Suchproblem $S$ ist polynomialzeit-reduzierbar auf $R$ wenn zwei Funktionen $f,g\in\mathrm{FP}$ existieren sodass $x\in L(S)\iff f(x)\in L(R)$ und
+%\[ (f(x),z)\in R \implies (x,g(x,z))\in S. \]
+%(Funktion $g$ bildet Zertifikate für $f(x)\in R$ auf Zerifikate für $x\in S$ ab.)
+Sei $A\in\mathrm{NP}$ mit folgender Eigenschaft von Vollständigkeit: es existiert eine Menge $B\in\mathrm P$ sodass $A=\{x\mid \exists y, |y|\leq p(|x|), (x,y)\in B\}$ und für alle Mengen $A'\in\mathrm{NP}$, $A'=\{x\mid \exists y, |y|\leq p'(|x|), (x,y)\in B'\}$ existieren zwei Funktionen $r,r^{-1},t\in\mathrm{FP}$ sodass
+\[ x\in A' \iff r(x) \in A, \quad (r(x),z)\in B \implies (x, t(x,z)) \in B'. \]
+($A'\leq_m^p A$ via invertierbarem $r$, Funktion $t$ bildet Zertifikate für $r(x)\in A$ auf Zertifikate für $x\in A'$ ab. Vgl. Reduktionsbegriff unter TFNP-Problemen. Vgl. Levin-Reduktionsbegriff.)
+Folgende Aussagen sind äquivalent:
+\begin{statements}
+    \item[(A1)] Für alle NPTM $N$ mit $L(N)=A$ lassen sich akzepierende Rechenwege von $N$ in Zertifikate umrechnen: es existiert eine Funktion $f\in\mathrm{FP}$ sodass
+        \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,f(x,\alpha))\in B. \]
+    \item[(Q)] $\mathrm{NPMV}_t \subseteq_c \mathrm{FP}$.
+    %\item Für alle NPTM $N$ mit $L(N)=\Sigma^*$ lassen sich aus Eingabe $x$ Rechenwege von $N(x)$ effizient bestimmen: es existiert $g\in\mathrm{FP}$ sodass $N(x)\sststile{}{g(x)}1$ für alle $x$. (Das ist die Aussage Q.)
+\end{statements}
+
+\begin{center}\ast\end{center}
+
+\noindent
+Zumindest SAT und $K$ erfüllen sowohl die Padding-Eigenschaft, als auch die Vollständigkeits-Eigenschaft.
+Deren Standard-Beweissysteme sind p-optimal genau dann wenn $Q$ gilt.
+
+Die genannte Padding-Eigenschaft und Vollständigkeits-Eigenschaft werden von Mengen erfüllt, welche Levin-vollständig und paddable (im klassichen Sinn) sind.
+\clearpage
+
+Für Relation $R$ ist zulässig wenn $R(x,y)\implies |y|\leq p(|x|)$. Für zulässige Relationen $R$ ist $L(R)=\{x\mid\exists y. R(x,y)\}\in\mathrm{NP}$.
+
+Eine Relation $R$ ist Levin-vollständig falls diese zulässig ist,
+und für jede zulässige Relation $Q$ gilt: es existieren FP-Funktionen $f$ und $g$ mit
+\[ x\in L(Q) \iff f(x)\in L(R), \quad R(f(x),z) \implies Q(x, g(x,z)). \]
+Die folgenden Aussagen sind äquivalent:
+\begin{enumerate}
+    \item Das Standardbeweissystem $sat$ für SAT ist p-optimal\\
+        {}[wahrscheinlich falsch da wahrscheinlich $\mathsf{SAT}$]
+    \item Für eine Levin-vollständige, paddable Relation $R$ ist das Standardbeweissystem $std_R$ p-optimal. Zur Erinnerung:
+        \[ \mathit{std}_R(w) = \begin{cases} x & \text{wenn $w=(x,y)$ und $R(x,y)$}\\
+        \top & \text{sonst}\end{cases}. \] 
+    \item Für \emph{alle} Levin-vollständigen, paddable Relationen $R$ ist das Standardbeweissystem $std_R$ p-optimal
+    \item $\mathrm{NPMV}_t\subseteq_c \mathrm{FP}$, i.e., Q\\
+        {}[wahrscheinlich falsch da wahrscheinlich $\mathrm{P}\neq\mathrm{NP}\cap\mathrm{coNP}$]
+    \item Jedes optimale Beweissystem ist p-optimal
+    \item Für jede Relation gilt:\\ $R$ ist Levin-vollständig $\iff$ $L(R)$ ist many-one-vollständig.\\
+        {}[„empirisch“ wahr]
+\end{enumerate}
+\clearpage
+
+
+\subsection*{Orakelkonstruktion $\hDisjNP$ und $Q$}
+
+Konstruktion wie bei DG.
+
+Sei $e(0)=2, e(i+1)=2^{e(i)}$. Sei hier $\{H_m\}_{m\in\mathbb N}$ eine Familie von paarweise disjunkten, unendlichen Teilmenge von $e(\mathbb N)$. (Ebenen $H_m$ gehören zur Zeugensprache bzgl. DisjNP-Maschinenpaar $M_a, M_b$.)
+Starte mit $\mathrm{PSPACE}$-vollständiger Menge $C$ welche keine Wörter der Länge $e(\cdot)$ enthält.
+Definiere folgende Zeugensprachen:
+        \begin{gather*}
+            A_m^O \coloneqq \{ 0^n \mid n\in H_m, \text{existiert $x\in \Sigma^{n}$ mit } x\in O \text{ und $x$ endet mit $0$} \}\\
+            B_m^O \coloneqq \{ 0^n \mid n\in H_m, \text{existiert $x\in \Sigma^{n}$ mit } x\in O \text{ und $x$ endet mit $1$} \}
+        \end{gather*}
+        Fakt: $|O\cap \Sigma^n|\leq 1$ für alle $n\in H_m \implies (A_m^O, B_m^O)\in\DisjUP$.
+    
+\medskip
+
+Idee: erreiche entweder dass $M_a$, $M_b$ nicht disjunkt akzeptieren (Task $\tau^1_{a,b}$), oder dass das Zeugenpaar $(A_m,B_m)$ nicht auf $(L(M_a),L(M_b))$ reduzierbar ist (Task $\tau^1_{a,b,r}$ für Transduktor $F_r$).
+
+Gleichzeitig versuchen wir für möglichst viele $M_j$ erreichen, dass diese nicht total sind. (Task $\tau^2_j$)
+%Dies hat in gewisser Weise Priorität über die o.g. Diagonalisierung.
+Am Ende sind die verbleibenden totalen Maschinen $M^O_j$ sehr speziell, denn sie sind auch für gewisse Teilmengen von $O$ total.
+In Kombination mit dem Fakt dass $\P^C=\mathrm{PSPACE}^C$ können wir relevante Wörter in $O-C$ errechnen und so einen akzeptierenden Weg von $M^O_j(x)$ ausgeben -- damit erzielen wir $Q$.
+\medskip
+
+Sei wie üblich $t\in \mathcal T$ wenn der Definitionsbereich endlich ist, nur die Tasks der Form $\tau^1_{a,b}, \tau^2_j$ enthält, $t$ diese Tasks auf $\mathbb N$ abbildet, und injektiv auf dem Support ist.
+
+Ein Orakel $w\in\Sigma^*$ ist $t$-valide wenn $t\in\mathcal T$ und folgendes gilt:
+\begin{enumerate}[label={V\arabic*}]
+    \item Wenn $x<|w|$ und $|x|\not\in e(\mathbb N)$, dann gilt $x\in w\iff x\in C$.\\
+        (Orakel $w$ und $C$ stimmen auf Wörtern mit Länge $\neq e(\cdot)$ überein.)
+    \item Für alle $n=e(i)$ gilt $|w\cap \Sigma^n|\leq 2$.\\
+        (Orakel $w$ ist dünn auf den Stufen der Länge $e(\cdot)$.)
+    \item Wenn $t(\tau^1_{a,b})=0$, dann existiert ein $z$ sodass $M_a^w(z)$ und $M_b^w(z)$ definitiv akzeptieren.\\
+        (Wenn $t(\tau^1_{a,b})=0$, dann $L(M_a)\cap L(M_b)\neq \emptyset$ relativ zum finalen Orakel.)
+    \item Wenn $0<t(\tau^1_{a,b})=m$, dann gilt für alle $n\in H_m$ dass $|\Sigma^n\cap w|\leq 1$.\\
+        (Wenn $0<t(\tau^1_{a,b})=m$, dann $(A_m,B_m)\in\DisjUP$.)
+    \item Wenn $t(\tau^2_j)=0$, dann existiert ein $z$ sodass $M_j^w(z)$ definitiv ablehnt.\\
+        ($L(M_j)\neq \Sigma^*$ relativ zum finalen Orakel.)
+\end{enumerate}
+
+Sei $T$ eine abzählbare Aufzählung der o.g. Tasks sodass $\tau^1_{a,b,r}$ immer nach $\tau^1_{a,b}$ kommt.
+%Wir sagen dass ein Task $\tau$ \emph{priorisierter} als Task $\tau'$ ist, wenn $\tau$ in $T$ vor $\tau'$ kommt.
+
+[ . . . Üblicher Text zur stufenweisen Erweiterung von $w_s$ und $t_s$ . . . ]
+
+%Wir definieren nun Stufe $s>0$, diese startet mit einem $t_{s-1}\in\mathcal T$ und eine $t_{s-1}$-validen Orakel $w_{s-1}$ welche nun die Tasks $\{\tau_{(1)}, \tau_{(2)}, \dots, \tau_{(s)}\}$ behandelt -- $\tau^{(s)}$ kommt dazu. Je nach Typ von Task $\tau^{(s)}$ führen wir nun Folgendes durch:
+Wir definieren nun Stufe $s>0$, diese startet mit einem $t_{s-1}\in\mathcal T$ und eine $t_{s-1}$-validen Orakel $w_{s-1}$ welche nun den kleinsten Task bearbeitet, welcher noch in $T$ ist. Dieser wird unmittelbar nach der Bearbeitung aus $T$ entfernt. In der Bearbeitung wird das Orakel strikt verlängert.
+\begin{itemize}
+
+    \item $\tau^1_{a,b}$: Setze $t'=t_{s-1}\cup\{\tau^1_{a,b}\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq t_{s-1}$, dann setze $t_s\coloneqq t'$ und $w_s\coloneqq v$. Entferne außerdem alle Tasks der Form $\tau^1_{a,b,r}$ von $T$.
+
+        Ansonsten wähle ein hinreichend großes $m\not\in \img(t_s)$ sodass $w_s$ kein Wort der Länge $\min H_m$ definiert. Setze $t_s\coloneqq t_{s-1}\cup \{ \tau^1_{a,b}\mapsto m \}$; damit ist $w_{s-1}$ auch $t_s$-valide. Setze $w_s\coloneqq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. (Das ist möglich nach Behauptung 1.)
+
+    \item $\tau^2_j$: Setze $t'=t_{s-1}\cup\{\tau^2_j\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq t_{s-1}$, dann setze $t_s\coloneqq t'$ und $w_s\coloneqq v$.
+
+        Ansonsten setze $t_s\coloneqq t_{s-1}$ und setze $w_s\coloneqq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. (Das ist möglich nach Behauptung 1.)
+
+    \item $\tau^1_{a,b,r}$: Wir wissen dass $t_{s-1}(\tau^1_{a,b})=m>0$. Setze $t_s=t_{s-1}$ und wähle ein $t_s$-valides Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
+        \begin{itemize}[nosep,endpenalty=10000]
+            \item $0^n\in A_m^v$ für alle $v\sqsupseteq w_s$ und $M_a(F_r(0^n))$ lehnt relativ zu $w_s$ definitiv ab.
+            \item $0^n\in B_m^v$ für alle $v\sqsupseteq w_s$ und $M_b(F_r(0^n))$ lehnt relativ zu $w_s$ definitiv ab.
+        \end{itemize} (Das ist möglich nach Behauptung 2.)
+\end{itemize}
+
+\begin{claim}
+    Für jedes $t\in\mathcal T$ und jedes $t$-valide $w$ existiert ein $b\in\{0,1\}$ sodass $wb$ auch $t$-valide ist.
+\end{claim}
+
+\begin{claim}
+    Die Bearbeitung eines Tasks $\tau^1_{a,b,r}$ ist möglich: gilt $t_{s-1}(\tau^1_{a,b})=m>0$, dann lässt sich $w_{s-1}$ so zu $t_{s-1}$-validem $u\sqsupsetneq w_{s-1}$ erweitern, dass eine der o.g. Fälle eintritt.
+\end{claim}
+\begin{proof}[Skizze.]
+    Widerspruchsbeweis. Erweitere $w_{s-1}$ mit Behauptung 1 so weit zu $u$, dass genau alle Wörter der Länge $<n=e(i)\in H_m$ definiert sind, wobei das $i$ hinreichend groß gewählt wird. Sei $u(X), X\subseteq \Sigma^n$ das Orakel was entsteht, wenn die Stufe $e(i)$ mit genau den Wörtern aus $X$ gefüllt wird, bzw. $u(X)=u\cup X \cup C$. Beob. dass $u(X), |X|\leq 1$ auch $t_{s-1}$-valide ist.
+
+    Nach Annahme gilt
+    \begin{itemize}
+        \item für gerades $\alpha\in \Sigma^n$ gilt $0^n\in A_m^{u(\{\alpha\})}$ und daher akzeptiert $M_a(F_r(0^n))$ definitiv relativ zu $u(\{\alpha\})$.
+        \item für ungerades $\beta\in \Sigma^n$ gilt $0^n\in B_m^{u(\{\alpha\})}$ und daher akzeptiert $M_b(F_r(0^n))$ definitiv relativ zu $u(\{\beta\})$.
+    \end{itemize}
+    Kombinatorische Standardmethoden zeigen dann, dass relativ zu $u(\{\alpha,\beta\})$ mit geeignetem geraden $\alpha$, ungeradem $\beta$ sowohl $M_a(F_r(0^n))$ also auch $M_b(F_r(0^n))$ relativ zu $u(\{\alpha,\beta\})$ akzeptieren.
+    Damit wäre aber auch $u(\{\alpha,\beta\})$ ein geeignetes Orakel in der Bearbeitung von Task $\tau^1_{a,b}$ und wir hätten $t_{s-1}(\tau^1_{a,b})=0$.
+\end{proof}
+
+Damit ist die Konstruktion möglich. Sei $O=\lim_{s\to\infty} w_s$.
+
+\begin{claim}
+    Kein Paar aus $\DisjNP^O$ ist $\leqmpp$-hart für $\DisjUP$.
+\end{claim}
+
+\begin{claim}
+    $\P^O\neq \UP^O$.
+\end{claim}
+\begin{proof}
+    Angenommen, $\P=\UP$. Dann ist jedes beliebige nichttriviale Paar $(U_1, U_2)$ aus $\DisjNP$ auch $\leqmpp$-hart für $\DisjUP$:
+    Sei $(V_1, V_2)\in\DisjUP$. Folgende Reduktionsfuktion realisiert $(V_1,V_2)\leqmpp (U_1,U_2)$:
+    \[
+        f(x) = \begin{cases} y_1\in U_1 & \text{ wenn $x\in V_1$} \\y_2\in U_2 & \text{ wenn $x\in V_2$} \\ \epsilon & \text{ sonst}. \end{cases}
+    \]
+    Diese ist offenbar in $\FP^O$, da ja $V_1, V_2\in\UP^O=\P^O$. 
+\end{proof}
+
+\begin{claim}
+    Sei $M_j$ eine totale Maschine, d.h. $L(M^O)=\Sigma^*$.
+    Es existiert eine Länge $n$ mit folgender Eigenschaft: 
+    falls $T\subseteq O$ mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern $\leq n$ übereinstimmt, dann $L(M_j^T)=\Sigma^*$.
+\end{claim}
+\begin{proof}[Skizze.]
+    Sei $s$ die Stufe bei der $\tau^2_j$ bearbeitet wurde. Setze $n=|w_{s-1}|$.
+    Wir zeigen nun, dass dieses $n$ die behauptete Eigenschaft erfüllt.
+    Angenommen, dies gilt nicht, dann existiert ein $T\subseteq O$ dass mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern $<n$ übereinstimmt, aber für ein Wort $z$ lehnt $M_j^T(x)$ ab.
+    Sei $t'=t_{s-1}\cup \{\tau^2_j\mapsto 0\}$ und sei $v=T\cap\Sigma^{\leq t_j(|x|)}$. 
+    Beob. dass $M_j^v(z)$ definitiv ablehnt.
+
+    Wir zeigen, das $v$ auch $t'$-valide ist;  damit wäre $v$ eine geeignete Erweiterung in Stufe $s$ und wir hätten $t_s=t'$. 
+    Das bedeutet nach V5, dass $M_j^{w_s}(z)$ definitiv ablehnt, damit auch $M_j^O(z)$ ablehnt, was der Voraussetzung widerspricht.
+
+    Wir zeigen dass $v$ auch $t'$-valide ist:
+    V1, V2, V4 sind sofort erfüllt nach Definition von $T$ als Teilmenge von $O$ bzw. übereinstimmend mit $O$ auf Wörtern der Länge $\neq e(\cdot)$.
+    Da $v\sqsupsetneq w_{s-1}$, sind auch V3 und V5 erfüllt, außer der neue V5-Fall von $t'(\tau_j^2)=0$.
+
+    Aber auch hier erfüllen wir entsprechende Instanz von V5, da ja $M_j^v(z)$ definitiv ablehnt.
+\end{proof}
+
+\begin{claim}
+    Sei $M_j$ eine totale Maschine, d.h. $L(M_j^O)=\Sigma^*$. Dann existiert eine Funktion $g\in \FP^O$ sodass $g(x)$ einen akzeptierenden Rechenweg von $M^O_j(x)$ ausgibt. Damit gilt nach Definition die Hypothese $Q$ relativ zu $O$.
+\end{claim}
+\begin{proof}[Skizze.]
+    Es reicht aus, dass $g\in\FP^O$ nur Wörter hinreichender Länge verarbeiten muss.
+    Sei $n$ hinreichend groß, sodass diese vorige Behauptung 4 erfüllt ist.
+    Damit gilt: wenn $T\subseteq O$ mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern der Länge $\leq n$ übereinstimmt, dann $L(M_j^T)=\Sigma^*$.
+
+    Sei also nun ein solches $x$ gegeben. 
+    Wir werden obige Eigenschaft ausnutzen und iterativ eine Menge $D\subseteq O$ an Orakelwörtern der Länge $e(\cdot)$ aufbauen, welche für die Berechnung $M_j^O(z)$ relevant ist, bis wir alle solchen relevanten Wörter gefunden haben.
+    Wir starten hierbei mit der Menge aller Orakelwörter in $O$, welche Länge $\leq n$  und Länge $=e(\cdot)$ haben.
+    Beob. dass damit $C\cup D$ mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern der Länge $\leq n$ übereinstimmt, also auch $L(M_j^{C\cup D})=\Sigma^*$.
+    Da uns $D$ vorliegt, können wir sogar diese Orakelwerte in $M$ hineincodieren, sodass $\smash{M'^C_j(z)}$ äquivalent arbeitet. Und da $\smash{\P^C=\mathrm{PSPACE}^C}$, können wir in $\FP^O$ auch einen akzeptierenden Rechenweg von $M'^C_j(x)$ bestimmen.
+
+    \noindent
+    \SetKwFor{Loop}{repeat}{}{end}
+    \begin{algorithm}[H]
+        $D\gets \{ w\mid w\in O, |w|\leq n, \exists i.|w|=e(i)\}$\;
+        \Loop{}{
+            Sei $\alpha$ ein akzeptierender Rechenweg auf $M_j^{C\cup D}(x)$ und $Q$ die Menge an Orakelfragen\;
+            \eIf{existiert eine Frage $q\in Q$ für die $q\in O-C$ aber $q\not\in D$}
+            {
+                $D\gets D \cup \{q\}$\;
+            }
+            {
+                \Return{$\alpha$}
+            }
+        }
+    \end{algorithm}
+
+    Korrektheit: Beobachte zunächst die Invariante dass $D\subseteq O\cap \{ w \mid \exists i.|w|=e(i)\}$.
+    Wie oben argumentiert gilt außerdem, dass $C\cup D$ mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern der Länge $\leq n$ übereinstimmt. Damit $L(M_j^{C\cup D})=\Sigma^*$ und insbesondere existiert dann auch ein akzeptierender Rechenweg auf $M_j^{C\cup D}(x)$, und Zeile 3 wohldefiniert.
+
+    Terminiert nun der Algorithmus mit einem Rechenweg $\alpha$, wissen wir auch dass für alle Orakelfragen $q\in Q$ entweder $q\in C$ gilt oder $q\not\in O$ oder $q\in O, D$ gilt.
+    Damit stimmt $C\cup D$ mit $O$ auf $Q$ überein, und auch $M_j^O(x)$ akzeptiert mit Rechenweg $\alpha$.
+
+    Laufzeit: Wir zeigen dass der Algorithmus in polynomiell beschränkter deterministischer Zeit (abhängig von $|x|$) relativ zu $O$ arbeitet. 
+    Wir wissen, dass für jede Orakelfrage $q\in Q$ gilt, dass $|q|\leq t_j(|x|)$.
+    Zusammen mit o.g. Invariante gilt $D\subseteq O\cap \{w \mid \exists i.|w|=e(i)\leq t_j(|x|)\}$.
+    Nach V5 gilt damit $\ell(D)\leq t_j(|x|)\cdot t_j(|x|)\cdot 2$, denn in den je $\leq t_j(|x|)$ Ebenen der Länge $e(i)\leq t_j(|x|)$ existieren höchstens zwei Wörter der Länge $e(i)\leq t_j(|x|)$.
+    Damit folgt auch unmittelbar, dass der Algorithmus nach höchstens polynomiell vielen Iterationen terminiert.
+
+    Zeile 3 kann damit auch in polynomiell beschränkter deterministischer Zeit berechnet werden. Wie oben skizziert kann der Rechenweg in deterministisch polynomieller Zeit abh. von $|x|$ und $\ell(D)$ relativ zu $C$ bestimmt werden.
+    Nach Konstruktion ist leicht zu sehen, dass dieser Rechenweg dann auch relativ zu $O$ bestimmt werden kann.
+\end{proof}
+
+\clearpage
+\subsection*{Orakel mit $\hDisjCoNP$ und $\P=\UP$}
+\setcounter{theorem}{0}
+
+Sei $e(0)=2, e(i+1)=2^{2^{e(i)}}$. (Doppelt exponentiell!) Sei hier $\{H_m\}_{m\in\mathbb N}$ eine Familie von paarweise disjunkten, unendlichen Teilmenge von $e(\mathbb N)$. (Ebenen $H_m$ gehören zur Zeugensprache bzgl. DisjCoNP-Maschinenpaar $M_a, M_b$.)
+Starte mit $\mathrm{PSPACE}$-vollständiger Menge $C$ welche keine Wörter der Länge $e(\cdot)$ enthält.
+Definiere folgende Zeugensprachen:
+\begin{gather*}
+    A_m^O \coloneqq \{ 0^n \mid n\in H_m, \text{für alle $x\in \Sigma^{n}$ gilt } x\in O \rightarrow \text{ $x$ endet mit $0$} \}\\
+    B_m^O \coloneqq \{ 0^n \mid n\in H_m, \text{für alle $x\in \Sigma^{n}$ gilt } x\in O \rightarrow \text{ $x$ endet mit $1$} \}
+\end{gather*}
+Fakt: $|O\cap \Sigma^n|\geq 1$ für alle $n\in H_m \implies (A_m^O, B_m^O)\in\DisjCoNP$.
+\medskip
+
+Idee: erreiche entweder dass $M_a$, $M_b$ nicht disjunkt ablehnen (Task $\tau^1_{a,b}$), oder dass das Zeugenpaar $(A_m,B_m)$ nicht auf $(L(M_a),L(M_b))$ reduzierbar ist (Task $\tau^1_{a,b,r}$ für Transduktor $F_r$).
+
+Gleichzeitig versuchen wir für möglichst viele $M_j$ erreichen, dass diese nicht kategorisch sind. (Task $\tau^2_j$)
+%Dies hat in gewisser Weise Priorität über die o.g. Diagonalisierung.
+Am Ende sind die verbleibenden totalen Maschinen $M^O_j$ sehr speziell, denn sie sind auch für gewisse Teilmengen von $O$ kategorisch.
+In Kombination mit dem Fakt dass $\P^C=\mathrm{PSPACE}^C$ können wir relevante Wörter in $O-C$ errechnen und so einen akzeptierenden Weg von $M^O_j(x)$ ausgeben -- damit entscheiden wir $L(M^O_j)$ und haben also auch $\P=\UP$.
+\medskip
+
+Sei wie üblich $t\in \mathcal T$ wenn der Definitionsbereich endlich ist, nur die Tasks der Form $\tau^1_{a,b}, \tau^2_j$ enthält, $t$ diese Tasks auf $\mathbb N$ abbildet, und injektiv auf dem Support ist.
+
+Ein Orakel $w\in\Sigma^*$ ist $t$-valide wenn $t\in\mathcal T$ und folgendes gilt:
+\begin{enumerate}[label={V\arabic*}]
+    \item Wenn $x<|w|$ und $|x|\not\in e(\mathbb N)$, dann gilt $x\in w\iff x\in C$.\\
+        (Orakel $w$ und $C$ stimmen auf Wörtern mit Länge $\neq e(\cdot)$ überein.)
+    %\item Für alle $n=e(i)$ gilt $|w\cap \Sigma^n|\leq 2$.\\
+    %    (Orakel $w$ ist dünn auf den Stufen der Länge $e(\cdot)$.)
+    \item Wenn $t(\tau^1_{a,b})=0$, dann existiert ein $z$ sodass $M_a^w(z)$ und $M_b^w(z)$ definitiv ablehnen.\\
+        (Wenn $t(\tau^1_{a,b})=0$, dann $(\overline{L(M_a)}, \overline{ L(M_b)})\not\in \DisjCoNP$ relativ zum finalen Orakel.)
+    \item Wenn $0<t(\tau^1_{a,b})=m$, dann gilt für alle $n\in H_m$: wenn $w$ für alle Wörter der Länge $n$ definiert ist, dann $|\Sigma^n\cap w|\geq 1$.\\
+        (Wenn $0<t(\tau^1_{a,b})=m$, dann $(A_m,B_m)\in\DisjCoNP$.)
+    \item Wenn $t(\tau^2_j)=0$, dann existiert ein $z$ sodass $M_j^w(z)$ auf zwei Rechenwegen akzeptiert.\\
+        ($M_j$ nicht kategorisch relativ zum finalen Orakel.)
+\end{enumerate}
+
+Sei $T$ eine abzählbare Aufzählung der o.g. Tasks sodass $\tau^1_{a,b,r}$ immer nach $\tau^1_{a,b}$ kommt.
+%Wir sagen dass ein Task $\tau$ \emph{priorisierter} als Task $\tau'$ ist, wenn $\tau$ in $T$ vor $\tau'$ kommt.
+
+[ . . . Üblicher Text zur stufenweisen Erweiterung von $w_s$ und $t_s$ . . . ]
+
+%Wir definieren nun Stufe $s>0$, diese startet mit einem $t_{s-1}\in\mathcal T$ und eine $t_{s-1}$-validen Orakel $w_{s-1}$ welche nun die Tasks $\{\tau_{(1)}, \tau_{(2)}, \dots, \tau_{(s)}\}$ behandelt -- $\tau^{(s)}$ kommt dazu. Je nach Typ von Task $\tau^{(s)}$ führen wir nun Folgendes durch:
+Wir definieren nun Stufe $s>0$, diese startet mit einem $t_{s-1}\in\mathcal T$ und eine $t_{s-1}$-validen Orakel $w_{s-1}$ welche nun den kleinsten Task bearbeitet, welcher noch in $T$ ist. Dieser wird unmittelbar nach der Bearbeitung aus $T$ entfernt. In der Bearbeitung wird das Orakel strikt verlängert.
+\begin{itemize}
+
+    \item $\tau^1_{a,b}$: Setze $t'=t_{s-1}\cup\{\tau^1_{a,b}\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq t_{s-1}$, dann setze $t_s\coloneqq t'$ und $w_s\coloneqq v$. Entferne außerdem alle Tasks der Form $\tau^1_{a,b,r}$ von $T$.
+
+        Ansonsten wähle ein hinreichend großes $m\not\in \img(t_s)$ sodass $w_s$ kein Wort der Länge $\min H_m$ definiert. Setze $t_s\coloneqq t_{s-1}\cup \{ \tau^1_{a,b}\mapsto m \}$; damit ist $w_{s-1}$ auch $t_s$-valide. Setze $w_s\coloneqq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. (Das ist möglich nach Behauptung 1.)
+
+    \item $\tau^2_j$: Setze $t'=t_{s-1}\cup\{\tau^2_j\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq t_{s-1}$, dann setze $t_s\coloneqq t'$ und $w_s\coloneqq v$.
+
+        Ansonsten setze $t_s\coloneqq t_{s-1}$ und setze $w_s\coloneqq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. (Das ist möglich nach Behauptung 1.)
+
+    \item $\tau^1_{a,b,r}$: Wir wissen dass $t_{s-1}(\tau^1_{a,b})=m>0$. Setze $t_s=t_{s-1}$ und wähle ein $t_s$-valides Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
+        \begin{itemize}[nosep,endpenalty=10000]
+            \item $0^n\in A_m^v$ für alle $v\sqsupseteq w_s$ und $M_a(F_r(0^n))$ akzeptiert definitiv relativ zu $w_s$.
+            \item $0^n\in B_m^v$ für alle $v\sqsupseteq w_s$ und $M_b(F_r(0^n))$ akzeptiert definitiv relativ zu $w_s$.
+        \end{itemize} (Das ist möglich nach Behauptung 2.)
+\end{itemize}
+
+\begin{claim}
+    Für jedes $t\in\mathcal T$ und jedes $t$-valide $w$ existiert ein $b\in\{0,1\}$ sodass $wb$ auch $t$-valide ist.
+\end{claim}
+
+\begin{claim}
+    Die Bearbeitung eines Tasks $\tau^1_{a,b,r}$ ist möglich: gilt $t_{s-1}(\tau^1_{a,b})=m>0$, dann lässt sich $w_{s-1}$ so zu $t_{s-1}$-validem $u\sqsupsetneq w_{s-1}$ erweitern, dass eine der o.g. Fälle eintritt.
+\end{claim}
+\begin{proof}[Skizze.]
+    Direkter Beweis. %Sei $\hat{s}$ die Stufe, in der $\tau^1_{a,b}$ bearbeitet wurde. Beobachte dass $t_{s-1}$ auch $\hat{s}-1$-valide ist.
+    Erweitere durch Beauptung 1 das Orakel $w_{s-1}$ so weit zu $u$, dass genau alle Wörter der Länge $<n=e(i)\in H_m$ definiert sind, wobei das $i$ hinreichend groß gewählt wird. Sei $u(X), X\subseteq \Sigma^n$ das Orakel was entsteht, wenn die Stufe $e(i)$ mit genau den Wörtern aus $X$ gefüllt wird, bzw. $u(X)=u\cup X\cup C$.
+
+    Sei $\hat{s}$ die Stufe, in der $\tau^1_{a,b}$ bearbeitet wurde.
+    Da nach Behauptung 1 $u$ auch $t_{s-1}$ valide ist, ist es auch $t_{\hat{s}-1}$-valide.
+    Es ist sogar $u(\emptyset)$ auch $t_{\hat{s}-1}$-valide, denn $t_{\hat{s}-1}(\tau^1_{a,b})$ ist undefiniert.
+
+    Sei $y=T_r(0^n)$.
+    Wir wissen, dass eine der Maschinen $M_a(y)$ oder $M_b(y)$ relativ zu $u(\emptyset)$ akzeptieren muss.
+    Andernfalls wäre $u(\emptyset)$ ein geeignetes Orakel zur Zerstörung des Paars $M_a$, $M_b$ in der Bearbeitung von Task $\tau^1_{a,b}$ und wir hätten $t_{s-1}(\tau^1_{a,b})=0$.
+
+    Ohne Beschränkung akzeptiert also $M_a(y)^{u(\emptyset)}$ auf einem Rechenweg mit polynomiell vielen Orakelfragen $Q$.
+    Wähle ein $\alpha\in \Sigma^n-Q$ was mit $0$ endet. Dann akzeptiert auch $M_a(y)^{u(\{\alpha\})}$ auf dem gleichen Rechenweg und $0^n\in A_m^{u(\{\alpha\})}$. Es ist leicht zu sehen, dass $u(\{\alpha\})$ auch $t_{s}$-valide ist.
+\end{proof}
+
+Damit ist die Konstruktion möglich. Sei $O=\lim_{s\to\infty} w_s$.
+
+\begin{claim}
+    Kein Paar aus $\DisjCoNP^O$ ist $\leqmpp$-vollständig.
+\end{claim}
+
+Wir wollen nun zeigen, dass wir UP-Sprachen in P entscheiden können. Sei im Folgenden $M_j$ eine kategorische Maschine relativ zu $O$. Um $x\in L(M_j)$ zu entscheiden nutzen wir aus, dass $\mathrm{PSPACE}^C=\P^C$, um so iterativ eine Menge $D\subseteq O$ an Orakelwörtern der Länge $e(\cdot)$ aufbauen, welche für die Berechnung $M_j(x)$ relevant ist, bis wir nach einigen Iterationen alle solchen relevanten Wörter gefunden haben. 
+Wir beschränken uns im Folgenden auf Eingaben hinreichender Länge, sodass es für $x$ ein eindeutiges $i$ gibt, sodass
+\[ e(i-1) \leq \log(|x|) < e(i), \quad 2p_j(|x|)< 2^{e(i)} < e(i+1).\tag{\ast} \]
+
+Wir definieren Folgendes: %Seien $W,W'\subseteq \{q\in \Sigma^*\mid \exists i.|q|=e(i)\}$ zwei disjunkte Mengen mit $W\subseteq O,$ $W'\subseteq \overline{O}$.
+Eine \emph{$(W, W')$ respektierende akzeptierende Berechnung $P$ von $M_j$ auf Eingabe $x$} ist ein akzeptierender Rechenweg $P$ von $M_j(x)$ relativ zu einem Orakel $v\subseteq\Sigma^*$, wobei 
+\[ W,W'\subseteq \Sigma^{e(i)}, \quad W\subseteq O, \quad W'\subseteq\overline{O} \]
+und für $v$ gilt:
+\begin{enumerate}[noitemsep,label=\arabic*.]
+    \item $v$ ist definiert für genau die Wörter der Länge $\leq p_j(|x|)$.
+    \item $v(q)=O(q)$ für alle $q$ mit $|q|\neq  e(i)$, wobei hier das $i$ diejenige eindeutige Zahl ist für die obigen Ungleichungen ($\ast$) bzgl. $|x|$ gelten.
+    \item $v(q)=1$ für alle $q$ mit $q\in W$.
+    \item $v(q)=0$ für alle $q$ mit $q\in W'$.
+\end{enumerate}
+Sei $P^\mathrm{all}$ die Menge der Orakelfragen auf $P$, und sei $P^\mathrm{yes}=P^\mathrm{all}\cap v$, $P^\mathrm{no}=P^\mathrm{all}\cap \overline{v}$.
+Beob. dass wegen $\mathrm{PSPACE}^C=\P^C$ das Ermitteln einer $(W, W')$ respektierenden akzeptierenden Berechnung einfach in Polynomialzeit (abh. von $|x|$ und $\ell(W),\ell(W')$) relativ zu $O$ möglich ist: insbesondere stimmt $O$ mit $C$ auf Wörtern der Länge $\neq e(\cdot)$ überein, und alle anderen Wörter der Länge $e(0), e(1), \dots, e(i-1)$ können vorab mit Queries an $O$ in Polynomialzeit erfragt werden.
+Entsprechende Belegungen von $v$ für Wörter der Länge $e(i)$ können z.B. in PSPACE enumeriert werden.
+
+Sei $s$ die Stufe bei der $\tau^2_j$ betrachtet wurde.
+Zusätzlich zur Einschränkung $(\ast)$ diskutieren wir ab jetzt nur noch Eingaben, für welche das Orakel $w_{s-1}$ keine Wörter der Länge $e(i)$ definiert.
+
+
+\begin{claim}
+    %Sei $M_j$ eine kategorische Maschine relativ zu $O$.
+    %Ab hinreichend großer Eingabelänge $n_0$ gilt für alle Eingaben $x$, $|x|\geq n_0$, alle $W, W'$:
+    Seien $P_1, P_2$ zwei $(W, W')$ respektierenden akzeptierenden Berechnungen von $M_j$ auf Eingabe $x$.
+
+    Wenn $P^\mathrm{all}_1$ und $P^\mathrm{all}_2$ beide je eine (nicht notwendigerweise identische) Orakelfrage $q_1, q_2$ der Länge $e(i)$ enthalten, welche nicht in $W\cup W'$ liegt, dann haben diese zwei Berechnungen eine (identische) Orakelfrage $q$ der Länge $e(i)$ gemeinsam, welche nicht in $W\cup W'$ liegt.
+\end{claim}
+\begin{proof}[Skizze.]
+    Angenommen, dies gilt nicht, also sei $x$ sowie $W,W'\subseteq \Sigma^{e(i)}$, $W\subseteq O$, $W'\subseteq\overline{O}$ gegeben.
+    Seien außerdem $P_1$ und $P_2$ zwei $(W, W')$ respektierenden akzeptierenden Berechnungen von $M_j$ auf Eingabe $x$,
+    welche je eine Orakelfrage der Länge $e(i)$ enthalten, welche nicht in $W\cup W'$ liegt,
+    aber keine Orakelfrage aus $\Sigma^{e(i)}-(W\cup W')$ gemeinsam haben.
+    Dann sind schon $P_1$ und $P_2$ verschieden.
+    Seien ferner $v_1, v_2$ die zugehörigen Orakel, also für welche $M_j(x)$ akzeptiert und Eigenschaften~1--4 erfüllen.
+
+    Wir werden nun ein $t_{s-1}$-valides Orakel $u\sqsupsetneq w_{s-1}$ konstruieren welches mit $v_1$ auf $P^\mathrm{all}_1$ übereinstimmt, und welches mit $v_2$ auf $P^\mathrm{all}_2$ übereinstimmt.
+    Außerdem wird es mindestens ein Wort der Länge $\Sigma^{e(i)}$ enthalten, woraus wir zeigen können dass $u$ sogar ein geeignetes Orakel zur Zerstörung der UP-Machine in der Bearbeitung von Task $\tau^2_{j}$ in Stufe $s$ ist. Insbesondere akzeptiert dann auch $M_j^O(x)$ auf den zwei Rechenwegen $P_1$, $P_2$, was der Voraussetzung widerspricht.
+
+    %Setze $D=(\Sigma^{e(i)}\cap P^\mathrm{yes}_1) \cup (\Sigma^{e(i)}\cap P^\mathrm{yes}_2) \cup \{\alpha\}$ wobei $\alpha\in \Sigma^{e(i)}-(P^\mathrm{all}_1\cup P^\mathrm{all}_2)$.
+    Sei $Y=(P^\mathrm{yes}_1\cup P^\mathrm{yes}_1)\cap\Sigma^{e(i)}$, und $N=(P^\mathrm{no}_1\cup P^\mathrm{no}_1)\cap\Sigma^{e(i)}$.
+    Wir zeigen $Y\cap N = \emptyset$. (Das soll uns helfen nachzuweisen, dass ein geeignetes $u$ existieren kann.)
+    Nehme an es gibt ein $q\in Y\cap N$ der Länge $e(i)$.
+    \begin{itemize}[noitemsep]
+        \item Ist $q\in W$ dann gilt schon sofort dass $q\not\in P^\mathrm{no}, P^\mathrm{no}_2$ was $q\in N$ widerspricht.
+        \item Ist $q\in W'$ dann gilt schon sofort dass $q\not\in P^\mathrm{yes}, P^\mathrm{yes}_2$ was $q\in Y$ widerspricht.
+        \item Andernfalls ist $q\not\in W\cup W'$, dann gilt $q\in P^\mathrm{yes}_1\cap P^\mathrm{no}_2$ oder $q\in P^\mathrm{yes}_2\cap P^\mathrm{no}_1$.
+            In beiden Fällen hätten wir aber, dass $P_1$ und $P_2$ eine Orakelfrage der Länge $e(i)$ teilen, welche nicht in $W\cup W'$ liegt. Das widerspricht der urpsrünglichen Annahme.
+    \end{itemize}
+
+    Es gilt also $Y\cap N =\emptyset$ Wähle ein $\alpha\in \Sigma^{e(i)}-N$. Dieses existiert da $|N|\leq 2p_j(|x|)<2^{e(i)} = |\Sigma^{e(i)}|$.
+    Sei nun $u$ das Orakel was genau alle Wörter der Länge $\leq t_j(|x|)$ definiert sind, und
+    \[ u(z)= \begin{cases} O(z) & \text{falls $|z|\neq e(i)$}\\ 1 & \text{falls $z=\alpha$} \\ 1 & \text{falls $z\in Y$} \\ 0&\text{sonst,} \end{cases}
+    \]
+    also wie $O^{\leq t_j(|x|)}$ aufgebaut ist, außer dass die Ebene $e(i)$ mit genau den Wörtern aus $Y\cup \{\alpha\}$ gefüllt wird. bzw. $u\cap\Sigma^{e(i)} = Y\cup \{\alpha\}$.
+    Es ist leicht zu sehen dass $u\sqsupsetneq w_{s-1}$.
+    Beob. dass 
+    \[ u\cap N = \Sigma^{e(i)}\cap u \cap N = (Y\cup \{\alpha\})\cap N = Y\cap N = \emptyset.\]
+
+    Das Orakel $u$ stimmt mit $v_1$ auf $P^\mathrm{all}_1$ überein. Sei hierfür $q\in P^\mathrm{all}_1$.
+    Ist $|q|\neq e(i)$, dann gilt schon nach Definition $v_1(q)=O(q)=u(q)$. Sei daher im Folgenden $|q|=e(i)$.
+    Ist $q\in P^\mathrm{yes}_1$, dann auch $q\in v_1$. Außerdem dann auch $q\in Y$, daher $q\in u$.
+    Ansonsten ist $q\in P^\mathrm{no}_1$, dann auch $q\not\in v_1$. Außerdem dann auch $q\in N$, daher $q\not\in u$ nach obiger Beobachtung.
+    
+    Auf symmetrische Weise stimmt $u$ mit $v_2$ auf $P^\mathrm{all}_2$ überein.
+    Wir zeigen nun dass $u$ auch $t_{s-1}$-valide ist.
+    Nach obiger Argumentation wäre dann $u$ eine geeignete Erweiterung von $w_{s-1}$ für welche $M_j^O(x)$ nicht mehr kategorisch ist, was der Wahl von $M_j^O(x)$ widerspricht.
+
+    Nach Konstruktion ist V1 erfüllt; V2 und V4 sind wegen $u\sqsupsetneq w_{s-1}$ erfüllt. Angenommen V3 ist verletzt. Dies kann nur an der Ebene $e(i)$ liegen. Aber hier gilt $|u\cap\Sigma^{e(i)}|=|Y\cup\{\alpha\}|\geq 1$.
+\end{proof}
+
+\begin{claim}
+    $\P=\UP$ relativ zu $O$.
+\end{claim}
+\begin{proof}[Skizze.]
+    Sei $S\in \UP^O$. Es existiert nach Definition eine Maschine $M_j$ mit $L(M_j)^O=S$.
+    Wir zeigen für hinreichend lange $x$ wie man $x\in S$ in Polyonmialzeit relativ zu $O$ entscheiden kann.
+    
+    Sei im Folgenden $x$ hinreichend lange wie oben diskutiert, also für dieses $(\ast)$ mit eindeutigem $i$ gilt, sowie $w_{s-1}$ keine Wörter der Länge $e(i)$ definiert, wobei $s$ die Stufe ist, bei der $\tau^2_j$ betrachtet wurde.
+    Für diese Maschine $M_j$ und eine solche Eingabe $x$ gilt dann Behauptung~4.
+
+    Wir werden diese Eigenschaft ausnutzen und iterativ Mengen $W, W'$ aufbauen, welche für die Berechnung $M_j^O(x)$ relevant ist, bis wir alle solchen relevanten Wörter gefunden haben.
+
+    \noindent
+    \begin{algorithm}[H]
+        $W\gets\emptyset,\, W'\gets\emptyset$\;
+        \While{existiert eine $(W, W')$ respektierende akzeptierende Berechnung von $M_j$ auf $x$}{
+            $P\gets$ eine $(W, W')$ respektierende akzeptierende Berechnung $P$ von $M_j$ auf $x$ mit $|P^\mathrm{all}\cap\Sigma^{e(i)}-(W\cup W')|$ minimal\;
+            \If{alle $q\in P^\mathrm{all}$ mit $|q|=e(i)$ sind in $W\cup W'$}{
+                \Return{„$x\in S$“}
+            }
+            \ForEach{$q\in P^\mathrm{all}$ mit $|q|=e(i)$}
+            {
+                \lIf{$q\in O$}{$W\gets W\cup\{q\}$}
+                \lIf{$q\not\in O$}{$W'\gets W'\cup\{q\}$}
+            }
+            %\If{$P$ ist immer noch eine $(W, W')$ respektierende akzeptierende Berechnung}
+            %{
+                %\Return{„$x\in S$“}
+            %}
+        }
+        \Return{„$x\not\in S$“}
+    \end{algorithm}
+
+    Korrektheit: Wir beobachten die Invariante dass $W\subseteq O\cap\Sigma^{e(i)}$ und $W'\subseteq \overline{O}\cap\Sigma^{e(i)}$. 
+
+    Terminiert der Algorithmus in Z.~5 mit „$x\in S$“ dann ist auch $x\in S$: Sei $v$ das Orakel der $(W, W')$ respektierenden akzeptierenden Berechnun $P$ von $M_j(x)$. Es ist nun leicht zu sehen dass $v$ und $O$ auf $P^\mathrm{all}$ übereinstimmen. Damit gilt auch dass $M_j^O(x)$ akzeptiert und damit $x\in S$.
+
+    Es verbleibt zu zeigen dass wenn $x\in S$, dann der Algorithmus auch in Z.~5 mit „$x\in S$“ terminiert.
+    Sei hierfür $P^*$ der längste akzeptierende Rechenweg von $M_j^O(x)$.
+    Beob. dass mit der o.\,g. Invariante gilt, dass $P^*$ auch immer ein $(W,W')$ respektierender akzeptierender Rechenweg ist.
+    Damit ist auch die Bedingugn in Z.~2 immer erfüllt und der Algorithmus terminiert sicher nicht ablehnend in Z.~12.
+
+    Wir zeigen nun noch, dass nach endlich vielen Iterationen auch die Bedingung in Z.~4 erfüllt ist.
+    Hierfür zeigen wir, dass $|P^{*\mathrm{all}}\cap \Sigma^{e(i)}-(W\cup W')|$ in jeder Iteration um $\geq 1$ abnimmt. Da $|P^{*\mathrm{all}}|\leq p_j(|x|)$ ist nach polynomiell vielen Iterationen $|P^{*\mathrm{all}}\cap \Sigma^{e(i)}-(W\cup W')|=0$.
+    Nach polynomiell vielen Iterationen wird also in Z.~3 eine Berechnung $P$ ausgewählt, bei der alle $q\in P^{\mathrm{all}}$ mit $|q|=e(i)$ in $W\cup W'$ liegen. Dann ist die Bedingung in Z.~4 erfüllt und der Algorithmus terminiert akzeptierend.
+
+    Steht der Algorithmus in Z.~7, dann gilt sowohl für das ausgewählte $P$, als auch für $P^*$ dass beide je eine (nicht notwendigerweise identische) Orakelfrage der Länge $e(i)$ enthalten, welche nicht in $W\cup W'$ liegt. (Andernfalls  wäre $P$ in Z.~3 anders ausgewählt worden.)
+
+    Sowohl $P$ als auch $P^*$ sind $(W, W')$ respektierende akzeptierende Rechenwege. Nach voriger Behauptung~4 haben diese zwei Berechnungen nun eine identische Orakelfrage $q\in P^\mathrm{all}\cap P^{*\mathrm{all}}\cap \Sigma^{e(i)}$ gemeinsam, welche nicht in $W\cup W'$ liegt.
+    Diese wird in den Zz.~7--10 irgendwann der Menge $W\cup W'$ hinzugefügt.
+    Damit nimmt auch $|P^{*\mathrm{all}}\cap \Sigma^{e(i)}-(W\cup W')|$ um $\geq 1$ ab, wie behauptet.
+    \medskip
+
+    Laufzeit:
+    Wir haben schon gesehen, das der Algorithmus nach höchstens polynomiell vielen Iterationen terminiert.
+    Es bleibt nur zu zeigen, dass der Test in Z.~2 und die Berechnung in Z.~3  in Polynomialzeit relativ zu $O$ möglich sind.
+    Aber genau hierfür haben wir schon zu Beginn vor Behauptung~4 argumentiert. Das Verfahren lässt sich leicht umstellen, um eine Berechnung mit \emph{minimaler} Anzahl an Queries außerhalb $W\cup W'$ zu bestimmen.
+\end{proof}
+
+
+
+
+\end{document}
