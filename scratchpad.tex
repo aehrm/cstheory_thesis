@@ -172,7 +172,7 @@ Definiere folgende Zeugensprachen:
             A_m^O \coloneqq \{ 0^n \mid n\in H_m, \text{existiert $x\in \Sigma^{n}$ mit } x\in O \text{ und $x$ endet mit $0$} \}\\
             B_m^O \coloneqq \{ 0^n \mid n\in H_m, \text{existiert $x\in \Sigma^{n}$ mit } x\in O \text{ und $x$ endet mit $1$} \}
         \end{gather*}
-        Fakt: $|O\cap \Sigma^n|\leq 1$ für alle $n\in H_m \implies (A_m^O, B_m^O)\in\DisjUP$.
+        Fakt: $|O\cap \Sigma^n|\leq 1$ für alle $n\in H_m \implies (A_m^O, B_m^O)\in\DisjNP$.
     
 \medskip
 
@@ -195,7 +195,7 @@ Ein Orakel $w\in\Sigma^*$ ist $t$-valide wenn $t\in\mathcal T$ und folgendes gil
     \item Wenn $t(\tau^1_{a,b})=0$, dann existiert ein $z$ sodass $M_a^w(z)$ und $M_b^w(z)$ definitiv akzeptieren.\\
         (Wenn $t(\tau^1_{a,b})=0$, dann $L(M_a)\cap L(M_b)\neq \emptyset$ relativ zum finalen Orakel.)
     \item Wenn $0<t(\tau^1_{a,b})=m$, dann gilt für alle $n\in H_m$ dass $|\Sigma^n\cap w|\leq 1$.\\
-        (Wenn $0<t(\tau^1_{a,b})=m$, dann $(A_m,B_m)\in\DisjUP$.)
+        (Wenn $0<t(\tau^1_{a,b})=m$, dann $(A_m,B_m)\in\DisjNP$.)
     \item Wenn $t(\tau^2_j)=0$, dann existiert ein $z$ sodass $M_j^w(z)$ definitiv ablehnt.\\
         ($L(M_j)\neq \Sigma^*$ relativ zum finalen Orakel.)
 \end{enumerate}
@@ -246,20 +246,8 @@ Wir definieren nun Stufe $s>0$, diese startet mit einem $t_{s-1}\in\mathcal T$ u
 Damit ist die Konstruktion möglich. Sei $O=\lim_{s\to\infty} w_s$.
 
 \begin{claim}
-    Kein Paar aus $\DisjNP^O$ ist $\leqmpp$-hart für $\DisjUP$.
+    Kein Paar aus $\DisjNP^O$ ist $\leqmpp$-vollständig.
 \end{claim}
-
-\begin{claim}
-    $\P^O\neq \UP^O$.
-\end{claim}
-\begin{proof}
-    Angenommen, $\P=\UP$. Dann ist jedes beliebige nichttriviale Paar $(U_1, U_2)$ aus $\DisjNP$ auch $\leqmpp$-hart für $\DisjUP$:
-    Sei $(V_1, V_2)\in\DisjUP$. Folgende Reduktionsfuktion realisiert $(V_1,V_2)\leqmpp (U_1,U_2)$:
-    \[
-        f(x) = \begin{cases} y_1\in U_1 & \text{ wenn $x\in V_1$} \\y_2\in U_2 & \text{ wenn $x\in V_2$} \\ \epsilon & \text{ sonst}. \end{cases}
-    \]
-    Diese ist offenbar in $\FP^O$, da ja $V_1, V_2\in\UP^O=\P^O$. 
-\end{proof}
 
 \begin{claim}
     Sei $M_j$ eine totale Maschine, d.h. $L(M^O)=\Sigma^*$.
