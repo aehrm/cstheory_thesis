@@ -1,0 +1,25 @@
+DisjNP NPcapCoNPneqP
+DisjCoNP NPcapCoNPneqP
+DisjNP UPneqP
+NPcapCoNP UPneqP
+NPcapCoNP SAT
+UPneqP negQ
+SAT NPneqCoNP
+UPneqP negQ
+DisjNP SAT
+UP SAT
+CONN DisjNP
+SAT NPneqCoNP
+DisjCoNP TAUT
+DisjNPinsep TAUT
+NPcapCoNP TAUT
+
+DisjNP negQ
+UP negQ
+DisjCoNP UPneqP
+
+negQ' DisjNPinsep
+PneqNP TAUTorSAT
+UPcapCoUPneqP TAUTorSAT
+UPcapCoUPneqP NPneqCoNP
+DisjCoNP DisjNPinsep
