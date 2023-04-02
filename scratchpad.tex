@@ -15,7 +15,7 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{claim}[theorem]{Behauptung}
-\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{corollary}[theorem]{Korollar}
 \newtheorem{observation}[theorem]{Observation}
 \newtheorem{definition}[theorem]{Definition}
 
@@ -840,7 +840,7 @@ Damit gilt mit gleichem Verfahren
 \end{claim}
 
 \clearpage
-\subsection*{Orakel mit $\hDisjCoNP$ und alle Paare aus $\DisjNP$ sind $\P$-separierbar}
+\subsection*{Orakel mit $\hDisjCoNP$, $\hCON^N$ und alle Paare aus $\DisjNP$ sind $\P$-separierbar}
 \setcounter{theorem}{0}
 
 Sei $e(0)=2, e(i+1)=2^{2^{e(i)}}$. (Doppelt exponentiell!) Sei hier $\{H_m\}_{m\in\mathbb N}$ eine Familie von paarweise disjunkten, unendlichen Teilmenge von $e(\mathbb N)$. (Ebenen $H_m$ gehören zur Zeugensprache bzgl. Disj(Co)NP-Maschinenpaar $M_a, M_b$.)
@@ -850,10 +850,23 @@ Definiere folgende Zeugensprachen:
     A_m^O \coloneqq \{ 0^n \mid n\in H_m, \text{für alle $x\in \Sigma^{n}$ gilt } x\in O \rightarrow \text{ $x$ endet mit $0$} \}\\
     B_m^O \coloneqq \{ 0^n \mid n\in H_m, \text{für alle $x\in \Sigma^{n}$ gilt } x\in O \rightarrow \text{ $x$ endet mit $1$} \}\\
 \end{gather*}
-Fakt: $|O\cap \Sigma^n|\geq 1$ für alle $n\in H_m \implies (A_m^O, B_m^O)\in\DisjCoNP$.\\
+Fakt: $|O\cap \Sigma^n|\geq 1$ für alle $n\in H_m \implies (A_m^O, B_m^O)\in\DisjCoNP$.
+\medskip
+
+\medskip
+Definiere die Orakel-ergänzte aussagenlogische Formel
+\[ \theta_n = „\neg\mathtt{query}_n(x_1, \dots, x_n)“. \]
+Die Forme $\theta_n$ ist polynomiell groß abh. von $n$, und $\theta_n\in\TAUT^O \iff O\cap\Sigma^n=\emptyset$.
+Definiere das Beweissystem
+\[ g_m(x) = \begin{cases} \theta_n & \text{wenn $x=0^n$ und $n\in H_m$} \\ \top & \text{sonst} \end{cases}. \]
+Damit ist $\img(g_m)\subseteq \TAUT^O \iff \forall n\in H_m. O\cap\Sigma^n=\emptyset$. 
+
+TODO
+%Ferner gilt folgendes für Beweissystem $f^O$: existiert eine unendliche aufsteigende Folge $n_1, n_2, \ldots \in H_m$ sodass kein $f$-Beweis für $\theta_{n_i}$ der Länge $\leq |\theta_{n_i}|^{|\theta_{n_i}|}$ existiert, dann ist $f$ kein \emph{optimales} Beweissystem für $\TAUT^O$.
 \medskip
 
 Idee: erreiche entweder dass $M_a$, $M_b$ nicht disjunkt ablehnen (Task $\tau^2_{a,b}$), oder dass das Zeugenpaar $(A_m,B_m)$ nicht auf $(L(M_a),L(M_b))$ reduzierbar ist (Task $\tau^2_{a,b,r}$ für Transduktor $F_r$).
+Erreiche dass $T_r$ kein Beweissystem für $\TAUT$ ist (Task $\tau^3_{r}$), oder falls das nicht möglich ist, das zugehörige Zeugen-Beweissystem $g_m$ tatsächlich ein Beweissystem für eine Teilmenge von $\TAUT^O$ ist.
 
 Gleichzeitig versuchen wir für möglichst viele Paare $M_a, M_b$ zu erreichen, dass diese nicht disjunkt akzeptieren. (Task $\tau^1_{a,b}$)
 %Dies hat in gewisser Weise Priorität über die o.g. Diagonalisierung.
@@ -861,7 +874,7 @@ Am Ende sind die verbleibenden Maschinenpaare $M_a^O, M_b^O$ sehr speziell, denn
 In Kombination mit dem Fakt dass $\P^C=\mathrm{PSPACE}^C$ können wir relevante Wörter in $O-C$ errechnen und so $L(M_a^O)$ von $L(M_b^O)$ trennen.
 \medskip
 
-Sei wie üblich $t\in \mathcal T$ wenn der Definitionsbereich endlich ist, nur die Tasks der Form $\tau^1_{a,b}, \tau^2_{a,b}$ enthält, $t$ diese Tasks auf $\mathbb N$ abbildet, und injektiv auf dem Support ist.
+Sei wie üblich $t\in \mathcal T$ wenn der Definitionsbereich endlich ist, nur die Tasks der Form $\tau^1_{a,b}, \tau^2_{a,b}, \tau^3_i$ enthält, $t$ diese Tasks auf $\mathbb N$ abbildet, und injektiv auf dem Support ist.
 
 Ein Orakel $w\in\Sigma^*$ ist $t$-valide wenn $t\in\mathcal T$ und folgendes gilt:
 \begin{enumerate}[label={V\arabic*}]
@@ -875,6 +888,10 @@ Ein Orakel $w\in\Sigma^*$ ist $t$-valide wenn $t\in\mathcal T$ und folgendes gil
         (Wenn $t(\tau^2_{a,b})=0$, dann $(\overline{L(M_a)}, \overline{ L(M_b)})\not\in \DisjCoNP$ relativ zum finalen Orakel.)
     \item Wenn $0<t(\tau^2_{a,b})=m$, dann gilt für alle $n\in H_m$: wenn $w$ für alle Wörter der Länge $n$ definiert ist, dann $|\Sigma^n\cap w|\geq 1$.\\
         (Wenn $0<t(\tau^2_{a,b})=m$, dann $(A_m,B_m)\in\DisjCoNP$.)
+    \item Wenn $t(\tau^3_{r})=0$, dann existiert ein $z$ sodass definitiv $T_r^w(z)=y$ und $y\not\in\TAUT^w$.\\
+        ($T_r$ kein Beweissystem für TAUT relativ zum finalen Orakel.)
+    \item Wenn $0<t(\tau^3_{r})=m$, dann gilt für alle $n\in H_m$: $|\Sigma^n\cap w|=0$.\\
+        (Wenn $0<t(\tau^3_{r})=m$, dann $\img g_m \subseteq \TAUT^w$.)
 \end{enumerate}
 
 Sei $T$ eine abzählbare Aufzählung der o.g. Tasks sodass $\tau^2_{a,b,r}$ immer nach $\tau^2_{a,b}$ kommt.
@@ -899,6 +916,10 @@ Wir definieren nun Stufe $s>0$, diese startet mit einem $t_{s-1}\in\mathcal T$ u
             \item $0^n\in A_m^v$ für alle $v\sqsupseteq w_s$ und $M_a(F_r(0^n))$ akzeptiert definitiv relativ zu $w_s$.
             \item $0^n\in B_m^v$ für alle $v\sqsupseteq w_s$ und $M_b(F_r(0^n))$ akzeptiert definitiv relativ zu $w_s$.
         \end{itemize} (Das ist möglich nach Behauptung 2.)
+
+    \item $\tau^3_{r}$: Setze $t'=t_{s-1}\cup\{\tau^3_{r}\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\coloneqq t'$ und $w_s\coloneqq v$. 
+
+        Ansonsten wähle ein hinreichend großes $m\not\in \img(t_s)$ sodass $w_s$ kein Wort der Länge $\min H_m$ definiert. Setze $t_s\coloneqq t_{s-1}\cup \{ \tau^3_{r}\mapsto m \}$; damit ist $w_{s-1}$ auch $t_s$-valide. Setze $w_s\coloneqq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. (Das ist möglich nach Behauptung 1.)
 \end{itemize}
 
 \begin{claim}
@@ -914,6 +935,34 @@ Damit ist die Konstruktion möglich. Sei $O=\lim_{s\to\infty} w_s$.
 \begin{claim}
     Kein Paar aus $\DisjCoNP^O$ ist $\leqmpp$-vollständig.
 \end{claim}
+
+\begin{claim}
+    Es existiert kein optimales Beweissystem für $\TAUT^O$.
+\end{claim}
+\begin{proof}
+    Angenommen es existiert ein optimales Beweissytem $T_r^O$ für $\TAUT^O$.
+    Sei $s$ die Stufe in der $\tau^3_{r}$ bearbeitet wurde. Sei $n_0=|w_s|$.
+    Wir haben $t_{s'}(\tau^3_{r})=m>0$ für alle $s'\geq s$, da andernfalls nach V5 ein $z$ existiert mit $T_r^O(z)=T_r^w(z)\not\in\TAUT^O$; Widerspruch zur Wahl als Beweissystem für $\TAUT^O$.
+
+    Ferner ist $g_m$ ein Beweissystem mit $\img(g_m)\subseteq \TAUT^O$, denn wenn immer $g_m(0^n)=\theta_n$, dann war $n\in H_m$ und nach V6 ist $\Sigma^n\cap O=\emptyset$ und daher $\theta_n\in\TAUT^O$.
+    Nach Wahl von $T_r$ als optimal existiert daher ein Polynom $p$ sodass 
+    \[ g_m(0^n)=\theta_n \implies \exists z\in\Sigma^{\leq p(z)}.\, T_r^O(z)=\theta_n. \]
+
+    %Wähle nun eine beliebige aufsteigende Folge $n_1, n_2, n_3\in H_m$ sodass (a) $n_i>n_0$ für alle $i>0$, und
+    %\[ t_r\!\left(|\theta_{n_i}|^{\log|\theta_{n_i}|}\right) < 2^{n_i}. \tag{b} \]
+    Wähle nun ein $n\in H_m$ sodass (a) $n>n_0$, und (b) $|\theta_n|^{\log |\theta_n|}>p(n)$ und
+    \[ t_r(|\theta_n|^{\log|\theta_n|}) < 2^n \tag{c}. \] 
+    Nachdem $g_m(0^n)=\theta_n$ existert also ein $T_r$-Beweis $z$ mit $|z|\leq p(z)$ für $\theta_n$, bzw. $T_r^O(z)=\theta_n$.
+    Ohne Beschränkung ist $t_r$ monoton und wir haben
+    \[ t_r(|z|)\leq t_r(p(z)) \leq  t_r(|\theta_n|^{\log|\theta_n|}) < 2^n. \]
+    Also existiert ein Wort $q\in\Sigma^n$ welches sicher nicht von der Berechnung $T^O_r(z)$ gestellt wurde.
+
+    Wir können also durch schrittweises Erweitern von $w_{s-1}$ ein finites Orakel $w'$ konstruieren, welches alle Wörter der Länge $\leq t_r(|z|)$ definiert, mit
+    \[ w'(z)=\begin{cases} O(z) & \text{falls $|z|\neq n$} \\ 1 & \text{falls $z=q$} \\ 0 & \text{sonst}. \end{cases} \]
+    Dieses Orakel stimmt mit $t_{s-1}$ überein, ist damit $t_{s-1}$-valide, und es wäre $\theta_n\not\in\TAUT^{w'}$ und $T_r^{w'}(z)=\theta_n$.
+    Damit wäre $w'$ eine dann eine geeignete Erweiterung von $w_{s-1}$ in Bearbeitung von Task $\tau^3_{k}$, für welche $T_k^O$ kein Beweissystem für $\TAUT$ mehr wäre. Widerspruch zur Wahl von $T_k$.
+\end{proof}
+
 
 Wir wollen nun zeigen, dass wir disjunkte Paare von NP-Sprachen in P separieren können. Sei im Folgenden $M_a, M_b$ ein komplementär akzeptierendes Paar an Maschine relativ zu $O$. Um die Sprachen zu trennen nutzen wir aus, dass $\mathrm{PSPACE}^C=\P^C$, um so iterativ eine Menge $D\subseteq O$ an Orakelwörtern der Länge $e(\cdot)$ aufbauen, welche für die Berechnungen $M_a(x), M_b(x)$ relevant ist, bis wir nach einigen Iterationen alle solchen relevanten Wörter gefunden haben. 
 Wir beschränken uns im Folgenden auf Eingaben hinreichender Länge, sodass es für $x$ ein eindeutiges $i$ gibt, sodass
@@ -938,12 +987,16 @@ Entsprechende Belegungen von $v$ für Wörter der Länge $e(i)$ können z.B. in 
 
 Sei $s$ die Stufe bei der $\tau^1_{a,b}$ betrachtet wurde.
 Zusätzlich zur Einschränkung $(\ast)$ diskutieren wir ab jetzt nur noch Eingaben, für welche das Orakel $w_{s-1}$ keine Wörter der Länge $e(i)$ definiert.
+Sei $M=\bigcup \{ H_m \mid t_s(\tau^3_{r})=m>0 \}$ eine Menge an Ebenen, welche einem TAUT-Beweissystem \emph{in Stufe $s$} zugewiesen ist.
+Beob. dass $M\in \P$, denn es sind höchstens endlich viele $H_m$ in der Vereinigung, welche je in $\P$ entscheidbar sind.
 
 
 \begin{claim}
     %Sei $M_j$ eine kategorische Maschine relativ zu $O$.
     %Ab hinreichend großer Eingabelänge $n_0$ gilt für alle Eingaben $x$, $|x|\geq n_0$, alle $W, W'$:
+    Sei $e(i)\not\in M$.
     Seien $P_a, P_b$ je $(W, W')$ respektierenden akzeptierenden Berechnungen von $M_a$ bzw. $M_b$ auf Eingabe $x$.
+
     %Folgende Aussage gilt uneingeschränkt falls $e(i)\not\in M$, und sonst falls $e(i)\in M$ dann mit der Einschränkung dass $U=\Sigma^{e(i)-1}0$ oder $U=\Sigma^{e(i)-1}1$ gelten muss.
     Wenn $P^\mathrm{all}_a$ und $P^\mathrm{all}_b$ beide je eine (nicht notwendigerweise identische) Orakelfrage $q_a, q_b$ der Länge $e(i)$ enthalten, welche in $\Sigma^{e(i)}-(W\cup W')$ liegt, dann haben diese zwei Berechnungen eine (identische) Orakelfrage $q$ der Länge $e(i)$ gemeinsam, welche nicht in $W\cup W'$ liegt.
 \end{claim}
@@ -990,17 +1043,29 @@ Zusätzlich zur Einschränkung $(\ast)$ diskutieren wir ab jetzt nur noch Eingab
     Angenommen V4 ist verletzt.
     Wieder kann das nur an der Ebene $e(i)$ liegen.
     Aber hier gilt $|u\cap\Sigma^{e(i)}|=|Y\cap\{\alpha\}|\geq 1$.
+
+    Angenommen V6 ist verletzt.
+    Wieder kann das nur an der Ebene $e(i)$ liegen.
+    Aber dann wäre $e(i)\in H_{m'}$ für $m', r$ mit $0<m'=t_{s-1}(\tau^3_r)$.
+    Damit ist $e(i)\in M$, was der Voraussetzung der Behauptung widerspricht.
 \end{proof}
 
 \begin{claim}
     Zu jedem disjunkten \NP-Paar $(L_a, L_b)$ existiert ein Separator aus $\P$.
 \end{claim}
-\begin{proof}
+\begin{proof}[Skizze.]
     Sei $L_a, L_b\in\NP^O, L_a\cap L_b=\emptyset$. Es existiert nach Definition ein Paar an Maschinen $M_a, M_b$ mit $L(M_a^O)=L_a$, $L(M_b^O)=L_b$.
     Wir zeigen für hinreichend lange $x$ wie man $L_1$ von $L_2$ in Polyonmialzeit relativ zu $O$ trennen kann.
     
     Sei im Folgenden $x$ hinreichend lange wie oben diskutiert, also für dieses $(\ast)$ mit eindeutigem $i$ gilt, sowie $w_{s-1}$ keine Wörter der Länge $e(i)$ definiert, wobei $s$ die Stufe ist, bei der $\tau^1_{a,b}$ betrachtet wurde.
+    Sei wieder $M=\bigcup \{ H_m \mid t_s(\tau^3_{a,b})=m>0 \}$.
 
+    Im einfachen Fall ist $e(i)\in M$. Dann wissen wir nach V6 dass $\Sigma^{e(i)}\cap O=\emptyset$.
+    Wie oben skizziert können alle anderen Wörter der Länge $e(0),\dots, e(i-1)$ in Polynomialzeit erfragt werden.
+    Wir haben damit alle relevanten Wörter von $O\setminus C$ erfasst und können mittels einem trivialen PSPACE-Algorithmus entscheiden ob $M_a^O(x)$ oder $M_b^O(x)$ akzeptiert.
+    
+    Wir betrachten im Folgenden also nur den schwierigen Fall mit $e(i)\not\in M$.
+    Hier gilt die Behauptung 5.
     Wir werden diese Eigenschaft ausnutzen und iterativ Mengen $W, W'$ aufbauen, welche für die Berechnungen $M_a^O(x), M_b^O(x)$ relevant sind, bis wir alle solchen relevanten Wörter gefunden haben.
     Das machen wir je abwechselnd für $M_a^O(x)$ und $M_b^O(x)$.
     Betrachte dafür folgende Subroutine:
@@ -1009,6 +1074,7 @@ Zusätzlich zur Einschränkung $(\ast)$ diskutieren wir ab jetzt nur noch Eingab
     \SetKwProg{Fn}{Function}{:}{}%
     \SetKw{Assert}{assert}%
     \begin{algorithm}[H]
+        \Assert{$e(i)\not\in M$}\;
         $W\gets\emptyset,\, W'\gets\emptyset$\;
         \For{$k$ von $0$ bis $\max\{p_a(|x|), p_b(|x|)\}+1$}{
             $P_a\gets$ eine $(W, W')$ respektierende akzeptierende Berechnung $P$ von $M_a$ auf $x$ mit $|P^\mathrm{all}\cap\Sigma^{e(i)}-(W\cup W')|$ minimal, oder $\bot$ falls keine existiert\;
@@ -1464,6 +1530,168 @@ Sei $T$ eine abzählbare Aufzählung der o.g. Tasks sodass $\tau^2_{a,b,r}$ imme
 %Wir definieren nun Stufe $s>0$, diese startet mit einem $t_{s-1}\in\mathcal T$ und eine $t_{s-1}$-validen Orakel $w_{s-1}$ welche nun die Tasks $\{\tau_{(1)}, \tau_{(2)}, \dots, \tau_{(s)}\}$ behandelt -- $\tau^{(s)}$ kommt dazu. Je nach Typ von Task $\tau^{(s)}$ führen wir nun Folgendes durch:
 Wir definieren nun Stufe $s>0$, diese startet mit einem $t_{s-1}\in\mathcal T$ und eine $t_{s-1}$-validen Orakel $w_{s-1}$ welche nun den kleinsten Task bearbeitet, welcher noch in $T$ ist. Dieser wird unmittelbar nach der Bearbeitung aus $T$ entfernt. In der Bearbeitung wird das Orakel strikt verlängert.
 
+
+\clearpage
+\section*{Überlegungen zu Genericity}
+\setcounter{theorem}{0}
+
+%  \begin{definition}
+%      \begin{enumerate}
+%          \item Eine \emph{(Cohen-)Bedingung} ist eine partielle Funktion $\sigma\colon \Sigma^*\to \{0,1\}$ mit $\dom(\sigma)$ endlich.
+%          \item Zwei Bedingungen $\sigma_1, \sigma_2$ sind \emph{widerspruchsfrei} wenn die Bilder auf $\dom(\sigma_1)\cap\dom(\sigma_2)$ übereinstimmen.
+%          \item Mit $\sigma\subseteq \sigma'$ meinen wie wir üblich dass $\dom(\sigma)\subseteq \dom(\sigma')$ und $\sigma(x)=\sigma'(x)$ für alle $x\in \dom(\sigma)$.
+%      \end{enumerate}
+%  \end{definition}
+%  
+%  \begin{definition}
+%      Wir nennen eine nichtleere Menge $\mathcal G$ an Bedingungen eine(n Begriff der) Generizität, wenn $\mathcal G$ Folgendes erfüllt:
+%      \begin{enumerate}
+%          \item (Verzweigung.) Für alle $\sigma\in\mathcal G$ existieren mindestens zwei Bedingungen $\tau_1, \tau_2\in\mathcal G$ sodass $\sigma \subseteq \tau_1, \tau_2$.
+%          \item (Generisch.) Für alle $\sigma\in\mathcal G$, alle $a\in\Sigma^*\setminus \dom(\sigma)$ existiert eine Bedingung $\sigma'\in\mathcal G$ mit $\sigma\subseteq \sigma'$ und $a\in\dom(\sigma')$. (Können „erweitern“; „Löcher füllen“)
+%          \item (Einfachheit.) Wenn $\sigma_1, \sigma_2\in G$ widerspruchsfrei sind, dann ist auch $\sigma_1\cup \sigma_2\in G$.
+%      \end{enumerate}
+%  \end{definition}
+%  
+%  Definiere bspw. \emph{Cohen}-Generizität über die Menge \[\{ \sigma \mid \sigma\colon \Sigma^*\to\{0,1\}, \dom(\sigma) \text{ endl.} \} \]
+%  aller Cohen-Bedingungen. Bspw. ist auch folgende $\hUP$-Generizität ein geeigneter Begriff der Generizität: Eine $\hUP$-Bedingung $\sigma$ ist eine Cohen-Bedingung für welche gilt:
+%  \begin{itemize}[nosep]
+%      \item wenn $\sigma(x)=1$, dann $|x|=e(i)$ für geeignetes $i$ („lückenhaft“); und 
+%      \item für alle $n$ gilt: existiert ein $y\in\Sigma^n$ mit $\sigma(y)=1$, dann $z\neq y\implies \sigma(z)=0$ für alle $z\in\Sigma^n$ („UP“).
+%  \end{itemize}
+%  Definiere die $\hUP$-Generizität über alle $\hUP$-Bedingungen.
+%  Insbesondere ist dieser Begriff der Generizität einfach: Seien $\sigma_1, \sigma_2$ zwei widerspruchsfreie $\hUP$-Bedingungen. Damit ist $\sigma_1\cup \sigma_2$ schon mal lückenhaft.
+%  Angenommen $\sigma'=\sigma_1\cup\sigma_2$ ist nicht „UP“, dann existieren $y_1,y_2\in\Sigma^n$, $y_1\neq y_2$, $\sigma'(y_1)=\sigma'(y_2)=1$.
+%  Ohne Beschränkung gilt $\sigma_1(y_1)=1$, und weil $\sigma_1$ „UP“ ist, gilt $\sigma_1(y_2)=0$. Dann muss aber $\sigma_2(y_2)=1$, damit $\sigma_1$ und $\sigma_2$ nicht widerpruchsfrei wie gewählt.
+%  %\begin{itemize}[nosep]
+%      %\item Verzweigung: wähle ein $a\in\Sigma^*\setminus \dom(\sigma)$, definiere $\tau_1=\sigma\cup \{a\mapsto 0\}$, $\tau_2=\sigma\cup \{a\mapsto 1\}$.
+%      %\item Generizität: definiere $\sigma' = \sigma\cup\{a\mapsto 0\}$.
+%      %\item Einfachheit: klar
+%  %\end{itemize}
+%  
+%  \begin{definition}
+%      Sei $\mathcal G$ ein Begriff von Generizität (also eine Menge an Bedingungen).
+%      \begin{enumerate}
+%          \item Eine Bedingung $\sigma$ \emph{erzwingt} nun eine Aussage $\phi$ (hier ein PA-Satz mit zusätzlichem unären Prädikat $\mathtt{query}$ ), wenn $\sigma\Vdash_{\mathcal{G}}{} \phi$ („$\phi$ wahr für jedes Orakel $O\supseteq \sigma$“). 
+%          \item wir nennen die $\mathcal G$-Generizität \emph{stark genug, um $\phi$ zu erzwingen} wenn für jede Bedingung $\sigma\in G$ eine zweite Bedingung $\sigma'\in G$ existiert mit $\sigma'\supseteq \sigma$ und $\sigma'\Vdash_{\mathcal G}{} \phi$.
+%      \end{enumerate}
+%  \end{definition}
+%  
+%  \begin{definition}
+%      Sei $\mathcal G$ ein Begriff von Generizität. Ein Orakel $O$ ist $\mathcal G$-generisch wenn es eine widerspruchsfreie Menge an Bedingungen $\{\sigma_1, \sigma_2, \dots\}\subseteq\mathcal G$ gibt sodass \begin{itemize}
+%          \item $\bigcup \sigma_i = O$, und
+%          \item $\bigcup \dom(\sigma_i)=\Sigma^*$ (also ist $O$ total), und
+%          \item jede Aussage $\phi$ für welche  $\mathcal G$ stark genug zu erzwingen ist, auch durch ein $\sigma_i$ erzwungen wird.
+%      \end{itemize}
+%  \end{definition}
+%  
+%  \begin{lemma}[Fenner, Fortnow, Kurtz]
+%      \begin{enumerate}
+%          \item Für jeden Begriff von Generizität $\mathcal G$ existiert ein $\mathcal G$-generisches Orakel $O$.
+%          \item Für jedes $\mathcal G$-generische Orakel $O$ gilt: $\omega[O] \vDash \phi$ genau dann wenn $\mathcal G$ stark genug ist, um $\phi$ zu erzwingen.
+%      \end{enumerate}
+%  \end{lemma}
+%  
+%  \begin{corollary}
+%      Sei $\mathcal G$ ein Begriff von Generizität. Falls $\mathcal G$ stark genug ist, $\phi$ zu erzwingen (also jedes $\sigma\in \mathcal G$ zu einem $\sigma'\in G, \sigma'\supseteq \sigma$ erweitert werden kann, sodass $\sigma'$ die Aussage $\phi$ erzwingt), dann ist $\phi$ wahr für jedes $\mathcal G$-generische Orakel (was nach vorigem Lemma existiert).
+%  \end{corollary}
+%  
+%  \subsubsection*{Beispiel: relativ zu einem UP-generischen Orakel hat UP keine vollständige Menge}
+%  
+%  Wir haben bereits gesehen, dass der die oben definierten UP-Bedingungen einen Begriff der Generizität bilden. Zur Erinnerung: Eine $\hUP$-Bedingung $\sigma$ ist eine Cohen-Bedingung für welche gilt:
+%  \begin{itemize}[nosep]
+%      \item wenn $\sigma(x)=1$, dann $|x|=e(i)$ für geeignetes $i$ („lückenhaft“); und 
+%      \item für alle $n$ gilt: existiert ein $y\in\Sigma^n$ mit $\sigma(y)=1$, dann $z\neq y\implies \sigma(z)=0$ für alle $z\in\Sigma^n$ („UP“).
+%  \end{itemize}
+%  
+%  Definiere folgende Aussage
+%  \[ \phi_{i,j} : (\exists n)[ M_i(T_j(0^n)) \text{ akz.} \iff (\exists x)[|x|=n\land X(x)]]. \]
+
+\begin{definition}
+    Ein \emph{Begriff der Generizität} $\mathcal G$ ist eine nichtleere Klasse an nichtleeren Teilmengen von $2^\omega$ mit folgenden Eigenschaften:
+    \begin{enumerate}
+        \item (Generizität.) Für alle $\gamma\in\mathcal G$ existiert ein $n\in\omega$ mit $A,B\in\gamma$ und $A(n)\neq B(n)$ (i.e. die Bedingung $\gamma$ spezifiziert nicht vollständig ob $X(n)=0$ oder $X(n)=1$).
+        \item (Verzweigung.) Für alle $\gamma\in\mathcal G$, alle $n\in\omega$ gilt: wenn $(\exists A,B\in\gamma)A(n)\neq B(n)$, dann existieren (zur Erinnerung: nichtleere) Bedingungen $\sigma_0, \sigma_1\in\mathcal G$ sodass \[ \sigma_0\subseteq \{ A\in\gamma\mid A(n)=0 \}\subseteq\gamma,\quad \sigma_1\subseteq \{ A\in\gamma\mid A(n)=1 \}\subseteq\gamma. \]
+        %\item (Generizität.) Für alle $\gamma\in\mathcal G$ \ldots{}
+        \item (Grundlegend.) Für alle $\sigma_1, \sigma_2\in\mathcal G$, alle $A\in\sigma_1\cap\sigma_2$ existiert ein $\tau\in\mathcal G$ (abh. von $A$) mit $A\in\tau\subseteq \sigma_1\cap\sigma_2$.
+    \end{enumerate}
+    Die Teilmengen $\gamma\in \mathcal G$ nennen wir auch $\mathcal G$-\emph{Bedingungen}.
+\end{definition}
+%Nach Bedingung (1) sind $\mathcal G$-Bedingungen abgeschlossen im Raum $2^\omega$ (bzgl. Cantor-Topologie).
+
+\begin{definition}
+    Eine Menge $G\subseteq\omega$ ist \emph{$\mathcal G$-generisch} wenn folgende Eigenschaften erfüllt sind:
+    \begin{enumerate}
+        \item Für alle $\sigma_1, \sigma_2\in \mathcal G$ gilt: wenn $G\in \sigma_1, \sigma_2$ dann existiert auch eine Bedingung $\tau\in\mathcal G$ sodass $G\in\tau, \tau\subseteq\sigma_1\cap\sigma_2$.
+        \item Für jeden Satz $\phi\in \mathrm{sent}(\mathcal L_{\mathrm{PA}}[X])$ existiert ein $\gamma\in\mathcal G$ mit $G\in \gamma$ und $\gamma\Vdash \phi\lor\neg\phi$.
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}[Existenz von generischen Mengen]
+    Für jeden Begriff der Generizität $\mathcal G$, jedes $\gamma\in\mathcal G$ existiert eine $\mathcal G$-generische Menge $G\in \gamma$.
+    (Da $\mathcal G$ nichtleer, existiert also immer eine $\mathcal G$-generische Menge.)
+\end{lemma}
+\begin{proof}
+    %Sei $\{\phi_i\}_{i\in\omega}$ eine Aufzählung aller Sätze in $\mathcal L_{\mathrm{PA}}[X]$. 
+    %Starte mit $\gamma_{-1}=\gamma$. Für jedes $i\geq 0$, gegeben $\gamma_{i-1}$, bestimme zunächst (nach Definition 1(1)) das kleinste $n_{i-1}\in\omega$ sodass $(\exists A,B\in\gamma_{i-1})A(n)\neq B(n)$. 
+    %Nach Definition 1(2) existiert dann eine $\mathcal G$-Bedingung $\sigma_{i-1,0}\subseteq \{ A\in \gamma_{i-1} \mid A(n)=0 \} \subseteq \gamma_{i-1}$.
+    %Wähle nun (nach Lemma ??) eine $\mathcal G$-Bedingung $\gamma_i$ welche $\sigma_{i-1,0}$ erweitert und $\gamma_i \Vdash \phi_i\lor\neg\phi_i$.
+
+
+    %%wähle zunächst ein $\sigma_0\in\mathcal G$ welches $\gamma_{i-1}$ erweitert. wähle ein $\gamma_i\in\mathcal G$ was $\gamma_{i-1}$ erweitert und sodass $\gamma_i \Vdash \phi_i\lor\neg\phi_i$. Dieses $\gamma_i$ existiert nach Lemma ??.
+
+    %Sei $\mathbb G=\{ \delta\in \mathcal G \mid \exists i. \gamma_i\subseteq \delta \}$. Wir zeigen, dass $\bigcap \mathbb G = \{G\}$ für ein $G\subseteq\omega$.
+    %Klar ist, dass $\mathbb G \neq \emptyset$, denn schon $\gamma_0 \subseteq \gamma $ und damit $\gamma\in \mathbb G$.
+    %Außerdem gilt $\bigcap \mathbb G \neq \emptyset$. Wir konstruieren hierzu ein $G\in\bigcap \gamma_i$.
+
+    %Folgende Beobachtung: Sei $i\in\omega$, dann stimmen alle $A\in \gamma_i$ auf den Stellen $0,1,\dots, n_i-1$ überein. Bezeichne dieses initiale Segment von $\gamma_i$ mit $a_i$.
+    %Beobachte dass $a_{i}$ ein echter Präfix von $a_{i+1}$ ist, denn die $A\in \gamma_i$ stimmten bis Stelle $n_i-1$ überein, und die $A'\in\gamma_{i+1}\subseteq \gamma_i$ stimmen \emph{zusätzlich} auch noch mindestens auf Stelle $n_i$ überein.
+
+    %Sei nun $G=\lim_{i\to\omega} a_i$. Angenommen $G\not\in y_i$ für ein $i<\omega$. Nach Konstruktion dann auch $G\not\in y_{i+1}, y_{i+2}, \dots$.
+    %Dann gibt es ein kleinstes $n<\omega$ sodass für alle $A\in \gamma_i$ die Ungleichheit $A(n)\neq G(n)$ gilt.
+
+    Sei $\{\phi_i\}_{i\in\omega}$ eine Aufzählung aller Sätze in $\mathcal L_{\mathrm{PA}}[X]$. 
+    Starte mit $\gamma_{-1}=\gamma$. Für jedes $i\geq 0$, gegeben $\gamma_{i-1}$, wähle ein $\gamma_i\in\mathcal G$ was $\gamma_{i-1}$ erweitert und sodass $\gamma_i \Vdash \phi_i\lor\neg\phi_i$. Dieses $\gamma_i$ existiert nach Lemma ??.
+
+    Sei $\mathbb G=\{ \delta\in \mathcal G \mid \exists i. \gamma_i\subseteq \delta \}$. Wir zeigen, dass $\bigcap \mathbb G = \{G\}$ für ein $G\subseteq\omega$.
+    Dann sind wir auch schon fertig; $G\in\gamma$, es erfüllt nach Konstruktion (1) und wegen Grundlegendheit von $\mathcal G$ gilt (2).
+    Klar ist, dass $\mathbb G \neq \emptyset$, denn schon $\gamma_0 \subseteq \gamma $ und damit $\gamma\in \mathbb G$.
+    
+    Außerdem gilt $\bigcap \mathbb G \neq \emptyset$. Diese Aussage zeigen wir an dieser Stelle nicht wie üblich topologisch, sondern bedienen uns König's Lemma.
+    Beobachte zunächst, dass \emph{endliche} Schnitte von Mengen aus $\mathbb G$ nicht leer sind: ist $\delta, \delta' \in \mathbb G$, dann existieren $i\leq j<\omega$ mit $\gamma_i\subseteq \delta, \gamma_j\subseteq \delta'$, und da nach Konstruktion $\gamma_j\subseteq \gamma_i$ haben wir $\gamma_j\subseteq \delta\cap \delta'$.
+
+    Angenommen $\bigcap\mathbb G=\emptyset$. Dann gilt \[ 2^\omega=\overline{\emptyset}=\overline{\bigcap\mathbb G} = \bigcup_{\delta\in \mathbb G} \overline{\delta}. \]
+    Wir definieren im Folgenden die Familie $\{ \overline{\delta} \}_{\delta\in\mathbb G}$ als $\{F_i\}_{i\in I}$ mit (unendlicher) Indexmenge $I$.
+    Wir definieren für endliches Wort $a\in 2^*$ die Menge
+    \[ B_a = \{ A\in 2^\omega \mid a\sqsubseteq A \}, \]
+    also die Menge aller unendlichen Wörter die als Präfix $a$ haben.
+    Sein nun
+    \[ T = \{\emptyset\} \cup \{ a\in 2^* \mid (\forall i\in I) B_a\not\subseteq F_i \}. \]
+    Dies ist ein Baum, im Sinne einer nichtleeren, unter Prafixbildung abgeschlossenen, Teilmenge von $2^*$. Um das zu zeigen, sei $b\sqsubsetneq a$. Wir zeigen $a\in T \Rightarrow b\in T$ via Kontraposition:
+    gilt $b\not\in T$, dann existiert $i\in I$ mit $B_b\subseteq F_i$. Gleichzeitig ist $B_a\subseteq B_b$, also $B_a\subseteq B_b\subseteq F_i$ und damit ist auch $a\not\in T$ nach Definition.
+
+    Wir zeigen nun, dass $T$ keinen unendlichen Pfad enthält. Also kein $A\in 2^\omega$ sodass $A(0), A(0)A(1), A(0)A(1)A(2), \ldots\in T$.
+    Angenommen, ein solches $A\in 2^\omega$ existiert.
+    Da $A\in 2^\omega=\bigcup_{i\in I}F_i$ existiert also ein $i\in I$ mit $A\in F_i$.
+    Dann existiert auch ein $n<\omega$ sodass
+    \[ A\in B_{A(0)A(1)\cdots A(n)} \subseteq F_i. \]
+    Wieder zeigen wir das durch Kontraposition: Wir haben $F_i=\overline{\delta}$ für ein $\delta\in\mathbb G$ und es genügt zu zeigen dass $(\forall B\in\delta) A(0)\cdots A(n)\not\sqsubseteq B$, denn dann $\delta=\overline{F_i} \subseteq \overline{B_{A(0)\cdots A(n)}}$.
+    Betrachte
+    \[ s = \sup \{ k \mid B\in\delta, k<\omega, A(k)=B(k) \}. \]
+    Wir zeigen $s<\omega$. Dann gilt $(\forall B\in\delta)(\exists k\leq s)A(k)\neq B(k)$ 
+
+    Wir haben gesehen dass $T$ keinen unendlichen Pfad enthält. Nach Königs Lemma ist $T$ also ein endlicher Baum, also existiert $m<\omega$ sodass $|a|<m$ für alle $a\in T$.
+    Für jedes $b\in 2^*, |b|=m$ gilt damit $b\not\in T$ und damit exitiert dann ein $i_b\in I$ sodass $B_b\subseteq F_{i_b}$.
+    Sei $J=\{ i_b \mid b\in 2^*, |b|=m\}\subseteq I$. Die Indexmenge $J$ ist endlich.
+    Nun haben wir
+    \[ 2^\omega = \bigcup_{b\in 2^*, |b|=m} B_b \subseteq \bigcup_{j\in J} F_j \]
+    damit also
+    \[ \bigcap_{j\in J} \beta_j = \overline{\bigcup_{j\in J} F_j} \subseteq \overline{2^\omega} = \emptyset \]
+    und die endliche Familie der $\beta_j$ hat einen leeren Schnitt.
+    Das widerspricht der oben schon gezeigten \emph{finite intersection principle}.
+
+    Widerspruch zur Annahme, es gilt $\bigcap \mathbb G  = \emptyset$.
+    Um zu sehen dass der Schnitt aus einem einzigen Element besteht, 
+\end{proof}
 
 
 
