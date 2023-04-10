@@ -11,6 +11,7 @@
 
 
 \usepackage{amsthm}
+\usepackage{amsmath}
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -18,6 +19,7 @@
 \newtheorem{corollary}[theorem]{Korollar}
 \newtheorem{observation}[theorem]{Observation}
 \newtheorem{definition}[theorem]{Definition}
+\newtheorem{fact}[theorem]{Fakt}
 
 
 \setlist[enumerate]{label=(\arabic*), itemsep=0pt}
@@ -69,6 +71,7 @@
 \def\hTFNP{\ensuremath{\mathsf{TFNP}}}
 \def\leqmpp{\ensuremath{\leq_\mathrm{m}^\mathrm{pp}}}
 \def\leqmp{\ensuremath{\leq_\mathrm{m}^\mathrm{p}}}
+\DeclareMathOperator{\tower}{tower}
 
 
 \begin{document}
@@ -1605,94 +1608,316 @@ Wir definieren nun Stufe $s>0$, diese startet mit einem $t_{s-1}\in\mathcal T$ u
 %  
 %  Definiere folgende Aussage
 %  \[ \phi_{i,j} : (\exists n)[ M_i(T_j(0^n)) \text{ akz.} \iff (\exists x)[|x|=n\land X(x)]]. \]
+\begin{definition}\begin{itemize}
+    \item Eine \emph{Bedingung} ist eine partielle Funktion von $\omega \to \{0,1\}$ mit endlichem Definitionsbereich.
+        \item Zwei Bedingungen $\sigma,\tau$ nennen wir \emph{konsistent} wenn $\sigma\cup\tau$ auch eine Bedingung ist, d.h. $a\in\dom(\sigma)\cup\dom(\tau)\implies \sigma(a)=\tau(a)$.
+    \item Eine Bedingung $\tau$ \emph{erweitert} eine Bedingung $\sigma$ ($\tau\succeq \sigma$) falls $\dom(\sigma)\subseteq\dom(\tau)$ und $\sigma(a)=\tau(a)$ für alle $a\in\dom(\sigma)$.
+    Wenn $\sigma\neq\tau$ schreiben wir auch $\tau\succ\sigma$.
+    \item Wir überführen diese Notation auch auf Teilmengen von $\omega$ welche wir als totale Funktionen von $\omega\to\{0,1\}$ identifizieren.
+    Wir schreiben also $A\succ \sigma$ falls $A(a)=\sigma(a)$ für alle $a\in\dom(\sigma)$.
+\end{itemize}
+\end{definition}
 
 \begin{definition}
-    Ein \emph{Begriff der Generizität} $\mathcal G$ ist eine nichtleere Klasse an nichtleeren Teilmengen von $2^\omega$ mit folgenden Eigenschaften:
+    Ein \emph{Begriff der Generizität} $\mathcal G$ ist eine nichtleere Klasse an Bedingungen mit folgenden Eigenschaften:
     \begin{enumerate}
-        \item (Generizität.) Für alle $\gamma\in\mathcal G$ existiert ein $n\in\omega$ mit $A,B\in\gamma$ und $A(n)\neq B(n)$ (i.e. die Bedingung $\gamma$ spezifiziert nicht vollständig ob $X(n)=0$ oder $X(n)=1$).
-        \item (Verzweigung.) Für alle $\gamma\in\mathcal G$, alle $n\in\omega$ gilt: wenn $(\exists A,B\in\gamma)A(n)\neq B(n)$, dann existieren (zur Erinnerung: nichtleere) Bedingungen $\sigma_0, \sigma_1\in\mathcal G$ sodass \[ \sigma_0\subseteq \{ A\in\gamma\mid A(n)=0 \}\subseteq\gamma,\quad \sigma_1\subseteq \{ A\in\gamma\mid A(n)=1 \}\subseteq\gamma. \]
-        %\item (Generizität.) Für alle $\gamma\in\mathcal G$ \ldots{}
-        \item (Grundlegend.) Für alle $\sigma_1, \sigma_2\in\mathcal G$, alle $A\in\sigma_1\cap\sigma_2$ existiert ein $\tau\in\mathcal G$ (abh. von $A$) mit $A\in\tau\subseteq \sigma_1\cap\sigma_2$.
+        %\item (Verzweigung.) Für alle $\gamma\in\mathcal G$ existieren mindestens zwei Bedingungen $\tau_1, \tau_2\in\mathcal G$ mit $\tau_1,\tau_2\succ \gamma$ und $\tau_1\neq\tau_2$.
+        \item (Generizität.) Für alle $\gamma\in\mathcal G$, alle $a\in \omega\setminus\dom(\gamma)$ existiert eine Bedingung $\gamma'\in\mathcal G$ mit $\gamma'\succ \gamma$ mit $a\in\dom(\gamma')$.
+        \item (Grundlegend.) Sind $\sigma_1, \sigma_2\in\mathcal G$ konsistent, dann ist auch $\sigma_1\cup\sigma_2\in\mathcal G$.
     \end{enumerate}
-    Die Teilmengen $\gamma\in \mathcal G$ nennen wir auch $\mathcal G$-\emph{Bedingungen}.
+    Die Bedingungen $\gamma\in \mathcal G$ nennen wir auch $\mathcal G$-\emph{Bedingungen}.
 \end{definition}
 %Nach Bedingung (1) sind $\mathcal G$-Bedingungen abgeschlossen im Raum $2^\omega$ (bzgl. Cantor-Topologie).
+
+Sei im Folgenden $\mathcal G$ ein beliebiger aber fester Begriff von Generizität.
+Im Folgenden ist $\mathcal L_{\mathrm{PA}}[X]$ die Sprache der Peano-Arithmetik ($=$, $+$, $\times$, $S$, $0$), mit einem zusätzlichen unären Prädikatsymbol $X$.
+Sei $\mathrm{sent}(\mathcal L_{\mathrm{PA}}[X])$ die Menge der Sätze in $\mathcal L_{\mathrm{PA}}[X]$.
+Ohne Beschränkung sind die einzigen logischen Operationen $\neg, \lor, \exists$.
+Für $n\in\omega$ bezeichnen wir mit $\overline{n}$ den Term $\underbrace{SS\cdots S}_{n}0$ in $\mathcal L_{\mathrm{PA}}[X]$.
+
+Die $\mathcal G$-Forcing-Relation $\Vdash$ auf $\mathcal G\times \mathrm{sent}(\mathcal L_{\mathrm{PA}}[X])$  wird durch eine einfache Rekursion über die Struktur von Formeln definiert, die im Wesentlichen Tarskis Wahrheitsdefinition entspricht, außer im Fall der Negation. Eine Bedingung $\tau$ \emph{erweitert} eine Bedingung $\gamma$, wenn $\tau\succ\gamma$ . Die Intuition hinter dem Begriff „erweitert“ ist, dass $\tau$ das Orakel vollständiger spezifiziert als $\gamma$. Somit besagt die Klausel (5) grob, dass $\neg\phi$ erzwungen wird, wenn wir $\phi$ niemals erzwingen können, indem wir unsere Annäherung an das Orakel verfeinern.
+
+\begin{definition}[Forcing-Relation]
+Die Variablen $\gamma$ und $\tau$ erstrecken sich über $\mathcal G$. Es gilt:
+\begin{align*}
+    \gamma\Vdash\phi &\iff \phi\text{ wahr im Standardmodell $\omega$ und $\phi$ atomar und $X$ kommt nicht in $\phi$ vor},\\
+    \gamma\Vdash X(\overline n)&\iff(\forall A\succ\gamma).A(n)=1,\\
+    \gamma\Vdash \phi\lor\psi &\iff\gamma\Vdash\phi\text{ oder } \gamma\Vdash \psi,\\
+    \gamma\Vdash(\exists x)\phi &\iff \text{es existiert ein $a\in\omega$ sodass } \gamma\Vdash \phi[x/\overline{a}],\\
+    \gamma\Vdash \neg\phi &\iff (\forall \tau\succeq \gamma).\,\tau\not\Vdash\phi.
+\end{align*}
+\end{definition}
+
+\begin{definition}
+    Wir schreiben $G\Vdash \phi$ wenn ein $\gamma\in \mathcal G$ existiert mit $G\succ \gamma$ und $\gamma\Vdash\phi$.
+\end{definition}
 
 \begin{definition}
     Eine Menge $G\subseteq\omega$ ist \emph{$\mathcal G$-generisch} wenn folgende Eigenschaften erfüllt sind:
     \begin{enumerate}
-        \item Für alle $\sigma_1, \sigma_2\in \mathcal G$ gilt: wenn $G\in \sigma_1, \sigma_2$ dann existiert auch eine Bedingung $\tau\in\mathcal G$ sodass $G\in\tau, \tau\subseteq\sigma_1\cap\sigma_2$.
-        \item Für jeden Satz $\phi\in \mathrm{sent}(\mathcal L_{\mathrm{PA}}[X])$ existiert ein $\gamma\in\mathcal G$ mit $G\in \gamma$ und $\gamma\Vdash \phi\lor\neg\phi$.
+        \item Für alle $\sigma_1, \sigma_2\in \mathcal G$ gilt: wenn $G\succ \sigma_1, \sigma_2$ (also insb. auch konsistent), dann existiert auch eine Bedingung $\tau\in\mathcal G$ sodass $G\succ\tau\succeq\sigma_1\cup\sigma_2$.
+        \item Für jeden Satz $\phi\in \mathrm{sent}(\mathcal L_{\mathrm{PA}}[X])$ gilt $G\Vdash \phi\lor\neg\phi$, es existiert also ein $\gamma\in\mathcal G$ mit $G\succ \gamma$ und $\gamma\Vdash \phi\lor\neg\phi$.
+
+        \item Für alle $n\in\omega$ existiert ein $\gamma\in\mathcal G$ mit $G\succ\gamma$ und $n\in\dom(\gamma)$.
     \end{enumerate}
 \end{definition}
 
 \begin{lemma}[Existenz von generischen Mengen]
-    Für jeden Begriff der Generizität $\mathcal G$, jedes $\gamma\in\mathcal G$ existiert eine $\mathcal G$-generische Menge $G\in \gamma$.
+    Für jeden Begriff der Generizität $\mathcal G$, jedes $\gamma\in\mathcal G$ existiert eine $\mathcal G$-generische Menge $G\succ \gamma$.
     (Da $\mathcal G$ nichtleer, existiert also immer eine $\mathcal G$-generische Menge.)
 \end{lemma}
 \begin{proof}
-    %Sei $\{\phi_i\}_{i\in\omega}$ eine Aufzählung aller Sätze in $\mathcal L_{\mathrm{PA}}[X]$. 
-    %Starte mit $\gamma_{-1}=\gamma$. Für jedes $i\geq 0$, gegeben $\gamma_{i-1}$, bestimme zunächst (nach Definition 1(1)) das kleinste $n_{i-1}\in\omega$ sodass $(\exists A,B\in\gamma_{i-1})A(n)\neq B(n)$. 
-    %Nach Definition 1(2) existiert dann eine $\mathcal G$-Bedingung $\sigma_{i-1,0}\subseteq \{ A\in \gamma_{i-1} \mid A(n)=0 \} \subseteq \gamma_{i-1}$.
-    %Wähle nun (nach Lemma ??) eine $\mathcal G$-Bedingung $\gamma_i$ welche $\sigma_{i-1,0}$ erweitert und $\gamma_i \Vdash \phi_i\lor\neg\phi_i$.
-
-
-    %%wähle zunächst ein $\sigma_0\in\mathcal G$ welches $\gamma_{i-1}$ erweitert. wähle ein $\gamma_i\in\mathcal G$ was $\gamma_{i-1}$ erweitert und sodass $\gamma_i \Vdash \phi_i\lor\neg\phi_i$. Dieses $\gamma_i$ existiert nach Lemma ??.
-
-    %Sei $\mathbb G=\{ \delta\in \mathcal G \mid \exists i. \gamma_i\subseteq \delta \}$. Wir zeigen, dass $\bigcap \mathbb G = \{G\}$ für ein $G\subseteq\omega$.
-    %Klar ist, dass $\mathbb G \neq \emptyset$, denn schon $\gamma_0 \subseteq \gamma $ und damit $\gamma\in \mathbb G$.
-    %Außerdem gilt $\bigcap \mathbb G \neq \emptyset$. Wir konstruieren hierzu ein $G\in\bigcap \gamma_i$.
-
-    %Folgende Beobachtung: Sei $i\in\omega$, dann stimmen alle $A\in \gamma_i$ auf den Stellen $0,1,\dots, n_i-1$ überein. Bezeichne dieses initiale Segment von $\gamma_i$ mit $a_i$.
-    %Beobachte dass $a_{i}$ ein echter Präfix von $a_{i+1}$ ist, denn die $A\in \gamma_i$ stimmten bis Stelle $n_i-1$ überein, und die $A'\in\gamma_{i+1}\subseteq \gamma_i$ stimmen \emph{zusätzlich} auch noch mindestens auf Stelle $n_i$ überein.
-
-    %Sei nun $G=\lim_{i\to\omega} a_i$. Angenommen $G\not\in y_i$ für ein $i<\omega$. Nach Konstruktion dann auch $G\not\in y_{i+1}, y_{i+2}, \dots$.
-    %Dann gibt es ein kleinstes $n<\omega$ sodass für alle $A\in \gamma_i$ die Ungleichheit $A(n)\neq G(n)$ gilt.
-
     Sei $\{\phi_i\}_{i\in\omega}$ eine Aufzählung aller Sätze in $\mathcal L_{\mathrm{PA}}[X]$. 
-    Starte mit $\gamma_{-1}=\gamma$. Für jedes $i\geq 0$, gegeben $\gamma_{i-1}$, wähle ein $\gamma_i\in\mathcal G$ was $\gamma_{i-1}$ erweitert und sodass $\gamma_i \Vdash \phi_i\lor\neg\phi_i$. Dieses $\gamma_i$ existiert nach Lemma ??.
+    Starte mit $\gamma_{-1}=\gamma$. Für jedes $i\geq 0$, gegeben $\gamma_{i-1}$, wähle ein $\sigma\in\mathcal G$ mit $\sigma\succeq\gamma_{i-1}$ und sodass $\sigma \Vdash \phi_i\lor\neg\phi_i$. Dieses $\sigma$ existiert: angenommen kein $\sigma\in\mathcal G$, $\sigma\succeq\gamma_{i-1}$ existiert mit $\sigma\Vdash \phi_i$. Dann gilt nach Definition $\gamma_{i-1}\Vdash\neg\phi_i$; setze $\sigma=\gamma_{i-1}$.
 
-    Sei $\mathbb G=\{ \delta\in \mathcal G \mid \exists i. \gamma_i\subseteq \delta \}$. Wir zeigen, dass $\bigcap \mathbb G = \{G\}$ für ein $G\subseteq\omega$.
-    Dann sind wir auch schon fertig; $G\in\gamma$, es erfüllt nach Konstruktion (1) und wegen Grundlegendheit von $\mathcal G$ gilt (2).
-    Klar ist, dass $\mathbb G \neq \emptyset$, denn schon $\gamma_0 \subseteq \gamma $ und damit $\gamma\in \mathbb G$.
-    
-    Außerdem gilt $\bigcap \mathbb G \neq \emptyset$. Diese Aussage zeigen wir an dieser Stelle nicht wie üblich topologisch, sondern bedienen uns König's Lemma.
-    Beobachte zunächst, dass \emph{endliche} Schnitte von Mengen aus $\mathbb G$ nicht leer sind: ist $\delta, \delta' \in \mathbb G$, dann existieren $i\leq j<\omega$ mit $\gamma_i\subseteq \delta, \gamma_j\subseteq \delta'$, und da nach Konstruktion $\gamma_j\subseteq \gamma_i$ haben wir $\gamma_j\subseteq \delta\cap \delta'$.
+    Falls $i\not\in\dom(\sigma)$, setze $\gamma_i\in\mathcal G$ mit $\gamma_i\succ\sigma$ und $i\in\dom(\gamma_i)$. Diese existiert nach 2(1).
+    Andernfalls, setze $\gamma_i=\sigma$.
 
-    Angenommen $\bigcap\mathbb G=\emptyset$. Dann gilt \[ 2^\omega=\overline{\emptyset}=\overline{\bigcap\mathbb G} = \bigcup_{\delta\in \mathbb G} \overline{\delta}. \]
-    Wir definieren im Folgenden die Familie $\{ \overline{\delta} \}_{\delta\in\mathbb G}$ als $\{F_i\}_{i\in I}$ mit (unendlicher) Indexmenge $I$.
-    Wir definieren für endliches Wort $a\in 2^*$ die Menge
-    \[ B_a = \{ A\in 2^\omega \mid a\sqsubseteq A \}, \]
-    also die Menge aller unendlichen Wörter die als Präfix $a$ haben.
-    Sein nun
-    \[ T = \{\emptyset\} \cup \{ a\in 2^* \mid (\forall i\in I) B_a\not\subseteq F_i \}. \]
-    Dies ist ein Baum, im Sinne einer nichtleeren, unter Prafixbildung abgeschlossenen, Teilmenge von $2^*$. Um das zu zeigen, sei $b\sqsubsetneq a$. Wir zeigen $a\in T \Rightarrow b\in T$ via Kontraposition:
-    gilt $b\not\in T$, dann existiert $i\in I$ mit $B_b\subseteq F_i$. Gleichzeitig ist $B_a\subseteq B_b$, also $B_a\subseteq B_b\subseteq F_i$ und damit ist auch $a\not\in T$ nach Definition.
 
-    Wir zeigen nun, dass $T$ keinen unendlichen Pfad enthält. Also kein $A\in 2^\omega$ sodass $A(0), A(0)A(1), A(0)A(1)A(2), \ldots\in T$.
-    Angenommen, ein solches $A\in 2^\omega$ existiert.
-    Da $A\in 2^\omega=\bigcup_{i\in I}F_i$ existiert also ein $i\in I$ mit $A\in F_i$.
-    Dann existiert auch ein $n<\omega$ sodass
-    \[ A\in B_{A(0)A(1)\cdots A(n)} \subseteq F_i. \]
-    Wieder zeigen wir das durch Kontraposition: Wir haben $F_i=\overline{\delta}$ für ein $\delta\in\mathbb G$ und es genügt zu zeigen dass $(\forall B\in\delta) A(0)\cdots A(n)\not\sqsubseteq B$, denn dann $\delta=\overline{F_i} \subseteq \overline{B_{A(0)\cdots A(n)}}$.
-    Betrachte
-    \[ s = \sup \{ k \mid B\in\delta, k<\omega, A(k)=B(k) \}. \]
-    Wir zeigen $s<\omega$. Dann gilt $(\forall B\in\delta)(\exists k\leq s)A(k)\neq B(k)$ 
 
-    Wir haben gesehen dass $T$ keinen unendlichen Pfad enthält. Nach Königs Lemma ist $T$ also ein endlicher Baum, also existiert $m<\omega$ sodass $|a|<m$ für alle $a\in T$.
-    Für jedes $b\in 2^*, |b|=m$ gilt damit $b\not\in T$ und damit exitiert dann ein $i_b\in I$ sodass $B_b\subseteq F_{i_b}$.
-    Sei $J=\{ i_b \mid b\in 2^*, |b|=m\}\subseteq I$. Die Indexmenge $J$ ist endlich.
-    Nun haben wir
-    \[ 2^\omega = \bigcup_{b\in 2^*, |b|=m} B_b \subseteq \bigcup_{j\in J} F_j \]
-    damit also
-    \[ \bigcap_{j\in J} \beta_j = \overline{\bigcup_{j\in J} F_j} \subseteq \overline{2^\omega} = \emptyset \]
-    und die endliche Familie der $\beta_j$ hat einen leeren Schnitt.
-    Das widerspricht der oben schon gezeigten \emph{finite intersection principle}.
+    %Sei $\mathbb G=\{\delta\in\mathcal G \mid \exists i.\gamma_i \succeq\delta \}$. Wir geben nun eine Funktion $A\colon\mathbb N\to\{0,1\}$ sodass $A\succ \delta$ für alle $\delta\in\mathbb G$. Nach Konstruktion efüllt $A$ dann (2), und (1) folgt aus Grundlegendheit von $\mathcal G$.
 
-    Widerspruch zur Annahme, es gilt $\bigcap \mathbb G  = \emptyset$.
-    Um zu sehen dass der Schnitt aus einem einzigen Element besteht, 
+    %Beobachte wie alle partiellen Funktionen in $\mathbb G$ paarweise konsistent sind: gilt $\delta, \delta'\in\mathbb G$, dann existieren auch $i,j\in\mathbb N$ mit $\gamma_i\succeq \delta$, $\gamma_j\succeq \delta'$. Ohne Beschränkung $i<j$, damit gilt $\gamma_j\succ\gamma_i\succeq\delta$, also $\gamma_j\succeq \delta, \delta'$ und dann können nicht $\delta$, $\delta'$ inkonsistent sein.
+
+    %Nachdem die Menge aller partiellen Funktionen abzählbar ist, können wir die Elemente von $\mathbb G$ mit $\{\delta_i\}_{i\in\mathbb N}$ aufzählen.
+    Wir definieren nun
+    \[ G(n) = \gamma_n(n). \]
+    Wir haben immer $n\in\dom(\gamma_n)$ (sogar $0,1,\dots, n\in\dom(\gamma_n)$) und damit ist $A$ wohldefiniert.
+    Ferner gilt $A\succ\gamma_i$ für alle $i$: angenommen $A\not\succ\gamma_i$, dann existiert ein $k\in\dom(\gamma_i)$ und $\gamma_i(k)\neq G(k)=\gamma_k(k)$.
+    Gleichzeitig ist aber $k\in\dom(\gamma_k)$ und entweder $\gamma_i\preceq \gamma_k$ oder $\gamma_k\preceq \gamma_i$. In beiden Fällen gilt $\gamma_i(k)=\gamma_k(k)$; Widerspruch zu oben.
+    Also gilt (2).
+
+    Damit gilt auch (3): Für beliebiges $n\in\omega$ existiert $\gamma_n\in\mathcal G$ mit $G\succ \gamma_n$ und $n\in\dom(\gamma_n)$.
+    Die Eigenschaft (1) folgt unmittelbar aus Grundlegendheit bzw. 2(2).
 \end{proof}
 
+\begin{lemma}[Erzwingen ist Wahrheit]
+    Sei $G$ eine $\mathcal G$-generische Menge. 
+    Für alle $\phi\in \mathrm{sent}(\mathcal L_{\mathrm{PA}}[X])$ gilt:
+    $G\Vdash \phi$ genau dann wenn $\omega[G]\vDash \phi$.
+\end{lemma}
+\begin{proof}
+    Induktion über die Struktur der Formeln. Variablen $\gamma, \gamma', \tau$ gehen über $\mathcal G$. Variable $A$ geht über $\{0,1\}^{\mathbb{N}}$.
+    \begin{itemize}
+        \item Lemma klar wenn $\phi$ atomar ist und $X$ nicht in $\phi$ vorkommt.
+        \item Falls $\phi=X(\overline n)$ dann haben wir
+            \begin{align*}
+                G\Vdash X(\overline n) &\iff (\exists \gamma, \gamma\prec G).\,\gamma\Vdash X(\overline n)\\
+                             &\iff (\exists \gamma, \gamma\prec G)(\forall A\succ \gamma),\, A(n)=1\\
+                             &\iff G(n)=1 \\
+                             &\iff \omega[G]\vDash X(\overline n),
+            \end{align*}
+            wobei die ersten zwei Äquivalenzen aus Definition folgen.
+            %Ebenso
+            %\begin{align*}
+                %G\not\Vdash X(\overline n) &\implies (\forall \gamma', \gamma'\prec G).\,\gamma'\not\Vdash X(\overline n)\\
+                                           %%&\implies (\exists \gamma, \gamma\prec G).\,\gamma\Vdash \neg X(\overline n)\\
+                                           %%&\implies (\exists \tau,\tau\prec G).\,n\in\dom(\tau)\land \tau\not\Vdash X(\overline n)\\
+                                           %%&\implies G(n)=0 \implies \omega[G]\vDash \neg X(\overline n). 
+                                           %&\implies (\forall \gamma',\gamma'\prec G).\,n\not\in\dom(\gamma')\lor \gamma'(n)=0\\
+                                           %&\implies (\exists \tau,\tau\prec G).\,\tau(n)=0\\
+                                           %&\implies \tau(n)=G(n)=0 \implies \omega[G]\vDash \neg X(\overline n). 
+            %\end{align*}
+            %Zweite Implikation ist Definition.
+            Rückrichtung dritter Äquivalenz folgt aus der Existenz eines $\gamma\prec G$ mit $n\in\dom(\gamma)$ nach 4(3).
+        \item Lemma klar für Disjunktionen und Existenzquantor: Induktionsannahme verwenden.
+        \item Für Negationen gilt: 
+            \begin{align*}
+                G\not\Vdash \neg\phi &\implies (\forall \gamma', \gamma'\prec G).\,\gamma'\not\Vdash \neg\phi\\
+                                     &\implies (\exists \gamma, \gamma\prec G).\,\gamma\Vdash \phi\\
+                                     &\implies G\Vdash\phi \implies \omega[G]\Vdash \phi.
+            \end{align*}
+            Die zweite Implikation gilt, denn für ein $\gamma\in \mathcal G, \gamma\prec G$ gilt nach Definition 4(2) dass $\gamma\Vdash \phi\lor \neg \phi$.
+            Wenn also nach Voraussetzung für alle solche $\gamma'$ schon $\gamma'\not\Vdash \neg\phi$, dann muss $\gamma\Vdash \phi$.
+            \begin{align*}
+                G\Vdash \neg\phi &\implies (\exists \gamma, \gamma\prec G).\,\gamma\Vdash \neg\phi\\
+                                     &\implies (\forall \gamma', \gamma'\prec G).\,\gamma'\not\Vdash \phi\\
+                                     &\implies G\not\Vdash\phi \implies \omega[G]\not\Vdash \phi.
+            \end{align*}
+            Um die zweite Implikation zu sehen, nimm ann dass eine $\mathcal G$-Bedingung $\gamma'\prec G$ existiert mit $\gamma'\Vdash\phi$.
+            Dann gilt $\gamma, \gamma'\prec G$ und nach Definition 4(1) existiert eine $\mathcal G$-Bedingung $\tau$ mit $\gamma\cup\gamma'\preceq\tau\prec G$.
+            Dann haben wir aber $\tau\Vdash \phi$ und $\tau\Vdash\neg\phi$. Aus Letzterm folgt insbesondere $\tau\not\Vdash\phi$; Widerspruch zu Ersterem. Letzte Implikation ist Induktionsannahme. \qedhere
+    \end{itemize}
+\end{proof}
+Unter dieser Definition von Forcing gilt insbesondere:
+\begin{itemize}
+    \item $\gamma\Vdash\phi\implies\gamma\Vdash\neg\neg\phi$ (\emph{“strong forcing implies weak forcing”}): Induktion über Formeln).
+\end{itemize}
+
+\begin{lemma}
+    Für alle $\gamma\in\mathcal G$ und alle $\phi\in \mathrm{sent}(\mathcal L_{\mathrm{PA}}[X])$ gilt:
+    \[ \gamma\Vdash\neg\phi \iff (\forall\text{$\mathcal G$-generischen $G\succ\gamma$}).\, \omega[G]\not\vDash \phi. \]
+    In anderen Worten: $\gamma\Vdash\neg\phi$ genau dann wenn $\phi$ unter allen generischen Erweiterungenen von $\gamma$ als falsch interpretiert wird.
+\end{lemma}
+\begin{proof}
+    Sei $\gamma\Vdash\neg\phi$. Das bedeutet dass für alle $\mathcal G$-Bedingungen $\tau$ mit $\tau\succeq\gamma$ auch $\tau\not\Vdash \phi$ gilt.
+    Nimm jetzt an dass eine $\mathcal G$-generische Menge $G\succ\gamma$ existiert mit $\omega[G]\vDash\phi$.
+    Nach Lemma 6 gilt $G\Vdash\phi$, nach Definition existiert ein $\sigma\prec G$ mit $\sigma\Vdash\phi$.
+
+    Nun sind $\gamma$ und $\sigma$ konsistent: gilt $a\in\dom(\gamma)\cap\dom(\sigma)$ dann gilt $\gamma(a)=G(a)=\sigma(a)$.
+    Nach Definition 2(2) ist also auch $\tau'=\gamma\cup\sigma\in\mathcal G$ und wir haben $\tau'\succeq\gamma$ und $\tau'\Vdash\phi$; Widerspruch zu oben.
+
+    Für die andere Richtung sei $\gamma\not\Vdash\neg\phi$. Dann existiert eine Bedingung $\tau$ mit $\tau\succeq\gamma$ und $\tau\Vdash\phi$.
+    Nach Lemma 5 existiert eine $\mathcal G$-generische Menge $G\succ \tau$. Nach Lemma 6 gilt $\omega[G]\vDash\phi$.
+\end{proof}
+
+Beachte dass $\omega[G]\not\vDash\neg\phi$ genau dann wenn $\omega[G]\vDash\phi$. Wir haben dadurch
+\begin{corollary}
+    Für alle $\gamma\in\mathcal G$ und alle $\phi\in \mathrm{sent}(\mathcal L_{\mathrm{PA}}[X])$ gilt:
+    $\gamma\Vdash\neg\neg\phi$ genau dann wenn $\omega[G]\vDash\phi$ für alle $\mathcal G$-generischen $G\succ\gamma$.
+\end{corollary}
+\begin{corollary}
+    Für alle $\gamma\in\mathcal G$ und alle $\phi\in \mathrm{sent}(\mathcal L_{\mathrm{PA}}[X])$ gilt:
+    Ist die Menge an $\mathcal G$-Bedingungen, welche $\phi$ erzwingen, dicht, also
+    \[ (\forall \gamma\in\mathcal G)(\exists \tau\in\mathcal G, \tau\succeq\gamma).\,\tau\Vdash\phi, \]
+    dann wird unter allen $\mathcal G$-generischen Mengen der Satz $\phi$ als wahr interpretiert.
+\end{corollary}
+\begin{proof}
+    Sei $G$ eine beliebige $\mathcal G$-generische Menge.
+    Es existiert eine Bedingung $\sigma\in\mathcal G$ mit $G\succ \sigma$; das folgt schon aus Definition 4(2) für einen beliebigen Satz, z.B. $\phi=X(\overline 0)$.
+    Nach Voraussetzung gilt für diese Bedingung dass
+    \[ (\forall\gamma\in\mathcal G, \sigma\preceq\gamma)(\exists \tau\in\mathcal G,\gamma\preceq\tau).\,\tau\Vdash\phi, \text{ also  } \sigma\Vdash\neg\neg\phi. \]
+    Nach vorigem Lemma gilt dann $\omega[G]\vDash \phi$.
+\end{proof}
+
+%Im Folgenden ist sogar eher dienlich statt $\phi$ zu erzwingen, $\neg\neg \phi$ zu erzwingen. Zeigen wir 
+
+
+\subsection*{Beispiel: BGS-Konstruktion}
+
+Es ist unmittelbar klar, dass die Menge
+\[ L(G) = \{ 0^n \mid \exists x\in G, |x|=n \} \in \NP^G \]
+liegt.
+Wir zeigen nun, wie sich durch Forcing ein Orakel $G$ angeben lassen kann, sodss $L(G)$ nicht in $\P^G$ liegt.
+Dafür werden wir als Begriff der Generizität die \emph{Cohen}-Generizität (im Folgenden $\mathcal G$) verwenden, welche aus allen partiellen Funktionen mit endlichem Definitionsbereich besteht.
+
+Wir zeigen nun, dass für jedes
+\[ \phi_i \colon \neg„L(M^X_i)=L(X)“.  \] %(\exists n)[M^X_i(0^n) \text{ lehnt ab} \leftrightarrow (\exists x)(|x|=n\land X(x))] \]
+die jeweilige Menge, welche $\phi_i$ erzwingt, dicht ist. (Maschine $M_i^X$ ist eine deterministische Poly-OTM.) Nach 9 sind wir dann fertig und es existiert ein $\mathcal G$-generische Orakel mit $\P^G\neq \NP^G$.
+
+Sei daher $\gamma\in\mathcal G$. Wir müssen zeigen dass ein $\tau\succeq \gamma$ existiert dass in $\mathcal G$ liegt und $\tau\Vdash \phi_i$. 
+Zunächst wählen wir ein $n\in\omega$ sodass $\gamma$ keine Wörter der Länge $n$ definiert, und sodass $2^n>p_i(n)$.
+
+Nun wollen wir ein $\sigma$ angeben sodass $M_i^\sigma(0^n)$ definiert ist -- hier ist $M_i^\sigma(0^n)$ so definiert dass Queries $q$ mit $\sigma(q)$ beantwortet werden, und falls $q\not\in\dom(\sigma)$, dann ist $M_i^\sigma(0^n)$ nicht definiert.
+
+Das lösen wir, in dem wir, wenn immer ein noch nicht definierter Query $q$ gestellt wird, $\sigma(q)=0$ setzen. Präziser: starte mit $\sigma_0=\gamma$.
+Setze für $k>0$
+\[ \sigma_k = \begin{cases}
+    \sigma_{k-1} \cup \{q\mapsto 0\} & \text{\parbox{28em}{falls $M_i^{\sigma_{k-1}}(0^n)$ nicht definiert und $q\not\in\dom(\sigma_{k-1})$ der erste undef. Query auf dem Rechenweg ist}}\\[1.0em]
+    \sigma_{k-1} & \text{sonst}.
+\end{cases}
+\]
+Sei $\sigma=\sigma_N$ mit $N=t_i(n)$. Hierfür ist $M_i^\sigma(0^n)$ definiert, existieren ja höchstens $N$ viele Queries auf jedem Rechenweg.
+
+Ist nun $M_i^\sigma(0^n)$ akzeptierend, dann setze
+\[ \tau(x) =\begin{cases} \sigma(x) & \text{für $x\in\dom(\sigma)$}\\0&\text{für $x\in\Sigma^n$, $x\not\in\dom(\sigma)$}\\\text{undef.} & \text{sonst}.\end{cases} \]
+Dann ist $\tau\in\mathcal G$ (endliche Definitionsmenge), und für alle $A\succ \tau$ haben wir $\omega[A]\not\vDash \text{„$L(M_i^X)=L(X)$“}$:
+Denn $\omega[A] \vDash „M_i^X(0^n)\text{ akz.}“$ ($A$ und $\gamma$ stimmen auf den Orakelfragen überein) und $\omega[A] \vDash „0^n\not\in L(X)“$ ($A(x)=\gamma(x)=0$ für alle $x\in\Sigma^n$).
+
+Also haben wir nach Lemma 8 dass $\tau\Vdash \neg„L(M_i^X)=L(X)“$ bzw. $\tau\Vdash\phi_i$ wie gewünscht.
+
+Symmetrisch falls $M_i^\sigma(0^n)$ ablehnt. Sei $a\in\Sigma^*$ mit $a\not\in\dom(\sigma)$ (existiert da $2^n>t_i(n)$), und setze 
+\[ \tau(x) =\begin{cases} \sigma(x) & \text{für $x\in\dom(\sigma)$}\\0&\text{für $x\in\Sigma^n$, $x\neq a$, $x\not\in\dom(\sigma)$}\\1&\text{für $x=a$}\\\text{undef.} & \text{sonst}.\end{cases} \]
+Wir haben für alle $A\succ\tau$ dass $\omega[A] \vDash „M_i^X(0^n)\text{ abl.}“$  und $\omega[A] \vDash „0^n\in L(X)“$ ($A(a)=\gamma(a)=1$ für $a\in\Sigma^n$).
+Wiedernach Lemma 8 dann $\tau\Vdash\phi_i$ wie gewünscht.
+
+%Erweitere iterativ durch 2(1) die Lücken in $\gamma$ zu $\gamma'$, bis $\dom(\gamma')$ ein initiales Segment von $\omega$ ist. Die Bedingung $\gamma$ spezifiziert also alle Wörter $x<w$ für ein $w\in\omega$.
+
+\subsection*{Relativierung von Forcing}
+
+Die oben beschriebenen Definitionen und Ergebnisse bezüglich Forcing können einfach relativiert werden. Sei $B\subseteq \omega$. Forcing und Wahrheit relativ zu $B$ definieren wir wie im unrelativierten Fall, aber erweitern die Sprache $\mathcal L_{\mathrm{PA}}[X]$ und das Standardmodell $\omega$ um ein zweiteres unäres Prädikat $B$ zu $\mathcal L_{\mathrm{PA}}[B,X]$ bzw. $\omega^B$ mit Prädikat $B$ interpretiert über Menge $B$. Dann können wir z.B. über „$\mathcal G$-generisch relativ zu $B$“ sprechen.
+
+Außerdem können zwei unäre Prädikate in arithmetischen Formel in ein einziges Prädikat überführt werden, mittels des Join-Operators $\oplus$: 
+\[ A\oplus B = \{0x\mid x\in A\}\cup\{1x\mid x\in B\}. \]
+Gegeben Formel $\phi$ über $\mathcal L_{\mathrm{PA}}[X,B]$ können wir effektiv eine Formel $\psi$ über $\mathcal L_{\mathrm{PA}}[X]$ finden sodass für alle $A,B\in\omega$ gilt:
+\[ \omega^B[A] \vDash \phi \text{ genau dann wenn } \omega[A\oplus B]\vDash \psi. \]
+
+TODO wie geht der Trick mit Re-Relativierung bzgl. QBF?
+
+
+\subsection*{Beispiel: keine UP-vollständige Menge und $\neg Q$}
+
+Eine generische Konstruktion, welche vollständige Elemente einer Klasse ausschließt, ist komplizierter. Hier liegt ein Abhängigkeitsverhältnis zwischen Maschinen und den Zeugensprachen vor. (Wenn Sprache in $\UP$, dann auch entsprechende Zeugensprache in $\UP$.)
+Aber auch hier können wir analog zu dem sonst üblichen Vorgehen von Dose/Glaßer/Egidy fahren und „falls möglich, zerstöre Maschine, ansonsten sichere dass die entsprechende Zeugensprache in $\UP$ und schließe Reduktionen aus“.
+
+
+Definiere $\tower(1)=2$, $\tower(n+1)=2^{2^{\tower(n)}}$.
+Definiere polynomialzeitberechenbare und -in-\linebreak{}vertierbare Familie $\{H_{i}\}_{i\in\omega}$ wobei
+\[ H_{i} \subseteq \{ \tower(n) \mid n\in\omega \} \]
+und alle Mengen der Familie sind paarweise disjunkt.
+Definiere folgende Familie an Zeugenpaaren $\{(L^0_{i,j}(A), L^1_{i,j}(A)) \}_{i,j\in\omega}$ abhängig von $A\subseteq\omega$:
+\begin{gather*}
+    L^0_{i,j}(A) = \{ 0^n \mid n\in H_{i,j}, \text{ es existiert ein $x\in\Sigma^n$ mit $x\in A$ und $x$ endet mit $0$} \}\\
+    L^1_{i,j}(A) = \{ 0^n \mid n\in H_{i,j}, \text{ es existiert ein $x\in\Sigma^n$ mit $x\in A$ und $x$ endet mit $1$} \}.
+\end{gather*}
+Wir haben $(L^0_{i,j}(A), L^1_{i,j}(A))\in\DisjNP^A$ genau dann wenn kein $n\in H_{i,j}$ existiert dass sowohl $x0\in A$ und $y1\in A$ mit je einem $x,y\in\Sigma^{n-1}$.
+
+
+Definiere nun folgenden Begriff der Generizität $\mathbf{DisjNPC}$: Eine Bedingung $\gamma$ ist in $\mathbf{DisjNPC}$
+genau dann wenn 
+\begin{enumerate}
+    \item wenn immer $\gamma(x)=1$, dann gilt $|x|=\tower(n)$ für ein $n\in\omega$, und
+    \item $\gamma$ kann zu einem Orakel $A$ erweitert werden sodass für alle $i,j\in\omega$ gilt:
+\begin{gather*}
+(L(N_i^A), L(N_j^A))\in\DisjNP^A\rightarrow (L^0_{i,j}(A), L^1_{i,j}(A))\in\DisjNP^A . \tag{\ast}
+\end{gather*}
+\end{enumerate}
+%Insbesondere ist $\epsilon$, die nirgends definierte Funktion, eine $\mathbf{DisjNPC}$-Bedingung.
+%Hieraus folgt sofort dass jedes $\mathbf{DisjNPC}$-generisches $G$ die (analoge) Aussage ($\ast$) erfüllt. Erfüllt $G$ diese Aussage nicht, dann existiert ein $i,j\in \omega$ sodass $(L^0_{i,j}(G), L^1_{i,j}(G))\not\in\DisjNP^G $ und $(L(N_i^A), L(N_j^A))\in\DisjNP^G$. 
+
+Betrachte folgende Aussage:
+\[ \phi_{i,j,r}\colon \neg„(L(N_i^X), L(N_j^X))\in\DisjNP^X“ \lor \neg„(L^0_{i,j}(X), L^1_{i,j}(X))\leqmpp(L(N_i^X), L(N_j^X))\text{ via }T^X_r“. \]
+Es gilt also $\phi_{i,j,r}$ genau dann wenn das Paar $N_i, N_j$ nicht komplementär akzeptiert, oder wenn der Transduktor $T_r$ nicht die Reduktion vom Zeugenpaar auf Paar $N_i, N_j$ leisten kann.
+
+\begin{claim}
+Gilt \[ \epsilon\Vdash \neg\neg\phi_{i,j,0}, \neg\neg\phi_{i,j,1}, \dots \]
+dann ist relativ aller $\mathbf{DisjNPC}$-generischen $G$ das Paar $(L(N_i^G), L(N_j^G))$ nicht vollsändig für $\DisjNP^G$. 
+\end{claim}
+\begin{proof}
+    Also sei im Folgenden \[ \epsilon \Vdash\neg\neg„(L(N_i^X), L(N_j^X))\in\DisjNP^X“. \]
+    Dann gilt für alle $\mathbf{DisjNPC}$-generischen Orakel wie in 9 dass
+    \[ \omega[G] \vDash „(L(N_i^X), L(N_j^X))\in\DisjNP^X“. \]
+    Angenommen es existiert ein $\mathbf{DisjNPC}$-generisches $G$  mit
+    \[ (L^0_{i,j}(G), L^1_{i,j}(G))\not\in\DisjNP^G \]
+    dann liegt das explizit an $n\in H_{i,j}$, $x,y,\in\Sigma^{n-1}$ sodass $x0\in A$ und $y1\in A$.
+    Sei nun $\gamma$ eine $\mathbf{DisjNPC}$-Bedingung sodass $x0,y1\in\dom(\gamma)$. Diese existiert nach 4(3).
+    Es lässt sich nun verifizieren dass
+    \[ \gamma \Vdash „\text{ex. $n\in H_{i,j}$, $x,y\in\Sigma^{n-1}$, und $x0,y1\in X$}“ \]
+    und damit 
+    \[ \gamma \not\Vdash „(L^0_{i,j}(X), L^1_{i,j}(X))\in\DisjNP^X“. \]
+    Es ist auch leicht zu sehen dass das auch für alle $\tau\succeq\gamma$ gilt, damit haben wir auch
+    \[ \gamma \Vdash \neg„(L^0_{i,j}(A), L^1_{i,j}(X))\in\DisjNP^X“, \]
+    und nach Lemma 8 gilt also 
+    \[ \omega[G'] \not\vDash „(L^0_{i,j}(A), L^1_{i,j}(X))\in\DisjNP^X“\quad\text{ für alle $\mathbf{DisjNPC}$-gen. $G'\succ \gamma$.} \]
+    Nun kann aber $\gamma$ keine $\mathbf{DisjNPC}$-Bedingung sein:
+    relativ zu allen $\mathbf{DisjNPC}$-generischen $G'\succ \gamma$ gilt einerseits dass \[ (L^0_{i,j}(G'), L^1_{i,j}(G'))\not\in\DisjNP^{G'}, \]
+    und andererseits gilt wegen oben
+    \[ (L(N_i^{G'}), L(N_j^{G'}))\in\DisjNP^{G'}. \]
+    Das Widerspricht der Eigenschaft (2), es existiert kein
+   
+
+
+    %Sei $G$ ein beliebiges $\mathbf{DisjNPC}$-generisches Orakel.
+    %Falls das Paar $(L(N_i^G), L(N_j^G))$ nicht in $\DisjNP^G$ liegt, sind wir sofort fertig.
+
+    %Andernfalls gilt 
+\end{proof}
+
+Entweder (a) es liegt nicht in $\DisjNP^G$, oder (b) es liegt in $\DisjNP^G$ und kein Transduktor kann das Zeugenpaar $(L^0_{i,j}(X), L^1_{i,j}(X))$ hierauf reduzieren. 
+%Im Fall (b) also 
+%\[ \omega[G]\not\vDash \neg „(L(N_i^X), L(N_j^X))\in\DisjNP^X“. \]
+Angenommen 
+\[ (L^0_{i,j}(G), L^1_{i,j}(G))\not\in\DisjNP^G \]
+dann liegt das explizit an $n\in H_{i,j}$, $x,y,\in\Sigma^{n-1}$ sodass $x0\in A$ und $y1\in A$.
+Sei nun $\gamma$ eine $\mathbf{DisjNPC}$-Bedingung sodass $x0,y1\in\dom(\gamma)$. Diese existiert nach 4(3).
+Es lässt sich nun verifizieren dass
+\[ \gamma \Vdash „\text{ex. $n\in H_{i,j}$, $x,y\in\Sigma^{n-1}$, und $x0,y1\in X$}“ \]
+und damit 
+\[ \gamma \not\Vdash „(L^0_{i,j}(X), L^1_{i,j}(X))\in\DisjNP^X“. \]
+Es ist auch leicht zu sehen dass das auch für alle $\tau\succeq\gamma$ gilt, damit haben wir auch
+\[ \gamma \Vdash \neg„(L^0_{i,j}(A), L^1_{i,j}(X))\in\DisjNP^X. \]
+Nach Lemma 8 folgt damit dass für alle $\mathbf{DisjNPC}$-generischen $G'\succ\gamma$, also insbesondere auch $G$ gilt dass
+\[ \omega[G] \not\vDash „(L^0_{i,j}(A), L^1_{i,j}(X))\in\DisjNP^X. \]
 
 
 \end{document}
