@@ -1741,7 +1741,8 @@ Die Variablen $\gamma$ und $\tau$ erstrecken sich über $\mathcal G$. Es gilt:
 \end{proof}
 Unter dieser Definition von Forcing gilt insbesondere:
 \begin{itemize}
-    \item $\gamma\Vdash\phi\implies\gamma\Vdash\neg\neg\phi$ (\emph{“strong forcing implies weak forcing”}): Induktion über Formeln).
+    \item $\gamma\Vdash\phi\implies\gamma\Vdash\neg\neg\phi$ (\emph{“strong forcing implies weak forcing”}): Induktion über Formeln.
+    \item $[(\forall A\succ \gamma).\omega[A]\vDash\phi]\implies \gamma\Vdash\phi$: TODO
 \end{itemize}
 
 \begin{lemma}
@@ -1767,17 +1768,18 @@ Beachte dass $\omega[G]\not\vDash\neg\phi$ genau dann wenn $\omega[G]\vDash\phi$
     $\gamma\Vdash\neg\neg\phi$ genau dann wenn $\omega[G]\vDash\phi$ für alle $\mathcal G$-generischen $G\succ\gamma$.
 \end{corollary}
 \begin{corollary}
-    Für alle $\gamma\in\mathcal G$ und alle $\phi\in \mathrm{sent}(\mathcal L_{\mathrm{PA}}[X])$ gilt:
+    Für alle $\phi\in \mathrm{sent}(\mathcal L_{\mathrm{PA}}[X])$ gilt:
     Ist die Menge an $\mathcal G$-Bedingungen, welche $\phi$ erzwingen, dicht, also
-    \[ (\forall \gamma\in\mathcal G)(\exists \tau\in\mathcal G, \tau\succeq\gamma).\,\tau\Vdash\phi, \]
-    dann wird unter allen $\mathcal G$-generischen Mengen der Satz $\phi$ als wahr interpretiert.
+    \[ (\forall \gamma\in\mathcal G)(\exists \tau\in\mathcal G, \gamma\preceq\tau).\,\tau\Vdash\phi, \]
+    dann gilt auch $\gamma\Vdash\neg\neg \phi$ für alle $\gamma\in\mathcal G$.
+    Insbesondere wird unter allen $\mathcal G$-generischen Mengen der Satz $\phi$ als wahr interpretiert.
 \end{corollary}
 \begin{proof}
-    Sei $G$ eine beliebige $\mathcal G$-generische Menge.
+    Sei $\gamma\in\mathcal G$ beliebig. Wir haben nach Voraussetzung dass 
+    \[ (\forall\sigma\in\mathcal G, \gamma\preceq\sigma)(\exists \tau\in\mathcal G,\sigma\preceq\tau).\,\tau\Vdash\phi, \text{ also  } \gamma\Vdash\neg\neg\phi. \]
+    Für die zweite Aussage sei $G$ eine beliebige $\mathcal G$-generische Menge.
     Es existiert eine Bedingung $\sigma\in\mathcal G$ mit $G\succ \sigma$; das folgt schon aus Definition 4(2) für einen beliebigen Satz, z.B. $\phi=X(\overline 0)$.
-    Nach Voraussetzung gilt für diese Bedingung dass
-    \[ (\forall\gamma\in\mathcal G, \sigma\preceq\gamma)(\exists \tau\in\mathcal G,\gamma\preceq\tau).\,\tau\Vdash\phi, \text{ also  } \sigma\Vdash\neg\neg\phi. \]
-    Nach vorigem Lemma gilt dann $\omega[G]\vDash \phi$.
+    Wie bereits gezeigt $\sigma\Vdash\neg\neg\phi$ und nach vorigem Lemma gilt dann $\omega[G]\vDash \phi$.
 \end{proof}
 
 %Im Folgenden ist sogar eher dienlich statt $\phi$ zu erzwingen, $\neg\neg \phi$ zu erzwingen. Zeigen wir 
@@ -1840,84 +1842,112 @@ TODO wie geht der Trick mit Re-Relativierung bzgl. QBF?
 Eine generische Konstruktion, welche vollständige Elemente einer Klasse ausschließt, ist komplizierter. Hier liegt ein Abhängigkeitsverhältnis zwischen Maschinen und den Zeugensprachen vor. (Wenn Sprache in $\UP$, dann auch entsprechende Zeugensprache in $\UP$.)
 Aber auch hier können wir analog zu dem sonst üblichen Vorgehen von Dose/Glaßer/Egidy fahren und „falls möglich, zerstöre Maschine, ansonsten sichere dass die entsprechende Zeugensprache in $\UP$ und schließe Reduktionen aus“.
 
+%\begin{definition}\begin{itemize}
+    %%\item Terminiert NPOTM $N$ relativ zu Orakel $A$ auf Eingabe $x$ mit höchstens einem akzeptierenden Rechenweg, so nennen wir die Berechnung $N^A(x)$ \emph{eindeutig} („unabigous“). Akzeptiert also $N^A(x)$ dann existiert genau ein akzeptierender Rechenweg.
+%\end{itemize}
+%\end{definition}
 
-Definiere $\tower(1)=2$, $\tower(n+1)=2^{2^{\tower(n)}}$.
+
+Definiere $\tower(1)=2$, $\tower(k+1)=2^{2^{\tower(k)}}$.
 Definiere polynomialzeitberechenbare und -in-\linebreak{}vertierbare Familie $\{H_{i}\}_{i\in\omega}$ wobei
-\[ H_{i} \subseteq \{ \tower(n) \mid n\in\omega \} \]
+\[ H_{i} \subseteq \{ \tower(k) \mid k\in\omega \} \]
 und alle Mengen der Familie sind paarweise disjunkt.
-Definiere folgende Familie an Zeugenpaaren $\{(L^0_{i,j}(A), L^1_{i,j}(A)) \}_{i,j\in\omega}$ abhängig von $A\subseteq\omega$:
+Definiere folgende Familie an Zeugensprachen $\{L_{i}(A) \}_{i,j\in\omega}$ abhängig von $A\subseteq\omega$:
 \begin{gather*}
-    L^0_{i,j}(A) = \{ 0^n \mid n\in H_{i,j}, \text{ es existiert ein $x\in\Sigma^n$ mit $x\in A$ und $x$ endet mit $0$} \}\\
-    L^1_{i,j}(A) = \{ 0^n \mid n\in H_{i,j}, \text{ es existiert ein $x\in\Sigma^n$ mit $x\in A$ und $x$ endet mit $1$} \}.
+    L_{i}(A) = \{ 0^n \mid n\in H_{i,j}, \text{ es existiert ein $x\in\Sigma^n$ mit $x\in A$} \}
 \end{gather*}
-Wir haben $(L^0_{i,j}(A), L^1_{i,j}(A))\in\DisjNP^A$ genau dann wenn kein $n\in H_{i,j}$ existiert dass sowohl $x0\in A$ und $y1\in A$ mit je einem $x,y\in\Sigma^{n-1}$.
+Wir haben $L_{i}(A)\in\UP^A$ wenn kein $n\in H_{i,j}$ existiert dass $x, y\in A$ für zwei verschiedene $x,y\in\Sigma^n$.
 
 
-Definiere nun folgenden Begriff der Generizität $\mathbf{DisjNPC}$: Eine Bedingung $\gamma$ ist in $\mathbf{DisjNPC}$
+Definiere nun folgenden Begriff der Generizität $\mathbf{UPC}$: Eine Bedingung $\gamma$ ist in $\mathbf{UPC}$
 genau dann wenn 
 \begin{enumerate}
-    \item wenn immer $\gamma(x)=1$, dann gilt $|x|=\tower(n)$ für ein $n\in\omega$, und
-    \item $\gamma$ kann zu einem Orakel $A$ erweitert werden sodass für alle $i,j\in\omega$ gilt:
-\begin{gather*}
-(L(N_i^A), L(N_j^A))\in\DisjNP^A\rightarrow (L^0_{i,j}(A), L^1_{i,j}(A))\in\DisjNP^A . \tag{\ast}
-\end{gather*}
+    \item $\dom(\gamma)=\Sigma^{\leq n}$ für ein $n\in\omega$, und
+    \item wenn $\gamma(x)=1$, dann $|x|= \tower(k)$ für ein $k\in\omega$, und
+    \item für alle $i\in\omega$ gilt: wenn ein $n\in H_i$ existiert mit $a,b\in\Sigma^n$, $a\neq b$, $\gamma(a)=\gamma(b)=1$, dann existiert eine Eingabe $z$ sodass $N_i^\sigma(z)$ kategorisch auf zwei Rechenwegen akzeptiert.
 \end{enumerate}
-%Insbesondere ist $\epsilon$, die nirgends definierte Funktion, eine $\mathbf{DisjNPC}$-Bedingung.
+Insbesondere ist $\epsilon$, die nirgends definierte Funktion, eine $\mathbf{UPC}$-Bedingung.
 %Hieraus folgt sofort dass jedes $\mathbf{DisjNPC}$-generisches $G$ die (analoge) Aussage ($\ast$) erfüllt. Erfüllt $G$ diese Aussage nicht, dann existiert ein $i,j\in \omega$ sodass $(L^0_{i,j}(G), L^1_{i,j}(G))\not\in\DisjNP^G $ und $(L(N_i^A), L(N_j^A))\in\DisjNP^G$. 
 
 Betrachte folgende Aussage:
-\[ \phi_{i,j,r}\colon \neg„(L(N_i^X), L(N_j^X))\in\DisjNP^X“ \lor \neg„(L^0_{i,j}(X), L^1_{i,j}(X))\leqmpp(L(N_i^X), L(N_j^X))\text{ via }T^X_r“. \]
-Es gilt also $\phi_{i,j,r}$ genau dann wenn das Paar $N_i, N_j$ nicht komplementär akzeptiert, oder wenn der Transduktor $T_r$ nicht die Reduktion vom Zeugenpaar auf Paar $N_i, N_j$ leisten kann.
+\[ \phi_{i,r}\colon \neg\text{„$N_i^X$ ist eindeutig“} \lor \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“. \]
+Wir wollen nun zeigen dass die Menge an $\mathbf{UPC}$-Bedingungen welche $\phi_{i,r}$ erzwingen jeweils dicht sind, also $\gamma\Vdash\neg\neg\phi_{i,r}$ für alle $\gamma\in\mathbf{UPC}$.
+Dann sind wir auch schon fertig:
 
 \begin{claim}
-Gilt \[ \epsilon\Vdash \neg\neg\phi_{i,j,0}, \neg\neg\phi_{i,j,1}, \dots \]
-dann ist relativ aller $\mathbf{DisjNPC}$-generischen $G$ das Paar $(L(N_i^G), L(N_j^G))$ nicht vollsändig für $\DisjNP^G$. 
+    Angenommen $\gamma\Vdash\neg\neg\phi_{i,r}$ für alle $\gamma\in\mathbf{UPC}$.
+    Dann existiert keine vollständige Menge für $\UP$ relativ zu jedem $\mathbf{UPC}$-generischem Orakel $G$.
 \end{claim}
 \begin{proof}
-    Also sei im Folgenden \[ \epsilon \Vdash\neg\neg„(L(N_i^X), L(N_j^X))\in\DisjNP^X“. \]
-    Dann gilt für alle $\mathbf{DisjNPC}$-generischen Orakel wie in 9 dass
-    \[ \omega[G] \vDash „(L(N_i^X), L(N_j^X))\in\DisjNP^X“. \]
-    Angenommen es existiert ein $\mathbf{DisjNPC}$-generisches $G$  mit
-    \[ (L^0_{i,j}(G), L^1_{i,j}(G))\not\in\DisjNP^G \]
-    dann liegt das explizit an $n\in H_{i,j}$, $x,y,\in\Sigma^{n-1}$ sodass $x0\in A$ und $y1\in A$.
-    Sei nun $\gamma$ eine $\mathbf{DisjNPC}$-Bedingung sodass $x0,y1\in\dom(\gamma)$. Diese existiert nach 4(3).
-    Es lässt sich nun verifizieren dass
-    \[ \gamma \Vdash „\text{ex. $n\in H_{i,j}$, $x,y\in\Sigma^{n-1}$, und $x0,y1\in X$}“ \]
-    und damit 
-    \[ \gamma \not\Vdash „(L^0_{i,j}(X), L^1_{i,j}(X))\in\DisjNP^X“. \]
-    Es ist auch leicht zu sehen dass das auch für alle $\tau\succeq\gamma$ gilt, damit haben wir auch
-    \[ \gamma \Vdash \neg„(L^0_{i,j}(A), L^1_{i,j}(X))\in\DisjNP^X“, \]
-    und nach Lemma 8 gilt also 
-    \[ \omega[G'] \not\vDash „(L^0_{i,j}(A), L^1_{i,j}(X))\in\DisjNP^X“\quad\text{ für alle $\mathbf{DisjNPC}$-gen. $G'\succ \gamma$.} \]
-    Nun kann aber $\gamma$ keine $\mathbf{DisjNPC}$-Bedingung sein:
-    relativ zu allen $\mathbf{DisjNPC}$-generischen $G'\succ \gamma$ gilt einerseits dass \[ (L^0_{i,j}(G'), L^1_{i,j}(G'))\not\in\DisjNP^{G'}, \]
-    und andererseits gilt wegen oben
-    \[ (L(N_i^{G'}), L(N_j^{G'}))\in\DisjNP^{G'}. \]
-    Das Widerspricht der Eigenschaft (2), es existiert kein
-   
+    Sei $G$ ein beliebiges $\mathbf{UPC}$-generisches Orakel.
+    Angenommen es existiert eine vollständige Menge für $\UP^G$, welche durch $N^G_i$ entschieden wird.
+    Insbesondere ist $N^G_i$ eindeutig akzeptierend.
 
+    Wir haben $L_i(G)\not\leqmpp L(N^G_i)$; wir zielen auf einen Widerspruch und nehmen an, es existiert eine Reduktionsfunktion $T_r^G$.
+    %Wir zeigen dass entweder $N^G_i$ nicht eindeutig akzpetiert, oder $L_i(G)\in\UP^G$ und $L_i(G)\not\leqmpp 
+    Es gilt $\epsilon\in\mathbf{UPC}$ und nach Voraussetzung gilt $\epsilon\Vdash\neg\neg\phi_{i,r}$.
+    Nach ??? gilt also insbesondere für unser $G\succ\epsilon$ dass $\omega[G] \vDash \phi_{i, r}$.
+    Da nach Annahme aber $\omega[G] \not\vDash \neg\text{„$N_i^X$ ist eindeutig“}$ haben wir
+    \[ \omega[G] \vDash  \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“. \]
+    Das bedeutet aber genau dass $T^G_r$ eben nicht die Reduktion von $L_{i}(X)$ auf $L(N_i^X)$ leistet; Widerspruch wie gewünscht.
+    %Insbesondere bedeutet
 
-    %Sei $G$ ein beliebiges $\mathbf{DisjNPC}$-generisches Orakel.
-    %Falls das Paar $(L(N_i^G), L(N_j^G))$ nicht in $\DisjNP^G$ liegt, sind wir sofort fertig.
-
-    %Andernfalls gilt 
+    Wir zeigen nun dass $L_i(G)\in\UP^G$. Dann sind wir auch schon fertig, denn dann ist $L(N_i^X)$ nicht vollständig.
+    Angenommen $L_i(G)\not\in\UP^G$. Dann existiert ein $n\in H_i$ und zwei verschiedene $a,b\in\Sigma^n$ mit $a,b\in G$.
+    Nach Definition~5(3) existiert ein $\sigma\in\mathbf{UPC}$ mit $G\succ \sigma$ und $a,b\in\dom(\sigma)$.
+    %Nach Definition~5(1) existiert dann sogar ein $\tau\in\mathbf{UPC}$ mit $\gamma\cup\sigma\succeq \tau\succ G$.
+    %Insbesondere $a,b\in\dom(\tau)$.
+    Insbesondere gilt $\sigma(a)=\sigma(b)=1$ (ansonsten $G\not\succ\sigma$).
+    Also gilt nach Definition ???(3) dass eine Eingabe $z$ existiert sodass $N_i^\sigma(z)$ kategorisch auf zwei Rechenwegen akzeptiert. 
+    Also gilt auch für $G\succ\sigma$ dass $N_i^G(z)$ auf zwei Rechenwegen akzeptiert.
+    Dann ist aber $N_i$ relativ zu $G$ nicht mehr eindeutig akzeptierend; Widerspruch zur Wahl von $N_i$.
 \end{proof}
 
-Entweder (a) es liegt nicht in $\DisjNP^G$, oder (b) es liegt in $\DisjNP^G$ und kein Transduktor kann das Zeugenpaar $(L^0_{i,j}(X), L^1_{i,j}(X))$ hierauf reduzieren. 
-%Im Fall (b) also 
-%\[ \omega[G]\not\vDash \neg „(L(N_i^X), L(N_j^X))\in\DisjNP^X“. \]
-Angenommen 
-\[ (L^0_{i,j}(G), L^1_{i,j}(G))\not\in\DisjNP^G \]
-dann liegt das explizit an $n\in H_{i,j}$, $x,y,\in\Sigma^{n-1}$ sodass $x0\in A$ und $y1\in A$.
-Sei nun $\gamma$ eine $\mathbf{DisjNPC}$-Bedingung sodass $x0,y1\in\dom(\gamma)$. Diese existiert nach 4(3).
-Es lässt sich nun verifizieren dass
-\[ \gamma \Vdash „\text{ex. $n\in H_{i,j}$, $x,y\in\Sigma^{n-1}$, und $x0,y1\in X$}“ \]
-und damit 
-\[ \gamma \not\Vdash „(L^0_{i,j}(X), L^1_{i,j}(X))\in\DisjNP^X“. \]
-Es ist auch leicht zu sehen dass das auch für alle $\tau\succeq\gamma$ gilt, damit haben wir auch
-\[ \gamma \Vdash \neg„(L^0_{i,j}(A), L^1_{i,j}(X))\in\DisjNP^X. \]
-Nach Lemma 8 folgt damit dass für alle $\mathbf{DisjNPC}$-generischen $G'\succ\gamma$, also insbesondere auch $G$ gilt dass
-\[ \omega[G] \not\vDash „(L^0_{i,j}(A), L^1_{i,j}(X))\in\DisjNP^X. \]
+Wir zeigen nun wie angekündigt die Dichtheit:
+
+\begin{claim}
+    Sei $\gamma\in\mathbf{UPC}$, $i,r\in\omega$ beliebig. Es gilt $\gamma\Vdash\neg\neg \phi_{i,r}$.
+\end{claim}
+\begin{proof}
+    Sei $\gamma\in\mathbf{UPC}$ beliebig. Wir zeigen dass ein $\tau\in\mathbf{UPC}, \tau\succeq \gamma$ existiert mit $\tau\Vdash\phi$.
+    Nach Korollar 10 ist das ausreichend um $\gamma\Vdash\neg\neg \phi_{i,r}$ zu zeigen.
+
+    Wähle ein $n\in H_i$ sodass $\gamma$ kein Wort der Länge $n$ definiert.
+    Definiere nun für $S\subseteq\Sigma^n$ die Bedingung $\alpha_S$ mit
+    \[ \alpha_S  =\begin{cases}
+    \gamma(x) & \text{falls $x\in\dom(\gamma)$},\\
+    1 & \text{falls $x\not\in\dom(\gamma), x\in S$},\\
+    0 & \text{falls $x\not\in\dom(\gamma), |x|\leq p_i(p_r(n))$},\\
+    \text{undef.} & \text{sonst}.
+    \end{cases}
+    \]
+    Wir haben $\alpha_S\succeq \gamma$.
+    Es gilt $\alpha_\emptyset\in\mathbf{UPC}$ und $\alpha_{\{a\}}\mathbf{UPC}$ für alle $a\in \Sigma^n$: (1) Offenbar $\dom(\alpha_S)=\Sigma^{\leq p_i(p_r(n))}$. (2) Wenn $\alpha_S(x)=1,x\not\in\dom(\alpha_S)$ dann nach Definition $x\in S$, $|x|=n\in H_i$ also $n=\tower(k)$ für ein $k$.
+    Auch (3) ist nur verletzt wenn verschiedene $a,b\in\dom(\alpha_S)\setminus\dom(\gamma)$ existieren mit $\alpha_S(a)=\alpha_S(b)=1$, dann aber $a,b\in S$ aber wir haben $S=\emptyset$ oder $S=\{a\}$.
+
+    Der weitere Beweis erfolgt nun in Fallunterscheidung. Nehme für den ersten Fall an dass
+    \[ \alpha_\emptyset \Vdash \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“ \]
+    oder für ein $a\in\Sigma^n$
+    \[ \alpha_{\{a\}} \Vdash \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“. \]
+    Dann sind wir fertig: für eines dieser $\alpha_S$ gilt $\alpha_S\Vdash \phi_{i,r}$ und setze $\tau=\alpha_S$.
+
+    Für den anderen Fall gilt 
+    \[ \alpha_\emptyset \not\Vdash \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“ \text{ und }\alpha_{\{a\}} \not\Vdash \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“ \]
+    für alle $a\in\Sigma^n$.
+    Nach Lemma 8 existiert also ein $A\succ\alpha_\emptyset$ mit $\omega[A] \vDash „L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“$.
+    Da $0^n\not\in L_i(A)$ gilt also $N^A_i(T_r^A(0^n))=0$.
+    Da $\alpha_\emptyset$ aber alle Wörter der Länge $\leq p_i(p_r(n))$ definiert und das alle Queries dieser Berechnung beinhaltet, ist leicht zu sehen dass $N^A_i(T_r^A(0^n))=0$ für \emph{alle} $A\succ\sigma_\emptyset$.
+
+    Auf gleiche Weise sehen wir, für je ein $a\in\Sigma^n$, dass $N^B_i(T_r^B(0^n))=1$ für alle $B\succ\alpha_{\{a\}}$.
+    Über alle möglichen $B$ existiert sogar eine akzeptierende Berechnung mit den gleichen Queries $Q_a$.
+    Es gilt $a\in Q_a$, denn andernfalls stimmen $\sigma_\emptyset$ und $B$ auf $Q_a$ überein, und für ein/alle $A\succ\alpha_\emptyset$ gilt $N^A_i(T_r^A(0^n))=1$; das widerspricht obiger Beobachtung.
+
+    Ein kombinatorisches Standardargument zeigt dass nun zwei unterschiedliche $a,b\in \Sigma^n$ existieren mit $a\not\in Q_b$, $b\not\in Q_a$.
+    Beobachte nun dass $\sigma_{\{a,b\}}$ mit $\sigma_{\{a\}}$ auf $Q_a$ übereinstimmt und $\sigma_{\{a,b\}}$ mit $\sigma_{\{b\}}$ auf $Q_b$ übereinstimmt.
+    Beobachte nun dass jedes $C\succ\sigma_{\{a,b\}}$ mit $\sigma_{\{a\}}$ auf $Q_a$ übereinstimmt und dieses $C$ auch mit $\sigma_{\{b\}}$ auf $Q_b$ übereinstimmt.
+\end{proof}
+
+
 
 
 \end{document}
