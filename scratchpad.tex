@@ -1864,8 +1864,9 @@ genau dann wenn
 \begin{enumerate}
     \item $\dom(\gamma)=\Sigma^{\leq n}$ für ein $n\in\omega$, und
     \item wenn $\gamma(x)=1$, dann $|x|= \tower(k)$ für ein $k\in\omega$, und
-    \item für alle $i\in\omega$ gilt: wenn ein $n\in H_i$ existiert mit $a,b\in\Sigma^n$, $a\neq b$, $\gamma(a)=\gamma(b)=1$, dann existiert eine Eingabe $z$ sodass $N_i^\sigma(z)$ kategorisch auf zwei Rechenwegen akzeptiert.
+    \item für alle $i\in\omega$ gilt: wenn ein $n\in H_i$ existiert mit $a,b\in\Sigma^n$, $a\neq b$, $\gamma(a)=\gamma(b)=1$, dann existiert eine Eingabe $z$ sodass $N_i^\sigma(z)$ auf zwei Rechenwegen akzeptiert.
 \end{enumerate}
+TODO zeigen dass das ein Begriff der Generizität ist!
 Insbesondere ist $\epsilon$, die nirgends definierte Funktion, eine $\mathbf{UPC}$-Bedingung.
 %Hieraus folgt sofort dass jedes $\mathbf{DisjNPC}$-generisches $G$ die (analoge) Aussage ($\ast$) erfüllt. Erfüllt $G$ diese Aussage nicht, dann existiert ein $i,j\in \omega$ sodass $(L^0_{i,j}(G), L^1_{i,j}(G))\not\in\DisjNP^G $ und $(L(N_i^A), L(N_j^A))\in\DisjNP^G$. 
 
@@ -1886,7 +1887,7 @@ Dann sind wir auch schon fertig:
     Wir haben $L_i(G)\not\leqmpp L(N^G_i)$; wir zielen auf einen Widerspruch und nehmen an, es existiert eine Reduktionsfunktion $T_r^G$.
     %Wir zeigen dass entweder $N^G_i$ nicht eindeutig akzpetiert, oder $L_i(G)\in\UP^G$ und $L_i(G)\not\leqmpp 
     Es gilt $\epsilon\in\mathbf{UPC}$ und nach Voraussetzung gilt $\epsilon\Vdash\neg\neg\phi_{i,r}$.
-    Nach ??? gilt also insbesondere für unser $G\succ\epsilon$ dass $\omega[G] \vDash \phi_{i, r}$.
+    Nach Korollar 9 gilt also insbesondere für unser $G\succ\epsilon$ dass $\omega[G] \vDash \phi_{i, r}$.
     Da nach Annahme aber $\omega[G] \not\vDash \neg\text{„$N_i^X$ ist eindeutig“}$ haben wir
     \[ \omega[G] \vDash  \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“. \]
     Das bedeutet aber genau dass $T^G_r$ eben nicht die Reduktion von $L_{i}(X)$ auf $L(N_i^X)$ leistet; Widerspruch wie gewünscht.
@@ -1898,7 +1899,7 @@ Dann sind wir auch schon fertig:
     %Nach Definition~5(1) existiert dann sogar ein $\tau\in\mathbf{UPC}$ mit $\gamma\cup\sigma\succeq \tau\succ G$.
     %Insbesondere $a,b\in\dom(\tau)$.
     Insbesondere gilt $\sigma(a)=\sigma(b)=1$ (ansonsten $G\not\succ\sigma$).
-    Also gilt nach Definition ???(3) dass eine Eingabe $z$ existiert sodass $N_i^\sigma(z)$ kategorisch auf zwei Rechenwegen akzeptiert. 
+    Also gilt nach Definition [UPC](3) dass eine Eingabe $z$ existiert sodass $N_i^\sigma(z)$ auf zwei Rechenwegen akzeptiert. 
     Also gilt auch für $G\succ\sigma$ dass $N_i^G(z)$ auf zwei Rechenwegen akzeptiert.
     Dann ist aber $N_i$ relativ zu $G$ nicht mehr eindeutig akzeptierend; Widerspruch zur Wahl von $N_i$.
 \end{proof}
@@ -1913,38 +1914,65 @@ Wir zeigen nun wie angekündigt die Dichtheit:
     Nach Korollar 10 ist das ausreichend um $\gamma\Vdash\neg\neg \phi_{i,r}$ zu zeigen.
 
     Wähle ein $n\in H_i$ sodass $\gamma$ kein Wort der Länge $n$ definiert.
-    Definiere nun für $S\subseteq\Sigma^n$ die Bedingung $\alpha_S$ mit
-    \[ \alpha_S  =\begin{cases}
+    Definiere nun für $S\subseteq\Sigma^n$ die Bedingung $\sigma_S$ mit
+    \[ \sigma_S(x)  =\begin{cases}
     \gamma(x) & \text{falls $x\in\dom(\gamma)$},\\
     1 & \text{falls $x\not\in\dom(\gamma), x\in S$},\\
-    0 & \text{falls $x\not\in\dom(\gamma), |x|\leq p_i(p_r(n))$},\\
+    0 & \text{falls $x\not\in\dom(\gamma), x\not\in S, |x|\leq p_i(p_r(n))$},\\
     \text{undef.} & \text{sonst}.
     \end{cases}
     \]
-    Wir haben $\alpha_S\succeq \gamma$.
-    Es gilt $\alpha_\emptyset\in\mathbf{UPC}$ und $\alpha_{\{a\}}\mathbf{UPC}$ für alle $a\in \Sigma^n$: (1) Offenbar $\dom(\alpha_S)=\Sigma^{\leq p_i(p_r(n))}$. (2) Wenn $\alpha_S(x)=1,x\not\in\dom(\alpha_S)$ dann nach Definition $x\in S$, $|x|=n\in H_i$ also $n=\tower(k)$ für ein $k$.
-    Auch (3) ist nur verletzt wenn verschiedene $a,b\in\dom(\alpha_S)\setminus\dom(\gamma)$ existieren mit $\alpha_S(a)=\alpha_S(b)=1$, dann aber $a,b\in S$ aber wir haben $S=\emptyset$ oder $S=\{a\}$.
+    Wir haben $\sigma_S\succeq \gamma$.
+    Es gilt $\sigma_\emptyset\in\mathbf{UPC}$ und $\sigma_{\{a\}}\in\mathbf{UPC}$ für alle $a\in \Sigma^n$:
+    (1) Offenbar $\dom(\sigma_S)=\Sigma^{\leq p_i(p_r(n))}$.
+    (2) Wenn $\sigma_S(x)=1,x\not\in\dom(\gamma)$ dann nach Definition $x\in S$, $|x|=n\in H_i$ also $n=\tower(k)$ für ein $k$.
+    Auch (3) ist nur verletzt wenn verschiedene $a,b\in\dom(\sigma_S)\setminus\dom(\gamma)$ existieren mit $\sigma_S(a)=\sigma_S(b)=1$, dann aber $a,b\in S$ aber wir haben $S=\emptyset$ oder $S=\{a\}$.
 
     Der weitere Beweis erfolgt nun in Fallunterscheidung. Nehme für den ersten Fall an dass
-    \[ \alpha_\emptyset \Vdash \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“ \]
+    \[ \sigma_\emptyset \Vdash \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“ \]
     oder für ein $a\in\Sigma^n$
-    \[ \alpha_{\{a\}} \Vdash \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“. \]
-    Dann sind wir fertig: für eines dieser $\alpha_S$ gilt $\alpha_S\Vdash \phi_{i,r}$ und setze $\tau=\alpha_S$.
+    \[ \sigma_{\{a\}} \Vdash \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“. \]
+    Dann sind wir fertig: für eines dieser $\sigma_S$ gilt $\sigma_S\Vdash \phi_{i,r}$ und setze $\tau=\sigma_S$.
 
     Für den anderen Fall gilt 
-    \[ \alpha_\emptyset \not\Vdash \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“ \text{ und }\alpha_{\{a\}} \not\Vdash \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“ \]
+    \[ \sigma_\emptyset \not\Vdash \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“ \text{ und }\sigma_{\{a\}} \not\Vdash \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“ \]
     für alle $a\in\Sigma^n$.
-    Nach Lemma 8 existiert also ein $A\succ\alpha_\emptyset$ mit $\omega[A] \vDash „L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“$.
+    Wir wollen hieraus ableiten dass ein $\tau\succeq\gamma$ existiert sodass
+    \[ \tau\Vdash \neg\text{„$N_i^X$ ist eindeutig“} \text{ und damit } \tau\Vdash\phi_{i,r}. \]
+
+    Nach Annahme und Lemma 8 existiert ein $A\succ\sigma_\emptyset\succeq \gamma$ mit $\omega[A] \vDash „L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“$.
     Da $0^n\not\in L_i(A)$ gilt also $N^A_i(T_r^A(0^n))=0$.
-    Da $\alpha_\emptyset$ aber alle Wörter der Länge $\leq p_i(p_r(n))$ definiert und das alle Queries dieser Berechnung beinhaltet, ist leicht zu sehen dass $N^A_i(T_r^A(0^n))=0$ für \emph{alle} $A\succ\sigma_\emptyset$.
+    Also existiert ein kleinstes $\alpha\prec A$ sodass auch $N^\alpha_i(T_r^\alpha(0^n))=0$ definiert (fixiere die Orakelfragen); in anderen Worten, $N^B_i(T_r^B(0^n))=0$ für alle $B\succ\alpha$.
+    Beobachte dass $\alpha$ und $\sigma_\emptyset$ (und damit auch $\gamma$) kompatibel sind.
 
-    Auf gleiche Weise sehen wir, für je ein $a\in\Sigma^n$, dass $N^B_i(T_r^B(0^n))=1$ für alle $B\succ\alpha_{\{a\}}$.
-    Über alle möglichen $B$ existiert sogar eine akzeptierende Berechnung mit den gleichen Queries $Q_a$.
-    Es gilt $a\in Q_a$, denn andernfalls stimmen $\sigma_\emptyset$ und $B$ auf $Q_a$ überein, und für ein/alle $A\succ\alpha_\emptyset$ gilt $N^A_i(T_r^A(0^n))=1$; das widerspricht obiger Beobachtung.
+    Auf gleiche Weise sehen wir, für je ein $a\in\Sigma^n$, ein kleinstes $\beta_a$ existiert sodass $N_i(T_r(0^n))=1$ relativ zu $\beta_a$ ($\beta_a$ fixiert alle Orakelfragen). Insbesondere gilt $|\dom(\beta_a)|\leq p_i(p_r(n))$ und $\max(\dom(\beta_a)) \leq p_i(p_r(n))$.
+    Beobachte dass $\beta_a$ und $\sigma_{\{a\}}$ (und damit auch $\gamma$) kompatibel sind.
 
-    Ein kombinatorisches Standardargument zeigt dass nun zwei unterschiedliche $a,b\in \Sigma^n$ existieren mit $a\not\in Q_b$, $b\not\in Q_a$.
-    Beobachte nun dass $\sigma_{\{a,b\}}$ mit $\sigma_{\{a\}}$ auf $Q_a$ übereinstimmt und $\sigma_{\{a,b\}}$ mit $\sigma_{\{b\}}$ auf $Q_b$ übereinstimmt.
-    Beobachte nun dass jedes $C\succ\sigma_{\{a,b\}}$ mit $\sigma_{\{a\}}$ auf $Q_a$ übereinstimmt und dieses $C$ auch mit $\sigma_{\{b\}}$ auf $Q_b$ übereinstimmt.
+    Ein kombinatorisches Standardargument zeigt dass nun zwei unterschiedliche $a,b\in \Sigma^n$ existieren mit $a\not\in \dom(\beta_b)$, $b\not\in \dom(\beta_a)$. Fixiere diese zwei $a,b$.
+    %Definiere nun die Bedingung $\tau=\gamma\cup\beta_a\cup\beta_b$.
+    %Diese ist wohldefiniert denn alle drei Bedingungen $\gamma, \beta_a, \beta_b$ sind paarweise kompatibel:
+    %$\gamma$ und $\beta_a$ bzw. $\beta_b$ sind kompatibel nach obiger Beobachtung. Die Bedingungen $\beta_a$ und $\beta_b$ sind kompatibel, denn angenommen es existiert ein $z$ mit $\beta_a(z)\neq\beta_b(z)$. 
+    %Wir haben dass $\beta_a$ mit $\sigma_{\{a\}}$ kompatibel ist und dass $\beta_b$ mit $\sigma_{\{b\}}$ kompatibel ist.
+    %Also  ohne Beschränkung
+    %\[ 0=\beta_a(z)=\sigma_{\{a\}}(z)\neq \sigma_{\{b\}}(z)=\beta_b(z)=1. \]
+    %Dann muss aber $z=b$; Widerspruch zur Wahl von $\beta_a$ mit $b\not\in\dom(\beta_a)$.
+    Wir zeigen nun dass $\sigma_{\{a,b\}} \succeq \beta_a$ und $\sigma_{\{a,b\}} \succeq \beta_b$.
+    Angenommen, ohne Beschränkung, $\sigma_{\{a,b\}} \not\succeq \beta_a$.
+    Wir haben \[ \dom(\beta_a)\subseteq 2^{p_i(p_r(n))} =\dom(\sigma_{\{a,b\}})=\dom(\sigma_{\{a\}}) \]
+    und erinnern uns dass $\beta_a$ und $\dom(\sigma_{\{a\}})$ kompatibel sind.
+    Wenn also nach Annahme $\sigma_{\{a,b\}} \not\succeq \beta_a$ dann existiert ein $z\in\dom(\beta_a), |z|\leq p_i(p_r(n))$ mit
+    \[ \sigma_{\{a\}}(z)=\beta_a(z)\neq \sigma_{\{a,b\}}(z). \]
+    Aus Definition folgt $z=b$ (denn $\sigma_{\{a\}}(z)$ und $\sigma_{\{a,b\}}(z)$ stimmen nur auf $b$ nicht überein)
+    aber es gilt $b\not\in\dom(\beta_a)$; Widerspruch.
+
+    Auf gleiche Weise sehen wir $\sigma_{\{a,b\}} \succeq \beta_b$.
+    Damit gilt 
+    \[ (\forall C\succ \sigma_{\{a,b\}}).\, N^C_i(T^C_r(0^n))=1 \]
+    und es existieren zwei Rechenwege, je eine mit Orakelfragen $\dom(\beta_a)$ und eine mit Orakelfragen $\dom(\beta_b)$.
+    Diese zwei Rechenwege sind nicht gleich, denn es gilt $a\in\dom(\beta_a)$ aber (nach Wahl) $a\not\in\dom(\beta_b)$: um ersteres zu zeigen nimm an dass auch $a\not\in\dom(\beta_a)$.
+    %Wir können ausschließen dass $z\in\dom(\gamma)$ oder $|z|\neq n$.
+    Dann aber ist $\beta_a$ kompatibel mit $\sigma_\emptyset$ (denn $\beta_a$ ist kompatibel mit $\sigma_{\{a\}}$ was bis auf $a$ kompatibel ist mit $\sigma_\emptyset$).
+
 \end{proof}
 
 
