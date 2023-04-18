@@ -1882,7 +1882,7 @@ Dann sind wir auch schon fertig:
 \begin{proof}
     Sei $G$ ein beliebiges $\mathbf{UPC}$-generisches Orakel.
     Angenommen es existiert eine vollständige Menge für $\UP^G$, welche durch $N^G_i$ entschieden wird.
-    Insbesondere ist $N^G_i$ eindeutig akzeptierend.
+    Insbesondere ist $N^G_i$ eindeutig.
 
     Wir haben $L_i(G)\not\leqmpp L(N^G_i)$; wir zielen auf einen Widerspruch und nehmen an, es existiert eine Reduktionsfunktion $T_r^G$.
     %Wir zeigen dass entweder $N^G_i$ nicht eindeutig akzpetiert, oder $L_i(G)\in\UP^G$ und $L_i(G)\not\leqmpp 
@@ -1890,18 +1890,18 @@ Dann sind wir auch schon fertig:
     Nach Korollar 9 gilt also insbesondere für unser $G\succ\epsilon$ dass $\omega[G] \vDash \phi_{i, r}$.
     Da nach Annahme aber $\omega[G] \not\vDash \neg\text{„$N_i^X$ ist eindeutig“}$ haben wir
     \[ \omega[G] \vDash  \neg„L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“. \]
-    Das bedeutet aber genau dass $T^G_r$ eben nicht die Reduktion von $L_{i}(X)$ auf $L(N_i^X)$ leistet; Widerspruch wie gewünscht.
+    Das bedeutet aber genau dass $T^G_r$ eben nicht die Reduktion von $L_{i}(G)$ auf $L(N_i^G)$ leistet; Widerspruch wie gewünscht.
     %Insbesondere bedeutet
 
     Wir zeigen nun dass $L_i(G)\in\UP^G$. Dann sind wir auch schon fertig, denn dann ist $L(N_i^X)$ nicht vollständig.
-    Angenommen $L_i(G)\not\in\UP^G$. Dann existiert ein $n\in H_i$ und zwei verschiedene $a,b\in\Sigma^n$ mit $a,b\in G$.
+    Angenommen $L_i(G)\noG\in\UP^G$. Dann existiert ein $n\in H_i$ und zwei verschiedene $a,b\in\Sigma^n$ mit $a,b\in G$.
     Nach Definition~5(3) existiert ein $\sigma\in\mathbf{UPC}$ mit $G\succ \sigma$ und $a,b\in\dom(\sigma)$.
     %Nach Definition~5(1) existiert dann sogar ein $\tau\in\mathbf{UPC}$ mit $\gamma\cup\sigma\succeq \tau\succ G$.
     %Insbesondere $a,b\in\dom(\tau)$.
     Insbesondere gilt $\sigma(a)=\sigma(b)=1$ (ansonsten $G\not\succ\sigma$).
     Also gilt nach Definition [UPC](3) dass eine Eingabe $z$ existiert sodass $N_i^\sigma(z)$ auf zwei Rechenwegen akzeptiert. 
     Also gilt auch für $G\succ\sigma$ dass $N_i^G(z)$ auf zwei Rechenwegen akzeptiert.
-    Dann ist aber $N_i$ relativ zu $G$ nicht mehr eindeutig akzeptierend; Widerspruch zur Wahl von $N_i$.
+    Dann ist aber $N_i$ relativ zu $G$ nicht mehr eindeutig; Widerspruch zur Wahl von $N_i$.
 \end{proof}
 
 Wir zeigen nun wie angekündigt die Dichtheit:
@@ -1942,13 +1942,21 @@ Wir zeigen nun wie angekündigt die Dichtheit:
 
     Nach Annahme und Lemma 8 existiert ein $A\succ\sigma_\emptyset\succeq \gamma$ mit $\omega[A] \vDash „L_{i}(X)\leqmpp L(N_i^X)\text{ via }T^X_r“$.
     Da $0^n\not\in L_i(A)$ gilt also $N^A_i(T_r^A(0^n))=0$.
-    Also existiert ein kleinstes $\alpha\prec A$ sodass auch $N^\alpha_i(T_r^\alpha(0^n))=0$ definiert (fixiere die Orakelfragen); in anderen Worten, $N^B_i(T_r^B(0^n))=0$ für alle $B\succ\alpha$.
+    Also existiert ein kleinstes $\alpha\prec A$ sodass auch $N^\alpha_i(T_r^\alpha(0^n))=0$ definiert (fixiere die Orakelfragen); in anderen Worten
+    \begin{equation}
+        N^B_i(T_r^B(0^n))=0 \text{ für alle }B\succ\alpha.
+    \end{equation}
     Beobachte dass $\alpha$ und $\sigma_\emptyset$ (und damit auch $\gamma$) kompatibel sind.
+    Insbesondere gilt $\max(\dom(\alpha))\leq p_i(p_r(n))$ und damit $\dom(\alpha)\subseteq 2^{p_i(p_r(n))}=\dom(\sigma_\emptyset)$ also auch $\alpha\preceq \sigma_\emptyset$.
 
-    Auf gleiche Weise sehen wir, für je ein $a\in\Sigma^n$, ein kleinstes $\beta_a$ existiert sodass $N_i(T_r(0^n))=1$ relativ zu $\beta_a$ ($\beta_a$ fixiert alle Orakelfragen). Insbesondere gilt $|\dom(\beta_a)|\leq p_i(p_r(n))$ und $\max(\dom(\beta_a)) \leq p_i(p_r(n))$.
-    Beobachte dass $\beta_a$ und $\sigma_{\{a\}}$ (und damit auch $\gamma$) kompatibel sind.
+    Auf gleiche Weise sehen wir, für je ein $a\in\Sigma^n$, ein kleinstes $\beta_a$ existiert sodass $N_i(T_r(0^n))=1$ relativ zu $\beta_a$ ($\beta_a$ fixiert alle Orakelfragen), also wieder
+    \begin{equation}
+        N^B_i(T_r^B(0^n))=1 \text{ für alle }B\succ\beta_a.
+    \end{equation}
+    %Beobachte dass $\beta_a$ und $\sigma_{\{a\}}$ (und damit auch $\gamma$) kompatibel sind.
+    Wieder gilt $\dom(\beta_a)\subseteq 2^{p_i(p_r(n))}$, und $\alpha\preceq \sigma_{\{a\}}$ und sogar $|\dom(\beta_a)|\leq p_i(p_r(n))$.
 
-    Ein kombinatorisches Standardargument zeigt dass nun zwei unterschiedliche $a,b\in \Sigma^n$ existieren mit $a\not\in \dom(\beta_b)$, $b\not\in \dom(\beta_a)$. Fixiere diese zwei $a,b$.
+    Ein kombinatorisches Standardargument zeigt aus Leterem dass nun zwei unterschiedliche $a,b\in \Sigma^n$ existieren mit $a\not\in \dom(\beta_b)$, $b\not\in \dom(\beta_a)$. Fixiere diese zwei $a,b$.
     %Definiere nun die Bedingung $\tau=\gamma\cup\beta_a\cup\beta_b$.
     %Diese ist wohldefiniert denn alle drei Bedingungen $\gamma, \beta_a, \beta_b$ sind paarweise kompatibel:
     %$\gamma$ und $\beta_a$ bzw. $\beta_b$ sind kompatibel nach obiger Beobachtung. Die Bedingungen $\beta_a$ und $\beta_b$ sind kompatibel, denn angenommen es existiert ein $z$ mit $\beta_a(z)\neq\beta_b(z)$. 
@@ -1957,25 +1965,44 @@ Wir zeigen nun wie angekündigt die Dichtheit:
     %\[ 0=\beta_a(z)=\sigma_{\{a\}}(z)\neq \sigma_{\{b\}}(z)=\beta_b(z)=1. \]
     %Dann muss aber $z=b$; Widerspruch zur Wahl von $\beta_a$ mit $b\not\in\dom(\beta_a)$.
     Wir zeigen nun dass $\sigma_{\{a,b\}} \succeq \beta_a$ und $\sigma_{\{a,b\}} \succeq \beta_b$.
-    Angenommen, ohne Beschränkung, $\sigma_{\{a,b\}} \not\succeq \beta_a$.
-    Wir haben \[ \dom(\beta_a)\subseteq 2^{p_i(p_r(n))} =\dom(\sigma_{\{a,b\}})=\dom(\sigma_{\{a\}}) \]
-    und erinnern uns dass $\beta_a$ und $\dom(\sigma_{\{a\}})$ kompatibel sind.
-    Wenn also nach Annahme $\sigma_{\{a,b\}} \not\succeq \beta_a$ dann existiert ein $z\in\dom(\beta_a), |z|\leq p_i(p_r(n))$ mit
-    \[ \sigma_{\{a\}}(z)=\beta_a(z)\neq \sigma_{\{a,b\}}(z). \]
-    Aus Definition folgt $z=b$ (denn $\sigma_{\{a\}}(z)$ und $\sigma_{\{a,b\}}(z)$ stimmen nur auf $b$ nicht überein)
-    aber es gilt $b\not\in\dom(\beta_a)$; Widerspruch.
+    %Angenommen, ohne Beschränkung, $\sigma_{\{a,b\}} \not\succeq \beta_a$.
+    %Wir haben \[ \dom(\beta_a)\subseteq 2^{p_i(p_r(n))} =\dom(\sigma_{\{a,b\}})=\dom(\sigma_{\{a\}}) \]
+    %und erinnern uns dass $\beta_a$ und $\sigma_{\{a\}}$ kompatibel sind.
+    %Wenn also nach Annahme $\sigma_{\{a,b\}} \not\succeq \beta_a$ dann existiert ein $z\in\dom(\beta_a)$ mit
+    %\[ \sigma_{\{a\}}(z)=\beta_a(z)\neq \sigma_{\{a,b\}}(z). \]
+    %Aus Definition folgt $z=b$ (denn $\sigma_{\{a\}}(z)$ und $\sigma_{\{a,b\}}(z)$ stimmen nur auf $b$ nicht überein)
+    %aber es gilt $b\not\in\dom(\beta_a)$; Widerspruch.
+    Für ersteres erinnern wir uns daran dass $\beta_a\preceq\sigma_{\{a\}}$, sowie
+    \[ \dom(\beta_a)\subseteq \dom(\sigma_{\{a\}})=\dom(\sigma_{\{a,b\}}). \]
+    Dass $\sigma_{\{a,b\}}$ also den Definitionsbereich von $\beta_a$ erweitert haben wir damit also gezeigt. Wir müssen nun noch zeigen, dass für $z\in\dom(\beta_a)$ die Funktionen $\beta_a$ und $\sigma_{\{a,b\}}$ gleiche Bilder haben: wir haben
+    \[ \beta_a(z)=\sigma_{\{a\}}(z)=\sigma_{\{a,b\}}(z), \]
+    erste Gleichung Kompatiblität, zweite Gleichung klar aus Definition da $z\neq b$ nach Wahl von $z\in\dom(\beta_a)$ und Wahl von $\beta_a$ mit $b\not\in \beta_a$.
+    Zweite Aussage $\sigma_{\{a,b\}} \succeq \beta_b$ geht analog.
 
     Auf gleiche Weise sehen wir $\sigma_{\{a,b\}} \succeq \beta_b$.
-    Damit gilt 
-    \[ (\forall C\succ \sigma_{\{a,b\}}).\, N^C_i(T^C_r(0^n))=1 \]
-    und es existieren zwei Rechenwege, je eine mit Orakelfragen $\dom(\beta_a)$ und eine mit Orakelfragen $\dom(\beta_b)$.
-    Diese zwei Rechenwege sind nicht gleich, denn es gilt $a\in\dom(\beta_a)$ aber (nach Wahl) $a\not\in\dom(\beta_b)$: um ersteres zu zeigen nimm an dass auch $a\not\in\dom(\beta_a)$.
-    %Wir können ausschließen dass $z\in\dom(\gamma)$ oder $|z|\neq n$.
-    Dann aber ist $\beta_a$ kompatibel mit $\sigma_\emptyset$ (denn $\beta_a$ ist kompatibel mit $\sigma_{\{a\}}$ was bis auf $a$ kompatibel ist mit $\sigma_\emptyset$).
+    Damit gilt für alle $C\succ \sigma_{\{a,b\}}$ dass $N^C_i(T^C_r(0^n))=1$,
+    und es existieren auf dieser Rechnung zwei akzeptierende Rechenwege, je eine mit Orakelfragen $\dom(\beta_a)$ und eine mit Orakelfragen $\dom(\beta_b)$. Wir zeigen gleich dass diese zwei Rechenwege nicht gleich sind. Damit haben wir dann 
+    \[ (\forall C\succ \sigma_{\{a,b\}}).\,\omega[C]\not\vDash\text{„$N_i^X$ ist eindeutig“}, \]
+    (der implizite $\forall$-Quantor nicht erfüllt für Eingabe $y=T_r^X(0^n)$)
+    nach Korollar 9 also
+    \[ \sigma_{\{a,b\}}) \Vdash\neg\text{„$N_i^X$ ist eindeutig“} \]
+    und damit ist mit $\tau=\sigma_{\{a,b\}}$ auch $\tau\Vdash \phi_{i,r}$ wie gewünscht.
 
+    Wir zeigen nun dass (für jedes $C$) die beiden oberen Rechenwege nicht gleich sind. 
+    Wir erreichen das, in dem wir $a\in\dom(\beta_a)$ zeigen, denn nach Wahl gilt $a\not\in\dom(\beta_b)$ und die zwei Rechenwege stellen unterscheidliche Orakelfragen.
+
+    Um ersteres nun zu zeigen nimm an dass auch $a\not\in\dom(\beta_a)$.
+    Unter dieser Annahme sind $\beta_a$ und $\alpha$ kompatibel:
+    Wir erinnern uns dass 
+    \[ \alpha\preceq\sigma_\emptyset, \quad \beta_a\preceq\sigma_{\{a\}}. \]
+    Sei $z\in\dom(\alpha)\cap\dom(\beta_a)$. Es gilt insbesondere $z\neq a$ und damit
+    \[ \alpha(z)=\sigma_\emptyset(z)=\sigma_{\{a\}}=\beta_a(z), \]
+    wobei zweite Gleichung klar aus Definition von $\sigma$ da $z\neq a$.
+    Wähle nun ein beliebiges Orakel $B\succ\alpha\cup\beta_a$.
+    Wir haben nun 
+    \[ N_i^B(T_r^B(0^n))=0 \text{ nach (1), und } N_i^B(T_r^B(0^n))=1 \text{ nach (2).} \]
+    Widerspruch, also gilt $a\not\in\dom(\beta_a)$ und die obigen zwei Rechenwege können nicht gleich sein, wie gewünscht.
 \end{proof}
-
-
 
 
 \end{document}
