@@ -989,9 +989,9 @@ Damit nimmt auch $|P_a^{*\mathrm{all}}\cap \Sigma^{e(i)}-(W\cup W')|$ um $\geq 1
 \section{Generische Orakelkonstruktionen}
 \refsection
 
-Generische Orakel geben uns ein alternatives Framework, um unsere Orakelkonstruktionen zu beschreiben. Wie die sonst von Christian, Titus, Fabian, \dots{} konstruierten Orakel setzen generische Orakel eine Form von „existentiell quantifizierter Erweiterung“ um (etwa: „existiert eine endliche Erweiterung dass die Maschine $M$ die Eigenschaft $X$ nicht erfüllt, erweitere genau so, ansonsten gilt für alle Erweiterungen $\neg X$ und hieraus ergibt sich die Möglichkeit, Eigenschaft $Y$ zu erhalten“).
+Generische Orakel geben uns ein alternatives Framework, um unsere Orakelkonstruktionen zu beschreiben. Wie die sonst von Christian, Titus, Fabian, \dots{} (erstmal bei \cite{dose_np-completeness_2019}?) konstruierten Orakel setzen generische Orakel eine Form von „existentiell quantifizierter Erweiterung“ um (etwa: „existiert eine endliche Erweiterung dass die Maschine $M$ die Eigenschaft $X$ nicht erfüllt, erweitere genau so, ansonsten gilt für alle Erweiterungen $\neg X$ und hieraus ergibt sich die Möglichkeit, Eigenschaft $Y$ zu erhalten“).
 Hinzu kommt, dass es oft möglich ist zu zeigen, dass eine bestimmte Eigenschaft (bspw. Kollaps oder Trennung von Klassen) relativ zu \emph{jedem} generischen Orakel gilt. Das macht es einfacher, Orakel zu konstruieren, die mehrere Eigenschaften auf einmal erfüllen.
-Hinzu kommt, dass -- im Gegensatz zur sonst bei uns üblichen Konstruktion  -- die generischen Orakelkonstruktionen die eigentliche \emph{Konstruktion} im Beweis abstrahieren; die Beweise der Teilaussagen erfolgen ohne Mitdenken der sonst üblichen „zeitlichen Dimension“ einer stufenweisen Konstruktion.
+Hinzu kommt, dass -- im Gegensatz zur sonst bei uns üblichen Konstruktion  -- die generischen Orakelkonstruktionen die eigentliche \emph{Konstruktion} im Beweis abstrahieren; die Beweise der Teilaussagen erfolgen ohne Mitdenken der sonst üblichen „zeitlichen Dimension“ einer stufenweisen Konstruktion. Auch fällt das „Buchhalten“ über die sonst übliche Funktion $t$ weg, welche bei der Definition der $t$-Validität beteiligt war. Die generischen Konstruktionen sind sozusagen gedächtnislos.
 
 Wir bauen hier auf Beschreibungen von \textcite{fortnow_complexity_2011} auf. Diese vereinfachen ein allgemeineres Framework der Generizität von \textcite{fenner_oracle_2003}, auf welches im Folgenden auch Bezug genommen wird.
 Zur generellen Idee:
@@ -1000,8 +1000,8 @@ Zur generellen Idee:
 Many oracle constructions proceed by finite extensions: at each stage of the construction, some requirement is to be satisfied (e.g. “the $i$-th polynomial-time machine does not accept some fixed relativizable language $L(O)$”), and we satisfy it by specifying the oracle on finitely many more strings, leaving those strings we have previously specified untouched. In this paper, a generic oracle is one built by finite extensions which also satisfies Murphy’s law: “anything which can happen will happen”. More prosaically, a generic oracle is built by interleaving all finite extension arguments that are “interleavable”.
 \end{foreigndisplaycquote}
 
-Das werden wir im Folgenden spezifizieren. Paralle hierzu erarbeiten wir exemplarisch das klassische Resultat $\P\neq\NP$ relativ zu einem (generischen) Orakel \parencite{baker_relativizations_1975}.
-Besonders berücksichtig wurde, dass die Erarbeitung der Ergebnisse zu generischen Orakel ohne größeres Vorwissen erfolgt, und insbesondere sind alle Beweise frei von Topologie.
+Das werden wir im Folgenden spezifizieren. Parallel hierzu erarbeiten wir exemplarisch das klassische Resultat $\P\neq\NP$ relativ zu einem (generischen) Orakel \parencite{baker_relativizations_1975}.
+Besonders berücksichtigt wurde, dass die Erarbeitung der Ergebnisse zu generischen Orakel ohne größeres Vorwissen erfolgt, und insbesondere sind alle Beweise frei von Topologie.
 Wie üblich identifizieren wir Wörter aus $\Sigma^*$ mit Zahlen aus $\omega$ und andersherum.
 Orakel/Mengen beschreiben wir wie üblich auch mittels ihrer (totalen) charakteristischen Funktion $\omega\to\{0,1\}$.
 
@@ -1048,7 +1048,7 @@ Wir wollen, dass das abschließend konstruierte generische Orakel $G$ alle für 
 Sei für die BGS-Konstruktion z.B.
 \[ A_i : (\exists n)[M^X_i(0^n)=0 \leftrightarrow (\exists x)[|x|=n\land X(x)]] \]
 eine Familie an Sätzen aus $\phi\in\mathrm{sent}(\mathcal L_{\mathrm{PA}}[X])$. (Nur) in diesem Kontext meinen wir mit $\{M_i\}_{i\in\omega}$ eine vollständige Aufzählung der deterministischen Polymomialzeit-Orakel-Turing-Maschinen.
-Wir wünschen uns nun vom enstprechenden generischen Orakel $G$, dass 
+Wir wünschen uns nun vom entsprechenden generischen Orakel $G$, dass 
 \[ \omega[G] \vDash A_i \text{ für alle $i\in\omega$} \]
 denn dann folgt
 \[ \omega[G] \not\vDash „\P^X=\NP^X“, \]
@@ -1078,7 +1078,13 @@ Es ergeben sich schon aus dieser Definition drei kleine Beobachtungen, welche Fo
     \end{thmenum}
 \end{observation}
 \begin{proof}
-    Jeweils Induktion über Formeln.
+    Jeweils Induktion über Formeln. 
+    %(i) und (iii) sind routinierte Anwendung der Definitionen.
+    %Bei (ii) ist nur die Negationsklausel etwas schwieriger. Sei $(\forall A\succ\gamma).\omega[A] \vDash\neg\phi$, und sei $\tau\succeq\gamma$. Wir haben
+    %\[ (\forall A\succ\tau\succeq\gamma).\omega[A]\not\vDash\phi \implies \neg[(\exists A\succ\tau).\omega[A]\vDash\phi], \]
+    %ja sogar 
+    %\[ \implies \neg[(\forall A\succ\tau).\omega[A]\vDash\phi] \implies \neg[\tau\Vdash\phi], \]
+    %wobei letzte Implikation Induktionsannahme. Also haben wir für alle $\tau\succeq\gamma$ die Aussage $\tau\not\Vdash\phi$, und $\gamma\Vdash \neg\phi$ wie gewünscht.
 \end{proof}
 
 \begin{definition}
@@ -1166,20 +1172,20 @@ Nach der Definition müssen wir noch eine Verbindung zwischen Erzwingen und Wahr
                                      &\implies (\forall \gamma', \gamma'\prec G).\,\gamma'\not\Vdash \phi\\
                                      &\implies G\not\Vdash\phi \implies \omega[G]\not\Vdash \phi.
             \end{align*}
-            Um die zweite Implikation zu sehen, nimm ann dass eine $\mathcal G$-Bedingung $\gamma'\prec G$ existiert mit $\gamma'\Vdash\phi$.
+            Um die zweite Implikation zu sehen, nimm an dass eine $\mathcal G$-Bedingung $\gamma'\prec G$ existiert mit $\gamma'\Vdash\phi$.
             %Dann gilt $\gamma, \gamma'\prec G$ und nach Definition 4(1) existiert eine $\mathcal G$-Bedingung $\tau$ mit $\gamma\cup\gamma'\preceq\tau\prec G$.
             Dann gilt $\gamma, \gamma'\prec G$ und die $\mathcal G$-Bedingungen $\gamma, \gamma'$ sind konsistent.
             Nach Definition \ref{def:generizität-grundlegend} ist also $\tau=\gamma\cup \gamma'$ ist auch eine $\mathcal G$-Bedingung und es gilt sogar $\tau\prec G$.
             Da $\tau\succeq\gamma'$ und $\gamma'\Vdash\phi$ haben wir nach Beobachtung \ref{obs:forcing-extension} auch $\tau\Vdash\phi$.
-            Genauso haben wir dann aber auch $\tau\succeq\gamma$ und damit $\tau\Vdash \neg\phi$. Aus Letzterm folgt insbesondere $\tau\not\Vdash\phi$; Widerspruch zu Ersterem. Letzte Implikation ist Induktionsannahme. \qedhere
+            Genauso haben wir dann aber auch $\tau\succeq\gamma$ und damit $\tau\Vdash \neg\phi$. Aus Letzterem folgt insbesondere $\tau\not\Vdash\phi$; Widerspruch zu Ersterem. Letzte Implikation ist Induktionsannahme. \qedhere
     \end{itemize}
 \end{proof}
 
-Die bisherigen Ergebnisse sind in dieser Form nicht sonderlich nützlich. (Wir wissen erstmal nur dass $G\Vdash \phi\lor\neg\phi$, also nach vorigem Satz $\omega[G] \vDash \phi\lor\neg\phi$ -- eine Trivialität.)
+Die bisherigen Ergebnisse sind in dieser Form nicht sonderlich nützlich. (Wir wissen erst mal nur dass $G\Vdash \phi\lor\neg\phi$, also nach vorigem Satz $\omega[G] \vDash \phi\lor\neg\phi$ -- eine Trivialität.)
 Es ist erst mal unklar, ob für gegebenen Satz $\phi$ die Konstruktion $G\Vdash \phi$ oder $G\Vdash\neg\phi$ erzwungen hat, also für welchen Satz $\phi$ der gewählte Begriff der Generizität „stark genug“ war, um $\phi$ zu erzwingen.  Konkret für die BGS-Konstruktion: haben wir $G\Vdash A_i$ für alle $i\in\omega$?
 
 Wir könnten jetzt die Konstruktion aus Satz \ref{lemma:generics-existieren} präzisieren. (Beim genauen Beobachten stellen wir z.B. fest dass $\gamma_i\Vdash\phi_i$ genau dann wenn wir die vorhergehende Bedingung $\gamma_{i-1}$ entsprechend so erweitern konnten um $\phi_i$ zu erzwingen.)
-Stattdessen können wir aber auch auf Eigenschaften unserer bisherigen Definitionen aufbauen, um folgende „extensionale“ Charakterisierung zu formuieren, für welche Sätze $\phi$ auch $G\Vdash \phi$ (und damit $\omega[G]\vDash\phi$) gilt. Damit abstrahieren wir von der konkreten Konstruktion.
+Stattdessen können wir aber auch auf Eigenschaften unserer bisherigen Definitionen aufbauen, um folgende „extensionale“ Charakterisierung zu formulieren, für welche Sätze $\phi$ auch $G\Vdash \phi$ (und damit $\omega[G]\vDash\phi$) gilt. Damit abstrahieren wir von der konkreten Konstruktion.
 %Hierzu konkretisieren wir auch die f
 %Wir werden sehen dass für $G\Vdash\phi$ es ausreicht zu zeigen, dass die Menge $\{\gamma\in\mathcal G\mid \gamma\Vdash\phi \}$ der $\phi$ erzwingenden $\mathcal G$-Bedingungen \emph{dicht in} unserem Begriff der Generizität $\mathcal G$ ist -- das ist die formale Umsetzung von „stark genug um $\phi$ zu erzwingen“.
 
@@ -1187,7 +1193,7 @@ Stattdessen können wir aber auch auf Eigenschaften unserer bisherigen Definitio
 \begin{lemma}\label{lemma:single-negation-contradicts}
     Für alle $\gamma\in\mathcal G$ und alle $\phi\in \mathrm{sent}(\mathcal L_{\mathrm{PA}}[X])$ gilt:
     \[ \gamma\Vdash\neg\phi \iff (\forall\text{$\mathcal G$-generischen $G\succ\gamma$}).\, \omega[G]\not\vDash \phi. \]
-    In anderen Worten: $\gamma\Vdash\neg\phi$ genau dann wenn $\phi$ unter allen generischen Erweiterungenen von $\gamma$ als falsch interpretiert wird.
+    In anderen Worten: $\gamma\Vdash\neg\phi$ genau dann wenn $\phi$ unter allen generischen Erweiterungen von $\gamma$ als falsch interpretiert wird.
 \end{lemma}
 \begin{proof}
     Sei $\gamma\Vdash\neg\phi$. Das bedeutet dass für alle $\mathcal G$-Bedingungen $\tau$ mit $\tau\succeq\gamma$ auch $\tau\not\Vdash \phi$ gilt.
@@ -1277,7 +1283,7 @@ Die oben beschriebenen Definitionen und Ergebnisse bezüglich Forcing können ei
 Insbesondere überträgt sich das Hauptresultat vom vorigen Abschnitt: Ist $\mathcal G$ stark genug um den Satz $\phi\in \mathrm{sent}(\mathcal L_{\mathrm{PA}}[B,X])$ zu erzwingen, dann ist $\omega^B[G]\vDash \phi$ für alle $\mathcal G$-generischen Mengen $G$ (welche auch existieren).
 
 Alle folgenden Orakelkonstruktionen und Resultate, sowie die vorige BGS-Konstruktion, relativieren auf ein beliebiges zweites $B\subseteq\omega$.
-Mit dieser Erkenntnis lassen sich leichter komplexere Orakelkonstruktionen definieren, welche im Wesentlichen durch Kombination mehrerer Orakel entstehen. Ein Beispiel ist hier die klassische Konstruktion von \citeauthor{baker_relativizations_1975} eines Orakels relativ zu dem $\P=\NP\cap\coNP\neq\NP$: hierbei wird ein PSPACE-vollständiges Orakel $B$ und ein zweites Orakel $A$ kombiniert; in der Originalfassung zu $A\cup B$. (Das Orakel $A$ trennt $\P$ von $\NP$, ist aer so „einfach“ dass ein Maschinenpaar aus $\NP\cap\coNP$ eine relevante Portion von $A$ entscheiden kann und dann mittels PSPACE-vollständigem $B$ abfragen kann, ob entsprechende Eingabe akzeptiert wird.) Wir werden im Folgenden etwas Ähnliches mittels \emph{Rerelativierungen} umsetzen.
+Mit dieser Erkenntnis lassen sich leichter komplexere Orakelkonstruktionen definieren, welche im Wesentlichen durch Kombination mehrerer Orakel entstehen. Ein Beispiel ist hier die klassische Konstruktion von \citeauthor{baker_relativizations_1975} eines Orakels relativ zu dem $\P=\NP\cap\coNP\neq\NP$: hierbei wird ein PSPACE-vollständiges Orakel $B$ und ein zweites Orakel $A$ kombiniert; in der Originalfassung zu $A\cup B$. (Das Orakel $A$ trennt $\P$ von $\NP$, ist aber so „einfach“ dass ein Maschinenpaar aus $\NP\cap\coNP$ eine relevante Portion von $A$ entscheiden kann und dann mittels PSPACE-vollständigem $B$ abfragen kann, ob entsprechende Eingabe akzeptiert wird.) Wir werden im Folgenden etwas Ähnliches mittels \emph{Relelativierungen} umsetzen.
 
 Wir erweitern die Definition einer Orakel-Turing-Maschine $M^A$ auf eine \emph{2-Orakel-Turing-Maschine} $M^{A,B}$, welche anstelle eines Fragezustands einen zusätzlichen zweiten ausgezeichneten Fragezustand bekommt. (Erster Fragezustand fragt $q\in A$ ab, zweiter fragt $q\in B$ ab.)
 Aussagen können also nicht nur auf \emph{ein} Orakel $A$ relativiert werden, sondern auch auf \emph{zwei} Orakel $(A,B)$.
@@ -1293,7 +1299,7 @@ Eine auf zwei Orakel relativierte Klasse, wie z.B. $\UP^{A,B}$, kann nun mittels
 \[ A\oplus B = \{0x\mid x\in A\}\cup\{1x\mid x\in B\} \] 
 auch mittels \emph{einem} kombinierten Orakel $A\oplus B$ erfasst werden. Wir haben z.B.
 \[ \UP^{A,B} = \UP^{A\oplus B}, \]
-da jede „unambigous“ 2-Orakel-Turing-Maschien relativ zu $(A,B)$ durch eine „unambigous“ 1-Orakel-Turing-Maschine relativ zu $A\oplus B$ effektiv simuliert werden kann, und umgekehrt.
+da jede „unambigous“ 2-Orakel-Turing-Maschinen relativ zu $(A,B)$ durch eine „unambigous“ 1-Orakel-Turing-Maschine relativ zu $A\oplus B$ effektiv simuliert werden kann, und umgekehrt.
 In unserem Beispiel hatten wir dass $\UP^{A,B}$ keine vollständige Menge hat, also hat auch $\UP^{A\oplus B}$ keine vollständige Menge.
 
 
@@ -1306,17 +1312,17 @@ In unserem Beispiel hatten wir dass $\UP^{A,B}$ keine vollständige Menge hat, a
 
 In diesem Abschnitt wollen wir das Orakel $O_1$ mit dem bisher präsentierten Framework rekonstruieren, und zeigen dass relativ zu einem generischen Orakel (bezüglich einem Begriff von Generizität welcher im Folgenden definiert wird) keine Menge vollständig für $\UP$ ist, und die Aussage $Q$ gilt. Zur Erinnerung: $Q$ sagt aus dass für alle (Poly-)Maschinen $M$ mit $L(M)=\Sigma^*$ eine Funktion $g\in\FP$ existiert sodass $g(x)$ ein akzeptierender Rechenweg von $M(x)$ ist.
 In diesem Kontext meinen wir mit $\{M_i\}_{i\in\omega}$ eine vollständige Aufzählung der nichtdeterministischen Polymomialzeit-Orakel-Turing-Maschinen.
-Wir nenne eine Berechnung $M_i^\sigma(x)$ \emph{relativ zu einer Bedingung $\sigma$ definiert}, wenn $M_i$ auf eingabe $x$ hält, hierbei sämtliche Orakelfragen in $\dom(\sigma)$ liegen und dabei entsprechend $\sigma$ beantwortet werden.
-Entsprechend können wir Aussagen wie „$M_i^\sigma(x)$ akzeptiert auf zwei Rechenwegen“ formuieren.
+Wir nenne eine Berechnung $M_i^\sigma(x)$ \emph{relativ zu einer Bedingung $\sigma$ definiert}, wenn $M_i$ auf Eingabe $x$ hält, hierbei sämtliche Orakelfragen in $\dom(\sigma)$ liegen und dabei entsprechend $\sigma$ beantwortet werden.
+Entsprechend können wir Aussagen wie „$M_i^\sigma(x)$ akzeptiert auf zwei Rechenwegen“ formulieren.
 Klar ist, dass sich solche Aussagen relativ zu $\sigma$ auf Orakel $A\succ \sigma$ übertragen, d.h. wir hätten z.B. aus obiger aussage dass auch $M_i^A(x)$ auf zwei Rechenwegen akzeptiert, für alle $A\succ\sigma$, und zwar immer mit den gleichen Orakelfragen $Q\subseteq \dom(\sigma)$.
 
 In der klassischen Konstruktion haben wir mit einem PSPACE-vollständigen Orakel $A$ gestartet, dieses mit weiteren Wörtern $B$ augmentiert, sodass relativ zu $A\cup B$ einerseits $\hUP$, andererseits war $B$ so einfach, dass eine totale Maschine $M$ relevante Portionen von $B$ rekonstruieren kann. Dann kann mit dem PSPACE-vollständigen $A$ auch ein akzeptierender Rechenweg von $M(x)$ bestimmt werden.
 
 Definiere die Funktion $\tower$ mit \[ \tower(0)=2, \quad \tower(k+1)=2^{2^{\tower(k)}}. \]
-Definiere polynomialzeitberechenbare und -invertierbare Familie $\{H_{i}\}_{i\in\omega}$, \[ H_i\subseteq\{ \tower(k) \mid k\in\omega \}, \]wobei
+Definiere polynomialzeit-berechenbare und -invertierbare Familie $\{H_{i}\}_{i\in\omega}$, \[ H_i\subseteq\{ \tower(k) \mid k\in\omega \}, \]wobei
 alle Mengen der Familie paarweise disjunkt sind.
 %Wir nennen ein $n\in\omega$ eine \emph{Tower-Länge der Stufe $k$} wenn $\tower(k)=n$.
-Wir nenenn eine Länge $n\in\omega$ \emph{erlaubt} wenn ein $k\in\omega$ existiert mit $n=\tower(k)$, ansonsten \emph{verboten}.
+Wir nennen eine Länge $n\in\omega$ \emph{erlaubt} wenn ein $k\in\omega$ existiert mit $n=\tower(k)$, ansonsten \emph{verboten}.
 Wir nennen eine Bedingung (bzw. Menge) $\sigma\subseteq \omega$ \emph{lückenhaft} wenn $\sigma(x)=1$ impliziert dass $x$ eine erlaubte Länge hat.
 Definiere folgende Familie an Zeugensprachen $\{L_{i}(A) \}_{i,j\in\omega}$ abhängig von $A\subseteq\omega$:
 \begin{gather*}
@@ -1328,7 +1334,7 @@ Das folgende Lemma setzt den zweiten, „algorithmischen“ Teil der Orakelkonst
 
 \begin{lemma}[vgl. \cite{fortnow_separability_2002}]\label{thm:q-algorithmus}
     Angenommen $\P=\PSPACE$ und sei $S$ ein dünnes und lückenhaftes Orakel. %, d.h. $|S\cap\Sigma^n|\leq s(n)$ für ein Polynom $s$.
-    Nimm auch an dass für alle Maschinen $M_j$ und hinreichend lange $z$ gilt: wenn $M_j^G(z)$ akzeptiert, dann wird auch $M_j^T(z)$ akzeptieren, und das für jedes $T\subseteq G$ welches mit $G$ auf allen Wörtern der Länge $<\tower(k)$ übereinstimmt, wobei $k\in\omega$ maximal sodass $\tower(k)\leq p_j(|z|)$.
+    Nimm auch an dass für alle Maschinen $M_j$ mit $L(M_j^G)=\Sigma^*$ gilt: für hinreichend langes $z$ wird auch $M_j^T(z)$ akzeptieren, und das für jedes $T\subseteq G$ welches mit $G$ auf allen Wörtern der Länge $<\tower(k)$ übereinstimmt, wobei $k\in\omega$ maximal sodass $\tower(k)\leq p_j(|z|)$.
     (In anderen Worten: $G$ und $T$ stimmen bis zur (exklusive) höchsten abfragbaren Stufe erlaubter Länge überein.)
     %Ab hinreichend langen Eingaben $z$ wird auch $M_j^T(x)$ akzeptieren, wobei $T\subseteq S$ mit $S$ auf allen Wörtern der Länge $< |x|$ übereinstimmt.
     %existiert eine Länge $n$ sodass $L(M_j^T)=\Sigma^*$ für alle $T\subseteq S$ die mit $S$ auf allen Wörtern der Länge $\leq n$ übereinstimmen.
@@ -1343,12 +1349,12 @@ Das folgende Lemma setzt den zweiten, „algorithmischen“ Teil der Orakelkonst
     %Klar ist, dass $T_0$ mit $S$ auf $\Sigma^{< n}$ übereinstimmt, und nach Voraussetzung akzeptiert auch $M_j^{T_0}(x)$.
     %Es gilt sogar für alle $T$ mit $T_0\subseteq T \subseteq S$ dass $M_j^{T}(x)$ akzeptiert.
 
-    Sei $z\in\Sigma^*$ eine Eingabe, und $k\in\omega$ die wie oben spezifizierte größte Zahl sodass $\tower(k)\leq p_j(|z|)$. Wir können $k$ aus $z$ effizient (in abh. von $|z|$) berechnen und können daher ohne Beschränkung diese Zahl als dem Algorithmus gegeben ansehen.
+    Sei $z\in\Sigma^*$ eine Eingabe, und $k\in\omega$ die wie oben spezifizierte größte Zahl sodass $\tower(k)\leq p_j(|z|)$. Wir können $k$ aus $z$ effizient (in ab von $|z|$) berechnen und können daher ohne Beschränkung diese Zahl als dem Algorithmus gegeben ansehen.
     Wir werden im Folgenden nur hinreichend lange Eingaben $z$ betrachten für welche $|z|\geq n$ und 
     \[ \tower(k-1) \leq \log|z| \leq \tower(k). \]
-    Wir werden die in der Behauptung vorausgesetzten  Eigenschaft ausnutzen und und iterativ eine Menge $T\subseteq S$ an Orakelwörtern aufbauen, welche für die Berechnung $M_j^S(x)$ relevant ist, bis wir alle solche relevaten Wörter gefunden haben. Wir starten hierbei mit der Menge $T_0=\Sigma^{<\tower(k)}$. (Wir zeigen später dass diese in $\P^S$ berechnet werden kann.)
+    Wir werden die in der Behauptung vorausgesetzten  Eigenschaft ausnutzen und und iterativ eine Menge $T\subseteq S$ an Orakelwörtern aufbauen, welche für die Berechnung $M_j^S(x)$ relevant ist, bis wir alle solche relevanten Wörter gefunden haben. Wir starten hierbei mit der Menge $T_0=\Sigma^{<\tower(k)}$. (Wir zeigen später dass diese in $\P^S$ berechnet werden kann.)
 
-    Da uns $T$ vorliegt, können wir sogar diese Orakelwerte in $M_j$ hineincodieren, sodass $M_j'(x)$ äquivalent arbeitet, aber ohne Orakelfragen auskommt. Und da $\P=\PSPACE$ können wir in $\FP$ auch einen akzeptierenden Rechenweg von $M_j'(x)$ bestimmen.
+    Da uns $T$ vorliegt, können wir sogar diese Orakelwerte in $M_j$ hinein codieren, sodass $M_j'(x)$ äquivalent arbeitet, aber ohne Orakelfragen auskommt. Und da $\P=\PSPACE$ können wir in $\FP$ auch einen akzeptierenden Rechenweg von $M_j'(x)$ bestimmen.
 
     \noindent
     \SetKwFor{Loop}{repeat}{}{end}
@@ -1367,7 +1373,7 @@ Das folgende Lemma setzt den zweiten, „algorithmischen“ Teil der Orakelkonst
         }
     \end{algorithm}
 
-    Korrektheit: Es ist klar dss der in  Zeile 1 berechnete Term tatsächlich $T_0=S\cap\Sigma^{<\tower(k)}$ entspricht, da die ausreicht die erlaubten Längen abzufragen. Beobachte nun die Invariante dass $T_0\subseteq T\subseteq S$; damit existiert dann auch ein akzeptierender Rechenweg auf $M_j^{T}(x)$ nach Voraussetzung, und Zeile 4 ist wohldefiniert.
+    Korrektheit: Es ist klar dass der in  Zeile 1 berechnete Term tatsächlich $T_0=S\cap\Sigma^{<\tower(k)}$ entspricht, da die ausreicht die erlaubten Längen abzufragen. Beobachte nun die Invariante dass $T_0\subseteq T\subseteq S$; damit existiert dann auch ein akzeptierender Rechenweg auf $M_j^{T}(x)$ nach Voraussetzung, und Zeile 4 ist wohldefiniert.
 
     Terminiert nun der Algorithmus mit einem Rechenweg $\alpha$, wissen wir auch dass für alle Orakelfragen $q\in Q$ entweder $q\in T$ gilt oder $q\not\in S$ gilt.
     Damit stimmt $T$ mit $S$ auf $Q$ überein, und auch $M_j^O(x)$ akzeptiert mit Rechenweg $\alpha$.
@@ -1411,7 +1417,7 @@ Hierfür zeigen wir, dass unser Begriff der Generizität stark genug ist, um all
 Dann sind wir auch schon mit dem UP-Teil unserer Orakelkonstruktion fertig.
 Beachte wie alle folgenden Aussagen relativieren.
 
-\begin{claim}
+\begin{claim}\label{claim:upc-forcing-ausreichend}
     Angenommen $\gamma\Vdash\neg\neg  R_{i,r}$ für alle $\gamma\in\mathbf{UPC}$.
     Dann existiert keine vollständige Menge für $\UP$ relativ zu jedem $\mathbf{UPC}$-generischem Orakel $G$.
 \end{claim}
@@ -1441,12 +1447,13 @@ Beachte wie alle folgenden Aussagen relativieren.
 \end{proof}
 
 Wir zeigen nun wie angekündigt, dass unser Begriff der Generizität stark genug ist, alle $R_{i,r}$ zu erzwingen.
-\begin{claim}
+\begin{claim}\label{claim:upc-stark-genug}
     Sei $\gamma\in\mathbf{UPC}$, $i,r\in\omega$ beliebig. Es gilt $\gamma\Vdash\neg\neg   R_{i,r}$.
 \end{claim}
 \begin{proof}
     Sei $\gamma\in\mathbf{UPC}$ beliebig. Wir zeigen dass ein $\tau\in\mathbf{UPC}, \tau\succeq \gamma$ existiert mit $\tau\Vdash\phi$;
     das ist ausreichend um $\gamma\Vdash\neg\neg   R_{i,r}$ zu zeigen.
+    Im Wesentlichen implementieren wir genau die selbe Idee wie in der sonst üblichen Stufenkonstruktion: entweder es existiert eine „kompatibele“ Erweiterung $\tau\succeq \gamma$ sodass $M_i$ auf zwei Rechenwegen akeptiert. Ansonsten ist $M_i$ „inhärent UP“; gilt nun die Reduktion muss aber $M_i$ auch gleichzeitig sensitiv gegenüber jedem Wort in einer Ebene von Wörtern gleicher Länge sein. Das lässt sich ausnutzen um zu zeigen dass $M_i$ auf zwei Rechenwegen akeptieren muss, was Wahl von $M_i$ widerspricht.
 
     Wähle ein $n\in H_i$ hinreichend groß sodass $\gamma$ kein Wort der Länge $n$ definiert,
     und sodass $2^n>p_i(p_r(n))$.
@@ -1492,13 +1499,13 @@ Wir zeigen nun wie angekündigt, dass unser Begriff der Generizität stark genug
     %Beobachte dass $\beta_a$ und $\sigma_{\{a\}}$ (und damit auch $\gamma$) kompatibel sind.
     Wieder gilt $\dom(\beta_a)\subseteq 2^{p_i(p_r(n))}$, und $\alpha\preceq \sigma_{\{a\}}$ und sogar $|\dom(\beta_a)|\leq p_i(p_r(n))$.
 
-    Ein kombinatorisches Standardargument zeigt aus Leterem dass nun zwei unterschiedliche $a,b\in \Sigma^n$ existieren mit $a\not\in \dom(\beta_b)$, $b\not\in \dom(\beta_a)$. Fixiere diese zwei $a,b$.
+    Ein kombinatorisches Standardargument zeigt aus Letzterem dass nun zwei unterschiedliche $a,b\in \Sigma^n$ existieren mit $a\not\in \dom(\beta_b)$, $b\not\in \dom(\beta_a)$. Fixiere diese zwei $a,b$.
     Wir zeigen nun dass $\sigma_{\{a,b\}} \succeq \beta_a$ und $\sigma_{\{a,b\}} \succeq \beta_b$.
     Für ersteres erinnern wir uns daran dass $\beta_a\preceq\sigma_{\{a\}}$, sowie
     \[ \dom(\beta_a)\subseteq \dom(\sigma_{\{a\}})=\dom(\sigma_{\{a,b\}}). \]
     Dass $\sigma_{\{a,b\}}$ also den Definitionsbereich von $\beta_a$ erweitert haben wir damit also gezeigt. Wir müssen nun noch zeigen, dass für $z\in\dom(\beta_a)$ die Funktionen $\beta_a$ und $\sigma_{\{a,b\}}$ gleiche Bilder haben: wir haben
     \[ \beta_a(z)=\sigma_{\{a\}}(z)=\sigma_{\{a,b\}}(z), \]
-    erste Gleichung Kompatiblität, zweite Gleichung klar aus Definition da $z\neq b$ nach Wahl von $z\in\dom(\beta_a)$ und Wahl von $\beta_a$ mit $b\not\in \beta_a$.
+    erste Gleichung Kompatibilität, zweite Gleichung klar aus Definition da $z\neq b$ nach Wahl von $z\in\dom(\beta_a)$ und Wahl von $\beta_a$ mit $b\not\in \beta_a$.
     Zweite Aussage $\sigma_{\{a,b\}} \succeq \beta_b$ geht analog.
 
     Wenden wir nun (\ref{eq:up-accepts}) je einmal mit $\beta_a$ und mit $\beta_b$ an sehen wir, dass
@@ -1510,7 +1517,7 @@ Wir zeigen nun wie angekündigt, dass unser Begriff der Generizität stark genug
     und damit ist mit $\tau=\sigma_{\{a,b\}}$ auch $\tau\Vdash   R_{i,r}$ wie gewünscht.
 
     Wir zeigen nun dass (für jedes festes $C$) die beiden oberen Rechenwege nicht gleich sind. 
-    Wir erreichen das, in dem wir $a\in\dom(\beta_a)$ zeigen, denn nach Wahl gilt $a\not\in\dom(\beta_b)$ und die zwei Rechenwege stellen unterscheidliche Orakelfragen.
+    Wir erreichen das, in dem wir $a\in\dom(\beta_a)$ zeigen, denn nach Wahl gilt $a\not\in\dom(\beta_b)$ und die zwei Rechenwege stellen unterschiedliche Orakelfragen.
 
     Um ersteres nun zu zeigen nimm an dass auch $a\not\in\dom(\beta_a)$.
     Unter dieser Annahme sind $\beta_a$ und $\alpha$ kompatibel:
@@ -1525,33 +1532,38 @@ Wir zeigen nun wie angekündigt, dass unser Begriff der Generizität stark genug
     Widerspruch, also gilt $a\not\in\dom(\beta_a)$ und die obigen zwei Rechenwege können nicht gleich sein, wie gewünscht.
 \end{proof}
 
-Jedes $\mathbf{UPC}$-generischem Orakel $G$ erfüllt die in Lemma \ref{thm:q-algorithmus} genannte Voraussetzung:
-\begin{claim}
+Jedes $\mathbf{UPC}$-generischem Orakel $G$ erfüllt die in Lemma \ref{thm:q-algorithmus} genannte Voraussetzung.
+Im Kontext von generischen Orakelkonstruktionen wäre das eine Eigenschaft, die sich sozusagen kostenlos aus der Konstruktion ergibt, ohne sie explizit in den eigentlichen Konstruktionsprozess zu benennen.
+\begin{claim}\label{claim:upc-erfüllt-q-bedingungen}
     Sei $G$ ein $\mathbf{UPC}$-generischem Orakel.
-    Das Orakel $G$ ist dünn, es ist lückenhaft, und für alle $M_j$ und hinreichend lange $z$ gilt: wenn $M_j^G(z)$ akzeptiert, dann wird auch $M_j^T(z)$ akzeptieren, und das für jedes $T\subseteq G$ welches mit $G$ auf allen Wörtern der Länge $<\tower(k)$ übereinstimmt, wobei $k\in\omega$ maximal sodass $\tower(k)\leq p_j(|z|)$.
+    Das Orakel $G$ ist dünn, es ist lückenhaft, und für alle $M_j$ mit $L(M_j^G)=\Sigma^*$ gilt: für hinreichend lange $z$ wird auch $M_j^T(z)$ akzeptieren, und das für jedes $T\subseteq G$ welches mit $G$ auf allen Wörtern der Länge $<\tower(k)$ übereinstimmt, wobei $k\in\omega$ maximal sodass $\tower(k)\leq p_j(|z|)$.
 \end{claim}
 \begin{proof}
     Dünnheit und Lückenhaftigkeit folgen direkt aus Eigenschaft \ref{def:upc-orakel-sparsity}.
-    Wir argumentieren nun für die zweite Teilaussage. Sei $M_j$ eine feste Maschine.
+    Wir argumentieren nun für die zweite Teilaussage. Sei $M_j$ mit $L(M_j^G)=\Sigma^*$ eine feste Maschine.
     Betrachte Aussage $Q_j$ mit
-    \[ Q_j: \text{„$M_j^X$ akzeptiert alle Eingaben“}. \]
+    \[ Q_j: (\forall x)\text{„$M_j^X(x)$ akzeptiert“}. \]
     Es gilt nach Lemma \ref{def:genorakel-forcing} dass ein $\gamma\in \mathbf{UPC}$ existiert mit $G\succ \gamma$ und $\gamma\Vdash \neg Q_j\lor \neg\neg Q_j$.
-    Da $\gamma$ eine $\mathbf{UPC}$-Bedingung ist existiert ein $n\in\omega$ sodass $\dom(\gamma)=\Sigma^{\leq n}$. Fixiere dieses $n$.
+
+    Intuitiv haben wir hier nun eine Situation ganz ähnlich zur der sonst üblichen Stufenkonstruktion: entweder $\gamma\Vdash\neg Q_j$ und $M_j^G$ akzeptiert nicht alle Eingaben, und wir sind fertig.
+    Ansonsten $\gamma\Vdash\neg\neg M_j$ und $M_j$ ist „inhärent total“; die Totatlität von $M_j$ kann durch keine „gültige“ Erweiterung $\tau\succ \gamma$ zerstört werden. Würde jetzt also für geeignetes $T$ die Maschine $M_j^T(z)$ ablehnen, können wir $T$ zurechtstucken und eine Bedingung $\tau\succeq\gamma$ konstruieren, welche die Totalität von $M_j$ zerstört. Das widerspricht dann aber $\gamma\Vdash\neg\neg Q_j$.
+    Diese Idee werden wir im Folgenden konkretisieren.
 
 
-    Wir betrachten nun nur noch Eingaben $z$, welche hinreichend lang sind sodass $\tower(k-1)\geq n$ (wobei wie in der Aussage der Behauptung das $k$ maximal ist sodass $\tower(k)\leq p_j(|z|)$. % und höchstens ein $k\in\omega$ existiert mit 
-    %\begin{equation} \tower(k) \leq p_j(|z|) < 2^{\tower(k)}. \end{equation}
-    Sei nun ein solches $z$ gegeben und entsprechendes $T\subseteq G$ gegeben.
-    Wir setzen im Folgenden voraus dass $M_j^G(z)$ akzeptiert und wollen zeigen dass auch $M_j^T(z)$ akzeptiert.
+    %Wir setzen im Folgenden voraus dass $M_j^G(z)$ akzeptiert und wollen zeigen dass auch $M_j^T(z)$ akzeptiert.
 
     Wir erinnern uns dass entweder $\gamma\Vdash\neg Q_j$ oder $\gamma\Vdash\neg\neg Q_j$.
     Im ersteren Fall gilt nach Lemma \ref{lemma:single-negation-contradicts} insbesondere für unser vorliegendes $\mathbf{UPC}$-generisches $G$ die Aussage $\omega[G] \not\vDash Q_j$.
-    Also lehnt $M_j^G(z)$ für eine geeignete Eingabe $z$ ab; das widerspricht der oben genannten Voraussetzung.
+    Also lehnt $M_j^G(x)$ für eine geeignete Eingabe $x$ ab; das widerspricht der oben genannten Wahl von $M_j$.
 
     Es gilt also $\gamma\Vdash\neg\neg Q_j$. Dann aber haben wir nach Korollar \ref{cor:double-negation-truth} die Aussage dass
-    \begin{equation} (\forall \text{$\mathbf{UPC}$-generischen $G'\succ \gamma$}). \omega[G'] \vDash \text{„$M_j^X(z)$ akzeptiert“}.\label{eq:force-q}) \end{equation}
-    Wir zielen nun auf einen Widerspruch ab und nehmen an, dass $M_j^T(z)$ ablehnt.
-    Dann existiert auch ein minimales $\alpha$ sodass $M_j^\alpha(z)$ ablehnt, insb. mit $\dom(\alpha)\subseteq\Sigma^{\leq p_j(|z|)}$. Im Folgenden wollen wir nun ein $\mathbf{UPC}$-generisches $G'\succ \gamma,\alpha$ konstruieren, denn dann lehnt $M_j^{G'}(z)$ ab und wir erhalten den Widerspruch zu (\ref{eq:force-q}).
+    \begin{equation} (\forall \text{$\mathbf{UPC}$-generischen $G'\succ \gamma$}).\quad  \omega[G'] \vDash (\forall x)\text{„$M_j^X(x)$ akzeptiert“}.\label{eq:force-q} \end{equation}
+    Da $\gamma$ eine $\mathbf{UPC}$-Bedingung ist existiert ein $n\in\omega$ sodass $\dom(\gamma)=\Sigma^{\leq n}$. Fixiere dieses $n$.
+    Wir betrachten nun nur noch Eingaben $z$, welche hinreichend lang sind sodass $\tower(k-1)\geq n$ (wobei wie in der Aussage der Behauptung das $k$ maximal ist sodass $\tower(k)\leq p_j(|z|)$). % und höchstens ein $k\in\omega$ existiert mit 
+
+    Sei nun ein solches $z$ gegeben und entsprechendes $T\subseteq G$ gegeben.
+    Wir wollen nun zeigen dass $M_j^T(z)$ akzeptiert. Hierfür zielen wir auf einen Widerspruch ab und nehmen an, dass $M_j^T(z)$ ablehnt.
+    Dann existiert auch ein minimales $\alpha$ sodass $M_j^\alpha(z)$ ablehnt, insb. mit $\dom(\alpha)\subseteq\Sigma^{\leq p_j(|z|)}$. Im Folgenden wollen wir nun ein $\mathbf{UPC}$-generisches $G'\succ \gamma,\alpha$ konstruieren, denn dann lehnt $M_j^{G'}(z)$ ab und wir erhalten den Widerspruch zu~(\ref{eq:force-q}).
 
     Sei $\tau=T\cap \Sigma^{<\tower(k+1)}$ die Einschränkung der totalen Funktion $G$ auf die Wörter der Länge $< \tower(k+1)$.
     Es ist unmittelbar klar dass $\alpha\preceq\tau$. (Alle Wörter in $\dom(\alpha)$ haben Länge $\leq p_j(|z|)$ und diese sind $<\tower(k+1)$, denn andernfalls $\tower(k+1)\leq p_j(|z|)$ was der Wahl von $k$ widerspricht.)
@@ -1559,22 +1571,22 @@ Jedes $\mathbf{UPC}$-generischem Orakel $G$ erfüllt die in Lemma \ref{thm:q-alg
     Nach Definition von $T$ stimmt $\tau$ mit $G$ auf allen Wörtern der Länge $<\tower(k)$ überein.
     Damit ist klar dass $\gamma\preceq \tau$. (Für alle Wörter $x\in\dom(\gamma)$ gilt $|x|\leq n\leq \tower(k-1)<\tower(k)$, also stimmen $S$ und $T$ auf $x$ überein und es gilt $\gamma(x)=S(x)=T(x)=\tau(x)$.)
     
-    Wir wollen nun zeigen dass $\tau$ eine $\mathbf{UPC}$-generische Bedingung ist, dann existiert nach Lemma \ref{lemma:generics-existieren} auch ein $\mathbf{UPC}$-generisches Orakel $G'\succ \tau\succeq \gamma,\alpha$ und $M_j^{G'}(z)$ lehnt ab wie gewünscht.
+    Wir wollen nun zeigen dass $\tau$ eine $\mathbf{UPC}$-generische Bedingung ist, dann existiert nach Lemma \ref{lemma:generics-existieren} auch ein $\mathbf{UPC}$-generisches Orakel $G'\succ \tau\succeq \gamma,\alpha$ und $M_j^{G'}(z)$ lehnt ab und wir haben den Widerspruch zu (\ref{eq:force-q}) wie gewünscht.
     Hierfür gehen wir die Eigenschaften der Definition \ref{def:upc} durch: (i) klar, ist ja $\dom(\tau)=\Sigma^{<\tower(k+1)}$.
-    (ii) ebenso klar, denn für alle $m<\tower(k+1)$ gilt $|\tau\cap\Sigma^m|=|T\cap\Sigma^m|\leq |G\cap\Sigma^m|$ und wende Eigenschaft \ref{def:upc-orakel-sparsity} ab.
+    (ii) ebenso klar, denn für alle $m<\tower(k+1)$ gilt $|\tau\cap\Sigma^m|=|T\cap\Sigma^m|\leq |G\cap\Sigma^m|$ und wende Eigenschaft \ref{def:upc-orakel-sparsity} an.
 
     Für (iii), betrachte ein $i\in\omega$ und $m\in H_i$ mit $m<\tower(k+1)$. Damit ist $m=\tower(k')$ für ein $k'\leq k$. Sei $|\tau\cap\Sigma^m|=2$.
     Dann gilt auch $|G\cap\Sigma^m|=2$ ($\tau$ stimmt mit $T$ auf Wörtern auf $\Sigma^m$ überein und $T\subseteq G$).
     Nach Eigenschaft \ref{def:upc-orakel-generizität-zeugensprache} existiert also eine Eingabe $y$ sodass ein $\beta\prec G$ existiert, wo $M_i^\beta(y)$ mit zwei Rechenwegen akzeptiert, und $\dom(\beta)\subseteq\Sigma^{\leq 2^m}$.
 
-    Wir zeigen nun $\beta\preceq \tau$, denn dann akeptiert auch $M_i^\tau(y)$ auf zwei Rechenwegen und wir haben die gewünschte Eigenschaft der $\mathbf{UPC}$-Definition \ref{def:upc-generizität-zeugensprache} gezeigt.
+    Wir zeigen nun $\beta\preceq \tau$, denn dann akzeptiert auch $M_i^\tau(y)$ auf zwei Rechenwegen und wir haben die gewünschte Eigenschaft der $\mathbf{UPC}$-Definition \ref{def:upc-generizität-zeugensprache} gezeigt.
     Klar ist schon mal dass $\dom(\beta)\subseteq\dom(\tau)$. (Für alle $x\in\dom(\beta)$ gilt $|x|\leq 2^m=2^{\tower(k')}<\tower(k+1)$ also $x\in\dom(\tau)$.)
 
-    Gilt $k'<k$ gilt auch $2^m<2^{\tower(k')}<\tower(k)$, dann stimmen je $\beta$ und $\tau$ mit $G$ auf $\Sigma^{\leq 2^m}$ überein und wir haben sofort dass $\beta$ und $\tau$ kompatibel sind; in diesem Fall $\beta\preceq \tau$ gezeigt.
+    Gilt $k'<k$ gilt für alle $x\in\dom(\beta)$ auch $|x|\leq 2^m=2^{\tower(k')}<\tower(k)$, und da je $\beta$ und $\tau$ mit $G$ auf Wörtern der Länge ${<\tower(k)}$ übereinstimmen, haben wir sofort dass $\beta$ und $\tau$ kompatibel sind; in diesem Fall $\beta\preceq \tau$ gezeigt.
 
     Gilt $k'=k$ dann gilt wie oben nach Konstruktion $2=|T\cap\Sigma^m|=|G\cap\Sigma^m|$ und da $T\subseteq G$ stimmen $T$ und $G$ auf Wörtern der Länge $m=\tower(k)$ überein.
     Zusammen mit Voraussetzung ergibt sich, dass dann $T$ und $G$ auf Wörtern der Länge $<\tower(k+1)$ übereinstimmen.
-    Also gilt $\tau\succ G$ und nach Wahl $\beta\succ G$; wir haben dass $\beta$ und $\tau$ kompatibel sind und haben $\beta\preceq\tau$ gezeigt.
+    Also gilt $\tau\prec G$ und nach Wahl $\beta\prec G$; wir haben dass $\beta$ und $\tau$ kompatibel sind und haben $\beta\preceq\tau$ gezeigt.
 
     Das schließt den Beweis ab.
 \end{proof}
@@ -1588,12 +1600,13 @@ Nun können wir abschließend alles zusammenführen.
 \begin{proof}
     Klar ist, dass solche Orakel $G$ und $A$ existieren.
     %Sei $G$ ein $\mathbf{UPC}$-generisches Orakel. % (Dies exisitiert nach Lemma \ref{lemma:generics-existieren}.)
-    Kombiniert man Behauptung \ref{} und \ref{} ergibt sich, dass $\UP$ relativ zu $G$ keine vollständige Menge hat.
+    Kombiniert man Behauptung \ref{claim:upc-stark-genug} und \ref{claim:upc-forcing-ausreichend} ergibt sich, dass $\UP$ relativ zu $G$ keine vollständige Menge hat.
     Nachdem die Behauptungen relativieren gilt auch, dass $\UP$ relativ zu $G\oplus A$ keine vollständige Menge hat, und das für alle Orakel $A$.
 
-    Kombiniert man Behauptung \ref{} und Lemma \ref{} und rerelativiert man auf $A$ ergibt sich, dass die Aussage $Q$ relativ zu $G\oplus A$ gilt, \emph{unter Voraussetzung} dass $\P^A=\PSPACE^A$.
+    Kombiniert man Behauptung \ref{claim:upc-erfüllt-q-bedingungen} und Lemma \ref{thm:q-algorithmus} und rerelativiert man auf $A$ ergibt sich, dass die Aussage $Q$ relativ zu $G\oplus A$ gilt, \emph{unter Voraussetzung} dass $\P^A=\PSPACE^A$.
     Aber diese Voraussetzung ist durch ein PSPACE-vollständiges $A$ ja genau erfüllt.
 \end{proof}
+
 
 
 \printbibliography[heading=subbibliography]
