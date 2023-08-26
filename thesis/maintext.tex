@@ -1,0 +1,151 @@
+\chapter{Definitionen}
+
+\begin{itemize}
+    \item Vllt. sollten wir NP-Relationen als FNP-Probleme definieren. Andererseits wird in der aktuellen Literatur (T)FNP primär auf Funktionen verstanden.
+    \item NP-Relation definieren: Zertifikate mind. so lange wie Probleme, alternativ streng monoton steigend
+    \item Levin-Reduktion definieren
+\end{itemize}
+
+\begin{theorem}
+    Die kanonische NP-Relation
+    \[ \mathtt{rKAN} = \{ ((N,x,1^n), \alpha) \mid \text{$\alpha$ ist ein akz. Rechenweg auf $N(x)$ und $|\alpha|\leq n$} \} \]
+    ist $\leq_\mathrm{m,inv}^\mathrm L$-vollständig.
+\end{theorem}
+\begin{proof}
+    Sei $R$ eine beliebige NP-Relation mit Zertifikatsschranke $r$, i.e. $(x,y)\in R\implies |y|\leq r(|x|)$. Sei $M$ die PTM welche $R$ entscheidet, mit Laufzeitschranke $p$. Sei $N$ eine NPTM welche auf Eingabe $x$ zunächst ein Zertifikat $y, |y|\leq r(|x|)$ rät, und dann testet ob $M(\langle x,y\rangle )$ akzeptiert. Die Laufzeit von $N$ ist beschränkt auf $p(|\langle x,y\rangle|)\in O(p(r(|x|))$; sei daher $q$ ein Polynom, welches die Laufzeit von $N$ beschränkt.
+
+    Definiere die Reduktionsfunktion $f(x)=(N, x, 1^{q(|x|)})$. Es gilt $x\in \Proj(R)\implies f(x)\in \Proj(\mathtt{rKAN})$.
+    Wenn $x\in\Proj(R)$, dann existiert ein $y, |y|\leq r(|x|)$ sodass $(x,y)\in R$. Dann wird auch $N(x)$ akzeptieren, nämlich auf jenem Pfad welcher $y$ rät. Es existiert also ein Rechenweg $\alpha$ mit $|\alpha|\leq q(|x|)$ sodass $N(x)$ auf $\alpha$ akzptiert. Dann gilt aber auch $(f(x), \alpha)=((N,x,1^{q(|x|)}),\alpha)\in \mathtt{rKAN}$.
+    Die Rückrichtung $x\not\in \Proj(R)\implies f(x)\not\in\Proj(R)$ folgt analog.
+    Es ist klar, dass $f$ Polynomialzeit-berechenbar und -invertierbar ist. 
+
+    Es lässt sich außerdem einfach eine Rekonstruktionsfunktion $g\in \FP$ angeben, die für $g(f(x), \alpha)=y$ aus $\alpha$ das entsprechende geratene Zertifikat $y$ aus $\alpha$ berechenen kann.
+\end{proof}
+
+\chapter{Suchprobleme und die Hypothese Q}
+
+\begin{itemize}
+    \item Will Q in den Pudlák-Baum einordnen: dafür ist es notwendig, diese ordentlich zu relativieren. Insb. will ich zeigen, dass einige bisherige Resultate natürlicherweise auf „Standardbeweissysteme“ vollständiger Mengen übertragen (nicht nur das Standardbeweissystem für SAT).
+\end{itemize}
+
+\begin{definition}[Levin-Paddability]
+    Eine NP-Relation $R$ ist \emph{Levin-paddable} wenn 
+    Funktionen $\mathit{pad}\in\FP$ und $\mathit{padsol}\in\FP$ existieren sodass
+    \begin{enumerate}
+        \item $x\in \Proj(R) \iff \mathit{pad}(x, 1^n) \in \Proj(R)$,
+        \item $(\mathit{pad}(x, 1^n), y)\in R \implies (x, \mathit{padsol}(x, 1^n, y)) \in R$,
+        \item $|\mathit{pad}(x, 1^n)|\geq n$.
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}\label{lemma:stdps-q}
+    Sei $R$ eine NP-Relation die Levin-paddable ist. Folgende Aussagen sind äquivalent:
+    \begin{enumerate}
+        \item Für alle NPTM $N$ mit $L(N)=\Proj(R)$ lassen sich akzepierende Rechenwege von $N$ in Zertifikate umrechnen: es existiert eine Funktion $h\in\mathrm{FP}$ sodass
+            \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
+        \item Das Standard-Beweissystem $\mathit{std}_R$ bzgl. $R$ ist p-optimal. Dieses ist
+            \[ \mathit{std}_R(w) = \begin{cases} x & \text{wenn $w=(x,y)$ und $(x,y)\in R$}\\
+            \top & \text{sonst}\end{cases}. \] 
+    \end{enumerate}
+\end{lemma}
+
+\begin{lemma}\label{lemma:q-generalized}
+%Sei $A\in\mathrm{NP}$ mit folgender Eigenschaft von Vollständigkeit: es existiert eine Menge $B\in\mathrm P$ sodass $A=\{x\mid \exists y, |y|\leq p(|x|), (x,y)\in B\}$ und für alle Mengen $A'\in\mathrm{NP}$, $A'=\{x\mid \exists y, |y|\leq p'(|x|), (x,y)\in B'\}$ existieren zwei Funktionen $r,r^{-1},t\in\mathrm{FP}$ sodass
+%\[ x\in A' \iff r(x) \in A, \quad (r(x),z)\in B \implies (x, t(x,z)) \in B'. \]
+%($A'\leq_m^p A$ via invertierbarem $r$, Funktion $t$ bildet Zertifikate für $r(x)\in A$ auf Zertifikate für $x\in A'$ ab. Vgl. Reduktionsbegriff unter TFNP-Problemen. Vgl. Levin-Reduktionsbegriff.)
+Sei $R$ eine $\leqml$-vollständige NP-Relation, mit der zusätzlichen Eigenschaft dass für die jeweilige entsprechende Problem-Reduktionsfunktion $f\colon Q\to R$ für $Q\leqml R$ immer gilt, dass $f$ ehrlich ist. %$\img f = \{f(x)\mid x\in\Sigma^*\}\in \P$.
+Folgende Aussagen sind äquivalent:
+\begin{enumerate}
+    \item Für alle NPTM $N$ mit $L(N)=\Proj(R)$ lassen sich akzepierende Rechenwege von $N$ in Zertifikate umrechnen: es existiert eine Funktion $h\in\mathrm{FP}$ sodass
+        \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
+    \item Für alle NPTM $N$ mit $L(N)=\Sigma^*$ lassen sich aus Eingabe $x$ Rechenwege von $N(x)$ effizient bestimmen: es existiert $r\in\mathrm{FP}$ sodass $N(x)$ auf Rechenweg $r(x)$ akzeptiert. (Das ist die Aussage Q.)
+\end{enumerate}
+\end{lemma}
+
+
+\begin{lemma}
+    Die in Lemma~\ref{lemma:stdps-q} und~\ref{lemma:q-generalized} genannten Voraussetzungen an die NP-Relation $R$ werden von allen solchen $R$ erfüllt, die $\leqml$-vollständig sind und Levin-paddable sind.
+\end{lemma}
+\begin{proof}
+    Es ist sofort klar, dass $R$ die Voraussetzungen von Lemma~\ref{lemma:stdps-q} erfüllt.
+    Es bleibt nur zu zeigen, dass für jede NP-Relation $Q$ eine $\leqml$-Reduktion angegeben werden kann, bei dem die Problem-Reduktionsfunktion ehrlich ist.
+    Wir nutzen hierbei aus, dass $R$ eine Levin-paddable Relation ist.
+
+    Nachdem $R$ vollständig ist, gilt $Q\leqml R$; sei $f,g\in\FP$ die Reduktions- bzw. Rekonstruktionsfunktion welche diese Reduktion realisieren. Wir werden nun Funktionen $f', g'\in\FP$ angeben, welche die gleiche Reduktion realisieren, aber $f'$ ist nichtverkürzend, und damit ehrlich, wie gewünscht.
+
+    Sei $\mathit{pad}, \mathit{padsol}$ die zu $R$ zugehörigen Padding-Funktionen. Definiere
+    \[ f'(x) = \mathit{pad}(f(x), 1^{|x|}). \]
+    Es gilt
+    \[ x\in\Proj(Q) \iff f(x)\in \Proj(R) \iff \mathit{pad}(f(x), 1^{|x|})=f'(x)\in\Proj(R), \]
+    wobei erste Implikation die Eigenschaft der Reduktionsfunktion $f$ ist, und die zweite aus der Definition von Levin-Paddability folgt.
+    Aus der Definition von  Levin-Paddability $f'$ folgt auch $|f'(x)|\geq |x|$ und damit ist $f'$ nichtverkürzend.
+
+    Definiere
+    \[ g'(x, z) = g(x, \mathit{padsol}(f(x), 1^{|x|}, z)). \]
+    Sei nun $(f'(x), z)\in R$. Die Funktion $g'$ berechnet nun ein Zertifikat $y$ für $x$: Wir haben $(\mathit{pad}(f(x), 1^{|x|}), z)\in R$, also gilt nach Levin-Paddability dass \[(f(x), \mathit{padsol}(f(x), 1^{|x|}, z))\in R,\] 
+    und nach Definition der Rekonstruktionsfunktion $g$ gilt dann
+    \[(x, g(x, \mathit{padsol}((f(x), 1^{|x|}, z)))\in Q,\]
+    und das ist genau $(x, g'(x, z))\in Q$, wie gewünscht.
+\end{proof}
+
+\begin{observation}
+    Jede universelle Relation ist Levin-paddable. Dieses Resultat gilt nur im unrelativierten Fall.
+\end{observation}
+\begin{proof}
+    Sei $R$ eine universelle Relation, mit zugehörigem Polynom $q$, welches die Zertifikatsgröße spezifiziert. Zur Erinnerung, dieses Polynom ist streng monoton steigend, und aus $(x,y)\in R$ folgt $|y|=q(|x|)$.
+    Wir zeigen zunächst, wie wir für beliebige Instanz $x$ und $n\in\mathbb N$ auf eine Instanz $x'$ der Länge $\geq n$ hochpadden.
+
+    %Nach Satz ?? existiert ein \emph{building block} $\mathit{block}_R$ und drei Indices $b_1,b_2,b_3\in\mathbb N$ sodass 
+    %\[ \{ y[b_1b_2b_3] \mid (\exists y)\, (\mathit{block}_R, y)\in R \} = \Sigma^3-\{000\}. \]
+    %Damit muss auch $q(|\mathit{block}_R|)\geq 1$.
+
+    %Ebenso nach Satz ?? existiert eine Join-Funktion $\mathit{join}_R$.
+    %Sei nun
+    %\[ (z,\alpha) = \mathit{join}_R(\underbrace{\mathit{block}_R, \mathit{block}_R, \mathit{block}_R, \ldots}_{\text{$n$ mal}}) \]
+    %Nach Definition haben wir
+    %\[ \{ y[\alpha] \mid (\exists y)\, (z,y)\in R\} = \{ y_1y_2\cdots y_n \mid (\forall k\leq n). (\mathit{block}_R, y_i) \} \]
+    %Zunächst können wir festhalten, dass $|\Sol_R(x)|\leq 2^{q(|x|)}$: jedes Zertifikat zu $x$ hat Länge $q(|x|)$, also sind auch nur $2^{q(|x|)}$ viele Zertifikate für $x$ in $R$ möglich.
+
+    %Nachdem $R$ universell ist, existiert eine zertifikatserhaltende Reduktion $f$ von $\mathtt{rKAN}$ auf $R$. 
+    %Es ist leicht zu sehen, wie eine positive Instanz $w=(N, \epsilon, 1^{q(n)})$ für $\mathtt{rKAN}$ konstruiert werden kann, welche $2^{q(n)}$ viele Zertifikate hat (z.B. indem $N$ auf jedem der $2^{q(n)}$ vielen Rechenwege akzeptiert).
+    %Sei $(z,\alpha)=f(w)$, d.h. $w$ ist auf eine $R$-Instanz $z$ reduziert worden, welche die $2^{q(n)}$ vielen Zertifikate von $w$ erhält.
+    %In anderen Worten, wir haben nun
+    %\[ \{ y[\alpha] \mid (z,y)\in R \} = \{ y \mid (w, y) \in \mathtt{rKAN} \}. \]
+    %Damit sind auch die beiden Mengen gleich groß und wir haben
+    %\[ |\{ y[\alpha] \mid (z,y)\in R \}| = 2^{q(n)}. \]
+    %Also muss auch $|\alpha|=q(n)$ sein, und alle Indizes in $\alpha$ sind paarweise verschieden.
+    %Damit müssen auch alle $y$ mit $(z,y)\in R$ eine Länge von $\geq q(n)$ habe. Damit ist ersichtlich dass $q(|z|)\geq q(n)$. Aus Monotonie folgt $|z|>n$, das heißt die 
+
+    Nachdem $R$ universell ist, existiert eine zertifikatserhaltende Reduktion $f\in FP$ von $\mathtt{rSAT}$ auf $R$. 
+    Es lässt sich leicht eine Familie $\phi_1, \phi_2, \ldots$ an positiven Instanzen für $\mathtt{rSAT}$ erdenken, für die $|\phi_i|\geq i$ und $\phi_i$ effizient auf Eingabe $1^i$ konstruiert werden kann.
+    Zur Erinnerung: wir haben für $\mathtt{rSAT}$ das zugehörige Polynom der Zertifikatsgröße so gewählt, dass die Zertifikate genau so lange wie die Probleminstanzen sind. Damit gilt
+    für $(\phi_i, w)\in \mathtt{rSAT}$ dann auch $|w|=|\phi_i|\geq i$.
+
+    Sei nun $(z,\alpha)=f(\phi_{q(n)})$, d.h. $\phi_i$ ist auf eine $R$-Instanz $z$ reduziert worden. Nach Definition von zertifikatserhaltenden Reduktionen gilt $|\alpha|=|\phi_{q(n)}|\geq {q(n)}$, und $\alpha$ besteht aus paarweise verschiedenen Indizes. Wir haben nun nach Definition
+    \[ \{ y'[\alpha] \mid y'\in \Sigma^{q(|z|)}, (z,y')\in R \} = \{ y\mid y\in \Sigma^{|\phi_{q(n)}|}, (\phi_{q(n)},y)\in\mathtt{rSAT}\} \neq \emptyset, \]
+    in anderen Worten, aus Zertifikaten $y'$ für $z$ können wir durch geeignete Projektion via $\alpha$ die Zertifikate für $w$ rekonstruieren. Davon existiert mindestens eins.
+    Alle Zertifikate $y'$ haben eine feste Länge $q(|z|)$, und da $\alpha$ aus $q(n)$ paarweise verschiedenen Indizes besteht, 
+    gilt $q(|z|) \geq q(n)$. % und aus Monotonie folgt $|z|\geq n$.
+
+    Nach Satz ?? (nur im unrelativierten Fall!) ist die Relation $R$ auch \emph{joinable}, das heißt wir haben eine Funktion $\mathit{join}\in\FP$. Sei $(x',\delta)=\mathit{join}(x, z)$. Nach Definition ?? gilt
+    \[ |\delta|=q(|x|)+q(|z|)\geq q(n). \]
+    Wieder gilt, dass alle Zertifikate $y'$ für $x'$ die feste Länge $q(|x'|)$ haben. Nach ähnlicher Argumentatn folgt $q(|x'|)\geq q(n)$ und aus Monotonie folgt $|x'|\geq n$.
+
+    Sei nun $\mathit{pad}$ genau jene polynomialzeit-berechenbare Funktion, die aus $x$ und $1^n$ die Instanz $x'$ konstruiert:
+    \[ \mathit{pad}(x, 1^n) = x' \quad\text{ wobei } (x', \cdot) = \mathit{join}(x, \underbrace{f(\phi_{q(n)})}_{z}). \]
+    Dann gilt schon sofort, dass $|\mathit{pad}(x, 1^n)|=|x'|\geq n$ wie gewünscht.
+
+    Ferner, nach Definition des $\mathit{join}$-Operators, haben wir
+    \begin{multline*} \{ y[\delta] \mid y\in\Sigma^{l'}, (\mathit{pad}(x, 1^n), y)\in R \}\\ =  \{ y_1y_2 \mid y_1\in\Sigma^{q(|x|)}, y_2\in\Sigma^{q(|z|)}, (x, y_1)\in R \land (z, y_2)\in R\}.\end{multline*}
+    Gilt also $x\not\in\Proj(R)$, dann ist die rechte Menge leer, also auch die linke Menge und damit $\mathit{pad}(x, 1^n)\not\in \Proj(R)$.
+    Falls anders herum $x\in\Proj(R)$, dann ist die rechte Menge nicht leer, existieren ja sowohl ein Zertifikat $y_1$ für $x$, als auch (nach Konstruktion) immer ein Zertifikat $y_2$ für $z$. Also ist auch die linke Menge nicht leer, damit $\mathit{pad}(x, 1^n)\in \Proj(R)$.
+
+    Die noch verbleibende Funktion $\mathit{padsol}$ ist durch die bitweise Projektion durch $\delta$ leicht möglich:
+    \[
+        \mathit{padsol}(x, 1^n, y) = y[\delta[1:q(|x|)]] \quad\text{ wobei } (\cdot, \delta) = \mathit{join}(x, \underbrace{f(\phi_{q(n)})}_z). \]
+    Wir verifizieren: Sei $(\mathit{pad}(x, 1^n), y)\in R$, dann ist $y[\delta]=y_1y_2$ wobei $y_1,y_2\in\Sigma^*$, $|y_1|=q(|x|)$, $|q_2|=q(|z|)$, $(x,y_1), (z, y_2)\in R$. Es gilt $y[\delta[1:k]] = (y_1y_2)[1:k]$
+    und mit $k=q(|x|)$ haben wir
+    \[ \mathit{padsol}(x, 1^n, y) = y[\delta[1:q(|x|)]] = (y_1y_2)[1:q(|x|)] = y_1, \]
+    und damit $(x, \mathit{padsol}(x, 1^n, y)) = (x, y_1)\in R$, wie gewünscht.
+\end{proof}
+
