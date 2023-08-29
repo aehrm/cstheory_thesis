@@ -17,16 +17,24 @@
 %\end{document}
 
 %\documentclass[11pt,twoside,BCOR=12mm,DIV=9,headings=small]{scrreprt}
+\newif\ifbook
+\ifbook
 \documentclass[11pt,a4paper,twoside]{report}
+\else
+\documentclass[10pt,a4paper]{report}
+\fi
 
 \usepackage[fleqn]{mathtools}
 \usepackage{fontspec}
 \usepackage{unicode-math}
+\setsansfont{Fira Sans Light}
+\setmonofont[Scale=0.80]{JetBrains Mono Light}
+\ifbook
 \setmainfont[Numbers={OldStyle}]{TeX Gyre Pagella}
 \setmathfont{TeX Gyre Pagella Math}
-\setsansfont{Source Sans 3}
 \usepackage{setspace}
 \usepackage[DIV=9]{typearea}
+\fi
 
 \usepackage[ngerman]{babel}
 \usepackage{amsthm}
@@ -37,8 +45,11 @@
 \newtheorem{corollary}[theorem]{Korollar}
 \newtheorem{observation}[theorem]{Beobachtung}
 \newtheorem{definition}[theorem]{Definition}
+
+\ifbook
 \AtBeginDocument{\setlength{\abovedisplayskip}{5pt}\setlength{\abovedisplayshortskip}{5pt}%
 \setlength{\belowdisplayskip}{3pt}\setlength{\belowdisplayshortskip}{3pt}}
+\fi
 
 
 \usepackage{enumitem}
@@ -46,15 +57,18 @@
 \setlist[itemize]{itemsep=0pt}
 \setlist{beginpenalty=10000, midpenalty=10000}
 
+\newcounter{prooflist}
+\newenvironment{prooflist}
+{\renewcommand\item{\medskip\par\noindent \stepcounter{prooflist}\arabic{prooflist}. }}
+{}
+
 \RequirePackage{titlesec}		% header customization
 \RequirePackage{titletoc}		% toc customization
 \RequirePackage{titleps}		% toc customization
 \RequirePackage[titles]{tocloft}% lof lot lol customizatios
 
-%	default numbering depth
-\AtBeginDocument{\setcounter{secnumdepth}{1}}
-
 %	header formatting
+\ifbook
 \titlespacing*{\part}{.2\linewidth}{.3\textheight}{0pt}
 \titlespacing*{\chapter}{0pt}{-10pt}{25pt}
 \titleformat{\part}%[hang]
@@ -124,8 +138,23 @@
 {\sffamily\scshape\sectiontitle}{}{\thepage}} % odd
 \pagestyle{main}
 
+\else
+
+\titleformat{\chapter}
+{\normalfont\Large\bfseries}{\thechapter}{1em}{}
+\titleformat{\section}
+{\normalfont\large\bfseries}{\thesection}{1em}{}
+
+\titlespacing*{\chapter} {0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titlespacing*{\section} {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\fi
+
 \RequirePackage{ragged2e}
-%\RequirePackage{sidenotes}
+\RequirePackage{marginnote}
+\setlength{\marginparwidth}{90pt}
+\renewcommand*{\marginfont}{\footnotesize\sffamily}
+
 %\makeatletter
 %\RenewDocumentCommand\sidenotetext{ o o +m }{%
     %\IfNoValueOrEmptyTF{#1}{%
@@ -180,6 +209,7 @@
 \DeclareMathOperator{\tower}{tower}
 \DeclareMathOperator{\Proj}{Proj}
 \DeclareMathOperator{\Sol}{Sol}
+\def\fset{\ensuremath{\mathit{set-}}}
 \renewcommand{\phi}{\varphi}
 
 \begin{document}

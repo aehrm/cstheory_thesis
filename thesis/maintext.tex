@@ -17,7 +17,7 @@
     Definiere die Reduktionsfunktion $f(x)=(N, x, 1^{q(|x|)})$. Es gilt $x\in \Proj(R)\implies f(x)\in \Proj(\mathtt{rKAN})$.
     Wenn $x\in\Proj(R)$, dann existiert ein $y, |y|\leq r(|x|)$ sodass $(x,y)\in R$. Dann wird auch $N(x)$ akzeptieren, nämlich auf jenem Pfad welcher $y$ rät. Es existiert also ein Rechenweg $\alpha$ mit $|\alpha|\leq q(|x|)$ sodass $N(x)$ auf $\alpha$ akzptiert. Dann gilt aber auch $(f(x), \alpha)=((N,x,1^{q(|x|)}),\alpha)\in \mathtt{rKAN}$.
     Die Rückrichtung $x\not\in \Proj(R)\implies f(x)\not\in\Proj(R)$ folgt analog.
-    Es ist klar, dass $f$ Polynomialzeit-berechenbar und -invertierbar ist. 
+    Es ist klar, dass $f$ injektiv ist, dass $f$ Polynomialzeit-berechenbar und -invertierbar ist. 
 
     Es lässt sich außerdem einfach eine Rekonstruktionsfunktion $g\in \FP$ angeben, die für $g(f(x), \alpha)=y$ aus $\alpha$ das entsprechende geratene Zertifikat $y$ aus $\alpha$ berechenen kann.
 \end{proof}
@@ -28,18 +28,19 @@
     \item Will Q in den Pudlák-Baum einordnen: dafür ist es notwendig, diese ordentlich zu relativieren. Insb. will ich zeigen, dass einige bisherige Resultate natürlicherweise auf „Standardbeweissysteme“ vollständiger Mengen übertragen (nicht nur das Standardbeweissystem für SAT).
 \end{itemize}
 
+
 \begin{definition}[Levin-Paddability]
     Eine NP-Relation $R$ ist \emph{Levin-paddable} wenn 
-    Funktionen $\mathit{pad}\in\FP$ und $\mathit{padsol}\in\FP$ existieren sodass
+    Funktionen $\mathit{pad}\in\FP$ und $\mathit{padsol}\in\FP$ existieren, sowie ein Polynom $r$ sodass
     \begin{enumerate}
         \item $x\in \Proj(R) \iff \mathit{pad}(x, 1^n) \in \Proj(R)$,
         \item $(\mathit{pad}(x, 1^n), y)\in R \implies (x, \mathit{padsol}(x, 1^n, y)) \in R$,
-        \item $|\mathit{pad}(x, 1^n)|\geq n$.
+        \item $r(|\mathit{pad}(x, 1^n)|)\geq n$. (Funktion $\mathit{pad}$ ist ehrlich bzgl. der zweiten Komponente.)
     \end{enumerate}
 \end{definition}
 
 \begin{lemma}\label{lemma:stdps-q}
-    Sei $R$ eine NP-Relation die Levin-paddable ist. Folgende Aussagen sind äquivalent:
+    Sei $R$ eine NP-Relation die Levin-paddable ist. Folgende Aussagen sind äquivalent:\marginnote{Generalisierung von Messner}
     \begin{enumerate}
         \item Für alle NPTM $N$ mit $L(N)=\Proj(R)$ lassen sich akzepierende Rechenwege von $N$ in Zertifikate umrechnen: es existiert eine Funktion $h\in\mathrm{FP}$ sodass
             \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
@@ -53,7 +54,7 @@
 %Sei $A\in\mathrm{NP}$ mit folgender Eigenschaft von Vollständigkeit: es existiert eine Menge $B\in\mathrm P$ sodass $A=\{x\mid \exists y, |y|\leq p(|x|), (x,y)\in B\}$ und für alle Mengen $A'\in\mathrm{NP}$, $A'=\{x\mid \exists y, |y|\leq p'(|x|), (x,y)\in B'\}$ existieren zwei Funktionen $r,r^{-1},t\in\mathrm{FP}$ sodass
 %\[ x\in A' \iff r(x) \in A, \quad (r(x),z)\in B \implies (x, t(x,z)) \in B'. \]
 %($A'\leq_m^p A$ via invertierbarem $r$, Funktion $t$ bildet Zertifikate für $r(x)\in A$ auf Zertifikate für $x\in A'$ ab. Vgl. Reduktionsbegriff unter TFNP-Problemen. Vgl. Levin-Reduktionsbegriff.)
-Sei $R$ eine $\leqlp$-vollständige NP-Relation, mit der zusätzlichen Eigenschaft dass für die jeweilige entsprechende Problem-Reduktionsfunktion $f\colon Q\to R$ für $Q\leqlp R$ immer gilt, dass $f$ ehrlich ist. %$\img f = \{f(x)\mid x\in\Sigma^*\}\in \P$.
+Sei $R$ eine $\leqlp$-vollständige NP-Relation, mit der zusätzlichen Eigenschaft dass für die jeweilige entsprechende Problem-Reduktionsfunktion $f\colon Q\to R$ für $Q\leqlp R$ immer gilt, dass $f$ ehrlich ist.\marginnote{Generalisierung von  Fenner et al.} %$\img f = \{f(x)\mid x\in\Sigma^*\}\in \P$.
 Folgende Aussagen sind äquivalent:
 \begin{enumerate}
     \item Für alle NPTM $N$ mit $L(N)=\Proj(R)$ lassen sich akzepierende Rechenwege von $N$ in Zertifikate umrechnen: es existiert eine Funktion $h\in\mathrm{FP}$ sodass
@@ -71,14 +72,14 @@ Folgende Aussagen sind äquivalent:
     Es bleibt nur zu zeigen, dass für jede NP-Relation $Q$ eine $\leqlp$-Reduktion angegeben werden kann, bei dem die Problem-Reduktionsfunktion ehrlich ist.
     Wir nutzen hierbei aus, dass $R$ eine Levin-paddable Relation ist.
 
-    Nachdem $R$ vollständig ist, gilt $Q\leqlp R$; sei $f,g\in\FP$ die Reduktions- bzw. Rekonstruktionsfunktion welche diese Reduktion realisieren. Wir werden nun Funktionen $f', g'\in\FP$ angeben, welche die gleiche Reduktion realisieren, aber $f'$ ist nichtverkürzend, und damit ehrlich, wie gewünscht.
+    Nachdem $R$ vollständig ist, gilt $Q\leqlp R$; sei $f,g\in\FP$ die Reduktions- bzw. Rekonstruktionsfunktion welche diese Reduktion realisieren. Wir werden nun Funktionen $f', g'\in\FP$ angeben, welche die gleiche Reduktion realisieren, aber $f'$ ehrlich, wie gewünscht.
 
     Sei $\mathit{pad}, \mathit{padsol}$ die zu $R$ zugehörigen Padding-Funktionen. Definiere
     \[ f'(x) = \mathit{pad}(f(x), 1^{|x|}). \]
     Es gilt
     \[ x\in\Proj(Q) \iff f(x)\in \Proj(R) \iff \mathit{pad}(f(x), 1^{|x|})=f'(x)\in\Proj(R), \]
     wobei erste Implikation die Eigenschaft der Reduktionsfunktion $f$ ist, und die zweite aus der Definition von Levin-Paddability folgt.
-    Aus der Definition von  Levin-Paddability $f'$ folgt auch $|f'(x)|\geq |x|$ und damit ist $f'$ nichtverkürzend.
+    Aus der Definition von  Levin-Paddability folgt auch $r(|f'(x)|)\geq |x|$ für ein geeignetes Polynom $r$, und damit ist auch $f'$ ehrlich.
 
     Definiere
     \[ g'(x, z) = g(x, \mathit{padsol}(f(x), 1^{|x|}, z)). \]
@@ -94,9 +95,53 @@ Folgende Aussagen sind äquivalent:
     Die kanonische Levin-vollständige NP-Relation $\mathtt{rKAN}$ ist Levin-paddable.
 \end{observation}
 
-\begin{observation}\label{obs:joinable-sind-levinpaddable}
-    Jede $\leq_\mathrm{L,inv}^\mathrm{p}$-vollständige NP-Relation $R$ ist auch Levin-paddable.
+\begin{observation}\label{obs:invcomplete-sind-levinpaddable}
+    %Jede $\leq_\mathrm{L,inv}^\mathrm{p}$-vollständige NP-Relation $R$ ist auch Levin-paddable.
+    \begin{enumerate}
+        \item Gilt $\mathtt{rKAN}\leq_\mathrm{L}^\mathrm{p} R$, und ist die zugehörige Reduktionsfuktion $f$ ehrlich, dann ist $R$ Levin-paddable
+        \item Jede $\leq_\mathrm{L,inv}^\mathrm{p}$-vollständige NP-Relation $R$ ist auch Levin-paddable.
+    \end{enumerate}
 \end{observation}
+\begin{corollary}
+    Jede $\leq_\mathrm{L,inv}^\mathrm{p}$-vollständige Relation $R$ erfüllt die in 
+    Lemma~\ref{lemma:stdps-q} und~\ref{lemma:q-generalized} genannten Voraussetzungen an die NP-Relation $R$.
+
+    Das sind im unrelativierten Fall u.a. $\mathtt{rSAT}$, $\mathtt{rSETCOVER}$, $\mathtt{rVERTEXCOVER}$, $\mathtt{rCLIQUE}$, $\mathtt{r3COLORABILITY}$.\marginnote{aus den Goldreich-Textbook}
+\end{corollary}
+\begin{proof}[Beweis zu Beobachtung~\ref{obs:invcomplete-sind-levinpaddable}]
+    Aussage (2) folgt unmittelbar aus (1): Wir haben $\mathtt{rKAN}\leq_\mathrm{L,inv}^\mathrm{p} R$ und damit ist die entsprechende Reduktionsfunktion $f$ p-invertierbar, und damit ehrlich.
+
+    Für (1) nutzen wir die Levin-Paddability von $\mathtt{rKAN}$ aus: übersetze Instanz $x$ von $R$ nach $\mathtt{rKAN}$, padde dort hoch, und überetze zu $R$-Instanz $x'$ zurück. Ist dann $y'$ ein Zertifikat für $x'$, dann lässt sich dies auf ähnlichem Weg wieder zu einem Zertifikat für $x$ zurückrechnen.
+
+    Seien $f, g$ die Reduktions- bzw. Reproduktionsfunktion, welche $\mathtt{rKAN}\leq_\mathrm{L}^\mathrm p R$ bezeugen, und seinen analog $f', g'$ jene Funktionen, welche $R\leq_\mathrm{L}^\mathrm p \mathtt{rKAN}$ bezeugen. Erstere existieren nach Voraussetzung, zweitere existieren weil $\mathtt{rKAN}$ $\leq_\mathrm{L}^\mathrm p$-vollständig ist.
+    Nach Voraussetzung ist $f$ ehrlich. %, und da $f'$ p-invertierbar ist, ist auch $f'$ ehrlich. 
+    Und nach Beobachtung ?? existieren für $\mathtt{rKAN}$ Padding-Funktionen $\mathit{pad}_\mathtt{rKAN}$, $\mathit{padsol}_\mathtt{rKAN}$.
+    Sei $q$ ein entsprechendes Polynom mit $q(|\mathit{pad}_\mathtt{rKAN}(x, 1^n)|)\geq n$, $q(|f(x)|) \geq |x|$.
+
+    Definiere nun
+    \[ \mathit{pad}_R(x, 1^n) = f(\mathit{pad}_\mathtt{rKAN}(f'(x), 1^n)). \]
+    Die Zugehörigkeit zu $\Proj(R)$ bleibt erhalten:
+    \begin{multline*}
+        x\in \Proj(R) \iff f'(x) \in \mathtt{KAN} \iff \mathit{pad}_\mathtt{rKAN}(f'(x), 1^n) \in \mathtt{KAN}\\ \iff f(\mathit{pad}_\mathtt{rKAN}(f'(x), 1^n)) \in \Proj(R) \iff \mathit{pad}_R(x, 1^n) \in\Proj(R).
+    \end{multline*}
+    Ferner gilt
+    \begin{align*} &q(q(|\mathit{pad}_R(x, 1^n)|)) \\&= q(q(|f(\mathit{pad}_\mathtt{rKAN}(f'(x), 1^n)|))\\&\geq q(|\mathit{pad}_\mathtt{rKAN}(f'(x), 1^n)|)\\ &\geq n.
+    \end{align*}
+    und damit ist $\mathit{pad}_R$ wie gewünscht ehrlich bzgl. $n$ (mit Polynom $q\circ q$).
+
+    Es verbleibt noch die Funktion $\mathit{padsol}_R$. Nehme hierfür an dass wir ein $y'$ haben mit $(\mathit{pad}_R(x, 1^n), y')\in R$.
+    Wir können über $g, g'$ das Zertifikat $y'$ zu Zertifikat $y$ mit $(x, y)\in R$ zurück übersetzen:
+    Sei $p=\mathit{pad}_\mathtt{rKAN}(f'(x), 1^n)$, dann gilt
+    \[ (f(p), y')\in R \implies (p, \underbrace{g(p, y')}_z)\in \mathtt{rKAN}. \]
+    Definere $z=g(p, y')$.
+    Nun haben wir
+    \begin{gather*} (p, z)=(\mathit{pad}_\mathtt{rKAN}(f'(x), 1^n), z)\in\mathtt{rKAN}  \\\quad\implies (f'(x), \underbrace{\mathit{padsol}_\mathtt{rKAN}(f'(x), 1^n, z)}_{z'})\in\mathtt{rKAN} \end{gather*}
+    und mit $z'=\mathit{padsol}_\mathtt{rKAN}(f'(x), 1^n, z)$ gilt
+    \[ (f'(x), z') \in \mathtt{rKAN} \implies (x, \underbrace{g'(x, z')}_{y}) \in R. \]
+    %\[ \mathit{padsol}_R(x, 1^n, y') = g(\mathit{pad}_\mathtt{rKAN}(f'(x), 1^n), y')
+    %\[ q(q(q(|\mathit{pad}_R(x, 1^n)|))) = q(q(q(|f(\mathit{pad}_\mathtt{rKAN}(f'(x), 1^n))|)))
+    Es ist leicht zu sehen, dass sich eine Funktion $\mathit{padsol}_R\in\FP$ angeben kann, die aus $x, 1^n$ dieses entsprechende $y$ berechnen kann.
+\end{proof}
 
 \begin{observation}\label{obs:joinable-sind-levinpaddable}
     %Jede universelle Relation ist Levin-paddable. Dieses Resultat gilt nur im unrelativierten Fall.
@@ -110,7 +155,7 @@ Folgende Aussagen sind äquivalent:
 \end{corollary}
 \begin{proof}[Beweis zu Beobachtung~\ref{obs:joinable-sind-levinpaddable}]
     Sei $R$ eine NP-Relation, mit zugehörigem Polynom $q$, welches die Zertifikatsgröße spezifiziert. Zur Erinnerung, dieses Polynom ist streng monoton steigend, und aus $(x,y)\in R$ folgt $|y|=q(|x|)$.
-    Wir zeigen zunächst, wie wir für beliebige Instanz $x$ und $n\in\mathbb N$ auf eine Instanz $x'$ der Länge $\geq n$ hochpadden.
+    Wir zeigen zunächst, wie wir für beliebige Instanz $x$ und $n\in\mathbb N$ auf eine Instanz $x'$ hochpadden, in dem Sinne dass $q(|x'|) \geq n$.
 
     %Nachdem $R$ universell ist, existiert eine zertifikatserhaltende Reduktion $f\in FP$ von $\mathtt{rSAT}$ auf $R$. 
     %Es lässt sich leicht eine Familie $\phi_1, \phi_2, \ldots$ an positiven Instanzen für $\mathtt{rSAT}$ erdenken, für die $|\phi_i|\geq i$ und $\phi_i$ effizient auf Eingabe $1^i$ konstruiert werden kann.
@@ -122,25 +167,26 @@ Folgende Aussagen sind äquivalent:
     %in anderen Worten, aus Zertifikaten $y'$ für $z$ können wir durch geeignete Projektion via $\alpha$ die Zertifikate für $w$ rekonstruieren. Davon existiert mindestens eins.
     %Alle Zertifikate $y'$ haben eine feste Länge $q(|z|)$, und da $\alpha$ aus $q(n)$ paarweise verschiedenen Indizes besteht, 
     %gilt $q(|z|) \geq q(n)$. % und aus Monotonie folgt $|z|\geq n$.
-
+    \strut\marginnote{Es sieht nicht danach aus, dass wir über die Anzahl an Zertifikaten für $x'$ die Länge abschätzen können: ist $x\not\in\Proj(R)$ dann hätte auch $x'$ keine Zertifikate, und könnte sich erlauben entsprechend kurz zu sein.}
     Nach Voraussetzung hat  die Relation $R$ einen \emph{building block} $\mathit{block}$. Es lässt sich leicht aus der Definition eines \emph{building block} ableiten, dass $|\mathit{block}|>0$ und $\mathit{block}\in\Proj(R)$. Damit gilt auch dass die Zertifikate $y$ zu $\mathit{block}$ die Länge $l=q(|\mathit{block}|)\geq |\mathit{block}|\geq 1$ haben.
 
     Nach Voraussetzungen  ist die Relation $R$ auch \emph{joinable}, das heißt wir haben eine Funktion $\mathit{join}\in\FP$. Sei 
-    \[ (x',\delta)=\mathit{join}(x, \underbrace{\mathit{block}, \mathit{block}, \ldots, \mathit{block}}_{\text{$q(n)$ mal}}).\]
+    \[ (x',\delta)=\mathit{join}(x, \underbrace{\mathit{block}, \mathit{block}, \ldots, \mathit{block}}_{\text{$n$ mal}}).\]
+    An dieser Stelle könnten wir (mit Definition ??) über die Länge $|\delta|$ die Länge von Zertifikaten zu $x'$ schließen, und damit $|x'|$ beschränken.
     Nach Definition ?? gilt
-    \[ |\delta|=q(|x|)+q(n)\cdot q(|\mathit{block}|)\geq q(n). \]
+    \[ |\delta|=q(|x|)+q(n)\cdot q(|\mathit{block}|)=q(|x|)+q(n)\cdot l\geq n. \]
     Beob., dass alle Zertifikate $y'$ für $x'$ die feste Länge $q(|x'|)$ haben. 
     Zur Erinnerung: wir haben
-    \begin{multline}\label{eq:levinpad-join} \{ y'[\delta] \mid y'\in\Sigma^{q(|x'|)}, (x', y')\in R \} = \{ yy_1y_2\cdots y_{q(n)} \mid y\in\Sigma^{q(|x|)}, y_1,y_2, \ldots \in \Sigma^{l},\\ (x,y),(\mathit{block}, y_1),(\mathit{block}, y_2), \ldots \in R\} \end{multline}
+    \begin{multline}\label{eq:levinpad-join} \{ y'[\delta] \mid y'\in\Sigma^{q(|x'|)}, (x', y')\in R \} = \{ yy_1y_2\cdots y_{n} \mid y\in\Sigma^{q(|x|)}, y_1,y_2, \ldots \in \Sigma^{l},\\ (x,y),(\mathit{block}, y_1),(\mathit{block}, y_2), \ldots \in R\} \end{multline}
     Die Sequenz $\delta$ besteht nach Definition aus paarweise verschiedenen Indizes, daher können wir argumentieren, dass auch alle Zertifikate $y'$ (mit vorgegebener Länge $q(|x'|)$) mindestens die Länge $|\delta|$ haben.
     Damit gilt
-    \[ q(|x'|) \geq |\delta| \geq q(n) \]
-    und nach Monotonie haben wir $|x'|\geq n$.
+    \[ q(|x'|) \geq |\delta| \geq n \]
+    wie gewünscht.
 
     Sei nun $\mathit{pad}$ genau jene polynomialzeit-berechenbare Funktion, die aus $x$ und $1^n$ die Instanz $x'$ konstruiert:
     \[ \mathit{pad}(x, 1^n) = x' \quad\text{ wobei }
     (x',\delta)=\mathit{join}(x, \underbrace{\mathit{block}, \mathit{block}, \ldots, \mathit{block}}_{\text{$q(n)$ mal}}).\]
-    Dann gilt schon sofort, dass $|\mathit{pad}(x, 1^n)|=|x'|\geq n$ wie gewünscht.
+    Dann gilt schon sofort, dass $q(|\mathit{pad}(x, 1^n)|)=q(|x'|)\geq n$ wie gewünscht.
 
     Wir zeigen jetzt, dass die Zugehörigkeit zu $\Proj(R)$ erhalten bleibt:
     Gilt $x\not\in\Proj(R)$, dann ist die rechte Menge in (\ref{eq:levinpad-join}) leer, also auch die linke Menge und damit $x'=\mathit{pad}(x, 1^n)\not\in \Proj(R)$.
@@ -148,10 +194,79 @@ Folgende Aussagen sind äquivalent:
 
     Die noch verbleibende Funktion $\mathit{padsol}$ ist durch die bitweise Projektion durch $\delta$ leicht möglich:
     \[
-        \mathit{padsol}(x, 1^n, y') = y'[\delta[1:q(|x|)]] \quad\text{ wobei } (\cdot, \delta) = \mathit{join}(x, \underbrace{\mathit{block}, \mathit{block}, \ldots, \mathit{block}}_{\text{$q(n)$ mal}}).\]
+        \mathit{padsol}(x, 1^n, y') = y'[\delta[1:q(|x|)]] \quad\text{ wobei } (\cdot, \delta) = \mathit{join}(x, \underbrace{\mathit{block}, \mathit{block}, \ldots, \mathit{block}}_{\text{$n$ mal}}).\]
     Wir verifizieren: Sei $(\mathit{pad}(x, 1^n), y')\in R$, dann ist nach (\ref{eq:levinpad-join}) $y'[\delta]=yy_1y_2\cdots$ wobei $y\in\Sigma^{q(|x|)}$, $(x, y)\in R$. 
     Wir haben
     \[ \mathit{padsol}(x, 1^n, y') = y'[\delta[1:q(|x|)]] = (yy_1y_2\cdots)[1:q(|x|)] = y \]
     und damit $(x, \mathit{padsol}(x, 1^n, y')) = (x, y)\in R$, wie gewünscht.
+\end{proof}
+
+\section{Alles zusammensetzen\ldots}
+
+\begin{theorem}[Äquivalente Formulierungen der Hypothese $Q$]
+    Folgende Aussagen sind äquivalent:
+    \begin{enumerate}
+        \item Jede surjektive ehrliche Funktion $f\in\FP$ ist p-invertierbar. %Zur Erinnerung: p-Invertierbarkeit bedeutet dass eine Funktion $g\in\FP$ existiert mit $f(g(y))=y$.
+        \item $\mathrm{NPMV}_t\subseteq_c \mathrm{FP}$
+        \item $\P=\NP\cap\coNP$ und $\mathrm{NPMV}_t\subseteq_c \mathrm{NPSV}_t$
+        \item Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierende Berechnung von $N(x)$ ist.
+        \item Für jede Menge $L\in \P$  und jede NPTM $N$ mit $L(N)=L$ existiert eine Funktion $h\in \FP$ mit 
+            \[ x\in L \implies N(x) \text{ akz. mit RW $h(x)$}. \]
+        \item Für jedes Paar von NP-Relationen $A, B$ gilt:
+            \[ \Proj(A) \leqmp \Proj(B) \iff A \leqlp B. \]
+        \item Für jedes Beweissystem $h$ gilt: $h$ ist optimal $\iff$ $h$ ist p-optimal. 
+        \item Es existiert eine $\leqlp$-vollständige Levin-paddable NP-Relation $R$ sodass für alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt: es existiert eine Funktion $h\in\mathrm{FP}$ mit
+            \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
+        \item[(\arabic{enumi}\,$'\!$)] Für jede $\leqlp$-vollständige Levin-paddable NP-Relation $R$, und für alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt: es existiert eine Funktion $h\in\mathrm{FP}$ mit
+            \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
+        \item Es existiert eine $\leqlp$-vollständige Levin-paddable NP-Relation $R$ für welche das Standardbeweissystem $\mathit{std}_R$ p-optimal ist.
+        \item[(\arabic{enumi}\,$'\!$)] Für jede $\leqlp$-vollständige Levin-paddable NP-Relationen $R$ ist das Standardbeweissystem $\mathit{std}_R$ p-optimal.
+        \item Es existiert eine $\leq_\mathrm{L,1-1,inv}^\mathrm p$-vollständige NP-Relation $R$ sodass für jede Menge $S\in \P$ mit $S\subseteq \Proj(R)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
+            \[ x\in S \implies (x, g(x))\in R. \]
+        \item[(\arabic{enumi}\,$'\!$)] Für jede $\leq_\mathrm{L,1-1,inv}^\mathrm p$-vollständige NP-Relation $R$ und jede Menge $S\in \P$ mit $S\subseteq \Proj(R)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
+            \[ x\in S \implies (x, g(x))\in R. \]
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+\begin{prooflist}
+\item (1)$\iff$(2)$\iff$(3)$\iff$(4)$\iff$(5): nach Fenner et al. (2003, Thm. 2).
+
+\item (4)$\iff$(8)$\iff$(9): nach Lemma ?? und ??
+
+\item (5)$\implies$(10): Wähle für $R$ eine beliebige $\leq_\mathrm{L,1-1,inv}^\mathrm p$-vollständige NP-Relation (diese existiert immer, z.B. $\mathtt{rKAN}$), wobei Polynom $q$ die Zertifikatsgröße beschränkt. Sei nun $S\subseteq \Proj(R)$ mit $S\in \P$. Definiere die NPTM $N$, welche auf Eingabe $x$ folgendes leistet: teste zuerst ob $x\in S$; falls nicht, lehne sofort ab. Rate dann ein $y\in\Sigma^{\leq q(|x|)}$ und akzeptiere genau dann wenn $(x,y)\in R$. 
+
+    Klar ist, dass $L(N)=S$. Nach (5) existiert nun eine Funktion $h\in \FP$, die für $x\in S$ einen akzeptierenden Rechenweg $h(x)$ von $N(x)$ ausgibt. Wir können sogar aus $h(x)$ das geratene Zertifikat $y$ extrahieren. Es ist daher leicht eine Funktion $g\in \FP$ anzugeben für die $(x,g(x))\in R$ für alle $x\in S$.
+
+\item (10)$\implies$(5): Sei $L\in \P$ und sei $N$ eine NPTM mit $L(N)=L$, wobei das Polynom $q$ die Laufzeit beschränkt. Wir wollen eine Funktion $h\in\FP$ definieren sodass $h(x)$ ein akzeptierender Rechenweg von $N(x)$ für $x\in L$ ist. Definiere die NP-Relation
+    \[ Q = \{ ((N, x), y) \mid \text{$N(x)$ akzeptiert mit Rechenweg $y\in\Sigma^{\leq q(|x|)}$} \}. \]
+    Nachdem (10) gilt, haben wir eine $\leq_\mathrm{L,1-1,inv}^\mathrm p$-vollständige NP-Relation $R$. Damit gilt $Q\leqlp R$ mittels Reduktions- bwz. Rekonstruktionsfunktion $f, k\in FP$. Insbesondere existiert eine Inverse $f^{-1}\in\FP$ zu $f$.
+
+    Sei $S=f(L)$ die Bildmenge der Elemente aus $L$, also 
+    \[ S= \{f(N, x) \mid x\in L\}. \]
+    Es ist leicht zu sehen dass $S\subseteq \Proj(R)$. Außerdem ist $S\in \P$: teste $z\in S$ indem getestet wird ob $f^{-1}(z)=x\neq\bot$ und ob $x\in L$.
+
+    Damit sind die Voraussetzungen von (10) erfüllt, und es existiert eine Funktion $g\in \FP$ sodass $(z,g(z))\in R$ für alle $z\in S$. Damit gilt
+    \begin{gather*}x\in L \implies f(N, x) \in S \implies (f(N,x), g(f(N, x)))\in R\\ \implies ((N, x), k(g(f(N, x))))\in Q\\
+    \implies N(x) \text{ akz. mit Rechenweg $\underbrace{k(g(f(N, x)))}_{h(x)}$. }
+\end{gather*}
+    Definiere nun die gesuchte Funktion $h\in \FP$ mit $h(x) = k(g(f(N, x)))$. Damit gilt für alle $x\in L$ dass $N(x)$ mit Rechenweg $h(x)$ akzeptiert, wie gewünscht.
+
+\item TODO (6)
+\item (2)$\implies$(7): Die Richtung von rechts nach links ist klar. Sei für die andere Richtung $h$ ein optimales Beweissystem für eine Menge $L$. Wir wollen zeigen, dass $h$ auch p-optimal ist. Sei dafür $g$ ein weiteres Beweissystem für $L$. Nach Voraussetzung haben wir $g\leq h$, das heißt es existiert eine (nicht notwendigerweise effiziente) Funktion $f$ sodass $g(w)=h(f(w))$, und gleichzeitig ist $|f(w)|\leq q(|w|)$ für ein geeignetes Polynom $q$.
+
+Betrachte folgende Multifunktion $f'$:
+%\[ f'(w) = \{ y \mid y\in\Sigma^{\leq q(|w|)}, g(w)=h(y) \}. \]
+\[ f'(w) \mapsto y \iff \exists y\in\Sigma^{\leq q(|w|)}, g(w)=h(y). \]
+Es lässt sich leicht zeigen, dass $f'\in\NPMV$, über einen geeigneten NPTM-Transduktor. 
+Es ist sogar $f'\in\NPMV_t$, denn für jedes $w$ mindestens $f(w)\in \fset{}f'(w)$.
+
+Nach (2) gilt also $f'\in\NPMV_t\subseteq_c \FP$, also existiert eine Funktion $f''\in\FP$ welche eine Verfeinerung von $f'$ ist. Diese Funktion übersetzt $g$-Beweise $w$ für $x$ effizient in $h$-Beweise für $x$: 
+Sei $g(w)=x$, dann gilt
+\[ f''(w) = y \quad\text{mit } y\in\Sigma^{\leq q(|w|)}, x=g(w)=h(y) \]
+also ist $h(f''(w))=x$ bzw. $f''(w)$ ein $h$-Beweis für $x$, wie gewünscht.
+
+
+\item (7)$\implies$(9): klar, denn $\mathtt{rKAN}$ ist $\leqlp$-vollständig, ist Levin-paddable, und das Standardbeweissystem $\mathit{std}_\mathtt{rKAN}$ ist (wie jedes Standardbeweissystem einer NP-Relation) optimal. Zusammen mit (7) ist es also auch p-optimal.
+\end{prooflist}
 \end{proof}
 
