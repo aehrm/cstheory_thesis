@@ -1,3 +1,4 @@
+%! TEX root = ./thesis.tex
 \chapter{Definitionen}
 
 \begin{itemize}
@@ -172,10 +173,10 @@ Folgende Aussagen sind äquivalent:
 
     Nach Voraussetzungen  ist die Relation $R$ auch \emph{joinable}, das heißt wir haben eine Funktion $\mathit{join}\in\FP$. Sei 
     \[ (x',\delta)=\mathit{join}(x, \underbrace{\mathit{block}, \mathit{block}, \ldots, \mathit{block}}_{\text{$n$ mal}}).\]
-    An dieser Stelle könnten wir (mit Definition ??) über die Länge $|\delta|$ die Länge von Zertifikaten zu $x'$ schließen, und damit $|x'|$ beschränken.
+    Wir werden nun über die Länge $|\delta|$ auf die Länge von Zertifikaten zu $x'$ schließen, und damit $|x'|$ beschränken.
     Nach Definition ?? gilt
     \[ |\delta|=q(|x|)+q(n)\cdot q(|\mathit{block}|)=q(|x|)+q(n)\cdot l\geq n. \]
-    Beob., dass alle Zertifikate $y'$ für $x'$ die feste Länge $q(|x'|)$ haben. 
+    Beob. dass unter Definition ?? alle Zertifikate $y'$ für $x'$ die feste Länge $q(|x'|)$ haben. 
     Zur Erinnerung: wir haben
     \begin{multline}\label{eq:levinpad-join} \{ y'[\delta] \mid y'\in\Sigma^{q(|x'|)}, (x', y')\in R \} = \{ yy_1y_2\cdots y_{n} \mid y\in\Sigma^{q(|x|)}, y_1,y_2, \ldots \in \Sigma^{l},\\ (x,y),(\mathit{block}, y_1),(\mathit{block}, y_2), \ldots \in R\} \end{multline}
     Die Sequenz $\delta$ besteht nach Definition aus paarweise verschiedenen Indizes, daher können wir argumentieren, dass auch alle Zertifikate $y'$ (mit vorgegebener Länge $q(|x'|)$) mindestens die Länge $|\delta|$ haben.
@@ -203,7 +204,7 @@ Folgende Aussagen sind äquivalent:
 
 \section{Alles zusammensetzen\ldots}
 
-\begin{theorem}[Äquivalente Formulierungen der Hypothese $Q$]
+\begin{theorem}[Äquivalente Formulierungen der Hypothese $Q$; Fenner et al., 2003]
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
         \item Jede surjektive ehrliche Funktion $f\in\FP$ ist p-invertierbar. %Zur Erinnerung: p-Invertierbarkeit bedeutet dass eine Funktion $g\in\FP$ existiert mit $f(g(y))=y$.
@@ -213,7 +214,8 @@ Folgende Aussagen sind äquivalent:
         \item Für jede Menge $L\in \P$  und jede NPTM $N$ mit $L(N)=L$ existiert eine Funktion $h\in \FP$ mit 
             \[ x\in L \implies N(x) \text{ akz. mit RW $h(x)$}. \]
         \item Für jedes Paar von NP-Relationen $A, B$ gilt:
-            \[ \Proj(A) \leqmp \Proj(B) \iff A \leqlp B. \]
+            \[ \Proj(A) \leqmp \Proj(B) \iff A \leqlp B, \]
+            wobei die zwei entsprechenden Reduktionsfuktionen sogar identisch sind.
         \item Für jedes Beweissystem $h$ gilt: $h$ ist optimal $\iff$ $h$ ist p-optimal. 
         \item Es existiert eine $\leqlp$-vollständige Levin-paddable NP-Relation $R$ sodass für alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt: es existiert eine Funktion $h\in\mathrm{FP}$ mit
             \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
@@ -238,20 +240,51 @@ Folgende Aussagen sind äquivalent:
     Klar ist, dass $L(N)=S$. Nach (5) existiert nun eine Funktion $h\in \FP$, die für $x\in S$ einen akzeptierenden Rechenweg $h(x)$ von $N(x)$ ausgibt. Wir können sogar aus $h(x)$ das geratene Zertifikat $y$ extrahieren. Es ist daher leicht eine Funktion $g\in \FP$ anzugeben für die $(x,g(x))\in R$ für alle $x\in S$.
 
 \item (10)$\implies$(5): Sei $L\in \P$ und sei $N$ eine NPTM mit $L(N)=L$, wobei das Polynom $q$ die Laufzeit beschränkt. Wir wollen eine Funktion $h\in\FP$ definieren sodass $h(x)$ ein akzeptierender Rechenweg von $N(x)$ für $x\in L$ ist. Definiere die NP-Relation
-    \[ Q = \{ ((N, x), y) \mid \text{$N(x)$ akzeptiert mit Rechenweg $y\in\Sigma^{\leq q(|x|)}$} \}. \]
+    \[ Q = \{ (x, y) \mid \text{$N(x)$ akzeptiert mit Rechenweg $y\in\Sigma^{\leq q(|x|)}$} \}. \]
     Nachdem (10) gilt, haben wir eine $\leq_\mathrm{L,1-1,inv}^\mathrm p$-vollständige NP-Relation $R$. Damit gilt $Q\leqlp R$ mittels Reduktions- bwz. Rekonstruktionsfunktion $f, k\in FP$. Insbesondere existiert eine Inverse $f^{-1}\in\FP$ zu $f$.
 
     Sei $S=f(L)$ die Bildmenge der Elemente aus $L$, also 
-    \[ S= \{f(N, x) \mid x\in L\}. \]
+    \[ S= \{f(x) \mid x\in L\}. \]
     Es ist leicht zu sehen dass $S\subseteq \Proj(R)$. Außerdem ist $S\in \P$: teste $z\in S$ indem getestet wird ob $f^{-1}(z)=x\neq\bot$ und ob $x\in L$.
 
     Damit sind die Voraussetzungen von (10) erfüllt, und es existiert eine Funktion $g\in \FP$ sodass $(z,g(z))\in R$ für alle $z\in S$. Damit gilt
-    \begin{gather*}x\in L \implies f(N, x) \in S \implies (f(N,x), g(f(N, x)))\in R\\ \implies ((N, x), k(g(f(N, x))))\in Q\\
-    \implies N(x) \text{ akz. mit Rechenweg $\underbrace{k(g(f(N, x)))}_{h(x)}$. }
+    \begin{gather*}x\in L \implies f(x) \in S \implies (f(N,x), g(f(x)))\in R\\ \implies ((x), k(g(f(x))))\in Q\\
+    \implies N(x) \text{ akz. mit Rechenweg $\underbrace{k(g(f(x)))}_{h(x)}$. }
 \end{gather*}
-    Definiere nun die gesuchte Funktion $h\in \FP$ mit $h(x) = k(g(f(N, x)))$. Damit gilt für alle $x\in L$ dass $N(x)$ mit Rechenweg $h(x)$ akzeptiert, wie gewünscht.
+    Definiere nun die gesuchte Funktion $h\in \FP$ mit $h(x) = k(g(f(x)))$. Damit gilt für alle $x\in L$ dass $N(x)$ mit Rechenweg $h(x)$ akzeptiert, wie gewünscht.
 
-\item TODO (6)
+\item (4)$\implies$(6): Die Richtunng von rechts nach links ist klar. Für die andere Richtung sei $\Proj(A) \leqmp \Proj(B)$ mit $A,B$ NP-Relationen. Sei $q$ hierbei das Polynom was die Zertifikatslänge in $A$ begrenzt.
+    Wir wollen nun eine Levin-Reduktion von $A$ auf $B$ angeben. Sei $f\in \FP$ die Funktion, welche die Reduktion $\Proj(A) \leqmp \Proj(B)$ realisiert.
+
+    Definiere folgende NPTM $N$, die wie folgt auf Eingabe $w$ arbeitet: \\
+    \begin{algorithm}[H]
+        \lIf{$w$ nicht von der Form $(x, y')$}{akzeptiere}
+        $(x, y')\gets w$\;
+        \lIf{$(f(x), y')\not\in B$}{akzeptiere}
+        \Else{
+        \tcc{Ab hier gilt $f(x)\in \Pr(B)$ und $x\in \Pr(A)$}
+        Rate nichtdeterministisch $y\in \Sigma^{q(|x|)}$\;
+        Akzeptiere genau dann wenn $(x,y)\in A$.
+        }
+    \end{algorithm}
+    Es ist leicht zu sehen dass $L(N)=\Sigma^*$. Nach (4) existiert nun also eine Funktion $g$ sodass, für alle $w$, $g(w)$ eine akzeptierender Rechwenweg von $N(w)$ ist.
+
+    Damit lässt die Levin-Reduktion von $A$ auf $B$ angeben: wähle $f$ als Reduktionsfunktion, und definiere $g'$ als Rekonstruktionsfunktion, welche aus dem akzeptierenden Rechenweg $g(x, y')$ das geratene Zertifikat $y$ von Zeile 6 ausliest. Dann gilt
+    \begin{gather*}
+        (f(x), y') \in B \implies N(x, y') \text{ akz. auf einem RW in Z. 6, rät dabei $y$}\\
+        \implies (x,y)=(x, g'(x, y'))\in A
+    \end{gather*}
+    wie gewünscht. Wir haben $A\leqlp$ via $f, g'$.
+\item (6)$\implies$(8): Sei $R$ die $\leqlp$-vollständige und Levin-paddable NP-Relation $R$ und sei $N$ eine NPTM $N$ mit $L(N)=\Proj(R)$, wobei das Polynom $q$ die Laufzeit von $N$ beschränkt.  Definiere
+    \[ Q = \{ (x, y) \mid \text{$N(x)$ akzeptiert mit Rechenweg $y\in\Sigma^{\leq q(|x|)}$} \}. \]
+
+    Es ist klar, dass $\Proj(R)\leqmp \Proj(Q)=L(N)=\Proj(R)$ über die Identiätsfunktion.
+    Nach (6) gilt nun auch $R\leqlp Q$. mit Identitätsfunktion als Reduktionsfunktion und $h\in \FP$ als Rekonstruktionsfunktion.
+    Damit gilt
+    \[ \text{$N(x)$ akz. mit RW $\alpha$} \implies (x, \alpha)\in Q \implies (x, h(x, \alpha))\in R \]
+    wie gewünscht.
+
+
 \item (2)$\implies$(7): Die Richtung von rechts nach links ist klar. Sei für die andere Richtung $h$ ein optimales Beweissystem für eine Menge $L$. Wir wollen zeigen, dass $h$ auch p-optimal ist. Sei dafür $g$ ein weiteres Beweissystem für $L$. Nach Voraussetzung haben wir $g\leq h$, das heißt es existiert eine (nicht notwendigerweise effiziente) Funktion $f$ sodass $g(w)=h(f(w))$, und gleichzeitig ist $|f(w)|\leq q(|w|)$ für ein geeignetes Polynom $q$.
 
 Betrachte folgende Multifunktion $f'$:
