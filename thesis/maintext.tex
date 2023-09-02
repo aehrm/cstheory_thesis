@@ -7,21 +7,101 @@
     \item Levin-Reduktion definieren
 \end{itemize}
 
+\begin{definition}[NP-Relation]
+    Eine \emph{NP-Relation} ist eine zweistellige Relation $R\subseteq \Sigma^*\times\Sigma^*$, sodass diese
+    \begin{enumerate}
+        \item in Polynomialzeit entscheidbar ist, d.h., $R\in\P$, und
+        \item ein Polynom $q$ existiert, sodass
+            \begin{equation}\label{eq:zertifikatsschranke}
+                (x,y)\in R \implies |y|\leq q(|x|) \quad\text{für alle $x,y\in\Sigma^*$}.
+            \end{equation}
+    \end{enumerate}
+    Die Wörter der ersten Komponente nennen wir \emph{Probleminstanzen} oder \emph{Instanzen} oder emph{Probleme} von $R$, die Wörter der zweiten Komponente nennen wir die \emph{Zertifikate} von $R$. Wir sagen dann für $(x,y)\in R$, dass \emph{$y$ ein Zertifikat für $x$} ist. In diesem Sinne sagt (\ref{eq:zertifikatsschranke})  aus, dass Zertifikate $y$ für $x$ nicht superpolynomiell länger als $x$ sein dürfen.
+    Das Polynom $q$ nennen wir auch die \emph{Zertifikatsschranke} zu $R$. 
+
+    Für eine NP-Relation definieren wir
+    \[ \Proj(R) = \{ x \mid \exists y\in\Sigma^*, (x,y)\in R \} \in \NP \]
+    Die Menge $\Proj(R)$ ist also die Menge der Probleminstanzen, für welche ein zugehöriges Zertifikat existiert; damit entspricht $\Proj(R)$ derjenigen Menge, die üblicherweise bei algorithmischen Entscheidungsproblemen betrachtet wird. Die Zugehörigkeit $\Proj(R)\in\NP$ folgt unmittelbar aus den Punkten (1) und (2).
+
+    Wir definieren 
+    \[ R(x) = \{ y \mid y\in\Sigma^*, (x,y)\in R\}  \]
+    als die Menge aller Zertifikate $y$ zu $x$. Damit gilt unmittelbar
+    \[ x\in \Proj(R) \iff R(x) \neq\emptyset. \qedhere \] 
+\end{definition}
+
+\begin{definition}[Levin-Reduzierbarkeit]
+    Seien $Q, R$ zwei NP-Relationen. Wir sagen dass \emph{$Q$ sich auf $R$ (Polynomialzeit-)Levin-reduzieren lässt}, bzw. $Q\leqlp R$ wenn zwei Funktionen $f, g\in \FP$ existieren sodass
+    \begin{enumerate}
+        \item $x\in\Proj(Q) \iff f(x)\in\Proj(R)$,
+        \item $(f(x), y)\in R \implies (x, g(x,y))\in Q$.
+    \end{enumerate}
+    Punkt (1) sagt also nur aus, dass $f$ eine Many-one-Polynomialzeit-Reduktion zwischen den entsprechenden Entscheidungsproblemen ist.
+    Punkt (2) sagt nun aus, dass wenn $y$ ein Zertifikat für die Instanz $f(x)$ aus $R$ ist, dann lässt sich aus $y$ wieder ein Zertifikat $g(x,y)$ für die originale Instanz $x$ berechnen.
+
+    Die Funktion $f$ nennen wir \emph{Reduktionsfunktion}, die Funktion $g$ nennen wir \emph{Rekonstruktionsfunktion}.
+
+    Wir schreiben $Q\leq_\mathrm{L,1\mhyphen1}^\mathrm p R$ falls $f$ zusätzlich injektiv ist. Wir schreiben $Q\leq_\mathrm{L,1\mhyphen1,inv}^\mathrm p R$ falls $f$ zusätzlich injektiv und p-invertierbar ist. Klar ist:
+    \[ Q\leq_\mathrm{L,1\mhyphen1,inv}^\mathrm p R \implies Q \leq_\mathrm{L,1\mhyphen1}^\mathrm p R \implies Q \leqlp R \implies \Proj(Q) \leqmp \Proj(R). \]
+
+    Wir sagen dass $R$ \emph{$\leqlp$-vollständig} ist, wenn $Q\leqlp R$ für alle NP-Relationen $Q$ gilt. Die $\leq_\mathrm{L,1\mhyphen1}^\mathrm p$- und $\leq_\mathrm{L,1\mhyphen1,inv}^\mathrm p$-Vollständigkeit ist analog definiert.
+\end{definition}
+
 \begin{theorem}
     Die kanonische NP-Relation
     \[ \mathtt{rKAN} = \{ ((N,x,1^n), \alpha) \mid \text{$\alpha$ ist ein akz. Rechenweg auf $N(x)$ und $|\alpha|\leq n$} \} \]
-    ist $\leq_\mathrm{L,inv}^\mathrm p$-vollständig.
+    ist $\leq_\mathrm{L,1\mhyphen1,inv}^\mathrm p$-vollständig.
 \end{theorem}
 \begin{proof}
-    Sei $R$ eine beliebige NP-Relation mit Zertifikatsschranke $r$, i.e. $(x,y)\in R\implies |y|\leq r(|x|)$. Sei $M$ die PTM welche $R$ entscheidet, mit Laufzeitschranke $p$. Sei $N$ eine NPTM welche auf Eingabe $x$ zunächst ein Zertifikat $y, |y|\leq r(|x|)$ rät, und dann testet ob $M(\langle x,y\rangle )$ akzeptiert. Die Laufzeit von $N$ ist beschränkt auf $p(|\langle x,y\rangle|)\in O(p(r(|x|))$; sei daher $q$ ein Polynom, welches die Laufzeit von $N$ beschränkt.
+    Sei $R$ eine beliebige NP-Relation mit Zertifikatsschranke $r$, i.e. $(x,y)\in R\implies |y|\leq r(|x|)$. Sei $M$ die PTM welche $R$ entscheidet, mit Laufzeitschranke $p$. Sei $N$ eine NPTM welche auf Eingabe $x$ zunächst ein Zertifikat $y, |y|\leq r(|x|)$ rät, und dann testet ob $M(\langle x,y\rangle )$ akzeptiert. Die Laufzeit von $N$ ist beschränkt auf $p(|\langle x,y\rangle|)\in O(p(r(|x|)))$; sei daher $q$ ein Polynom, welches die Laufzeit von $N$ beschränkt.
 
-    Definiere die Reduktionsfunktion $f(x)=(N, x, 1^{q(|x|)})$. Es gilt $x\in \Proj(R)\implies f(x)\in \Proj(\mathtt{rKAN})$.
+    Definiere die Reduktionsfunktion $f(x)=(N, x, 1^{q(|x|)})$. Wir zeigen zunächst dass
+    \[ x\in \Proj(R)\iff f(x)\in \Proj(\mathtt{rKAN}). \]
     Wenn $x\in\Proj(R)$, dann existiert ein $y, |y|\leq r(|x|)$ sodass $(x,y)\in R$. Dann wird auch $N(x)$ akzeptieren, nämlich auf jenem Pfad welcher $y$ rät. Es existiert also ein Rechenweg $\alpha$ mit $|\alpha|\leq q(|x|)$ sodass $N(x)$ auf $\alpha$ akzptiert. Dann gilt aber auch $(f(x), \alpha)=((N,x,1^{q(|x|)}),\alpha)\in \mathtt{rKAN}$.
     Die Rückrichtung $x\not\in \Proj(R)\implies f(x)\not\in\Proj(R)$ folgt analog.
     Es ist klar, dass $f$ injektiv ist, dass $f$ Polynomialzeit-berechenbar und -invertierbar ist. 
 
     Es lässt sich außerdem einfach eine Rekonstruktionsfunktion $g\in \FP$ angeben, die für $g(f(x), \alpha)=y$ aus $\alpha$ das entsprechende geratene Zertifikat $y$ aus $\alpha$ berechenen kann.
 \end{proof}
+
+\begin{definition}[Universelle Relationen, Agrawal und Biswas, 1992]
+    Sei $R$ eine NP-Relation mit Zertifikatsschranke $q$. 
+    Wir nennen $R$ \emph{streng} wenn für $R$ gilt, dass $(x,y)\in R\implies |y|=q(|x|)$. In anderen Worten, jedes Zertifikat $y$ für $x$ hat genau die Länge $q(|x|)$.
+
+    Eine Funktion $f\in \FP$ ist eine \emph{zertifikatserhaltende Reduktion} einer strengen Relation $Q$ zu einer zweiten strengen Relation $R$ wenn diese die folgenden Bedingungen erfüllen
+    \begin{enumerate}
+        \item $f(x)=(z,\alpha)$ wobei $x,z\in\Sigma^*$ und $\alpha\in\mathbb N_{>0}^{q(|x|)}$ ist eine Sequenz von positiven paarweise verschiedenen  Indizes der Länge $q(|x|)$.
+        \item $\{ y[\alpha] \mid y\in R(x) \} = Q(x)$
+    \end{enumerate}
+
+    Wir nennen eine strenge Relation $R$ \emph{universell} wenn sie vollständig bezüglich zertifikatserhaltenden Reduktionen ist. In anderen Worten, wenn für jede strenge Relation $Q$ eine zertifikatserhaltende Reduktion von $Q$ auf $R$ existiert.
+\end{definition}
+
+\begin{definition}[Agrawal und Biswas, 1992]
+    Sei $R$ eine NP-Relation mit Zertifikatsschranke $q$, wobei zusätzlich für $R$ gilt, dass $(x,y)\in R\implies |y|=q(|x|)$. In anderen Worten, jedes Zertifikat $y$ für $x$ hat genau die Länge $q(|x|)$.
+    Wir definieren nun bezüglich einer solchen Relation $R$:
+    \begin{enumerate}
+        \item Die Relation $R$ hat einen \emph{building block}, wenn es ein Element $\mathit{block}\in\Proj(R)$ gibt, sowie paarweise verschiedene $b_1,b_2,b_3\in\mathbb N_{>0}$ sodass
+            \[\{ y[b_1b_2b_3] \mid y\in R(\mathit{block}) \} = \Sigma^3 - \{000\} \]
+        \item Die Relation $R$ ist \emph{joinable} wenn es eine Funktion $\mathit{join}\in \FP$ gibt sodass
+            \[ \mathit{join}(x_1, \dots, x_n) = (z, \alpha) \text{ wobei } x_1, \ldots, x_n, z\in \Sigma^* \text{ und } |\alpha|=\sum_{k=1}^n q(|x_k|), \] 
+            wobei $\alpha\in \mathbb N_{>0}^*$ eine Sequenz von \emph{paarweise verschiedenen} Indizes ist, und
+            \begin{equation*} \{ y'[\alpha] \mid y' \in R(z)\} \\= \{ y_1\circ y_2 \circ \cdots \circ y_n \mid (\forall k\leq n).\, y_k \in R(x_k) \}. \end{equation*}
+        \item Die Relation $R$ ist \emph{coupable} wenn es eine Funktion $\mathit{cpl}\in \FP$ gibt sodass
+            \begin{multline*} \mathit{cpl}(x, (i_1, \ldots, i_n), (j_1, \ldots, j_n)) = (z, \alpha) \text{ wobei } x\in\Sigma^*,\\ 1\leq i_1, \ldots, i_n, j_1,\ldots, n \leq q(|x|) \text{ und } |\alpha|=q(|x|),\end{multline*}
+            wobei wieder $\alpha\in \mathbb N_{>0}^*$ eine Sequenz von \emph{paarweise verschiedenen} Indizes ist, und
+            \begin{equation*} \{ y'[\alpha] \mid y'\in R(z) \} \\= \{ y \mid y\in R(x) \text{ und } (\forall k\leq n)(y[i_k]\neq y[j_k]) \}. \end{equation*}
+    \end{enumerate}
+\end{definition}
+
+\begin{theorem}
+    Sei $R$ eine strenge NP-Relation.
+    Folgende Aussagen sind äquivalent:
+    \begin{enumerate}
+        \item $R$ ist eine universelle Relation.
+        \item $R$ hat einen \emph{building block}, ist \emph{joinable} und ist \emph{coupable}.
+    \end{enumerate}
+    Diese Äquivalenz gilt nur im unrelativierten Fall.
+\end{theorem}
 
 \chapter{Suchprobleme und die Hypothese Q}
 
@@ -36,7 +116,7 @@
     \begin{enumerate}
         \item $x\in \Proj(R) \iff \mathit{pad}(x, 1^n) \in \Proj(R)$,
         \item $(\mathit{pad}(x, 1^n), y)\in R \implies (x, \mathit{padsol}(x, 1^n, y)) \in R$,
-        \item $r(|\mathit{pad}(x, 1^n)|)\geq n$. (Funktion $\mathit{pad}$ ist ehrlich bzgl. der zweiten Komponente.)
+        \item $r(|\mathit{pad}(x, 1^n)|)\geq n$. (Funktion $\mathit{pad}$ ist ehrlich bzgl. der zweiten Komponente.)\qedhere
     \end{enumerate}
 \end{definition}
 
@@ -44,7 +124,7 @@
     Sei $R$ eine NP-Relation die Levin-paddable ist. Folgende Aussagen sind äquivalent:\marginnote{Generalisierung von Messner}
     \begin{enumerate}
         \item Für alle NPTM $N$ mit $L(N)=\Proj(R)$ lassen sich akzepierende Rechenwege von $N$ in Zertifikate umrechnen: es existiert eine Funktion $h\in\mathrm{FP}$ sodass
-            \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
+            \[ N(x) \text{ akz. mit Rechenweg $\alpha$} \implies (x,h(x,\alpha))\in R. \]
         \item Das Standard-Beweissystem $\mathit{std}_R$ bzgl. $R$ ist p-optimal. Zur Erinnerung: 
             \[ \mathit{std}_R(w) = \begin{cases} x & \text{wenn $w=(x,y)$ und $(x,y)\in R$}\\
             \top & \text{sonst}\end{cases}. \] 
@@ -59,7 +139,7 @@ Sei $R$ eine $\leqlp$-vollständige NP-Relation, mit der zusätzlichen Eigenscha
 Folgende Aussagen sind äquivalent:
 \begin{enumerate}
     \item Für alle NPTM $N$ mit $L(N)=\Proj(R)$ lassen sich akzepierende Rechenwege von $N$ in Zertifikate umrechnen: es existiert eine Funktion $h\in\mathrm{FP}$ sodass
-        \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
+        \[ N(x) \text{ akz. mit Rechenweg $\alpha$} \implies (x,h(x,\alpha))\in R. \]
     \item Für alle NPTM $N$ mit $L(N)=\Sigma^*$ lassen sich aus Eingabe $x$ Rechenwege von $N(x)$ effizient bestimmen: es existiert $r\in\mathrm{FP}$ sodass $N(x)$ auf Rechenweg $r(x)$ akzeptiert. (Das ist die Aussage Q.)
 \end{enumerate}
 \end{lemma}
@@ -92,7 +172,7 @@ Folgende Aussagen sind äquivalent:
 
 \section{Welche Suchprobleme sind paddable?}
 
-\begin{observation}
+\begin{observation}\label{obs:rkan-paddable}
     Die kanonische Levin-vollständige NP-Relation $\mathtt{rKAN}$ ist Levin-paddable.
 \end{observation}
 
@@ -116,7 +196,7 @@ Folgende Aussagen sind äquivalent:
 
     Seien $f, g$ die Reduktions- bzw. Reproduktionsfunktion, welche $\mathtt{rKAN}\leq_\mathrm{L}^\mathrm p R$ bezeugen, und seinen analog $f', g'$ jene Funktionen, welche $R\leq_\mathrm{L}^\mathrm p \mathtt{rKAN}$ bezeugen. Erstere existieren nach Voraussetzung, zweitere existieren weil $\mathtt{rKAN}$ $\leq_\mathrm{L}^\mathrm p$-vollständig ist.
     Nach Voraussetzung ist $f$ ehrlich. %, und da $f'$ p-invertierbar ist, ist auch $f'$ ehrlich. 
-    Und nach Beobachtung ?? existieren für $\mathtt{rKAN}$ Padding-Funktionen $\mathit{pad}_\mathtt{rKAN}$, $\mathit{padsol}_\mathtt{rKAN}$.
+    Und nach Beobachtung~\ref{obs:rkan-paddable} existieren für $\mathtt{rKAN}$ Padding-Funktionen $\mathit{pad}_\mathtt{rKAN}$, $\mathit{padsol}_\mathtt{rKAN}$.
     Sei $q$ ein entsprechendes Polynom mit $q(|\mathit{pad}_\mathtt{rKAN}(x, 1^n)|)\geq n$, $q(|f(x)|) \geq |x|$.
 
     Definiere nun
@@ -195,7 +275,7 @@ Folgende Aussagen sind äquivalent:
 
     Die noch verbleibende Funktion $\mathit{padsol}$ ist durch die bitweise Projektion durch $\delta$ leicht möglich:
     \[
-        \mathit{padsol}(x, 1^n, y') = y'[\delta[1:q(|x|)]] \quad\text{ wobei } (\cdot, \delta) = \mathit{join}(x, \underbrace{\mathit{block}, \mathit{block}, \ldots, \mathit{block}}_{\text{$n$ mal}}).\]
+        \mathit{padsol}(x, 1^n, y') = y'[\delta[1:q(|x|)]] \enspace\text{ wobei } (\cdot, \delta) = \mathit{join}(x, \underbrace{\mathit{block}, \mathit{block}, \ldots, \mathit{block}}_{\text{$n$ mal}}).\]
     Wir verifizieren: Sei $(\mathit{pad}(x, 1^n), y')\in R$, dann ist nach (\ref{eq:levinpad-join}) $y'[\delta]=yy_1y_2\cdots$ wobei $y\in\Sigma^{q(|x|)}$, $(x, y)\in R$. 
     Wir haben
     \[ \mathit{padsol}(x, 1^n, y') = y'[\delta[1:q(|x|)]] = (yy_1y_2\cdots)[1:q(|x|)] = y \]
@@ -204,44 +284,44 @@ Folgende Aussagen sind äquivalent:
 
 \section{Alles zusammensetzen\ldots}
 
-\begin{theorem}[Äquivalente Formulierungen der Hypothese $Q$; Fenner et al., 2003]
+\begin{theorem}[Äquivalente Formulierungen der Hypothese $Q$; Fenner et al., 2003; Messner, 2001]\label{thm:q}
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
-        \item Jede surjektive ehrliche Funktion $f\in\FP$ ist p-invertierbar. %Zur Erinnerung: p-Invertierbarkeit bedeutet dass eine Funktion $g\in\FP$ existiert mit $f(g(y))=y$.
+        \item Hypothese Q: Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierende Berechnung von $N(x)$ ist.
         \item $\mathrm{NPMV}_t\subseteq_c \mathrm{FP}$
         \item $\P=\NP\cap\coNP$ und $\mathrm{NPMV}_t\subseteq_c \mathrm{NPSV}_t$
-        \item Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierende Berechnung von $N(x)$ ist.
+        \item Jede surjektive ehrliche Funktion $f\in\FP$ ist p-invertierbar. %Zur Erinnerung: p-Invertierbarkeit bedeutet dass eine Funktion $g\in\FP$ existiert mit $f(g(y))=y$.
         \item Für jede Menge $L\in \P$  und jede NPTM $N$ mit $L(N)=L$ existiert eine Funktion $h\in \FP$ mit 
-            \[ x\in L \implies N(x) \text{ akz. mit RW $h(x)$}. \]
+            \[ x\in L \implies N(x) \text{ akz. mit Rechenweg $h(x)$}. \]
         \item Für jedes Paar von NP-Relationen $A, B$ gilt:
             \[ \Proj(A) \leqmp \Proj(B) \iff A \leqlp B, \]
-            wobei die zwei entsprechenden Reduktionsfuktionen sogar identisch sind.
+            wobei die zwei entsprechenden Reduktionsfuktionen $A\to B$ identisch sind.
         \item Für jedes Beweissystem $h$ gilt: $h$ ist optimal $\iff$ $h$ ist p-optimal. 
         \item Es existiert eine $\leqlp$-vollständige Levin-paddable NP-Relation $R$ sodass für alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt: es existiert eine Funktion $h\in\mathrm{FP}$ mit
-            \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
-        \item[(\arabic{enumi}\,$'\!$)] Für jede $\leqlp$-vollständige Levin-paddable NP-Relation $R$, und für alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt: es existiert eine Funktion $h\in\mathrm{FP}$ mit
-            \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
+            \[ N(x) \text{ akz. mit Rechenweg $\alpha$} \implies (x,h(x,\alpha))\in R. \]
+        %\item[(\arabic{enumi}\,$'\!$)] Für jede $\leqlp$-vollständige Levin-paddable NP-Relation $R$, und für alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt: es existiert eine Funktion $h\in\mathrm{FP}$ mit
+            %\[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
         \item Es existiert eine $\leqlp$-vollständige Levin-paddable NP-Relation $R$ für welche das Standardbeweissystem $\mathit{std}_R$ p-optimal ist.
-        \item[(\arabic{enumi}\,$'\!$)] Für jede $\leqlp$-vollständige Levin-paddable NP-Relationen $R$ ist das Standardbeweissystem $\mathit{std}_R$ p-optimal.
-        \item Es existiert eine $\leq_\mathrm{L,1-1,inv}^\mathrm p$-vollständige NP-Relation $R$ sodass für jede Menge $S\in \P$ mit $S\subseteq \Proj(R)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
+        %\item[(\arabic{enumi}\,$'\!$)] Für jede $\leqlp$-vollständige Levin-paddable NP-Relationen $R$ ist das Standardbeweissystem $\mathit{std}_R$ p-optimal.
+        \item Es existiert eine $\leq_\mathrm{L,1\mhyphen1,inv}^\mathrm p$-vollständige NP-Relation $R$ sodass für jede Menge $S\in \P$ mit $S\subseteq \Proj(R)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
             \[ x\in S \implies (x, g(x))\in R. \]
-        \item[(\arabic{enumi}\,$'\!$)] Für jede $\leq_\mathrm{L,1-1,inv}^\mathrm p$-vollständige NP-Relation $R$ und jede Menge $S\in \P$ mit $S\subseteq \Proj(R)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
-            \[ x\in S \implies (x, g(x))\in R. \]
+        %\item[(\arabic{enumi}\,$'\!$)] Für jede $\leq_\mathrm{L,1\mhyphen1,inv}^\mathrm p$-vollständige NP-Relation $R$ und jede Menge $S\in \P$ mit $S\subseteq \Proj(R)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
+            %\[ x\in S \implies (x, g(x))\in R. \]
     \end{enumerate}
 \end{theorem}
 \begin{proof}
 \begin{prooflist}
 \item (1)$\iff$(2)$\iff$(3)$\iff$(4)$\iff$(5): nach Fenner et al. (2003, Thm. 2).
 
-\item (4)$\iff$(8)$\iff$(9): nach Lemma ?? und ??
+\item (1)$\iff$(8)$\iff$(9): nach Lemma~\ref{lemma:q-generalized} und~\ref{lemma:stdps-q}.
 
-\item (5)$\implies$(10): Wähle für $R$ eine beliebige $\leq_\mathrm{L,1-1,inv}^\mathrm p$-vollständige NP-Relation (diese existiert immer, z.B. $\mathtt{rKAN}$), wobei Polynom $q$ die Zertifikatsgröße beschränkt. Sei nun $S\subseteq \Proj(R)$ mit $S\in \P$. Definiere die NPTM $N$, welche auf Eingabe $x$ folgendes leistet: teste zuerst ob $x\in S$; falls nicht, lehne sofort ab. Rate dann ein $y\in\Sigma^{\leq q(|x|)}$ und akzeptiere genau dann wenn $(x,y)\in R$. 
+\item (5)$\implies$(10): Wir zeigen eine stärkere Variante von (10), welche sich über \emph{alle} NP-Relationen $R$ estreckt (und damit auch über $\leq_\mathrm{L,1\mhyphen1,inv}^\mathrm p$-vollständige $\mathtt{rKAN}$, wie von (10) gefordert). Sei $R$ eine beliebige  NP-Relation, wobei Polynom $q$ die Zertifikatsgröße beschränkt. Sei nun $S\subseteq \Proj(R)$ mit $S\in \P$. Definiere die NPTM $N$, welche auf Eingabe $x$ folgendes leistet: teste zuerst ob $x\in S$; falls nicht, lehne sofort ab. Rate dann ein $y\in\Sigma^{\leq q(|x|)}$ und akzeptiere genau dann wenn $(x,y)\in R$. 
 
     Klar ist, dass $L(N)=S$. Nach (5) existiert nun eine Funktion $h\in \FP$, die für $x\in S$ einen akzeptierenden Rechenweg $h(x)$ von $N(x)$ ausgibt. Wir können sogar aus $h(x)$ das geratene Zertifikat $y$ extrahieren. Es ist daher leicht eine Funktion $g\in \FP$ anzugeben für die $(x,g(x))\in R$ für alle $x\in S$.
 
 \item (10)$\implies$(5): Sei $L\in \P$ und sei $N$ eine NPTM mit $L(N)=L$, wobei das Polynom $q$ die Laufzeit beschränkt. Wir wollen eine Funktion $h\in\FP$ definieren sodass $h(x)$ ein akzeptierender Rechenweg von $N(x)$ für $x\in L$ ist. Definiere die NP-Relation
     \[ Q = \{ (x, y) \mid \text{$N(x)$ akzeptiert mit Rechenweg $y\in\Sigma^{\leq q(|x|)}$} \}. \]
-    Nachdem (10) gilt, haben wir eine $\leq_\mathrm{L,1-1,inv}^\mathrm p$-vollständige NP-Relation $R$. Damit gilt $Q\leqlp R$ mittels Reduktions- bwz. Rekonstruktionsfunktion $f, k\in FP$. Insbesondere existiert eine Inverse $f^{-1}\in\FP$ zu $f$.
+    Nachdem (10) gilt, haben wir eine $\leq_\mathrm{L,1\mhyphen1,inv}^\mathrm p$-vollständige NP-Relation $R$. Damit gilt $Q\leqlp R$ mittels Reduktions- bwz. Rekonstruktionsfunktion $f, k\in FP$. Insbesondere existiert eine Inverse $f^{-1}\in\FP$ zu $f$.
 
     Sei $S=f(L)$ die Bildmenge der Elemente aus $L$, also 
     \[ S= \{f(x) \mid x\in L\}. \]
@@ -253,7 +333,7 @@ Folgende Aussagen sind äquivalent:
 \end{gather*}
     Definiere nun die gesuchte Funktion $h\in \FP$ mit $h(x) = k(g(f(x)))$. Damit gilt für alle $x\in L$ dass $N(x)$ mit Rechenweg $h(x)$ akzeptiert, wie gewünscht.
 
-\item (4)$\implies$(6): Die Richtunng von rechts nach links ist klar. Für die andere Richtung sei $\Proj(A) \leqmp \Proj(B)$ mit $A,B$ NP-Relationen. Sei $q$ hierbei das Polynom was die Zertifikatslänge in $A$ begrenzt.
+\item (1)$\implies$(6): Die Richtunng von rechts nach links ist klar. Für die andere Richtung sei $\Proj(A) \leqmp \Proj(B)$ mit $A,B$ NP-Relationen. Sei $q$ hierbei das Polynom was die Zertifikatslänge in $A$ begrenzt.
     Wir wollen nun eine Levin-Reduktion von $A$ auf $B$ angeben. Sei $f\in \FP$ die Funktion, welche die Reduktion $\Proj(A) \leqmp \Proj(B)$ realisiert.
 
     Definiere folgende NPTM $N$, die wie folgt auf Eingabe $w$ arbeitet: \\
@@ -267,11 +347,11 @@ Folgende Aussagen sind äquivalent:
         Akzeptiere genau dann wenn $(x,y)\in A$.
         }
     \end{algorithm}
-    Es ist leicht zu sehen dass $L(N)=\Sigma^*$. Nach (4) existiert nun also eine Funktion $g$ sodass, für alle $w$, $g(w)$ eine akzeptierender Rechwenweg von $N(w)$ ist.
+    Es ist leicht zu sehen dass $L(N)=\Sigma^*$. Nach (1) existiert nun also eine Funktion $g$ sodass, für alle $w$, $g(w)$ eine akzeptierender Rechwenweg von $N(w)$ ist.
 
-    Damit lässt die Levin-Reduktion von $A$ auf $B$ angeben: wähle $f$ als Reduktionsfunktion, und definiere $g'$ als Rekonstruktionsfunktion, welche aus dem akzeptierenden Rechenweg $g(x, y')$ das geratene Zertifikat $y$ von Zeile 6 ausliest. Dann gilt
+    Damit lässt die Levin-Reduktion von $A$ auf $B$ angeben: wähle $f$ als Reduktionsfunktion, und definiere $g'$ als Rekonstruktionsfunktion, welche aus dem akzeptierenden Rechenweg $g(x, y')$ das geratene Zertifikat $y$ von Zeile 5 ausliest. Dann gilt
     \begin{gather*}
-        (f(x), y') \in B \implies N(x, y') \text{ akz. auf einem RW in Z. 6, rät dabei $y$}\\
+        (f(x), y') \in B \implies N(x, y') \text{ akz. auf einem Rechenweg in Z.\,6, ratet $y$}\\
         \implies (x,y)=(x, g'(x, y'))\in A
     \end{gather*}
     wie gewünscht. Wir haben $A\leqlp$ via $f, g'$.
@@ -300,6 +380,36 @@ also ist $h(f''(w))=x$ bzw. $f''(w)$ ein $h$-Beweis für $x$, wie gewünscht.
 
 
 \item (7)$\implies$(9): klar, denn $\mathtt{rKAN}$ ist $\leqlp$-vollständig, ist Levin-paddable, und das Standardbeweissystem $\mathit{std}_\mathtt{rKAN}$ ist (wie jedes Standardbeweissystem einer NP-Relation) optimal. Zusammen mit (7) ist es also auch p-optimal.
+\end{prooflist}
+\end{proof}
+
+\begin{theorem}[Formulierung Hypothese Q durch NP-Relationen, $\forall$-Variante]
+    Folgende Aussagen sind äquivalent:
+    \begin{enumerate}
+        \item Hypothese Q
+        \item[(8\,$'\!$)] Für jede $\leqlp$-vollständige Levin-paddable NP-Relation $R$, und für alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt: es existiert eine Funktion $h\in\mathrm{FP}$ mit
+            \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
+        \item[(9\,$'\!$)] Für jede $\leqlp$-vollständige Levin-paddable NP-Relationen $R$ ist das Standardbeweissystem $\mathit{std}_R$ p-optimal.
+        \item[(10\,$'\!$)] Für jede NP-Relation $P$ und jede Menge $S\in \P$ mit $S\subseteq \Proj(P)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
+            \[ x\in S \implies (x, g(x))\in P. \]
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+\begin{prooflist}
+\item (8$'$)$\implies$(1), (9$'$)$\implies$(1), (10$'$)$\implies$(1):
+    Die NP-Relation $\mathtt{rKAN}$ ist $\leq_\mathrm{L,1\mhyphen1,inv}^\mathrm p$-vollständig (und damit auch Levin-paddable).
+    Gilt also (8$'$), dann auch die existentielle Variante (8) von vorigem Satz~\ref{thm:q}, und damit (1).
+    Beweise der anderen Implikationen sind analog.
+
+%\item (1)$\implies$(8$'$): Sei $R$ eine beliebige $\leqlp$-vollständige Levin-paddable NP-Relation. Lemma~\ref{lemma:q-generalized} gilt bezüglich dieser Relation $R$: da (1) gilt, existiert also für jede NPTM $N$ mit $L(N)=\Proj(R)$ ein $h\in \FP$ mit $(x,h(x,\alpha))\in R$ wenn immer $N(x)$ mit Rechenweg $\alpha$ akzeptiert, wie gewünscht.
+\item (1)$\implies$(8$'$): Folgt aus Lemma~\ref{lemma:q-generalized}.
+
+\item (8$'$)$\implies$(9$'$): Sei $R$ eine beliebige $\leqlp$-vollständige Levin-paddable NP-Relation. Nach Voraussetzung können wir für jede NPTM $N$, $L(N)=\Proj(R)$ eine Funktion $h\in FP$ angeben sodass 
+    \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
+    Das ist genau die erste der der äquivalenten Aussagen in Lemma~\ref{lemma:stdps-q}. Damit gilt auch bezüglich \emph{diesem} gewählten $R$ auch die zweite der äquivalenten Aussagen, nämlich dass $\mathit{std}_R$ p-optimal ist.
+
+\item (1)$\implies$(10$'$): Im Beweis von Satz~\ref{thm:q} wurde (1)$\implies$(5)$\implies$(10) gezeigt. Beachte insbesondere dass im Beweis zur zweiten Implikation sogar eine stärkere Aussage bewiesn wurde, welche die Aussage (10) für alle NP-Relationen (und nicht nur vollständige) zeigt. Das entspricht genau der hier aufgestellten Aussage (10$'$), wie gewünscht.
+
 \end{prooflist}
 \end{proof}
 

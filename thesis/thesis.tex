@@ -36,16 +36,21 @@
 \usepackage[DIV=9]{typearea}
 \fi
 
+\setlength{\emergencystretch}{1em}
+
 \usepackage[ngerman]{babel}
 \usepackage{amsthm}
+\usepackage{thmtools}
 \newtheorem{theorem}{Satz}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{claim}[theorem]{Behauptung}
 \newtheorem{corollary}[theorem]{Korollar}
 \newtheorem{observation}[theorem]{Beobachtung}
-\newtheorem{definition}[theorem]{Definition}
 
+%\theoremstyle{definition}
+%\newtheorem{definition}[theorem]{Definition}
+\declaretheorem[style=definition,qed={$\triangleleft$},numberwithin=chapter]{definition}
 
 \ifbook
 \AtBeginDocument{\setlength{\abovedisplayskip}{5pt}\setlength{\abovedisplayshortskip}{5pt}%
@@ -76,6 +81,8 @@
 \SetKwInput{Input}{\thesis@algorithminput}
 \SetKwInput{Output}{\thesis@algorithmoutput}
 \setlength{\algomargin}{6ex}
+
+\usepackage[pdfusetitle,pdfencoding=auto,psdextra,bookmarksopen]{hyperref}
 
 \RequirePackage{titlesec}		% header customization
 \RequirePackage{titletoc}		% toc customization
@@ -224,12 +231,13 @@
 \DeclareMathOperator{\tower}{tower}
 \DeclareMathOperator{\Proj}{Proj}
 \DeclareMathOperator{\Sol}{Sol}
-\def\fset{\ensuremath{\mathit{set}\text{-}}}
+\def\mhyphen{\text{-}}
+\def\fset{\ensuremath{\mathit{set}\mhyphen}}
 \AtBeginDocument{\renewcommand{\phi}{\varphi}}
 \AtBeginDocument{\renewcommand{\epsilon}{\varepsilon}}
 
 \begin{document}
-\title{Titel}
+\title{Komplexität von Suchproblemen und Beweissystemen}
 \author{Anton Ehrmanntraut}
 \maketitle
 \tableofcontents
