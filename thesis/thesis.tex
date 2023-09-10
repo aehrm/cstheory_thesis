@@ -40,6 +40,8 @@
 
 \usepackage[ngerman]{babel}
 \usepackage{amsthm}
+
+
 \usepackage{thmtools}
 \newtheorem{theorem}{Satz}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -51,6 +53,28 @@
 %\theoremstyle{definition}
 %\newtheorem{definition}[theorem]{Definition}
 \declaretheorem[style=definition,qed={$\triangleleft$},numberwithin=chapter]{definition}
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont\footnotesize \topsep6\p@\@plus6\p@\relax
+  \list{}{\leftmargin=4em
+          \rightmargin=\leftmargin
+          \settowidth{\itemindent}{\itshape#1}%
+          \labelwidth=\itemindent
+          % the following line is not needed with amsart, but might be with other classes
+          \parsep=0pt \listparindent=\parindent 
+  }
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endlist\@endpefalse
+}
+\makeatother
+\newcounter{prooflist}
+\newenvironment{prooflist}
+{\renewcommand\item{\medskip\par\noindent \stepcounter{prooflist}\arabic{prooflist}. }}
+{}
 
 \ifbook
 \AtBeginDocument{\setlength{\abovedisplayskip}{5pt}\setlength{\abovedisplayshortskip}{5pt}%
@@ -63,10 +87,11 @@
 \setlist[itemize]{itemsep=0pt}
 \setlist{beginpenalty=10000, midpenalty=10000}
 
-\newcounter{prooflist}
-\newenvironment{prooflist}
-{\renewcommand\item{\medskip\par\noindent \stepcounter{prooflist}\arabic{prooflist}. }}
-{}
+%\usepackage[authordate,isbn=false,url=false,dashed=false]{biblatex-chicago}
+\usepackage[authoryear,isbn=false,url=false,dashed=false]{biblatex}
+\addbibresource{zoterolib.bib}
+
+
 
 \usepackage[vlined,linesnumbered,nofillcomment,german,onelanguage]{algorithm2e}
 \DontPrintSemicolon
@@ -83,6 +108,22 @@
 \setlength{\algomargin}{6ex}
 
 \usepackage[pdfusetitle,pdfencoding=auto,psdextra,bookmarksopen]{hyperref}
+
+\RequirePackage{ragged2e}
+\RequirePackage{sidenotes}
+\setlength{\marginparwidth}{90pt}
+\renewcommand*{\marginfont}{\footnotesize\sffamily}
+
+\makeatletter
+\RenewDocumentCommand\sidenotetext{ o o +m }{%
+    \IfNoValueOrEmptyTF{#1}{%
+        \@sidenotes@placemarginal{#2}{\noindent\marginfont\RaggedRight{\thesidenote{}.~#3}}%
+        \refstepcounter{sidenote}%
+    }{%
+        \@sidenotes@placemarginal{#2}{\noindent\marginfont\RaggedRight{#1.~#3}}%
+    }%
+}
+\makeatother
 
 \RequirePackage{titlesec}		% header customization
 \RequirePackage{titletoc}		% toc customization
@@ -172,21 +213,9 @@
 
 \fi
 
-\RequirePackage{ragged2e}
-\RequirePackage{marginnote}
-\setlength{\marginparwidth}{90pt}
-\renewcommand*{\marginfont}{\footnotesize\sffamily}
 
-%\makeatletter
-%\RenewDocumentCommand\sidenotetext{ o o +m }{%
-    %\IfNoValueOrEmptyTF{#1}{%
-        %\@sidenotes@placemarginal{#2}{\setstretch{1.0}\noindent\footnotesize\RaggedRight{\thesidenote{}}~~#3}%
-        %\refstepcounter{sidenote}%
-    %}{%
-        %\@sidenotes@placemarginal{#2}{\noindent\footnotesize\RaggedRight{#1}~~#3}%
-    %}%
-%}
-%\makeatother
+
+
 \def\P{\ensuremath{\mathrm{P}}}
 \def\NP{\ensuremath{\mathrm{NP}}}
 \def\NE{\ensuremath{\mathrm{NE}}}
