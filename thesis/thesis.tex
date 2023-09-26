@@ -24,10 +24,11 @@
 \documentclass[10pt,a4paper]{report}
 \fi
 
+\usepackage[ngerman]{babel}
 \usepackage[fleqn]{mathtools}
 \usepackage{fontspec}
 \usepackage{unicode-math}
-\setsansfont{Fira Sans Light}
+\setsansfont[BoldFont={Fira Sans Medium}]{Fira Sans}
 \setmonofont[Scale=0.80]{JetBrains Mono Light}
 \ifbook
 \setmainfont[Numbers={OldStyle}]{TeX Gyre Pagella}
@@ -38,97 +39,10 @@
 
 \setlength{\emergencystretch}{1em}
 
-\usepackage[ngerman]{babel}
-\usepackage{amsthm}
-
-
-\usepackage{thmtools}
-\newtheorem{theorem}{Satz}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{claim}[theorem]{Behauptung}
-\newtheorem{corollary}[theorem]{Korollar}
-\newtheorem{observation}[theorem]{Beobachtung}
-
-%\theoremstyle{definition}
-%\newtheorem{definition}[theorem]{Definition}
-\declaretheorem[style=definition,qed={$\triangleleft$},numberwithin=chapter]{definition}
-\makeatletter
-\renewenvironment{proof}[1][\proofname]{\par
-  \pushQED{\qed}%
-  \normalfont\footnotesize \topsep6\p@\@plus6\p@\relax
-  \list{}{\leftmargin=4em
-          \rightmargin=\leftmargin
-          \settowidth{\itemindent}{\itshape#1}%
-          \labelwidth=\itemindent
-          % the following line is not needed with amsart, but might be with other classes
-          \parsep=0pt \listparindent=\parindent 
-  }
-  \item[\hskip\labelsep
-        \itshape
-    #1\@addpunct{.}]\ignorespaces
-}{%
-  \popQED\endlist\@endpefalse
-}
-\makeatother
-\newcounter{prooflist}
-\newenvironment{prooflist}
-{\renewcommand\item{\medskip\par\noindent \stepcounter{prooflist}\arabic{prooflist}. }}
-{}
-
-\ifbook
-\AtBeginDocument{\setlength{\abovedisplayskip}{5pt}\setlength{\abovedisplayshortskip}{5pt}%
-\setlength{\belowdisplayskip}{3pt}\setlength{\belowdisplayshortskip}{3pt}}
-\fi
-
-
-\usepackage{enumitem}
-\setlist[enumerate]{label=(\arabic*), itemsep=0pt}
-\setlist[itemize]{itemsep=0pt}
-\setlist{beginpenalty=10000, midpenalty=10000}
-
-%\usepackage[authordate,isbn=false,url=false,dashed=false]{biblatex-chicago}
-\usepackage[authoryear,isbn=false,url=false,dashed=false]{biblatex}
-\addbibresource{zoterolib.bib}
-
-
-
-\usepackage[vlined,linesnumbered,nofillcomment,german,onelanguage]{algorithm2e}
-\DontPrintSemicolon
-\SetArgSty{}
-\SetCommentSty{itshape}
-\SetKwComment{tcc}{(}{)}
-\SetKw{KwOr}{\thesis@algorithmor}
-\SetKw{KwAnd}{\thesis@algorithmand}
-\SetKw{KwNot}{\thesis@algorithmnot}
-\SetKw{Accept}{Akzeptieren}
-\SetKw{Reject}{Ablehnen}
-\SetKwInput{Input}{\thesis@algorithminput}
-\SetKwInput{Output}{\thesis@algorithmoutput}
-\setlength{\algomargin}{6ex}
-
-\usepackage[pdfusetitle,pdfencoding=auto,psdextra,bookmarksopen]{hyperref}
-
-\RequirePackage{ragged2e}
-\RequirePackage{sidenotes}
-\setlength{\marginparwidth}{90pt}
-\renewcommand*{\marginfont}{\footnotesize\sffamily}
-
-\makeatletter
-\RenewDocumentCommand\sidenotetext{ o o +m }{%
-    \IfNoValueOrEmptyTF{#1}{%
-        \@sidenotes@placemarginal{#2}{\noindent\marginfont\RaggedRight{\thesidenote{}.~#3}}%
-        \refstepcounter{sidenote}%
-    }{%
-        \@sidenotes@placemarginal{#2}{\noindent\marginfont\RaggedRight{#1.~#3}}%
-    }%
-}
-\makeatother
-
-\RequirePackage{titlesec}		% header customization
-\RequirePackage{titletoc}		% toc customization
-\RequirePackage{titleps}		% toc customization
-\RequirePackage[titles]{tocloft}% lof lot lol customizatios
+\usepackage{titlesec}		% header customization
+\usepackage{titletoc}		% toc customization
+\usepackage{titleps}		% toc customization
+\usepackage[titles]{tocloft}% lof lot lol customizatios
 
 %	header formatting
 \ifbook
@@ -213,6 +127,105 @@
 
 \fi
 
+
+
+\usepackage{amsthm}
+\usepackage{thmtools}
+\newtheorem{theorem}{Satz}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Behauptung}
+\newtheorem{corollary}[theorem]{Korollar}
+\newtheorem{observation}[theorem]{Beobachtung}
+\newtheorem{conjecture}[theorem]{Vermutung}
+\newtheorem*{remark}{Anmerkung}
+
+%\theoremstyle{definition}
+%\newtheorem{definition}[theorem]{Definition}
+\declaretheorem[style=definition,qed={$\triangleleft$},sibling=theorem]{definition}
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont\footnotesize \topsep6\p@\@plus6\p@\relax
+  \list{}{\leftmargin=4em
+          \rightmargin=\leftmargin
+          \settowidth{\itemindent}{\itshape#1}%
+          \labelwidth=\itemindent
+          % the following line is not needed with amsart, but might be with other classes
+          \parsep=0pt \listparindent=\parindent 
+  }
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+  \popQED\endlist\@endpefalse
+}
+\makeatother
+\newcounter{prooflist}
+\newenvironment{prooflist}
+{\renewcommand\item{\medskip\par\noindent \stepcounter{prooflist}\arabic{prooflist}. }}
+{}
+
+\ifbook
+\AtBeginDocument{\setlength{\abovedisplayskip}{5pt}\setlength{\abovedisplayshortskip}{5pt}%
+\setlength{\belowdisplayskip}{3pt}\setlength{\belowdisplayshortskip}{3pt}}
+\fi
+
+
+\usepackage{enumitem}
+\setlist[enumerate]{label=(\arabic*), itemsep=0pt}
+\setlist[itemize]{itemsep=0pt}
+\setlist{beginpenalty=10000, midpenalty=10000}
+
+%\usepackage[authordate,url=false,dashed=false]{biblatex-chicago}
+\usepackage[style=myauthoryear,backend=biber,url=false,mergedate=false,maxbibnames=99]{biblatex}
+\addbibresource{zoterolib.bib}
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+     \map{
+        \step[fieldsource=doi,final]
+        \step[fieldset=isbn,null]
+        }
+      }
+}
+\setlength{\bibitemsep}{10pt}
+
+
+
+\usepackage[vlined,linesnumbered,nofillcomment,german,onelanguage]{algorithm2e}
+\DontPrintSemicolon
+\SetArgSty{}
+\SetCommentSty{itshape}
+\SetKwComment{tcc}{(}{)}
+\SetKw{KwOr}{\thesis@algorithmor}
+\SetKw{KwAnd}{\thesis@algorithmand}
+\SetKw{KwNot}{\thesis@algorithmnot}
+\SetKw{Accept}{Akzeptieren}
+\SetKw{Reject}{Ablehnen}
+\SetKwInput{Input}{\thesis@algorithminput}
+\SetKwInput{Output}{\thesis@algorithmoutput}
+\setlength{\algomargin}{6ex}
+
+\usepackage[pdfusetitle,pdfencoding=auto,psdextra,bookmarksopen]{hyperref}
+
+\usepackage{xcolor}
+\usepackage{ragged2e}
+\usepackage{sidenotes}
+\setlength{\marginparwidth}{90pt}
+\renewcommand*{\marginfont}{\footnotesize\sffamily}
+
+\makeatletter
+\RenewDocumentCommand\sidenotetext{ o o +m }{%
+    \IfNoValueOrEmptyTF{#1}{%
+        \@sidenotes@placemarginal{#2}{\noindent\marginfont\RaggedRight{\thesidenote{}.~#3}}%
+        \refstepcounter{sidenote}%
+    }{%
+        \@sidenotes@placemarginal{#2}{\noindent\marginfont\RaggedRight{#1.~#3}}%
+    }%
+}
+\makeatother
+
+\newcommand{\todo}[1]{\textcolor{red}{{\sffamily TODO: #1}}}
 
 
 

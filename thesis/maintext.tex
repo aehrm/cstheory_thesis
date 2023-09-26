@@ -72,7 +72,7 @@
 \begin{observation}[\cite{buhrman_functions_1998}]
     Sei $L$ eine beliebige Menge und sei $R$ eine $\leqlp$-vollständige NP-Relation.
     Gilt $L \leq_\mathrm{1,inv}^\mathrm p\Proj(R)$, dann existiert eine $\leqlp$-vollständige NP-Relation $R$ mit $\Proj(R)=L$.
-    
+    \todo{Das kann zu universellem $R$ verstärkt werden!}
 \end{observation}
 \begin{proof}
     Nach Voruassetzung haben wir eine p-invertierbare Funktion $h\in\FP$ mit $x\in L \iff h(x) \in \Proj(R)$.
@@ -92,14 +92,14 @@
 Damit haben (im unrelativierten Fall) insbesondere alle zu $\mathtt{SAT}$ p-isomorphen Mengen 
 eine entsprechende NP-Relation, auch wenn hierbei die Zertifikate nicht „natürlich“ sind.
 
-\begin{definition}[Sparsame (\emph{“parsimonious”}) Reduktionen]
-    Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{sparsam} (\emph{„parsimonious“}\sidenote{vgl. Rothe.}) reduzieren lässt, bzw. $Q\leq_\mathrm{pars}^\mathrm p R$ wenn eine Funktion $f\in\FP$ existiert mit
+\begin{definition}[Sparsame  Reduktionen]
+    Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{sparsam} (\emph{„parsimonious“}\sidenote{vgl. \textcite{rothe_komplexitatstheorie_2008}.}) reduzieren lässt, bzw. $Q\leq_\mathrm{pars}^\mathrm p R$ wenn eine Funktion $f\in\FP$ existiert mit
     \[ x\in \Proj(Q) \iff f(x) \in \Proj(R) \quad\text{und}\quad |Q(x)|=|R(f(x))|. \]
     In anderen Worte, $f$ realisiert eine Many-one-Reduktion von $Q$ auf $R$, und haben sowohl die originale $Q$-Instanz $x$ als auch die reduzierte $R$-Instanz $f(x)$ die gleiche Anzahl an Lösungen.
     Definiere $Q\leq_\mathrm{pars}^\mathrm p$-Vollständigkeit entsprechend.
 \end{definition}
 
-\begin{definition}[Strukturerhaltende Reduktion; Lynch, Lipton, 1878]
+\begin{definition}[Strukturerhaltende Reduktion; \cite{lynch_structure_1978}]
     Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{strukturerhaltend reduzieren lässt}, bzw. $Q\leq_\mathrm{st}^\mathrm p R$, zwei Funktionen $f, g\in\FP$ existieren, und
     \begin{enumerate}
         \item $(x,y)\in Q \implies (f(x), g(x,y))\in R$ (Vorwärts-Translation von Zertifikaten),
@@ -109,20 +109,24 @@ eine entsprechende NP-Relation, auch wenn hierbei die Zertifikate nicht „natü
     Definiere $Q\leq_\mathrm{st}^\mathrm p$-Vollständigkeit entsprechend.
 \end{definition}
 
-\begin{definition}[Zertifikats-Isomorphie; Fischer, Hemaspaandra, Torenvliet, 1995]
-    Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{zertifikats-isomorph reduzieren lässt}, bzw. $Q\leq_\mathrm{wi}^\mathrm p R$, wenn zwei Funktionen $f, g\in \FP$ existieren, die p-invertierbar (also auch injektiv\marginnote{das steht so direkt aber nicht bei FHT}) sind, und 
+
+
+\begin{definition}[Zertifikats-Isomorphie; \cite{wiedermann_witness-isomorphic_1995}]
+    Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{zertifikats-isomorph reduzieren lässt}, bzw. $Q\leq_\mathrm{wi}^\mathrm p R$, wenn zwei Funktionen $f, g\in \FP$ existieren, die p-invertierbar (also auch injektiv\marginnote{\todo{das steht so direkt aber nicht bei FHT...}}) sind, und 
     \begin{enumerate}
         %\item $x\in \Proj(Q) \iff f(x)\in\Proj(R)$, (i.e. $\Proj(Q)\leqmp\Proj(R)$ via $f$),
         \item $(x,y)\in Q \implies g(x,y)=(f(x), z)\in R$ (Vorwärts-Translation von Zertifikaten),
         \item $(f(x), z)\in R \implies g^{-1}(f(x),z)=(x,y)\in R$ ($g$ ist quasi “surjektiv“ und implementiert eine effiziente Rückwärts-Translation),
         \item Falls $y_1,y_2\in Q(x)$ und $y_1\neq y_2$, dann ist auch $g(x, y_1)\neq g(x, y_2)$, das heißt, mit $g(x, y_1)=(f(x), z_1), g(x, y_2)=(f(x), z_2)$, dass $z_1\neq z_2$ ($g$ ist quasi “injektiv”)).
     \end{enumerate}
-    Definiere $Q\leq_\mathrm{wi}^\mathrm p$-Vollständigkeit entsprechend.\marginnote{Brauchen wir die wi-Isomorphie?}
+    Definiere $Q\leq_\mathrm{wi}^\mathrm p$-Vollständigkeit entsprechend.\marginnote{\todo{Brauchen wir die wi-Isomorphie?}}
     %Wir sagen, dass die NP-Relationen $Q$ und $R$ zertifikats-isomorph sind, bzw. $Q\equiv_\mathrm{wi}^\mathrm p R$, wenn 
     %$Q\leq_\mathrm{wi}^\mathrm p R$ über $f,g$ und $R\leq_\mathrm{wi}^\mathrm p Q$ über $f^{-1}, g^{-1}$.
 \end{definition}
 
-\begin{definition}[Universelle Relationen, Agrawal und Biswas, 1992]
+\todo{An dieser Stelle die Definition von Fischer et al. mit der von Lynch et al. gegenüberstellen. Zeige insbesondere dass beide Definionen im Wesentlichen „gleich“ sind, nur dass Lynch/Lipton keine Invertierbarkeit fordert.}
+
+\begin{definition}[Universelle Relationen; \cite{agrawal_universal_1992}]
     Sei $R$ eine NP-Relation mit Zertifikatsschranke $q$. 
     Wir nennen $R$ \emph{streng} wenn für $R$ gilt, dass $(x,y)\in R\implies |y|=q(|x|)>0$. In anderen Worten, jedes Zertifikat $y$ für $x$ ist nicht $\epsilon$ und hat genau die Länge $q(|x|)$.
 
@@ -141,7 +145,7 @@ eine entsprechende NP-Relation, auch wenn hierbei die Zertifikate nicht „natü
     \end{enumerate}
 \end{lemma}
 
-\begin{definition}[Agrawal und Biswas, 1992]
+\begin{definition}[\cite{agrawal_universal_1992}]
     Sei $R$ eine NP-Relation mit Zertifikatsschranke $q$, wobei zusätzlich für $R$ gilt, dass $(x,y)\in R\implies |y|=q(|x|)$. In anderen Worten, jedes Zertifikat $y$ für $x$ hat genau die Länge $q(|x|)$.
     Wir definieren nun bezüglich einer solchen Relation $R$:
     \begin{enumerate}
@@ -174,10 +178,10 @@ eine entsprechende NP-Relation, auch wenn hierbei die Zertifikate nicht „natü
     Diese Äquivalenz gilt nur im unrelativierten Fall.
 \end{theorem}
 
-\chapter{Suchprobleme und die Hypothese Q}
+\chapter{Suchprobleme und die Hypothese $\mathsf{Q}$}
 
 \begin{itemize}
-    \item Will Q in den Pudlák-Baum einordnen: dafür ist es notwendig, diese ordentlich zu relativieren. Insb. will ich zeigen, dass einige bisherige Resultate natürlicherweise auf „Standardbeweissysteme“ vollständiger Mengen übertragen (nicht nur das Standardbeweissystem für SAT).
+    \item Will $\mathsf{Q}$ in den Pudlák-Baum einordnen: dafür ist es notwendig, diese ordentlich zu relativieren. Insb. will ich zeigen, dass einige bisherige Resultate natürlicherweise auf „Standardbeweissysteme“ vollständiger Mengen übertragen (nicht nur das Standardbeweissystem für SAT).
 \end{itemize}
 
 
@@ -192,7 +196,7 @@ eine entsprechende NP-Relation, auch wenn hierbei die Zertifikate nicht „natü
 \end{definition}
 
 \begin{lemma}\label{lemma:stdps-q}
-    Sei $R$ eine NP-Relation die Levin-paddable ist. Folgende Aussagen sind äquivalent:\marginnote{Generalisierung von Messner}
+    Sei $R$ eine NP-Relation die Levin-paddable ist. Folgende Aussagen sind äquivalent:\marginnote{Das ist eine Generalisierung von \textcite{messner_simulation_2001}.}
     \begin{enumerate}
         \item Für alle NPTM $N$ mit $L(N)=\Proj(R)$ lassen sich akzepierende Rechenwege von $N$ in Zertifikate umrechnen: es existiert eine Funktion $h\in\mathrm{FP}$ sodass
             \[ N(x) \text{ akz. mit Rechenweg $\alpha$} \implies (x,h(x,\alpha))\in R. \]
@@ -206,12 +210,12 @@ eine entsprechende NP-Relation, auch wenn hierbei die Zertifikate nicht „natü
 %Sei $A\in\mathrm{NP}$ mit folgender Eigenschaft von Vollständigkeit: es existiert eine Menge $B\in\mathrm P$ sodass $A=\{x\mid \exists y, |y|\leq p(|x|), (x,y)\in B\}$ und für alle Mengen $A'\in\mathrm{NP}$, $A'=\{x\mid \exists y, |y|\leq p'(|x|), (x,y)\in B'\}$ existieren zwei Funktionen $r,r^{-1},t\in\mathrm{FP}$ sodass
 %\[ x\in A' \iff r(x) \in A, \quad (r(x),z)\in B \implies (x, t(x,z)) \in B'. \]
 %($A'\leq_m^p A$ via invertierbarem $r$, Funktion $t$ bildet Zertifikate für $r(x)\in A$ auf Zertifikate für $x\in A'$ ab. Vgl. Reduktionsbegriff unter TFNP-Problemen. Vgl. Levin-Reduktionsbegriff.)
-Sei $R$ eine $\leqlp$-vollständige NP-Relation, mit der zusätzlichen Eigenschaft dass für die jeweilige entsprechende Problem-Reduktionsfunktion $f\colon Q\to R$ für $Q\leqlp R$ immer gilt, dass $f$ ehrlich ist.\marginnote{Generalisierung von  Fenner et al.} %$\img f = \{f(x)\mid x\in\Sigma^*\}\in \P$.
+    Sei $R$ eine $\leqlp$-vollständige NP-Relation, mit der zusätzlichen Eigenschaft dass für die jeweilige entsprechende Problem-Reduktionsfunktion $f\colon Q\to R$ für $Q\leqlp R$ immer gilt, dass $f$ ehrlich ist.\marginnote{Das ist eine Generalisierung von  \textcite{fenner_inverting_2003}.} %$\img f = \{f(x)\mid x\in\Sigma^*\}\in \P$.
 Folgende Aussagen sind äquivalent:
 \begin{enumerate}
     \item Für alle NPTM $N$ mit $L(N)=\Proj(R)$ lassen sich akzepierende Rechenwege von $N$ in Zertifikate umrechnen: es existiert eine Funktion $h\in\mathrm{FP}$ sodass
         \[ N(x) \text{ akz. mit Rechenweg $\alpha$} \implies (x,h(x,\alpha))\in R. \]
-    \item Für alle NPTM $N$ mit $L(N)=\Sigma^*$ lassen sich aus Eingabe $x$ Rechenwege von $N(x)$ effizient bestimmen: es existiert $r\in\mathrm{FP}$ sodass $N(x)$ auf Rechenweg $r(x)$ akzeptiert. (Das ist die Aussage Q.)
+    \item Für alle NPTM $N$ mit $L(N)=\Sigma^*$ lassen sich aus Eingabe $x$ Rechenwege von $N(x)$ effizient bestimmen: es existiert $r\in\mathrm{FP}$ sodass $N(x)$ auf Rechenweg $r(x)$ akzeptiert. (Das ist die Aussage $\mathsf{Q}$.)
 \end{enumerate}
 \end{lemma}
 
@@ -258,7 +262,7 @@ Folgende Aussagen sind äquivalent:
     Jede $\leq_\mathrm{L,inv}^\mathrm{p}$-vollständige Relation $R$ erfüllt die in 
     Lemma~\ref{lemma:stdps-q} und~\ref{lemma:q-generalized} genannten Voraussetzungen an die NP-Relation $R$.
 
-    Das sind im unrelativierten Fall u.a. $\mathtt{rSAT}$, $\mathtt{rSETCOVER}$, $\mathtt{rVERTEXCOVER}$, $\mathtt{rCLIQUE}$, $\mathtt{r3COLORABILITY}$.\marginnote{aus den Goldreich-Textbook}
+    Das sind im unrelativierten Fall u.a. $\mathtt{rSAT}$, $\mathtt{rSETCOVER}$, $\mathtt{rVERTEXCOVER}$, $\mathtt{rCLIQUE}$, $\mathtt{r3COLORABILITY}$.\marginnote{So das Textbook von \textcite{goldreich_computational_2008}.}
 \end{corollary}
 \begin{proof}[Beweis zu Beobachtung~\ref{obs:invcomplete-sind-levinpaddable}]
     Aussage (2) folgt unmittelbar aus (1): Wir haben $\mathtt{rKAN}\leq_\mathrm{L,inv}^\mathrm{p} R$ und damit ist die entsprechende Reduktionsfunktion $f$ p-invertierbar, und damit ehrlich.
@@ -355,10 +359,10 @@ Folgende Aussagen sind äquivalent:
 
 \section{Alles zusammensetzen\ldots}
 
-\begin{theorem}[Äquivalente Formulierungen der Hypothese $Q$; Fenner et al., 2003; Messner, 2001]\label{thm:q}
+\begin{theorem}[Äquivalente Formulierungen der Hypothese $\mathsf{Q}$; \cites{fenner_inverting_2003}{messner_simulation_2001}]\label{thm:q}
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
-        \item Hypothese Q: Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierende Berechnung von $N(x)$ ist.
+        \item Hypothese $\mathsf{Q}$: Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierende Berechnung von $N(x)$ ist.
         \item $\mathrm{NPMV}_t\subseteq_c \mathrm{FP}$
         \item $\P=\NP\cap\coNP$ und $\mathrm{NPMV}_t\subseteq_c \mathrm{NPSV}_t$
         \item Jede surjektive ehrliche Funktion $f\in\FP$ ist p-invertierbar. %Zur Erinnerung: p-Invertierbarkeit bedeutet dass eine Funktion $g\in\FP$ existiert mit $f(g(y))=y$.
@@ -381,7 +385,7 @@ Folgende Aussagen sind äquivalent:
 \end{theorem}
 \begin{proof}
 \begin{prooflist}
-\item (1)$\iff$(2)$\iff$(3)$\iff$(4)$\iff$(5): nach Fenner et al. (2003, Thm. 2).
+\item (1)$\iff$(2)$\iff$(3)$\iff$(4)$\iff$(5): nach \textcite[Thm.~2]{fenner_inverting_2003}.
 
 \item (1)$\iff$(8)$\iff$(9): nach Lemma~\ref{lemma:q-generalized} und~\ref{lemma:stdps-q}.
 
@@ -453,10 +457,10 @@ also ist $h(f''(w))=x$ bzw. $f''(w)$ ein $h$-Beweis für $x$, wie gewünscht.
 \end{prooflist}
 \end{proof}
 
-\begin{theorem}[Formulierung Hypothese Q durch NP-Relationen, $\forall$-Variante]
+\begin{theorem}[Formulierung Hypothese $\mathsf{Q}$ durch NP-Relationen, $\forall$-Variante]
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
-        \item Hypothese Q
+        \item Hypothese $\mathsf{Q}$
         \item[(8\,$'\!$)] Für jede $\leqlp$-vollständige Levin-paddable NP-Relation $R$, und für alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt: es existiert eine Funktion $h\in\mathrm{FP}$ mit
             \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
         \item[(9\,$'\!$)] Für jede $\leqlp$-vollständige Levin-paddable NP-Relationen $R$ ist das Standardbeweissystem $\mathit{std}_R$ p-optimal.
