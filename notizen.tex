@@ -1,0 +1,102 @@
+\documentclass[nofonts]{uebung}
+%\setmainfont{NewCM10-Book}[ItalicFont={NewCM10-BookItalic}, BoldFont={NewCM10-Bold}]
+%\setmathfont{NewCMMath-Book}
+\usepackage[margin=3cm]{geometry}
+\setmainfont{Latin Modern Roman}
+\usepackage{unicode-math}
+\setmathfont{Latin Modern Math}
+\setmathfont[version=lm,range={\setminus}, Scale=MatchUppercase]{STIX Two Math}
+
+\setmainlanguage{german}
+
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Behauptung}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{definition}[theorem]{Definition}
+
+
+\setlist[enumerate]{label=(\arabic*), itemsep=0pt}
+\setlist[itemize]{itemsep=0pt}
+\setlist{beginpenalty=10000, midpenalty=10000}
+
+\newlist{statements}{enumerate}{1}
+\setlist[statements]{resume,label=(A\arabic*)}
+
+\usepackage{turnstile}
+
+\def\P{\ensuremath{\mathrm{P}}}
+\def\NP{\ensuremath{\mathrm{NP}}}
+\def\NE{\ensuremath{\mathrm{NE}}}
+\def\NEE{\ensuremath{\mathrm{NEE}}}
+\def\FP{\ensuremath{\mathrm{FP}}}
+\def\UP{\ensuremath{\mathrm{UP}}}
+\def\DisjNP{\ensuremath{\mathrm{DisjNP}}}
+\def\DisjCoNP{\ensuremath{\mathrm{DisjCoNP}}}
+\def\DisjUP{\ensuremath{\mathrm{DisjUP}}}
+\def\DisjCoUP{\ensuremath{\mathrm{DisjCoUP}}}
+\def\coNP{\ensuremath{\mathrm{coNP}}}
+\def\coNE{\ensuremath{\mathrm{coNE}}}
+\def\coNEE{\ensuremath{\mathrm{coNEE}}}
+\def\coUP{\ensuremath{\mathrm{coUP}}}
+\def\NPcoNP{\ensuremath{\mathrm{NP}\cap\mathrm{coNP}}}
+\def\TFNP{\ensuremath{\mathrm{TFNP}}}
+\def\TALLY{\ensuremath{\mathrm{TALLY}}}
+\def\NPMV{\ensuremath{\mathrm{NPMV}}}
+\def\NPMVt{\ensuremath{\mathrm{NPMV_t}}}
+\def\NPSV{\ensuremath{\mathrm{NPSV}}}
+\def\NPSVt{\ensuremath{\mathrm{NPSV_t}}}
+\def\NPbV{\ensuremath{\mathrm{NPbV}}}
+\def\NPbVt{\ensuremath{\mathrm{NPbV_t}}}
+\def\NPkV{\ensuremath{\mathrm{NP}k\mathrm{V}}}
+\def\NPkVt{\ensuremath{\mathrm{NP}k\mathrm{V_t}}}
+\def\TAUT{\ensuremath{\mathrm{TAUT}}}
+\def\SAT{\ensuremath{\mathrm{SAT}}}
+\def\PF{\ensuremath{\mathrm{PF}}}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\supp}{supp}
+\def\hUP{\ensuremath{\mathsf{UP}}}
+\def\hDisjNP{\ensuremath{\mathsf{DisjNP}}}
+\def\hDisjCoNP{\ensuremath{\mathsf{DisjCoNP}}}
+\def\hNPcoNP{\ensuremath{\mathsf{NP}{}\cap{}\mathsf{coNP}}}
+\def\hCON{\ensuremath{\mathsf{CON}}}
+\def\hSAT{\ensuremath{\mathsf{SAT}}}
+\def\hTFNP{\ensuremath{\mathsf{TFNP}}}
+\def\leqmpp{\ensuremath{\leq_\mathrm{m}^\mathrm{pp}}}
+\def\leqmp{\ensuremath{\leq_\mathrm{m}^\mathrm{p}}}
+
+
+\begin{document}
+
+\renewcommand{\phi}{\varphi}
+
+\subsection*{20.01.2022}
+
+\begin{itemize}
+    \item NEU: Orakel $O_2$ mit $\hDisjNP, \hDisjCoNP$ und $\UP=\P$ ($\hDisjNP$ ist dazugekommen). Damit analog zu DG20 ($\hDisjNP\land \hNPcoNP\land \UP=\P$).
+    \item NEU: Orakel $O_3$ mit $\hDisjCoNP$ und alle DisjNP-Paare sind P-separierbar. Das übernimmt schon ziemlich viele Orakel, welche sich durch die Einführung der Hypothese \emph{„existiert ein P-inseparierbares DisjNP-Paar“} ergeben. Beob. dass diese das symmetrische Analog zu $\neg Q'$ ist (\emph{„\ldots{} P-inseparierbares DisjCoNP-Paar“}.
+    \item Eine Variante von Titus' Orakel zeigt $\UP\cap \mathrm{coUP} \neq \P\land \neg\mathsf{TAUT}\land \neg\mathsf{SAT}$. Das übernimmt alle Orakel, welche sich durch die Einführung der Hypothese $\UP\cap \coUP \neq \P$ ergeben.
+    \item Damit verbleiben nur noch wenige offene Orakel übrig (grüne Pfeile). Alle anderen Orakel sind mindestens so stark wie $Q'\land \neg Q$ oder $\mathsf{NPMV}_t\land \hDisjCoNP$.
+\end{itemize}
+
+\clearpage
+\thispagestyle{empty}
+\subsection*{Exposé zur Masterarbeit (Anton Ehrmanntraut)}
+
+Die Masterarbeit beschäftigt sich grob mit Suchproblemen und hierzu zugehörigen komplexitätstheoretischen Hypothesen.
+Dabei wird der Begriff „Suchprobleme“ bewusst weit gefasst, um die verschiedenen Konzeptionen aus der Komplexitätstheorie abzudecken, die Probleme detaillierter betrachten als reine Entscheidungsprobleme.
+%Suchprobleme werden hier nicht konkret definiert, sondern der Begriff soll bewusst die unterschiedlichen Konzeptionen aus der Komplexitätstheorie überdecken, welche Probleme feiner fassen als reine Entscheidungsprobleme.
+Dies umfasst (intuitiv zu Suchproblemen am nächsten) die Klasse TFNP (Beame et al.), aber auch Funktionenklassen wie NPMV (Selman), und allgemein eine Perspektivierung über Levin-Reduktionen (im Gegensatz zu den üblichen Cook-Reduktionen). Hypothesen bezüglich deren Vollständigkeit, Inklusionen, etc., (das umfasst auch die Hypothese Q, Fenner et al.) haben große Nähe zu Hypothesen über Beweissysteme (Cook, Reckhow). 
+
+Im ersten Beitrag will die Masterarbeit daher einen Überblick und Systematisierung dieser unterschiedlichen Konzepte von Suchproblemen liefern. Ein Schwerpunkt liegt hierbei auf der Kategorisierung der Levin-Reduktion und weiteren Definitionen von Reduktionen, sowie die Verknüpfung zu Beweissystemen und der Hypothese Q.
+
+Der zweite Beitrag vertieft den Zusammenhang der Hypothese Q, der Vollständigkeit von Suchproblemen, und Optimalität von Beweissystemen. Konkret ergänzt und erweitert die Arbeit damit die von Pudlák entwickelte Systematisierung, welche verschiedene Hypothesen um Komplexitätsklassen bzw. Beweissysteme in Beziehung setzt.
+
+Aus dieser Erweiterung von Pudláks Systematisierung ergeben sich neue potentielle Implikationen zwischen den Hypothesen. Daher will die Masterarbeit, als dritter Beitrag, einige Orakelkonstruktionen erarbeiten, welche einige dieser (relativierbaren) Implikationen ausschließt. Damit schließt sich die Arbeit auch „Pudláks Programm“ an.
+
+\end{document}

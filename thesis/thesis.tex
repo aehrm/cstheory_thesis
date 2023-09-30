@@ -163,7 +163,10 @@
 \makeatother
 \newcounter{prooflist}
 \newenvironment{prooflist}
-{\renewcommand\item{\medskip\par\noindent \stepcounter{prooflist}\arabic{prooflist}. }}
+{\setcounter{prooflist}{0}\renewcommand\item{\medskip\par\noindent \stepcounter{prooflist}\arabic{prooflist}. }}
+{}
+\newenvironment{prooflist*}
+{\renewcommand\item{\medskip\par\noindent}}
 {}
 
 \ifbook
@@ -212,7 +215,7 @@
 \usepackage{ragged2e}
 \usepackage{sidenotes}
 \setlength{\marginparwidth}{90pt}
-\renewcommand*{\marginfont}{\footnotesize\sffamily}
+\renewcommand*{\marginfont}{\normalfont\footnotesize\sffamily}
 
 \makeatletter
 \RenewDocumentCommand\sidenotetext{ o o +m }{%
@@ -226,6 +229,7 @@
 \makeatother
 
 \newcommand{\todo}[1]{\textcolor{red}{{\sffamily TODO: #1}}}
+\newcommand{\note}[1]{\textcolor{green!30!black}{{\sffamily #1}}}
 
 
 
@@ -260,11 +264,12 @@
 \DeclareMathOperator{\dom}{dom}
 \DeclareMathOperator{\img}{img}
 \DeclareMathOperator{\supp}{supp}
+\def\hQ{\ensuremath{\mathsf{Q}}}
 \def\hUP{\ensuremath{\mathsf{UP}}}
 \def\hDisjNP{\ensuremath{\mathsf{DisjNP}}}
 \def\hDisjCoNP{\ensuremath{\mathsf{DisjCoNP}}}
 \def\hNPcoNP{\ensuremath{\mathsf{NP}{}\cap{}\mathsf{coNP}}}
-\def\hCON{\ensuremath{\mathsf{CON}}}
+\def\hTAUT{\ensuremath{\mathsf{TAUT}}}
 \def\hSAT{\ensuremath{\mathsf{SAT}}}
 \def\hTFNP{\ensuremath{\mathsf{TFNP}}}
 \def\leqmpp{\ensuremath{\leq_\mathrm{m}^\mathrm{pp}}}
