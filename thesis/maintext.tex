@@ -335,7 +335,7 @@ Folgende Aussagen sind äquivalent:
     %\[ S = f(\Sigma^*) = \{ f(x) \mid x\in\Sigma^*\} \]
     %das Bild der Reduktionsfunktion $f$.
 
-    Definiere nun die folgende NPTM $N'(w)$:\\
+    Definiere nun die folgende NPTM $N'(w)$:\marginnote{\todo{Warum können wir nicht als Eingaben $(w, x)$ nehmen und sofort akzeptieren wenn $f(x)=w$? Dann wäre „ehrlich“ weg\ldots{}}}\\
     \begin{algorithm}[H]
         Rate nichtdeterministisch $x\in \Sigma^{\leq q(|w|)}$\;
         \lIf{$f(x)=w$}{akzeptiere}
@@ -674,7 +674,7 @@ Wir definieren zunächst eine abgeschwächte Variante der p-Simulation.
         \item $x\in L \implies f(x)\in L$,
         \item $ h'(w)=f(x) \implies h(g(x, w)) = x. $
     \end{enumerate}
-    Wir schreiben in diesem Fall auch $h\leq^\mathrm p_\mathrm{eff} h'$.\marginnote{\note{Nicht vergessen: es ist offenbar unklar, wie das Symbol $\leq$ bzgl. Simulation gebraucht wird. Dose/Glaßer würden in der Def. das Ordnungszeichen spiegeln, Krajíček/Pudlák dagegen genau so wie hier.}}
+    Wir schreiben in diesem Fall auch $h\leq^\mathrm p_\mathrm{eff} h'$.\marginnote{\note{Nicht vergessen: es ist offenbar unklar, wie das Symbol $\leq$ bzgl. Simulation gebraucht wird. Dose/Glaßer würden in der Def. das Ordnungszeichen spiegeln, Krajíček/Pudlák dagegen genau so wie hier, Krajíček im Sammelband dagegen wieder gespiegelt.}}
 \end{definition}
 In anderen Worten, falls $h\leq^p_\mathrm{eff} h'$, dann kann $h$ zwar nicht \emph{jeden} $h'$-Beweis $w$ für $x\in L$ in einen $h$-Beweis für (das gleiche) $x$ effizient umrechnen, es kann aber zumindest alle \emph{relevanten} $h'$-Beweise effizient umrechnen, nämlich für jedes $x\in L$ die $h'$-Beweise für $f(x)$ in $h$-Beweise für $x$.
 
@@ -747,7 +747,7 @@ Mit der Definition der effektiven p-Simulation und der eben beweisenen äquivale
     In anderen Worten, für jedes optimales Beweissystem $h$ existiert ein  optimales Beweissysteme $h'$ sodass $h\not\leq^\mathrm p_\mathrm{eff} h'$.
 \end{conjecture}
 
-\begin{theorem}
+\begin{theorem}\label{thm:sateff-generalizes-sat}
     \begin{enumerate}
         \item $\mathsf{SAT^{eff}}\implies \mathsf{SAT}$
         \item $\mathsf{SAT^{eff}}\implies \mathsf{KvL}$
@@ -762,43 +762,115 @@ Mit der Definition der effektiven p-Simulation und der eben beweisenen äquivale
 
 \section{Bekannte Implikationen, Offene Orakel}
 
+\begin{theorem}[\cite{dingel_separation_2022}]\label{thm:tfnp-vs-npconp}
+    Folgende Aussagen sind äquivalent:
+    \begin{enumerate}
+        \item $\NP=\coNP$
+        \item Es existiert eine $\NP$-harte Funktion $f\in\TFNP$: für jede Menge $L\in\NP$ und jede Verfeinerung $f'$ von $f$ gilt $L\in\P^{f'}$.
+    \end{enumerate}
+\end{theorem}
+
+Der folgende Satz ist eine Generalisierung von \textcite{dingel_separation_2022}.
+\begin{theorem}\label{thm:npmvt-vs-npconp}
+    Wenn $\NP=\coNP$ dann existiert eine $\leqmp$-vollständige Multifunktion $f$ für $\NPMV_t$.
+\end{theorem}
+\begin{proof}
+    Nach Voraussetzung können wir in $\NP$ testen, ob ein Wort $x$ im Urbild einer beliebigen $\NPMV$-Multifuktion liegt.
+    Es gilt $\mathtt{KAN}\in\NP$ und damit $\mathtt{KAN}\in\coNP$. Insbesondere ist dann die Menge
+    \[ U = \{ (i, x, 1^n) \mid T_i \text{ akz. auf keinem Rechenweg der Länge $\leq n$} \} \in\NP,  \]
+    und wird von der NPTM $N_u$ in Laufzeit $q(|(i, x, 1^n)|)$ entschieden.
+
+    Betrachte nun die Multifunktion $f$, die durch folgenden nichtdeterministischen Transduktor $T'(i, x, 1^n)$ berechnet wird:\\
+    \begin{algorithm}[H]
+        \uIf{$T$ kein Transduktor ist oder $n\neq |x|^i+i$}{akzeptiere}
+        Rate nichtdeterministisch einen Rechenweg $\alpha$ von $T_i$ der Länge $\leq n$\;
+        Rate nichtdeterministisch einen Rechenweg $\beta$ von $N_u$ der Länge $\leq q(|i, x, 1^n|)$\;
+        \uIf{Falls $T_i(x)$ mit $\alpha$ akzeptiert}
+        {
+            $y\gets $ Ausgabe von $T_i(x)$ auf $\alpha$\;
+            Gebe $y$ aus\;
+        }
+        \uElseIf{Falls $N_u(i, x, 1^n)$ mit $\beta$ akzeptiert}
+        {
+            Gebe $\epsilon$ aus\;
+        }
+        \Else
+        {
+            Lehne ab\;
+        }
+    \end{algorithm}
+    Es ist leicht zu sehen dass $T'$ in Polynomialzeit arbeitet. Wir betrachten nun Eingaben $(i, x, 1^n), n={|x|^i+i}$. Es gilt nun:
+    \begin{itemize}[nosep]
+        \item Entweder ist $\fset{T_i}(x)\neq \emptyset$, dann existiert für jedes $y\in \fset{T_i}(x)$ ein akzeptierender Rechenweg $\alpha$ der Länge $\leq n$ auf $T_i$ der $y$ ausgibt, und damit wird auch $f$ dieses $y$ in Z.~5 ausgeben.
+            Gleichzeitig ist damit $(i, x, 1^n)\not\in U$ und Z.~7 niemals erreicht.
+            Es gilt also $\fset{f}(i, x, 1^n)=\fset{T_i}(x)$.
+        \item Oder es gilt $\fset{T_i}(x)=\emptyset$.
+            Dann wird jeder Rechenweg der Länge $\leq n$ von $T_i(x)$ ablehnen, und $f$ definitiv nicht in Z.~5 akzeptieren.
+            Andererseits gilt dann $(i, x, 1^n)\in U$ und Z.~7 wird auf mindestens einem Rechenweg von $f$ erreicht.
+            Es gilt also $\fset{f}(i, x, 1^n)=\{\epsilon\}$.
+    \end{itemize}
+
+    Damit ist klar, dass $f\in\NPMV_t$.
+    Wir zeigen nun, dass $f$ auch $\NPMV_t$-vollständig ist.
+    Sei hierfür $g$ eine beliebige Multifunktion aus $\NPMV_t$.
+    Dann existiert auch ein $i$ sodass der  nichtdeterministische Transduktor $T_i$ diese Multifunktion $g$ in berechnet, und dabei terminiert $T_i(x)$ in $\leq |x|^i+i$ vielen Schritten.
+
+    Nun gilt nach obiger Beobachtung schon dass 
+    \[ \fset{g}(x) = \fset{T_i}(x)\neq\emptyset \implies \fset{f}(\underbrace{i, x, 1^{|x|^i+i}}_{h(x)})=\fset{T_i}(x)=\fset{g}(x) \]
+    und $h(x)=(i, x, 1^{|x|^i+i})$ realisiert die Reduktion von $g$ auf $f$, wie gewünscht.
+\end{proof}
+
+
+
+
 \begin{figure}
     \hspace*{-12mm}\includegraphics[page=1]{figures.pdf}
-    \caption{Bekannte (relativierenden) Implikationen zwischen den betrachteten Hypothesen und weiteren. Satz~\ref{thm:figure-implications} gibt Belegstellen für jede dieser Implikationen an.}\label{fig:figure-implications}
+    \caption{Bekannte (relativierenden) Implikationen zwischen den betrachteten Hypothesen und weiteren Aussagen. Satz~\ref{thm:figure-implications} gibt Belegstellen für jede dieser Implikationen an.}\label{fig:figure-implications}
 \end{figure}
 
 \begin{theorem}\label{thm:figure-implications}
     Es gelten die in Abbildung \ref{fig:figure-implications} abgebildeten Implikationen und Äquivalenzen.
 \end{theorem}
 \begin{proof}
-\begin{prooflist}
+    Es gelten die notiertern Äquivalenzen:
+    \begin{prooflist}\setlength{\medskipamount}{0pt}
+    \item $\neg\hQ \Leftrightarrow \mathit{sat}$ ist p-optimal, nach Satz~\ref{thm:q}.
+    \item $\NP\neq\coNP \Leftrightarrow$ existiert keine NP-harte Funktion in $\TFNP$, nach Satz~\ref{thm:tfnp-vs-npconp}.
+    \item $\neg\hQ' \Leftrightarrow\exists$ P-inseparierbares $\DisjCoNP$-Paar, nach \textcite{fortnow_separability_2002}.
+    \item $\NP\cap\coNP\neq\P \Leftrightarrow \NPSV_t\not\subseteq\FP$, nach \textcite{selman_taxonomy_1994}.
+    \item $\UP\neq\P \Leftrightarrow\exists$ Einwegfunktionen, nach \textcite[Thm.~10]{grollmann_complexity_1988}.
+    \item $\UP\cap\coUP\neq\P \Leftrightarrow\exists$ Einwegpermutationen, nach \textcite{homan_one-way_2003}.
+    \item $\hNPcoNP \Leftrightarrow \NPSV_t$ hat keine vollständige Funktion, nach \textcite[Prop.~3]{beyersdorff_nondeterministic_2009}.
+    \end{prooflist}
+
+    Es gelten die eingezeichneten Implikationen:
+    \begin{prooflist}\setlength{\medskipamount}{0pt}
 \item $\hDisjNP \Rightarrow \mathsf{CON}^N$ nach \textcite{kobler_optimal_2003}.
 \item $\hUP \Rightarrow \hTAUT$ nach \textcite{kobler_optimal_2003}.
 \item $\mathsf{CON}^N\Rightarrow \mathrm{NEE\neq coNEE}$ nach \textcite{kobler_optimal_2003}.
 \item $\NP\cap\coNP\neq \P \Rightarrow \neq\hQ' \Rightarrow \NPMVt \not\subseteq_c \TFNP \Rightarrow \neq\hQ$ nach \textcite{fenner_inverting_2003}.
-\item $\neg\hQ\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, denn unter $\neg\hQ$ gilt mit Satz~\ref{thm:q} auch die Negation von \ref{thm:q}(1), also eine NPTM $N$ mit $L(N)=\Sigma^*$ wobei keine Funktion $g\in\FP$ existiert, welche für alle $x$ durch $g(x)$ einen akzeptierenden Rechenweg von $N(x)$ bestimmt.
-    Definiere die NP-Relation $R_N$ mit $(x,\alpha)\in R_N$ genau dann wenn $N(x)$ mit Rechenweg $\alpha$ existiert. Nun gilt nach Vorigem auch $R\not\in_c \FP=\FP^{\Sigma^*} = \FP^{L(R)}$.
 \item $\mathrm{EE\neq NEE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{bellare_complexity_1994}.
 \item $\mathrm{EXP\neq NEXP}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach Impagliazzo und Sudan (private Kommunikation berichtet von \cite{bellare_complexity_1994}, Abschn. 1.5.4).
-%UPneqP DisjNPinsep
-%SATeff SAT
-%SatEff KvL
-% KvL negQ
+\item $\UP\neq\P \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar, nach \textcite[Thm.~5]{grollmann_complexity_1988}.
 \item $\hNPcoNP\Rightarrow \hTAUT\lor\hSAT$ nach \textcite{beyersdorff_nondeterministic_2009}.
-\item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \hSAT$ nach \textcite{beyersdorff_nondeterministic_2009}.
-\item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \NP\neq\coNP$ nach Satz~\ref{}.
+\item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \hSAT$ nach \textcite[Thm.~25]{beyersdorff_nondeterministic_2009}.
+\item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \NP\neq\coNP$ nach Satz~\ref{thm:tfnp-vs-npconp}.
+\item $\mathsf{SAT^{eff}} \Rightarrow \hSAT, \mathsf{SAT^{eff}}\Rightarrow \mathsf{KvL}$, nach Satz~\ref{thm:sateff-generalizes-sat}.
+\item $\mathsf{KvL}\Rightarrow\neg\hQ$, nach Satz~\ref{thm:kvl-implies-q}.
+\item $\neg\hQ\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, denn unter $\neg\hQ$ gilt mit Satz~\ref{thm:q} auch die Negation von \ref{thm:q}(1), also eine NPTM $N$ mit $L(N)=\Sigma^*$ wobei keine Funktion $g\in\FP$ existiert, welche für alle $x$ durch $g(x)$ einen akzeptierenden Rechenweg von $N(x)$ bestimmt.
+    Definiere die NP-Relation $R_N$ mit $(x,\alpha)\in R_N$ genau dann wenn $N(x)$ mit Rechenweg $\alpha$ existiert. Nun gilt nach Vorigem auch $R\not\in_c \FP=\FP^{\Sigma^*} = \FP^{L(R)}$.
 \item $\hNPcoNP \Rightarrow \hTFNP \Rightarrow \NPMVt$ hat keine vollständig Funktion, nach \textcite{pudlak_incompleteness_2017}.
 \item $\NP\cap\coNP\neq \P \Rightarrow\exists$ P-inseparierbares $\DisjNP$-Paar, denn wenn alle $\DisjNP$-Paare P-separierbar, dann ist auch für jede Menge $L\in\NP\cap\coNP$ jeweils das $\DisjNP$-Paar $(L,\overline{L})$ P-separierbar und damit $L\in\P$.
-%\item $\hDisjNP \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar; ist klar, denn wenn alle $\DisjNP$-Paare P-separierbar wären, dann wären auch alle Paare $\leqmpp$-vollständig.
-%\item $\hDisjCoNP \Rightarrow \exists$ P-inseparierbares $\DisjCoNP$-Paar; ist aus selben Gründen klar.
-%\item $\mathsf{CON}^N \Rightarrow \hTAUT$ klar, weil aus p-Optimalität auch Optimalität folgt.
-%\item $\mathsf \hSAT \Rightarrow \neg\hQ $ klar, denn wenn $\mathit{sat}$ p-optimal ist, dann existiert \emph{ein} p-optimales Beweissystem für $\mathtt{SAT}$.
-%\item $\hUP \Rightarrow \UP\neq\P$ klar.
-%\item $\hNPcoNP \Rightarrow \NP\cap\coNP\neq \P$ klar.
-%\item $\exists$ P-inseparierbares $\DisjNP$-Paar $\Righarrow \P\neq \NP$ klar.
-%\item $\UP\cap\coUP\Rightarrow \UP\neq \P$, $\UP\cap\coUP\Rightarrow \NP\cap\coNP\neq\P$ klar.
-%\item $\mathrm{NEE\neq coNEE \Rightarrow NEXP \neq coNEXP \Rightarrow NP \neq coNP \Rightarrow P\neq NP}$ klar.
-%\item $\mathrm{NEE\neq coNEE \Rightarrow EE \neq NEE}$ klar.
+\item $\hDisjNP \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar; ist klar, denn wenn alle $\DisjNP$-Paare P-separierbar wären, dann wären auch alle Paare $\leqmpp$-vollständig.
+\item $\hDisjCoNP \Rightarrow \exists$ P-inseparierbares $\DisjCoNP$-Paar; ist aus selben Gründen klar.
+\item $\mathsf{CON}^N \Rightarrow \hTAUT$ klar, weil aus p-Optimalität auch Optimalität folgt.
+\item $\mathsf \hSAT \Rightarrow \neg\hQ $ klar, denn wenn $\mathit{sat}$ p-optimal ist, dann existiert \emph{ein} p-optimales Beweissystem für $\mathtt{SAT}$.
+\item $\hUP \Rightarrow \UP\neq\P$ klar.
+\item $\hNPcoNP \Rightarrow \NP\cap\coNP\neq \P$ klar.
+\item $\exists$ P-inseparierbares $\DisjNP$-Paar $\Rightarrow \P\neq \NP$ klar.
+\item $\UP\cap\coUP\Rightarrow \UP\neq \P$, $\UP\cap\coUP\Rightarrow \NP\cap\coNP\neq\P$ klar.
+\item $\mathrm{NEE\neq coNEE \Rightarrow NEXP \neq coNEXP \Rightarrow NP \neq coNP \Rightarrow P\neq NP}$ klar.
+\item $\mathrm{NEE\neq coNEE \Rightarrow EE \neq NEE}$ klar.
 \end{prooflist}
 \end{proof}
 
