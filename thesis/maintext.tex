@@ -335,7 +335,7 @@ Folgende Aussagen sind äquivalent:
     %\[ S = f(\Sigma^*) = \{ f(x) \mid x\in\Sigma^*\} \]
     %das Bild der Reduktionsfunktion $f$.
 
-    Definiere nun die folgende NPTM $N'(w)$:\marginnote{\todo{Warum können wir nicht als Eingaben $(w, x)$ nehmen und sofort akzeptieren wenn $f(x)=w$? Dann wäre „ehrlich“ weg\ldots{}}}\\
+    Definiere nun die folgende NPTM $N'(w)$:\marginnote{\tiny\note{Wichtig: Ehrlichkeit ist hier notwendig, denn wir \emph{müssen} das Urbild raten, und können das nicht als zweite Eingabe mitführen, damit $L(N')=\Proj(R)$. Auch alternative Wege über Beweissysteme laufen darauf hinaus, Levin-Paddability vorauszusetzen, woraus ohenhin wieder Ehrlichkeit folgt.}}\\
     \begin{algorithm}[H]
         Rate nichtdeterministisch $x\in \Sigma^{\leq q(|w|)}$\;
         \lIf{$f(x)=w$}{akzeptiere}
