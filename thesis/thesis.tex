@@ -22,6 +22,7 @@
 \documentclass[11pt,a4paper,twoside]{report}
 \else
 \documentclass[10pt,a4paper]{report}
+\usepackage[bottom=1cm,top=1cm,foot=0.8cm,text={14cm,20cm}]{geometry}
 \fi
 
 \usepackage[ngerman]{babel}
@@ -180,6 +181,8 @@
 \setlist[itemize]{itemsep=0pt}
 \setlist{beginpenalty=10000, midpenalty=10000}
 
+\usepackage[autostyle]{csquotes}
+
 %\usepackage[authordate,url=false,dashed=false]{biblatex-chicago}
 \usepackage[style=myauthoryear,backend=biber,url=false,mergedate=false,maxbibnames=99]{biblatex}
 \addbibresource{zoterolib.bib}
@@ -293,5 +296,6 @@
 \input{maintext}
 
 
+\printbibliography
 
 \end{document}

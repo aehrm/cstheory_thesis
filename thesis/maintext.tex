@@ -33,7 +33,26 @@
     \[ R(x) = \{ y \mid y\in\Sigma^*, (x,y)\in R\}  \]
     als die Menge aller Zertifikate $y$ zu $x$. Damit gilt unmittelbar
     \[ x\in \Proj(R) \iff R(x) \neq\emptyset. \qedhere \] 
+
+    Wir schreiben $\mathrm{FNP}$ für die Klasse aller NP-Relationen.
 \end{definition}
+
+%Interpreting each NP relation as function, we see that the class $\mathrm{FNP}$ coincides with the “textbook definition” of $\mathrm{FNP}$, e.g., as defined by \textcite[cf.][227-228]{papadimitriou_computational_1994}. This makes $\mathrm{FNP}$ the non-total variant of $\TFNP$. 
+%Discussion on the complexity of function computation goes back at least to \textcite{valiant_relative_1976}, who first observed the equivalence of the P–NP question with a respective variant of function problem classes, in particular
+%\[ \NP\subseteq\P \iff \mathrm{FNP}\subseteq_c \mathrm{FP}. \]
+%It needs to be remarkted that the notation of function classes, search problem clases, etc. is not consistent throughout the literature. \textcite{valiant_relative_1976}, in its original formulation, denoted the class of NP relations as $\mathrm{PC^p}$ (“polynomially checkable with polynomially long function output“). This notation has been refined by \textcite{selman_taxonomy_1994} to $\mathrm{NPMV_g}$ in its taxonomy on function clases, highlighting that NP relations are “partial multivalued functions computed by NPTM transducers” with the subscript $g$ marking that the relation is in $\P$. In this taxonomy, $\mathrm{NPMV_g}$ can be contrasted to $\mathrm{NPSV_g}$ (where NP relations are single-valued, i.e., right-unique) and $\mathrm{NPMV}$, $\mathrm{NPSV}$ (where P-checkability is dropped).
+%As already indicated above, \textcite{megiddo_total_1991} define the class $\mathrm{FNP}$ precisely as given here, in particular to contrast this class to the subset $\mathrm{TFNP}$, defined as the set of (left-)total NP relations, that is, where every $x\in\Sigma^*$ is a problem that has a witness. This is the usual interpretation of $\mathrm{TFNP}$ in the literature. The notation proposed \textcite{wechsung_vorlesungen_2000} would denote the class of NP relations as $\mathrm{Rel}\,\P$ highlighting that NP relations are \emph{relations}, rejecting the notion of “multivalued functions” and reserving the label $\mathrm{Fun}\,\P$ only for the class of NP relations that are right-unique, i.e., relations where every problem $x$ has at most one witness $y$; in other words, \emph{partial functions}. This is identical to the class $\mathrm{NPSV_g}$ as defined by \textcite{selman_taxonomy_1994}.
+
+Diese Definition von $\mathrm{FNP}$ entspricht der „Lehrbuchdefinition“ von $\mathrm{FNP}$, wie sie z.B. bei \textcite[cf.][227-228]{papadimitriou_computational_1994} formuliert wird. 
+Dies macht $\mathrm{FNP}$ zur nicht-totalen Variante von $\TFNP$.
+Die Diskussion über die Komplexität von Funktionen geht mindestens auf \textcite{valiant_relative_1976} zurück, der erstmals die Äquivalenz der P-NP-Frage mit einer entsprechenden Variante auf Funktionenklassen beobachtete:
+\[ \NP\subseteq\P \iff \mathrm{FNP}\subseteq_c \mathrm{FP}. \]
+
+Es muss bemerkt werden, dass die Notation von Funktionenklassen, Suchproblemklassen usw. in der Literatur nicht konsistent ist. 
+\textcite{valiant_relative_1976} hat in seiner ursprünglichen Formulierung die Klasse der NP-Relationen als $\mathrm{PC^p}$ („polynomial überprüfbar mit polynomial langem Funktionsoutput“) bezeichnet. 
+Diese Notation wurde von \textcite{selman_taxonomy_1994} in seiner Taxonomie der Funktionsklassen zu $\mathrm{NPMV_g}$ umbenannt. In der Taxonomie wird hervorgehoben, dass NP-Relationen „partielle mehrwertige Funktionen sind, die von NPTM-Transduktoren berechnet werden“, wobei der Index $g$ angibt, dass die Relation in $\P$ liegt. In dieser Taxonomie kann $\mathrm{NPMV_g}$ gegenüber $\mathrm{NPSV_g}$ (wo NP-Relationen eindeutig sind, d.h., rechtseinheitlich) und $\mathrm{NPMV}$, $\mathrm{NPSV}$ (wo die P-Überprüfbarkeit ausgelassen wird) abgegrenzt werden.
+
+Wie bereits oben angedeutet, definieren \textcite{megiddo_total_1991} die Klasse $\mathrm{FNP}$ genau wie hier angegeben, insbesondere um diese Klasse von der Teilmenge $\mathrm{TFNP}$ abzugrenzen, die als die Menge der (links-)totalen NP-Relationen definiert ist, bei denen also jedes $x\in\Sigma^*$ ein Problem ist, das einen Zeugen hat. Dies ist die übliche Interpretation von $\mathrm{TFNP}$ in der Literatur. Die von \textcite{wechsung_vorlesungen_2000} vorgeschlagene Notation würde die Klasse der NP-Relationen als $\mathrm{Rel}\,\P$ bezeichnen und hervorheben, dass NP-Relationen \emph{Relationen} sind, wobei die Vorstellung "mehrdeutiger Funktionen" abgelehnt wird, und das Label $\mathrm{Fun}\,\P$ nur für die Klasse der NP-Relationen reservieren, die rechtseinheitlich sind, d.h., Relationen, bei denen jedes Problem $x$ höchstens einen Zeugen $y$ hat; mit anderen Worten, \emph{partielle Funktionen}. Dies entspricht genau der Klasse $\mathrm{NPSV_g}$, wie sie von \textcite{selman_taxonomy_1994} definiert wurde.
 
 \begin{definition}[Levin-Reduzierbarkeit]
     Seien $Q, R$ zwei NP-Relationen. Wir sagen dass \emph{$Q$ sich auf $R$ (Polynomialzeit-)Levin-reduzieren lässt}, bzw. $Q\leqlp R$ wenn zwei Funktionen $f, g\in \FP$ existieren sodass
@@ -110,27 +129,21 @@ eine entsprechende NP-Relation, auch wenn hierbei die Zertifikate nicht „natü
     \begin{enumerate}
         \item $(x,y)\in Q \implies (f(x), g(x,y))\in R$ (Vorwärts-Translation von Zertifikaten),
         \item $(f(x),z)\in R \implies \exists y.\, (x,y)\in R\land g(x,y)=z$ ($g$ ist quasi “surjektiv”),
-        \item Falls $y_1,y_2\in Q(x)$ und $y_1\neq y_2$, dann ist auch $g(x,y_1)\neq g(x,y_2)$ ($g$ ist quasi “injektiv”).
+        \item Falls $y_1,y_2\in Q(x)$ und $y_1\neq y_2$, dann ist auch $g(x,y_1)\neq g(x,y_2)$ ($g$ ist quasi “injektiv”). \qedhere
     \end{enumerate}
-    Definiere $Q\leq_\mathrm{st}^\mathrm p$-Vollständigkeit entsprechend.
 \end{definition}
 
+In einer ähnlichen Weise definieren \cite{wiedermann_witness-isomorphic_1995} \emph{zertifikats-isomorphe} Reduktionen („witness-isomorphic reduction“) zwischen zwei NP-Relationen. Obwohl dies nicht explizit angegeben ist, kann ihre Definition so umformuliert werden, dass sie der Definition von strukturerhaltenden Reduktionen nach Lynch und Lipton entspricht, wobei zusätzlich die p-Invertierbarkeit der Funktionen $f$ und $g$ gefordert wird, welche die Reduktion realisieren.
 
 
 \begin{definition}[Zertifikats-Isomorphie; \cite{wiedermann_witness-isomorphic_1995}]
     Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{zertifikats-isomorph reduzieren lässt}, bzw. $Q\leq_\mathrm{wi}^\mathrm p R$, wenn zwei Funktionen $f, g\in \FP$ existieren, die p-invertierbar (also auch injektiv\marginnote{\todo{das steht so direkt aber nicht bei FHT...}}) sind, und 
     \begin{enumerate}
-        %\item $x\in \Proj(Q) \iff f(x)\in\Proj(R)$, (i.e. $\Proj(Q)\leqmp\Proj(R)$ via $f$),
-        \item $(x,y)\in Q \implies g(x,y)=(f(x), z)\in R$ (Vorwärts-Translation von Zertifikaten),
-        \item $(f(x), z)\in R \implies g^{-1}(f(x),z)=(x,y)\in R$ ($g$ ist quasi “surjektiv“ und implementiert eine effiziente Rückwärts-Translation),
-        \item Falls $y_1,y_2\in Q(x)$ und $y_1\neq y_2$, dann ist auch $g(x, y_1)\neq g(x, y_2)$, das heißt, mit $g(x, y_1)=(f(x), z_1), g(x, y_2)=(f(x), z_2)$, dass $z_1\neq z_2$ ($g$ ist quasi “injektiv”)).
+        \item $(x,y)\in Q \implies (f(x), g(x,y))\in R$ (Vorwärts-Translation von Zertifikaten),
+        \item $(f(x),z)\in R \implies \exists y.\, (x,y)\in R\land g(x,y)=z$ ($g$ ist quasi “surjektiv”),
+        \item Falls $y_1,y_2\in Q(x)$ und $y_1\neq y_2$, dann ist auch $g(x,y_1)\neq g(x,y_2)$ ($g$ ist quasi “injektiv”). \qedhere
     \end{enumerate}
-    Definiere $Q\leq_\mathrm{wi}^\mathrm p$-Vollständigkeit entsprechend.\marginnote{\todo{Brauchen wir die wi-Isomorphie?}}
-    %Wir sagen, dass die NP-Relationen $Q$ und $R$ zertifikats-isomorph sind, bzw. $Q\equiv_\mathrm{wi}^\mathrm p R$, wenn 
-    %$Q\leq_\mathrm{wi}^\mathrm p R$ über $f,g$ und $R\leq_\mathrm{wi}^\mathrm p Q$ über $f^{-1}, g^{-1}$.
 \end{definition}
-
-\todo{An dieser Stelle die Definition von Fischer et al. mit der von Lynch et al. gegenüberstellen. Zeige insbesondere dass beide Definionen im Wesentlichen „gleich“ sind, nur dass Lynch/Lipton keine Invertierbarkeit fordert.}
 
 \begin{definition}[Universelle Relationen; \cite{agrawal_universal_1992}]
     Sei $R$ eine NP-Relation mit Zertifikatsschranke $q$. 
@@ -874,5 +887,4 @@ Der folgende Satz ist eine Generalisierung von \textcite{dingel_separation_2022}
 \end{prooflist}
 \end{proof}
 
-\printbibliography
 
