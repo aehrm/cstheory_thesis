@@ -3,11 +3,12 @@
 %\setmathfont{NewCMMath-Book}
 \usepackage[margin=3cm]{geometry}
 \setmainfont{Latin Modern Roman}
-\usepackage{unicode-math}
-\setmathfont{Latin Modern Math}
-\setmathfont[version=lm,range={\setminus}, Scale=MatchUppercase]{STIX Two Math}
+%\usepackage{unicode-math}
+%\setmathfont{Latin Modern Math}
+%\setmathfont[version=lm,range={\setminus}, Scale=MatchUppercase]{STIX Two Math}
 
 \setmainlanguage{german}
+\setotherlanguage{english}
 
 
 \usepackage{amsthm}
@@ -98,5 +99,42 @@ Im ersten Beitrag will die Masterarbeit daher einen Überblick und Systematisier
 Der zweite Beitrag vertieft den Zusammenhang der Hypothese Q, der Vollständigkeit von Suchproblemen, und Optimalität von Beweissystemen. Konkret ergänzt und erweitert die Arbeit damit die von Pudlák entwickelte Systematisierung, welche verschiedene Hypothesen um Komplexitätsklassen bzw. Beweissysteme in Beziehung setzt.
 
 Aus dieser Erweiterung von Pudláks Systematisierung ergeben sich neue potentielle Implikationen zwischen den Hypothesen. Daher will die Masterarbeit, als dritter Beitrag, einige Orakelkonstruktionen erarbeiten, welche einige dieser (relativierbaren) Implikationen ausschließt. Damit schließt sich die Arbeit auch „Pudláks Programm“ an.
+
+\clearpage
+\subsection*{Inhalt Masterarbeit}
+
+\begin{english}
+\begin{enumerate}[label*=\arabic*.]
+    \item \textbf{Introduction}
+        \begin{itemize}
+            \item Introduce the subject: search problems as computational problems; subject of computational complexity theory
+            \item Contextualize into the history of the subject: search problems are not discussed as much as \emph{decision} problems. Give historical reasons why! (Simpler conceptualization; search reduces to decision at least for NP-complete problems; \emph{recognition} of sets brought over from computability theory; P-NP question can be equivalently stated both in their decision variant vs function variant.)
+            \item Broad question: what is the relation between NP search problems?
+            \item Observation: conjectures concerning search problems are related to conjectures concerning proof systems resp. promise classes. These are investigated in Pudlák's program.
+            \item Contribution: (a) a survey on reducibility notions and research on search problems; (b) linking search problems with Pudlák's hypotheses and the hypothesis Q, extending Pudlák's systemaization; (c) provide oracle constructions that separate several conjectures.
+        \end{itemize}
+    \item \textbf{Prelimiaries}
+        \begin{itemize}
+            \item Notation of words and sets of words; p-isomorphism to the natural numbers; implicit list coding; 
+            \item machine model, esp. oracle Turing machine; nondeterministic polynomial time transducer
+            \item Relativization: all statements relativize except when stated otherwise.
+            \item Notation concerning oracle construction; partial oracles as words, definite computations
+            \item Definition of complexity classes, reducibilities between sets,  p-isomorphism, standard enumeration of machines
+            \item Proof systems and simulation.
+        \end{itemize}
+    \item \textbf{The order of search problems}
+        \begin{enumerate}[label*=\arabic*.]
+            \item \textbf{Search problems and Levin reducibility}
+            \item \textbf{Reduciblities of search problems}
+        \end{enumerate}
+    \item \textbf{Search problems and the conjecture Q in the context of Pudlák's program}
+        \begin{enumerate}[label*=\arabic*.]
+            \item \textbf{Which search problems are paddable}
+            \item \textbf{Hypothesis Q vs. the completness of search problems}
+            \item \textbf{Karp completness vs. Levin completness}
+            \item \textbf{Implications between conjectures and oracle separations}
+        \end{enumerate}
+\end{enumerate}
+\end{english}
 
 \end{document}
