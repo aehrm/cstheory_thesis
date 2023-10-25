@@ -11,16 +11,16 @@
     %\item Levin-Reduktion definieren
 %\end{itemize}
 
-\begin{definition}[NP-Relation]
+\begin{definition}[NP-Relation, $\mathrm{FNP}$]
     Eine \emph{NP-Relation} ist eine zweistellige Relation $R\subseteq \Sigma^*\times\Sigma^*$, sodass diese
     \begin{enumerate}
-        \item in Polynomialzeit entscheidbar ist, d.h., $R\in\P$, und
-        \item ein Polynom $q$ existiert, sodass
+        \item in Polynomialzeit entscheidbar ist, d.h. $R\in\P$, und
+        \item p-balaciert ist, d.h. es existiert ein Polynom $q$, sodass
             \begin{equation}\label{eq:zertifikatsschranke}
                 (x,y)\in R \implies |y|\leq q(|x|) \quad\text{für alle $x,y\in\Sigma^*$}.
             \end{equation}
     \end{enumerate}
-    Die Wörter der ersten Komponente nennen wir \emph{Probleminstanzen} oder \emph{Instanzen} oder emph{Probleme} von $R$, die Wörter der zweiten Komponente nennen wir die \emph{Zertifikate} von $R$. Wir sagen dann für $(x,y)\in R$, dass \emph{$y$ ein Zertifikat für $x$} ist. In diesem Sinne sagt (\ref{eq:zertifikatsschranke})  aus, dass Zertifikate $y$ für $x$ nicht superpolynomiell länger als $x$ sein dürfen.
+    Die Wörter der ersten Komponente nennen wir \emph{Probleminstanzen} oder \emph{Instanzen} oder \emph{Probleme} von $R$, die Wörter der zweiten Komponente nennen wir die \emph{Zertifikate} (oder manchmal \emph{Lösungen}) von $R$. Wir sagen dann für $(x,y)\in R$, dass \emph{$y$ ein Zertifikat für $x$} ist. In diesem Sinne sagt (\ref{eq:zertifikatsschranke})  aus, dass Zertifikate $y$ für $x$ nicht superpolynomiell länger als $x$ sein dürfen.
     Das Polynom $q$ nennen wir auch die \emph{Zertifikatsschranke} zu $R$. 
 
     Für eine NP-Relation definieren wir
@@ -32,27 +32,21 @@
     Wir definieren 
     \[ R(x) = \{ y \mid y\in\Sigma^*, (x,y)\in R\}  \]
     als die Menge aller Zertifikate $y$ zu $x$. Damit gilt unmittelbar
-    \[ x\in \Proj(R) \iff R(x) \neq\emptyset. \qedhere \] 
+    \[ x\in \Proj(R) \iff R(x) \neq\emptyset. \] 
 
-    Wir schreiben $\mathrm{FNP}$ für die Klasse aller NP-Relationen.
+    Wir schreiben $\mathrm{FNP}$ für die Klasse aller NP-Relationen. \qedhere
 \end{definition}
-
-%Interpreting each NP relation as function, we see that the class $\mathrm{FNP}$ coincides with the “textbook definition” of $\mathrm{FNP}$, e.g., as defined by \textcite[cf.][227-228]{papadimitriou_computational_1994}. This makes $\mathrm{FNP}$ the non-total variant of $\TFNP$. 
-%Discussion on the complexity of function computation goes back at least to \textcite{valiant_relative_1976}, who first observed the equivalence of the P–NP question with a respective variant of function problem classes, in particular
-%\[ \NP\subseteq\P \iff \mathrm{FNP}\subseteq_c \mathrm{FP}. \]
-%It needs to be remarkted that the notation of function classes, search problem clases, etc. is not consistent throughout the literature. \textcite{valiant_relative_1976}, in its original formulation, denoted the class of NP relations as $\mathrm{PC^p}$ (“polynomially checkable with polynomially long function output“). This notation has been refined by \textcite{selman_taxonomy_1994} to $\mathrm{NPMV_g}$ in its taxonomy on function clases, highlighting that NP relations are “partial multivalued functions computed by NPTM transducers” with the subscript $g$ marking that the relation is in $\P$. In this taxonomy, $\mathrm{NPMV_g}$ can be contrasted to $\mathrm{NPSV_g}$ (where NP relations are single-valued, i.e., right-unique) and $\mathrm{NPMV}$, $\mathrm{NPSV}$ (where P-checkability is dropped).
-%As already indicated above, \textcite{megiddo_total_1991} define the class $\mathrm{FNP}$ precisely as given here, in particular to contrast this class to the subset $\mathrm{TFNP}$, defined as the set of (left-)total NP relations, that is, where every $x\in\Sigma^*$ is a problem that has a witness. This is the usual interpretation of $\mathrm{TFNP}$ in the literature. The notation proposed \textcite{wechsung_vorlesungen_2000} would denote the class of NP relations as $\mathrm{Rel}\,\P$ highlighting that NP relations are \emph{relations}, rejecting the notion of “multivalued functions” and reserving the label $\mathrm{Fun}\,\P$ only for the class of NP relations that are right-unique, i.e., relations where every problem $x$ has at most one witness $y$; in other words, \emph{partial functions}. This is identical to the class $\mathrm{NPSV_g}$ as defined by \textcite{selman_taxonomy_1994}.
 
 Diese Definition von $\mathrm{FNP}$ entspricht der „Lehrbuchdefinition“ von $\mathrm{FNP}$, wie sie z.B. bei \textcite[cf.][227-228]{papadimitriou_computational_1994} formuliert wird. 
 Dies macht $\mathrm{FNP}$ zur nicht-totalen Variante von $\TFNP$.
 Die Diskussion über die Komplexität von Funktionen geht mindestens auf \textcite{valiant_relative_1976} zurück, der erstmals die Äquivalenz der P-NP-Frage mit einer entsprechenden Variante auf Funktionenklassen beobachtete:
-\[ \NP\subseteq\P \iff \mathrm{FNP}\subseteq_c \mathrm{FP}. \]
+\[ \NP\subseteq\P \iff \mathrm{FNP}\subseteqc \mathrm{FP}. \]
 
 Es muss bemerkt werden, dass die Notation von Funktionenklassen, Suchproblemklassen usw. in der Literatur nicht konsistent ist. 
 \textcite{valiant_relative_1976} hat in seiner ursprünglichen Formulierung die Klasse der NP-Relationen als $\mathrm{PC^p}$ („polynomial überprüfbar mit polynomial langem Funktionsoutput“) bezeichnet. 
-Diese Notation wurde von \textcite{selman_taxonomy_1994} in seiner Taxonomie der Funktionsklassen zu $\mathrm{NPMV_g}$ umbenannt. In der Taxonomie wird hervorgehoben, dass NP-Relationen „partielle mehrwertige Funktionen sind, die von NPTM-Transduktoren berechnet werden“, wobei der Index $g$ angibt, dass die Relation in $\P$ liegt. In dieser Taxonomie kann $\mathrm{NPMV_g}$ gegenüber $\mathrm{NPSV_g}$ (wo NP-Relationen eindeutig sind, d.h., rechtseinheitlich) und $\mathrm{NPMV}$, $\mathrm{NPSV}$ (wo die P-Überprüfbarkeit ausgelassen wird) abgegrenzt werden.
+Diese Notation wurde von \textcite{selman_taxonomy_1994} in seiner Taxonomie der Funktionsklassen zu $\mathrm{NPMV_g}$ umbenannt. In der Taxonomie wird hervorgehoben, dass NP-Relationen „partielle mehrwertige Funktionen sind, die von NPTM-Transduktoren berechnet werden“, wobei der Index $g$ angibt, dass die Relation in $\P$ liegt. In dieser Taxonomie kann $\mathrm{NPMV_g}$ gegenüber $\mathrm{NPSV_g}$ wo NP-Relationen (rechts-)eindeutig sind, und $\mathrm{NPMV}$, $\mathrm{NPSV}$ (wo die P-Überprüfbarkeit ausgelassen wird) abgegrenzt werden.
 
-Wie bereits oben angedeutet, definieren \textcite{megiddo_total_1991} die Klasse $\mathrm{FNP}$ genau wie hier angegeben, insbesondere um diese Klasse von der Teilmenge $\mathrm{TFNP}$ abzugrenzen, die als die Menge der (links-)totalen NP-Relationen definiert ist, bei denen also jedes $x\in\Sigma^*$ ein Problem ist, das einen Zeugen hat. Dies ist die übliche Interpretation von $\mathrm{TFNP}$ in der Literatur. Die von \textcite{wechsung_vorlesungen_2000} vorgeschlagene Notation würde die Klasse der NP-Relationen als $\mathrm{Rel}\,\P$ bezeichnen und hervorheben, dass NP-Relationen \emph{Relationen} sind, wobei die Vorstellung "mehrdeutiger Funktionen" abgelehnt wird, und das Label $\mathrm{Fun}\,\P$ nur für die Klasse der NP-Relationen reservieren, die rechtseinheitlich sind, d.h., Relationen, bei denen jedes Problem $x$ höchstens einen Zeugen $y$ hat; mit anderen Worten, \emph{partielle Funktionen}. Dies entspricht genau der Klasse $\mathrm{NPSV_g}$, wie sie von \textcite{selman_taxonomy_1994} definiert wurde.
+Wie bereits oben angedeutet, definieren \textcite{megiddo_total_1991} die Klasse $\mathrm{FNP}$ genau wie hier angegeben, insbesondere um diese Klasse von der Teilmenge $\mathrm{TFNP}$ abzugrenzen, die als die Menge der (links-)totalen NP-Relationen definiert ist, bei denen also jedes $x\in\Sigma^*$ ein Problem ist, das einen Zeugen hat. Dies ist die übliche Interpretation von $\mathrm{TFNP}$ in der Literatur. Die von \textcite{wechsung_vorlesungen_2000} vorgeschlagene Notation würde die Klasse der NP-Relationen als $\mathrm{Rel}\,\P$ bezeichnen und hervorheben, dass NP-Relationen \emph{Relationen} sind, wobei die Vorstellung “mehrdeutiger Funktionen” abgelehnt wird. Das Label $\mathrm{Fun}\,\P$ wird nur für jene Klasse der NP-Relationen reserviert, die (rechts-)eindeutig sind, d.h., Relationen, bei denen jedes Problem $x$ höchstens einen Zeugen $y$ hat; mit anderen Worten, \emph{partielle Funktionen}. Dies entspricht genau der Klasse $\mathrm{NPSV_g}$, wie sie von \textcite{selman_taxonomy_1994} definiert wurde.
 
 \begin{definition}[Levin-Reduzierbarkeit]
     Seien $Q, R$ zwei NP-Relationen. Wir sagen dass \emph{$Q$ sich auf $R$ (Polynomialzeit-)Levin-reduzieren lässt}, bzw. $Q\leqlp R$ wenn zwei Funktionen $f, g\in \FP$ existieren sodass
@@ -95,30 +89,32 @@ Wie bereits oben angedeutet, definieren \textcite{megiddo_total_1991} die Klasse
 
 
 \begin{observation}[\cite{buhrman_functions_1998}]
-    Sei $L$ eine beliebige Menge und sei $R$ eine $\leqlp$-vollständige NP-Relation.
-    Gilt $L \leq_\mathrm{1,inv}^\mathrm p\Proj(R)$, dann existiert eine $\leqlp$-vollständige NP-Relation $R$ mit $\Proj(R)=L$.
-    \todo{Das kann zu universellem $R$ verstärkt werden!}
+    %Sei $L$ eine beliebige Menge und sei $R$ eine $\leqlp$-vollständige NP-Relation.
+    %Gilt $L \leq_\mathrm{1,inv}^\mathrm p\Proj(R)$, dann existiert eine $\leqlp$-vollständige NP-Relation $R$ mit $\Proj(R)=L$.
+    %\todo{Das kann zu universellem $R$ verstärkt werden, vgl. Agrawal und Biswas}
+    Für jede Menge $L\in \P$ die p-isomorph zu $\mathtt{SAT}$ ist, existiert eine NP-Relation $R_L$ sodass $\Proj(R_L)=L$.
 \end{observation}
 \begin{proof}
-    Nach Voruassetzung haben wir eine p-invertierbare Funktion $h\in\FP$ mit $x\in L \iff h(x) \in \Proj(R)$.
+    Nach Voraussetzung haben wir eine bijektive p-invertierbare Funktion $h\in\FP$ mit $x\in L \iff h(x) \in \mathtt{SAT}$.
     Definiere nun
-    \[ R_L = \{ (x,w) \mid x\in L, (h(x), w)\in R\}. \]
+    \[ R_L = \{ (x,w) \mid (h(x), w)\in \mathtt{rSAT}\}. \]
     Es ist leicht zu sehen, dass $R_L$ eine NP-Relation ist. Es ist auch leicht zu sehen dass $\Proj(R_L)=L$.
 
-    Wir zeigen nun, dass $R_L$ auch $\leqlp$-vollständig ist. Sei hierfür $Q$ eine beliebige NP-Relation. Nachdem $R$ ja $\leqlp$-vollständig ist, existieren Reduktions- und Translationsfunktionen $f,g$ die $Q\leqlp R$ realisieren.
+    Wir zeigen nun, dass $R_L$ auch $\leqlp$-vollständig ist. Sei hierfür $Q$ eine beliebige NP-Relation. Nachdem $\mathtt{rSAT}$ ja $\leqlp$-vollständig ist, existieren Reduktions- und Translationsfunktionen $f,g$ die $Q\leqlp \mathtt{rSAT}$ realisieren.
     Definiere nun
     \[ f'(x) = h^{-1}(f(x)). \]
+    Insbesondere ist $h^{-1}(\cdot)$ wohldefiniert, ist ja $h^{-1}$ surjektiv.
     Damit gilt zum einen für $f'$
-    \[ x\in \Proj(Q) \iff f(x) \in \Proj(R) \iff h(\underbrace{h^{-1}(f(x))}_{f'(x)}) \in \Proj(R) \iff f'(x) \in \Proj(R_L), \]
+    \[ x\in \Proj(Q) \iff f(x) \in \mathtt{SAT} \iff h(\underbrace{h^{-1}(f(x))}_{f'(x)}) \in \mathtt{SAT} \iff f'(x) \in \Proj(R_L), \]
     und zum anderen gilt
-    \[ (f'(x), w) \in L_R \implies (h(h^{-1}(f(x))), w)\in R \implies (f(x), w)\in R \implies (x, g(x, w))\in Q.  \]
+    \[ (f'(x), w) \in R_L \implies (h(h^{-1}(f(x))), w)\in \mathtt{rSAT} \implies (f(x), w)\in \mathtt{rSAT} \implies (x, g(x, w))\in Q.  \]
     Damit erfüllen also $f'$ und $g$ die Voraussetzungen an eine Reduktions- bzw. Translationsfunktion und $Q\leqlp R_L$, wie gewünscht.
 \end{proof}
-Damit haben (im unrelativierten Fall) insbesondere alle zu $\mathtt{SAT}$ p-isomorphen Mengen 
-eine entsprechende NP-Relation, auch wenn hierbei die Zertifikate nicht „natürlich“ sind.
+Damit haben (im unrelativierten Fall) insbesondere alle \emph{bekannten} $\leqmp$-vollständigen Mengen, i.e. zu $\mathtt{SAT}$ p-isomorphen Mengen, eine entsprechende NP-Relation, auch wenn hierbei die Zertifikate nicht „natürlich“ sind.
+Es ist leicht zu sehen, dass diese Aussage relativiert, wenn anstelle $\mathtt{rSAT}$ eine andere beliebige $\leqlp$-vollständige Relation $R$ gewählt wird.
 
-\begin{definition}[Sparsame  Reduktionen]
-    Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{sparsam} (\emph{„parsimonious“}\sidenote{vgl. \textcite{rothe_komplexitatstheorie_2008}.}) reduzieren lässt, bzw. $Q\leq_\mathrm{pars}^\mathrm p R$ wenn eine Funktion $f\in\FP$ existiert mit
+\begin{definition}[Geizige  Reduktionen]
+    Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{geizig} (\emph{„parsimonious“}\sidenote{vgl. \textcite{rothe_komplexitatstheorie_2008}.}) reduzieren lässt, bzw. $Q\leq_\mathrm{pars}^\mathrm p R$ wenn eine Funktion $f\in\FP$ existiert mit
     \[ x\in \Proj(Q) \iff f(x) \in \Proj(R) \quad\text{und}\quad |Q(x)|=|R(f(x))|. \]
     In anderen Worte, $f$ realisiert eine Many-one-Reduktion von $Q$ auf $R$, und haben sowohl die originale $Q$-Instanz $x$ als auch die reduzierte $R$-Instanz $f(x)$ die gleiche Anzahl an Lösungen.
     Definiere $Q\leq_\mathrm{pars}^\mathrm p$-Vollständigkeit entsprechend.
@@ -169,7 +165,7 @@ In einer ähnlichen Weise definieren \cite{wiedermann_witness-isomorphic_1995} \
     Wir definieren nun bezüglich einer solchen Relation $R$:
     \begin{enumerate}
         \item Die Relation $R$ hat einen \emph{building block}, wenn es ein Element $\mathit{block}\in\Proj(R)$ gibt, sowie paarweise verschiedene $b_1,b_2,b_3\in\mathbb N_{>0}$ sodass
-            \[\{ y[b_1b_2b_3] \mid y\in R(\mathit{block}) \} = \Sigma^3 - \{000\} \]
+            \[\{ y[b_1,b_2,b_3] \mid y\in R(\mathit{block}) \} = \Sigma^3 - \{000\} \]
         \item Die Relation $R$ ist \emph{joinable} wenn es eine Funktion $\mathit{join}\in \FP$ gibt sodass
             \begin{multline*}  \mathit{join}(x_1, \dots, x_n) = (z, \alpha) \text{ wobei } x_1, \ldots, x_n, z\in \Sigma^* \\\text{ und } \sum_{k=1}^n q(|x_k|)=|\alpha|\leq q(|z|), \end{multline*}
             wobei $\alpha\in \mathbb N_{>0}^*$ eine Sequenz von \emph{paarweise verschiedenen} Indizes ist, und
@@ -520,8 +516,8 @@ Folgende Aussagen sind äquivalent:
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
         \item Hypothese $\mathsf{Q}$: Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierende Berechnung von $N(x)$ ist.
-        \item $\mathrm{NPMV}_t\subseteq_c \mathrm{FP}$
-        \item $\P=\NP\cap\coNP$ und $\mathrm{NPMV}_t\subseteq_c \mathrm{NPSV}_t$
+        \item $\mathrm{NPMV}_t\subseteqc \mathrm{FP}$
+        \item $\P=\NP\cap\coNP$ und $\mathrm{NPMV}_t\subseteqc \mathrm{NPSV}_t$
         \item Jede surjektive ehrliche Funktion $f\in\FP$ ist p-invertierbar. %Zur Erinnerung: p-Invertierbarkeit bedeutet dass eine Funktion $g\in\FP$ existiert mit $f(g(y))=y$.
         \item Für jede Menge $L\in \P$  und jede NPTM $N$ mit $L(N)=L$ existiert eine Funktion $h\in \FP$ mit 
             \[ x\in L \implies N(x) \text{ akz. mit Rechenweg $h(x)$}. \]
@@ -604,7 +600,7 @@ Betrachte folgende Multifunktion $f'$:
 Es lässt sich leicht zeigen, dass $f'\in\NPMV$, über einen geeigneten NPTM-Transduktor. 
 Es ist sogar $f'\in\NPMV_t$, denn für jedes $w$ mindestens $f(w)\in \fset{}f'(w)$.
 
-Nach (2) gilt also $f'\in\NPMV_t\subseteq_c \FP$, also existiert eine Funktion $f''\in\FP$ welche eine Verfeinerung von $f'$ ist. Diese Funktion übersetzt $g$-Beweise $w$ für $x$ effizient in $h$-Beweise für $x$: 
+Nach (2) gilt also $f'\in\NPMV_t\subseteqc \FP$, also existiert eine Funktion $f''\in\FP$ welche eine Verfeinerung von $f'$ ist. Diese Funktion übersetzt $g$-Beweise $w$ für $x$ effizient in $h$-Beweise für $x$: 
 Sei $g(w)=x$, dann gilt
 \[ f''(w) = y \quad\text{mit } y\in\Sigma^{\leq q(|w|)}, x=g(w)=h(y) \]
 also ist $h(f''(w))=x$ bzw. $f''(w)$ ein $h$-Beweis für $x$, wie gewünscht.
@@ -861,7 +857,7 @@ Der folgende Satz ist eine Generalisierung von \textcite{dingel_separation_2022}
 \item $\hDisjNP \Rightarrow \mathsf{CON}^N$ nach \textcite{kobler_optimal_2003}.
 \item $\hUP \Rightarrow \hTAUT$ nach \textcite{kobler_optimal_2003}.
 \item $\mathsf{CON}^N\Rightarrow \mathrm{NEE\neq coNEE}$ nach \textcite{kobler_optimal_2003}.
-\item $\NP\cap\coNP\neq \P \Rightarrow \neq\hQ' \Rightarrow \NPMVt \not\subseteq_c \TFNP \Rightarrow \neq\hQ$ nach \textcite{fenner_inverting_2003}.
+\item $\NP\cap\coNP\neq \P \Rightarrow \neq\hQ' \Rightarrow \NPMVt \not\subseteqc \TFNP \Rightarrow \neq\hQ$ nach \textcite{fenner_inverting_2003}.
 \item $\mathrm{EE\neq NEE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{bellare_complexity_1994}.
 \item $\mathrm{EXP\neq NEXP}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach Impagliazzo und Sudan (private Kommunikation berichtet von \cite{bellare_complexity_1994}, Abschn. 1.5.4).
 \item $\UP\neq\P \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar, nach \textcite[Thm.~5]{grollmann_complexity_1988}.
@@ -871,7 +867,7 @@ Der folgende Satz ist eine Generalisierung von \textcite{dingel_separation_2022}
 \item $\mathsf{SAT^{eff}} \Rightarrow \hSAT, \mathsf{SAT^{eff}}\Rightarrow \mathsf{KvL}$, nach Satz~\ref{thm:sateff-generalizes-sat}.
 \item $\mathsf{KvL}\Rightarrow\neg\hQ$, nach Satz~\ref{thm:kvl-implies-q}.
 \item $\neg\hQ\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, denn unter $\neg\hQ$ gilt mit Satz~\ref{thm:q} auch die Negation von \ref{thm:q}(1), also eine NPTM $N$ mit $L(N)=\Sigma^*$ wobei keine Funktion $g\in\FP$ existiert, welche für alle $x$ durch $g(x)$ einen akzeptierenden Rechenweg von $N(x)$ bestimmt.
-    Definiere die NP-Relation $R_N$ mit $(x,\alpha)\in R_N$ genau dann wenn $N(x)$ mit Rechenweg $\alpha$ existiert. Nun gilt nach Vorigem auch $R\not\in_c \FP=\FP^{\Sigma^*} = \FP^{L(R)}$.
+    Definiere die NP-Relation $R_N$ mit $(x,\alpha)\in R_N$ genau dann wenn $N(x)$ mit Rechenweg $\alpha$ existiert. Nun gilt nach Vorigem auch $R\not\inc \FP=\FP^{\Sigma^*} = \FP^{L(R)}$.
 \item $\hNPcoNP \Rightarrow \hTFNP \Rightarrow \NPMVt$ hat keine vollständig Funktion, nach \textcite{pudlak_incompleteness_2017}.
 \item $\NP\cap\coNP\neq \P \Rightarrow\exists$ P-inseparierbares $\DisjNP$-Paar, denn wenn alle $\DisjNP$-Paare P-separierbar, dann ist auch für jede Menge $L\in\NP\cap\coNP$ jeweils das $\DisjNP$-Paar $(L,\overline{L})$ P-separierbar und damit $L\in\P$.
 \item $\hDisjNP \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar; ist klar, denn wenn alle $\DisjNP$-Paare P-separierbar wären, dann wären auch alle Paare $\leqmpp$-vollständig.
