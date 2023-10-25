@@ -102,39 +102,99 @@ Aus dieser Erweiterung von Pudláks Systematisierung ergeben sich neue potentiel
 
 \clearpage
 \subsection*{Inhalt Masterarbeit}
-
-\begin{english}
 \begin{enumerate}[label*=\arabic*.]
-    \item \textbf{Introduction}
+    \item \textbf{Einführung}
         \begin{itemize}
-            \item Introduce the subject: search problems as computational problems; subject of computational complexity theory
-            \item Contextualize into the history of the subject: search problems are not discussed as much as \emph{decision} problems. Give historical reasons why! (Simpler conceptualization; search reduces to decision at least for NP-complete problems; \emph{recognition} of sets brought over from computability theory; P-NP question can be equivalently stated both in their decision variant vs function variant.)
-            \item Broad question: what is the relation between NP search problems?
-            \item Observation: conjectures concerning search problems are related to conjectures concerning proof systems resp. promise classes. These are investigated in Pudlák's program.
-            \item Contribution: (a) a survey on reducibility notions and research on search problems; (b) linking search problems with Pudlák's hypotheses and the hypothesis Q, extending Pudlák's systemaization; (c) provide oracle constructions that separate several conjectures.
+            \item Einführung in das Thema: Suchprobleme als Berechnungsbrobleme; Gegenstand der algorithmischen Komplexitätstheorie
+            \item Formale Definition von Suchproblemen schon hier aufgreifen
+            \item Hier ggf. den didaktischen Ansatz von Goldreich nachzeichnen
+            \item Einordnung in die Geschichte des Themas: Suchprobleme werden nicht so oft diskutiert wie \emph{Entscheidungsprobleme}. Gib die historische Gründe dafür an! Einfachere Konzeptualisierung; Suche reduziert sich zumindest bei NP-vollständigen Problemen auf Entscheidungen; für Probleme in „Bisektions-Form“ gilt das auch für NP-Intermediates; \emph{Erkennung} von Mengen aus der Berechenbarkeitstheorie; Die P-NP-Frage kann sowohl in ihrer Entscheidungsvariante als auch in ihrer Funktionsvariante äquivalent formuliert werden
+            \item Problematisieren, warum das search-reduces-to-decision-Argument nicht ausreicht: z.B. weil linear (oder logarithmisch) viele Orakelfragen an das Entscheidungsproblem notwendig sind, anstelle \emph{einer} Orakelfrage an ein vollständiges Suchproblem. Wenn man das Argument etwas schwammiger auslegt, sollte das sogar für NP-Intermediates gelten: mehrfaches Auswerten des speziellen Entscheidungsproblems \emph{Hat $n$ eine Faktor $\leq k$} (ist in $\NP\cap\coNP$ und) erlaubt die effiziente Primfaktorzerlegung (im funktionalen Sinn). Das gilt aber nicht unbedingt wenn man \emph{strikt} die Projektion einer NP-Relation meint, z.B. ist für \emph{Gebe die Primfaktorzerlegung von $n$ aus} die Projektion trivial (vgl. Santilli). Faktorisieren ist mutmaßlich nicht einmal nach unten selbstreduzierbar (vgl. Harsha et al.)!
+            \item Leitfragen: Was ist die Beziehung zwischen NP-Suchproblemen? Wie hängen Suchprobleme mit weiteren Objekten der Komplexitätstheorie zusammen?
+            \item Beobachtung: Vermutungen bezüglich Suchproblemen stehen in Beziehung zu Vermutungen bezüglich Beweissystemen bzw. Promise-Klassen. Diese werden im Pudlákschen Programm untersucht.
+            \item Kontextualisiere das Pudláksche Programm: gestartet als Untersuchung über fintistische Logik („Incompleteness in the finite domain“), was dann als Systematisierung zu Vollständigkeit von Promise-Klassen bzw. Optimalität von Beweissystemen bzw. Invertierbarkeit von Funktionen wurde. Ein Ziel von Pudlák: zeigen welche Implikationen gelten, welche Hypothesen unabhängig bzgl. relativierbaren Beweisen sind.
+            \item Beitrag: (a) Eine Übersicht über Reduzierbarkeitsbegriffe und Forschung zu Suchproblemen; (b) Verknüpfung von Suchproblemen mit Pudláks Hypothesen und der Hypothese Q, Erweiterung von Pudláks Systematisierung; (c) Orakelkonstruktionen, die mehrere Vermutungen voneinander trennen.
         \end{itemize}
-    \item \textbf{Prelimiaries}
+    \item \textbf{Grundlagen}
         \begin{itemize}
-            \item Notation of words and sets of words; p-isomorphism to the natural numbers; implicit list coding; 
-            \item machine model, esp. oracle Turing machine; nondeterministic polynomial time transducer
-            \item Relativization: all statements relativize except when stated otherwise.
-            \item Notation concerning oracle construction; partial oracles as words, definite computations
-            \item Definition of complexity classes, reducibilities between sets,  p-isomorphism, standard enumeration of machines
-            \item Proof systems and simulation.
+            \item Zweistellige Relationen und Funktionen
+            \item Notation von Wörtern und Mengen von Wörtern; implizite Ordnungs-Isomorphie zu den natürlichen Zahlen; implizite Listenkodierung; Indizierung von Zeichen in Wörtern
+            \item Maschinenmodell, insbesondere Orakel-Turing-Maschine; (nichtdeterministischer) Polynomialzeit-Transducer, \ldots
+            \item Relativierung: Alle Aussagen relativieren sich, es sei denn, es ist anders angegeben.
+            \item Notation in Bezug auf Orakelkonstruktionen; partielle Orakel als Wörter, definite Berechnungen
+            \item Definition von Komplexitätsklassen, Reduzierbarkeiten zwischen Mengen, p-Isomorphie, Standardenummerierung von Maschinen, Reduzierbarkeit von Funktionen
+            \item Beweissysteme und Simulation
         \end{itemize}
-    \item \textbf{The order of search problems}
+    \item \textbf{Zur Ordnung von Suchproblemen}
         \begin{enumerate}[label*=\arabic*.]
-            \item \textbf{Search problems and Levin reducibility}
-            \item \textbf{Reduciblities of search problems}
+            \item \textbf{Suchprobleme und Levin-Reduzierbarkeit}
+                \begin{itemize}
+                    \item Formale Definition angeben
+                    \item Bezug zur Funktions-Komplexitätstheorie: Relationen können als „partial multivalued functions“ verstanden werden, aus dieser Linse ist $\mathrm{FNP}$ identisch zu $\mathrm{NPMV}_g$. An dieser Stelle auch $\mathrm{TFNP}$ definieren.
+                    \item Einige NP-Relationen angeben: rMATCHING ist z.B. effizient lösbar, rSAT, rVC ist genau dann effizient lösbar wenn $\P=\NP$, rFACTORING genau dann effizient lösbar wenn $\P=\UP$ (und Projektion ist sogar $\Sigma^*$ und damit trivial entscheidbar).
+                    \item Viele Beispiele durchgehen: z.B. ist eine NP-Relation $R$ effizient lösbar genau dann wenn $R\in_c \FP$; search reduces to decision für NP-Relationen $R$ mit vollständigen Projektionen; allgemeiner: $R\in_c\FP^L$ wenn $L$ NP-vollständig ist.
+                    \item Noch einmal aufgreifen dass „search reduces to decision“ mutmaßlich nicht für rFACTORING gilt. Falls $\mathrm{EE\neq NEE}$ oder $\mathrm{EXP\neq NEXP}$ dann existiert eine Sprache $L\in\NP - \P$ sodass keine NP-Relation $R$ mit $\mathrm{Proj}(R)=R$ existiert für die $R\in\FP^L$. (I.e., egal wie einfach die $R$-Beweise $y$ für $x\in L$ sind, kann $y$ nicht aus Queries an $L$ beantwortet werden. Beachte dass eine NP-Relation für $L$ immer existiert, ist ja $L\in\NP$. Bellare, Goldwasser)
+                    \item Levin-Reduktionsbegriff einführen und motivieren
+                    \item Levin-Reduktion ordnet intuitiv nach „Schwierigkeit“ wie Karp-Reduktion: habe ich einen effizienten Algorithmus für $A$ und $B\leq_\mathrm L^\mathrm p A$ dann habe ich auch für $B$ einen effizienten Algorithmus; die effizient lösbaren Suchprobleme sind also nach unten abgeschlossen
+                    \item Damit lässt sich die P-NP-Frage auch als $\mathrm{FNP}\subseteq_c \mathrm{FP}$ formulieren.
+                    \item Levin-vollständige Relationen vorstellen: rSAT, rKAN, rVC
+                    \item Levin-vollständige Relationen verhalten sich wie Karp-vollständige Mengen: ist $R$ Levin-vollständig, dann gilt $R\in_c\mathrm{FP} \iff \mathrm{FNP}\subseteq_c {FP}$; ist $R\leq_\mathrm L^\mathrm p Q$ dann ist auch $Q$ Levin-vollständig
+                    \item Mit diesen Eigenschaften können die oben genannten Claims zu rSAT, rVC geklärt werden
+                    \item Fakt: die bekannten natürlichen Relationen, die zu den natürlichen NP-vollständigen Mengen korrespondieren, sind alle Levin-vollständig.
+                    \item Es gelten sogar weitere Eigenschaften: z.B. sind gewisse Suchprobleme $\leq_\mathrm{L,1,inv}^\mathrm p$-vollständig. (Ob das für \emph{alle} bekannten natürlichen Suchprobleme gilt, ist nicht erforscht.)
+                    \item Erste Fragen: Welche natürlichen NP-Relationen sind auch Levin-vollständig? Sind alle NP-Relationen mit vollständiger Projektion auch Levin-vollständig? Definiere die Hypothese $\mathsf{KvL}$.
+                \end{itemize}
+            \item \textbf{Reduzierbarkeiten von Suchproblemen und die gemeinsame Struktur von vollständigen Suchproblemen}
+                \begin{itemize}
+                    \item Motivation: Was ist der Forschungsstand zu NP-Relationen bzw. Suchproblemen allgemein?
+                    \item Die Frage Karp-vs-Levin-Vollständigkeit wurde dagegen mutmaßlich nicht so sehr untersucht. Keine Ahnung warum, bzw. auf die Einleitung hinweisen.
+                    \item Gibt dagegen einige interessante Forschungen zur search-vs-decision-Frage (unter NP-intermediate-Prolemen)
+                    \item Früh aufgegriffen: intuitives Gefühl dass in der Interreduzierbarkeit der NP-vollständigen Mengen mehr erhalten wird als eine alleinige „Equi-Lösbarkeit“
+                    \item Beispiel: p-Isomorphie der bekannten vollständigen Mengen; beob. wie für jede vollständigen zu SAT p-isomorphen Menge $L$ eine Relation $R$ existiert mit $\mathrm{Proj}(R)=L$. Die Zertifikate von $L$ haben dann aber einfach keine natürliche Form mehr.
+                    \item Simons beobachtet dass die natürlichen Suchprobleme „parsimonious“ sind
+                    \item Erste Versuche zur Verstärkung von  Lynch und Liption: Menge der jeweiligen Zertifikate von $x$ und $f(x)$ sind nicht nur gleichmächtig sondern auch in einer p-berechenbaren 1-zu-1-Korrespondenz; Weise darauf hin dass diese Reduktion nicht effektiv ist, und z.B. unvergleichbar mit Levin-Reduktionen ist.
+                    \item Verfeinerung durch Fischer, Hemaspaandra, Torevliet: verlangen zusätzlich die p-Isomorphie zwischen den jeweiligen Mengen der Zertifikate; damit Zertifikats-Isomorphie stärker als „parsimonious“- und Levin-Reduktionen.
+                    \item Einen anderen Weg gingen Agrawal und Biswas: sind interessiert, wie die natürlichen vollständigen Probleme \emph{strukturiert} sind. Die Intuition ist am verständlichsten wenn man sich in Erinnerung ruft wie übliche Beweise der NP-Vollständigkeit funktionieren. Eine übliche Strategie ist es, „Gadgets“ der des betreffenden Problems zu definieren, und diese dann so zusammenzusetzen, dass  SAT-Formeln simuliert werden können. Agrawal und Biswas formalisieren das als universelle Relatinen; genau jene Relationen die \emph{joinable}, \emph{coupable} und einen \emph{building block} haben. Interessant: universelle Relationen sind nicht nur Levin-vollständig, sondern auch \emph{projektiv} Levin-vollständig.  
+                    \item Fasse zusammen wie die einzelnen Vollständigkeitsbegriffe zueinander stehen.
+                    \item „Gegenbeispiel“ von Edward-Welsh einordnen: Chromatic Index universell aber nicht sparsam vollständig; vielleicht bisschen Lore
+                    \item Universelle Relationen als die wohl stärkste Eigenschaft, aber selbst hier gibt es keine Gegenbeispiele (NP-vollständiges Entscheidungsproblem aber Relation nicht universell.) Damit ist die Beobachtung \emph{Graphisomprphismus keine universelle Relation} ein Indiz dass Graphisomorphismus nicht NP-vollständig ist.
+                \end{itemize}
         \end{enumerate}
-    \item \textbf{Search problems and the conjecture Q in the context of Pudlák's program}
+    \item \textbf{Suchprobleme und die Hypothese Q im Kontext des Pudlákschen Programms}
         \begin{enumerate}[label*=\arabic*.]
-            \item \textbf{Which search problems are paddable}
-            \item \textbf{Hypothesis Q vs. the completness of search problems}
-            \item \textbf{Karp completness vs. Levin completness}
-            \item \textbf{Implications between conjectures and oracle separations}
+            \item \textbf{Hypothese Q vs. die Vollständigkeit von Suchproblemen}
+            \begin{itemize}
+                \item Anstelle der Frage $\mathrm{FNP}\subseteq_c \mathrm{FP}$ können wir die Frage abschwächen und nur totale Suchprobleme betrachten: gilt $\mathrm{TFNP}\subseteq_c \mathrm{FP}$? Definere $\mathrm{TFNP}$.
+                \item Fenner et al. verstehen diese Hypothese als die Hypothese Q und schaffen es, diese in ganz verschiedenen Darstellungsweisen zu charakterisieren (z.B. Invertierbarkeit von totalen Funktionen, Ausrechnen von akzeptierenden Rechenwegen, Ausrechnen von erfüllenden Belgungen gegeben akz. Rechenweg, usw.) Vielleicht hier schon die Aussagen zeigen.
+                \item Messner kann das erweitern und Q als Frage zur p-Optimalität vom Standardbeweissystem für SAT charakterisieren. Definere das Standardbeweissystem.
+                \item Hier schon mal den bisherigen Stand der Hypothese Q anschreiben
+            \end{itemize}
+            \item \textbf{Karp-Vollständigkeit vs. Levin-Vollständigkeit}
+            \begin{itemize}
+                \item Nachdem die Hypothese Q geklärt wurde, können wir die KvL-Hypothese vom vorigen Kapitel wieder aufgreifen.
+                \item Es scheint schwierig, natürliche notwendige Bedingungen für KvL zu finden. 
+                \item Gehe den Widerspruchsbeweis-Versuch $\neg\mathsf{Q}\land \neg\mathsf{KvL}\Rightarrow\bot$ durch, und zeige, dass wir zumindest auf einen intuitiven Widerspruch kommen.
+                \item Nimm das als Motivation, $\mathsf{KvL}$ über Beweissysteme zu definieren, und $\mathsf{SAT^{eff}}$ als als eine stärkere Variante von $\mathsf{SAT}$ zu motivieren.
+                \item Weise darauf hin, dass trotz der Ähnlichkeit zwischen $\neg\mathsf{KvL}$ und $\mathsf{Q}$ es nicht gelungen ist, $\mathsf{KvL}$ in anderen Formen (wie z.B. Inverterbarkeit von Funktionen) zu charakterisieren.
+            \end{itemize}
+            \item \textbf{Generalisierung von Q auf allgemeine NP-Relationen}
+            \begin{itemize}
+                \item Werde im Folgenden zeigen, dass das auch auf andere Suchprobleme (als nur SAT) generalisiert. Das ist gar nicht so klar, denn es werden Eigenschaften an das Suchproblem gestellt, die über Levin-Vollständigkeit hinausgehen: Levin-Paddability
+                \item Zeige die zwei jeweiligen Generalisierungen separat mit ihren jeweiligen Voraussetzungen, um herauszuarbeiten welche zusätzlichen Annahmen genau gebraucht werden.
+                \item Zeige dass Levin-Vollständigkeit mit -Paddability hinreichend für beide Generalisierungen ist. 
+                \item Müssen uns weiter fragen, für welche NP-Relationen diese obigen stärkereren Vorassetzungen gelten. Konkret: welche Levin-vollständigen Suchprobleme sind (nicht) paddalbe? Zeige die jeweiligen Ergebnisse
+                \item Weise darauf hin, dass ein Gegenbeispiel (Levin-vollständig aber nicht paddable) nicht leicht zu finden ist, denn das wäre auch ein Gegenbeispiel einer Levin-vollständigen Relation, die nicht universell ist.
+            \end{itemize}
+            \item \textbf{Zusammenfassung der Ergebnisse zu Q, Bekannte Implikationen, Offene Orakel}
+            \begin{itemize}
+                \item Motiviere noch einmal diese Generalisierung mit dem Fakt, auf sichererem Weg mit Relativierungen umzugehen. Zeige z.B., dass die Relativierung von Dose bzgl. $\mathsf{SAT}$ genau richtig war, und ich hierzu Evidenz geliefert habe.
+                \item Setze am Ende alle äquivalenten Charakterisierungen zusammen
+                \item Weise auf die $\forall$-Charakterisierung hin. Damit sind bspw. entweder die Standardbeweissysteme \emph{aller} vollständigen NP-Relationen p-optimal, oder \emph{keine} der Standardbewissysteme vollständiger NP-Relationen p-optimal. Vielleicht aber auch nur skizzieren
+                \item Ordne $\mathsf{Q}$ und $\mathsf{KvL}$ in den Pudlák-Baum ein.
+                \item Zähle die offenen Orakel auf
+            \end{itemize}
         \end{enumerate}
 \end{enumerate}
-\end{english}
+
 
 \end{document}
