@@ -1,16 +1,322 @@
 %! TEX root = ./thesis.tex
 \chapter{Einleitung}
 
+\note{Viele andere Beweise der Komplexitätstheorie funktionieren auch in relativierten Umgebungen, also wenn alle beteiligten TM zu OTM ausgewechselt werden. Das Diagonalargument in einem typischen Beweis von $\P\subsetneq\mathrm{E}$ relativiert beispielsweise, sodass auch $\P^O\subsetneq\mathrm{E}^O$ für jedes beliebige Orakel $O$ gilt. Wir sagen dann auch, dass diese Aussagen bzw. Beweise \emph{relativieren}.}
+
+\note{Die typischen Beweistechniken der Komplextätstheorie relativieren. Das macht eigens konstruierte Orakel zu Indizien, dass gewisse Aussagen schwer zu beweisen sind. Beispielsweise konstruieren \textcite{baker_relativizations_1975} ein Orakel $A$ sodass $\P^A\neq \NP^A$. Mit diesem Fakt ist die Aussage „$\P=\NP$“ nicht mit relativierbaren Methoden beweisbar, da sonst ja auch $\P^A=\NP^A$ gelten würde.}
+
+\chapter{Grundlagen}
+
+Dieses Kapitel legt die definitorischen Grundlagen für die folgenden Kapitel fest. In Abschnitt~\ref{sec:notation} legen wir mathematische Notationen für diese Arbeit fest. Abschnitt~\ref{sec:prelim-machines} spezifiziert das Maschinenmodell.  Abschnitt~\ref{sec:prelim-klassen} wiederholt einige Standarddefinitionen aus der Komplexitätstheorie. Abschnitt~\ref{sec:prelim-orakel} setzt das hier verwendete Verständnis von Relativierungen fest. Abschließend geht Abschnitt~\ref{sec:prelim-ps} kurz auf Beweissysteme im Sinne von \textcite{cook_relative_1979} ein.
+
+\section{Notation}\label{sec:notation}
+
+Sei $\Sigma$ das standardmäßige Alphabet mit $\Sigma=\{0,1\}$. Elemente von $\Sigma^*$ nenenn wir Wörter, sind also endliche Sequenzen von Zeichen aus $\Sigma$. Teilmengen von $\Sigma^*$ nennen wir auch Sprachen. Wir bezeichnen die Länge eines Wortes $w\in\Sigma^*$ mit $|w|$. Das leere Wort bezeichnen wir mit $\epsilon$. Das $i$-te Zeichen eines Wortes $w$ für $0\leq i< |w|$ identifizieren wir mit $w[i]$. Diese Notation erweitern wir auf Sequenzen von Indizes: für $0\leq i_1, i_2, \dots, i_k< |w|$ und $\alpha=(i_1, i_2, \dots, i_k)$ sei $w[\alpha] = w[i_1]w[i_2]\cdots w[i_k]$. Insbesondere ist damit $w[0,1,2,\dots, |w|-1]= w$.
+Falls $w$ ein (echter) Präfix von $w$ ist dann schreiben wir $w \sqsubseteq v$ (bzw. $w\sqsubsetneq v$).
+
+Die Menge aller natürlichen (nicht-negativen) Zahlen wird mit $\mathbb N$ bezeichnet. Die leere Menge notieren wir wie üblich als $\emptyset$. Die Kardinalität einer Menge $A$ notieren wir wie üblich als $|A|$. Für eine Menge $A\subseteq\Sigma^*$ und $n\in \mathbb N$ definieren wir $A^{\leq n} = \{ w\in A \mid |w|\leq n\}$. Analog definieren wir $A^{<n}, A^{=n}$, usw. Außerdem bezeichnet $\ell(A)=\sum_{w\in A} |w|$. Für solche Teilmengen $A$ von $\Sigma^*$ verstehen wir das Komplement $\overline{A}$ als $A\setminus \Sigma^*$.
+
+Zweistellige bzw. binäre Relationen $R\subseteq A\times B$ können wir mit den üblichen Eigenschaften beschreiben: die Relation $R$ ist
+\begin{itemize}
+    \item \emph{(links-)total} wenn jedes Element aus $A$ mit mindestens einem Element aus $B$ reliert,
+    \item \emph{rechtstotal} bzw. \emph{surjektiv} wenn jedes Element aus $B$ mit mindestens einem Element aus $A$ reliert,
+    \item \emph{linkseindeutig} bzw. \emph{injektiv} wenn jedes Element aus $B$ mit höchstens einem Element aus $A$ reliert,
+    \item \emph{(rechts-)eindeutig} bzw. \emph{funktional} wenn jedes Element aus $A$ mit höchstens einem Element aus $B$ reliert,
+    \item \emph{bijektiv} wenn jedes Element aus $A$ mit genau einem Element aus $B$ reliert und umgekehrt, also genau dann wenn $R$ funktional, surjektiv und injektiv ist.
+\end{itemize}
+Binäre Relationen nennen wir eine (partielle) \emph{Funktion} wenn diese Relation funktional ist. Eine Funktion sei also im Folgenden im Allgemeinen nicht total. Sollte (Links-)Totalität explizit gefordert sein, sprechen wir von \emph{totalen Funktionen}.
+Binäre Relationen über Wörtern aus $\Sigma^*$, welche nicht unbedingt Funktionen sind, verstehen wir manchmal auch aus historischen Gründen als (partielle) Multifunktionen, dem Begriff der \textquote{\emph{partial multivalued function}} nachempfunden.
+
+Für eine binäre Relation $R\subseteq\Sigma^* \times \Sigma^*$ schreiben wir $\Proj(R)$ für die Menge $\{ x\mid (x,y)\in R \}$. 
+Für ein Wort $x\in\Sigma^*$ schreiben wir $\fset{}R(x)=\{ y\mid (x,y)\in R \}$ für die Bildmenge von $x$ auf $R$
+Manchmal werden wir binäre Relationen auch über die Spezifikation der jeweiligen Bildmengen definieren, also z.B. $\fset{}Q(n) = \{ 0, 1, \dots, n\}$ schreiben um die Relation $Q=\{ (a,b)\mid b\leq a \}$ zu definieren.
+%Für ein Wort $x\in\Sigma^*$ schreiben wir $R(x)= \{ y\mid (x,y)\in R \}$ für die Bildmenge von $x$ auf $R$. 
+Falls $f$ eine Funktion bzw. funktional ist, meinen wir mit $f(x)$ wie üblich das \emph{Bildelement} der Funktion $f$ meinen, und nicht die \emph{Bildmenge}. 
+%Es gilt also in diesem Fall $\fset{}f(x)=\{f(x)\}$.
+
+
+
+Für eine Funktion $f$ bezeichnen wir die Urbild- bzw. Bildmenge (domain und range) mit $\dom(f)$ und $\ran(f)$. (Beachte dass $\Proj(f)=\dom(f)$. Wir führen diese Unterscheidung nur wegen den Gewohnheiten dieser zwei Notationen ein.) Ist $f$ eine injektive Funktion, dann bezeichnen wir mit $f^{-1}$ dessen Umkehrfunktion. Beobachte dass $f^{-1}$ funktional ist, ist ja $f$ injektiv. Ist $f$ sogar bijektiv, dann ist die Umkehrfunktion $f^{-1}$ eine totale Funktion.
+
+Eine Funktion $f\colon\Sigma^*\to\Sigma^*$ nennen wir \emph{verlängernd} wenn $|f(x)|\geq |x|$ für alle $x\in\dom(f)$.
+Die Funktion $f$ nennen wir \emph{polynomiell längenbeschräkt} wenn ein Polynom $p$ existiert sodass $|x|\leq p(|x|)$ für alle $x\in\dom(f)$.
+Die Funktion $f$ nennen wir \emph{ehrlich} wenn ein Polynom $q$ existiert sodass $q(|f(x)|)\geq |x|$ für alle $x\in\dom(f)$.
+
+Beachte dass Funktionen nur spezielle Relationen sind. Wenn also $f$ eine Funktion ist, meinen wir mit „$f\in\P$“ dass \emph{der Graph} von $f$ in Polynomialzeit entschieden werden kann (i.e., gegeben Tupel $(x, y)$, gilt $f(x)=y$?). Das ist eine schwächere Aussage als „$f\in\FP$“ die wie in üblicher Interpretation besagen soll, dass aus $x$ das Bild $f(x)$ in Polynomialzeit berechnet werden kann.
+
+Im Folgenden definieren wir noch den Begriff der \emph{Verfeinerung}. Seien $F, G$ zwei Multifunktionen. Wir nennen $G$ eine \emph{Verfeinerung} von $F$ wenn $\Proj(F)=\Proj(G)$ und $\fset{}G(x)\subseteq \fset{}F(x)$ für alle $x\in\Proj(F)$ (bzw. äquivalent $\in \Proj(G)$).
+Ist $F$ eine Multifunktion, und $\mathcal G$ eine Klasse von Multifunktioen, schreiben wir $F\inc \mathcal G$ wenn $\mathcal G$ eine Verfeinerung $G\in\mathcal G$ von $F$ enthält.
+Für zwei Klassen $\mathcal F, \mathcal G$ von Multifunktionen schreiben wir $\mathcal F \subseteqc \mathcal G$ falls für jede Multifunktion $F\in\mathcal F$ auch $F\inc \mathcal G$ gilt.
+
+Die endlichen Wörter $\Sigma^*$ können über ihre quasi-lexikographischen Ordnung $\prec_\mathrm{lex}$ linear geordnet werden. Diese ist eindeutig definiert indem wir $0\preceq_\mathrm{lex} 1$ fordern. Unter dieser Definition existiert ein Ordnungsisomorphismus zwischen $(\Sigma^*,\preceq_\mathrm{lex})$ und $(\mathbb N, <)$, welcher insbesondere eine Bijektion zwischen $\Sigma^*$ und $\mathbb N$ induziert, der sowohl in Polynomialzeit berechenbar als auch invertiertbar ist. (Eine solcher Isomorphismus wird zum Beispiel durch eine dyadische Codierung realisiert.) Durch diese Identifikation können wir Wörter aus $\Sigma^*$ als Zahlen aush $\mathbb N$ behandeln und umgekehrt. Es könenn also auch Notationen, Beziehungen und Operationen für $\Sigma^*$ auf $\mathbb N$ übertragen werden und umgekehrt. Insbesondere können wir dann von einer Länge $|n|$ des Wortes sprechen, welches von $n\in\mathbb N$ repräsentiert wird. Insbesondere meint dieser Ausdruck nicht den Betrag von $n$. Ebenso bezeichnet die Ordnung $\leq$ sowohl die Kleiner-oder-gleich-Ordnung auf den natürlichen Zahlen als auch der quasi-lexikographischen Ordnung $\prec_\mathrm{lex}$ auf den endlichen Wörtern. Diese Übereinstimmung ist nach den Eigenschaften des Ordnungsisomorphismus auch kompatibel mit der Identifikation von Wörtern mit Zahlen. 
+Beachte dass der Längenoperator $|\cdot|$ ordnungserhaltend ist: wenn $a\leq b$ (oder eben äquivalent $a\preceq_\mathrm{lex}b$) für zwei Wörter $a,b\in\Sigma^*$ dann ist auch $|a|\leq |b|$, bzw. ist das Wort $a$ höchstens so lang wie das Wort $b$.
+Mit den Ausdrücken $0^n$ und $1^n$ meinen wir immer die zwei Wörter $000\cdots$ und $111\cdots$ aus $\Sigma^n$.
+
+Wir definieren mit $\langle\cdots\rangle$ eine Paarungsfunktion von $\bigcup_{i\geq 0} (\Sigma^*)^i \to \Sigma^*$, welche injektiv und in Polynomialzeit sowohl berechenbar als auch invertierbar ist, und die im folgenden Sinne längeneffizient ist: $|\langle u_1, \dots, u_n\rangle| = 2(|u_1|+\cdots+|u_n|+n)$. Eine solche Paarungsfunktion kann beispielsweise über $\langle u_1, \dots, u_n\rangle\mapsto f(\#u_1\#\cdots\#u_n)$ realisiert werden, wobei $f$ eine Codierung vom Alphabet $\{0,1,\#\}$ auf $\Sigma^*$ mittels $\{0\mapsto 00, 1\mapsto 11, \#\mapsto 01\}$ ist.
+Diese Paarungsfunktion werden wir häufig verwenden, um Tupel an Wörtern zu codieren, z.B. damit eine Turing-Maschine ein Tupel an Wörtern als Eingabe entgegen nehmen kann. Auf die konkrete Angabe dieser Paarungsfunktion wird aber im Folgenden meist verzichtet und sie wird nur implizit mitgedacht. So meinen wir mit dem Tupel $(a,b)$ für $a,b\in\Sigma^*$ je nach Kontext entweder mathematisch präzise das Element aus dem Produkt $\Sigma^*\times\Sigma^*$, oder das Wort $\langle a,b\rangle\in\Sigma^*$. Ebenso verstehen wir je nach Kontext eine binäre Relation $R\subseteq\Sigma^*\times\Sigma^*$ auch als eine Sprache im Sinne einer Teilmenge von $\Sigma^*$, die bspw. von einer Turing-Maschine entschieden werden kann.
+Algorithmen und Turing-Maschinen verarbeiten nicht nur Wörter, sondern auch andere Objekte wie z.B. Graphen oder Turing-Maschinen.
+Daher werden wir die obige implizit mitgedachte Codierung auch auf andere Objekte ausweiten. Hierbei seien die jeweiligen Codierungen angemessen effizient, in dem Sinne dass die Codierungen kompakt sind und entsprechende Operationen auf den codierten Objekten in Polynomialzeit zulassen. Zum Beispiel lässt sich ein Graph mit Knotenmenge $V$ und Kantenmenge $E$ in polynomieller Länge abh. von $|V|$ und $|E|$ codieren, und auf der entsprechenden Codierung kann z.B. die Nachbarschaft eines ausgezeichneten Knotens ebenso in Polynomialzeit aufgezählt werden.
+
+\section{Maschinenmodell}\label{sec:prelim-machines}
+
+Diese Arbeit baut auf dem Berechnungsmodell der Turing-Maschine (TM) auf. Wir betrachten hierbei sowohl die deterministische als auch die nichtdeterministische Variante. In dieser Arbeit haben TM sowohl ausgezeichnete Zustände zum Akzeptieren bzw. Ablehnen, ein Eingabeband, ein Arbeitsband, und ein Ausgabeband. Im Folgenden betrachten wir nur TM die immer terminieren. (Es ist einer TM im Allgemeinen nicht ansehbar, ob diese immer terminiert. Im Verlauf dieser Arbeit werden die TM aber so beschaffen sein, dass diese offensichtlich immer terminieren.) 
+
+Wir betrachten zunächst deterministische TM.
+%Eine Berechnung $M(x)$ einer deterministischen TM $M$ auf Eingabe $x$ induziert einen Rechenweg $\alpha$, der in einem ausgezeichnetem Zustand $q$ terminiert.
+Sei $M$ eine deterministische TM, und $x$ eine Eingabe. Dann induziert eine Berechnung $M(x)$ einen Rechenweg $\alpha$, der in einem ausgezeichnetem Zustand $q$ terminiert. 
+Wir sagen dann auch, dass \emph{$\alpha$ der Rechenweg von Berechnung $M(x)$} ist.
+Wenn der terminierende Zustand $q$ dieses Rechenwes $\alpha$ ein akzeptierender Zustand ist,
+dann sagen wir auch dass \emph{$M(x)$ mit Ausgabe $y$ akzeptiert} oder kurz \emph{$M(x)$ akzeptiert} wobei $y$ jenes Wort ist, welches auf dem Ausgabeband steht.
+
+Eine solche deterministische TM $M$ setzt nun gleichzeitig zwei unterschiedliche Funktionsweisen um. Einerseits die eines Akzeptors einer Menge, und andererseits die einer Funktion:
+\begin{itemize}
+    \item Die von $M$ \emph{entschiede  Sprache} ist die Menge $L(M)=\{ x\in\Sigma^* \mid M(x) \text{ akzeptiert} \}$.
+    \item Die von $M$ \emph{berechnete Funktion} ist die Funktion $f_M\colon\Sigma^*\to\Sigma^*$ mit
+        \[ f_M(x) = \begin{cases} y & \text{wenn $M(x)$ mit Ausgabe $y$ akzeptiert,} \\ \bot & \text{sonst.} \end{cases} \] 
+\end{itemize}
+Wenn wir $M$ im Kontext der zweiten Funktionsweise verstehen, dann sprechen wir auch von einem Turing-Transduktor. 
+Wir kürzen dann auch „die von $M$ berechnete Funktion“ durch „die Funktion $M$“ ab und verstehen den Turing-Transduktor $M$ als genuine Funktion, und schreiben dann z.B. $M(x)=y$ anstelle $f_M(x)=y$.
+
+Diese zwei Arten von Funktionsweisen einer TM erweitern wir nun auf nichtdeterministische TM. 
+Sei  $N$ eine nichtdeterministische TM, und $x$ eine Eingabe. Dann induziert analog eine Berechnung $N(x)$ nicht nur eine, sondern ggf. mehrere terminierende Rechenwege, die wir ebenso die Rechenwege von Berechnung $N(x)$ nennen. Terminiert ein solcher Rechenweg von $N(x)$ in einem akzeptierenden Zustand, nennen wir diesen Rechenweg auch einen \emph{akzeptierenden Rechenweg}.
+Ähnlich wie im deterministischen Fall sagen wir dass \emph{$N(x)$ auf Rechenweg $\alpha$ (mit Ausgabe $y$) akzeptiert}  wenn $\alpha$ ein akzeptierender Rechenweg von $N(x)$ ist (und $y$ auf dem Eingabeband steht).
+Beachte dass die Angabe eines Rechenwegs zwingend notwendig ist, da zu einer Berechnung $N(x)$ ja mehrere Rechenwege mit je unterschiedlichen Akzeptierverhalten und Ausgaben existieren.
+Im Sinne eines existentiellen Akzeptierverhaltens sagen wir dass \emph{$N(x)$ akzeptiert} wenn \emph{mindestens} ein akzeptierender Rechenweg $\alpha$ auf $N(x)$ existiert.
+
+
+Analog ergeben sich nun wieder zwei Funktionsweisen, einerseits als Akzeptor, andererseits als Multifunktion:
+\begin{itemize}
+    \item Die von $N$ \emph{entschiede  Sprache} ist die Menge \[ L(N)=\{ x\in\Sigma^* \mid N(x) \text{ akzeptiert } \} = \{ x\in\Sigma^* \mid \text{ ex. akz. Rechenweg auf $N(x)$} \}. \]
+    \item Die von $N$ \emph{berechnete Mulitfunktion} ist die Multifunktion $f_N\subseteq\Sigma^*\times\Sigma^*$ mit
+        \[ f_N(x) = \{ y \mid \text{$N(x)$ akz. auf einem Rechenweg mit Ausgabe $y$} \}  \] 
+\end{itemize}
+Die berechnete Mulitfunktion kann in anderen Worten auch so verstanden werden, dass $x$ den Ausgaben von $N(x)$ zugeordnet wird, wobei jeder akzeptierender Rechenweg eine Ausgabe macht, nämlich das Wort was auf dem Ausgabeband steht.
+Wie im deterministischen Fall können wir von nichtdeterministischen Turing-Transduktoren sprechen, wenn wir die zweite Funktionsweise betonen wollen. Ebenso können wir wieder abkürzend von „der Multifunktion $N$“ sprechen.
+
+In sowohl dem deterministischen und nichtdeterministischen Fall können wir Berechnungen eine \emph{Laufzeit} zuordnen: für eine TM $M$ sei
+\[ \mathrm{time}_M(x) = \max \{ \text{Anz. Rechenschritte in $\alpha$} \mid \text{$\alpha$ ist ein Rechenweg von $M(x)$}  \}. \]
+Ist $\mathrm{time}_M(x)$ durch ein Polynom in Abhängigkeit von $|x|$ beschränkt, und $M$ eine deterministische (bzw. nichtdeterministische) TM, sagen wir auch dass $M$ eine \emph{deterministische (bzw. nichtdeterministische) Polyomialzeit-Turing-Maschine} (PTM bzw. NPTM) ist. 
+
+
+\section{Komplexitätsklassen}\label{sec:prelim-klassen}
+
+Auf Basis der Turing-Maschinen als Berechnungsmodell können die üblichen Komplexitätsklassen der Entscheidungsprobleme bzw. Sprachen $\P, \NP, \coNP$ usw. definiert werden:
+\begin{align*}
+    \P &= \{ L\subseteq\Sigma^* \mid \text{ex. PTM $M$ die $L$ entscheidet} \}\\
+    \NP &= \{ L\subseteq\Sigma^* \mid \text{ex. NPTM $M$ die $L$ entscheidet} \}\\
+    \coNP &= \{ L\subseteq\Sigma^* \mid \overline{L}\in\NP \}\\
+\intertext{Die Einfach- und Doppelt-Exponentialzeitklassen definieren wir wie folgt:}
+    \mathrm{E} &= \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ die $L$ entscheidet, und ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{c|x|}$ für alle $x$} \}\\
+    \mathrm{EE} &= \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ die $L$ entscheidet, und ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{2^{c|x|}}$ für alle $x$} \}
+\end{align*}
+Die nichtdeterministischen Varianten $\mathrm{NE}, \mathrm{NEE}$ und Komplementklassen $\mathrm{coNE}, \mathrm{coNEE}$ sind analog definiert.
+
+Die Funktioneklassen $\FP, \mathrm{NPMV}, \mathrm{NPSV}$ ist analog definiert \parencite{selman_taxonomy_1994}:
+\begin{align*}
+    \FP &= \{ f: \Sigma^*\to\Sigma^* \mid \text{$f$ ist eine Funktion und ex. PTM-Transduktor $M$ der $f$ berechnet} \}\\
+    \NPSV &= \{ f:\Sigma^*\to\Sigma^* \mid \text{$f$ ist eine Funktion und ex. NPTM-Transduktor $M$ der $f$ berechnet} \}\\
+    \NPMV &= \{ f\subseteq \Sigma^*\times\Sigma^* \mid \text{$f$ ist eine Multifunktion und ex. NPTM-Transduktor $M$ der $f$ berechnet} \}
+\end{align*}
+Wir defineren $\NPMVt$ als die Teilmenge von $\NPMV$ der Multifunktionen, die linkstotal sind. Analog $\NPSVt$.
+Ist für eine injektive Funktion $f\in\FP$ auch die Umkehrfunktion $f^{-1}\in \FP$ sagen wir auch, dass $f$ \emph{p-invertierbar} ist. Beachte, dass die Ehrlichkeit von $f$ eine notwendige Bedingung für die p-Invertierbarkeit von $f$ ist.
+
+
+Wie üblich können wir mittels Reduktionen die Sprachen der Komplexitätsklassen ordnen. Seien $A,B$ zwei Sprachen:
+\begin{itemize}
+    \item $A\leqmp B$ wenn eine Funktion $f\in\FP$ existiert mit $x\in A\iff f(x)\in B$ (Many-one-Reduzierbarkeit).
+    \item $A\leq_1^\mathrm{p} B$ wenn eine injektive Funktion $f\in\FP$ existiert mit $x\in A\iff f(x)\in B$ (One-one-Reduzierbarkeit).
+    \item $A\leq_\mathrm{1,i}^\mathrm{p} B$ wenn eine injektive und p-invertierbare Funktion $f\in\FP$ existiert mit $x\in A\iff f(x)\in B$.
+\end{itemize}
+Für die Funktionenklassen hat sich folgender sehr starke Begriff von Many-one-Reduzierbarkeit herausgebildet \parencites{kobler_is_2000}{beyersdorff_nondeterministic_2009}{pudlak_incompleteness_2017}. Seien $g,h$ zwei Multifunktionen:
+\begin{itemize}
+    \item $g\leqmp h$ wenn eine Funktion $f\in\FP$ existiert mit $\fset{}g(x)=\fset{}h(f(x))$.
+\end{itemize}
+Jede dieser Ordnungsrelationen ist eine Quasiordnung, i.e. reflexiv und transitiv.
+Beachte, dass (auf Mengen) $\leq_\mathrm{1,i}^\mathrm{p}$ feiner als $\leq_1^\mathrm{p}$ ist, und diese feiner als $\leqmp$ ist.
+Beachte auch, dass $\P$ und $\NP$ auf $\leqmp$ nach unten abgeschlossen sind:
+\begin{alignat*}{2}
+    &A\leqmp B \text{ und } B\in\NP &&\implies A\in\NP\\
+    &A\leqmp B \text{ und } B\in\P &&\implies A\in\P
+\end{alignat*}
+Sei $\mathcal C$ eine Komplexitätsklasse und $\preceq$ eine der obigen Reduktionsordnungen.
+Wie üblich nennen wir nun eine Sprache $A$ \emph{$\preceq$-hart für $\mathcal C$} wenn $A$ eine obere Schranke für $\mathcal C$ geordnet über $\preceq$  ist (d.h. $B\preceq A$ für alle $B\in\mathcal C$).
+Wir nennen $A$ \emph{$\preceq$-vollständig für $\mathcal C$} wenn $A\in\mathcal C$ ein größtes Element von $\mathcal C$ geordnet über $\preceq$ ist (d.h. $B\preceq A$ für alle $B\in\mathcal C$ und $A\in\mathcal C$).
+Auf Grundlage der Existenz universeller effizienter Turing-Maschinen können für die Klassen $\P$ und $\NP$ jeweils eine kanonische $\leqmp$-vollständige Menge angegeben werden. Für $\NP$ ist diese
+\begin{definition}
+\[ \mathtt{KAN} = \{ (N, x, 1^n) \mid \text{$N$ ist eine NTM und akz. $x$ auf einem RW mit $\leq n$ vielen Schritten} \}.\qedhere \]
+\end{definition}
+\begin{lemma}
+    Die Menge $\mathtt{KAN}$ ist $\leq_\mathrm{1,i}^\mathrm{p}$-vollständig.
+\end{lemma}
+\begin{proof}
+    Sei $A\in\NP$. Wir wollen zeigen dass $A \leq_\mathrm{1,i}^\mathrm{p} \mathtt{KAN}$. Sei hierfür $N$ eine NPTM welche $A$ entscheidet. Es gibt also auch ein Polynom $p$ welches die Laufzeit von $N$ beschränkt.
+    Definiere nun die Funktion $f(x) = (N, x, 1^{p(|x|)})$. Es gilt nun
+    \begin{gather*}
+        x\in A \iff N(x)\text{ akz. auf RW mit $\leq p(|x|)$ Schritten}\\
+        \iff (N, x, 1^{p(|x|)}) \in \mathtt{KAN} \iff f(x) \in \mathtt{KAN}.
+    \end{gather*}
+    Ferner ist leicht zu sehen, dass $f\in \FP$, dass $f$ injektiv und auch p-invertierbar ist.
+\end{proof}
+
+Die obigen Reduktionsordungen erzeugen je eine kanonische Äquivalenzordung („Duplikatrelation“):
+\begin{itemize}
+    \item $A\equiv_\mathrm{m}^\mathrm{p} B \iff A\leqmp B$ und $B\leqmp A$.
+    \item $A\equiv_\mathrm{1}^\mathrm{p} B \iff A\leq_1^\mathrm{p} B$ und $B\leq_1^\mathrm{p} A$.
+    \item $A\equiv_\mathrm{1,i}^\mathrm{p} B \iff A\leq_{1,i}^\mathrm{p} B$ und $B\leq_{1,i}^\mathrm{p} A$.
+\end{itemize}
+Wir definieren auch noch die \emph{p-Isomorphie} als eine Verfeinerung von $\equiv_\mathrm{1,i}^\mathrm{p}$:
+\begin{itemize}
+    \item $A\equiv^\mathrm{p} B \iff$ es existiert eine bijektive und p-invertierbare Funktion $f\in\FP$ mit $x\in A\leftrightarrow f(x)\in B$.
+\end{itemize}
+Gilt $A\equiv^\mathrm{p} B$ dann sagen wir auch dass $A$ und $B$ \emph{p-isomorph} sind.
+Im Folgenden werden noch die wichtigsten bekannten Aussagen bezüglich p-Isomorphie zusammengefasst:
+
+\textcite{hartmanis_isomorphisms_1976} zeigen dass aus $\equiv_\mathrm{1,i}^\mathrm{p}$-äquivalente Sprachen dann p-isomorph sind, wenn die jeweiligen Reduktionsfunktionen verlängernd sind.
+\begin{theorem}\label{thm:bh-iso}
+    Gilt $A\leq_\mathrm{1,i}^\mathrm{p} B$ via $f$ und $B\leq_\mathrm{1,i}^\mathrm{p} A$ via $g$, und $f$ und $g$ sind verlängernd, dann gilt $A\equiv^\mathrm{p}B$.
+\end{theorem}
+Um die Voraussetzungen vom vorigen Satz \ref{thm:bh-iso} zu vereinfachen, führen sie den Begriff der \emph{paddability} ein.
+\begin{definition}
+    Eine Sprache $A\neq\emptyset$ heißt (Berman–Hartmanis-)\emph{paddable} genau dann wenn eine injektive und p-invertierbare Funktion $g\in FP$ existiert sodass für alle $x,y\in\Sigma^*$ gilt:
+    \[ x\in A \iff g(x,y)\in A. \]
+    Das heißt, $g$ fügt einen beliebigen String $y$ zur „Probleminstanz“ $x$ hinzu, sodass die Mitgliedschaft zu $A$ unverändert bleibt, und die beiden originalen Strings $x$ und $y$ wieder rekonstruiert werden können. 
+\end{definition}
+Es gilt:
+\begin{theorem}
+    \begin{enumerate}
+        \item Ist $A$ paddable so gibt es für jedes $B$ mit $B\leqmp A$ eine injektive p-invertierbare verlängernde Funktion die $B\leq_\mathrm{1,i}^\mathrm{p}$ realisiert.
+        \item Sind $A, B$ paddable, so folgt aus $A\equiv_\mathrm{m}^\mathrm{p}$ stets $A\equiv_\mathrm{p}$.
+    \end{enumerate}
+\end{theorem}
+Alle bekannten $\leqmp$-vollständigen Mengen für $\NP$ sind zueinander p-isomorph. 
+Berman und Hartmanis vermuteten, dass das für \emph{alle} $\leqmp$-vollständigen Mengen gilt:
+\begin{conjecture}[$\mathsf{IC}$]
+    Alle $\leqmp$-vollständigen Mengen für $\NP$ sind p-isomorph.
+    In anderen Worten: die $\leqmp$-Äquivalenzklasse der vollständigen Mengen ist gleich der  $\equiv^\mathrm{p}$-Äquivalenzklasse von $\mathtt{SAT}$.
+\end{conjecture}
+Mit obigem Begriff von Paddability lässt sich die $\equiv^\mathrm{p}$-Äquivalenzklasse von $\mathtt{SAT}$ folgendermaßen charakterisieren:
+\begin{theorem}
+    Eine Menge $A\in\NP$ ist genau dann p-isomorph zu $\mathtt{SAT}$ wenn $A$ $\leqmp$-vollständig und und paddable ist.
+\end{theorem}
+Als Konsequenz ergibt sich hieraus, dass die \emph{bekannten} $\leqmp$-vollständigen Mengen alle paddable sind. (Das ist die eigentliche empirische Beobachtung von Berman und Hartmanis, auf welcher diese $\mathsf{IC}$ vermuteten.)
+
+\section{Orakel und Relativierungen}\label{sec:prelim-orakel}
+
+Wie in der Einleitung schon angesprochen, ist die Idee hinter Orakel-Berechnungen zu untersuchen, welche Probleme $B$ effizient(er) durch einen Algorithmus gelöst werden können, wenn die Algorithmen eine (fiktive) Möglichkeit haben, ein (ggf. sehr schweres) Problem $A$ ohne Rechenaufwand zu lösen.
+Der Zugriff auf $A$ kann also wie ein „Nachschlagewerk“ eine „Blackbox-Funktion“ verstanden werden, die auf magische Weise $A$ augenblicklich löst.
+
+Diese Idee wird im Berechnungsmodell der Orakel-Turing-Maschine (OTM) formalisiert. Orakel-Turing-Maschinen sind eine Erweiterung der (deterministischen und nichtdeterministischen) Turing-Maschinen, die zum Eingabe-, Arbeits- und Ausgabeband auch noch ein separates Orakelband haben. Ferner existieren drei ausgezeichnete Zustände $q_?, q_\text{yes}, y_\text{no}$.
+
+Gegeben ein Orakel $A\subseteq\Sigma^*$ können OTM nun Fragen der Form $x\stackrel{\smash ?}{\in} A$ an das Orakel stellen, indem sie ein Wort $x$ auf das Frageband schreiben, und in den Zustand $q_?$ übergeht. Im unmittelbar nächsten deterministischen Schritt der Berechnung wird der Zustand $q_\text{yes}$ eingenommen falls $x\in A$, sonst den Zustand $q_\text{no}$.
+
+Aus dieser Beschreibung wird klar, dass eine Berechnung einer OTM sowohl von der Eingabe $x$ abhängig ist, als auch vom Orakel $A$, \emph{relativ} zu diesem $M(x)$ rechnet. Wir schreiben dann auch kurz $M^A$ wenn wir die OTM $M$ mit festem Orakel $A$ meinen, und $M^A(x)$ die Berechnung der OTM $M$ auf Eingabe $x$ mit Orakel $A$. Entsprechend können wir auch die Laufzeit $\mathrm{time}_M^A(x)$ definieren, und von (deterministischen bzw. nichtdeterministischen) Polynomialzeit-Orakel-Turing-Maschinen (POTM, NPOTM) sprechen, wenn die Laufzeit auf allen Eigaben und allen Orkalen polynomiell durch die Eingabelänge beschränkt ist.
+
+Wir können nun die relativierten Komplexitätsklassen $\P^O, \NP^O, \FP^O, \NPMV^O, \dots$ relativ zu einem gegebenen Orakel $O$ definieren, wobei in der jeweiligen Definition die TM mit OTM ersetzt werden, die Zugriff auf das Orakel $O$ haben.
+Diese Relativierung überträgt sich auch auf unsere weiteren Definitionen, wie z.B. Reduktion und Vollständigkeit. Wir schreiben z.B. $A\leq_\mathrm{m}^{\mathrm{p},O} B$ wenn eine Funktion $f\in\FP^O$ existiert mit $x\in A \leftrightarrow f(x)\in B$.
+Die kanonische $\NP$-vollständige Menge $\mathtt{KAN}$ kann ebenso zu $\mathtt{KAN}^O$ relativiert werden.
+Für \emph{natürliche} Mengen wie $\mathtt{SAT}$ usw. werden wir dagegen keine relativierte Variante definieren. In diesem Sinne ist $\mathtt{SAT}$ im Allgemeinen \emph{nicht} $\leq_\mathrm{m}^{\mathrm{p},O}$-vollständig, in dem Sinne dass ein Orakel $O$ existiert und eine Menge $A\in\NP^O$ sodass $A\not\leq_\mathrm{m}^{\mathrm{p},O} \mathtt{SAT}$.
+
+In allgemeineren Beweisen, die nicht konkrete natürliche Mengen betreffen, lassen sich üblicherweise alle beteiligten TM mit OTM auswechseln, ohne die Gültigkeit der Aussage zu verändern.
+Aussagen bzw. Beweise, die in solchen relativierten Umgebungen relativ zu jedem beliebigen Orakel $O$ gelten, nennen wir \emph{relativierende} Aussagen bzw. Beweise.
+Das Diagonalargument in einem typischen Beweis von $\P\subsetneq\mathrm{E}$ relativiert beispielsweise, sodass auch $\P^O\subsetneq\mathrm{E}^O$ für jedes beliebige Orakel $O$ gilt. 
+Ebenso relativiert die Aussage „$\mathtt{KAN}\in\NP$ ist $\leqmp$-vollständig“ (zu „$\mathtt{KAN}^O\in\NP^O$ ist $\leq_\mathrm{m}^{\mathrm{p},O}$-vollständig“).
+
+Im Folgenden soll jede Aussage als relativierbar verstanden werden, es sei denn es wird auf die Nichtrelativierbarkeit hingewiesen, oder von konkreten natürlichen Mengen gesprochen, welche ohnehin nicht relativieren.
+
+
+\section{Beweissysteme}\label{sec:prelim-ps}
+
+Beweissysteme wurden in der Einleitung schon kurz definiert. In diesem Abschnitt wird die präzise Definition von \textcite{cook_relative_1979} wiedergegeben.
+\begin{definition}
+Eine Funktion $f\in \FP$ ist ein \emph{Beweissystem} für $L$ wenn $\ran(f)=L$.
+Ist $f(w)=x$ schreiben wir auch, dass $w$ ein \emph{$f$-Beweis} für $x$ ist.
+
+Existiert zudem ein Polynom $q$ sodass für jedes $x\in L$ ein $f$-Beweis $x$ der Länge $\leq q(|x|)$ existiert, sagen wir dass $f$ \emph{kurzen Beweise} hat.
+\end{definition}
+Hieraus stellt sich die erste Frage, welche Mengen Beweissysteme mit kurzen Beweisen haben.
+
+Ein einfaches Beweissystem für die Menge $\mathtt{SAT}\in\NP$ wäre z.B. das \emph{Standardbeweissystem} $\mathit{std}$ für $\mathtt{SAT}$:
+\[ \mathit{std}(\phi, w) = \begin{cases} \phi & \text{wenn $w$ eine erfüllende Belegung für $\phi$ ist,} \\ \bot & \text{sonst.} \end{cases} \]
+Dieses Beweissystem hat kurze Beweise.
+
+Cook und Reckhow machen dagegen die Beobachtung im Fall von der Menge $\mathtt{TAUT}$ der aussagenlogischen Tautologien die Beobachtung, dass $\mathtt{TAUT}$ genau dann kein Beweissystem mit kurzen Beweisen hat, wenn $\NP\neq\coNP$.
+Diese Einsicht motivierte das sogenannte \emph{Cook–Reckhow-Programm}: man nähert sich der Frage  $\NP\neq \coNP$ mittels Untersuchung immer stärerer Beweissysteme.
+Um nun die relative Stärke unterschiedlicher Beweissysteme zu vergleichen, führen Cook und Reckhow den Begriff der Simulation ein.
+\begin{definition}
+    Seien $f,g$ zwei Beweissysteme für $L$. Wir sagen dass $f$ das Beweissystem $g$ \emph{simuliert} wenn eine (nicht notwendigerweise effiziente) polynomiell längenbeschränkte Funktion $\pi$  existiert sodass 
+    \[ f(\pi(w))=g(w). \]
+    Heißt, für jeden $g$-Beweis $w$ für $x$ existiert auch ein $f$-Beweis $\pi(w)$ für das gleiche $x$, und dieser $f$-Beweis $\pi(w)$ ist nur polynomiell länger als $w$.
+
+    Ist zusätzlich $\pi\in\FP$, dann ist sagen wir, dass $f$ das Beweissystem $g$ \emph{p-simuliert}. Das ist äquivalent zur Aussage $g \leqmp f$.
+\end{definition}
+Wenn $f$ das Beweissystem $g$ p-simuliert, kürzen wir das entsprechend der Beobachtung in der Definition auch kurz mit $g\leqmp f$ ab.
+
+Beobachte dass Beweissysteme mit kurzen Beweisen unter Simulation abgeschlossen sind: wenn Beweissystem $f$ das Beweissystem $g$ simuliert, und $g$ kurze Beweise hat, dann hat auch $f$ kurze Beweise. 
+Auf ähnliche Beweise sind die Beweissysteme unter p-Simulation abgeschlossen, die einfach auffindbare Beweise haben:  wenn Beweissystem $f$ für $L$ das Beweissystem $g$ p-simuliert, und für jedes $x\in L$ in Polynomialzeit ein $g$-Beweis $w$ gefunden werden kann, dann kann auch ein $f$-Beweis in Polynomialzeit gefunden werden.
+
+Allgemein generiert die Relation der (p-)Simulation wieder eine Quasiordnung, die nach der Existenz von größten  Elementen untersucht werden kann. 
+Hieraus ergibt sich der Begriff der (p-)Optimalität.
+\begin{definition}
+    Ein Beweissystem $f$ für $L$ ist \emph{(p-)optimal} wenn es jedes Beweissyem $g$ für $L$ (p-)simulieren kann.
+
+    Die p-Optimalität von $f$ ist äquivalent zur $\leqmp$-Vollständigkeit von $f$ für die Teilmenge der Funktionen aus $\FP$ mit Bildmenge $L$.
+\end{definition}
+Es ist leicht zu sehen, dass jedes Beweissystem mit kurzen Beweisen auch optimal ist. Im Zusammenhang mit dem Cook–Reckhow-Programm weisen \textcite{krajicek_propositional_1989} darauf hin, dass die Existenz eines optimalen Beweissystems für $\mathtt{TAUT}$ wahrscheinlich schwächer ist, als die Existenz eines Beweissystems mit kurzen Beweisen, denn Ersteres folgt schon aus $\mathrm{NE}=\mathrm{coNE}$. (\citeauthor{kobler_optimal_2003}, \citeyear{kobler_optimal_2003}, schwächen die Voraussetzung auf $\mathrm{NEE=coNEE}$ ab.)
+
+Für die Mengen aus $\P$ bzw. $\NP$ existieren p-optimale bzw. optimale Beweissysteme:
+\begin{observation}
+    \begin{enumerate}
+        \item Ist $A\in \P$, dann existiert ein p-optimales Beweissystem für $A$ mit kurzen Beweisen.
+        \item Ist $A\in \NP$, dann existiert ein optimales Beweissystem für $A$ mit kurzen Beweisen.
+    \end{enumerate}
+\end{observation}
+\begin{proof}
+\begin{prooflist}
+\item Zu (1): Betrachte die Funktion
+    \[ h(x) = \begin{cases} x & \text{wenn $x\in A$} \\ \bot & \text{sonst} \end{cases}. \]
+    Diese Funktion ist definitiv ein Beweissystem für $A$. Sie ist in $\FP$, ist ja der Test „$x\in A$“ in Polynomialzeit möglich. Klar ist auch dass $h$ kurze Beweise hat. Dieses Beweissystem ist p-optimal, denn wenn $g$ ein weiteres Beweissystem für $A$ ist, und wenn $w$ ein $g$-Beweis für $x$ ist, dann ist $h(g(w))=h(x)=x$, also $g(w)$ ein $h$-Beweis für $x$, wie gewünscht. 
+
+\item Zu (2): Kann durch die bekannte Zertifikats-Definition von $\NP$ gezeigt werden (was im späteren Teil der Arbeit auch geschieht), zur Vollständigkeit lässt sich an dieser Stelle aber auch ein Beweis über die NPTM-Definition von oben angeben. Sei $N$ eine NPTM, die $A$ mit polynomieller Laufzeit $p$ entscheidet.
+    Definere nun
+    \[ h(x, \alpha) = \begin{cases} x & \text{$N(x)$ akz. auf Rechenweg $\alpha$} \\ \bot & \text{sonst} \end{cases} \]
+    Nachdem $L(N)=A$ ist $h$ definitiv ein Beweissystem für $A$. Es ist leicht zu sehen dass $h\in\FP$, ist der Test „$\alpha$ ist ein gültiger Rechenweg und akzeptiert“ in Polynomialzeit möglich. Ferner existiert für jedes $x\in A$ auch ein akzeptierender Rechenweg $\alpha$ auf $N(x)$ der Länge $\leq p(|x|)$, womit der Beweis $(x, \alpha)$ auch nur polynomiell länger als $x$ ist. Da Beweissystem $h$ hat also kurze Beweise, und ist damit auch optimal.
+
+    %Dieses Beweissystem ist optimal: sei hierfür $g\in\FP$ ein Beweissystem für $A$ mit polynomieller Laufzeit $q$, und $w$ ein $g$-Beweis für $x$. Nachdem der Beweis $(x,\alpha)$ ist höchstens polynomiell länger als $x$ ist, ist er auch nur höchstens polynomiell länger als $w$, da $|x|\leq q(|w|)$.
+\end{prooflist}
+\end{proof}
+Insbesondere mit dem letzten Punkt können die optimalen Beweissysteme der Mengen aus $\NP$ auch als Beweissysteme mit kurzen Beweisen charakterisiert werden:
+\begin{observation}
+    Sei $A\in\NP$ und $f$ ein Beweissystem für $A$. Das Beweissystem $f$ ist optimal genau dann wenn jedes $x\in A$ einen $f$-Beweis der Länge $\leq q(|x|)$ hat, wobei $q$ ein Polynom ist.
+\end{observation}
+\begin{proof}
+    Richtung von rechts nach links klar, das gilt schon im Allgemeinen Fall. Für die andere Richtung sei $f$ ein optimales Beweissystem für $A$. Dann muss $f$ auch das Beweissystem $h$ mit kurzen Beweisen aus voriger Beobachtung simulieren. Für jeden kurzen $h$-Beweis $w$ für $x$ existiert dann ein höchstens polynomiell längerer $f$-Beweis $\pi(w)$.
+\end{proof}
+
+%Die Existenz eines (p-)optimalen Beweissystems für eine Menge $L$ ist eine Eigenschaft, die sich bzgl. $\leqmp$ nach unten überträgt:
+%\begin{lemma}[\cite[Thm.~3.2]{messner_simulation_2001}]
+    %Hat $A$ ein (p-)optimales Beweissystem und $B\leqmp A$, dann hat auch $B$ ein (p-)optimales Beweissystem.
+%\end{lemma}
+
+
 \chapter{Zur Konzeptionalisierung und Ordnung von Suchproblemen}
 
-\section{Suchprobleme und Levin-Reduktionen}
+\todo{Einleitung und Übersicht über das Kapitel. Was passiert hier?}
 
-%\begin{itemize}
-    %\item Vllt. sollten wir NP-Relationen als FNP-Probleme definieren. Andererseits wird in der aktuellen Literatur (T)FNP primär auf Funktionen verstanden.
-    %\item NP-Relation definieren: Zertifikate mind. so lange wie Probleme, alternativ streng monoton steigend
-    %\item Levin-Reduktion definieren
-%\end{itemize}
+\section{Definition von Suchproblemen}
 
+Wir geben hier noch einmal die Definition von Suchproblemen wieder, welche schon in der Einleitung erarbeitet wurde.
+Als Suchprobleme verstehen wir das algorithmische Problem, gegeben eine Probleminstanz $x$, eine entsprechende positive Lösungsinstanz $y$ zu berechnen, oder negativ abzulehnen.  Hier noch einmal ein Beispiel aus der Einleitung: gegeben eine aussagenlogische Formel $\phi$, berechne entweder eine Belegung $y$ welche $\phi$ erfüllt, oder gebe „unerfüllbar“ aus.
+Die wesentliche Einschränkung, welche wir auch schon in der Einleitung festgelegt haben, ist die Einschränkung auf „NP-Suchprobleme“. Wir meinen damit, dass
+\begin{itemize}
+    \item die Lösungen nur polynomiell länger als die Probleminstanzen sind, und
+    \item effizient in Polynomialzeit verifiziert werden kann, ob zu einer gegebenen Probleminstanz $x$ ein beliebiges Wort $y$ tatsächlich eine (positive) Lösung im Sinne des Suchproblems darstellt oder nicht.
+\end{itemize}
+(Wir fordern im Übrigen nicht, dass negatives Ablehnen effizient verifiziert werden kann.)
+Um das Beispiel wieder aufzugreifen: Zum einen haben Formeln $\phi$, welche überhaupt erfüllbar sind, eine erfüllende Belegung in Länge von $\phi$. Zum anderen kann effizient geprüft werden, ob $y$ tatsächlich eine erfüllbare Belegung von $\phi$ ist.
+
+Diese Einschränkung wird durch die empirische Einsicht gestützt, dass viele natürliche Suchprobleme, für die momentan kein effizienter Algorithmus bekannt ist, genau in eine solche Einschränkung fallen. Also Suchprobleme, die „verifizierbar“ sind und „kurze Lösungen“ haben. Einige weitere Beispiele werden wir im Folgenden noch betrachten.
+
+Zunächst werden wir die beiden obigen Punkte noch einmal in eine formale Definition gießen:
 \begin{definition}[NP-Relation, $\mathrm{FNP}$]
     Eine \emph{NP-Relation} ist eine zweistellige Relation $R\subseteq \Sigma^*\times\Sigma^*$, sodass diese
     \begin{enumerate}
@@ -23,30 +329,165 @@
     Die Wörter der ersten Komponente nennen wir \emph{Probleminstanzen} oder \emph{Instanzen} oder \emph{Probleme} von $R$, die Wörter der zweiten Komponente nennen wir die \emph{Zertifikate} (oder manchmal \emph{Lösungen}) von $R$. Wir sagen dann für $(x,y)\in R$, dass \emph{$y$ ein Zertifikat für $x$} ist. In diesem Sinne sagt (\ref{eq:zertifikatsschranke})  aus, dass Zertifikate $y$ für $x$ nicht superpolynomiell länger als $x$ sein dürfen.
     Das Polynom $q$ nennen wir auch die \emph{Zertifikatsschranke} zu $R$. 
 
-    Für eine NP-Relation definieren wir
-    \[ \Proj(R) = \{ x \mid \exists y\in\Sigma^*, (x,y)\in R \} \in \NP \]
-    Die Menge $\Proj(R)$ ist also die Menge der Probleminstanzen, für welche ein zugehöriges Zertifikat existiert; damit entspricht $\Proj(R)$ derjenigen Menge, die üblicherweise bei algorithmischen Entscheidungsproblemen betrachtet wird. 
-    %Wir sagen in diesem Sinne auch, dass $R$ eine NP-Relation \emph{für $L$} ist, wenn $L=\Proj(R)$. 
-    Die Zugehörigkeit $\Proj(R)\in\NP$ folgt unmittelbar aus den Punkten (1) und (2).
-
-    Wir definieren 
-    \[ R(x) = \{ y \mid y\in\Sigma^*, (x,y)\in R\}  \]
-    als die Menge aller Zertifikate $y$ zu $x$. Damit gilt unmittelbar
-    \[ x\in \Proj(R) \iff R(x) \neq\emptyset. \] 
-
     Wir schreiben $\mathrm{FNP}$ für die Klasse aller NP-Relationen. \qedhere
 \end{definition}
+Das oben diskutierte Suchproblem zu einer NP-Relation $R$ kann jetzt wie folgt formal formuliert werden:
+\begin{quote}
+    Suchproblem zur Relation $R$:
+    \begin{description}
+        \item[Gegeben:] Instanz $x$.
+        \item[Gesucht:] Zertifikat $y$ mit $(x,y)\in  R$ falls ein solches $y$ überhaupt existiert, sonst „keine Lösung“ ausgeben.
+    \end{description}
+\end{quote}
+Zur Erinnerung:
+\[ \Proj(R) = \{ x \mid \exists y\in\Sigma^*, (x,y)\in R \}\in\NP. \]
+Die Menge $\Proj(R)$ ist also die Menge der Probleminstanzen, für welche ein zugehöriges Zertifikat existiert; damit entspricht $\Proj(R)$ derjenigen Menge, die üblicherweise bei algorithmischen Entscheidungsproblemen betrachtet wird. 
+Um die beiden Varianten noch einmal gegenüberzustellen: das entsprechende Entscheidungsproblem einer Relation $R$ lautet
+\begin{quote}
+    Entscheidungsproblem zur Relation $R$:
+    \begin{description}
+        \item[Gegeben:] Instanz $x$.
+        \item[Gesucht:] Akzeptieren falls ein Zertifikat $y$ mit $(x,y)\in  R$ existiert, sonst ablehnen.
+    \end{description}
+\end{quote}
+Das entspricht also dem Entscheiden der Sprache $\Proj(R)$. Damit wird auch klar, dass das entsprechende Entscheidungsproblem bzw. die Sprache $\Proj(R)$ nicht von der konkreten Relation $R$ abhängig ist. Vielmehr: es existieren zur Sprache $L$ ggf. unendlich viele NP-Relationen $R$ mit $\Proj(R)=L$.  Für eine Sprache $L$ sagen wir dann auch, dass \emph{$R$ eine NP-Relation für $L$} ist.
 
-Diese Definition von $\mathrm{FNP}$ entspricht der „Lehrbuchdefinition“ von $\mathrm{FNP}$, wie sie z.B. bei \textcite[cf.][227-228]{papadimitriou_computational_1994} formuliert wird. 
-Dies macht $\mathrm{FNP}$ zur nicht-totalen Variante von $\TFNP$.
-Die Diskussion über die Komplexität von Funktionen geht mindestens auf \textcite{valiant_relative_1976} zurück, der erstmals die Äquivalenz der P-NP-Frage mit einer entsprechenden Variante auf Funktionenklassen beobachtete:
-\[ \NP\subseteq\P \iff \mathrm{FNP}\subseteqc \mathrm{FP}. \]
+Die Zugehörigkeit des entsprechenden Suchproblems zu $\NP$ folgt hierbei unmittelbar aus der Definition von NP-Relationen. (Rate nichtdeterministisch ein Zertifikat und akzeptiere wenn dieses korrekt ist.)
+Im nächsten Abschnitt wird die Beziehung zwischen Suchproblemen bzw. NP-Relationen einerseits, und Entscheidungsproblemen bzw. Mengen aus $\NP$ andererseits, weiter behandelt.
+Festhalten können wir hier aber schon, dass das Suchproblem offenbar „schwieriger“ ist als das alleinige Entscheidungsproblem.
 
-Es muss bemerkt werden, dass die Notation von Funktionenklassen, Suchproblemklassen usw. in der Literatur nicht konsistent ist. 
-\textcite{valiant_relative_1976} hat in seiner ursprünglichen Formulierung die Klasse der NP-Relationen als $\mathrm{PC^p}$ („polynomial überprüfbar mit polynomial langem Funktionsoutput“) bezeichnet. 
-Diese Notation wurde von \textcite{selman_taxonomy_1994} in seiner Taxonomie der Funktionsklassen zu $\mathrm{NPMV_g}$ umbenannt. In der Taxonomie wird hervorgehoben, dass NP-Relationen „partielle mehrwertige Funktionen sind, die von NPTM-Transduktoren berechnet werden“, wobei der Index $g$ angibt, dass die Relation in $\P$ liegt. In dieser Taxonomie kann $\mathrm{NPMV_g}$ gegenüber $\mathrm{NPSV_g}$ wo NP-Relationen (rechts-)eindeutig sind, und $\mathrm{NPMV}$, $\mathrm{NPSV}$ (wo die P-Überprüfbarkeit ausgelassen wird) abgegrenzt werden.
+Im Folgenden werden eine Beispiele von natürlichen NP-Relationen angegeben. Um diese von den aonst üblicherweise verwendeten Labels für Mengen bzw. Suchprobleme abzugrenzen, sind im Verlauf dieser Arbeit \emph{NP-Relationen} zu natürlichen Suchproblemen immer mit einem $\mathtt{r}$ am Anfang gekennzeichnet.
+%\begin{gather*}
+    %\mathtt{rPERFECTMATCHING} = \{ (G, M) \mid \text{$G$ ist ein Graph, $M$ ein perfektes Matching auf $G$} \}.\\
+    %\mathtt{rSAT} = \{ (\phi, w) \mid \text{$\phi$ ist eine aussagenlogische Formel, $w$ erfüllende Belegung für $\phi$} \}.\\
+    %\mathtt{rVC} = \{ ((G, k), C) \mid \text{$G$ ist ein Graph, $C$ eine Knotenüberdeckung, und $|C|\leq k$} \}.\\
+    %\mathtt{rFACTORIZATION}(n) = \begin{cases} \{ (p_1, p_2, \ldots, p_k) \mid \text{alle $p_i$ prim und $n=p_1\cdots p_k$} \} & \text{wenn $n>1$} \\ \{ () \} & \text{sonst}\end{cases} 
+%\end{gather*}
+\begin{itemize}
+\item $\mathtt{rPERFECTMATCHING} = \{ (G, M) \mid \text{$G$ ist ein Graph, $M$ ein perfektes Matching auf $G$} \}$.
+\item $\mathtt{rSAT} = \{ (\phi, w) \mid \text{$\phi$ ist eine aussagenlogische Formel, $w$ erfüllende Belegung für $\phi$} \}$.
+\item $\mathtt{rVC} = \{ ((G, k), C) \mid \text{$G$ ist ein Graph, $C$ eine Knotenüberdeckung, und $|C|\leq k$} \}$.
+\item $\mathtt{rHAMCYCLE} = \{ (G, P) \mid \text{$G$ ist ein Graph, $P$ ein Zyklus der jeden Knoten genau einmal berührt} \}$.
+\item $\mathtt{rANOTHERHAMCYCLE} = \{ ((G, P), P') \mid $ $G$ ist ein Graph, $P, P'$ je ein Zyklus der jeden Knoten genau einmal berührt, $P\neq P' \}$.
+\item $\mathtt{rFACTORIZATION} = \{ (n, (p_1,p_2,\dots, p_k)) \mid n\in\mathbb N, n>1$, alle $p_i$ Primzahlen ungleich $2$ oder $n$, und $n=p_1\cdots p_k \}$.
+\item $\mathtt{rFACTOR} = \{ (n, p) \mid n$ ist nicht prim, und $p$ ist ein nichttrivialer Faktor von $n\}$.
+\item $\mathtt{rSMALLFACTOR} = \{ ((n, a), p) \mid n$ ist nicht prim, und $p$ ist ein nichttrivialer Faktor von $n$ und $p\leq a\}$.
+\item $\mathtt{rGI} = \{ ((G, H), \sigma) \mid G, H$ sind Graphen mit gleicher Knotenmenge, und $\sigma$ ist ein Graphisomorphismus von $G$ nach $H\}$.
+\end{itemize}
+Es ist leicht zu sehen, dass jede dieser relationen auch eine NP-Relation ist. Beachte dass die Menge der Primzahlen in Polynomialzeit etnscheidbar ist \textcite{agrawal_primes_2004}.
+Bei jeder der obigen natürlichen Relationen gilt, dass die Projektion auch der üblichen Sprache aus NP entspricht. Wir haben z.B.
+\[ \Proj(\mathtt{rVC}) = \{ (G, k) \mid \text{ex. Knotenüberdeckung $C$ von Graph $G$ mit $|C|\leq k$} \}. \]
 
-Wie bereits oben angedeutet, definieren \textcite{megiddo_total_1991} die Klasse $\mathrm{FNP}$ genau wie hier angegeben, insbesondere um diese Klasse von der Teilmenge $\mathrm{TFNP}$ abzugrenzen, die als die Menge der (links-)totalen NP-Relationen definiert ist, bei denen also jedes $x\in\Sigma^*$ ein Problem ist, das einen Zeugen hat. Dies ist die übliche Interpretation von $\mathrm{TFNP}$ in der Literatur. Die von \textcite{wechsung_vorlesungen_2000} vorgeschlagene Notation würde die Klasse der NP-Relationen als $\mathrm{Rel}\,\P$ bezeichnen und hervorheben, dass NP-Relationen \emph{Relationen} sind, wobei die Vorstellung “mehrdeutiger Funktionen” abgelehnt wird. Das Label $\mathrm{Fun}\,\P$ wird nur für jene Klasse der NP-Relationen reserviert, die (rechts-)eindeutig sind, d.h., Relationen, bei denen jedes Problem $x$ höchstens einen Zeugen $y$ hat; mit anderen Worten, \emph{partielle Funktionen}. Dies entspricht genau der Klasse $\mathrm{NPSV_g}$, wie sie von \textcite{selman_taxonomy_1994} definiert wurde.
+Die Definition Suchproblemen als NP-\emph{Relationen} lässt es zu, Suchprobleme bzw. NP-Relationen als „partielle Multifunktionen“ zu verstehen.
+%So lässt sich beispielseweise beobachten, dass die Klasse $\mathrm{FNP}$ identisch zu der von 
+\textcite{selman_taxonomy_1994} definiert in seiner Taxonomie der Funktionsklassen die Klasse $\mathrm{NPMV_g}$ als die Klasse derjenigen Multifunktionen $f\in\mathrm{NPMV}$, für die (der Graph) $f$ in $\P$ liegt.
+Es lässt sich leicht sehen, dass die hier definierte Klasse $\mathrm{FNP}$ identisch zu \citeauthor{selman_taxonomy_1994} definierten Klasse $\mathrm{NPMV_g}$ ist, solange man Multifuktionen mit binäre Relationen identifiziert.
+
+Mit dieser Perspektivierung ist auch einfach zu definieren, was mit „Suchproblem lösen“ gemeint ist. Wir machen hierbei Gebrauch von Verfeinerungen (von Multifunktionen).
+Wir sagen, dass das Suchproblem zur NP-Relation $R$ \emph{in Polynomialzeit lösbar ist}, wenn $R\inc \mathrm{FP}$.
+Diese Aussage bedeutet ja, dass eine Verfeinerung $f$ von $R$ existiert, und $f$ ist dabei eine (partielle) Funktion.
+Für eine Eingabeinstanz $x$ wird also entweder $f(x)$ einen Wert $y$ ausgeben für den $y\in\fset{}R(x)$ gilt, bzw. in anderen Worten, ein $y$ für das $(x,y)\in R$ und damit ist die Ausgabe $y$ eine Lösung für $x$.
+Oder, falls $f(x)$ ablehnt, dann ist $x\not\in\dom(f)=\Proj(R)$, heißt „$f(x)$ lehnt ab“ bedeutet dass $x$ keine Lösung hat.
+
+Wir können damit auch schon die obige intuitive Aussage beweisen, dass das Suchproblem „schwieriger“ ist als das entsprechende Entscheidungsproblem, in dem Sinne dass sich das Entscheidungsproblem auf das Suchproblem reduzieren lässt:
+\begin{observation}
+    Sei $R$ eine NP-Relation. Falls $R\inc\FP$, dann gilt $\Proj(R)\in\P$.
+\end{observation}
+\begin{proof}
+    Sei $f\in\FP$ die Verfeinerung von $R$ nach Voraussetzung. Teste ob $f(x)\neq \bot$. Falls ja, dann ist $f(x)\in\fset{R}(x)$ und damit hat $x$ eine Lösung; akzeptiere. Falls nicht, dann ist $x\not\in\dom(f)=\Proj(x)$; lehne ab.
+\end{proof}
+
+Der aktuelle Stand zur Lösbarkeit der oben gennanten natürlichen Suchprobleme ist:
+\begin{itemize}\raggedright
+    \item $\mathtt{rPERFECTMATCHING}\inc\FP$.
+    \item $\NP=\P \iff \mathtt{rSAT}\inc\FP \iff \mathtt{rVC}\inc\FP \iff \mathtt{rHAMCYCLE}\inc\FP \iff \mathtt{rANOTHERHAMCYCLE}\inc\FP$.
+    \item Unklar ob $\mathtt{rSMALLFACTOR}, \mathtt{rFACTOR}, \mathtt{rFACTORIZATION}\stackrel{?}{\inc}\FP$. Wir haben aber $\UP\cap\coUP=\P \implies \mathtt{rSMALLFACTOR}, \mathtt{rFACTOR}, \mathtt{rFACTORIZATION}\inc\FP$.
+    \item Unklar ob $\mathtt{rGI}\stackrel{?}{\inc}{\FP}$.
+\end{itemize}
+Die genannten Implikationen und Äquivalenzen werden in den nächsten Abschnitten beweisen.
+
+Bevor nun im nächsten Abschnitt die Suchprobleme den Entscheidungsproblemen näher gegenübergestellt werden, schließen wir diesen Abscnhitt noch mit einer kurzen Diskussion zu \emph{totalen} Suchchproblemen ab.
+
+Die oben formulierte Definition von $\mathrm{FNP}$ ist genau diejenige, die von \textcite{megiddo_total_1991} als erstes in dieser Form und Bezeichnung definiert wurde. Ihre Motivation war, hierbei insbesondere die \emph{totalen} Suchprobleme in den Blick zu nehmen. Also solche Suchprobleme, bei der jede Proleminstanz immer mindestens ein Zertifikat bzw. Lösung hat. Die Faktorisierung ist beispielsweise ein solches totales Suchproblem, da ja jede natürliche Zahl sich faktorisieren lässt.
+
+Das sind -- entsprechend dieser Definition von $\mathrm{FNP}$ bzw. Konzeptionalisierung von Suchproblemen -- genau jene NP-Relationen welche (links-)total sind: für jedes $x\in\Sigma^*$ existiert ein $y\in\Sigma^*$ mit $(x,y)\in R$. 
+Die Relationen $\mathtt{rFACTORIZATION}$ und $\mathtt{rFACTOR}$ wie oben definiert sind nicht total, nachdem die negativen Instanzen aber besonders „einfach“ sind, können für beide NP-Relationen effektiv äquivalente Relationen angegeben werden, die total sind:
+\begin{itemize} \item $\mathtt{rFACTORIZATION}' = \mathtt{rFACTORIZATION} \cup \{ (n, \text{\emph{„ungültig“}}) \mid n\leq 1 \}$.
+    \item $\mathtt{rFACTOR}' = \mathtt{rFACTOR} \cup \{ (n, \text{\emph{„ungültig“}}) \mid n\leq 1 \text{ oder $n$ ist prim} \}$.
+\end{itemize}
+\textcite{megiddo_total_1991} fassen diese totalen NP-Relationen zur Klasse $\mathrm{TFNP}$ zusammen:
+\begin{definition}[$\mathrm{TFNP}$]
+    Die Klasse $\mathrm{TFNP}$ ist die Teilmenge von $\mathtt{FNP}$ derjenigen NP-Relationen $R$, welche linkstotal sind, heißt zu jedem $x\in\Sigma^*$ existiert ein $y\in\Sigma^*$ mit $(x,y)\in R$.
+\end{definition}
+Hierzu gehören die oben genannten Varianten $\mathtt{rFACTORIZATION}'$ und $\mathtt{rFACTOR}'$.
+Für \citeauthor{megiddo_total_1991} befinden sich in $\mathtt{TFNP}$ eine Vielzahl von interessanten und schwierigen Suchproblemen, bei denen die Frage der Lösbarkeit in Polynomialzeit noch offen ist.
+Das betrifft u.a. zahlentheoretische Probleme aus der Kryptographie wie Faktorisierung, diskreter Logarithmus. Beachte dass $\TFNP$ nicht identisch ist zur Klasse $\NPMVt$; es macht sich hier die gleiche Unterscheidung wie bei $\mathrm{FNP}$ vs. $\NPMV$ auf: Die Klasse $\TFNP$ ist eine Teilmenge von $\NPMVt$ jener totalen Multifunktionen $f\in\NPMVt$, für die der (der Graph) $f$ in $\P$ liegt.
+Beachte dass $\mathrm{TFNP}$ sogar eine echte Teilmengen von $\NPMVt$ ist, außer $\P=\NP$:
+\begin{observation}[Vgl. \cite{fenner_inverting_2003}, Prop.~5]
+    Wenn für alle $f\in\NPMVt$ auch (der Graph) $f\in \P$ ist, dann gilt $\P=\NP$.
+\end{observation}
+\begin{proof}
+    Betrachte folgenden NPTM-Transduktor $N$ auf Eingabe $\phi\in\Sigma^*$: zunächst spaltet sich die Berechnung nichtdeterministisch auf. In der ersten Rechnung wird sofort 1 ausgegeben. In der zweiten Rechnung wird eine Belegung $w$ für die aussagenlogische Formel $\phi$ geraten, und 2 ausgegeben wenn $w$ die Formel $\phi$ erfüllt. Sei $f$ die Multifunktion, welche von $N$ berechnet wird.
+    Damit gilt:
+    \[ \fset{}f(x) = \{ 1, 2\} \text{ falls $x\in\mathtt{SAT}$, und } \{ 1\} \text{ sonst} \]
+    und $f\in\NPMVt$.
+    Nach Annahme ist $f\in \P$. Nun kann aber $\mathtt{SAT}$ in Polynomialzeit entschieden werden, denn $\phi\in\mathtt{SAT}$ genau dann wenn $(\phi, 2) \in f$.
+
+    Die Aussage relativiert, wenn anstelle $\mathtt{SAT}$ z.B. das kanonische vollständige Problem gewählt wird.
+\end{proof}
+
+Mit der Beschäftigung mit TFNP-Problemen kam es zu einer umfassenden Theoriebildung. So kam z.B. eine verfeinerte Betrachtung durch Unterklassen von TFNP hinzu. Jede dieser Unterklassen verinnerlicht hierbei jeweils das kombinatorische Prinzip, „warum“ ein Suchproblem total ist. Exemplarisch werden hier zwei Unterklassen skizziert:
+\begin{itemize}
+    \item Die Unterklasse PLS („polynomial local search“) umfasst die Suchprobleme, welche in die Form eines Suchgraphen polynomiellen Grads gebracht werden können, worauf ein lokales Optimum gesucht ist.
+    Das zugrunde liegende kominatorische Prinzip zur Totalität wäre „\emph{endliche Suchgraphen haben immer ein lokales Optimum}“ oder allgemeiner „\emph{Jeder endliche gerichtete azyklische Graph hat eine Senke}“.
+
+    Ein Beispiel hierfür wäre die Suche nach einem lokal kürzesten Rundreise in einem Graphen; „lokal kürzesten“ im Sinne dass das Austauschen von zwei Kanten mit zwei anderen zu keiner kürzereren Rundreise führt.
+
+    \item Die Unterklasse PPP („polynomial pigeon principle“) umfasst Suchprobleme, welche aufgrund des kombinatorischen Schubfachprinzip total sind. 
+
+        Ein Beispiel hierfür ist das Gleiche-Summe-Suchproblem: gegeben $n$ positive ganze Zahlen die sich zu $<2^n-1$ aufsummieren, finde zwei unterschiedliche nichtleere Teilmengen dieser Zahlen welche die gleiche Summe haben. (Existiert nach Schubfachprinzip: es existieren $2^n-1$ viele nichtleere Teilmengen, jede davon mit Summe $<2^n-1$, die Summen können also nicht alle unterschiedlich sein.)
+\end{itemize}
+Auf die weitere Theorie der TFNP-Probleme wird in dieser Arbeit nicht weiter eingegangen. Wir werden aber in Abschnitt~\ref{} noch Reduktionen auf NP-Relationen definieren; dieser Reduktionsbegriff ist der identische wie auf den TFNP-Problemen \textcite{megiddo_total_1991}.
+
+
+%Diese Definition von $\mathrm{FNP}$ entspricht der „Lehrbuchdefinition“ von $\mathrm{FNP}$, wie sie z.B. bei \textcite[cf.][227-228]{papadimitriou_computational_1994} formuliert wird. 
+%Dies macht $\mathrm{FNP}$ zur nicht-totalen Variante von $\TFNP$.
+%Die Diskussion über die Komplexität von Funktionen geht mindestens auf \textcite{valiant_relative_1976} zurück, der erstmals die Äquivalenz der P-NP-Frage mit einer entsprechenden Variante auf Funktionenklassen beobachtete:
+%\[ \NP\subseteq\P \iff \mathrm{FNP}\subseteqc \mathrm{FP}. \]
+
+%Es muss bemerkt werden, dass die Notation von Funktionenklassen, Suchproblemklassen usw. in der Literatur nicht konsistent ist. 
+%\textcite{valiant_relative_1976} hat in seiner ursprünglichen Formulierung die Klasse der NP-Relationen als $\mathrm{PC^p}$ („polynomial überprüfbar mit polynomial langem Funktionsoutput“) bezeichnet. 
+%Diese Notation wurde von \textcite{selman_taxonomy_1994} in seiner Taxonomie der Funktionsklassen zu $\mathrm{NPMV_g}$ umbenannt. In der Taxonomie wird hervorgehoben, dass NP-Relationen „partielle mehrwertige Funktionen sind, die von NPTM-Transduktoren berechnet werden“, wobei der Index $g$ angibt, dass die Relation in $\P$ liegt. In dieser Taxonomie kann $\mathrm{NPMV_g}$ gegenüber $\mathrm{NPSV_g}$ wo NP-Relationen (rechts-)eindeutig sind, und $\mathrm{NPMV}$, $\mathrm{NPSV}$ (wo die P-Überprüfbarkeit ausgelassen wird) abgegrenzt werden.
+
+%Wie bereits oben angedeutet, definieren \textcite{megiddo_total_1991} die Klasse $\mathrm{FNP}$ genau wie hier angegeben, insbesondere um diese Klasse von der Teilmenge $\mathrm{TFNP}$ abzugrenzen, die als die Menge der (links-)totalen NP-Relationen definiert ist, bei denen also jedes $x\in\Sigma^*$ ein Problem ist, das einen Zeugen hat. Dies ist die übliche Interpretation von $\mathrm{TFNP}$ in der Literatur. Die von \textcite{wechsung_vorlesungen_2000} vorgeschlagene Notation würde die Klasse der NP-Relationen als $\mathrm{Rel}\,\P$ bezeichnen und hervorheben, dass NP-Relationen \emph{Relationen} sind, wobei die Vorstellung “mehrdeutiger Funktionen” abgelehnt wird. Das Label $\mathrm{Fun}\,\P$ wird nur für jene Klasse der NP-Relationen reserviert, die (rechts-)eindeutig sind, d.h., Relationen, bei denen jedes Problem $x$ höchstens einen Zeugen $y$ hat; mit anderen Worten, \emph{partielle Funktionen}. Dies entspricht genau der Klasse $\mathrm{NPSV_g}$, wie sie von \textcite{selman_taxonomy_1994} definiert wurde.
+
+\section{Suchprobleme vs. Entscheidungsprobleme}
+
+Tatsächlich lässt sich über die Projektionen von NP-Relationen genau die Klasse $\NP$ von Entscheidungsproblemen charakterisieren: zu jeder Sprache bzw. Entscheidungsproblem $L\in \NP$ existiert (mind.) eine NP-Relation $R$ mit $L=\Proj(R)$, und zu jeder NP-Relation bzw. NP-Suchproblem $R$ ist $\Proj(R)\in\NP$. Das ist die übliche „Zerifikats-Charakterisierung“ von $\NP$ aus den Lehrbüchern.
+\begin{observation}
+    $\NP = \{ \Proj(R) \mid \text{$R$ ist eine NP-Relation} \}.$
+\end{observation}
+\begin{proof}
+    Für die Inklusion von links nach rechts starten wir mit einer Sprache $L$ und einer NPTM $N$ die $L$ entscheidet, wobei die Laufzeit durch das Polynom $p$ beschränkt ist. Definiere nun die Relation
+    \[ R_N = \{ (x, \alpha) \mid \text{$N(x)$ akz. mit RW $\alpha$, $\alpha$ hat $\leq p(|x|)$ viele Schritte} \} \]
+    Diese Relation ist eine NP-Relation. Der Test ist offenbar in Polynomialzeit möglich, und die Relation ist p-balanciert, ist $|\alpha|\in O($\# Schritte von $\alpha)\in O(p(|x|))$.
+    Aus Definition geht hervor dass $L(N) = \Proj(R_N)$.
+
+    Für die Inklusion von rechts nach links konstruieren wir uns zu einer gegebenen NP-Relation $R$ mit Zertifikatsschranke $q$ eine NPTM $N_R$ die $\Proj(R)$ entscheidet. Die NPTM $N_R$ arbeitet auf Eingabe $x$ wie folgt:\\
+    \begin{algorithm}[H]
+        Rate nichtdeterministisch ein $y\in\Sigma^*$\;
+        \lIf{$(x,y)\in R$}{akzeptiere}
+        \lElse{ablehnen}
+    \end{algorithm}
+    Es ist wegen $R\in \P$ klar, dass diese NTM in Polynomialzeit läuft.
+    Wieder geht aus Definition hervor dass $L(N) = \Proj(R_N)$.
+\end{proof}
+Damit ist im Übrigen die obige Definition von NP-Relationen auch nicht „neu“ sondern schon immer mitgedacht. Die eben formulierte Charakterisierung findet sich in allen üblichen Einführungswerken zur Komplexitätstheorie. Dagegen machen die unterschiedlichen Einführungswerke ihren Zugang manchmal stärker von der Perspektive der Suchprobleme abhängig, und manchmal stärker von der typischen Herangehensweise über Entscheidungsproblemen.
+Vgl. z.B. \textcite{goldreich_computational_2008} wlecher in seinem Lehrbuch die $\P$-vs.-$\NP$-Frage zunächst als die äquivalente Frage der Beziehung zwischen den „\emph{efficiently solvable search problems}“ und den „\emph{search problems with efficiently checkable solutions}“ (letzteres sind genau die NP-Relationen) formuliert. Erst später wird mittels \emph{Search-reduces-to-Decision}-Argumenten dafür argumentiert, NP-Entscheidungsproble als die zentralen Untersuchungsobjekte der Komplexitätstheorie anzusehen.
+%\textcite{arora_computational_2009} weist dagegen erst nach Einführung der NP-Vollständigkeit darauf hin, dass die Perspektivierung über Entscheidungsprobleme zumindest adäquat für NP-vollständige Suchprobleme ist. Wir diskutieren dieses \emph{Search-reduces-to-decision}-Paradigma in Abschnitt~\ref{}. 
+
+
+\section{Levin-Reduzierbarkeit}
 
 \begin{definition}[Levin-Reduzierbarkeit]
     Seien $Q, R$ zwei NP-Relationen. Wir sagen dass \emph{$Q$ sich auf $R$ (Polynomialzeit-)Levin-reduzieren lässt}, bzw. $Q\leqlp R$ wenn zwei Funktionen $f, g\in \FP$ existieren sodass
@@ -114,8 +555,8 @@ Damit haben (im unrelativierten Fall) insbesondere alle \emph{bekannten} $\leqmp
 Es ist leicht zu sehen, dass diese Aussage relativiert, wenn anstelle $\mathtt{rSAT}$ eine andere beliebige $\leqlp$-vollständige Relation $R$ gewählt wird.
 
 \begin{definition}[Geizige  Reduktionen]
-    Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{geizig} (\emph{„parsimonious“}\sidenote{vgl. \textcite{rothe_komplexitatstheorie_2008}.}) reduzieren lässt, bzw. $Q\leq_\mathrm{pars}^\mathrm p R$ wenn eine Funktion $f\in\FP$ existiert mit
-    \[ x\in \Proj(Q) \iff f(x) \in \Proj(R) \quad\text{und}\quad |Q(x)|=|R(f(x))|. \]
+    Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{geizig} (\emph{„parsimonious“}) reduzieren lässt, bzw. $Q\leq_\mathrm{pars}^\mathrm p R$ wenn eine Funktion $f\in\FP$ existiert mit%\sidenote{vgl. \textcite{rothe_komplexitatstheorie_2008}.}
+    \[ x\in \Proj(Q) \iff f(x) \in \Proj(R) \quad\text{und}\quad |\fset{}Q(x)|=|\fset{}R(f(x))|. \]
     In anderen Worte, $f$ realisiert eine Many-one-Reduktion von $Q$ auf $R$, und haben sowohl die originale $Q$-Instanz $x$ als auch die reduzierte $R$-Instanz $f(x)$ die gleiche Anzahl an Lösungen.
     Definiere $Q\leq_\mathrm{pars}^\mathrm p$-Vollständigkeit entsprechend.
 \end{definition}
@@ -125,7 +566,7 @@ Es ist leicht zu sehen, dass diese Aussage relativiert, wenn anstelle $\mathtt{r
     \begin{enumerate}
         \item $(x,y)\in Q \implies (f(x), g(x,y))\in R$ (Vorwärts-Translation von Zertifikaten),
         \item $(f(x),z)\in R \implies \exists y.\, (x,y)\in R\land g(x,y)=z$ ($g$ ist quasi “surjektiv”),
-        \item Falls $y_1,y_2\in Q(x)$ und $y_1\neq y_2$, dann ist auch $g(x,y_1)\neq g(x,y_2)$ ($g$ ist quasi “injektiv”). \qedhere
+        \item Falls $y_1,y_2\in \fset{}Q(x)$ und $y_1\neq y_2$, dann ist auch $g(x,y_1)\neq g(x,y_2)$ ($g$ ist quasi “injektiv”). \qedhere
     \end{enumerate}
 \end{definition}
 
@@ -137,7 +578,7 @@ In einer ähnlichen Weise definieren \cite{wiedermann_witness-isomorphic_1995} \
     \begin{enumerate}
         \item $(x,y)\in Q \implies (f(x), g(x,y))\in R$ (Vorwärts-Translation von Zertifikaten),
         \item $(f(x),z)\in R \implies \exists y.\, (x,y)\in R\land g(x,y)=z$ ($g$ ist quasi “surjektiv”),
-        \item Falls $y_1,y_2\in Q(x)$ und $y_1\neq y_2$, dann ist auch $g(x,y_1)\neq g(x,y_2)$ ($g$ ist quasi “injektiv”). \qedhere
+        \item Falls $y_1,y_2\in \fset{}Q(x)$ und $y_1\neq y_2$, dann ist auch $g(x,y_1)\neq g(x,y_2)$ ($g$ ist quasi “injektiv”). \qedhere
     \end{enumerate}
 \end{definition}
 
@@ -148,7 +589,7 @@ In einer ähnlichen Weise definieren \cite{wiedermann_witness-isomorphic_1995} \
     Eine Funktion $f\in \FP$ ist eine \emph{projektive Levin-Reduktion} einer strengen Relation $Q$ zu einer zweiten strengen Relation $R$ wenn diese die folgenden Bedingungen erfüllen
     \begin{enumerate}
         \item $f(x)=(z,\alpha)$ wobei $x,z\in\Sigma^*$ und $\alpha\in\mathbb N_{>0}^{q(|x|)}$ ist eine Sequenz von positiven paarweise verschiedenen  Indizes der Länge $q(|x|)$.
-        \item $\{ y[\alpha] \mid y\in R(z) \} = Q(x)$
+        \item $\{ y[\alpha] \mid y\in \fset{}R(z) \} = \fset{}Q(x)$
     \end{enumerate}
 
     Wir nennen eine strenge Relation $R$ \emph{universell} wenn sie vollständig bezüglich projektiven Levin-Reduktionen ist. In anderen Worten, wenn für jede strenge Relation $Q$ eine projektive Levin-Reduktion von $Q$ auf $R$ existiert.
@@ -165,15 +606,15 @@ In einer ähnlichen Weise definieren \cite{wiedermann_witness-isomorphic_1995} \
     Wir definieren nun bezüglich einer solchen Relation $R$:
     \begin{enumerate}
         \item Die Relation $R$ hat einen \emph{building block}, wenn es ein Element $\mathit{block}\in\Proj(R)$ gibt, sowie paarweise verschiedene $b_1,b_2,b_3\in\mathbb N_{>0}$ sodass
-            \[\{ y[b_1,b_2,b_3] \mid y\in R(\mathit{block}) \} = \Sigma^3 - \{000\} \]
+            \[\{ y[b_1,b_2,b_3] \mid y\in \fset{}R(\mathit{block}) \} = \Sigma^3 - \{000\} \]
         \item Die Relation $R$ ist \emph{joinable} wenn es eine Funktion $\mathit{join}\in \FP$ gibt sodass
             \begin{multline*}  \mathit{join}(x_1, \dots, x_n) = (z, \alpha) \text{ wobei } x_1, \ldots, x_n, z\in \Sigma^* \\\text{ und } \sum_{k=1}^n q(|x_k|)=|\alpha|\leq q(|z|), \end{multline*}
             wobei $\alpha\in \mathbb N_{>0}^*$ eine Sequenz von \emph{paarweise verschiedenen} Indizes ist, und
-            \begin{equation*} \{ y'[\alpha] \mid y' \in R(z)\} = \{ y_1\circ y_2 \circ \cdots \circ y_n \mid (\forall k\leq n).\, y_k \in R(x_k) \}. \end{equation*}
+            \begin{equation*} \{ y'[\alpha] \mid y' \in \fset{}R(z)\} = \{ y_1\circ y_2 \circ \cdots \circ y_n \mid (\forall k\leq n).\, y_k \in \fset{}R(x_k) \}. \end{equation*}
         \item Die Relation $R$ ist \emph{coupable} wenn es eine Funktion $\mathit{cpl}\in \FP$ gibt sodass
             \begin{multline*} \mathit{cpl}(x, (i_1, \ldots, i_n), (j_1, \ldots, j_n)) = (z, \alpha) \text{ wobei } x\in\Sigma^*,\\ 1\leq i_1, \ldots, i_n, j_1,\ldots, n \leq q(|x|) \text{ und } |\alpha|=q(|x|),\end{multline*}
             wobei wieder $\alpha\in \mathbb N_{>0}^*$ eine Sequenz von \emph{paarweise verschiedenen} Indizes ist, und
-            \begin{equation*} \{ y'[\alpha] \mid y'\in R(z) \} = \{ y \mid y\in R(x) \text{ und } (\forall k\leq n)(y[i_k]\neq y[j_k]) \}. \end{equation*}
+            \begin{equation*} \{ y'[\alpha] \mid y'\in \fset{}R(z) \} = \{ y \mid y\in \fset{}R(x) \text{ und } (\forall k\leq n)(y[i_k]\neq y[j_k]) \}. \end{equation*}
     \end{enumerate}
 \end{definition}
 
@@ -315,7 +756,7 @@ Folgende Aussagen sind äquivalent:
         $(x, \alpha)\gets w$\;
         \lIf{$N(x)$ akzeptiert \emph{nicht} auf Rechenweg $\alpha$}{akzeptiere}
         \Else{
-        \tcc{Ab hier gilt $x\in \Pr(R)$, also auch $R(x)\neq\emptyset$}
+        \tcc{Ab hier gilt $x\in \Pr(R)$, also auch $\fset{}R(x)\neq\emptyset$}
         Rate nichtdeterministisch $y\in \Sigma^{\leq q(|x|)}$\;
         Akzeptiere genau dann wenn $(x,y)\in A$.
         }
@@ -327,7 +768,7 @@ Folgende Aussagen sind äquivalent:
         \implies N'(x,\alpha) \text{ akz. in Z.~6}\\
         \implies N'(x,\alpha) \text{ akz. mit Rechenweg $r(x,\alpha)$ in Z.~6},
     \end{gather*}
-    und aus diesem Rechenweg $r(x,\alpha)$ kann effizient der geratene Zeuge $y\in R(x)$ aus Z.~5 ausgelesen werden.
+    und aus diesem Rechenweg $r(x,\alpha)$ kann effizient der geratene Zeuge $y\in \fset{}R(x)$ aus Z.~5 ausgelesen werden.
     Da $r\in\FP$ existiert also auch ein $h\in\FP$ sodass $h(x,\alpha)$ genau diesen geratenen Zeugen $y$ berechnet.
     Wir haben dann also
     \begin{gather*}
@@ -763,10 +1204,11 @@ Mit der Definition der effektiven p-Simulation und der eben beweisenen äquivale
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-    Zu (1): Klar aus Kontraposition. Wenn ein p-optimales Beweissystem $h$ für $\mathtt{SAT}$ existiert, dann kann dieses (optimale) $h$ auch alle anderen Beweissysteme p-simulieren, und damit insbesondere auch alle optimalen Beweissyste $h'$ effektiv p-simulieren.
-    \medskip
+\begin{prooflist}
+\item Zu (1): Klar aus Kontraposition. Wenn ein p-optimales Beweissystem $h$ für $\mathtt{SAT}$ existiert, dann kann dieses (optimale) $h$ auch alle anderen Beweissysteme p-simulieren, und damit insbesondere auch alle optimalen Beweissyste $h'$ effektiv p-simulieren.
 
-    Zu (2): Wieder klar aus Kontraposition. Unter $\neg\mathsf{KvL}$ folgt mit der Formulierung aus Vermutung~\ref{conj:kvl-ps} dass das (optimale) Standardbeweissystem $\mathit{sat}$ alle optimalen Beweissysteme effektiv p-simulieren kann. Dann existiert also auch \emph{ein} optimales Beweissystem welches dies leistet.
+\item Zu (2): Wieder klar aus Kontraposition. Unter $\neg\mathsf{KvL}$ folgt mit der Formulierung aus Vermutung~\ref{conj:kvl-ps} dass das (optimale) Standardbeweissystem $\mathit{sat}$ alle optimalen Beweissysteme effektiv p-simulieren kann. Dann existiert also auch \emph{ein} optimales Beweissystem welches dies leistet.
+\end{prooflist}
 \end{proof}
 
 \section{Bekannte Implikationen, Offene Orakel}
@@ -850,6 +1292,7 @@ Der folgende Satz ist eine Generalisierung von \textcite{dingel_separation_2022}
     \item $\UP\neq\P \Leftrightarrow\exists$ Einwegfunktionen, nach \textcite[Thm.~10]{grollmann_complexity_1988}.
     \item $\UP\cap\coUP\neq\P \Leftrightarrow\exists$ Einwegpermutationen, nach \textcite{homan_one-way_2003}.
     \item $\hNPcoNP \Leftrightarrow \NPSV_t$ hat keine vollständige Funktion, nach \textcite[Prop.~3]{beyersdorff_nondeterministic_2009}.
+    \item $\hDisjNP \Leftrightarrow \NPSV$ hat keine vollständige Funktion, nach \textcite[Thm.~9]{glaser_reductions_2005}.
     \end{prooflist}
 
     Es gelten die eingezeichneten Implikationen:
@@ -858,8 +1301,8 @@ Der folgende Satz ist eine Generalisierung von \textcite{dingel_separation_2022}
 \item $\hUP \Rightarrow \hTAUT$ nach \textcite{kobler_optimal_2003}.
 \item $\mathsf{CON}^N\Rightarrow \mathrm{NEE\neq coNEE}$ nach \textcite{kobler_optimal_2003}.
 \item $\NP\cap\coNP\neq \P \Rightarrow \neq\hQ' \Rightarrow \NPMVt \not\subseteqc \TFNP \Rightarrow \neq\hQ$ nach \textcite{fenner_inverting_2003}.
-\item $\mathrm{EE\neq NEE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{bellare_complexity_1994}.
-\item $\mathrm{EXP\neq NEXP}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach Impagliazzo und Sudan (private Kommunikation berichtet von \cite{bellare_complexity_1994}, Abschn. 1.5.4).
+%\item $\mathrm{E\neq NE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{bellare_complexity_1994}.
+\item $\mathrm{E\neq NE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach Impagliazzo und Sudan (private Kommunikation berichtet von \cite{bellare_complexity_1994}, Abschn. 1.5.4).
 \item $\UP\neq\P \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar, nach \textcite[Thm.~5]{grollmann_complexity_1988}.
 \item $\hNPcoNP\Rightarrow \hTAUT\lor\hSAT$ nach \textcite{beyersdorff_nondeterministic_2009}.
 \item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \hSAT$ nach \textcite[Thm.~25]{beyersdorff_nondeterministic_2009}.
@@ -878,9 +1321,13 @@ Der folgende Satz ist eine Generalisierung von \textcite{dingel_separation_2022}
 \item $\hNPcoNP \Rightarrow \NP\cap\coNP\neq \P$ klar.
 \item $\exists$ P-inseparierbares $\DisjNP$-Paar $\Rightarrow \P\neq \NP$ klar.
 \item $\UP\cap\coUP\Rightarrow \UP\neq \P$, $\UP\cap\coUP\Rightarrow \NP\cap\coNP\neq\P$ klar.
-\item $\mathrm{NEE\neq coNEE \Rightarrow NEXP \neq coNEXP \Rightarrow NP \neq coNP \Rightarrow P\neq NP}$ klar.
-\item $\mathrm{NEE\neq coNEE \Rightarrow EE \neq NEE}$ klar.
+\item $\mathrm{NEE\neq coNEE \Rightarrow NE \neq coNE \Rightarrow NP \neq coNP \Rightarrow P\neq NP}$ klar.
+\item $\mathrm{NEE\neq coNEE \Rightarrow EE \neq NEE \Rightarrow E\neq NE}$ klar.
 \end{prooflist}
 \end{proof}
 
+\chapter{Orakel}
 
+
+\note{Abschließend erweitern wir noch unsere Notation, die uns insbesondere bei der Orakelkonstruktion helfen wird. Diese folgt Überlegungen von \textcite{dose_np-completeness_2019}. Anstelle von Orakeln als Menge zu verstehen, können wir äquivalent Orakel auch als unendlich lange Wörter $u\in\Sigma^\omega$ formulieren, die wir als das Orakel $\{ i\mid w[i]=1 \}\subseteq \mathbb N$ interpretieren. Mit der obigen Identifikation von Wörtern und natürlichen Zahlen beschreibt nun $u$ sowohl ein Orakel über $\mathbb N$ als auch über $\Sigma^*$; wir können also z.B. von der relativen Berechnung $M^w(x)$ sprechen. Analog fassen wir endlich lange Wörter $w\in\Sigma^*$ als \emph{partielles} Orakel $\{ i\mid w[i]=1 \}$, welches die Zugehörigkeit der Wörter $x<|w|$ festlegt, aber die Zugehörigkeit aller Wörter $y\geq|w|$ noch nicht endgültig festlegt.
+Auf dieser Idee der endgültigen bzw. noch nicht endgültigen Zugehörigkeit aufbauend können wir auch von \emph{definiten} Berechnungen sprechen: Eine Rechnung $M^w(x)$ ist \emph{definit} wenn auf allen Rechenwegen von $M^w(x)$ nur Orakelfragen gestellt werden, welche eine Länge $<|w|$ haben. }
