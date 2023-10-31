@@ -37,6 +37,11 @@
 \usepackage{setspace}
 \usepackage[DIV=9]{typearea}
 \fi
+\usepackage{mdframed}
+\usepackage[pdfusetitle,pdfencoding=auto,psdextra,bookmarksopen]{hyperref}
+\usepackage{xcolor}
+\usepackage{ragged2e}
+\usepackage{enumitem}
 
 \setlength{\emergencystretch}{1em}
 
@@ -146,9 +151,10 @@
 \declaretheorem[style=definition,qed={$\triangleleft$},sibling=theorem]{definition}
 \makeatletter
 \renewenvironment{proof}[1][\proofname]{\par
+  \begin{mdframed}[backgroundcolor=lightgray!30!white,leftmargin=-5pt,rightmargin=-5pt,innerleftmargin=5pt,innerrightmargin=5pt,linewidth=0pt]
   \pushQED{\qed}%
   \normalfont\footnotesize \topsep6\p@\@plus6\p@\relax
-  \list{}{\leftmargin=4em
+  \list{}{\leftmargin=0em
           \rightmargin=\leftmargin
           \settowidth{\itemindent}{\itshape#1}%
           \labelwidth=\itemindent
@@ -159,16 +165,9 @@
         \itshape
     #1\@addpunct{.}]\ignorespaces
 }{%
-  \popQED\endlist\@endpefalse
+    \popQED\endlist\@endpefalse\end{mdframed}
 }
 \makeatother
-\newcounter{prooflist}
-\newenvironment{prooflist}
-{\setcounter{prooflist}{0}\renewcommand\item{\medskip\par\noindent \stepcounter{prooflist}\arabic{prooflist}. }}
-{}
-\newenvironment{prooflist*}
-{\renewcommand\item{\medskip\par\noindent}}
-{}
 
 \ifbook
 \AtBeginDocument{\setlength{\abovedisplayskip}{5pt}\setlength{\abovedisplayshortskip}{5pt}%
@@ -176,10 +175,17 @@
 \fi
 
 
-\usepackage{enumitem}
 \setlist[enumerate]{label=(\arabic*), itemsep=0pt}
 \setlist[itemize]{itemsep=0pt}
 \setlist{beginpenalty=10000, midpenalty=10000}
+\newlist{Prooflist}{enumerate}{1}
+\setlist[Prooflist]{wide,labelwidth=!,leftmargin=0pt,itemindent=!,labelindent=0pt,label={\arabic*.},labelsep=3pt,itemsep=.3em plus .2em minus .1em}
+\newenvironment{prooflist}[1][]{%
+    \begin{Prooflist}[#1]%
+}{%
+    \qedhere\end{Prooflist}%
+}
+
 
 \usepackage[autostyle]{csquotes}
 
@@ -203,19 +209,17 @@
 \SetArgSty{}
 \SetCommentSty{itshape}
 \SetKwComment{tcc}{(}{)}
+\SetKwComment{tcp}{(}{)}
 \SetKw{KwOr}{\thesis@algorithmor}
 \SetKw{KwAnd}{\thesis@algorithmand}
 \SetKw{KwNot}{\thesis@algorithmnot}
 \SetKw{Accept}{Akzeptieren}
 \SetKw{Reject}{Ablehnen}
+\SetKw{Reject}{Ablehnen}
 \SetKwInput{Input}{\thesis@algorithminput}
 \SetKwInput{Output}{\thesis@algorithmoutput}
 \setlength{\algomargin}{6ex}
 
-\usepackage[pdfusetitle,pdfencoding=auto,psdextra,bookmarksopen]{hyperref}
-
-\usepackage{xcolor}
-\usepackage{ragged2e}
 \usepackage{sidenotes}
 \setlength{\marginparwidth}{90pt}
 \renewcommand*{\marginfont}{\normalfont\footnotesize\sffamily}

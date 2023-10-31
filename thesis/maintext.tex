@@ -172,7 +172,7 @@ Gilt $A\equiv^\mathrm{p} B$ dann sagen wir auch dass $A$ und $B$ \emph{p-isomorp
 Im Folgenden werden noch die wichtigsten bekannten Aussagen bezüglich p-Isomorphie zusammengefasst:
 
 \textcite{hartmanis_isomorphisms_1976} zeigen dass aus $\equiv_\mathrm{1,i}^\mathrm{p}$-äquivalente Sprachen dann p-isomorph sind, wenn die jeweiligen Reduktionsfunktionen verlängernd sind.
-\begin{theorem}\label{thm:bh-iso}
+\begin{theorem}[\cite{hartmanis_isomorphisms_1976}]\label{thm:bh-iso}
     Gilt $A\leq_\mathrm{1,i}^\mathrm{p} B$ via $f$ und $B\leq_\mathrm{1,i}^\mathrm{p} A$ via $g$, und $f$ und $g$ sind verlängernd, dann gilt $A\equiv^\mathrm{p}B$.
 \end{theorem}
 Um die Voraussetzungen vom vorigen Satz \ref{thm:bh-iso} zu vereinfachen, führen sie den Begriff der \emph{paddability} ein.
@@ -280,8 +280,6 @@ Für die Mengen aus $\P$ bzw. $\NP$ existieren p-optimale bzw. optimale Beweissy
     Definere nun
     \[ h(x, \alpha) = \begin{cases} x & \text{$N(x)$ akz. auf Rechenweg $\alpha$} \\ \bot & \text{sonst} \end{cases} \]
     Nachdem $L(N)=A$ ist $h$ definitiv ein Beweissystem für $A$. Es ist leicht zu sehen dass $h\in\FP$, ist der Test „$\alpha$ ist ein gültiger Rechenweg und akzeptiert“ in Polynomialzeit möglich. Ferner existiert für jedes $x\in A$ auch ein akzeptierender Rechenweg $\alpha$ auf $N(x)$ der Länge $\leq p(|x|)$, womit der Beweis $(x, \alpha)$ auch nur polynomiell länger als $x$ ist. Da Beweissystem $h$ hat also kurze Beweise, und ist damit auch optimal.
-
-    %Dieses Beweissystem ist optimal: sei hierfür $g\in\FP$ ein Beweissystem für $A$ mit polynomieller Laufzeit $q$, und $w$ ein $g$-Beweis für $x$. Nachdem der Beweis $(x,\alpha)$ ist höchstens polynomiell länger als $x$ ist, ist er auch nur höchstens polynomiell länger als $w$, da $|x|\leq q(|w|)$.
 \end{prooflist}
 \end{proof}
 Insbesondere mit dem letzten Punkt können die optimalen Beweissysteme der Mengen aus $\NP$ auch als Beweissysteme mit kurzen Beweisen charakterisiert werden:
@@ -390,7 +388,7 @@ Für eine Eingabeinstanz $x$ wird also entweder $f(x)$ einen Wert $y$ ausgeben f
 Oder, falls $f(x)$ ablehnt, dann ist $x\not\in\dom(f)=\Proj(R)$, heißt „$f(x)$ lehnt ab“ bedeutet dass $x$ keine Lösung hat.
 
 Wir können damit auch schon die obige intuitive Aussage beweisen, dass das Suchproblem „schwieriger“ ist als das entsprechende Entscheidungsproblem, in dem Sinne dass sich das Entscheidungsproblem auf das Suchproblem reduzieren lässt:
-\begin{observation}
+\begin{observation}\label{obs:search-stronger-than-decision}
     Sei $R$ eine NP-Relation. Falls $R\inc\FP$, dann gilt $\Proj(R)\in\P$.
 \end{observation}
 \begin{proof}
@@ -464,7 +462,7 @@ Auf die weitere Theorie der TFNP-Probleme wird in dieser Arbeit nicht weiter ein
 \section{Suchprobleme vs. Entscheidungsprobleme}
 
 Tatsächlich lässt sich über die Projektionen von NP-Relationen genau die Klasse $\NP$ von Entscheidungsproblemen charakterisieren: zu jeder Sprache bzw. Entscheidungsproblem $L\in \NP$ existiert (mind.) eine NP-Relation $R$ mit $L=\Proj(R)$, und zu jeder NP-Relation bzw. NP-Suchproblem $R$ ist $\Proj(R)\in\NP$. Das ist die übliche „Zerifikats-Charakterisierung“ von $\NP$ aus den Lehrbüchern.
-\begin{observation}
+\begin{observation}[Zertifikats-Definition von NP]\label{obs:np-certificate-def}
     $\NP = \{ \Proj(R) \mid \text{$R$ ist eine NP-Relation} \}.$
 \end{observation}
 \begin{proof}
@@ -473,18 +471,44 @@ Tatsächlich lässt sich über die Projektionen von NP-Relationen genau die Klas
     Diese Relation ist eine NP-Relation. Der Test ist offenbar in Polynomialzeit möglich, und die Relation ist p-balanciert, ist $|\alpha|\in O($\# Schritte von $\alpha)\in O(p(|x|))$.
     Aus Definition geht hervor dass $L(N) = \Proj(R_N)$.
 
-    Für die Inklusion von rechts nach links konstruieren wir uns zu einer gegebenen NP-Relation $R$ mit Zertifikatsschranke $q$ eine NPTM $N_R$ die $\Proj(R)$ entscheidet. Die NPTM $N_R$ arbeitet auf Eingabe $x$ wie folgt:\\
-    \begin{algorithm}[H]
-        Rate nichtdeterministisch ein $y\in\Sigma^*$\;
-        \lIf{$(x,y)\in R$}{akzeptiere}
-        \lElse{ablehnen}
-    \end{algorithm}
+    Für die Inklusion von rechts nach links konstruieren wir uns zu einer gegebenen NP-Relation $R$ mit Zertifikatsschranke $q$ eine NPTM $N_R$ die $\Proj(R)$ entscheidet. Die NPTM $N_R$ rät auf Eingabe $x$ zunächst ein $y\in\Sigma^{\leq q(|x|)}$ und akzeptiert genau dann wenn $(x,y)\in R$.
     Es ist wegen $R\in \P$ klar, dass diese NTM in Polynomialzeit läuft.
     Wieder geht aus Definition hervor dass $L(N) = \Proj(R_N)$.
 \end{proof}
 Damit ist im Übrigen die obige Definition von NP-Relationen auch nicht „neu“ sondern schon immer mitgedacht. Die eben formulierte Charakterisierung findet sich in allen üblichen Einführungswerken zur Komplexitätstheorie. Dagegen machen die unterschiedlichen Einführungswerke ihren Zugang manchmal stärker von der Perspektive der Suchprobleme abhängig, und manchmal stärker von der typischen Herangehensweise über Entscheidungsproblemen.
 Vgl. z.B. \textcite{goldreich_computational_2008} wlecher in seinem Lehrbuch die $\P$-vs.-$\NP$-Frage zunächst als die äquivalente Frage der Beziehung zwischen den „\emph{efficiently solvable search problems}“ und den „\emph{search problems with efficiently checkable solutions}“ (letzteres sind genau die NP-Relationen) formuliert. Erst später wird mittels \emph{Search-reduces-to-Decision}-Argumenten dafür argumentiert, NP-Entscheidungsproble als die zentralen Untersuchungsobjekte der Komplexitätstheorie anzusehen.
 %\textcite{arora_computational_2009} weist dagegen erst nach Einführung der NP-Vollständigkeit darauf hin, dass die Perspektivierung über Entscheidungsprobleme zumindest adäquat für NP-vollständige Suchprobleme ist. Wir diskutieren dieses \emph{Search-reduces-to-decision}-Paradigma in Abschnitt~\ref{}. 
+
+\begin{lemma}
+    $\mathrm{FNP}\subseteqc \FP \iff \P = \NP.$
+\end{lemma}
+\begin{proof}
+    Die Richtung von links nach rechts ist klar, sind ja Suchprobleme schwieriger als Entscheidungsprobleme (Beobachtung~\ref{obs:search-stronger-than-decision} mit Beobachtung \ref{obs:np-certificate-def}.)
+
+    Die Richtung von rechts nach links zeigen wir mittels der Left-Set-Technik. Sei $R$ eine beliebige NP-Relation mit Zertifikatsschranke $q$. Wir zeigen dass $R\inc\FP$.
+    Betrachte folgende Menge
+    \[ A = \{ (x, z) \mid \exists y\in\Sigma^{\leq q(|x|)}, (x,y)\in R, y\leq z \} \]
+    Zur Erinnerung: Die Ordnung $\leq $ auf Wörtern entspricht der quasi-lexikographischen Ordnung.
+    Es ist leicht zu sehen dass $A\in\NP$. Also gilt nach Annahme aus $A\in\P$.
+    Nun kann gegeben eine Instanz $x$ mittels binärer Suche das kleinste Zertifikat $y$ für $x$ gefunden werden:\\
+    \begin{algorithm}[H]
+        $L\gets 0; R\gets 1^{q(|x|)}$\;
+        \uIf{$(x, R)\not\in A$}{\Return{ablehnen}}
+        \tcc{Es existiert also ein kleinster Zeuge $y$ zu $x$.}
+        \While(\tcp*[h]{Invariante: $L\leq y\leq R$}){$L<R$}
+        {
+            $M\gets \lfloor (L+R)/2 \rfloor$\;
+            \uIf(\tcp*[h]{damit $L\leq y \leq M \leq R$}){$(x, M)\in A$}{
+                $R\gets M$\;
+            }
+            \Else(\tcp*[h]{damit $L\leq M<y \leq R$}){
+                $L\gets M+1$\;
+            }
+        }
+        \Return{$L$}
+    \end{algorithm}
+    Unter Annahme $A\in\P$ ist klar, dass diese Funktion von einem PTM-Transduktor berechnet werden kann. Damit $R\inc\FP$.
+\end{proof}
 
 
 \section{Levin-Reduzierbarkeit}
@@ -682,7 +706,7 @@ Folgendes Lemma ist eine Generalisierung von \textcite[Thm. 5.2]{messner_simulat
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-\begin{prooflist*}
+\begin{prooflist}[label={}]
 \item (1)$\Rightarrow$(2): Für NTM $f_N$ können wir das assoziierte Beweissystem
     \[ f_N(x, \alpha) = \begin{cases} x & \text{$N(x)$ akz. mit Rechenweg $\alpha$} \\ \bot & \text{sonst} \end{cases} \]
     angeben. Es ist klar, dass $f_N$ ein Beweissystem für $\Proj(R)$ ist.
@@ -730,7 +754,7 @@ Folgendes Lemma ist eine Generalisierung von \textcite[Thm. 5.2]{messner_simulat
     \end{gather*}
     und wir haben aus dem $f$-Beweis $z$ für $x$ einen $\mathit{std}_R$-Beweis $(x,y)$ für $x$ bestimmt.
     Es ist klar, dass die Übersetzung $z\mapsto (x,y)$ in Polynomialzeit möglich ist.
-\end{prooflist*}
+\end{prooflist}
 \end{proof}
 
 Folgendes Lemma ist eine Generalisierung von \textcite[Thm.~2]{fenner_inverting_2003}
@@ -747,7 +771,7 @@ Folgende Aussagen sind äquivalent:
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-\begin{prooflist*}
+\begin{prooflist}[label={}]
 \item (2)$\Rightarrow$(1): 
     Sei $R$ eine beliebige NP-Relation mit Zertifikatsschranke $q$, und
     sei $N$ eine beliebige NPTM mit $L(N)=\Proj(R)$. Definiere nun die NPTM $N'(w)$ wie folgt:\\
@@ -810,7 +834,7 @@ Folgende Aussagen sind äquivalent:
         \implies N(x) \text{ akz. mit Rechenweg } r(x)
     \end{gather*}
     mit $r\in \FP$, $r(x) = g(h(f(x), \alpha_x))$, wie gewünscht.
-\end{prooflist*}
+\end{prooflist}
 \end{proof}
 
 
@@ -1077,7 +1101,6 @@ also ist $h(f''(w))=x$ bzw. $f''(w)$ ein $h$-Beweis für $x$, wie gewünscht.
     Das ist genau die erste der der äquivalenten Aussagen in Lemma~\ref{lemma:stdps-q}. Damit gilt auch bezüglich \emph{diesem} gewählten $R$ auch die zweite der äquivalenten Aussagen, nämlich dass $\mathit{std}_R$ p-optimal ist.
 
 \item (1)$\implies$(10$'$): Im Beweis von Satz~\ref{thm:q} wurde (1)$\implies$(5)$\implies$(10) gezeigt. Beachte insbesondere dass im Beweis zur zweiten Implikation sogar eine stärkere Aussage bewiesn wurde, welche die Aussage (10) für alle NP-Relationen (und nicht nur vollständige) zeigt. Das entspricht genau der hier aufgestellten Aussage (10$'$), wie gewünscht.
-
 \end{prooflist}
 \end{proof}
 
@@ -1284,7 +1307,7 @@ Der folgende Satz ist eine Generalisierung von \textcite{dingel_separation_2022}
 \end{theorem}
 \begin{proof}
     Es gelten die notiertern Äquivalenzen:
-    \begin{prooflist}\setlength{\medskipamount}{0pt}
+    \begin{Prooflist}[nosep]
     \item $\neg\hQ \Leftrightarrow \mathit{sat}$ ist p-optimal, nach Satz~\ref{thm:q}.
     \item $\NP\neq\coNP \Leftrightarrow$ existiert keine NP-harte Funktion in $\TFNP$, nach Satz~\ref{thm:tfnp-vs-npconp}.
     \item $\neg\hQ' \Leftrightarrow\exists$ P-inseparierbares $\DisjCoNP$-Paar, nach \textcite{fortnow_separability_2002}.
@@ -1293,10 +1316,10 @@ Der folgende Satz ist eine Generalisierung von \textcite{dingel_separation_2022}
     \item $\UP\cap\coUP\neq\P \Leftrightarrow\exists$ Einwegpermutationen, nach \textcite{homan_one-way_2003}.
     \item $\hNPcoNP \Leftrightarrow \NPSV_t$ hat keine vollständige Funktion, nach \textcite[Prop.~3]{beyersdorff_nondeterministic_2009}.
     \item $\hDisjNP \Leftrightarrow \NPSV$ hat keine vollständige Funktion, nach \textcite[Thm.~9]{glaser_reductions_2005}.
-    \end{prooflist}
+    \end{Prooflist}
 
     Es gelten die eingezeichneten Implikationen:
-    \begin{prooflist}\setlength{\medskipamount}{0pt}
+    \begin{Prooflist}[nosep]
 \item $\hDisjNP \Rightarrow \mathsf{CON}^N$ nach \textcite{kobler_optimal_2003}.
 \item $\hUP \Rightarrow \hTAUT$ nach \textcite{kobler_optimal_2003}.
 \item $\mathsf{CON}^N\Rightarrow \mathrm{NEE\neq coNEE}$ nach \textcite{kobler_optimal_2003}.
@@ -1322,8 +1345,8 @@ Der folgende Satz ist eine Generalisierung von \textcite{dingel_separation_2022}
 \item $\exists$ P-inseparierbares $\DisjNP$-Paar $\Rightarrow \P\neq \NP$ klar.
 \item $\UP\cap\coUP\Rightarrow \UP\neq \P$, $\UP\cap\coUP\Rightarrow \NP\cap\coNP\neq\P$ klar.
 \item $\mathrm{NEE\neq coNEE \Rightarrow NE \neq coNE \Rightarrow NP \neq coNP \Rightarrow P\neq NP}$ klar.
-\item $\mathrm{NEE\neq coNEE \Rightarrow EE \neq NEE \Rightarrow E\neq NE}$ klar.
-\end{prooflist}
+\item $\mathrm{NEE\neq coNEE \Rightarrow EE \neq NEE \Rightarrow E\neq NE}$ klar.\qedhere
+\end{Prooflist}
 \end{proof}
 
 \chapter{Orakel}
