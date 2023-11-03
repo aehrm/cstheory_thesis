@@ -151,7 +151,7 @@
 \declaretheorem[style=definition,qed={$\triangleleft$},sibling=theorem]{definition}
 \makeatletter
 \renewenvironment{proof}[1][\proofname]{\par
-  \begin{mdframed}[backgroundcolor=lightgray!30!white,leftmargin=-5pt,rightmargin=-5pt,innerleftmargin=5pt,innerrightmargin=5pt,linewidth=0pt]
+  \begin{mdframed}[backgroundcolor=lightgray!30!white,leftmargin=-5pt,rightmargin=-5pt,innerleftmargin=5pt,innerrightmargin=5pt,linewidth=0pt,skipabove=0pt,skipbelow=10pt]
   \pushQED{\qed}%
   \normalfont\footnotesize \topsep6\p@\@plus6\p@\relax
   \list{}{\leftmargin=0em
@@ -213,9 +213,9 @@
 \SetKw{KwOr}{\thesis@algorithmor}
 \SetKw{KwAnd}{\thesis@algorithmand}
 \SetKw{KwNot}{\thesis@algorithmnot}
-\SetKw{Accept}{Akzeptieren}
-\SetKw{Reject}{Ablehnen}
-\SetKw{Reject}{Ablehnen}
+\SetKw{Accept}{akzeptieren}
+\SetKw{AcceptWith}{akzeptiere mit}
+\SetKw{Reject}{ablehnen}
 \SetKwInput{Input}{\thesis@algorithminput}
 \SetKwInput{Output}{\thesis@algorithmoutput}
 \setlength{\algomargin}{6ex}

@@ -14,7 +14,7 @@ Dieses Kapitel legt die definitorischen Grundlagen für die folgenden Kapitel fe
 Sei $\Sigma$ das standardmäßige Alphabet mit $\Sigma=\{0,1\}$. Elemente von $\Sigma^*$ nenenn wir Wörter, sind also endliche Sequenzen von Zeichen aus $\Sigma$. Teilmengen von $\Sigma^*$ nennen wir auch Sprachen. Wir bezeichnen die Länge eines Wortes $w\in\Sigma^*$ mit $|w|$. Das leere Wort bezeichnen wir mit $\epsilon$. Das $i$-te Zeichen eines Wortes $w$ für $0\leq i< |w|$ identifizieren wir mit $w[i]$. Diese Notation erweitern wir auf Sequenzen von Indizes: für $0\leq i_1, i_2, \dots, i_k< |w|$ und $\alpha=(i_1, i_2, \dots, i_k)$ sei $w[\alpha] = w[i_1]w[i_2]\cdots w[i_k]$. Insbesondere ist damit $w[0,1,2,\dots, |w|-1]= w$.
 Falls $w$ ein (echter) Präfix von $w$ ist dann schreiben wir $w \sqsubseteq v$ (bzw. $w\sqsubsetneq v$).
 
-Die Menge aller natürlichen (nicht-negativen) Zahlen wird mit $\mathbb N$ bezeichnet. Die leere Menge notieren wir wie üblich als $\emptyset$. Die Kardinalität einer Menge $A$ notieren wir wie üblich als $|A|$. Für eine Menge $A\subseteq\Sigma^*$ und $n\in \mathbb N$ definieren wir $A^{\leq n} = \{ w\in A \mid |w|\leq n\}$. Analog definieren wir $A^{<n}, A^{=n}$, usw. Außerdem bezeichnet $\ell(A)=\sum_{w\in A} |w|$. Für solche Teilmengen $A$ von $\Sigma^*$ verstehen wir das Komplement $\overline{A}$ als $A\setminus \Sigma^*$.
+Die Menge aller natürlichen (nicht-negativen) Zahlen wird mit $\mathbb N$ bezeichnet. Die leere Menge notieren wir wie üblich als $\emptyset$. Die Kardinalität einer Menge $A$ notieren wir wie üblich als $|A|$. Für eine Menge $A\subseteq\Sigma^*$ und $n\in \mathbb N$ definieren wir $A^{\leq n} = \{ w\in A \mid |w|\leq n\}$. Analog definieren wir $A^{<n}, A^{=n}$, usw. Außerdem bezeichnet $\ell(A)=\sum_{w\in A} |w|$. Für solche Teilmengen $A$ von $\Sigma^*$ verstehen wir das Komplement $\overline{A}$ als $A-\Sigma^*$.
 
 Zweistellige bzw. binäre Relationen $R\subseteq A\times B$ können wir mit den üblichen Eigenschaften beschreiben: die Relation $R$ ist
 \begin{itemize}
@@ -479,36 +479,99 @@ Damit ist im Übrigen die obige Definition von NP-Relationen auch nicht „neu�
 Vgl. z.B. \textcite{goldreich_computational_2008} wlecher in seinem Lehrbuch die $\P$-vs.-$\NP$-Frage zunächst als die äquivalente Frage der Beziehung zwischen den „\emph{efficiently solvable search problems}“ und den „\emph{search problems with efficiently checkable solutions}“ (letzteres sind genau die NP-Relationen) formuliert. Erst später wird mittels \emph{Search-reduces-to-Decision}-Argumenten dafür argumentiert, NP-Entscheidungsproble als die zentralen Untersuchungsobjekte der Komplexitätstheorie anzusehen.
 %\textcite{arora_computational_2009} weist dagegen erst nach Einführung der NP-Vollständigkeit darauf hin, dass die Perspektivierung über Entscheidungsprobleme zumindest adäquat für NP-vollständige Suchprobleme ist. Wir diskutieren dieses \emph{Search-reduces-to-decision}-Paradigma in Abschnitt~\ref{}. 
 
-\begin{lemma}
+\begin{lemma}\label{lemma:equiv-p-np-question}
     $\mathrm{FNP}\subseteqc \FP \iff \P = \NP.$
 \end{lemma}
 \begin{proof}
     Die Richtung von links nach rechts ist klar, sind ja Suchprobleme schwieriger als Entscheidungsprobleme (Beobachtung~\ref{obs:search-stronger-than-decision} mit Beobachtung \ref{obs:np-certificate-def}.)
 
-    Die Richtung von rechts nach links zeigen wir mittels der Left-Set-Technik. Sei $R$ eine beliebige NP-Relation mit Zertifikatsschranke $q$. Wir zeigen dass $R\inc\FP$.
+    Die Richtung von rechts nach links zeigen wir mittels Präfixsuche. Sei $R$ eine beliebige NP-Relation mit Zertifikatsschranke $q$. Wir zeigen dass $R\inc\FP$.
     Betrachte folgende Menge
-    \[ A = \{ (x, z) \mid \exists y\in\Sigma^{\leq q(|x|)}, (x,y)\in R, y\leq z \} \]
-    Zur Erinnerung: Die Ordnung $\leq $ auf Wörtern entspricht der quasi-lexikographischen Ordnung.
+    \[ A = \{ (x,y) \mid \exists w\in\Sigma^{\leq q(|x|)-|z|}, (x, yw)\in R \} \]
     Es ist leicht zu sehen dass $A\in\NP$. Also gilt nach Annahme aus $A\in\P$.
-    Nun kann gegeben eine Instanz $x$ mittels binärer Suche das kleinste Zertifikat $y$ für $x$ gefunden werden:\\
+    Nun kann gegeben eine Instanz $x$ iterativ ein Präfix eines Zertifikats verlängert werden:\\
     \begin{algorithm}[H]
-        $L\gets 0; R\gets 1^{q(|x|)}$\;
-        \uIf{$(x, R)\not\in A$}{\Return{ablehnen}}
-        \tcc{Es existiert also ein kleinster Zeuge $y$ zu $x$.}
-        \While(\tcp*[h]{Invariante: $L\leq y\leq R$}){$L<R$}
+        $y\gets\epsilon$\;
+        \While(\tcp*[h]{Invariante: wenn ein Zertifikat $z$ für $x$ ex., dann $y\sqsubseteq z$}){$|y|\leq q(|x|)$}
         {
-            $M\gets \lfloor (L+R)/2 \rfloor$\;
-            \uIf(\tcp*[h]{damit $L\leq y \leq M \leq R$}){$(x, M)\in A$}{
-                $R\gets M$\;
-            }
-            \Else(\tcp*[h]{damit $L\leq M<y \leq R$}){
-                $L\gets M+1$\;
-            }
+            \uIf{$(x,y)\in R$}{\AcceptWith{$y$}}
+            \uElseIf{$(x,y0)\in A$}{$y\gets y0$}
+            \uElseIf{$(x,y1)\in A$}{$y\gets y1$}
+            \Else{\Reject}
         }
-        \Return{$L$}
+        \Reject
     \end{algorithm}
-    Unter Annahme $A\in\P$ ist klar, dass diese Funktion von einem PTM-Transduktor berechnet werden kann. Damit $R\inc\FP$.
+    \noindent
+    Korrektheit klar.
+    Unter Annahme $A\in\P$ ist auch klar, dass diese Funktion von einem PTM-Transduktor berechnet werden kann. Damit $R\inc\FP$.
 \end{proof}
+
+%\begin{lemma}
+    %$\mathrm{TFNP}\subseteqc \FP \iff \mathsf{Q}$
+%\end{lemma}
+
+\begin{corollary}[\emph{Search reduces to decision} für die NP-Vollständigen]
+    Sei $R$ eine NP-Relation, für die $\Proj(R)$ auch $\leqmp$-vollständig für $\NP$ ist.
+    Dann gilt $R\inc \FP^{\Proj(R)}$.
+\end{corollary}
+\begin{proof}
+    Relativ zum Orkakel $\Proj(R)$ gilt $\P=\NP$, ist ja $\Proj(R)$ vollständig für $\NP$. Damit gilt mit vorigem Lemma~\ref{lemma:equiv-p-np-question} auch $\mathrm{FNP} \subseteqc \FP$ relativ zu $\Proj(R)$.
+    Da $R\in \mathrm{FNP}$, gilt also auch $R\inc \FP$ relativ zu $\Proj(R)$.
+\end{proof}
+
+\todo{Suchprobleme können natürlich immer auf die Bisektions-Entscheidunsvariante reduziert werden, z.B. rSMALLFACTOR. Das sind dann aber nicht immer natürliche NP-Relationen mehr. Andererseits ist es z.B. bei Graphisomorphismus möglich, Suche auf das (natürliche) Entscheidungsproblem zu reduzieren}
+
+%\begin{theorem}
+    %Es existiert eine totale NP-Relation $R$ mit $R\not\inc \FP^{\Proj(R)}$ genau dann wenn eine totale ehrliche Funktion $g\in\FP$ existiert die nicht p-invertierbar ist. (Vgl. Hypothese $\mathsf{Q}$.)
+%\end{theorem}
+Abschließend wollen wir noch theoretische Resultate präsentieren. Die ersten zwei plausbilisieren, dass wahrscheinlich eine NP-Relation existiert, für die das Suchproblem nicht auf das Entscheidungsproblem reduziert werden kann. 
+
+\begin{theorem}[{\cites{impagliazzo_1991}[Thm.~5]{borodin_comments_1976}}]
+    Angenommen $\mathrm{E\neq NE}$ oder $\P\neq \NP\cap\coNP$. Dann existiert eine NP-Relation mit $\Proj(R)\in \NP-\P$ für die $R\not\inc\FP^{\Proj(R)}$ gilt.
+\end{theorem}
+
+Unter stärkeren Bedingungen kann sogar zeigen, dass sogar \emph{Mengen} $L\in\NP$ existieren, für die das Suchproblem \emph{jeder} NP-Relation für $L$ nicht auf das Entscheidungsproblem reduziert werden kann. In anderen Worten, unabhängig davon wie das „Zertifikatssystem“ für $L$ aussieht, ist keins so einfach dass Zertifikate mit Hilfe eines Orakels für das Suchproblem gelöst werden können.
+
+\begin{theorem}[{\cites[Thm.~1.1]{bellare_complexity_1994}{impagliazzo_1991}}]
+Angenommen $\mathrm{EE\neq NEE}$ oder $\mathrm{NE\neq coNE}$. Dann existiert eine Menge $L\in\NP-\P$ sodass $R\not\inc \FP^L$ für jede NP-Relation $R$ für $L$, i.e. für die $\Proj(R)=L$ gilt.
+\end{theorem}
+
+Folgendes Resultat charakterisiert diejenigen Sprachen $L\in\NP$ die zumindest \emph{eine} NP-Relation $R$ für $L$ haben, sodass das Suchproblem (bzgl. $R$) auf das Entscheidungsproblem reduzierbar ist.
+\begin{definition}
+    \begin{enumerate}
+        \item Eine deterministishe OTM heißt \emph{robust für $A$} falls $L(M^O)=A$ für alle Orakel $O$.
+        \item Eine Menge $A$ heißt \emph{selbsthelfend} falls eine für $A$ robuste OTM $M$ existiert, für die $\mathrm{time}_M^A(x)$ polynomiell in abh. von $|x|$ wächst, i.e. $M^A$ ist eine POTM (zumindest mit dem Orakel $A$ angeschlossen).\qedhere
+    \end{enumerate}
+\end{definition}
+\citeauthor{balcazar_self_1989} fass die Intuition hinter dieser Definition wie folgt zusammen: man will die Situation abbilden, dass ein Entscheidungsalgoritmus existiert der, mit genug Zeit, immer zu einem korrekten Ergebnis kommt, aber auch mit einem externen „Helfer“ interagieren darf, welcher dem Algorithmus helfen kann, schneller fertig zu rechnen.
+\begin{theorem}[\cite{balcazar_self_1989}]
+    Sei $A\in NP$. Folgende Aussagen sind äquivalent:
+    \begin{enumerate}
+        \item $A$ ist selbsthelfend.
+        \item es existiert eine NP-Relation $R$ sodass $\Proj(R)=A$ und $R\inc \FP^{A}$.
+    \end{enumerate}
+\end{theorem}
+
+Für (totale) Suchprobleme aus $\TFNP$ kann nicht sinnvoll gefragt werden, ob hier das Suchproblem auf das Entscheidungsproblem reduziert werden kann, ist ja für $R\in\TFNP$ das entsprechende Entscheidungsproblem $\Proj(R)=\Sigma^*$ trivial.
+
+Stattdessen können wir uns aber fragen, ob das Suchproblem eines Zertifikats zu $x$ einfacher wird, wenn wir Lösungen zu „kleineren“ Instanzen $x'$ gratis abfragen dürfen.
+Hierzu können wir folgenden Begriff von Reduzierbarkeit definieren:
+Betrachte hierbei folgende Variante eine POTM-Transduktors relativ zu $R$: Dieser Transduktor ist wie ein üblicher PTM-Transduktor, hat zusätzlich aber Zugriff auf ein \emph{funktionales} Orakel, in dem Sinne dass er Orakelfragen der Form „\emph{gib mir ein Zertifikat $y$ für $x'$}“ stellen kann. Das Orakel antwortet dann
+\begin{itemize}
+    \item mit einem solchen Zerifikat $y$ falls ein solches mit $(x', y)\in R$ existiert, oder
+    \item mit „unlösbar“ falls ein solches Zertifikat nicht existieren sollte.
+\end{itemize}
+Es ist klar, dass mit einem solchen Transduktor relativ zu $R$ auch das Suchproblem zu $R$ lösbar ist. (Gegeben $x$, stelle einfach die Frage „gib mir Zertifikat für $x$“.) Deshalb nehmen wir folgende Enschränkung vor: der Transduktor darf bei Eingabe $x$ in den Orakelfragen nur nach Zertifikaten für $x'$ fragen, die kürzer sind als $x$.
+Falls selbst unter dieser Einschränkung der Fragen das Suchproblem durch eien solchen Transduktor relativ zu $R$ gelöst werden kann, sagen wir, dass $R$ \emph{nach unten selbstreduzierbar ist}.
+
+\todo{Beispiel eines Problems (muss in PLS liegen) das nach unten selbstreduzierbar ist}
+
+Für die TFNP-Relation $\mathtt{rFACTOR}'\in\TFNP$ (i.e., gebe mir einen nichttriviane Faktor für $n$, oder gebe „prim“ aus) zeigen \citeauthor{harsha_downward_2023}, dass diese Relation wahrscheinlich nicht nach unten selbstreduzierbar ist.
+\begin{theorem}[{\cite{harsha_downward_2023}}]
+    Die NP-Relation $\mathtt{rFACTOR}'\in\TFNP$ ist nicht nach unten selbstreduzierbar, außer $\mathtt{rFACTOR}'\in\mathtt{PLS}$.
+\end{theorem}
+Es ist offen ob $\mathtt{rFACTOR}'\stackrel{?}{\in}\mathtt{PLS}$ und zumindest unplausibel, weil unklar ist wie Faktorisierung als lokales Suchproblem repräsentiert werden kann.
+Tatsächlich zeigen die Autorinnen sogar die Konsequenz $\mathtt{rFACTOR}'\in\mathrm{UEOPL}$, was auch noch $\mathtt{rFACTOR}'\in\mathrm{PPAD}$ zur Folge hätte. Auch die Frage ob $\mathtt{rFACTOR}'\stackrel{?}{\in}\mathrm{PPAD}$ ist offen, und wurde breit untersucht. Eine positive Antwort wäre zumindest sehr überraschend (vgl. \cite[67:15]{harsha_downward_2023}; siehe ebd. auch für eine Def. von $\mathrm{UEOPL}$, $\mathrm{PPAD}$).
 
 
 \section{Levin-Reduzierbarkeit}
@@ -1236,13 +1299,13 @@ Mit der Definition der effektiven p-Simulation und der eben beweisenen äquivale
 
 \section{Bekannte Implikationen, Offene Orakel}
 
-\begin{theorem}[\cite{dingel_separation_2022}]\label{thm:tfnp-vs-npconp}
-    Folgende Aussagen sind äquivalent:
-    \begin{enumerate}
-        \item $\NP=\coNP$
-        \item Es existiert eine $\NP$-harte Funktion $f\in\TFNP$: für jede Menge $L\in\NP$ und jede Verfeinerung $f'$ von $f$ gilt $L\in\P^{f'}$.
-    \end{enumerate}
-\end{theorem}
+%\begin{theorem}[\cite{dingel_separation_2022}]\label{thm:tfnp-vs-npconp}
+    %Folgende Aussagen sind äquivalent:
+    %\begin{enumerate}
+        %\item $\NP=\coNP$
+        %\item Es existiert eine $\NP$-harte Funktion $f\in\TFNP$: für jede Menge $L\in\NP$ und jede Verfeinerung $f'$ von $f$ gilt $L\in\P^{f'}$.
+    %\end{enumerate}
+%\end{theorem}
 
 Der folgende Satz ist eine Generalisierung von \textcite{dingel_separation_2022}.
 \begin{theorem}\label{thm:npmvt-vs-npconp}
@@ -1325,7 +1388,7 @@ Der folgende Satz ist eine Generalisierung von \textcite{dingel_separation_2022}
 \item $\mathsf{CON}^N\Rightarrow \mathrm{NEE\neq coNEE}$ nach \textcite{kobler_optimal_2003}.
 \item $\NP\cap\coNP\neq \P \Rightarrow \neq\hQ' \Rightarrow \NPMVt \not\subseteqc \TFNP \Rightarrow \neq\hQ$ nach \textcite{fenner_inverting_2003}.
 %\item $\mathrm{E\neq NE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{bellare_complexity_1994}.
-\item $\mathrm{E\neq NE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach Impagliazzo und Sudan (private Kommunikation berichtet von \cite{bellare_complexity_1994}, Abschn. 1.5.4).
+\item $\mathrm{E\neq NE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{impagliazzo_1991}.
 \item $\UP\neq\P \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar, nach \textcite[Thm.~5]{grollmann_complexity_1988}.
 \item $\hNPcoNP\Rightarrow \hTAUT\lor\hSAT$ nach \textcite{beyersdorff_nondeterministic_2009}.
 \item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \hSAT$ nach \textcite[Thm.~25]{beyersdorff_nondeterministic_2009}.
