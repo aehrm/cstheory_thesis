@@ -177,6 +177,7 @@
 
 
 \setlist[enumerate]{label=(\arabic*), itemsep=0pt}
+\setlist[enumerate,2]{label=(\arabic{enumi}.\arabic*), itemsep=0pt}
 \setlist[itemize]{itemsep=0pt}
 \setlist{beginpenalty=10000, midpenalty=10000}
 \newlist{Prooflist}{enumerate}{1}
@@ -189,6 +190,8 @@
 
 
 \usepackage[autostyle]{csquotes}
+\usepackage[labelfont={bf,sf},textfont=sf]{caption}
+\counterwithout{figure}{chapter}
 
 %\usepackage[authordate,url=false,dashed=false]{biblatex-chicago}
 \usepackage[style=myauthoryear,backend=biber,mergedate=false,maxbibnames=99,dashed=false]{biblatex}
