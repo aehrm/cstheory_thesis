@@ -276,7 +276,7 @@ Hieraus ergibt sich der Begriff der (p-)Optimalität.
 Es ist leicht zu sehen, dass jedes Beweissystem mit kurzen Beweisen auch optimal ist. Im Zusammenhang mit dem Cook–Reckhow-Programm weisen \textcite{krajicek_propositional_1989} darauf hin, dass die Existenz eines optimalen Beweissystems für $\mathtt{TAUT}$ wahrscheinlich schwächer ist, als die Existenz eines Beweissystems mit kurzen Beweisen, denn Ersteres folgt schon aus $\mathrm{NE}=\mathrm{coNE}$. (\citeauthor{kobler_optimal_2003}, \citeyear{kobler_optimal_2003}, schwächen die Voraussetzung auf $\mathrm{NEE=coNEE}$ ab.)
 
 Für die Mengen aus $\P$ bzw. $\NP$ existieren p-optimale bzw. optimale Beweissysteme:
-\begin{observation}
+\begin{observation}\label{obs:np-short-ps}
     \begin{enumerate}
         \item Ist $A\in \P$, dann existiert ein p-optimales Beweissystem für $A$ mit kurzen Beweisen.
         \item Ist $A\in \NP$, dann existiert ein optimales Beweissystem für $A$ mit kurzen Beweisen.
@@ -784,13 +784,13 @@ Ebenso ist $\mathtt{rANOTHERHAMCYCLE}$ auch $\leqlp$-vollständig \parencite*[23
 
 NP-Relationen $R$ für welche die Projektion zwar $\leqmp$-vollständig, aber $R$ nicht $\leqlp$-vollständig sind, scheinen nicht bekannt zu sein.
 Aus dieser empirischen Beobachtung ergibt sich die Frage, ob das auch für \emph{alle} NP-Relationen $R$ gilt: 
-\begin{question}
+\begin{restatable}{question}{questionkvl}\label{question:kvl}
 Wenn $\Proj(R)$ eine $\leqmp$-vollständige Menge für $\NP$ ist, ist dann auch $R$ eine $\leqlp$-vollständige NP-Relation für $\FNP$?
-\end{question}
+\end{restatable}
 Aus Präsentationsgründen werden wir die pessimistische negative Antwort auf diese Frage als Vermutung formulieren:
-\begin{conjecture}[Karp-vs-Levin-Vermutung; $\mathsf{KvL}$]\label{conj:kvl}
+\begin{restatable}[Karp-vs-Levin-Vermutung; $\mathsf{KvL}$]{conjecture}{conjkvl}\label{conj:kvl}
     Es existiert eine NP-Relation $R$ sodass $\Proj(R)$ $\leqmp$-vollständig für $\NP$ ist, aber $R$ ist nicht $\leqlp$-vollständig für $\FNP$.
-\end{conjecture}
+\end{restatable}
 Obwohl diese Frage erstaunlich auf natürlich scheint, und zwei umfassende Reduktionsbegriffe der Komplexitätstheorie in Beziehung setzen versucht, gibt es erstaunlicherweise kaum Forschung welche sich dieser Hypothese annähert.
 Ein Beweis von $\mathsf{KvL}$ ist jedenfalls mindestens so schwer wie die P-NP-Frage, denn $\mathsf{KvL}\Rightarrow \P\neq \NP$.
 In Abschnitt~\ref{} werden wir diese Hypothese und dessen Beziehung zu anderen Hypothesen erarbeiten. Dort werden dann auch Argumente geliefert, die für diese negative Antwort sprechen.
@@ -1174,7 +1174,27 @@ Eine enstprechende Codierung des Zertifikats wäre z.B. von der Form $h(c_1)h(c_
 
 \todo{Intro}
 
-Da wir im späteren Teil der Arbeit mit Orakeln die einzelnen Hypothesen (unter relativierbaren Beweisen) trennen wollen, ist es notwendig, dass wir uns bei den einzelnen Hypothesen auf eine relativierbare Definition einigen.\marginnote{\todo{Wo sollen wir eigentlich UP, DisjNP, DisjCoNP definieren?}}
+\begin{conjecture}[$\hQ$, \cite{fenner_inverting_2003}]
+    Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierende Berechnung von $N(x)$ ist. 
+\end{conjecture}
+
+\begin{theorem}[Äquivalente Formulierungen der Hypothese $\hQ$; \cite{fenner_inverting_2003}]\label{thm:q-orig}
+    Folgende Aussagen sind äquivalent:
+    \begin{enumerate}
+        \item Hypothese $\hQ$.
+        \item $\mathrm{NPMV}_t\subseteqc \mathrm{FP}$.
+        \item $\P=\NP\cap\coNP$ und $\mathrm{NPMV}_t\subseteqc \mathrm{NPSV}_t$.
+        \item Jede surjektive ehrliche Funktion $f\in\FP$ ist p-invertierbar. %Zur Erinnerung: p-Invertierbarkeit bedeutet dass eine Funktion $g\in\FP$ existiert mit $f(g(y))=y$.
+        \item Für jede Menge $L\in \P$  und jede NPTM $N$ mit $L(N)=L$ existiert eine Funktion $h\in \FP$ mit 
+            \[ x\in L \implies N(x) \text{ akz. mit Rechenweg $h(x)$}. \]
+    \end{enumerate}
+\end{theorem}
+
+\todo{Vielleicht ansprechen dass Fenner u.a. auch $\hQ$ via SAT charakterisiert haben, dass Messner $\hQ$ via Beweissystemen charakterisiert hat.}
+
+\subsection*{Relativierungen}
+
+Da wir im späteren Teil der Arbeit mit Orakeln die einzelnen Hypothesen (unter relativierbaren Beweisen) trennen wollen, ist es notwendig, dass wir uns bei den einzelnen Hypothesen auf eine relativierbare Definition einigen.\marginnote{\todo{Wo sollen wir eigentlich UP, DisjNP, DisjCoNP definieren? Vielleicht all das in den Grundlagen-Teil verschieben.}}
 
 Unter den Hypothesen betreffen der Existienz von vollständigen Sprachen bzw. Paaren ($\hUP$, $\hDisjNP$, \dots) ist eine natürliche Relativierung klar. Beispielsweise wäre die zu Orakel $O$ relativierte Hypothese $\hUP$ die Aussage, dass keine $\leq_\mathrm{m}^{\mathrm p,O}$-vollständige Menge für $\UP^O$ existiert.
 
@@ -1208,6 +1228,60 @@ Im Folgenden werden wir nur noch mit diesen relativierbaren Hypothesen arbeiten.
 \todo{Überblick geben was nun passiert. Abbildung sollten wir wahrscheinlich hier schon vorwegnehmen.}
 
 \section{Karp-Vollständigkeit vs. Levin-Vollständigkeit}
+
+Wir wiederholen hier erneut die zentrale offene Frage und Vermutung aus Abschnitt~\ref{}:
+
+\questionkvl
+
+\conjkvl
+
+Ich möchte argumentieren, dass die obige Frage bzw. Vermutung eng mit der Hypothese $\hQ$ zusammenhängt.
+Im speziellen werden wir sehen, dass die Hypothese $\hQ$ so charakterisiert werden kann, dass sie „fast“ der Vermutung $\mathsf{KvL}$ entspricht.
+
+\begin{theorem}
+    Folgende Aussagen sind äquivalent:
+    \begin{enumerate}
+        \item Hypothese $\hQ$: für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass $g(x)$ eine akzeptierende Berechnung von $N(x)$ ist. 
+        \item Für jedes Paar von NP-Relationen $A, B$ und jede Funktion $f\in\FP$ gilt:
+            \[ \Proj(A) \leqmp \Proj(B) \text{ via $f$} \iff A \leqlp B \text{ via Reduktionsfunktion $f$}. \]
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    \begin{prooflist}[label={}]
+\item (1)$\implies$(2): Die Richtunng von rechts nach links ist klar. Für die andere Richtung sei $\Proj(A) \leqmp \Proj(B)$ mit $A,B$ NP-Relationen. Sei $q$ hierbei das Polynom was die Zertifikatslänge in $A$ begrenzt.
+    Wir wollen nun eine Levin-Reduktion von $A$ auf $B$ angeben. Sei $f\in \FP$ die Funktion, welche die Reduktion $\Proj(A) \leqmp \Proj(B)$ realisiert.
+
+    Definiere folgende NPTM $N$, die wie folgt auf Eingabe $w$ arbeitet: \\
+    \begin{algorithm}[H]
+        \lIf{$w$ nicht von der Form $(x, y')$}{akzeptiere}
+        $(x, y')\gets w$\;
+        \lIf{$(f(x), y')\not\in B$}{akzeptiere}
+        \Else{
+        \tcc{Ab hier gilt $f(x)\in \Pr(B)$ und $x\in \Pr(A)$}
+        Rate nichtdeterministisch $y\in \Sigma^{q(|x|)}$\;
+        Akzeptiere genau dann wenn $(x,y)\in A$.
+        }
+    \end{algorithm}
+    Es ist leicht zu sehen dass $L(N)=\Sigma^*$. Nach (1) existiert nun also eine Funktion $g$ sodass, für alle $w$, $g(w)$ eine akzeptierender Rechwenweg von $N(w)$ ist.
+
+    Damit lässt die Levin-Reduktion von $A$ auf $B$ angeben: wähle $f$ als Reduktionsfunktion, und definiere $g'$ als Translationsfunktion, welche aus dem akzeptierenden Rechenweg $g(x, y')$ das geratene Zertifikat $y$ von Zeile 5 ausliest. Dann gilt
+    \begin{gather*}
+        (f(x), y') \in B \implies N(x, y') \text{ akz. auf einem Rechenweg in Z.\,6, ratet $y$}\\
+        \implies (x,y)=(x, g'(x, y'))\in A
+    \end{gather*}
+    wie gewünscht. Wir haben $A\leqlp$ via $f, g'$.
+\item (2)$\implies$(1): Sei $n$ eine NPTM mit $L(N)=\Sigma^*$.
+    Definiere die NP-Relation
+    \[ A = \{ (x, w) \mid x\in\Sigma^*,\text{ $N(x)$ akz. auf Rechenweg $w$} \}, \]
+    und die NP-Relation
+    \[ B = \{ (x, \epsilon) \mid x\in\Sigma^* \}. \]
+    Es ist leicht zu sehen das $\Proj(A)=L(N)=\Sigma^*=\Proj(B)$ und dass $\Proj(A)\leqmp\Proj(B)$ über die Identitätsfunktion.
+    Nach Annahme (2) lässt sich nun diese Reduktion zu einer Levin-Reduktion $A\leqlp B$ verstärken, wobei die Reduktionsfunktion die Identitätsfunktion ist, und $h\in\FP$ die Translationsfunktion.
+    Wir haben also
+    \[ (x,\epsilon)\in B \implies (x, g(x, \epsilon))\in A \implies \text{$N(x)$ akz. auf Rechenweg $h(x,\epsilon)$}. \]
+    Definieren wir nun $g(x)=h(x,\epsilon)$ haben wir (1) gezeigt: für alle $x$ akzeptiert $N(x)$ auf $g(x)$.
+\end{prooflist}
+\end{proof}
 
 
 \begin{theorem}\label{thm:kvl-implies-q}
@@ -1880,7 +1954,7 @@ Der folgende Satz ist eine Generalisierung von \textcite{dingel_separation_2022}
 \item $\hDisjNP \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar; ist klar, denn wenn alle $\DisjNP$-Paare P-separierbar wären, dann wären auch alle Paare $\leqmpp$-vollständig.
 \item $\hDisjCoNP \Rightarrow \exists$ P-inseparierbares $\DisjCoNP$-Paar; ist aus selben Gründen klar.
 \item $\mathsf{CON^N} \Rightarrow \hTAUT$ klar, weil aus p-Optimalität auch Optimalität folgt.
-\item $\mathsf \hSAT \Rightarrow \neg\hQ $ klar: wen $\hQ$, dann ist nach Satz~\ref{thm:q} jedes optimale Beweissystem auch p-optimal. Dann gilt mit Satz~\ref{} auch $\neg\hSAT$, denn wenn zu beliebiger Menge $L$ ein optimales Beweissystem $h$ existiert, dann ist $h$ auch p-optimal und $L$ hat ein p-optimales Beweissystem. \todo{Vielleicht als eigenständiges Korollar herausstellen.}
+\item $\mathsf \hSAT \Rightarrow \neg\hQ $ klar: wen $\hQ$, dann ist nach Satz~\ref{thm:q} jedes optimale Beweissystem auch p-optimal. Dann gilt auch $\neg\hSAT$: jede Menge $L\in\NP$ hat ein optimales Beweissystem $h$ (Beobachtung~\ref{obs:np-short-ps}) und das ist nach Voraussetzung p-optimal.
 \item $\hUP \Rightarrow \UP\neq\P$ klar.
 \item $\hNPcoNP \Rightarrow \NP\cap\coNP\neq \P$ klar.
 \item $\exists$ P-inseparierbares $\DisjNP$-Paar $\Rightarrow \P\neq \NP$ klar.
