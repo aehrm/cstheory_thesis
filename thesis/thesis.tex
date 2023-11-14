@@ -43,6 +43,8 @@
 \usepackage{xcolor}
 \usepackage{ragged2e}
 \usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning}
 
 \setlength{\emergencystretch}{1em}
 
@@ -148,6 +150,15 @@
 \newtheorem{conjecture}[theorem]{Vermutung}
 \newtheorem{question}[theorem]{Frage}
 \newtheorem*{remark}{Anmerkung}
+\makeatletter
+\def\rep@title{}
+\newtheorem*{rep@theorem}{\protect\rep@title}
+\newenvironment{reptheorem}[1]{%
+ \def\rep@title{Satz \ref{#1}}%
+ \begin{rep@theorem}}%
+ {\end{rep@theorem}}
+\makeatother
+
 
 %\theoremstyle{definition}
 %\newtheorem{definition}[theorem]{Definition}
