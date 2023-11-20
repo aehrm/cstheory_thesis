@@ -18,8 +18,9 @@
 
 %\documentclass[11pt,twoside,BCOR=12mm,DIV=9,headings=small]{scrreprt}
 \newif\ifbook
+%\booktrue
 \ifbook
-\documentclass[11pt,a4paper,twoside]{report}
+\documentclass[10pt,a4paper,twoside]{report}
 \else
 \documentclass[10pt,a4paper]{report}
 \usepackage[bottom=1cm,top=1cm,foot=0.8cm,text={14cm,20cm}]{geometry}
@@ -28,16 +29,20 @@
 \usepackage[ngerman]{babel}
 \usepackage[fleqn]{mathtools}
 \usepackage{fontspec}
-\setmainfont{CMU Serif}
-%\setsansfont[BoldFont={Fira Sans Medium}]{Fira Sans}
-\setmonofont[Scale=0.80]{JetBrains Mono Light}
 \usepackage{unicode-math}
+\usepackage{setspace}
 \ifbook
+\usepackage[DIV=9]{typearea}
 \setmainfont[Numbers={OldStyle}]{TeX Gyre Pagella}
 \setmathfont{TeX Gyre Pagella Math}
-\usepackage{setspace}
-\usepackage[DIV=9]{typearea}
+\setsansfont[Scale=MatchLowercase]{IBM Plex Sans}
+\setmonofont[Scale=MatchLowercase]{JetBrains Mono Light}
+\else
+\setmainfont{CMU Serif}
+\setsansfont[Scale=MatchLowercase]{IBM Plex Sans}
+\setmonofont[Scale=MatchLowercase]{JetBrains Mono Light}
 \fi
+\newfontfamily\cyrfont{Linux Libertine}[Scale=MatchLowercase]
 \usepackage{mdframed}
 \usepackage[pdfusetitle,pdfencoding=auto,psdextra,bookmarksopen]{hyperref}
 \usepackage{xcolor}
@@ -81,7 +86,7 @@
 	{1em}
 	{\setstretch{0.9}\raggedright\itshape}
 \titleformat{\subsection}
-	{\itshape\normalfont}
+	{\itshape\large}
 	{\raggedright\normalfont\thesubsection}
 	{1em}
 	{\setstretch{0.9}\itshape}

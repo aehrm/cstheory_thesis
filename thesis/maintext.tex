@@ -31,6 +31,10 @@ Diese Fokussierung auf Entscheidungsprobleme ist durchaus fundiert: es lässt si
 \end{tabular}
 \bigskip
 
+\begin{restatable}[$\hQ$, \cite{fenner_inverting_2003}]{conjecture}{conjq}
+    Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierende Berechnung von $N(x)$ ist. 
+\end{restatable}
+
 \chapter{Grundlagen}
 
 Dieses Kapitel legt die definitorischen Grundlagen für die folgenden Kapitel fest. In Abschnitt~\ref{sec:notation} legen wir mathematische Notationen für diese Arbeit fest. Abschnitt~\ref{sec:prelim-machines} spezifiziert das Maschinenmodell.  Abschnitt~\ref{sec:prelim-klassen} wiederholt einige Standarddefinitionen aus der Komplexitätstheorie. Abschnitt~\ref{sec:prelim-orakel} setzt das hier verwendete Verständnis von Relativierungen fest. Abschließend geht Abschnitt~\ref{sec:prelim-ps} kurz auf Beweissysteme im Sinne von \textcite{cook_relative_1979} ein.
@@ -64,7 +68,7 @@ Falls $f$ eine Funktion bzw. funktional ist, meinen wir mit $f(x)$ wie üblich d
 
 
 
-Für eine Funktion $f$ bezeichnen wir die Urbild- bzw. Bildmenge (domain und range) mit $\dom(f)$ und $\ran(f)$. (Beachte dass $\Proj(f)=\dom(f)$. Wir führen diese Unterscheidung nur wegen den Gewohnheiten dieser zwei Notationen ein.) Ist $f$ eine injektive Funktion, dann bezeichnen wir mit $f^{-1}$ dessen Umkehrfunktion. Beobachte dass $f^{-1}$ funktional ist, ist ja $f$ injektiv. Ist $f$ sogar bijektiv, dann ist die Umkehrfunktion $f^{-1}$ eine totale Funktion.
+Für eine Funktion $f$ bezeichnen wir die Urbild- bzw. Bildmenge (domain und range) mit $\dom(f)$ und $\ran(f)$. (Beachte dass $\Proj(f)=\dom(f)$. Wir führen diese Unterscheidung nur wegen den Gewohnheiten dieser zwei Notationen ein.) Ist $f$ eine Funktion, dann bezeichnen wir mit $f^{-1}$ dessen Umkehrrelation. Beobachte dass $f^{-1}$ funktional ist, wenn $f$ injektiv ist. Ist $f$ sogar bijektiv, dann ist die Umkehrfunktion $f^{-1}$ eine totale Funktion.
 
 Eine Funktion $f\colon\Sigma^*\to\Sigma^*$ nennen wir \emph{verlängernd} wenn $|f(x)|\geq |x|$ für alle $x\in\dom(f)$.
 Die Funktion $f$ nennen wir \emph{polynomiell längenbeschräkt} wenn ein Polynom $p$ existiert sodass $|x|\leq p(|x|)$ für alle $x\in\dom(f)$.
@@ -149,7 +153,7 @@ Die Funktioneklassen $\FP, \mathrm{NPMV}, \mathrm{NPSV}$ ist analog definiert \p
     \NPMV &= \{ f\subseteq \Sigma^*\times\Sigma^* \mid \text{$f$ ist eine Multifunktion und ex. NPTM-Transduktor $M$ der $f$ berechnet} \}
 \end{align*}
 Wir defineren $\NPMVt$ als die Teilmenge von $\NPMV$ der Multifunktionen, die linkstotal sind. Analog $\NPSVt$.
-Ist für eine injektive Funktion $f\in\FP$ auch die Umkehrfunktion $f^{-1}\in \FP$ sagen wir auch, dass $f$ \emph{p-invertierbar} ist. Beachte, dass die Ehrlichkeit von $f$ eine notwendige Bedingung für die p-Invertierbarkeit von $f$ ist.
+Ist für eine Funktion $f\in\FP$ auch $f^{-1}\inc \FP$, also eine (funktionale) Verfeinerung $g$ von $f^{-1}$ in $\FP$, dann sagen wir auch, dass $f$ \emph{p-invertierbar} ist. Beachte, dass die Ehrlichkeit von $f$ eine notwendige Bedingung für die p-Invertierbarkeit von $f$ ist.
 
 \textcite{grollmann_complexity_1988} erarbeiten in ihrer Untersuchung zu Public-Key-Kryptosystemen den Begriff von \emph{disjunkten NP-Paaren} heraus.
 
@@ -728,7 +732,7 @@ Zumindest im Bezug auf die Faktorisierung zeigen \citeauthor{harsha_downward_202
 \end{theorem}
 Es ist offen ob $\mathtt{rFACTOR}'\stackrel{?}{\in}\mathtt{PLS}$ und zumindest unplausibel, weil unklar ist wie Faktorisierung als lokales Suchproblem repräsentiert werden kann.
 Tatsächlich zeigen die Autorinnen sogar die Konsequenz $\mathtt{rFACTOR}'\in\mathrm{UEOPL}$, was auch noch $\mathtt{rFACTOR}'\in\mathrm{PPAD}$ zur Folge hätte. Auch die Frage ob $\mathtt{rFACTOR}'\stackrel{?}{\in}\mathrm{PPAD}$ ist offen, und wurde breit untersucht. Eine positive Antwort wäre zumindest sehr überraschend (vgl. \cite[67:15]{harsha_downward_2023}; siehe ebd. auch für eine Def. von $\mathrm{UEOPL}$, $\mathrm{PPAD}$).
-Insgesamt ist die Forschung bezüglich Selbstreduzierbarkeit nach unten für TFNP-Probleme noch sehr klein, und es bedarf auf jeden Fall weiterer Untersuchungen, unter anderem auch im Richtung einer Konzeptionalisierung von „kleinerer Instanz“, die robuster als „kürzerer String“ ist. Vergleiche mit der \emph{disjunktiver Selbstreduzierbarkeit} \parencites[vgl.]{balcazar_self_1989}[vgl.]{selman_natural_1988}[vgl.][Abschn. 9.5]{wechsung_vorlesungen_2000}  -- einem ähnlichen Begriff der Selbstreduzierbarkeit auf der Ebene der Entscheidungsprobleme -- liegen nahe.
+Insgesamt ist die Forschung bezüglich Selbstreduzierbarkeit nach unten für TFNP-Probleme (und allgemeiner für FNP-Probleme) noch sehr klein, und es bedarf auf jeden Fall weiterer Untersuchungen, unter anderem auch im Richtung einer Konzeptionalisierung von „kleinerer Instanz“, die robuster als „kürzerer String“ ist. Vergleiche mit der \emph{disjunktiver Selbstreduzierbarkeit} \parencites[vgl.]{balcazar_self_1989}[vgl.]{selman_natural_1988}[vgl.][Abschn. 9.5]{wechsung_vorlesungen_2000}  -- einem ähnlichen Begriff der Selbstreduzierbarkeit auf der Ebene der Entscheidungsprobleme -- liegen nahe.
 
 \section{Levin-Reduzierbarkeit}
 
@@ -946,7 +950,7 @@ Beachte, dass geizige Reduktionen nicht mit Levin-Reduktionen vergleichbar sind.
 %Obwohl dies nicht explizit angegeben ist, kann ihre Definition so umformuliert werden, dass sie der Definition von strukturerhaltenden Reduktionen nach Lynch und Lipton entspricht, wobei zusätzlich die p-Invertierbarkeit der Funktionen $f$ und $g$ gefordert wird, welche die Reduktion realisieren.
 
 \begin{definition}[Zertifikats-Isomorphie; \cite{wiedermann_witness-isomorphic_1995}]\label{def:wi-reduction}
-    Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{zertifikats-isomorph reduzieren lässt}, bzw. $Q\leq_\mathrm{wi}^\mathrm p R$, wenn Funktion $f:\Sigma^*\to\Sigma^*, f\in \FP$ und Funktion $g:\Sigma^*\times\Sigma^*\to\Sigma^*\in\FP$ existieren, die p-invertierbar (also auch injektiv) sind, und 
+    Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{zertifikats-isomorph reduzieren lässt}, bzw. $Q\leq_\mathrm{wi}^\mathrm p R$, wenn Funktion $f:\Sigma^*\to\Sigma^*, f\in \FP$ und Funktion $g:\Sigma^*\times\Sigma^*\to\Sigma^*\in\FP$ existieren, die p-invertierbar sind, und 
     \begin{enumerate}
         \item $(x,y)\in Q \implies (f(x), g(x,y))\in R$ (Vorwärts-Translation von Zertifikaten),
         \item $(f(x),z)\in R \implies \exists y.\, (x,y)\in R\land g(x,y)=z$ ($g$ ist quasi “surjektiv”),
@@ -1063,7 +1067,7 @@ Da aus projektiver Levin-Reduktion auch Levin-Reduktion folgt, sehen wir dass Un
     Diese Aussage gilt nur im unrelativierten Fall.
 \end{corollary}
 
-\todo{Erkläre warum die Reduktion/join/cpl mit Projektionen arbeitet.}
+%\todo{Erkläre warum die Reduktion/join/cpl mit Projektionen arbeitet.}
 An dieser Stelle sei auch noch einmal darauf hingewiesen, dass \textcite{agrawal_universal_1992} das Ziel verfolgten, eine gemeinsame Struktur aller natürlichen NP-vollständigen Probleme zu erfassen. Im Speziellen vermuten sie, dass tatsächlich für alle natürlichen NP-vollständigen Entscheidungsprobleme $L$ auch mindestens eine NP-Relation $R$ für $L$ existiert, die „hinreichend“ natürlich ist. Sie machen das an zwei Gründen fest: zum einen die intuitive Einsicht, dass \emph{joinability} und \emph{coupability} sehr natürlich wirkende strukturelle Eigenschaften sind. Zum anderen anhand empirischer Belege: 
  In ihrer Arbeit präsentierten sie fünf konkrete Beispiele aus verschiedenen Problembereichen, darunter Logik (Erfüllbarkeit), Zahlentheorie (Knapsack) und Graphentheorie (Hamiltonkreis, Unabhängige Menge, Größter Schnitt). Diese Beispiele deuten den Autoren zufolge darauf hin, dass das Konzept universeller Beziehungen nicht auf bestimmte Kategorien von NP-vollständigen Problemen beschränkt ist. 
  Konkret wurde aber nicht exhaustiv untersucht, welche der natürlichen NP-Relationen universell sind und welche nicht, und \textcite{agrawal_universal_1992} lassen das als Frage offen. Unten werden wir sehen, dass Färbungsprobleme möglicherweise keine natürliche NP-Relationen zulassen. %Die oben genannte Argumentation wollen wir aber im Folgenden zumindest so deuten, dass selbst die Existenz einer natürlichen $\leqlp$-vollständigen NP-Relation, die nicht universell ist, sehr unwahrscheinlich ist.
@@ -1083,11 +1087,11 @@ Die Abbildung~\ref{fig:reduktionsbegriffe} fasst noch einmal die relative Stärk
 \begin{proof}
     Mit Lemma~\ref{lemma:wi-reduction} bleiben nur noch drei nichttriviale Implikationen offen:
     \begin{prooflist}
-        \item Falls $R$ universell ist und die beteiligten Funktionen $\mathit{join}$ und $\mathit{clp}$ p-invertierbar sind, dann ist schon aus Satz~\ref{thm:universal-relations} klar, dass $R$ auch projektiv Levin-vollständig ist.
+        \item Falls $R$ universell ist und die beteiligten Funktionen $\mathit{join}$ und $\mathit{clp}$ injektiv und p-invertierbar sind, dann ist schon aus Satz~\ref{thm:universal-relations} klar, dass $R$ auch projektiv Levin-vollständig ist.
             Es existiert also für NP-Relation $Q$ eine Funktion $f\in\FP$, und es gilt für eine $Q$-Instanz $x$ dass $f(x)=(z,\alpha)$. Hier ist $z$ die $R$-Instanz, auf die reduziert wird.
             Aus dem Beweis des Satzes von \textcite{agrawal_universal_1992} geht hervor, dass sich dieses $z$ aus der kombinierten Anwendung von $\mathit{join}$ und $\mathit{cpl}$ entsteht, also lässt sich auch aus $z$ wieder aufgrund p-Invertierbarkeit die Instanz $x$ zurückgewinnen.
             Es lässt sich leicht sehen, dass sich so eine $\leq_\mathrm{L,1,i}^\mathrm p$-Reduktion von $Q$ nach $R$ konstruieren lassen kann.
-        \item  Falls $R$ universell ist und die beteiligte Funktione $\mathit{join}$ p-invertierbar ist, dann ist $\Proj(R)$ auch paddable, und damit p-isomorph zu $\mathtt{SAT}$ \parencite[Thm.~8.2]{agrawal_universal_1992}. Das lässt sich leicht nachvollziehen: durch  durch an-$\mathit{join}$-en von Dummy-Instanzen an Instanz $x$ lassen sich beliebige Werte in $x$ hineincodieren, und durch die p-Invertierbarkeit wieder extrahieren.
+        \item  Falls $R$ universell ist und die beteiligte Funktione $\mathit{join}$ injektiv und p-invertierbar ist, dann ist $\Proj(R)$ auch paddable, und damit p-isomorph zu $\mathtt{SAT}$ \parencite[Thm.~8.2]{agrawal_universal_1992}. Das lässt sich leicht nachvollziehen: durch  durch an-$\mathit{join}$-en von Dummy-Instanzen an Instanz $x$ lassen sich beliebige Werte in $x$ hineincodieren, und durch die p-Invertierbarkeit wieder extrahieren.
         \item Sei $L$ eine Menge. Ist $L$ p-isomorph zu $\mathtt{SAT}$, dann existiert auch eine NP-Relation $R'$ sodass $\Proj(R')=L$ und $R'$ ist universell. Diese Aussage ist eine einfache Generalisierung von Beobachtung~\ref{obs:isomorphs-sind-leqlp-vollst}.
     \end{prooflist}
 \end{proof}
@@ -1102,9 +1106,9 @@ nicht paddable ist, damit also auch nicht p-isomorph zu $\mathtt{SAT}$ ist.
 Gleichzeitig ist $\mathtt{SAT}\leqmp h(\mathtt{SAT})$ über Reduktionsfunktion $h$, und damit $h(\mathtt{SAT})$ auch $\leqmp$-vollständig.
 Damit ist $h(\mathtt{SAT})$, zu verstehen als eine „verschlüsselte“ Variant zu $\mathtt{SAT}$, ein vermutetes Gegenbeispiel für die Berman--Hartmanis-Isomorphievermutung $\mathsf{IC}$.
 Gleichzeitig ist leicht zu sehen, dass eine entsprechende natürliche NP-Relation
-\[ \mathtt{rSAT}_h = \{ (h(\phi), w) \mid \text{$w$ ist erfüllende Belegung für $\phi$} \} \]
+\[ \mathtt{rSAT}_h = \{ (z, (\phi, w)) \mid \text{$z=h(\phi)$, und $w$ ist erfüllende Belegung für $\phi$} \} \]
 sogar universell ist.
-Wir haben also\marginnote{\todo{Was mit der JYC / k-kreative Mengen?}}
+Wir haben also %\marginnote{\todo{Was mit der JYC / k-kreative Mengen?}}
 \begin{observation}
     Angenommen $\mathsf{ECSC}$ dann existiert eine NP-Relation $R$ die universell ist, aber $\Proj(R)$ ist nicht p-isomorph zu $\mathtt{SAT}$.
 \end{observation}
@@ -1218,6 +1222,7 @@ Die Frage lässt sich -- im Hinblick auf die Separationen der Vollständigkeitsb
 
 Je ein Argument spricht für bzw. gegen eine positive Beantwortung von Frage~\ref{question:chromindex}.
 Einerseits das oben schon skizzierte Argument, dass sich Färbbarkeiten offenbar nicht gut mit der projektiven Levin-Reduzierbarkeit verträgt.  Es sei darauf hingewiesen, dass \textcite{agrawal_universal_1992} in ihrer Arbeit zwar exemplarisch die Universalität vieler Suchprobleme aus verschiedensten kombinatorischen Bereichen gezeigt haben, Färbungsprobleme wurden hierbei aber nicht betrachtet. 
+Inwiefern sich Universalität generalisieren lässt, indem das projektive „Auslesen“ von Werten aus den Zertifikaten abgeschwächt wird, z.B. über eine Art polynomialzeit-berechenbares Schema.
 
 Andererseits ist es für Färbungsprobleme nicht \emph{prinzipiell} unmöglich, Universalität zu zeigen. Beispielsweise ist das Problem $\mathtt{r3COL}$ der 3-Färbbarkeit eines Graphens durchaus als unverselle NP-Relation darstellbar, wenn wieder (wie schon bei $\mathtt{rMAXCUT}'$ oder $\mathtt{r4CHROMINDEX}$) nach der unter Permutationen der Farben lexikographisch kleinsten Färbung (sortiert anhand der Knoten) gesucht wird.
 Ein Lehrbuch-Beweis der $\leqmp$-Vollständigkeit über $\mathtt{3CNFSAT}\leqmp\mathtt{3COL}$ startet üblicherweise mit einem „Palette“-Gadget aus drei Knoten $v_{\text{false}}, v_{\text{true}} v_{\text{base}}$. Vgl. Abbildung~\ref{fig:3col}. In einer gültigen Färbung entspricht die Farbe von $v_{\text{true}}$ dann der Farbe „wahr“. Nummeriert man in einer $\mathtt{3COL}$-Instanz $G_\phi$ für $\mathtt{3CNFSAT}$-Instanz $\phi$ die Knoten  so  um dass $v_{\text{false}}, v_{\text{true}} v_{\text{base}}$ als erste Knoten $G_\phi$ sind, dann hat immer $v_{\text{false}}$ die Farbe $1$ und $v_{\text{true}}$ die Farbe $2$ (ansonsten existiert eine Permutation der Farben sodass die Färbung lexikographisch kleiner ist.)
@@ -1227,23 +1232,44 @@ Eine enstprechende Codierung des Zertifikats wäre z.B. von der Form $h(c_1)h(c_
 \begin{figure}
     \sffamily
     \centering\includegraphics[page=6]{figures.pdf}
-    \caption{\todo{TODO}}\label{fig:3col}
+    \caption{Reduktion der 3CNFSAT-Instanz $\phi=(u\lor \overline{v} \lor \overline{w}) \land (v\lor x\lor y)$. 
+        Eine Dreifärbung dieses Graphen entspricht einer erfüllenden Belegung von $\phi$.
+    Beachte dass zu jeder Variable genau ein Knoten zu einem entsprechendem Literal (positiv bzw. negativ) die gleiche Farbe wie $v_{\text{true}}$ hat, und der Knoten zum anderen Literal die gleiche Farbe wie $v_{\text{false}}$ hat. Es ist leicht zu sehen, dass jedes Klausel-Gadget genau dann dreifärbbar ist, wenn mindestens eine der drei angeschlossenen Literale die gleiche Farbe wie $v_{\text{true}}$ hat.}\label{fig:3col}
 \end{figure}
 
-\todo{Fazit??}
+Mit dieser letzten Beobachtung wollen wir dieses Kapitel über die NP-Suchprobleme, deren Beziehung zu Entscheidungsproblemen, und die zuletzt präsentierte Übersicht über die gemeinsamen Strukturen der vollständigen NP-Suchprobleme abschließen. 
 
 
 \chapter{Suchprobleme und die Hypothese $\hQ$ im Kontext des Pudlákschen Programms}
 
-%\begin{itemize}
-    %\item Will $\hQ$ in den Pudlák-Baum einordnen: dafür ist es notwendig, diese ordentlich zu relativieren. Insb. will ich zeigen, dass einige bisherige Resultate natürlicherweise auf „Standardbeweissysteme“ vollständiger Mengen übertragen (nicht nur das Standardbeweissystem für SAT).
-%\end{itemize}
 
-\todo{Intro}
+In der Einleitung dieser Arbeit wurde bereits angedeutet, dass die Hypothese $\hQ$ von \citeauthor{fenner_inverting_2003} große Nähe und Verwandtschaft zu Hypothesen hat, die Suchprobleme im Allgemeinen und Beweissystemen im Speziellen betreffen. Damit ergeben sich Beziehungen zu Hypothesen aus dem Pudlákschen Programm, insbesondere $\neg\hSAT$ (also dass eine NP-vollständige Mengen mit p-optimalem Beweissystem für diese Menge existiert).
+In diesem Kapitel werden wir diese Beziehungen näher erarbeiten. Zur Erinnerung:
 
-\begin{conjecture}[$\hQ$, \cite{fenner_inverting_2003}]
-    Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierende Berechnung von $N(x)$ ist. 
-\end{conjecture}
+\conjq*
+
+Im Kapitel werden wir uns grob folgenden drei Desiderata widmen: 
+erstens, nähern wir uns in Abschnitt~\ref{} erneut der Frage zwischen Levin- und Karp-Vollständigkeit bzw. der Hypothese $\mathsf{KvL}$ aus vorigem Kapitel. Insbesondere analysieren wir die Beziehungen von $\mathsf{KvL}$ zu $\hQ$ und versuchen, $\mathsf{KvL}$ in das Pudláksche Programm einzuordnen.
+
+Zweitens, in Abschnitt~\ref{}, verallgemeinen wir Charakterisierungen $\hQ$, die sich insbesondere auf Suchprobleme und deren Beweissysteme bzw. „Zertifikatsschemata“ beziehen.
+Insbesondere zeigen wir für eine große Klasse von vollständigen NP-Suchproblemen $R$ (nämlich jene die Levin-paddable sind) dass das zu $R$ assoziierte \emph{Standardbeweissystem} ($(x,y)$ mit $R(x,y)$ ist ein Beweis für $x$) p-optimal ist, genau dann wenn $\hQ$. Damit wird die p-Optimalität des entsprechenden Standardbeweissystems zu einer Invariante, die entweder für \emph{alle} Levin-paddable NP-Suchprobleme zutrifft, oder für \emph{keins}.
+
+%erstens werden wir weitere Hypothesenzu Suchproblemen, welche sich im Verlauf dieser Arbeit ergeben, in das Pudláksche Programm einordnen, insbesondere $\hQ$ und $\mathsf{KvL}$ bzw. die Frage nach Levin- vs. Karp-Vollständigkeit.
+%Im Speziellen ergänzen wir das Abbildung~\ref{fig:pudlak} der Beziehungen zwischen den Pudlákschen Hypothesen aus der Einleitung um weitere Hypothesen, und erreichen Abbildung~\ref{}. Die Beweise 
+
+%Zweitens eine Verallgemeinerung der Charakterisierung $\hQ$, die sich insbesondere auf Suchprobleme und deren Beweissysteme bzw. „Zertifikatsschemata“ beziehen.
+
+Drittens ergänzen wir im gesamten Verlauf dieses Kapitels das Pudláksche Programm um weitere Hypothesen, sodass Abbildung~\ref{fig:pudlak} der Beziehungen zwischen den Pudlákschen Hypothesen vergrößert wird. Damit erreichen wir den Stand, der in Abbildung~\ref{fig:pudlak-large} dargestellt wird.
+
+
+\begin{figure}\label{fig:pudlak-large}
+    \hspace*{-12mm}\includegraphics[page=1]{figures.pdf}
+    \caption{Bekannte (relativierenden) Implikationen zwischen den betrachteten Hypothesen und weiteren Aussagen. Satz~\ref{thm:figure-implications} gibt Belegstellen für jede dieser Implikationen an.}\label{fig:figure-implications}
+\end{figure}
+
+Für alle dieser drei Desiderata ist es zunächst notwendig, auf die Hypothese $\hQ$ einzugehen.
+\textcite{fenner_inverting_2003} beobachten, dass das Invertieren von surjektiven ehrlichen FP-Funktionen eine erstaunlich robuste Aussage ist, die eine Vielzahl von äquivalenten „fundamentalen“ \parencite{fenner_inverting_2003} Charakterisierungen aus der Komplexitätstheorie zulässt, so zum Beispiel die effiziente Lösbarkeit von TFNP-Suchproblemen, oder das effiziente Ausrechnen akzeptierender Rechenwege einer totalen NPTM. Wir können jetzt schon festhalten, dass die aktuelle Forschung diese Hypothese als sehr stark einschätzt, und eher die negative Beantwortung (i.e. $\neg\hQ$) vermutet.
+
 
 \begin{theorem}[Äquivalente Formulierungen der Hypothese $\hQ$; \cite{fenner_inverting_2003}]\label{thm:q-orig}
     Folgende Aussagen sind äquivalent:
@@ -1252,7 +1278,7 @@ Eine enstprechende Codierung des Zertifikats wäre z.B. von der Form $h(c_1)h(c_
         \item $\mathrm{NPMV}_t\subseteqc \mathrm{FP}$.
         \item $\TFNP\subseteqc \mathrm{FP}$.
         \item $\P=\NP\cap\coNP$ und $\mathrm{NPMV}_t\subseteqc \mathrm{NPSV}_t$.
-        \item Jede surjektive ehrliche Funktion $f\in\FP$ ist p-invertierbar. %Zur Erinnerung: p-Invertierbarkeit bedeutet dass eine Funktion $g\in\FP$ existiert mit $f(g(y))=y$.
+        \item Jede surjektive ehrlichen Funktion $f\in\FP$ ist p-invertierbar.
         \item Für jede Menge $L\in \P$  und jede NPTM $N$ mit $L(N)=L$ existiert eine Funktion $h\in \FP$ mit 
             \[ x\in L \implies N(x) \text{ akz. mit Rechenweg $h(x)$}. \]
     \end{enumerate}
@@ -1274,12 +1300,18 @@ Eine enstprechende Codierung des Zertifikats wäre z.B. von der Form $h(c_1)h(c_
     Dieser Satz relativiert nicht.
 \end{restatable}
 
+In anderen Worten sagt Aussage (2) aus, dass es modulo Umcodieren nur einen einzigen SAT-Solver gibt, und insbesondere alle SAT-Solver äquivalent zum trivialen Solver ist, welcher nur alle möglichen Belegungen ausprobiert.
+Die Aussage (3) macht eine analoge Aussage über Beweissysteme: egal wie komplex ein Beweissystem $h$ für $\mathtt{SAT}$ ist, wir können immer einen $h$-Beweis für $\phi$ in eine erfüllende Belegung für $\phi$ (quasi ein trivialer Beweis für $\phi\in\mathtt{SAT}$) transformieren.
+
+In Abschnitt~\ref{} werden wir sehen, dass sich die obigen Charakterisierungen auf weitere (aber möglicherweise nicht alle) vollständigen NP-Relationen generalisiert, womit insbesondere auch die beiden Charakterisierungen von \citeauthor{fenner_inverting_2003} und \citeauthor{messner_simulation_2001} zu einer \emph{relativierbaren} Variante verallgemeinert werden. Hierfür führen wir jetzt schon den Begriff eines Standardbeweissystems formal ein.
+
 \begin{definition}[Standardbeweissystem]
     Sei $R$ eine NP-Relation. Wir definieren bezüglich $R$ das \emph{Standardbeweissystem} $\mathit{std}_R$ für $\Proj(R)$ wie folgt:
     \[ \mathit{std}_R(w) = \begin{cases} x & \text{wenn $w=(x,y)$ und $(x,y)\in R$,}\\
     \bot & \text{sonst}.\end{cases} \qedhere \] 
 \end{definition}
 Damit ist, wie durch die Formulierung oben suggeriert, $\mathit{sat}=\mathit{std}_{\mathtt{rSAT}}$.
+Bevor wir nun mit einer Diskussion zwischen Karp-Vollständigkeit und Levin-Vollständigkeit fortsetzen, schließen wir diesen Einstieg mit folgender einfachen Beobachtung ab:
 \begin{observation}\label{obs:spps-honest}
     Für jede NP-Relation $R$ ist das Standardbeweissystem $\mathit{std}_R$ ehrlich.
 \end{observation}
@@ -1294,8 +1326,6 @@ Damit ist, wie durch die Formulierung oben suggeriert, $\mathit{sat}=\mathit{std
     für ein geeignetes Polynom $q'$, wie gewünscht.
 \end{proof}
 
-\todo{Überblick geben was nun passiert. Abbildung sollten wir wahrscheinlich hier schon vorwegnehmen.}
-
 \section{Karp-Vollständigkeit vs. Levin-Vollständigkeit}
 
 Wir wiederholen hier erneut die zentrale offene Frage und Vermutung aus Abschnitt~\ref{}:
@@ -1305,7 +1335,7 @@ Wir wiederholen hier erneut die zentrale offene Frage und Vermutung aus Abschnit
 \conjkvl*
 
 Ich möchte argumentieren, dass die obige Frage bzw. Vermutung eng mit der Hypothese $\hQ$ zusammenhängt.
-Im speziellen werden wir sehen, dass die Hypothese $\hQ$ so charakterisiert werden kann, dass sie „fast“ der Vermutung $\mathsf{KvL}$ entspricht.
+Im speziellen werden wir sehen, dass die Hypothese $\hQ$ so charakterisiert werden kann, dass sie \emph{fast} der Vermutung $\mathsf{KvL}$ entspricht.
 
 \begin{theorem}\label{thm:q-as-levin}
     Folgende Aussagen sind äquivalent:
@@ -1352,7 +1382,9 @@ Im speziellen werden wir sehen, dass die Hypothese $\hQ$ so charakterisiert werd
 \end{prooflist}
 \end{proof}
 
-Beachte, dass in Aussage (2) die Implikation von rechts nach links ohnehin immer gilt. Mit dieser Charakterisierung folgt auch unmittelbar, dass $\hQ$ hinreichend für $\neg\mathsf{KvL}$ ist.
+Beachte, dass in Aussage (2) die Implikation von rechts nach links ohnehin immer gilt. 
+Damit lässt sich Aussage (2) auch so formulieren, dass jede Karp-Reduktion zu einer Levin-Reduktion verstärkt werden kann, indem zur Reduktionsfunktion $f$ eine geeignete Translationsfunktion $g$ hinzugefügt wird.
+Mit dieser Charakterisierung folgt auch unmittelbar, dass $\hQ$ hinreichend für $\neg\mathsf{KvL}$ ist.
 
 
 \begin{theorem}\label{thm:kvl-implies-q}
@@ -1367,8 +1399,8 @@ Beachte, dass in Aussage (2) die Implikation von rechts nach links ohnehin immer
 
 Was sind natürlich notwendige Bedingungen für die Hypothese $\mathsf{KvL}$? Diese Frage erscheint tatsächlich wesentlich schwieriger als gedacht. Insbesondere scheint es unklar, ob aus irgend einer von Pudláks Hypothesen die Aussage $\mathsf{KvL}$ folgt.
 
-Besonders interessant erscheint aber die Beziehung zur Hypothese $\neg\hQ$, also genau die Umkehrung von Satz~\ref{thm:kvl-implies-q}.
-Betrachten wir hier exemplarisch den Fall Relationen für $\mathtt{SAT}$. Wir werden im folgenden versuchen, den Widerspruchsbeweis „$\neg\hQ\land\neg\mathsf{KvL}\Rightarrow\bot$“ herzuleiten.
+Besonders interessant erscheint aber die Beziehung zur Hypothese $\neg\hQ$, also genau die Umkehrung von Satz~\ref{thm:kvl-implies-q}, ist ja die Aussage (2) vom Satz~\ref{} \emph{fast} in der Form „Karp-Vollständigkeit = Levin-Vollständigkeit“ ist.
+Betrachten wir hier exemplarisch den Fall Relationen für $\mathtt{SAT}$. Ich vermute, dass $\neg\hQ\Rightarrow \mathsf{KvL}$; um das zu plausibilisieren möchte ich zeigen, dass $\neg\hQ\land\neg\mathsf{KvL}$ unwahrscheinlich ist.
 
 Starten wir mit $\neg\hQ$, dann gilt mit Satz~\ref{thm:q-fenner-messner} für alle Funktionen $h\in\FP$
 \begin{equation} N(\phi) \text{ akz. mit Rechenweg $w$} \rlap{\hspace*{2pt}\raisebox{2.3pt}{$\quad\not$}}\implies  (\phi, h(\phi, w))\in\mathtt{rSAT}.\label{eq:weak-irreducibility} \end{equation}
@@ -1385,7 +1417,7 @@ Gleichzeitig wäre die Existenz einer solchen Reduktion überraschend. Wir hätt
 \begin{equation}\label{eq:effective-simulation} N(f(\phi)) \text{ akz. mit Rechenweg $w$} \implies \phi \text{ wird von Belegung $g(\phi, w)$ erfüllt}. \end{equation}
 Einerseits ist es also nicht möglich, aus dem Rechenweg $w$ effizient eine akzeptierende Belegung für $f(\phi)$ zu bestimmen, obwohl $w$ bezeugt dass $f(\phi)$ erfüllbar ist.
 Andererseits reicht der „Beweis“ $w$ aber aus, um (zusammen mit der Information $\phi$) effizient wieder eine erfüllende Belegung für $\phi$ zu berechnen. 
-Das plausibilisiert zwar einen Widerspruch, ist aber natürlich kein solcher. Die Umkehrung von Satz~\ref{thm:kvl-implies-q} bleibt offen.
+Das plausibilisiert zwar einen Widerspruch, bzw. dass $\neg\hQ\land\neg\mathsf{KvL}$ wahrscheinlich falsch ist, ist aber natürlich kein solcher. Die Umkehrung von Satz~\ref{thm:kvl-implies-q} bleibt offen.
 
 Dennoch vermute ich, dass solche Funktionen $f,g$ nicht jeweils für alle NPTM $N$ mit $L(N)=\mathtt{SAT}$ existieren können.
 Tatsächlich können wir die eben formulierte Vermutung auch in der Theorie der Beweissystemen formulieren: hierfür können wir die beiden Aussagen aus Gleichung~\ref{eq:effective-simulation} je als Aussagen über „Beweissysteme“ verstehen. Links ist der Rechenweg $w$ der „Beweis“ für $f(\phi)\in \mathtt{SAT}$ über den Verifiktor $N$, und rechts ist $g(\phi, w)$ die erfüllende Belegung für $\phi$, also ein $\mathit{sat}$-Beweis für $\phi\in\mathtt{SAT}$.
@@ -1397,7 +1429,7 @@ Um diese Idee nun zu formalisieren, definieren wir zunächst eine abgeschwächte
         \item $x\in L \iff f(x)\in L$,
         \item $ h'(w)=f(x) \implies h(g(x, w)) = x. $
     \end{enumerate}
-    Wir schreiben in diesem Fall auch $h'\leq^\mathrm p_\mathrm{eff} h$.\marginnote{\note{Nicht vergessen: es ist offenbar unklar, wie das Symbol $\leq$ bzgl. Simulation gebraucht wird. Dose/Glaßer würden in der Def. das Ordnungszeichen spiegeln, Krajíček/Pudlák dagegen genau so wie hier, Krajíček im Sammelband dagegen wieder gespiegelt.}}
+    Wir schreiben in diesem Fall auch $h'\leq^\mathrm p_\mathrm{eff} h$. %\marginnote{\note{Nicht vergessen: es ist offenbar unklar, wie das Symbol $\leq$ bzgl. Simulation gebraucht wird. Dose/Glaßer würden in der Def. das Ordnungszeichen spiegeln, Krajíček/Pudlák dagegen genau so wie hier, Krajíček im Sammelband dagegen wieder gespiegelt.}}
 \end{definition}
 In anderen Worten, falls $h'\leq^p_\mathrm{eff} h$, dann kann $h$ zwar nicht \emph{jeden} $h'$-Beweis $w$ für $x\in L$ in einen $h$-Beweis für (das gleiche) $x$ effizient umrechnen, es kann aber zumindest alle \emph{relevanten} $h'$-Beweise effizient umrechnen, nämlich für jedes $x\in L$ die $h'$-Beweise für $f(x)$ in $h$-Beweise für $x$.
 Klar ist: p-Simulation impliziert effektive p-Simulation impliziert Simulation unter Beweissystemen.
@@ -1489,10 +1521,10 @@ Mit der Definition der effektiven p-Simulation und der eben beweisenen äquivale
 \end{prooflist}
 \end{proof}
 
-Wir haben also je eine notwendige ($\neg\hQ$) und eine hinreichende verwandte Hypothese $\mathsf{SAT^{eff}}$ für $\mathsf{KvL}$. 
+Wir haben also je eine notwendige ($\neg\hQ$) und eine hinreichende Hypothese ($\mathsf{SAT^{eff}}$) für $\mathsf{KvL}$. 
 Nichtsdestotrotz bleiben noch viele Fragen offen, die wir hier aus Platzgründen nicht weiter verfolgen werden. 
 Gibt es natürliche (z.B. kryptographische) Annahmen die hinreichend für $\mathsf{KvL}$ sind? Wie ist die Beziehung zu den anderen Pudlákschen Hypothesen? Wie verhält sich insbesondere $\hSAT$ zu $\mathsf{SAT^{eff}}$? 
-Kann in Beobachtung~\ref{obs:kvl-equiv}(2) so verstärkt werden, dass $\mathit{std}_Q$ jedes (nicht nur die optimalen) Beweissystem effektiv p-simulieren kann, also gewissermaßen $\mathit{std}_Q$ effektiv p-optimal ist?
+Kann in Beobachtung~\ref{obs:kvl-equiv}(2) so verstärkt werden, dass $\mathit{std}_Q$ jedes (nicht nur die optimalen) Beweissystem effektiv p-simulieren kann, also gewissermaßen $\mathit{std}_Q$ „effektiv p-optimal“ ist?
 
 Insgesamt ist durch die vorherigen Überlegungen aber ein erster Schritt getan, die Beziehung zwischen Levin- und Many-one-Vollständigkeit über die Vermutung $\mathsf{KvL}$ im Kontext des Pudlákschen Programms einzuordnen.
 Weitere Forschung in diese Richtung erscheint vielversprechend.
@@ -1521,9 +1553,9 @@ Wir wiederholen hier noch einmal die Aussage:
     %\item Das Standardbeweissystem $\mathit{std}_{\mathtt{rSAT}}$ ist p-optimal.
 %\end{itemize}
 Diese beiden Charakterisierungen wollen wir im Folgenden verallgemeinern und auf beliebige $\leqlp$-vollständige NP-Relationen $R$ übertragen. 
-Hieraus ergibt sich schon unmittelbar der technische Beitrag, dass dann diese Charakterisierungen auch in einem relativierten Umgebung angewendet werden können, um z.B. ein Orakel zu konstruieren, was $\hQ$ von $\hQ'$ trennt.
+Hieraus ergibt sich schon unmittelbar der technische Beitrag, dass dann diese Charakterisierungen auch in einem relativierten Umgebung angewendet werden können, um z.B. ein Orakel zu konstruieren, was $\hQ$ von anderen Hypothesen trennt.
 
-Zweitens ergibt sich aus der Verallgemeinerung das überraschende Ergebnis, dass $\leqlp$-Vollständigkeit allein nicht ausreicht. In den originalen Beweisen von \citeauthor{fenner_inverting_2003} und \citeauthor{messner_simulation_2001} wurden diese zusätzlichen ausgenutzten Eigenschaften von $\mathtt{rSAT}$ nur stillschweigend mitgedacht. Die folgende Generalisierung deckt diese Eigenschaften aus, und plausibilisiert dass diese womöglich\marginnote{\todo{Gegenbeispiele angeben!}} nicht von allen $\leqlp$-vollständigen NP-Relationen geteilt werden.
+Zweitens ergibt sich aus der Verallgemeinerung das überraschende Ergebnis, dass $\leqlp$-Vollständigkeit allein nicht ausreicht. In den originalen Beweisen von \citeauthor{fenner_inverting_2003} und \citeauthor{messner_simulation_2001} wurden diese zusätzlichen ausgenutzten Eigenschaften von $\mathtt{rSAT}$ nur stillschweigend mitgedacht. Die folgende Generalisierung deckt diese Eigenschaften aus, und plausibilisiert dass diese womöglich nicht von allen $\leqlp$-vollständigen NP-Relationen geteilt werden.
 
 Eine dieser stärkereren Eigenschaften von $\mathtt{rSAT}$, welche im folgenden Beweis gebraucht wird, ist eine spezielle Form von Levin-Vollständigkeit. Für gegebene NP-Relation $R$ verlangen wir nicht nur, dass $Q\leqlp R$ für alle $Q$, sondern auch dass diese Reduktion ehrlich ist. Dies gilt insbesondere für $\mathtt{rSAT}$: es ist leicht zu sehen, dass die Reduktionsfunktionen im Satz von Cook--Levin, welche Instanzen $x$ auf eine Formel $\phi_x$ reduzieren, verlängernd sind. Damit sind sie insbesondere ehrlich. Für welche $\leqlp$-vollständigen NP-Relationen das noch zutrifft, werden wir unten betrachten.
 
@@ -1576,7 +1608,7 @@ Folgende Aussagen sind äquivalent:
     %\[ S = f(\Sigma^*) = \{ f(x) \mid x\in\Sigma^*\} \]
     %das Bild der Reduktionsfunktion $f$.
 
-    Definiere nun die folgende NPTM $N'(w)$:\marginnote{\tiny\note{Wichtig: Ehrlichkeit ist hier notwendig, denn wir \emph{müssen} das Urbild raten, und können das nicht als zweite Eingabe mitführen, damit $L(N')=\Proj(R)$. Auch alternative Wege über Beweissysteme laufen darauf hinaus, Levin-Paddability vorauszusetzen, woraus ohenhin wieder Ehrlichkeit folgt.}}\\
+    Definiere nun die folgende NPTM $N'(w)$:\\%\marginnote{\tiny\note{Wichtig: Ehrlichkeit ist hier notwendig, denn wir \emph{müssen} das Urbild raten, und können das nicht als zweite Eingabe mitführen, damit $L(N')=\Proj(R)$. Auch alternative Wege über Beweissysteme laufen darauf hinaus, Levin-Paddability vorauszusetzen, woraus ohenhin wieder Ehrlichkeit folgt.}}\\
     \begin{algorithm}[H]
         Rate nichtdeterministisch $x\in \Sigma^{\leq q(|w|)}$\;
         \lIf{$f(x)=w$}{akzeptiere}
@@ -1734,7 +1766,7 @@ Wir überlegen uns hierzu zunächst, dass „$\leqlp$-vollständig sind und Levi
     und das ist genau $(x, g'(x, z))\in Q$, wie gewünscht.
 \end{proof}
 
-Diese Eigenschaft lässt sich leicht für die kanonische NP-Relation $\mathtt{rKAN}$ überprüfen.
+Diese Eigenschaft lässt sich leicht für die kanonische NP-Relation $\mathtt{rKAN}$ überprüfen, und gilt insbesondere auch im relativierten Fall.
 \begin{observation}\label{obs:rkan-paddable}
     Die kanonische Levin-vollständige NP-Relation $\mathtt{rKAN}$ ist Levin-paddable.
 \end{observation}
@@ -1744,7 +1776,7 @@ Folgende Beobachtung hilft uns, natürliche NP-Relationen zu identifizieren, wel
 \begin{observation}\label{obs:invcomplete-sind-levinpaddable}
     %Jede $\leq_\mathrm{L,inv}^\mathrm{p}$-vollständige NP-Relation $R$ ist auch Levin-paddable.
     \begin{enumerate}
-        \item Gilt $\mathtt{rKAN}\leq_\mathrm{L}^\mathrm{p} R$, und ist die zugehörige Reduktionsfuktion $f$ ehrlich, dann ist $R$ Levin-paddable
+        \item Gilt $\mathtt{rKAN}\leq_\mathrm{L}^\mathrm{p} R$, und ist die zugehörige Reduktionsfuktion $f$ ehrlich, dann ist $R$ Levin-paddable (und $\leqlp$-vollständig).
         \item Jede $\leq_\mathrm{L,1,inv}^\mathrm{p}$-vollständige NP-Relation $R$ ist auch Levin-paddable.
     \end{enumerate}
 \end{observation}
@@ -1787,7 +1819,7 @@ Das sind nach \textcite{goldreich_computational_2008} unrelativierten Fall u.a. 
     Es ist leicht zu sehen, dass sich eine Funktion $\mathit{padsol}_R\in\FP$ angeben kann, die aus $x, 1^n$ dieses entsprechende $y$ berechnen kann.
 \end{proof}
 
-Anstelle der Betrachtung, wie die \emph{Reduktionen} zwischen den einzelnen NP-Relationen aufgebaut sind, können wir auch strukturelle Eigenschaften von NP-Relationen ausnutzen, um Paddability zu zeigen. Hierbei macht die Definition von \emph{Universalität} durch \textcite{agrawal_universal_1992} aus dem Abschnitt~\ref{} einen produktiven Beitrag. Ist eine NP-Relation \emph{joinable}, dann können wir auch zu einer Instanz beliebig viele Dummy-Instanzen anhängen. Aufgrund der speziellen Eigenschaften der $\matit{join}$-Funktion können wir auch den relevanten Teil aus Zertifikaten für die verlängerten Instanz zielgenau auslesen.
+Anstelle der Betrachtung, wie die \emph{Reduktionen} zwischen den einzelnen NP-Relationen aufgebaut sind, können wir auch strukturelle Eigenschaften von NP-Relationen ausnutzen, um Paddability zu zeigen. Hierbei macht die Definition von \emph{Universalität} durch \textcite{agrawal_universal_1992} aus dem Abschnitt~\ref{} einen produktiven Beitrag. Ist eine NP-Relation \emph{joinable}, dann können wir auch zu einer Instanz beliebig viele Dummy-Instanzen anhängen. Aufgrund der speziellen Eigenschaften der $\mathit{join}$-Funktion können wir auch den relevanten Teil aus Zertifikaten für die verlängerten Instanz zielgenau auslesen.
 
 \begin{observation}\label{obs:joinable-sind-levinpaddable}
     %Jede universelle Relation ist Levin-paddable. Dieses Resultat gilt nur im unrelativierten Fall.
@@ -1834,9 +1866,39 @@ Das sind nach \textcite{agrawal_universal_1992} u.a. $\mathtt{rSAT}, \mathtt{rHA
     und damit $(x, \mathit{padsol}(x, 1^n, y')) = (x, y)\in R$, wie gewünscht.
 \end{proof}
 
-\section{Hypothese $\hQ$ und die Vollständigkeit von Suchproblemen}
+Es bleibt die Frage offen, ob Levin-Paddability für \emph{alle} vollständigen NP-Relationen zutrifft. Unter Annahmen einer geeigneten Einwegfunktion vermute ich, dass dies nicht der Fall ist.
+Die Argumentation verläuft hier ähnlich zur \emph{Encrypted Complete Set Conjecture}.
+Wir setzen hier eine stärkere \emph{secure one-way function} \parencite{grollmann_complexity_1988} $f$ voraus, die selbst mithilfe funktionaler Orakel-Queries nur auf einer dünnen Menge p-invertierbar ist.
+Präzise meinen wir damit folgendes: sei $A$ ein beliebiger Polynomialzeit-Algorithms, der auf Eingabe $w$ versucht, das Urbild $f^{-1}(w)$ zu berechnen. Zusätzlich darf $A$ das Urbild $f^{-1}(w')$ von einem Wort $w'\neq w$ erfragen. Dann wird $A$ nur auf einer dünnen Menge $W\subseteq\Sigma^*$ das korrekte Urbild aller $w\in W$ bestimmen können.
+%
+%eine injektive Funktion $f\in\FP$ sodass für jede nicht-dünne Menge $W$ aus allen $w\in W$ nicht das Urbild $f^{-1}(w)$ in Polynomialezeit berechnet werden kann, selbst wenn bei einem funktionalem Orakel für ein gewähltes $w'\neq w$ das Urbild $f^{-1}(w')$ erfragt werden kann.
+%In anderen Worten, für die Menge $R_f = \{ (f(x), x) \mid x\in\Sigma^* \}$ kann keine Reduktionsfunktion die Levin-Reduktion $R_f\leq_\mathrm{L}^\mathrm p R_f$ realisieren, außer die Identitätsfunktion.
+%
+(Vgl. die Ähnlichkeit zur Selbstreduzierbarkeit aus Abschnitt~\ref{} und effektiver p-Simulation aus Abschnitt~\ref{sec:kvl}.)
+Die Existenz einer solchen Einwegfunktion erscheint aus kryptographischer Perspektive naheliegend.
 
-\begin{theorem}[Äquivalente Formulierungen der Hypothese $\hQ$; \cites{fenner_inverting_2003}{messner_simulation_2001}]\label{thm:q}
+Betrachte nun die Menge
+\[ Q = \{ (f(x), (x,z)) \mid x,z\in\Sigma^*, (x,z)\in\mathtt{rKAN}\}. \]
+Es ist leicht zu sehen dass $\mathtt{rKAN}\leqlp Q$ und damit ist $Q$ $\leqlp$-vollständig.
+Gleichzeitig kann dann $Q$ nicht Levin-paddable sein.
+Denn angenommen, $Q$ ist Levin-paddable, dann lässt sich $f$ mit einem funktionalen Orakel-Query \emph{zumindest auf den Werten $f(\mathtt{SAT})$} p-invertieren: gegeben $w\in f(\mathtt{SAT})$, berechne erst eine zweite Instanz $w'=\mathit{pad}(w, 1^n)\in\Proj(Q)$ mit hinreichend langem $n$ sodass $w'\neq w$. Frage dann an das Orakel und erhalte $(x',z')\in \fset{}Q(w')$.
+Dann gilt $(x,z) = \mathit{padsol}(w, 1^n, (x',z'))$ mit $f(x)=w$, i.e. $x$ ist das gesuchte Urbild von $w$.
+Aus der Existenz der Einwegfunktion $f$ folgt $\P\neq\NP$, und damit ist insbesondere $f(\mathtt{SAT})$ eine nicht-dünne Menge \parencite{mahaney_sparse_1982}.
+Das widerspräche nun den Eigenschaften von $f$, also ist $Q$ nicht Levin-paddable.
+
+Dennoch bleibt die allgemeine Frage zwischen $\leqlp$-Vollständigkeit und Levin-Paddability offen, die wir im Folgenden nicht weiter bearbeiten werden:
+\begin{question}
+    Ist jede $\leqlp$-vollständige NP-Relation $R$ auch Levin-paddable?
+    Existiert ggf. ein Gegenbeispiel in einer geeigneten relativierten Umgebung?
+\end{question}
+
+%\section{Hypothese $\hQ$ und das Pudláksche Programm}
+
+Unabhängig von dieser Frage können wir nun aber abschließend die vorigen Ergebnisse zur Beziehung zwischen Suchproblemen und der Hypothese $\hQ$ zusammenfassen in folgendem Satz zusammenfassen.
+Beachte dass diese Charakterisierungen relativieren.
+Die Äquivalenz zu Aussage (7) bzw. (10) ist hierbei eine einfache relativierbare Generalisierung von Beweisen durch \textcite[Thm.~5.3]{messner_simulation_2001} bzw. \textcite{fenner_inverting_2003}.
+
+\begin{theorem}[Äquivalente Formulierungen der Hypothese $\hQ$]\label{thm:q}
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
         \item Hypothese $\hQ$: Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierende Berechnung von $N(x)$ ist.
@@ -1864,6 +1926,8 @@ Das sind nach \textcite{agrawal_universal_1992} u.a. $\mathtt{rSAT}, \mathtt{rHA
 \begin{prooflist}
 \item (1)$\iff$(2)$\iff$(3)$\iff$(4)$\iff$(5): nach \textcite[Thm.~2]{fenner_inverting_2003}.
 
+\item (1)$\iff$(6): nach Lemma~\ref{thm:q-as-levin}.
+
 \item (1)$\iff$(8)$\iff$(9): nach Lemma~\ref{lemma:q-generalized} und~\ref{lemma:stdps-q}.
 
 \item (5)$\implies$(10): Wir zeigen eine stärkere Variante von (10), welche sich über \emph{alle} NP-Relationen $R$ estreckt (und damit auch über $\leq_\mathrm{L,1,inv}^\mathrm p$-vollständige $\mathtt{rKAN}$, wie von (10) gefordert). Sei $R$ eine beliebige  NP-Relation, wobei Polynom $q$ die Zertifikatsgröße beschränkt. Sei nun $S\subseteq \Proj(R)$ mit $S\in \P$. Definiere die NPTM $N$, welche auf Eingabe $x$ folgendes leistet: teste zuerst ob $x\in S$; falls nicht, lehne sofort ab. Rate dann ein $y\in\Sigma^{\leq q(|x|)}$ und akzeptiere genau dann wenn $(x,y)\in R$. 
@@ -1884,38 +1948,6 @@ Das sind nach \textcite{agrawal_universal_1992} u.a. $\mathtt{rSAT}, \mathtt{rHA
 \end{gather*}
     Definiere nun die gesuchte Funktion $h\in \FP$ mit $h(x) = k(g(f(x)))$. Damit gilt für alle $x\in L$ dass $N(x)$ mit Rechenweg $h(x)$ akzeptiert, wie gewünscht.
 
-\item (1)$\implies$(6): Die Richtunng von rechts nach links ist klar. Für die andere Richtung sei $\Proj(A) \leqmp \Proj(B)$ mit $A,B$ NP-Relationen. Sei $q$ hierbei das Polynom was die Zertifikatslänge in $A$ begrenzt.
-    Wir wollen nun eine Levin-Reduktion von $A$ auf $B$ angeben. Sei $f\in \FP$ die Funktion, welche die Reduktion $\Proj(A) \leqmp \Proj(B)$ realisiert.
-
-    Definiere folgende NPTM $N$, die wie folgt auf Eingabe $w$ arbeitet: \\
-    \begin{algorithm}[H]
-        \lIf{$w$ nicht von der Form $(x, y')$}{akzeptiere}
-        $(x, y')\gets w$\;
-        \lIf{$(f(x), y')\not\in B$}{akzeptiere}
-        \Else{
-        \tcc{Ab hier gilt $f(x)\in \Pr(B)$ und $x\in \Pr(A)$}
-        Rate nichtdeterministisch $y\in \Sigma^{q(|x|)}$\;
-        Akzeptiere genau dann wenn $(x,y)\in A$.
-        }
-    \end{algorithm}
-    Es ist leicht zu sehen dass $L(N)=\Sigma^*$. Nach (1) existiert nun also eine Funktion $g$ sodass, für alle $w$, $g(w)$ eine akzeptierender Rechwenweg von $N(w)$ ist.
-
-    Damit lässt die Levin-Reduktion von $A$ auf $B$ angeben: wähle $f$ als Reduktionsfunktion, und definiere $g'$ als Translationsfunktion, welche aus dem akzeptierenden Rechenweg $g(x, y')$ das geratene Zertifikat $y$ von Zeile 5 ausliest. Dann gilt
-    \begin{gather*}
-        (f(x), y') \in B \implies N(x, y') \text{ akz. auf einem Rechenweg in Z.\,6, ratet $y$}\\
-        \implies (x,y)=(x, g'(x, y'))\in A
-    \end{gather*}
-    wie gewünscht. Wir haben $A\leqlp$ via $f, g'$.
-\item (6)$\implies$(8): Sei $R$ eine beliebige $\leqlp$-vollständige und Levin-paddable NP-Relation (diese existiert immer) und sei $N$ eine NPTM $N$ mit $L(N)=\Proj(R)$, wobei das Polynom $q$ die Laufzeit von $N$ beschränkt.  Definiere
-    \[ Q = \{ (x, y) \mid \text{$N(x)$ akzeptiert mit Rechenweg $y\in\Sigma^{\leq q(|x|)}$} \}. \]
-
-    Es ist klar, dass $\Proj(R)\leqmp \Proj(Q)=L(N)=\Proj(R)$ über die Identiätsfunktion.
-    Nach (6) gilt nun auch $R\leqlp Q$. mit Identitätsfunktion als Reduktionsfunktion und $h\in \FP$ als Translationsfunktion.
-    Damit gilt
-    \[ \text{$N(x)$ akz. mit RW $\alpha$} \implies (x, \alpha)\in Q \implies (x, h(x, \alpha))\in R \]
-    wie gewünscht.
-
-
 \item (2)$\implies$(7): Die Richtung von rechts nach links ist klar. Sei für die andere Richtung $h$ ein optimales Beweissystem für eine Menge $L$. Wir wollen zeigen, dass $h$ auch p-optimal ist. Sei dafür $g$ ein weiteres Beweissystem für $L$. Nach Voraussetzung haben wir $g\leq h$, das heißt es existiert eine (nicht notwendigerweise effiziente) Funktion $f$ sodass $g(w)=h(f(w))$, und gleichzeitig ist $|f(w)|\leq q(|w|)$ für ein geeignetes Polynom $q$.
 
 Betrachte folgende Multifunktion $f'$:
@@ -1934,47 +1966,118 @@ also ist $h(f''(w))=x$ bzw. $f''(w)$ ein $h$-Beweis für $x$, wie gewünscht.
 \end{prooflist}
 \end{proof}
 
-\begin{theorem}[Formulierung Hypothese $\hQ$ durch NP-Relationen, $\forall$-Variante]
-    Folgende Aussagen sind äquivalent:
+Analysiert man die Beweise bezüglicher der Äquvalenz von Aussage $\hQ$ zu (8)--(10) können wir sogar feststellen, dass die Wahl der Relation $R$ beliebig ist. 
+Wir können daher $\hQ$ über universell quantifizierte Varianten von (8)--(10) charakterisieren. 
+\begin{theorem}
+    Entweder gelten die Aussagen (1)--(4) oder die Aussagen (1')--(4'):
     \begin{enumerate}
-        \item Hypothese $\hQ$
-        \item[(8\,$'\!$)] Für jede $\leqlp$-vollständige Levin-paddable NP-Relation $R$, und für alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt: es existiert eine Funktion $h\in\mathrm{FP}$ mit
-            \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
-        \item[(9\,$'\!$)] Für jede $\leqlp$-vollständige Levin-paddable NP-Relationen $R$ ist das Standardbeweissystem $\mathit{std}_R$ p-optimal.
-        \item[(10\,$'\!$)] Für jede NP-Relation $P$ und jede Menge $S\in \P$ mit $S\subseteq \Proj(P)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
-            \[ x\in S \implies (x, g(x))\in P. \]
+        \item $\hQ$.
+        \item Für alle $\leqlp$-vollständigen Levin-paddable NP-Relationen $R$, alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt: es existiert eine Funktion $h\in\mathrm{FP}$ mit
+            \[ N(x) \text{ akz. mit Rechenweg $\alpha$} \implies (x,h(x,\alpha))\in R. \]
+        \item Für alle $\leqlp$-vollständigen Levin-paddable NP-Relationen $R$ ist das Standardbeweissystem $\mathit{std}_R$ p-optimal.
+        \item Für alle $\leq_\mathrm{L,1,inv}^\mathrm p$-vollständigen NP-Relationen $R$, für alle Mengen $S\in \P$ mit $S\subseteq \Proj(R)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
+            \[ x\in S \implies (x, g(x))\in R. \]
+        \item[(1$'$)] $\neg\hQ$.
+        \item[(2$'$)] Es existiert keine $\leqlp$-vollständige Levin-paddable NP-Relation $R$, sodass für alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt: es existiert eine Funktion $h\in\mathrm{FP}$ mit
+            \[ N(x) \text{ akz. mit Rechenweg $\alpha$} \implies (x,h(x,\alpha))\in R. \]
+        \item[(3$'$)] Es existiert keine $\leqlp$-vollständige Levin-paddable NP-Relation $R$ ist das Standardbeweissystem $\mathit{std}_R$ p-optimal.
+        \item[(4$'$)] Es existiert keine $\leq_\mathrm{L,1,inv}^\mathrm p$-vollständige NP-Relation $R$, sodass für alle Mengen $S\in \P$ mit $S\subseteq \Proj(R)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
+            \[ x\in S \implies (x, g(x))\in R. \]
     \end{enumerate}
+    Beachte dass (2$'$) nicht die negierte Version von (2) ist, für (3) und (4) gilt dies analog.
 \end{theorem}
-\begin{proof}
-\begin{prooflist}
-\item (8$'$)$\implies$(1), (9$'$)$\implies$(1), (10$'$)$\implies$(1):
-    Die NP-Relation $\mathtt{rKAN}$ ist $\leq_\mathrm{L,1,inv}^\mathrm p$-vollständig (und damit auch Levin-paddable).
-    Gilt also (8$'$), dann auch die existentielle Variante (8) von vorigem Satz~\ref{thm:q}, und damit (1).
-    Beweise der anderen Implikationen sind analog.
 
-%\item (1)$\implies$(8$'$): Sei $R$ eine beliebige $\leqlp$-vollständige Levin-paddable NP-Relation. Lemma~\ref{lemma:q-generalized} gilt bezüglich dieser Relation $R$: da (1) gilt, existiert also für jede NPTM $N$ mit $L(N)=\Proj(R)$ ein $h\in \FP$ mit $(x,h(x,\alpha))\in R$ wenn immer $N(x)$ mit Rechenweg $\alpha$ akzeptiert, wie gewünscht.
-\item (1)$\implies$(8$'$): Folgt aus Lemma~\ref{lemma:q-generalized}.
+%\begin{theorem}[Formulierung Hypothese $\hQ$ durch NP-Relationen, $\forall$-Variante]
+    %Folgende Aussagen sind äquivalent:
+    %\begin{enumerate}
+        %\item Hypothese $\hQ$
+        %\item[(8\,$'\!$)] Für jede $\leqlp$-vollständige Levin-paddable NP-Relation $R$, und für alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt: es existiert eine Funktion $h\in\mathrm{FP}$ mit
+            %\[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
+        %\item[(9\,$'\!$)] Für jede $\leqlp$-vollständige Levin-paddable NP-Relationen $R$ ist das Standardbeweissystem $\mathit{std}_R$ p-optimal.
+        %\item[(10\,$'\!$)] Für jede NP-Relation $P$ und jede Menge $S\in \P$ mit $S\subseteq \Proj(P)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
+            %\[ x\in S \implies (x, g(x))\in P. \]
+    %\end{enumerate}
+%\end{theorem}
+%\begin{proof}
+%\begin{prooflist}
+%\item (8$'$)$\implies$(1), (9$'$)$\implies$(1), (10$'$)$\implies$(1):
+    %Die NP-Relation $\mathtt{rKAN}$ ist $\leq_\mathrm{L,1,inv}^\mathrm p$-vollständig (und damit auch Levin-paddable).
+    %Gilt also (8$'$), dann auch die existentielle Variante (8) von vorigem Satz~\ref{thm:q}, und damit (1).
+    %Beweise der anderen Implikationen sind analog.
 
-\item (8$'$)$\implies$(9$'$): Sei $R$ eine beliebige $\leqlp$-vollständige Levin-paddable NP-Relation. Nach Voraussetzung können wir für jede NPTM $N$, $L(N)=\Proj(R)$ eine Funktion $h\in FP$ angeben sodass 
-    \[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
-    Das ist genau die erste der der äquivalenten Aussagen in Lemma~\ref{lemma:stdps-q}. Damit gilt auch bezüglich \emph{diesem} gewählten $R$ auch die zweite der äquivalenten Aussagen, nämlich dass $\mathit{std}_R$ p-optimal ist.
+%%\item (1)$\implies$(8$'$): Sei $R$ eine beliebige $\leqlp$-vollständige Levin-paddable NP-Relation. Lemma~\ref{lemma:q-generalized} gilt bezüglich dieser Relation $R$: da (1) gilt, existiert also für jede NPTM $N$ mit $L(N)=\Proj(R)$ ein $h\in \FP$ mit $(x,h(x,\alpha))\in R$ wenn immer $N(x)$ mit Rechenweg $\alpha$ akzeptiert, wie gewünscht.
+%\item (1)$\implies$(8$'$): Folgt aus Lemma~\ref{lemma:q-generalized}.
 
-\item (1)$\implies$(10$'$): Im Beweis von Satz~\ref{thm:q} wurde (1)$\implies$(5)$\implies$(10) gezeigt. Beachte insbesondere dass im Beweis zur zweiten Implikation sogar eine stärkere Aussage bewiesn wurde, welche die Aussage (10) für alle NP-Relationen (und nicht nur vollständige) zeigt. Das entspricht genau der hier aufgestellten Aussage (10$'$), wie gewünscht.
-\end{prooflist}
-\end{proof}
+%\item (8$'$)$\implies$(9$'$): Sei $R$ eine beliebige $\leqlp$-vollständige Levin-paddable NP-Relation. Nach Voraussetzung können wir für jede NPTM $N$, $L(N)=\Proj(R)$ eine Funktion $h\in FP$ angeben sodass 
+    %\[ N(x) \text{ akz. mit RW $\alpha$} \implies (x,h(x,\alpha))\in R. \]
+    %Das ist genau die erste der der äquivalenten Aussagen in Lemma~\ref{lemma:stdps-q}. Damit gilt auch bezüglich \emph{diesem} gewählten $R$ auch die zweite der äquivalenten Aussagen, nämlich dass $\mathit{std}_R$ p-optimal ist.
+
+%\item (1)$\implies$(10$'$): Im Beweis von Satz~\ref{thm:q} wurde (1)$\implies$(5)$\implies$(10) gezeigt. Beachte insbesondere dass im Beweis zur zweiten Implikation sogar eine stärkere Aussage bewiesn wurde, welche die Aussage (10) für alle NP-Relationen (und nicht nur vollständige) zeigt. Das entspricht genau der hier aufgestellten Aussage (10$'$), wie gewünscht.
+%\end{prooflist}
+%\end{proof}
 
 
 \section{Bekannte Implikationen, Offene Orakel}
 
-%\begin{theorem}[\cite{dingel_separation_2022}]\label{thm:tfnp-vs-npconp}
-    %Folgende Aussagen sind äquivalent:
-    %\begin{enumerate}
-        %\item $\NP=\coNP$
-        %\item Es existiert eine $\NP$-harte Funktion $f\in\TFNP$: für jede Menge $L\in\NP$ und jede Verfeinerung $f'$ von $f$ gilt $L\in\P^{f'}$.
-    %\end{enumerate}
-%\end{theorem}
+Im letzten Abschnitt dieses Kapitels werden wir nun die in Abbildung \ref{fig:figure-implications} abgebildeten Implikationen und Äquivalenzen nachweisen.
+Damit werden insbesondere auch die Hypothesen $\hQ$ und $\mathsf{KvL}$ in das Pudláksche Programm eingeordnet.
+Zum Schluss wird noch angegeben, welche der Hypothesen im (vergrößtertem) Pudlákschen Programm durch ein Orakel separiert sind, und welche Separierungen noch offen sind.
 
-Der folgende Satz ist eine Generalisierung von \textcite{dingel_separation_2022}.
+Zunächst führen wir noch eine abgeschwächte Variante von $\hQ$ ein, die von \textcite{fenner_inverting_2003} vorgeschlagen wurde.
+
+\begin{conjecture}[$\hQ'$, \cite{fenner_inverting_2003}]
+    Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)\in\{0,1\}$ das erste Bit einer akzeptierende Berechnung von $N(x)$ ist. 
+\end{conjecture}
+
+Jetzt können wir auch die in Abbildung \ref{fig:figure-implications} abgebildeten Implikationen und Äquivalenzen nachweisen.
+\begin{theorem}\label{thm:figure-implications}
+    Es gelten die in Abbildung \ref{fig:figure-implications} abgebildeten Implikationen und Äquivalenzen.
+\end{theorem}
+\begin{proof}
+    Es gelten die notiertern Äquivalenzen:
+    \begin{Prooflist}[nosep]
+    \item $\neg\hQ \Leftrightarrow \mathit{sat}$ ist p-optimal, nach Satz~\ref{thm:q}.
+    \item $\NP\neq\coNP \Leftrightarrow$ existiert keine NP-harte Funktion in $\TFNP$, nach Satz~\ref{thm:tfnp-vs-npconp}.
+    \item $\neg\hQ' \Leftrightarrow\exists$ P-inseparierbares $\DisjCoNP$-Paar, nach \textcite{fortnow_separability_2002}.
+    \item $\NP\cap\coNP\neq\P \Leftrightarrow \NPSV_t\not\subseteq\FP$, nach \textcite{selman_taxonomy_1994}.
+    \item $\UP\neq\P \Leftrightarrow\exists$ Einwegfunktionen, nach \textcite[Thm.~10]{grollmann_complexity_1988}.
+    \item $\UP\cap\coUP\neq\P \Leftrightarrow\exists$ Einwegpermutationen, nach \textcite{homan_one-way_2003}.
+    \item $\hNPcoNP \Leftrightarrow \NPSV_t$ hat keine vollständige Funktion, nach \textcite[Prop.~3]{beyersdorff_nondeterministic_2009}.
+    \item $\hDisjNP \Leftrightarrow \NPSV$ hat keine vollständige Funktion, nach \textcite[Thm.~9]{glaser_reductions_2005}.
+    \end{Prooflist}
+
+    Es gelten die eingezeichneten Implikationen:
+    \begin{Prooflist}[nosep]
+\item $\hDisjNP \Rightarrow \mathsf{CON^N}$ nach \textcite{kobler_optimal_2003}.
+\item $\hUP \Rightarrow \hTAUT$ nach \textcite[Cor.~4.1]{kobler_optimal_2003}. % relativiert offenbar nach Dose
+\item $\mathsf{CON^N}\Rightarrow \mathrm{NEE\neq coNEE}$ nach \textcite{kobler_optimal_2003}.
+\item $\NP\cap\coNP\neq \P \Rightarrow \neg\hQ' \Rightarrow \NPMVt \not\subseteqc \TFNP \Rightarrow \neg\hQ$ nach \textcite{fenner_inverting_2003}.
+%\item $\mathrm{E\neq NE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{bellare_complexity_1994}.
+\item $\mathrm{E\neq NE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{impagliazzo_1991}.
+\item $\UP\neq\P \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar, nach \textcite[Thm.~5]{grollmann_complexity_1988}.
+\item $\hNPcoNP\Rightarrow \hTAUT\lor\hSAT$ nach \textcite[Cor.~5.1]{kobler_optimal_2003}. % relativiert offenbar nach Dose
+\item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \hSAT$ nach \textcite[Thm.~25]{beyersdorff_nondeterministic_2009}. Es ist leicht zu sehen, dass der Beweis auch auf unsere relativierte Variante von $\hSAT$ generalisiert.
+\item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \NP\neq\coNP$ nach Satz~\ref{thm:tfnp-vs-npconp}.
+\item $\mathsf{SAT^{eff}} \Rightarrow \hSAT, \mathsf{SAT^{eff}}\Rightarrow \mathsf{KvL}$, nach Satz~\ref{thm:sateff-generalizes-sat}.
+\item $\mathsf{KvL}\Rightarrow\neg\hQ$, nach Satz~\ref{thm:kvl-implies-q}.
+\item $\neg\hQ\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, denn unter $\neg\hQ$ gilt mit Satz~\ref{thm:q} auch die Negation von \ref{thm:q}(1), also eine NPTM $N$ mit $L(N)=\Sigma^*$ wobei keine Funktion $g\in\FP$ existiert, welche für alle $x$ durch $g(x)$ einen akzeptierenden Rechenweg von $N(x)$ bestimmt.
+    Definiere die NP-Relation $R_N$ mit $(x,\alpha)\in R_N$ genau dann wenn $N(x)$ mit Rechenweg $\alpha$ existiert. Nun gilt nach Vorigem auch $R\not\inc \FP=\FP^{\Sigma^*} = \FP^{L(R)}$.
+\item $\hDisjCoNP \Rightarrow \hTFNP \Rightarrow \NPMVt$ hat keine vollständig Funktion, nach \textcite{pudlak_incompleteness_2017}.
+\item $\NP\cap\coNP\neq \P \Rightarrow\exists$ P-inseparierbares $\DisjNP$-Paar, denn wenn alle $\DisjNP$-Paare P-separierbar, dann ist auch für jede Menge $L\in\NP\cap\coNP$ jeweils das $\DisjNP$-Paar $(L,\overline{L})$ P-separierbar und damit $L\in\P$.
+\item $\hDisjNP \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar; ist klar, denn wenn alle $\DisjNP$-Paare P-separierbar wären, dann wären auch alle Paare $\leqmpp$-vollständig.
+\item $\hDisjCoNP \Rightarrow \exists$ P-inseparierbares $\DisjCoNP$-Paar; ist aus selben Gründen klar.
+\item $\mathsf{CON^N} \Rightarrow \hTAUT$ klar, weil aus p-Optimalität auch Optimalität folgt.
+\item $\mathsf \hSAT \Rightarrow \neg\hQ $ klar: wen $\hQ$, dann ist nach Satz~\ref{thm:q} jedes optimale Beweissystem auch p-optimal. Dann gilt auch $\neg\hSAT$: jede Menge $L\in\NP$ hat ein optimales Beweissystem $h$ (Beobachtung~\ref{obs:np-short-ps}) und das ist nach Voraussetzung p-optimal.
+\item $\hUP \Rightarrow \UP\neq\P$ klar.
+\item $\hNPcoNP \Rightarrow \NP\cap\coNP\neq \P$ klar.
+\item $\exists$ P-inseparierbares $\DisjNP$-Paar $\Rightarrow \P\neq \NP$ klar.
+\item $\UP\cap\coUP\Rightarrow \UP\neq \P$, $\UP\cap\coUP\Rightarrow \NP\cap\coNP\neq\P$ klar.
+\item $\mathrm{NEE\neq coNEE \Rightarrow NE \neq coNE \Rightarrow NP \neq coNP \Rightarrow P\neq NP}$ klar.
+\item $\mathrm{NEE\neq coNEE \Rightarrow EE \neq NEE \Rightarrow E\neq NE}$ klar.\qedhere
+\end{Prooflist}
+\end{proof}
+
+Der verbleibende Beweis ist eine Generalisierung von \textcite{dingel_separation_2022}.
 \begin{theorem}\label{thm:npmvt-vs-npconp}
     Wenn $\NP=\coNP$ dann existiert eine $\leqmp$-vollständige Multifunktion $f$ für $\NPMV_t$.
 \end{theorem}
@@ -2024,60 +2127,12 @@ Der folgende Satz ist eine Generalisierung von \textcite{dingel_separation_2022}
     und $h(x)=(i, x, 1^{|x|^i+i})$ realisiert die Reduktion von $g$ auf $f$, wie gewünscht.
 \end{proof}
 
-
-
-
 \begin{figure}
-    \hspace*{-12mm}\includegraphics[page=1]{figures.pdf}
-    \caption{Bekannte (relativierenden) Implikationen zwischen den betrachteten Hypothesen und weiteren Aussagen. Satz~\ref{thm:figure-implications} gibt Belegstellen für jede dieser Implikationen an.}\label{fig:figure-implications}
+    \centering\includegraphics[page=7]{figures.pdf}
+    \caption{}
 \end{figure}
 
-\begin{theorem}\label{thm:figure-implications}
-    Es gelten die in Abbildung \ref{fig:figure-implications} abgebildeten Implikationen und Äquivalenzen.
-\end{theorem}
-\begin{proof}
-    Es gelten die notiertern Äquivalenzen:
-    \begin{Prooflist}[nosep]
-    \item $\neg\hQ \Leftrightarrow \mathit{sat}$ ist p-optimal, nach Satz~\ref{thm:q}.
-    \item $\NP\neq\coNP \Leftrightarrow$ existiert keine NP-harte Funktion in $\TFNP$, nach Satz~\ref{thm:tfnp-vs-npconp}.
-    \item $\neg\hQ' \Leftrightarrow\exists$ P-inseparierbares $\DisjCoNP$-Paar, nach \textcite{fortnow_separability_2002}.
-    \item $\NP\cap\coNP\neq\P \Leftrightarrow \NPSV_t\not\subseteq\FP$, nach \textcite{selman_taxonomy_1994}.
-    \item $\UP\neq\P \Leftrightarrow\exists$ Einwegfunktionen, nach \textcite[Thm.~10]{grollmann_complexity_1988}.
-    \item $\UP\cap\coUP\neq\P \Leftrightarrow\exists$ Einwegpermutationen, nach \textcite{homan_one-way_2003}.
-    \item $\hNPcoNP \Leftrightarrow \NPSV_t$ hat keine vollständige Funktion, nach \textcite[Prop.~3]{beyersdorff_nondeterministic_2009}.
-    \item $\hDisjNP \Leftrightarrow \NPSV$ hat keine vollständige Funktion, nach \textcite[Thm.~9]{glaser_reductions_2005}.
-    \end{Prooflist}
 
-    Es gelten die eingezeichneten Implikationen:
-    \begin{Prooflist}[nosep]
-\item $\hDisjNP \Rightarrow \mathsf{CON^N}$ nach \textcite{kobler_optimal_2003}.
-\item $\hUP \Rightarrow \hTAUT$ nach \textcite{kobler_optimal_2003}. \todo{Relativierung?}
-\item $\mathsf{CON^N}\Rightarrow \mathrm{NEE\neq coNEE}$ nach \textcite{kobler_optimal_2003}.
-\item $\NP\cap\coNP\neq \P \Rightarrow \neq\hQ' \Rightarrow \NPMVt \not\subseteqc \TFNP \Rightarrow \neq\hQ$ nach \textcite{fenner_inverting_2003}.
-%\item $\mathrm{E\neq NE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{bellare_complexity_1994}.
-\item $\mathrm{E\neq NE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{impagliazzo_1991}.
-\item $\UP\neq\P \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar, nach \textcite[Thm.~5]{grollmann_complexity_1988}.
-\item $\hNPcoNP\Rightarrow \hTAUT\lor\hSAT$ nach \textcite[Cor.~24]{beyersdorff_nondeterministic_2009}. \todo{Relativierung?}
-\item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \hSAT$ nach \textcite[Thm.~25]{beyersdorff_nondeterministic_2009}. Es ist leicht zu sehen, dass der Beweis auch auf unsere relativierte Variante von $\hSAT$ generalisiert.
-\item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \NP\neq\coNP$ nach Satz~\ref{thm:tfnp-vs-npconp}.
-\item $\mathsf{SAT^{eff}} \Rightarrow \hSAT, \mathsf{SAT^{eff}}\Rightarrow \mathsf{KvL}$, nach Satz~\ref{thm:sateff-generalizes-sat}.
-\item $\mathsf{KvL}\Rightarrow\neg\hQ$, nach Satz~\ref{thm:kvl-implies-q}.
-\item $\neg\hQ\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, denn unter $\neg\hQ$ gilt mit Satz~\ref{thm:q} auch die Negation von \ref{thm:q}(1), also eine NPTM $N$ mit $L(N)=\Sigma^*$ wobei keine Funktion $g\in\FP$ existiert, welche für alle $x$ durch $g(x)$ einen akzeptierenden Rechenweg von $N(x)$ bestimmt.
-    Definiere die NP-Relation $R_N$ mit $(x,\alpha)\in R_N$ genau dann wenn $N(x)$ mit Rechenweg $\alpha$ existiert. Nun gilt nach Vorigem auch $R\not\inc \FP=\FP^{\Sigma^*} = \FP^{L(R)}$.
-\item $\hDisjCoNP \Rightarrow \hTFNP \Rightarrow \NPMVt$ hat keine vollständig Funktion, nach \textcite{pudlak_incompleteness_2017}.
-\item $\NP\cap\coNP\neq \P \Rightarrow\exists$ P-inseparierbares $\DisjNP$-Paar, denn wenn alle $\DisjNP$-Paare P-separierbar, dann ist auch für jede Menge $L\in\NP\cap\coNP$ jeweils das $\DisjNP$-Paar $(L,\overline{L})$ P-separierbar und damit $L\in\P$.
-\item $\hDisjNP \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar; ist klar, denn wenn alle $\DisjNP$-Paare P-separierbar wären, dann wären auch alle Paare $\leqmpp$-vollständig.
-\item $\hDisjCoNP \Rightarrow \exists$ P-inseparierbares $\DisjCoNP$-Paar; ist aus selben Gründen klar.
-\item $\mathsf{CON^N} \Rightarrow \hTAUT$ klar, weil aus p-Optimalität auch Optimalität folgt.
-\item $\mathsf \hSAT \Rightarrow \neg\hQ $ klar: wen $\hQ$, dann ist nach Satz~\ref{thm:q} jedes optimale Beweissystem auch p-optimal. Dann gilt auch $\neg\hSAT$: jede Menge $L\in\NP$ hat ein optimales Beweissystem $h$ (Beobachtung~\ref{obs:np-short-ps}) und das ist nach Voraussetzung p-optimal.
-\item $\hUP \Rightarrow \UP\neq\P$ klar.
-\item $\hNPcoNP \Rightarrow \NP\cap\coNP\neq \P$ klar.
-\item $\exists$ P-inseparierbares $\DisjNP$-Paar $\Rightarrow \P\neq \NP$ klar.
-\item $\UP\cap\coUP\Rightarrow \UP\neq \P$, $\UP\cap\coUP\Rightarrow \NP\cap\coNP\neq\P$ klar.
-\item $\mathrm{NEE\neq coNEE \Rightarrow NE \neq coNE \Rightarrow NP \neq coNP \Rightarrow P\neq NP}$ klar.
-\item $\mathrm{NEE\neq coNEE \Rightarrow EE \neq NEE \Rightarrow E\neq NE}$ klar.\qedhere
-\end{Prooflist}
-\end{proof}
 
 \chapter{Orakel}
 
