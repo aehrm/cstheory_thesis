@@ -1,39 +1,110 @@
 %! TEX root = ./thesis.tex
 \chapter{Einleitung}
 
-\note{Viele andere Beweise der Komplexitätstheorie funktionieren auch in relativierten Umgebungen, also wenn alle beteiligten TM zu OTM ausgewechselt werden. Das Diagonalargument in einem typischen Beweis von $\P\subsetneq\mathrm{E}$ relativiert beispielsweise, sodass auch $\P^O\subsetneq\mathrm{E}^O$ für jedes beliebige Orakel $O$ gilt. Wir sagen dann auch, dass diese Aussagen bzw. Beweise \emph{relativieren}.}
+Diese Arbeit beschäftigt sich mit algorithmischen Suchproblemen. Beispiele für solche Suchprobleme sind:
+\begin{enumerate}[label=\arabic*.]
+    \item Gegeben eine positive Zahl $n$, berechne die Primfaktorzerlegung von $n$.
+    \item Sei $G$ eine kontextfreie Grammatik. Gegeben ein Wort $w$, berechne einen Ableitungsbaum von $w$ über $G$ an, oder gebe „$w$ nicht von $G$ generiert“ aus.
+    \item Gegeben ein Graph, berechne das größte Matching in diesem Graphen.
+    \item Gegeben ein Graph, berechne eine Knotenfärbung mit drei Farben, oder gebe „nicht färbbar mit drei Farben“ aus.
+    \item Gegeben ein Graph, berechne eine größte Clique in diesem Graphen.
+    \item Gegeben ein Graph und eine positive Zahl $k$, berechne eine Clique mit $\geq k$ Knoten in diesem Graphen, oder gebe „keine Clique mit $k$ Knoten möglich“ aus.
+    \item Gegeben eine aussagenlogische Formel $\phi$, bestimme eine erfüllende Belegung für $\phi$, oder gebe „unerfüllbar“ aus.
+    \item Gegeben eine aussagenlogische Formel $\phi$, bestimme einen Beweis (unter einem geeigneten Beweissystem, z.B. Resolution) für die Gültigkeit von $\phi$, oder gebe eine Belegung an, welche $\phi$ nicht erfüllt.
+    \item Gegeben eine prädikatenlogischen Satz $\phi$ in der Sprache der Arithmetik\sidenote{Gemeint ist die prädikatenlogische Sprache mit der Konstante $0$, einer unären Nachfolgerfunktion, je binären Funktionen $+$, $\times$, und je binären Relationen $=$, $\leq$}, betimme einen Beweis (unter einem geeignten Kalkül, z.B. Sequenzenkalkül) für die Wahrheit von $\phi$ im Standardmodell der Arithmetik, oder gebe „$\phi$ nicht wahr“ aus.
+\end{enumerate}
+Innerhalb des Forschungsbereichs der theoretischen Informatik beschäftigt sich die Berechenbarkeitstheorie mit der Frage, welche dieser Aufgaben überhaupt berechenbar sind. Das Beispiel (9) ist z.B. überhaupt nicht berechenbar, in dem Sinn dass kein Algorithmus existiert, welcher für jeden Satz $\phi$ nach endlicher Zeit mit der korrekten Lösung antwortet.
+Alle anderen Probleme (1)--(8) sind im Prinzip algorithmisch lösbar, indem alle möglichen Lösungsmöglichkeiten durchsucht werden.
 
-\note{Die typischen Beweistechniken der Komplextätstheorie relativieren. Das macht eigens konstruierte Orakel zu Indizien, dass gewisse Aussagen schwer zu beweisen sind. Beispielsweise konstruieren \textcite{baker_relativizations_1975} ein Orakel $A$ sodass $\P^A\neq \NP^A$. Mit diesem Fakt ist die Aussage „$\P=\NP$“ nicht mit relativierbaren Methoden beweisbar, da sonst ja auch $\P^A=\NP^A$ gelten würde.}
+Der Unterbereich der algorithmischen Komplexitätstheorie ist weniger an den prinzipiellen Grenzen von Berechenbarkeit interessiert, sondern fokussiert sich unter den berechenbaren Aufgaben damit, welche Rsourcen (Rechenzeit, Speicherplatz, zugeführte Zufälligkeit) hierfür notwendig sind. Die Komplexitätstheorie interessiert sich also, welche dieser Aufgaben effizient durchgeführt werden können, und somit als umsetzbar angesehen werden können. 
 
-%\begin{itemize}
-    %\item Existiert eine vollständige Menge für $\UP$ bezüglich Many-one-Reduktionen $\leqmp$?
-    %\item Existiert eine vollständige Menge für $\NP\cap\coNP$ bezüglich Many-one-Reduktionen $\leqmp$?
-    %\item Existiert eine vollständige Funktion für $\NPMVt$ bezüglich Many-one-Reduktionen $\leqmp$?
-    %\item Existiert ein vollständiges NP-Paar für $\DisjNP$ bezüglich Promise-Problem-Many-one-Reduktionen $\leqmpp$?
-%\end{itemize}
-%\begin{alignat*}
-    %&\hSAT &&: \text
-%\end{alignat*}
+In der Disziplin hat sich für „Effizienz“ bzw. „Umsetzbarkeit“ insbesondere folgender Konsens durchgesetzt: ein Algorithmus ist „effizient“ wenn die Laufzeit des Algorithmus polynomiell mit der Eingabegröße wächst. In anderen Worten: wird die Eingabe, z.B. der Graph bei Beispiel 3, doppelt so groß, dann braucht dieser effiziente Algorithmus $c$-mal so lange.
 
-\note{
-Die algorithmische Komplexitätstheorie fokussiert sich primär auf Entscheidungsprobleme, und weniger auf Suchprobleme. Dabei sind Suchprobleme mindestens genauso natürlich wie Entscheidungsprobleme, und in einigen Fällen auch (vor allem für Nicht-Fachleute) intuitiver: wir sind nicht daran interessiert \emph{ob} eine Dreifärbung eines Graphen existiert, sondern sind an der konkreten Färbung interessiert.
-Diese Fokussierung auf Entscheidungsprobleme ist durchaus fundiert: es lässt sich argumentieren, dass für viele relevante Instanzen das Suchproblem auf das entsprechende Entscheidungsproblem „reduziert“ werden kann, womit aus algorithmischer Perspektive das Suchproblem nicht schwerer ist als das Entscheidungsproblem. Die Konzentration auf Suchproble kommt dann unter anderem auch mit dem Vorteil, dass viele theoretische Konzepte einfacher zu fassen sind und komakter zu formulieren sind; so z.B. der Begriff von \emph{Sprache} und Turing-Maschinen die als „Ausgabe“ nur akzeptieren bzw. ablehnen können. Das hat auch historische Gründe: Entscheidungsprobleme waren der primäre Fokus innerhalb der Berechenbarkeitstheorie einerseits und in der Theorie der formalen Sprachen und Grammatiken andererseits.}
+Unter den oben genannten Suchproblemen ein solcher Algorithmus mit polynomieller Laufzeit nur für Probleme (2) und (3) bekannt.
+Für die Suchprobleme (1), (4), (5), (6), (7), (8) lässt sich aber ein trivialer Suchalgorithmus mit exponentieller Laufzeit angeben. Für Suchproblem (4) bedeutet das z.B., alle möglichen exponentiell vielen Zuweisungen von Farben auszuprobieren.
 
+%Obwohl die effiziente Berechnung von den obigen \emph{Such}problemen auch von praktischer Relevanz ist, hat sich 
+In der Komplexitätstheorie wurden solche \emph{Such}probleme wie (1)--(8) sehr früh in den Hintergrund verschoben, und stattdessen wurden die korrespondierenden \emph{Entscheidungs}probleme in den Blick genommen. Anstelle nach einer Lösung zu suchen, wird sich darauf beschränkt zu entscheiden, \emph{ob} eine Lösung existiert. Der Algorithmus muss also nur die Antwort „ja“ oder „nein“ ausgeben. Zugehörige Entscheidungsprobleme zu den oben genannten Suchproblemen wären:
+\begin{enumerate}
+    \item[2$'$.] Sei $G$ eine kontextfreie Grammatik. Gegeben ein Wort $w$, entscheide ob $w$ aus $G$ generiert werden kann.
+    \item[4$'$.] Gegeben ein Graph, entscheide ob dieser Graph mit drei Farben färbbar ist.
+    \item[6$'$.] Gegeben ein Graph und eine positive Zahl $k$, entscheide ob eine Clique mit $\geq k$ Knoten in diesem Graphen existiert.
+    \item[7$'$.] Gegeben eine aussagenlogische Formel $\phi$, entscheide ob $\phi$ erfüllbar ist.
+    \item[8$'$.] Gegeben eine aussagenlogische Formel $\phi$, entscheide ob $\phi$ gültig ist.
+    \item[9$'$.] Gegeben eine prädikatenlogischen Satz $\phi$ in der Sprache der Arithmetik, entscheide ob $\phi$ wahr im Standardmodell der Arithmetik ist.
+    \item[10$'$.] Gegeben eine Turing-Maschine $M$ und eine Eingabe $x$, entscheide ob $M$ auf Eingabe $x$ nach endlich vielen Rechenschritten terminiert.
+\end{enumerate}
+Beachte dass zu Suchproblemen (1), (3) und (5) keine unmittelbare Variante als Entscheidungsproblem existiert: es existiert immer eine Primfaktorzerlegung von $n$, analog existiert immer ein größtes Matching bzw. eine größte Clique in einem Graphen.
+Zusätzlich führen wir auch noch das Entscheidungsproblem 10$'$ ein, für das analog auch keine sinnvolle Variante als Suchproblem angegeben werden kann.
+
+Auf dem ersten Blick erscheint diese Fokussierung unnatürlich. In der Praxis sind wir interessiert, effizient Lösungen zu finden, um z.B. eine Karte einzufärben (Suchproblem 4), oder um einen Sourcecode zu parsen (Suchproblem 2). Die Feststellung „Karte ist dreifärbbar“, „Sourcecode ist wohlgeformt“ der Entscheidungsalgorithmen erscheint auf dem ersten Blick wenig hilfreich.
+
+Für diese Fokussierung auf Entscheidungsprobleme gibt es durchaus Gründe. Zum einen ist klar, dass das Suchproblem nicht einfacher sein kann, als das zugehörige Entscheidungsproblem. Die Unberechenbarkeit eines Entscheidungsproblems schließt also auch die Berechenbarkeit des Suchproblems aus. Das entspricht genau der historischen Forschungsentwicklung zum „\emph{Hilbertschen Entscheidungsproblem}“ (9$'$), worauf Turing das \emph{Halteproblem} (10$'$) reduziert hat. Mit der Unentscheidbarkeit des  Halteproblems folgt die Unentscheidbarkeit des Entscheidungsproblems (9$'$), und damit der Unentscheidbarkeit des entsprechenden Suchproblems (9). 
+Das symmetrische Argument lässt sich auch auf die potentiell effizient lösbare Entscheidungsprobleme übertragen. Die Komplexitätstheorie gibt Indizien, dass die Entscheidungsprobleme (4$'$), (6$'$)--(8$'$) wahrscheinlich nicht in Polynomialzeit lösbar sind, womit unmittelbar folgt, dass auch die Suchprobleme (4)--(8) nicht in Polynomialzeit lösbar sind.
+
+Für die Fokussierung auf Entscheidungsprobleme gibt es zweitens auch fachgeschichtliche Gründe: historisch stand die Komplexitätstheorie der späten 1950er mit ihrem Ziel der Unterteilung der berechenbaren Aufgaben in „einfach“ und „schwer“ nah an der Automatentheorie und der Theorie der formalen Sprachen, insbesondere bevor sich der Resourcenverbrauch von Algorithmen als zentrale Indikator für „Schwierigkeit“ in den späten 1960ern herausgebildet hat. Eine zentrale Unterteilung in „Schwierigkeit“ bzw. Komplexität war z.B. die Hierarchie der formalen Sprachen von Chomsky (die Regulären als sehr einfach, die Kontextfreien als etwas komplexer, die Kontextsensitiven als noch komlexer). %, sich der „Polyomialzeit-Konsens“ herausgearbeitet hat.
+Die einzig relevanten Suchprobleme -- Parsing wie in (2) -- haben sich dann aber auch relativ schnell geklärt (z.B. CYK-Parsing für die Kontextfreien) haben sich dann aber relativ schnlell geklärt, womit die zentralen Untersuchungsfragen eher waren, welche Sprachen durch welche Grammatiken (nicht) generiert werden können, bzw. welche Automaten welche Sprachen (nicht) erkennen können. Dafür ist die Beschränkung auf die Entscheidungsvariante („Generiert die Grammatik $G$ genau die Sprache $L$? Erkennt der Kellerautomat $A$ genau die Sprache $L$?“) ausreichend zur Etablierung unterer Schranken, und ist insbesondere auch dienlich im pragmatischen Sinn: „We do this for mathematical simplicity and because the behavior we want to study is already present at this level“, erläutert \textcite[7]{kozen_automata_1997}.
+
+Dieser Pragmatismus setzt sich in die resourcenfokussierte Komplexitätstheorie, insbesondere die um die Klassen P und NP (das betrifft 1--8, 2$'$--8$'$), fort.
+In den meisten Fällen reicht es aus, sich auf die Entscheidungsprobleme zu beschränken.
+Das ist durchaus fundiert:
+Einerseits, weil die zentralen algorithmischen Herausforderungen schon bei der Entscheidungsvariante auftreten („behavior we want to study is already present at this level“). So kann zum Beispiel die P-NP-Frage äquivalent als Frage über Entscheidungsprobleme als auch als Frage über Suchprobleme formuliert werden. Andererseits lässt sich argumentieren, dass für viele relevante Aufgaben das Suchproblem nicht schwerer ist als das Entscheidungsproblem. Dieses Argument wird üblicherweise als \emph{search reduces to decision} formuliert. Die Konzentration auf Suchproble kommt dann unter anderem auch mit dem Vorteil, dass viele theoretische Konzepte einfacher zu fassen sind und komakter zu formulieren sind („mathematical simplicity“). Wir können uns zum Beispiel auf (laufzeitbeschränkte) Algorithmen ohne Ausgabe konzentrieren, die Eingaben nur akzeptieren und ablehnen müssen. 
+
+\subsection*{NP-Suchprobleme als Forschungsgegenstand}
+
+Diese Arbeit setzt genau an dieser pragmatischen Festhaltung an Suchproblemen an.
+Zum einen möchte die Arbeit genau jene Suchprobleme untersuchen, bei der das Argument \emph{search reduces to decision} nicht zutrifft. In der also eine reine Betrachtung der Entscheidungsvarianten nicht weiterhilft. Tatsächlich gilt das für viele interessante Suchprobleme. Das sind zum Beispiel schon jene, die immer eine Lösung haben; hier kann zunächst nicht unmittelbar ein entsprechendes Entscheidungsproblem formuliert werden.
+Das haben wir bereits bei den Suchproblemen (1), (3), (5) gesehen.
+
+Wir beschränken uns hierbei im Folgenden auf \emph{NP-Suchprobleme}. Diese können als die Suchprobleme verstanden werden, die zu NP-Sprachen korrespondieren. Als Suchprobleme lässt sich eine einfache Charakterisierung formulieren: NP-Suchprobleme sind solche Suchprobleme, bei der 
+\begin{itemize}
+    \item die Lösung -- falls sie existieren sollte -- nur polynomiell länger als das Eingabe ist, und 
+    \item effizient (also in Polynomialzeit) verifiziert werden kann, ob ein fraglicher Lösungskandidat tatsächlich eine Lösung für eine Eingabe darstellt.
+\end{itemize}
+Das Suchproblem (4) ist beispielsweise ein NP-Suchproblem: die Färbung (Zuordnung von Knoten zu einer der drei Farben) ist nicht länger als der Eingabegraph, und zu einer beliebigen Färbung (valide oder nicht) kann in Polynomialzeit überprüft werden, ob diese Färbung tatsächlich jeden zwei adjazenten Knoten eine unterschiedliche Farbe zugewiesen wird.
+
+Die Suchprobleme (1)--(4), (6), (7) sind NP-Suchprobleme.
+Das Suchproblem (5) ist dagegen mutmaßlich kein NP-Suchproblem, denn es ist nicht bekannt wie verifiziert werden kann, dass eine Teilmenge $C$ an Knoten in einem Graph tatsächlich eine \emph{größte} Clique ist.\sidenote{Suchproblem (3) fragt auch nach einer optimalen Lösung, ist aber ein pathologisches NP-Suchproblem, denn ein größtes Matching kann ohnehin in Polynomialzeit berechnet werden. Die „Verifikation“ besteht also darin zu überprüfen, ob die fragliche Lösung genau so viele Pärchen bildet wie die ad hoc berechnete optimale Lösung.}
+Das Suchproblem (8) ist auch mutmaßlich kein NP-Suchproblem, denn kein Beweissystem ist bekannt, dass Gültigkeit mit polynomiell langen Beweisen ausdrücken kann. Spezielle gültige Formeln $\phi$ haben exponentiell lange Resolutionsbeweise.
+
+Zum zweiten möchte die Arbeit Eigenschaften und Strukturen von NP-Suchproblemen untersuchen. Besonders interessant sind hierbei die vollständigen NP-Suchprobleme, die sich ähnlich zu den sonst üblichen NP-vollständigen Mengen verhalten.
+
+\subsection*{Beweissysteme und das Pudláksche Programm}
 \bigskip
 \begin{tabular}{l@{\quad:\quad}l}
-    $\hSAT$ & es ex. keine $\leqmp$-vollständige Menge für $\NP$ mit p-optimalem Beweissystem\\
-    $\hTAUT$ & es ex. keine $\leqmp$-vollständige Menge für $\coNP$ mit p-optimalem Beweissystem\\
-    $\mathsf{CON^N}$ & es ex. keine $\leqmp$-vollständige Menge für $\coNP$ mit optimalem Beweissystem\\
-    $\hNPcoNP$ & es ex. keine $\leqmp$-vollständige Menge für $\UP$\\
-    $\hUP$ & es ex. keine $\leqmp$-vollständige Menge für $\NP\cap\coNP$\\
-    $\hDisjNP$ & es ex. kein $\leqmpp$-vollständiges disjunktes NP-Paar für $\DisjNP$\\
-    $\hDisjCoNP$ & es ex. kein $\leqmpp$-vollständiges disjunktes coNP-Paar für $\DisjCoNP$
+    $\hSAT$ & es ex. keine $\leqmp$-vollst. Menge für $\NP$ mit p-opt. Beweissystem\\
+    $\hTAUT$ & es ex. keine $\leqmp$-vollst. Menge für $\coNP$ mit p-opt. Beweissystem\\
+    $\mathsf{CON^N}$ & es ex. keine $\leqmp$-vollst. Menge für $\coNP$ mit opt. Beweissystem\\
+    $\hNPcoNP$ & es ex. keine $\leqmp$-vollst. Menge für $\UP$\\
+    $\hUP$ & es ex. keine $\leqmp$-vollst. Menge für $\NP\cap\coNP$\\
+    $\hDisjNP$ & es ex. kein $\leqmpp$-vollst. disjunktes NP-Paar für $\DisjNP$\\
+    $\hDisjCoNP$ & es ex. kein $\leqmpp$-vollst. disjunktes coNP-Paar für $\DisjCoNP$
 \end{tabular}
 \bigskip
 
 \begin{restatable}[$\hQ$, \cite{fenner_inverting_2003}]{conjecture}{conjq}
     Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierende Berechnung von $N(x)$ ist. 
 \end{restatable}
+
+\subsection*{Orakel und Relativierungen}
+
+Orakel und Orakel-Turing-Maschinen ist ein System aus der Berechenbarkeitstheorie um die relative Schwierigkeit von algorithmischen Entscheidungsproblemen zu untersuchen, die über \emph{berechenbar vs. unberechenbar} hinaus gehen. Wenn eine Turing-Maschine eine Abstraktion eines Computers darstellt, dann ist ein Orakel eine Abstraktion einer Datenbank in der Cloud, die vom Computer angerufen werden kann um zu fragen, ob ein gewisser Eintrag in der Datenbank liegt. Dieses Abfragen des Entscheidungsproblems („Ist Eintrag in Datenbank?“) kann der Computer gewissermaßen gratis durchführen.
+
+Formal werden Orakel als Mengen $A$ realisiert, und Orakel-Turing-Maschinen dürfen für beliebige aufgeschriebene Wörter $w$ abfragen, ob $w\in A$ liegt. Ist nun $A$ insbesondere eine unberechenbare Menge, dann kann die zugehörige Turing-Maschine auch komplexere Mengen entscheiden, die sonst unberechenbar wären.
+Post arbeitet aus diesem Schema die Turing-Reduzierbarkeit aus: $A$ ist auf $B$ reduzierbar wenn $A$ mit einer Orakel-Turing-Maschine mit Orakel $B$ entschieden werden kann. Damit können sonst unberechenbare Mengen $A$ und $B$ nach ihrer relativen Schwierigkeit \emph{über einfache Berechenbarkeit hinaus} geordnet werden können. 
+
+Cook überträgt diese Form von Reduzierbarkeit auf den polynomiellen Bereich der Komplexitätstheorie, um so die relative Komplexität zwischen zwei Mengen $A$ und $B$ unter polynomieller Unschärfe einzuschätzen: $A$ ist auf $B$ Cook-reduzierbar wenn $A$ mit einer Orakel-Turing-Maschine mit Orakel $B$ in Polynomialzeit entschieden werden kann. Auf ähnliche Weise wurde der Begriff von Orakel im polynomiellen Bereich verwendet, um die Polynomialzeit-Hierarchie zu definieren, um so insbesondere den Komplexitätsraum zwischen NP und PSPACE zu verfeinern.
+
+Neben diesen deskriptiven Eigenschaften haben sich Orakel als nützliches beweistheoretisches Werkzeug in der Komplexitätstheorie erwiesen. Die zentrale Einsicht hierbei ist, dass viele der „üblichen“ Beweise und Beweismethoden, welche in der Komplexitätstheorie eingesetzt werden, \emph{relativieren}. Das bedeutet, dass diese Beweise nicht nur die eigentliche Aussage (wie z.B. $\P\neq \mathrm{EXP}$) beweisen, sondern für jedes Orakel $A$ dieser Beweise auch die \emph{relativierte} Aussage beweisen, bei der  alle beteiligten Turing-Maschinen Zugriff auf das Orakel $A$ bekommen. Die Aussage $\P\neq \mathrm{EXP}$ relativiert so zur Aussage $\P^A\neq \mathrm{EXP}^A$, das bedeutet dass eine Menge $L$ existiert die von einer Exponentialzeit-Orakel-Turing-Maschine mit Zugriff auf $A$ erkannt wird, aber keine Polynomialzeit-Turing-Maschine (selbst mit Zugriff auf $A$) kann $L$ entscheiden.
+
+Damit werden speziell konstruierte Orakel zu einem Indiz, dass gewisse Aussagen schwer zu beweisen sind.
+Beispielsweise konstruieren \textcite{baker_relativizations_1975} ein Orakel $A$ sodass $\P^A\neq \NP^A$. Mit diesem Fakt ist die Aussage „$\P=\NP$“ nicht mit relativierbaren Methoden beweisbar, da sonst ja auch $\P^A=\NP^A$ gelten würde. Tatsächlich zeigen \citeauthor{baker_relativizations_1975} sogar zusätzlich, dass $\P^A= \NP^A$. Damit kann also auch die Aussage „$\P\neq\NP$“ nicht mit relativierbaren Methoden bewiesen werden. Nimmt man diese beiden Indizien zusammen, ergibt sich dass die P-NP-Frage \emph{unabhängig} unter relativierbaren Beweisen ist.
+
+Im Kontext des Pudlákschen Programms wurde für viele potentielle Implikationen (wie z.B. $\hDisjCoNP\Rightarrow\hTAUT$) ein Orakel konstruiert, relativ zu dieser diese Implikationen nicht gelten (es exitiert ein Orakel relativ zu dem $\hDisjCoNP$ gilt aber nicht $\hTAUT$). Damit wird plausibilisiert, dass gewisse Hypothesen des Pudlákschen Programms tatsächlich unterschiedlich sind.
+
+Diese Arbeit reiht sich in dieses Arbeitsvorhaben direkt ein, und wird weitere Orakel konstruieren, um Hypothesen (unter relativierbaren Beweisen) zu trennen.
+
+\subsection*{Beitrag und Überblick}
 
 \chapter{Grundlagen}
 

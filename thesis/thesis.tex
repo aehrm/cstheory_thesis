@@ -18,7 +18,7 @@
 
 %\documentclass[11pt,twoside,BCOR=12mm,DIV=9,headings=small]{scrreprt}
 \newif\ifbook
-%\booktrue
+\booktrue
 \ifbook
 \documentclass[10pt,a4paper,twoside]{report}
 \else
@@ -37,6 +37,7 @@
 \setmathfont{TeX Gyre Pagella Math}
 \setsansfont[Scale=MatchLowercase]{IBM Plex Sans}
 \setmonofont[Scale=MatchLowercase]{JetBrains Mono Light}
+\setlength{\baselineskip}{12pt}
 \else
 \setmainfont{CMU Serif}
 \setsansfont[Scale=MatchLowercase]{IBM Plex Sans}
@@ -51,7 +52,7 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows,positioning}
 
-\setlength{\emergencystretch}{1em}
+\setlength{\emergencystretch}{2em}
 
 \usepackage{titlesec}		% header customization
 \usepackage{titletoc}		% toc customization
@@ -317,12 +318,14 @@
 \AtBeginDocument{\renewcommand{\epsilon}{\varepsilon}}
 
 \begin{document}
+\pagestyle{empty}
 \title{Komplexität von Suchproblemen und Beweissystemen}
 \author{Anton Ehrmanntraut}
 \maketitle
 \tableofcontents
 \clearpage
 
+\pagestyle{main}
 \input{maintext}
 
 
