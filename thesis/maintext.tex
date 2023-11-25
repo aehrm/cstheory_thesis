@@ -1,7 +1,9 @@
 %! TEX root = ./thesis.tex
 \chapter{Einleitung}
 
-Diese Arbeit beschäftigt sich mit algorithmischen Suchproblemen. Beispiele für solche Suchprobleme sind:
+Diese Arbeit beschäftigt sich mit algorithmischen Suchproblemen. 
+Hierbei ist eine Eingabeinstanz gegeben für welche eine entsprechende Lösung gesucht wird.
+Beispiele für solche Suchprobleme sind:
 \begin{enumerate}[label=\arabic*.]
     \item Gegeben eine positive Zahl $n$, berechne die Primfaktorzerlegung von $n$.
     \item Sei $G$ eine kontextfreie Grammatik. Gegeben ein Wort $w$, berechne einen Ableitungsbaum von $w$ über $G$ an, oder gebe „$w$ nicht von $G$ generiert“ aus.
@@ -43,7 +45,7 @@ Für diese Fokussierung auf Entscheidungsprobleme gibt es durchaus Gründe. Zum 
 Das symmetrische Argument lässt sich auch auf die potentiell effizient lösbare Entscheidungsprobleme übertragen. Die Komplexitätstheorie gibt Indizien, dass die Entscheidungsprobleme (4$'$), (6$'$)--(8$'$) wahrscheinlich nicht in Polynomialzeit lösbar sind, womit unmittelbar folgt, dass auch die Suchprobleme (4)--(8) nicht in Polynomialzeit lösbar sind.
 
 Für die Fokussierung auf Entscheidungsprobleme gibt es zweitens auch fachgeschichtliche Gründe: historisch stand die Komplexitätstheorie der späten 1950er mit ihrem Ziel der Unterteilung der berechenbaren Aufgaben in „einfach“ und „schwer“ nah an der Automatentheorie und der Theorie der formalen Sprachen, insbesondere bevor sich der Resourcenverbrauch von Algorithmen als zentrale Indikator für „Schwierigkeit“ in den späten 1960ern herausgebildet hat. Eine zentrale Unterteilung in „Schwierigkeit“ bzw. Komplexität war z.B. die Hierarchie der formalen Sprachen von Chomsky (die Regulären als sehr einfach, die Kontextfreien als etwas komplexer, die Kontextsensitiven als noch komlexer). %, sich der „Polyomialzeit-Konsens“ herausgearbeitet hat.
-Die einzig relevanten Suchprobleme -- Parsing wie in (2) -- haben sich dann aber auch relativ schnell geklärt (z.B. CYK-Parsing für die Kontextfreien) haben sich dann aber relativ schnlell geklärt, womit die zentralen Untersuchungsfragen eher waren, welche Sprachen durch welche Grammatiken (nicht) generiert werden können, bzw. welche Automaten welche Sprachen (nicht) erkennen können. Dafür ist die Beschränkung auf die Entscheidungsvariante („Generiert die Grammatik $G$ genau die Sprache $L$? Erkennt der Kellerautomat $A$ genau die Sprache $L$?“) ausreichend zur Etablierung unterer Schranken, und ist insbesondere auch dienlich im pragmatischen Sinn: „We do this for mathematical simplicity and because the behavior we want to study is already present at this level“, erläutert \textcite[7]{kozen_automata_1997}.
+Die einzig relevanten Suchprobleme -- Parsing wie in (2) -- haben sich dann aber auch relativ schnell geklärt (z.B. CYK-Parsing für die Kontextfreien) haben sich dann aber relativ schnlell geklärt, womit die zentralen Untersuchungsfragen eher waren, welche Sprachen durch welche Grammatiken (nicht) generiert werden können, bzw. welche Automaten welche Sprachen (nicht) erkennen können. Dafür ist die Beschränkung auf die Entscheidungsvariante („Generiert die Grammatik $G$ genau die Sprache $L$? Erkennt der Kellerautomat $A$ genau die Sprache $L$?“) ausreichend zur Etablierung unterer Schranken, und ist insbesondere auch dienlich im pragmatischen Sinn. Stellvertretend sei hier \citeauthor{kozen_automata_1997} zitiert: „We do this for mathematical simplicity and because the behavior we want to study is already present at this level“ \textcite*[7]{kozen_automata_1997}.
 
 Dieser Pragmatismus setzt sich in die resourcenfokussierte Komplexitätstheorie, insbesondere die um die Klassen P und NP (das betrifft 1--8, 2$'$--8$'$), fort.
 In den meisten Fällen reicht es aus, sich auf die Entscheidungsprobleme zu beschränken.
@@ -53,38 +55,96 @@ Einerseits, weil die zentralen algorithmischen Herausforderungen schon bei der E
 \subsection*{NP-Suchprobleme als Forschungsgegenstand}
 
 Diese Arbeit setzt genau an dieser pragmatischen Festhaltung an Suchproblemen an.
-Zum einen möchte die Arbeit genau jene Suchprobleme untersuchen, bei der das Argument \emph{search reduces to decision} nicht zutrifft. In der also eine reine Betrachtung der Entscheidungsvarianten nicht weiterhilft. Tatsächlich gilt das für viele interessante Suchprobleme. Das sind zum Beispiel schon jene, die immer eine Lösung haben; hier kann zunächst nicht unmittelbar ein entsprechendes Entscheidungsproblem formuliert werden.
+Zum ersten möchte die Arbeit genau jene Suchprobleme untersuchen, bei der das Argument \emph{search reduces to decision} nicht zutrifft. In der also eine reine Betrachtung der Entscheidungsvarianten nicht weiterhilft. Tatsächlich gilt das für viele interessante Suchprobleme. Das sind zum Beispiel schon jene, die immer eine Lösung haben; hier kann zunächst nicht unmittelbar ein entsprechendes Entscheidungsproblem formuliert werden.
 Das haben wir bereits bei den Suchproblemen (1), (3), (5) gesehen.
 
 Wir beschränken uns hierbei im Folgenden auf \emph{NP-Suchprobleme}. Diese können als die Suchprobleme verstanden werden, die zu NP-Sprachen korrespondieren. Als Suchprobleme lässt sich eine einfache Charakterisierung formulieren: NP-Suchprobleme sind solche Suchprobleme, bei der 
-\begin{itemize}
+\begin{itemize}[noitemsep]
     \item die Lösung -- falls sie existieren sollte -- nur polynomiell länger als das Eingabe ist, und 
     \item effizient (also in Polynomialzeit) verifiziert werden kann, ob ein fraglicher Lösungskandidat tatsächlich eine Lösung für eine Eingabe darstellt.
 \end{itemize}
-Das Suchproblem (4) ist beispielsweise ein NP-Suchproblem: die Färbung (Zuordnung von Knoten zu einer der drei Farben) ist nicht länger als der Eingabegraph, und zu einer beliebigen Färbung (valide oder nicht) kann in Polynomialzeit überprüft werden, ob diese Färbung tatsächlich jeden zwei adjazenten Knoten eine unterschiedliche Farbe zugewiesen wird.
+Das entspricht der sonst auch üblichen „Zertifikats-Definition“ der Komplexitätsklasse NP. Insbesondere induziert jede nichtdeterministische Polynomialzeit-Maschine ein NP-Suchproblem („gegeben Eingabe, finde einen akzeptierenden Rechenweg, oder gebe ‚leht ab‘ aus“) und umgekehrt.
 
-Die Suchprobleme (1)--(4), (6), (7) sind NP-Suchprobleme.
+Das Suchproblem (4) ist beispielsweise ein NP-Suchproblem: die Färbung (Zuordnung von Knoten zu einer der drei Farben) ist nicht länger als der Eingabegraph, und zu einer beliebigen Färbung (valide oder nicht) kann in Polynomialzeit überprüft werden, ob diese Färbung tatsächlich jeden zwei adjazenten Knoten eine unterschiedliche Farbe zugewiesen wird.
+Die Suchprobleme (1)--(4), (6), (7) sind ebenso NP-Suchprobleme.
+
 Das Suchproblem (5) ist dagegen mutmaßlich kein NP-Suchproblem, denn es ist nicht bekannt wie verifiziert werden kann, dass eine Teilmenge $C$ an Knoten in einem Graph tatsächlich eine \emph{größte} Clique ist.\sidenote{Suchproblem (3) fragt auch nach einer optimalen Lösung, ist aber ein pathologisches NP-Suchproblem, denn ein größtes Matching kann ohnehin in Polynomialzeit berechnet werden. Die „Verifikation“ besteht also darin zu überprüfen, ob die fragliche Lösung genau so viele Pärchen bildet wie die ad hoc berechnete optimale Lösung.}
 Das Suchproblem (8) ist auch mutmaßlich kein NP-Suchproblem, denn kein Beweissystem ist bekannt, dass Gültigkeit mit polynomiell langen Beweisen ausdrücken kann. Spezielle gültige Formeln $\phi$ haben exponentiell lange Resolutionsbeweise.
 
-Zum zweiten möchte die Arbeit Eigenschaften und Strukturen von NP-Suchproblemen untersuchen. Besonders interessant sind hierbei die vollständigen NP-Suchprobleme, die sich ähnlich zu den sonst üblichen NP-vollständigen Mengen verhalten.
+Die Einschränkung auf NP-Suchprobleme ist im Wesentlichen eine Konsequenz der hohen Wichtigkeit und Relevanz der Komplexitätsklasse NP, sowohl theoretisch innerhalb der Komplexitätstheorie (wieviel hilft Nichtdeterminismus den Polynomialzeit-Berechnungen), als auch in der Praxis, da sehr viele interessante und in der industriellen Anwendung aufkommenden Berechnungsaufgaben als  NP-Suchprobleme formuliert werden können. Hinzu kommt, dass die Suchprobleme welche nicht den Bedingungen von NP-Suchproblemen genügen, so gut wie definitiv zu komplex und schwer sind, um zu erwarten dass sie überhaupt effizient gelöst werden können. Für die (nicht-vollständigen) NP-Suchprobleme ist es zumindest noch plausibel, effiziente Suchalgorithmen entwickeln zu können.
+
+In diesem Sinne möchte die Arbeit zweitens Eigenschaften und Strukturen von NP-Suchproblemen untersuchen, sowie deren Beziehungen zu den NP-Entscheidungsproblemen. Besonders interessant sind hierbei die vollständigen NP-Suchprobleme, die sich ähnlich zu den sonst üblichen NP-vollständigen Mengen/Entscheidungsproblemen verhalten.
+
+Besonders interesssant ist hierbei die Klasse TFNP der \emph{totalen} NP-Suchprobleme, also jene bei den für jede Instanz immer eine Lösung existiert. Die totalen NP-Suchprobleme sind insofern interessant, dass viele effizient lösbar sind, andererseits für viele die effiziente Lösbarkeit noch offen ist. Gleichzeitig wird erwartet, dass die totalen NP-Suchprobleme nicht NP-hart sind; damit ist die effiziente Lösbarkeit zumindest dieser Suchprobleme durchaus in Reichweite. 
+Das trifft zum Beispiel für das Suchproblem (1) der Faktorisierung zu. Dieses totale NP-Suchproblem ist momentan nicht effizient lösbar, aber gleichzeitig auch nicht NP-hart. Die Untersuchung solcher totalen NP-Suchprobleme geht im Wesentlichen auf \textcites{megiddo_total_1991}{johnson_how_1988} zurück.
+
+\textcite{fenner_inverting_2003} können die Vermutung „alle totalen NP-Suchprobleme sind effizient lösbar“ in verschiedensten äquivalenten Formulierungen charakterisieren, so zum Beispiel als Invertierbarkeit von surjektiven Funktionen, oder als das effiziente Lösen vom Suchproblem (7) unter Angabe einer nichtdeterministische Turing-Maschine, die $\mathtt{SAT}$ erkennt.
+\citeauthor{fenner_inverting_2003} fassen diese jeweils äquivalenten Charakterisierungen unter der Hypothese $\hQ$ zusammen. Für diese Arbeit soll werden wir hier folgende Formulierung von  $\hQ$ anwenden:
+\begin{restatable}[$\hQ$, \cite{fenner_inverting_2003}]{conjecture}{conjq}
+    Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierende Berechnung von $N(x)$ ist. 
+\end{restatable}
+Als drittes Desiderat will diese Arbeit an den Charakterisierungen von $\hQ$ weiter arbeiten, sowie die Beziehung zwischen $\hQ$ und den Beweissystemen \parencite[nach][]{cook_relative_1979} bzw. dem \emph{Pudlákschen Programm} \parencite*{pudlak_incompleteness_2017} näher untersuchen.
+
 
 \subsection*{Beweissysteme und das Pudláksche Programm}
+
+NP-Suchprobleme wie oben eingeführt korrespondieren auf natürliche Weise zu „Beweissystemen“ im intuitiven Sinn. Wir gehen das bei Suchproblem (7) durch: sollte eine Formel $\phi$ erfüllbar sein, dann existiert ein „Beweis“ für die Erfüllbarkeit von $\phi$, nämlich eben eine Belegung $w$ welche $\phi$ erfüllt. Damit ist dieses Beweissystem gewissermaßen vollständig.
+Dieser Beweis ist nicht nur kurz, sondern kann effizient (gemeint ist: mit einem Algorithmus in Polynomialzeit) überprüft werden, ob der Beweis $w$ tatsächlich zu $\phi$ passt, also ob $w$ die Formel $\phi$ erfüllt. Damit ist dieses Beweissystem auch korrekt.
+
+Jedes NP-Suchproblem nach der obigen Definition induziert dann ein solches korrektes und vollständiges Beweissystem. Diese Beweissysteme sind sogar insofern besonders stark, als da zu jeder Instanz ein Beweis existiert, der sogar nur polynomiell länger ist.
+Insbesondere induziert ein \emph{polynomiell beschränktes} Beweissystem ein NP-Suchproblem (gegeben Instanz, suche einen korrekten Beweis für die Instanz) und umgekehrt.
+
+Das bei Suchproblem (8) angedeutete Beweissystem der Resolution für die Gültigkeit aussagenlogischer Formeln ist ein Beweissystem für die Tautologien, aber wie bereits angesprochenkein \emph{polynomiell beschränktes} Beweissystem. Zumindest für die Resultion bildet damit (8) kein NP-Suchproblem. 
+Existiert ein ein polynomiell beschränktes Beweissystem für die aussagenlogischen Tautologien?
+
+Dieser Frage gingen \textcite{cook_relative_1979} nach, und erarbeiten hierfür zunächst eine knappe und elegante Definition von aussagenlogschen Beweissystemen: \emph{Eine Polynomialzeit-berechenbare Funktion $f$ ist ein \emph{aussagenlogisches Beweissystem}, wenn der Bildbereich von $f$ mit der Menge $\mathsf{TAUT}$ der Tautologien übereinstimmt}. Wenn $f(w)=\phi$, dann wissen wir dass $\phi$ eine Tautologie ist, und dieser Fakt wird insbesondere über den Beweis $w$ im Beweissystem $f$ erfasst. 
+Diese Definition erfasst damit genau die oben genannten intuitiven Eigenschaften:
+\begin{itemize}[noitemsep]
+    \item Die Relation \emph{„$w$ ist ein Beweis für $\phi$“} ist in Polynomialzeit entscheidbar.
+    \item Das Beweissystem ist korrekt: $f$ beweist nur Tautologien.
+    \item Das Beweissystem ist vollständig: zu jeder Tautologie $\phi$ existiert ein Beweis $w$, i.e. $f(w)=\phi$.
+\end{itemize}
+Ein aussagenlogisches Beweissystem $f$, bei der jede Tautologie $\phi$ ein höchstens polynomiell längeren Beweis $w$ für $\phi$ hat, nennen wir \emph{polynomiell beschränkt}.
+Die obere Frage, ob (8) ein NP-Suchproblem ist, lässt sich äquivalent charakterisieren mit der Frage, ob ein polynomiell beschränktes aussagenlogisches Beweissystem existiert.
+Tatsächlich beobachten \citeauthor{cook_relative_1979} sogar, dass diese Existenz äquivalent zur Aussage $\NP=\coNP$ ist.
+
+Diese Einsicht motivierte das sogenannte \emph{Cook--Reckow-Programm} \parencite{buss_lectures_1996}: Man nähert sich der Frage $\NP$ vs. $\coNP$ durch Untersuchen immer stärkere aussagenlogische Beweissysteme.
+Um $\NP\neq\coNP$ zu erreichen, könnte man entweder zeigen dass kein (längen-)optimales aussagenlogisches Beweissystem (d.h. ein Beweissystem welches höchstens polynomiell längere Beweise als jedes andere Beweissystem hat) existiert, oder ein optimales aussagenlogisches Beweissystem angeben, sodass dieses nicht polynomiell beschränkt ist.
+Aufbauend auf dieser Verbindung wurden zunehmend auch untere und obere Schranken von speziellen aussagenlogischen Beweissystemen untersucht, sowie auch Beweissysteme allgemein für beliebige Mengen (und nicht nur Tautologien) betrachtet.
+
+Die Existenz nach optimalen Beweissystemen bzw. p-optimalen Beweissystemen (optimal in de Sinn dass sogar die Beweise zwischen den Beweissystemen effektiv übersetzt werden können) wurde von \textcite{krajicek_propositional_1989} in Beziehung gesetzt mit endlicher Konsistenz von endlich axiomatisierbaren mathematischen Theorien. Darauf aufbauend zeigt \textcite{pudlak_incompleteness_2017} Verbindungen zwischen p-optimalen bzw. optimalen Beweissystemen, Arithmetik mit polynomiell beschränkten Quantoren („\emph{bounded arithmetic}“), endlicher Konsistenz von Theorien, und der Existienz von vollständigen Elementen sogenannter \emph{Promise-Klassen}. Promise-Klassen sind solche Komplexitätsklassen, die durch speziell operierende Turing-Maschinen mit speziellen Eigenschaften erkannt werden können, wobei diese Eigenschaften üblicherweise über (Nicht)determinismus und polynomiell Laufzeit hinaus gehen. Für die Klasse $\UP\subseteq\NP$ bedeutet das z.B., dass die Sprache (wie bei NP) von einer nichtdeterministischen Polynomialzeit-Turing-Maschine erkannt werden muss, die aber auch nur auf höchstens einem Rechenweg akzeptieren darf.
+
+\textcite{razborov_provably_1994} zeigt hierbei als erstes eine Verbindung zwischen der Promise-Klasse $\DisjNP$ und der Existenz von p-optimalen aussagenlogischen Beweissystemen (für $\mathtt{TAUT}$). Viele weitere Beziehungen zur Existenz collständiger Elemente der Promise-Klassen $\UP, \NP\cap\coNP, \DisjCoNP$ wurden ausgemacht \parencites(vgl. auch)(){messner_simulation_2001}{kobler_optimal_2003}{beyersdorff_there_2011}.
+\textcite{beyersdorff_nondeterministic_2009} und \textcite{pudlak_incompleteness_2017} zeigen ferner analoge Verbindungen zu den Funktionenklassen $\NPMVt$ und $\TFNP$.
+%Diese Vielzahl der Querverbindungen zwischen Beweissystemen und mathematischer Logik auf der einen Seite, sowie Promise-Klassen und deren Vollständigkeit auf der anderen Seite der Komplexitätstheorie motiviert die allgemeine Frage „\emph{Welche 
+%Damit können wir uns der $\NP$-$\coNP$-Frage nähern, indem wir immer stärkere aussagenlogische Beweissysteme unteruschen. 
+%Diese Herangehensweise an die $\NP$-$\coNP$-Frage über aussagenlogische Beweissysteme 
+
+Motiviert von der endlichen Widerspruchsfreiheit von Theorien und \emph{bounded arithmetic} formuliert \textcite{pudlak_incompleteness_2017} folgende Hypothesen, die hier in ihrer komplexitätstheoretischen Fassung genannt werden:\par
 \bigskip
 \begin{tabular}{l@{\quad:\quad}l}
     $\hSAT$ & es ex. keine $\leqmp$-vollst. Menge für $\NP$ mit p-opt. Beweissystem\\
     $\hTAUT$ & es ex. keine $\leqmp$-vollst. Menge für $\coNP$ mit p-opt. Beweissystem\\
-    $\mathsf{CON^N}$ & es ex. keine $\leqmp$-vollst. Menge für $\coNP$ mit opt. Beweissystem\\
+    $\mathsf{TAUT^N}$ & es ex. keine $\leqmp$-vollst. Menge für $\coNP$ mit opt. Beweissystem\\
     $\hNPcoNP$ & es ex. keine $\leqmp$-vollst. Menge für $\UP$\\
     $\hUP$ & es ex. keine $\leqmp$-vollst. Menge für $\NP\cap\coNP$\\
     $\hDisjNP$ & es ex. kein $\leqmpp$-vollst. disjunktes NP-Paar für $\DisjNP$\\
     $\hDisjCoNP$ & es ex. kein $\leqmpp$-vollst. disjunktes coNP-Paar für $\DisjCoNP$
-\end{tabular}
-\bigskip
+\end{tabular}\par
+\bigskip\noindent
+Hierbei muss hervorgehoben werden, dass Pudlák die Hypothese $\hTAUT$ nicht in dieser Form formuliert hat, sondern als Aussage über die Nicht-Existenz eines p-optimalen Beweissystems speziell für $\mathtt{TAUT}$ gefragt hat, genau wie anfangs des Abschnitts (in seiner Notation die Hypothese $\mathsf{CON}$). Die beiden Charakterisierungen sind aber äquivalent (vgl. Abschnitt~\ref{}).
 
-\begin{restatable}[$\hQ$, \cite{fenner_inverting_2003}]{conjecture}{conjq}
-    Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierende Berechnung von $N(x)$ ist. 
-\end{restatable}
+\begin{figure}
+    \centering\includegraphics[page=8]{figures.pdf}
+    \caption{Implikationen zwischen Pudláks Hypothesen \parencite*{pudlak_incompleteness_2017}. Beachte dass diese Implikationen relativieren.}\label{fig:pudlak-small}
+\end{figure}
+
+Insbesondere arbeitet Pudlák die Beziehung zwischen diesen einzelnen Hypothesen heraus, und kommt hierbei zu Abbildung~\ref{fig:pudlak-small}, die anzeigt, wie die bekannten Implikationen zwischen den oberen Hypothesen verlaufen.
+Auf der Seite der Komplexitätstheorie fragt Pudlák insbesondere nach stärkereren Hypothesen (die bspw. sowohl $\hTAUT$ als auch $\hTFNP$ implizieren, wobei Pudlák diese Hypothesen jeweils als plausibel ansieht) sowie im Allgemeinen nach Separationen zwischen diesen Hypothesen, zum Beispiel durch Angabe von Orakeln um so zu zeigen, dass zwei Hypothesen unter relativierbaren Beweisen nicht gleich sind, oder stärker sogar unabhängig unter relativierbaren Beweisen sind.
+
+Dieses Forschungsdesiderat fasse ich für diese Arbeit lose als \emph{Pudláksches Programm} zusammen.
+Die Arbeit will viertens am Pudlákschen Programm beitragen, indem im Wesentlichen die Übersicht in Abbildung~\ref{fig:pudlak-small} verfeinert wird, und dabei stärkere (und schwächere) Hypothesen eingeordnet werden. Hierbei fokussiere ich mich insbesondere auf jene, die mit NP-Suchproblemen im Zusammenhang stehen, wie z.B. $\hQ$.
+Im Folgenden gehen wir noch auf den „Orakel“-Teil des Pudlákschen Programms ein.
 
 \subsection*{Orakel und Relativierungen}
 
@@ -93,18 +153,29 @@ Orakel und Orakel-Turing-Maschinen ist ein System aus der Berechenbarkeitstheori
 Formal werden Orakel als Mengen $A$ realisiert, und Orakel-Turing-Maschinen dürfen für beliebige aufgeschriebene Wörter $w$ abfragen, ob $w\in A$ liegt. Ist nun $A$ insbesondere eine unberechenbare Menge, dann kann die zugehörige Turing-Maschine auch komplexere Mengen entscheiden, die sonst unberechenbar wären.
 Post arbeitet aus diesem Schema die Turing-Reduzierbarkeit aus: $A$ ist auf $B$ reduzierbar wenn $A$ mit einer Orakel-Turing-Maschine mit Orakel $B$ entschieden werden kann. Damit können sonst unberechenbare Mengen $A$ und $B$ nach ihrer relativen Schwierigkeit \emph{über einfache Berechenbarkeit hinaus} geordnet werden können. 
 
-Cook überträgt diese Form von Reduzierbarkeit auf den polynomiellen Bereich der Komplexitätstheorie, um so die relative Komplexität zwischen zwei Mengen $A$ und $B$ unter polynomieller Unschärfe einzuschätzen: $A$ ist auf $B$ Cook-reduzierbar wenn $A$ mit einer Orakel-Turing-Maschine mit Orakel $B$ in Polynomialzeit entschieden werden kann. Auf ähnliche Weise wurde der Begriff von Orakel im polynomiellen Bereich verwendet, um die Polynomialzeit-Hierarchie zu definieren, um so insbesondere den Komplexitätsraum zwischen NP und PSPACE zu verfeinern.
+Cook überträgt diese Form von Reduzierbarkeit auf den polynomiellen Bereich der Komplexitätstheorie, um so die relative Komplexität zwischen zwei Mengen $A$ und $B$ unter polynomieller Unschärfe einzuschätzen: $A$ ist auf $B$ Cook-reduzierbar wenn $A$ mit einer Orakel-Turing-Maschine mit Orakel $B$ in Polynomialzeit entschieden werden kann. Auf ähnliche Weise wurde der Begriff von Orakel im polynomiellen Bereich verwendet, um die Polynomialzeit-Hierarchie zu definieren, um so insbesondere den Komplexitätsraum zwischen P und PSPACE zu verfeinern.
 
 Neben diesen deskriptiven Eigenschaften haben sich Orakel als nützliches beweistheoretisches Werkzeug in der Komplexitätstheorie erwiesen. Die zentrale Einsicht hierbei ist, dass viele der „üblichen“ Beweise und Beweismethoden, welche in der Komplexitätstheorie eingesetzt werden, \emph{relativieren}. Das bedeutet, dass diese Beweise nicht nur die eigentliche Aussage (wie z.B. $\P\neq \mathrm{EXP}$) beweisen, sondern für jedes Orakel $A$ dieser Beweise auch die \emph{relativierte} Aussage beweisen, bei der  alle beteiligten Turing-Maschinen Zugriff auf das Orakel $A$ bekommen. Die Aussage $\P\neq \mathrm{EXP}$ relativiert so zur Aussage $\P^A\neq \mathrm{EXP}^A$, das bedeutet dass eine Menge $L$ existiert die von einer Exponentialzeit-Orakel-Turing-Maschine mit Zugriff auf $A$ erkannt wird, aber keine Polynomialzeit-Turing-Maschine (selbst mit Zugriff auf $A$) kann $L$ entscheiden.
 
 Damit werden speziell konstruierte Orakel zu einem Indiz, dass gewisse Aussagen schwer zu beweisen sind.
 Beispielsweise konstruieren \textcite{baker_relativizations_1975} ein Orakel $A$ sodass $\P^A\neq \NP^A$. Mit diesem Fakt ist die Aussage „$\P=\NP$“ nicht mit relativierbaren Methoden beweisbar, da sonst ja auch $\P^A=\NP^A$ gelten würde. Tatsächlich zeigen \citeauthor{baker_relativizations_1975} sogar zusätzlich, dass $\P^A= \NP^A$. Damit kann also auch die Aussage „$\P\neq\NP$“ nicht mit relativierbaren Methoden bewiesen werden. Nimmt man diese beiden Indizien zusammen, ergibt sich dass die P-NP-Frage \emph{unabhängig} unter relativierbaren Beweisen ist.
 
-Im Kontext des Pudlákschen Programms wurde für viele potentielle Implikationen (wie z.B. $\hDisjCoNP\Rightarrow\hTAUT$) ein Orakel konstruiert, relativ zu dieser diese Implikationen nicht gelten (es exitiert ein Orakel relativ zu dem $\hDisjCoNP$ gilt aber nicht $\hTAUT$). Damit wird plausibilisiert, dass gewisse Hypothesen des Pudlákschen Programms tatsächlich unterschiedlich sind.
+Im Kontext des Pudlákschen Programms wurde für viele potentielle Implikationen (wie z.B. $\hDisjCoNP\Rightarrow\hTAUT$) ein Orakel konstruiert, relativ zu dieser diese Implikationen nicht gelten (es exitiert ein Orakel relativ zu dem $\hDisjCoNP$ gilt aber nicht $\hTAUT$). Entsprechende Konstruktionen wurden unter anderem von \textcites{glaser_disjoint_2004}{dose_np-completeness_2019}{dose_balance_2020}{dose_further_2020}{dingel_separation_2022}{ehrmanntraut_oracle_2022}{khaniki_new_2022} entwickelt. Damit wird plausibilisiert, dass gewisse Hypothesen des Pudlákschen Programms tatsächlich unterschiedlich sind.
 
-Diese Arbeit reiht sich in dieses Arbeitsvorhaben direkt ein, und wird weitere Orakel konstruieren, um Hypothesen (unter relativierbaren Beweisen) zu trennen.
+Diese Arbeit reiht sich in dieses Arbeitsvorhaben direkt ein, und wird fünftens weitere Orakel konstruieren, um Hypothesen (unter relativierbaren Beweisen) zu trennen.
 
 \subsection*{Beitrag und Überblick}
+
+Der Aufbau der Arbeit und die einzelnen Beiträge seien hier noch einmal zusammengefasst.
+
+Im nächsten Kapitel~\ref{chap:prelim} klären wir die notwendigen mathematischen Grundlagen. Insbesondere definieren wir erneut präzise den Begriff des (Cook--Rechkow-)Beweissystems und den der Relativierungen.
+
+Im Kapitel~\ref{chap:searchproblems} formalisieren wir den oben bereits intuitiv entstandenen Begriff der NP-Suchprobleme. Wir werden diese außerdem mit Funktionenklassen gegenünberstellen und einen Reduktions- und Vollständigkeitsbegriff -- die Levin-Reduktion -- auf NP-Suchproblemen definieren.
+Insbesondere wird die Beziehung zwischen NP-Suchproblemen und NP-Entscheidungsproblemen erläutert, was auch das \emph{search-reduces-to-decision}-Argument umfasst. Der Rest dieses Kapitels hat dabei den Charakter eines Überblickswerks bzw. eines Surveys.
+
+
+
+
 
 \chapter{Grundlagen}
 
@@ -461,7 +532,7 @@ Mit vorigem Korrolar ist klar, dass diese Aussage äquivalent zu unserer hier ge
 %
 %generalisieren wir hier und fragen, ob jede Menge in $\coNP$ ein p-optimales aussagenlogisches Beweissystem hat
 
-Das hat vor allem den Vorteil, dass $\hSAT, \hTAUT, \mathsf{CON^N}$ auf natürliche Weise relativieren.
+Das hat vor allem den Vorteil, dass $\hSAT, \hTAUT, \mathsf{TAUT^N}$ auf natürliche Weise relativieren.
 So relativiert beispielsweise $\hSAT$ auf Orakel $O$ zur Aussage „kein $\leq_\mathrm{m}^{\mathrm p,O}$-vollständiges $L\in\NP^O$ hat ein p${}^O$-optimales Beweissystem $f\in\FP^O$“.
 Das entspricht genau der Form von Relativierung, welche als erstes von \textcite{dose_oracle_2020} vorgeschlagen wurde.
 
@@ -2119,9 +2190,9 @@ Jetzt können wir auch die in Abbildung \ref{fig:figure-implications} abgebildet
 
     Es gelten die eingezeichneten Implikationen:
     \begin{Prooflist}[nosep]
-\item $\hDisjNP \Rightarrow \mathsf{CON^N}$ nach \textcite{kobler_optimal_2003}.
+\item $\hDisjNP \Rightarrow \mathsf{TAUT^N}$ nach \textcite{kobler_optimal_2003}.
 \item $\hUP \Rightarrow \hTAUT$ nach \textcite[Cor.~4.1]{kobler_optimal_2003}. % relativiert offenbar nach Dose
-\item $\mathsf{CON^N}\Rightarrow \mathrm{NEE\neq coNEE}$ nach \textcite{kobler_optimal_2003}.
+\item $\mathsf{TAUT^N}\Rightarrow \mathrm{NEE\neq coNEE}$ nach \textcite{kobler_optimal_2003}.
 \item $\NP\cap\coNP\neq \P \Rightarrow \neg\hQ' \Rightarrow \NPMVt \not\subseteqc \TFNP \Rightarrow \neg\hQ$ nach \textcite{fenner_inverting_2003}.
 %\item $\mathrm{E\neq NE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{bellare_complexity_1994}.
 \item $\mathrm{E\neq NE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{impagliazzo_1991}.
@@ -2137,7 +2208,7 @@ Jetzt können wir auch die in Abbildung \ref{fig:figure-implications} abgebildet
 \item $\NP\cap\coNP\neq \P \Rightarrow\exists$ P-inseparierbares $\DisjNP$-Paar, denn wenn alle $\DisjNP$-Paare P-separierbar, dann ist auch für jede Menge $L\in\NP\cap\coNP$ jeweils das $\DisjNP$-Paar $(L,\overline{L})$ P-separierbar und damit $L\in\P$.
 \item $\hDisjNP \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar; ist klar, denn wenn alle $\DisjNP$-Paare P-separierbar wären, dann wären auch alle Paare $\leqmpp$-vollständig.
 \item $\hDisjCoNP \Rightarrow \exists$ P-inseparierbares $\DisjCoNP$-Paar; ist aus selben Gründen klar.
-\item $\mathsf{CON^N} \Rightarrow \hTAUT$ klar, weil aus p-Optimalität auch Optimalität folgt.
+\item $\mathsf{TAUT^N} \Rightarrow \hTAUT$ klar, weil aus p-Optimalität auch Optimalität folgt.
 \item $\mathsf \hSAT \Rightarrow \neg\hQ $ klar: wen $\hQ$, dann ist nach Satz~\ref{thm:q} jedes optimale Beweissystem auch p-optimal. Dann gilt auch $\neg\hSAT$: jede Menge $L\in\NP$ hat ein optimales Beweissystem $h$ (Beobachtung~\ref{obs:np-short-ps}) und das ist nach Voraussetzung p-optimal.
 \item $\hUP \Rightarrow \UP\neq\P$ klar.
 \item $\hNPcoNP \Rightarrow \NP\cap\coNP\neq \P$ klar.
