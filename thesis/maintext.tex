@@ -44,21 +44,18 @@ Auf dem ersten Blick erscheint diese Fokussierung unnatürlich. In der Praxis si
 Für diese Fokussierung auf Entscheidungsprobleme gibt es durchaus Gründe. Zum einen ist klar, dass das Suchproblem nicht einfacher sein kann, als das zugehörige Entscheidungsproblem. Die Unberechenbarkeit eines Entscheidungsproblems schließt also auch die Berechenbarkeit des Suchproblems aus. Das entspricht genau der historischen Forschungsentwicklung zum „\emph{Hilbertschen Entscheidungsproblem}“ (9$'$), worauf Turing das \emph{Halteproblem} (10$'$) reduziert hat. Mit der Unentscheidbarkeit des  Halteproblems folgt die Unentscheidbarkeit des Entscheidungsproblems (9$'$), und damit der Unentscheidbarkeit des entsprechenden Suchproblems (9). 
 Das symmetrische Argument lässt sich auch auf die potentiell effizient lösbare Entscheidungsprobleme übertragen. Die Komplexitätstheorie gibt Indizien, dass die Entscheidungsprobleme (4$'$), (6$'$)--(8$'$) wahrscheinlich nicht in Polynomialzeit lösbar sind, womit unmittelbar folgt, dass auch die Suchprobleme (4)--(8) nicht in Polynomialzeit lösbar sind.
 
-Für die Fokussierung auf Entscheidungsprobleme gibt es zweitens auch fachgeschichtliche Gründe: historisch stand die Komplexitätstheorie der späten 1950er mit ihrem Ziel der Unterteilung der berechenbaren Aufgaben in „einfach“ und „schwer“ nah an der Automatentheorie und der Theorie der formalen Sprachen, insbesondere bevor sich der Resourcenverbrauch von Algorithmen als zentrale Indikator für „Schwierigkeit“ in den späten 1960ern herausgebildet hat. Eine zentrale Unterteilung in „Schwierigkeit“ bzw. Komplexität war z.B. die Hierarchie der formalen Sprachen von Chomsky (die Regulären als sehr einfach, die Kontextfreien als etwas komplexer, die Kontextsensitiven als noch komlexer). %, sich der „Polyomialzeit-Konsens“ herausgearbeitet hat.
-Die einzig relevanten Suchprobleme -- Parsing wie in (2) -- haben sich dann aber auch relativ schnell geklärt (z.B. CYK-Parsing für die Kontextfreien) haben sich dann aber relativ schnlell geklärt, womit die zentralen Untersuchungsfragen eher waren, welche Sprachen durch welche Grammatiken (nicht) generiert werden können, bzw. welche Automaten welche Sprachen (nicht) erkennen können. Dafür ist die Beschränkung auf die Entscheidungsvariante („Generiert die Grammatik $G$ genau die Sprache $L$? Erkennt der Kellerautomat $A$ genau die Sprache $L$?“) ausreichend zur Etablierung unterer Schranken, und ist insbesondere auch dienlich im pragmatischen Sinn. Stellvertretend sei hier \citeauthor{kozen_automata_1997} zitiert: „We do this for mathematical simplicity and because the behavior we want to study is already present at this level“ \textcite*[7]{kozen_automata_1997}.
+Für die Fokussierung auf Entscheidungsprobleme gibt es zweitens auch fachgeschichtliche Gründe: historisch stand die Komplexitätstheorie der späten 1950er mit ihrem Ziel der Unterteilung der berechenbaren Aufgaben in „einfach“ und „schwer“ nah an der Automatentheorie und der Theorie der formalen Sprachen, insbesondere bevor sich der Resourcenverbrauch von Algorithmen als zentrale Indikator für „Schwierigkeit“ in den 1960ern herausgebildet hat \parencite[vgl.][]{koucky_automata_2023}. Eine zentrale Unterteilung in „Schwierigkeit“ bzw. Komplexität war z.B. die Hierarchie der formalen Sprachen von Chomsky (die Regulären als sehr einfach, die Kontextfreien als etwas komplexer, die Kontextsensitiven als noch komlexer). %, sich der „Polyomialzeit-Konsens“ herausgearbeitet hat.
+Die einzig relevanten Suchprobleme -- Parsing wie in (2) -- haben sich dann aber auch relativ schnell geklärt (z.B. CYK-Parsing für die Kontextfreien), womit die zentralen Untersuchungsfragen wohl eher waren, welche Sprachen durch welche Grammatiken (nicht) generiert werden können, bzw. welche Automaten welche Sprachen (nicht) erkennen können. Dafür ist die Beschränkung auf die Entscheidungsvariante („Generiert die Grammatik $G$ genau die Sprache $L$? Erkennt der Kellerautomat $A$ genau die Sprache $L$?“) ausreichend zur Etablierung unterer Schranken, und ist insbesondere auch dienlich im pragmatischen Sinn. Stellvertretend sei hier \citeauthor{kozen_automata_1997} zitiert: „We do this for mathematical simplicity and because the behavior we want to study is already present at this level“ \parencite*[7]{kozen_automata_1997}.
 
 Dieser Pragmatismus setzt sich in die resourcenfokussierte Komplexitätstheorie, insbesondere die um die Klassen P und NP (das betrifft 1--8, 2$'$--8$'$), fort.
 In den meisten Fällen reicht es aus, sich auf die Entscheidungsprobleme zu beschränken.
 Das ist durchaus fundiert:
-Einerseits, weil die zentralen algorithmischen Herausforderungen schon bei der Entscheidungsvariante auftreten („behavior we want to study is already present at this level“). So kann zum Beispiel die P-NP-Frage äquivalent als Frage über Entscheidungsprobleme als auch als Frage über Suchprobleme formuliert werden. Andererseits lässt sich argumentieren, dass für viele relevante Aufgaben das Suchproblem nicht schwerer ist als das Entscheidungsproblem. Dieses Argument wird üblicherweise als \emph{search reduces to decision} formuliert. Die Konzentration auf Suchproble kommt dann unter anderem auch mit dem Vorteil, dass viele theoretische Konzepte einfacher zu fassen sind und komakter zu formulieren sind („mathematical simplicity“). Wir können uns zum Beispiel auf (laufzeitbeschränkte) Algorithmen ohne Ausgabe konzentrieren, die Eingaben nur akzeptieren und ablehnen müssen. 
+Einerseits, weil die zentralen algorithmischen Herausforderungen schon bei der Entscheidungsvariante auftreten („behavior we want to study is already present at this level“). So kann zum Beispiel die P-NP-Frage äquivalent als Frage über Entscheidungsprobleme als auch als Frage über Suchprobleme formuliert werden. Andererseits lässt sich argumentieren, dass für viele relevante Aufgaben das Suchproblem nicht schwerer ist als das Entscheidungsproblem (unter polynomieller Unschärfe). Dieses Argument wird üblicherweise als \emph{search reduces to decision} formuliert: gegeben ein effizienter Algorithmus der das Entscheidungsproblem löst, kann auch ein effizienter Algorithmus angegeben werden, welcher das Suchproblem löst. Die Konzentration auf Suchproble kommt dann unter anderem auch mit dem Vorteil, dass viele theoretische Konzepte einfacher zu fassen sind und komakter zu formulieren sind („mathematical simplicity“). Wir können uns zum Beispiel auf (laufzeitbeschränkte) Algorithmen ohne Ausgabe konzentrieren, die Eingaben nur akzeptieren und ablehnen müssen. 
 
 \subsection*{NP-Suchprobleme als Forschungsgegenstand}
 
-Diese Arbeit setzt genau an dieser pragmatischen Festhaltung an Suchproblemen an.
-Zum ersten möchte die Arbeit genau jene Suchprobleme untersuchen, bei der das Argument \emph{search reduces to decision} nicht zutrifft. In der also eine reine Betrachtung der Entscheidungsvarianten nicht weiterhilft. Tatsächlich gilt das für viele interessante Suchprobleme. Das sind zum Beispiel schon jene, die immer eine Lösung haben; hier kann zunächst nicht unmittelbar ein entsprechendes Entscheidungsproblem formuliert werden.
-Das haben wir bereits bei den Suchproblemen (1), (3), (5) gesehen.
-
-Wir beschränken uns hierbei im Folgenden auf \emph{NP-Suchprobleme}. Diese können als die Suchprobleme verstanden werden, die zu NP-Sprachen korrespondieren. Als Suchprobleme lässt sich eine einfache Charakterisierung formulieren: NP-Suchprobleme sind solche Suchprobleme, bei der 
+Diese Arbeit setzt genau an dieser Festhaltung an Entscheidungsproblemen an, und will sich in vier Forschungsdesiderata den \emph{NP-Suchproblemen} im Gegensatz zu den sonst üblichen NP-Entscheidungsproblemen nähern.
+Diese können als die Suchprobleme verstanden werden, die zu NP-Sprachen korrespondieren. Als Suchprobleme lässt sich eine einfache Charakterisierung formulieren: NP-Suchprobleme sind solche Suchprobleme, bei der 
 \begin{itemize}[noitemsep]
     \item die Lösung -- falls sie existieren sollte -- nur polynomiell länger als das Eingabe ist, und 
     \item effizient (also in Polynomialzeit) verifiziert werden kann, ob ein fraglicher Lösungskandidat tatsächlich eine Lösung für eine Eingabe darstellt.
@@ -73,9 +70,15 @@ Das Suchproblem (8) ist auch mutmaßlich kein NP-Suchproblem, denn kein Beweissy
 
 Die Einschränkung auf NP-Suchprobleme ist im Wesentlichen eine Konsequenz der hohen Wichtigkeit und Relevanz der Komplexitätsklasse NP, sowohl theoretisch innerhalb der Komplexitätstheorie (wieviel hilft Nichtdeterminismus den Polynomialzeit-Berechnungen), als auch in der Praxis, da sehr viele interessante und in der industriellen Anwendung aufkommenden Berechnungsaufgaben als  NP-Suchprobleme formuliert werden können. Hinzu kommt, dass die Suchprobleme welche nicht den Bedingungen von NP-Suchproblemen genügen, so gut wie definitiv zu komplex und schwer sind, um zu erwarten dass sie überhaupt effizient gelöst werden können. Für die (nicht-vollständigen) NP-Suchprobleme ist es zumindest noch plausibel, effiziente Suchalgorithmen entwickeln zu können.
 
-In diesem Sinne möchte die Arbeit zweitens Eigenschaften und Strukturen von NP-Suchproblemen untersuchen, sowie deren Beziehungen zu den NP-Entscheidungsproblemen. Besonders interessant sind hierbei die vollständigen NP-Suchprobleme, die sich ähnlich zu den sonst üblichen NP-vollständigen Mengen/Entscheidungsproblemen verhalten.
+Wie aber bereits oben angesprochen, werden üblicherweise in der Literatur nicht die NP-Suchprobleme untersucht, sondern meist nur die entsprechenden NP-Entscheidungsproblemen. Das geschieht mit der Begründung, dass sich die meisten Suchprobleme auf das jeweilige Entscheidungsproblem reduzieren lassen können (\emph{search reduces to decision}). 
 
-Besonders interesssant ist hierbei die Klasse TFNP der \emph{totalen} NP-Suchprobleme, also jene bei den für jede Instanz immer eine Lösung existiert. Die totalen NP-Suchprobleme sind insofern interessant, dass viele effizient lösbar sind, andererseits für viele die effiziente Lösbarkeit noch offen ist. Gleichzeitig wird erwartet, dass die totalen NP-Suchprobleme nicht NP-hart sind; damit ist die effiziente Lösbarkeit zumindest dieser Suchprobleme durchaus in Reichweite. 
+Als erstes Forschungsdesiderat möchte diese Arbeit genau jene Beziehung zwischen NP-Suchproblemen und NP-Entscheidungsproblemen näher untersuchen. 
+Insbesondere wollen wir das \emph{search-reduces-to-decision}-Argument präzise einordnen und auch zeigen, dass dieses Argument nicht immer zutrifft, also in der eine reine Betrachtung der Entscheidungsvarianten eigentlich nicht ausreicht. Tatsächlich gilt das für viele interessante Suchprobleme. Das sind zum Beispiel schon jene, die immer eine Lösung haben; hier kann zunächst nicht unmittelbar ein entsprechendes Entscheidungsproblem formuliert werden.
+Das haben wir bereits bei den Suchproblemen (1), (3), (5) gesehen.
+
+%In diesem Sinne möchte die Arbeit zweitens Eigenschaften und Strukturen von NP-Suchproblemen untersuchen, sowie deren Beziehungen zu den NP-Entscheidungsproblemen. Besonders interessant sind hierbei die vollständigen NP-Suchprobleme, die sich ähnlich zu den sonst üblichen NP-vollständigen Mengen/Entscheidungsproblemen verhalten.
+
+Besonders interesssant ist hierbei die Klasse TFNP der \emph{totalen} NP-Suchprobleme, also jene bei den für jede Instanz immer eine Lösung existiert (und diese effizient verifizierbar ist). Die totalen NP-Suchprobleme sind insofern interessant, dass viele effizient lösbar sind, andererseits für viele die effiziente Lösbarkeit noch offen ist. Gleichzeitig wird erwartet, dass die totalen NP-Suchprobleme nicht NP-hart sind; damit ist die effiziente Lösbarkeit zumindest dieser Suchprobleme durchaus in Reichweite. 
 Das trifft zum Beispiel für das Suchproblem (1) der Faktorisierung zu. Dieses totale NP-Suchproblem ist momentan nicht effizient lösbar, aber gleichzeitig auch nicht NP-hart. Die Untersuchung solcher totalen NP-Suchprobleme geht im Wesentlichen auf \textcites{megiddo_total_1991}{johnson_how_1988} zurück.
 
 \textcite{fenner_inverting_2003} können die Vermutung „alle totalen NP-Suchprobleme sind effizient lösbar“ in verschiedensten äquivalenten Formulierungen charakterisieren, so zum Beispiel als Invertierbarkeit von surjektiven Funktionen, oder als das effiziente Lösen vom Suchproblem (7) unter Angabe einer nichtdeterministische Turing-Maschine, die $\mathtt{SAT}$ erkennt.
@@ -83,7 +86,10 @@ Das trifft zum Beispiel für das Suchproblem (1) der Faktorisierung zu. Dieses t
 \begin{restatable}[$\hQ$, \cite{fenner_inverting_2003}]{conjecture}{conjq}
     Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierende Berechnung von $N(x)$ ist. 
 \end{restatable}
-Als drittes Desiderat will diese Arbeit an den Charakterisierungen von $\hQ$ weiter arbeiten, sowie die Beziehung zwischen $\hQ$ und den Beweissystemen \parencite[nach][]{cook_relative_1979} bzw. dem \emph{Pudlákschen Programm} \parencite*{pudlak_incompleteness_2017} näher untersuchen.
+%Die Hypthese $\hQ$ lässt sich ferner in Beziehung zu vollständigen NP-Suchproblemen und sogenannten Beweissystemen setzen.
+Obwohl $\hQ$ zunächst nur über totale Suchprobleme spricht, hat die Hypothese 
+ $\hQ$ große Nähe und Verwandtschaft zu symmetrischen Aussagen, die NP-Suchprobleme einerseits und die sogenannten Beweissysteme andererseits betreffen.
+Als zweites Desiderat will daher diese Arbeit an den Charakterisierungen von $\hQ$ weiter arbeiten, sowie die Beziehung zwischen $\hQ$ und NP-Suchproblemen, den Beweissystemen \parencite[nach][]{cook_relative_1979} bzw. dem \emph{Pudlákschen Programm} \parencite*{pudlak_incompleteness_2017} näher untersuchen.
 
 
 \subsection*{Beweissysteme und das Pudláksche Programm}
@@ -143,7 +149,7 @@ Insbesondere arbeitet Pudlák die Beziehung zwischen diesen einzelnen Hypothesen
 Auf der Seite der Komplexitätstheorie fragt Pudlák insbesondere nach stärkereren Hypothesen (die bspw. sowohl $\hTAUT$ als auch $\hTFNP$ implizieren, wobei Pudlák diese Hypothesen jeweils als plausibel ansieht) sowie im Allgemeinen nach Separationen zwischen diesen Hypothesen, zum Beispiel durch Angabe von Orakeln um so zu zeigen, dass zwei Hypothesen unter relativierbaren Beweisen nicht gleich sind, oder stärker sogar unabhängig unter relativierbaren Beweisen sind.
 
 Dieses Forschungsdesiderat fasse ich für diese Arbeit lose als \emph{Pudláksches Programm} zusammen.
-Die Arbeit will viertens am Pudlákschen Programm beitragen, indem im Wesentlichen die Übersicht in Abbildung~\ref{fig:pudlak-small} verfeinert wird, und dabei stärkere (und schwächere) Hypothesen eingeordnet werden. Hierbei fokussiere ich mich insbesondere auf jene, die mit NP-Suchproblemen im Zusammenhang stehen, wie z.B. $\hQ$.
+Die Arbeit will drittens am Pudlákschen Programm beitragen, indem im Wesentlichen die Übersicht in Abbildung~\ref{fig:pudlak-small} verfeinert wird, und dabei stärkere (und schwächere) Hypothesen eingeordnet werden. Hierbei fokussiere ich mich insbesondere auf jene, die mit NP-Suchproblemen im Zusammenhang stehen, wie z.B. $\hQ$.
 Im Folgenden gehen wir noch auf den „Orakel“-Teil des Pudlákschen Programms ein.
 
 \subsection*{Orakel und Relativierungen}
@@ -162,17 +168,28 @@ Beispielsweise konstruieren \textcite{baker_relativizations_1975} ein Orakel $A$
 
 Im Kontext des Pudlákschen Programms wurde für viele potentielle Implikationen (wie z.B. $\hDisjCoNP\Rightarrow\hTAUT$) ein Orakel konstruiert, relativ zu dieser diese Implikationen nicht gelten (es exitiert ein Orakel relativ zu dem $\hDisjCoNP$ gilt aber nicht $\hTAUT$). Entsprechende Konstruktionen wurden unter anderem von \textcites{glaser_disjoint_2004}{dose_np-completeness_2019}{dose_balance_2020}{dose_further_2020}{dingel_separation_2022}{ehrmanntraut_oracle_2022}{khaniki_new_2022} entwickelt. Damit wird plausibilisiert, dass gewisse Hypothesen des Pudlákschen Programms tatsächlich unterschiedlich sind.
 
-Diese Arbeit reiht sich in dieses Arbeitsvorhaben direkt ein, und wird fünftens weitere Orakel konstruieren, um Hypothesen (unter relativierbaren Beweisen) zu trennen.
+Diese Arbeit reiht sich in dieses Arbeitsvorhaben direkt ein, und wird viertens weitere Orakel konstruieren, um Hypothesen (unter relativierbaren Beweisen) zu trennen.
 
 \subsection*{Beitrag und Überblick}
 
 Der Aufbau der Arbeit und die einzelnen Beiträge seien hier noch einmal zusammengefasst.
 
-Im nächsten Kapitel~\ref{chap:prelim} klären wir die notwendigen mathematischen Grundlagen. Insbesondere definieren wir erneut präzise den Begriff des (Cook--Rechkow-)Beweissystems und den der Relativierungen.
+Im nächsten Kapitel~\ref{chap:prelim} klären wir die notwendigen mathematischen Grundlagen. Insbesondere definieren wir präzise den Begriff des (Cook--Rechkow-)Beweissystems und den der Relativierungen, welche bereits oben angesprochen wurden.
 
-Im Kapitel~\ref{chap:searchproblems} formalisieren wir den oben bereits intuitiv entstandenen Begriff der NP-Suchprobleme. Wir werden diese außerdem mit Funktionenklassen gegenünberstellen und einen Reduktions- und Vollständigkeitsbegriff -- die Levin-Reduktion -- auf NP-Suchproblemen definieren.
-Insbesondere wird die Beziehung zwischen NP-Suchproblemen und NP-Entscheidungsproblemen erläutert, was auch das \emph{search-reduces-to-decision}-Argument umfasst. Der Rest dieses Kapitels hat dabei den Charakter eines Überblickswerks bzw. eines Surveys.
+Im Kapitel~\ref{chap:searchproblems} formalisieren wir den oben bereits intuitiv entstandenen Begriff der NP-Suchprobleme und totalen NP-Suchproblemen. 
+Wir werden diese außerdem mit Funktionenklassen gegenünberstellen und einen Reduktions- und Vollständigkeitsbegriff -- die Levin-Reduktion -- auf NP-Suchproblemen definieren.
 
+Der Rest dieses Kapitels hat dabei den Charakter eines Überblickswerks bzw. eines Surveys. 
+Zum einen wird die Beziehung zwischen NP-Suchproblemen und NP-Entscheidungsproblemen erläutert, was auch das \emph{search-reduces-to-decision}-Argument umfasst. Es werden Ergebnisse zusammen getragen, wann dieses Argument zutrifft, und wann es insbesondere nicht zutrifft.
+Zum anderen werden Arbeiten vorgestellt und eingeordnet, welche gemeinsame Eigenschaften und Strukturen von NP-Suchproblemen untersuchen. Besonders interessant sind hierbei die vollständigen NP-Suchprobleme, die sich ähnlich zu den sonst üblichen NP-vollständigen Mengen/Entscheidungsproblemen verhalten. Hierbei lässt sich -- analog zur Berman--Hartmanis-Isomorphievermutung -- zu vielen NP-vollständigen Suchprobemen eine gemeinsame Struktur bzw. Isomorphie erkennen.
+
+In Kapitel~\ref{chap:pudlak} werden wir Hypothesen zu NP-Suchproblemen und die Aussage $\hQ$ in das Pudláksche Programm einordnen. Erstens untersuchen wir, ob die (Levin-)Vollständigkeit eines NP-Suchproblems  mit der (Karp-)Vollständigkeit des entsprechenden NP-Suchproblems übereinstimmt. Insbesondere wird plausibilisiert, dass diese Übereinstimmung nicht gilt.
+Zweitens werden wir (nicht-relativerbare) Charakterisierungen von $\hQ$ durch \textcite{fenner_inverting_2003} und \textcite{messner_simulation_2001} verallgemeinern und relativieren, womit wir als Nebeneffekt auch präzise zu (relativierbaren) Implikationen zwischen $\hQ$ und den Pudlákschen Hypothesen kommen.
+Drittens zum Abschluss des Kapitels, wieder in einer Form eines Surveys, wird das Pudláksche Programm durch Hinzufügen weiterer Hypothesen erweitert und verfeinert, die in der Literatur diskutiert werden. Hinzu erarbeiten wir eine Übersicht über die Implikationen zwischen diesen Hypothesen, bzw. Orakeln welche diese Implikationen unter relativierbaren Beweisen trennt. Im Wesentlichen vergrößeren wir Abbildung~\ref{fig:pudlak-small} zu Abbildung~\ref{fig:pudlak-large}.
+
+In Kapitel~\ref{chap:orakel} werden zwei Orakel konstruiert, die \todo{Dinge machen}.
+
+Die Arbeit endet mit einer abschließenden Diskussion in Kapitel~\ref{chap:conclusion}, erläutert noch einmal Ergebnisse und trägt die offenen Fragen, welche in den vorigen Kapiteln gestellt wurden, zusammen.
 
 
 
@@ -539,9 +556,16 @@ Das entspricht genau der Form von Relativierung, welche als erstes von \textcite
 
 \chapter{Zur Konzeptionalisierung und Ordnung von Suchproblemen}
 
-\todo{Einleitung und Übersicht über das Kapitel. Was passiert hier?}
+In diesem Kapitel werden wir grundsätzlich überlegen, wie NP-Suchprobleme in der Komplexitätstheorie erfasst werden können, wie wir diese in ihrer Schwierkigkeit vergleichen können, und welche Ähnlichkeiten zwischen den NP-Suchproblemen erkennbar sind. 
+In Abschnitt~\ref{sec:searchproblems-def} werden wir eine formal präzise Definition von NP-Suchproblemen erarbeiten, wie sie bereits in der Einleitung intuitiv vorgestellt wurden. Das umfasst auch die Unterklasse TFNP der totalen NP-Suchprobleme.
 
-\section{Definition von Suchproblemen}
+In Abschnitt~\ref{sec:search-vs-decision} gehen wir auf die Beziehung zwischen NP-Suchproblemen und den entsprechenden NP-Entscheidungsproblemen ein; insbesondere zeigen wir, in welchen Situationen das Argument \emph{search reduces to decision} zutrifft, und in welchen nicht.
+
+Um die Schwierigkeit der unterschiedlichen NP-Suchproblemen zu vergleichen, werden wir -- analog wie auf den Entscheidungsproblemen -- ein Begriff der Levin-Reduzierbarkeit definieren. In Abschnitt~\ref{sec:levin} definieren wir diesen Reduzierbarkeits-Begriff präzise und betrachten Eigenschaften des entsprechenden Vollständigkeits-Begriff.
+
+Abschließen wird in Abschnitt~\ref{sec:gemeinsame-struktur} noch der Forschungsstand zur gemeinsamen Struktur von vollständigen NP-Suchproblemen erläutert: die üblichen vollständigen NP-Suchprobleme teilen sich neben dieser Interreduzierbarkeit noch weitere Eigenschaften (z.B. Gleichmächtigkeit der Lösungsmengen, bekannt unter dem Begriff \emph{parsimonious}), die hier erläutert und verglichen werden. 
+
+\section{Definition von Suchproblemen}\label{sec:searchproblems-def}
 
 Wir geben hier noch einmal die Definition von Suchproblemen wieder, welche schon in der Einleitung erarbeitet wurde.
 Als Suchprobleme verstehen wir das algorithmische Problem, gegeben eine Probleminstanz $x$, eine entsprechende positive Lösungsinstanz $y$ zu berechnen, oder negativ abzulehnen.  Hier noch einmal ein Beispiel aus der Einleitung: gegeben eine aussagenlogische Formel $\phi$, berechne entweder eine Belegung $y$ welche $\phi$ erfüllt, oder gebe „unerfüllbar“ aus.
@@ -702,7 +726,7 @@ Auf die weitere Theorie der TFNP-Probleme wird in dieser Arbeit nicht weiter ein
 
 %Wie bereits oben angedeutet, definieren \textcite{megiddo_total_1991} die Klasse $\FNP$ genau wie hier angegeben, insbesondere um diese Klasse von der Teilmenge $\mathrm{TFNP}$ abzugrenzen, die als die Menge der (links-)totalen NP-Relationen definiert ist, bei denen also jedes $x\in\Sigma^*$ ein Problem ist, das einen Zeugen hat. Dies ist die übliche Interpretation von $\mathrm{TFNP}$ in der Literatur. Die von \textcite{wechsung_vorlesungen_2000} vorgeschlagene Notation würde die Klasse der NP-Relationen als $\mathrm{Rel}\,\P$ bezeichnen und hervorheben, dass NP-Relationen \emph{Relationen} sind, wobei die Vorstellung “mehrdeutiger Funktionen” abgelehnt wird. Das Label $\mathrm{Fun}\,\P$ wird nur für jene Klasse der NP-Relationen reserviert, die (rechts-)eindeutig sind, d.h., Relationen, bei denen jedes Problem $x$ höchstens einen Zeugen $y$ hat; mit anderen Worten, \emph{partielle Funktionen}. Dies entspricht genau der Klasse $\mathrm{NPSV_g}$, wie sie von \textcite{selman_taxonomy_1994} definiert wurde.
 
-\section{Suchprobleme vs. Entscheidungsprobleme}
+\section{Suchprobleme vs. Entscheidungsprobleme}\label{sec:search-vs-decision}
 
 Wie in der Einleitung schon ausgeführt, konzentriert sich die algorithmische Komplexitätstheorie primär auf die Entscheidungsprobleme und weniger auf die Suchprobleme. Das ist durchaus fundiert: es kommt mit einer Vereinfachung der Konzepte, Definitionen und Theorien, und gleichzeitig lässt sich für viele relevante Instanzen das Suchproblem auf das entsprechende Entscheidungsproblem „reduzieren“. Dieses Argument wird gerne als \emph{search reduces to decision} beschrieben.
 
@@ -1048,7 +1072,7 @@ Andererseits kann gefragt werden, ob TFNP-Relationen existieren die $\leqlp$-vol
 \end{conjecture}
 Auch hier ist ein Beweis für diese Vermutung mindestens so schwer wie ein Beweis für $\NP\neq\coNP$. Die Beziehung dieser Vermutung mit weiteren Vermutungen betreffend Promise-Probelemen wird in Abschnitt~\ref{} erarbeitet.
 
-\section{Zur gemeinsamen Struktur von vollständigen Suchproblemen}
+\section{Zur gemeinsamen Struktur von vollständigen Suchproblemen}\label{sec:gemeinsame-struktur}
 
 \subsection*{Feinere Reduktionsbegriffe}
 
@@ -1064,18 +1088,18 @@ Im Folgenden werden einige dieser Arbeiten kurz skizziert.
 \textcite[83]{simon_central_1975} machte beispielsweise die Beobachtung, dass die ihm bekannten Reduktionsfunktionen $f\colon A\to B$ in den Beweisen zur NP-Vollständigkeit so gebaut sind, dass die Instanz $x$ genau $k$ „Lösungen“ bezüglich $A$ hat genau dann wenn $f(x)$ genau $k$ „Lösungen“ bezüglich $B$ hat. „Lösung“ hier in Anführungszeichen weil auf Mengen überhaupt kein Begriff von Lösungen bzw. Zertifikaten existiert; \citeauthor{simon_central_1975} dachte in seinen Überlegungen die zugrunde liegende kombinatorischen (Such-)Probleme zu $A$ und $B$ nur mit.
 
 Auf NP-Relationen lässt sich sein Reduktionsbegriff aber formal präzise formulieren:
-\begin{definition}[Geizige  Reduktionen]
-    Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{geizig} (\emph{„parsimonious“}) reduzieren lässt, bzw. $Q\leq_\mathrm{pars}^\mathrm p R$ wenn eine Funktion $f\in\FP$ existiert mit%\sidenote{vgl. \textcite{rothe_komplexitatstheorie_2008}.}
+\begin{definition}[Sparsame  Reduktionen]
+    Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{sparsam} (\emph{„parsimonious“}) reduzieren lässt, bzw. $Q\leq_\mathrm{pars}^\mathrm p R$ wenn eine Funktion $f\in\FP$ existiert mit%\sidenote{vgl. \textcite{rothe_komplexitatstheorie_2008}.}
     \[ |\fset{}Q(x)|=|\fset{}R(f(x))|. \]
     %In anderen Worte, $f$ realisiert eine Many-one-Reduktion von $Q$ auf $R$, und haben sowohl die originale $Q$-Instanz $x$ als auch die reduzierte $R$-Instanz $f(x)$ die gleiche Anzahl an Lösungen.
     %Definiere $Q\leq_\mathrm{pars}^\mathrm p$-Vollständigkeit entsprechend.
 \end{definition}
 
-Beachte dass geizige Reduktionen immer eine Many-one-Reduktion realisieren: wir haben $x\in\Proj(Q)$ genau dann wenn mind. ein Zertifikat für $x$ bzlg. $Q$ existiert, also genau dann wenn eines für $f(x)$ bzgl. $R$ existiert, bzw. $f(x)\in\Proj(R)$.
+Beachte dass sparsame Reduktionen immer eine Many-one-Reduktion realisieren: wir haben $x\in\Proj(Q)$ genau dann wenn mind. ein Zertifikat für $x$ bzlg. $Q$ existiert, also genau dann wenn eines für $f(x)$ bzgl. $R$ existiert, bzw. $f(x)\in\Proj(R)$.
 
-Geizige Reduktionen wurden insbesondere in der Komplexitätstheorie des Zählens aufgegriffen \parencites{simon_central_1975}{valiant_complexity_1979}. Typische algorithmische Probleme sind z.B. „\emph{wie viele Belegungen $w$ erfüllen die aussagenlogische Formel $\phi$}“ oder, kanonischer, „\emph{Auf wievielen Rechenwegen akzeptiert die Berechnung $N(x)$ der NPTM $N$?}“. Es ist einfach zu sehen, dass sich geizige Reduktionen $\mathtt{rSAT}\leq_\mathrm{pars}^\mathrm p \mathtt{rKAN}$ und $\mathtt{rKAN}\leq_\mathrm{pars}^\mathrm p \mathtt{rSAT}$ angeben lassen können. Damit kann das Zählproblem zur $\mathtt{rSAT}$-Instanz $x$ als $\mathtt{rKAN}$-Instanz $f(x)$ repräsentiert werden und umgekehrt -- die beiden Zählprobleme sind relativ zum jeweils anderem gleich schwer (wobei letztere Aussage auch mit schwächeren Reduktionsbegriffen gezeigt werden kann). Auf eine weitere Präsentation der Komplexitätstheorie des Zählens muss hier verzichtet werden.
+Sparsame Reduktionen wurden insbesondere in der Komplexitätstheorie des Zählens aufgegriffen \parencites{simon_central_1975}{valiant_complexity_1979}. Typische algorithmische Probleme sind z.B. „\emph{wie viele Belegungen $w$ erfüllen die aussagenlogische Formel $\phi$}“ oder, kanonischer, „\emph{Auf wievielen Rechenwegen akzeptiert die Berechnung $N(x)$ der NPTM $N$?}“. Es ist einfach zu sehen, dass sich sparsame Reduktionen $\mathtt{rSAT}\leq_\mathrm{pars}^\mathrm p \mathtt{rKAN}$ und $\mathtt{rKAN}\leq_\mathrm{pars}^\mathrm p \mathtt{rSAT}$ angeben lassen können. Damit kann das Zählproblem zur $\mathtt{rSAT}$-Instanz $x$ als $\mathtt{rKAN}$-Instanz $f(x)$ repräsentiert werden und umgekehrt -- die beiden Zählprobleme sind relativ zum jeweils anderem gleich schwer (wobei letztere Aussage auch mit schwächeren Reduktionsbegriffen gezeigt werden kann). Auf eine weitere Präsentation der Komplexitätstheorie des Zählens muss hier verzichtet werden.
 
-Beachte, dass geizige Reduktionen nicht mit Levin-Reduktionen vergleichbar sind. Levin-Reduktionen erhalten im Allgemeinen nicht die Anzahl an Zertifikaten, während umgekehrt geizige Reduktionen keine effektive Übersetzung zwischen den Zertifikaten für $f(x)$ auf Zertifikate für $x$ zulassen.
+Beachte, dass sparsame Reduktionen nicht mit Levin-Reduktionen vergleichbar sind. Levin-Reduktionen erhalten im Allgemeinen nicht die Anzahl an Zertifikaten, während umgekehrt sparsame Reduktionen keine effektive Übersetzung zwischen den Zertifikaten für $f(x)$ auf Zertifikate für $x$ zulassen.
 %
 %\begin{definition}[Strukturerhaltende Reduktion; \cite{lynch_structure_1978}]
     %Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{strukturerhaltend reduzieren lässt}, bzw. $Q\leq_\mathrm{st}^\mathrm p R$, zwei Funktionen $f, g\in\FP$ existieren, und
@@ -1143,7 +1167,7 @@ Eine zentrale Methode von \citeauthor{agrawal_universal_1992} ist, oft relevante
 Dies sollte keine Einschränkung darstellen. zu jeder natürlichen NP-Relation $R$ kann eine strenge NP-Relation $R'$ angegeben werden mit $\Proj(R)=\Proj(R')$ und $R\equiv_\mathrm L^\mathrm p$, wobei $R'$ noch einigermaßen natürlich bleibt.%\todo{Beispiel, z.B. k-Färbung mittels Indikatormatrix?}
 
 Nun können wir, wie oben schon angedeutet, \emph{joinable}, \emph{couplable} und \emph{building block} definieren.
-\begin{definition}[Universelle Relation; \cite{agrawal_universal_1992}]
+\begin{definition}[Universelle Relation; \cite{agrawal_universal_1992}]\label{def:universal}
     Sei $R$ eine strenge NP-Relation mit Zertifikatsschranke $q$.
     %Wir definieren nun bezüglich einer solchen Relation $R$:
     Die Relation $R$ ist \emph{universell} wenn alle drei folgenden Eigenschaften erfüllt sind:
@@ -1262,7 +1286,7 @@ Sei nun
 \[ \begin{split} \mathtt{rMAXCUT} = \{ ((G, r), w) \mid {}&\text{$G$ ist Graph mit Knotenmenge $\{0,1,\dots,n-1\}$,} \\ &\text{und $w\in\Sigma^n$ ist ein Schnitt mit Gewicht $\geq r$} \}.\end{split} \]
 Diese natürliche NP-Relation ist ein Beispiel für eine $\leqlp$-vollständige Relation, die aber nicht $\leq_\mathrm{pars}^\mathrm p$-vollständig ist. Die $\leqlp$-Vollständigkeit von lässt sich leicht aus den üblichen $\leqmp$-Reduktionen verstärken.
 
-Wir behaupten nun dass $\mathtt{rSAT} \not\leq_\mathrm{pars}^\mathrm p$. Angenommen es existiert eine solche geizige Reduktion $f$. Beachte dass die SAT-Instanz $\phi={}$„$x_1$“ genau eine erfüllende Belegung hat. Dann wäre
+Wir behaupten nun dass $\mathtt{rSAT} \not\leq_\mathrm{pars}^\mathrm p$. Angenommen es existiert eine solche sparsame Reduktion $f$. Beachte dass die SAT-Instanz $\phi={}$„$x_1$“ genau eine erfüllende Belegung hat. Dann wäre
 \[ 1=|\fset{}\mathtt{rSAT}(\phi)|=|\fset{}\mathtt{rMAXCUT}(f(\phi))|. \]
 Es lässt sich aber leicht sehen, dass $|\fset{}\mathtt{rMAXCUT}(x)|$ für jede $\mathtt{rMAXCUT}$-Instanz gerade sein muss: ist $w$ Schnitt mit Gewicht $\geq r$, dann ist auch der komplementäre String $\overline{w}$ auch ein Schnitt mit Gewicht $\geq r$; die Mengen $V_0$ und $V_1$ werden einfach vertauscht.
 Damit erhalten wir den Widerspruch. Auf ähnliche Weise lässt sich zeigen, dass $\mathtt{rMAXCUT}$ auch nicht universell sein kann.
@@ -1284,7 +1308,7 @@ Zu einem Graphen $G=(V,E)$ mit Kantenmenge $E=\{0,1,\dots, m-1\}$ können wir ei
 Wir wollen im Folgenden die Anzahl der möglichen Kantenfärbungen zählen, und sind dabei insbesondere nicht an redundanten Lösungen interessiert, die aus reiner Permutation der Farben entsteht. Wir setzen für eine \emph{gültige} Färbung $w$ daher voraus, dass $w$ die unter Permutationen lexikographisch kleinste Färbung ist, in dem Sinne dass keine Permutation $\pi$ auf $\{1,2,\dots,k\}$ existiert sodass $\pi(w)$ lexikographisch kleiner ist als $w$. (Beachte: wir suchen \emph{nicht} nach einer „global“ lexikographisch kleinsten Färbung von $G$.)
 Definiere nun
 \[ \begin{split} \mathtt{r4CHROMINDEX} = \{ ((G, k), w) \mid {}&\text{$G$ ist Graph mit Kantenmenge $\{0,1,\dots,m-1\}$} \\& \text{$G$ hat maximalem Grad 4,} \\ &\text{und $w\in\{1,2\dots,4\}^m$ ist gültige Färbung mit 4 Farben} \}.\end{split} \]
-\begin{theorem}[\cite{cai_complexity_2020} nach Edward und Welsh]
+\begin{theorem}[{\cite{cai_complexity_2020} nach Edward und Welsh\protect\sidenotemark}]\sidenotetext{Dieses Beispiel geht auf ein unpubliziertes Preprint von Edward und Welsh mit dem Titel „On the Complexity of Uniqueness Problems“ welches offenbar in den 1980ern zirkuliert ist; viele der Arbeiten aus diesem Abschnitt nehmen auf genau dieses Preprint bezug. Tatsächlich ist überliefert, dass dieses Preprint über die Kantenfärbbarkeit sogar ein „Gegenbeispiel“ zur Berman--Hartmanis-Isomorphievermutung gefunden hätte. Hierbei gingen Edward und Welsh aber von einer wesentlichen stärkereren abweichenden Interpretation der Isomorphievermutung aus: neben der Isomorphie zwischen allen NP-vollständigen Entscheidungsproblemen würde diese Interpretation der Isomorphievermutung (mindestens) eine sparsame Interreduzierbarkeit zwischen allen NP-vollständigen Suchproblemen implizieren. Diese Aussage ist nun aber so stark, dass diese durch eben das Beispiel der Kantenfärbbarkeit widerlegt werden kann. Vgl. \textcites{hemaspaandra_take-home_1998}{wiedermann_witness-isomorphic_1995}{cai_complexity_2020}[118]{welsh_complexity_1993}.}
     Die NP-Relation $\mathtt{r4CHROMINDEX}$ ist nicht $\leq_\mathrm{pars}^\mathrm p$-vollständig, außer $\P=\NP$.
 \end{theorem}
 \begin{proof}[Skizze.]
@@ -1443,9 +1467,10 @@ Für alle dieser drei Desiderata ist es zunächst notwendig, auf die Hypothese $
 \end{restatable}
 
 In anderen Worten sagt Aussage (2) aus, dass es modulo Umcodieren nur einen einzigen SAT-Solver gibt, und insbesondere alle SAT-Solver äquivalent zum trivialen Solver ist, welcher nur alle möglichen Belegungen ausprobiert.
-Die Aussage (3) macht eine analoge Aussage über Beweissysteme: egal wie komplex ein Beweissystem $h$ für $\mathtt{SAT}$ ist, wir können immer einen $h$-Beweis für $\phi$ in eine erfüllende Belegung für $\phi$ (quasi ein trivialer Beweis für $\phi\in\mathtt{SAT}$) transformieren.
+Die Aussage (3) macht eine analoge Aussage über Beweissysteme: egal wie komplex ein Beweissystem $h$ für $\mathtt{SAT}$ ist, wir können immer einen $h$-Beweis für $\phi$ in eine erfüllende Belegung für $\phi$ (quasi ein trivialer Beweis für $\phi\in\mathtt{SAT}$) transformieren. Damit ist auch leicht zu sehen, dass $\hQ\Rightarrow \neg\hSAT$, zumindest im unrelativierten Fall.
 
-In Abschnitt~\ref{} werden wir sehen, dass sich die obigen Charakterisierungen auf weitere (aber möglicherweise nicht alle) vollständigen NP-Relationen generalisiert, womit insbesondere auch die beiden Charakterisierungen von \citeauthor{fenner_inverting_2003} und \citeauthor{messner_simulation_2001} zu einer \emph{relativierbaren} Variante verallgemeinert werden. Hierfür führen wir jetzt schon den Begriff eines Standardbeweissystems formal ein.
+In Abschnitt~\ref{} werden wir sehen, dass sich die obigen Charakterisierungen auf weitere (aber möglicherweise nicht alle) vollständigen NP-Relationen generalisiert, womit insbesondere auch die beiden Charakterisierungen von \citeauthor{fenner_inverting_2003} und \citeauthor{messner_simulation_2001} zu einer \emph{relativierbaren} Variante verallgemeinert werden.
+Mit dieser Verallgemeinerung ist es dann auch für uns möglich, $\hQ$ formal in das Pudláksche Programm (u.a. durch $\hQ\Rightarrow \neg\hSAT$) einzuordnen. Hierfür führen wir jetzt schon den Begriff eines Standardbeweissystems formal ein.
 
 \begin{definition}[Standardbeweissystem]
     Sei $R$ eine NP-Relation. Wir definieren bezüglich $R$ das \emph{Standardbeweissystem} $\mathit{std}_R$ für $\Proj(R)$ wie folgt:
@@ -1665,6 +1690,7 @@ Mit der Definition der effektiven p-Simulation und der eben beweisenen äquivale
 
 Wir haben also je eine notwendige ($\neg\hQ$) und eine hinreichende Hypothese ($\mathsf{SAT^{eff}}$) für $\mathsf{KvL}$. 
 Nichtsdestotrotz bleiben noch viele Fragen offen, die wir hier aus Platzgründen nicht weiter verfolgen werden. 
+Wir konnten zwar $\mathsf{KvL}$ als Aussage über Beweissysteme formulieren, aber sind auch andere Charakterisierungen (z.B. wie bei $\hQ$) möglich?
 Gibt es natürliche (z.B. kryptographische) Annahmen die hinreichend für $\mathsf{KvL}$ sind? Wie ist die Beziehung zu den anderen Pudlákschen Hypothesen? Wie verhält sich insbesondere $\hSAT$ zu $\mathsf{SAT^{eff}}$? 
 Kann in Beobachtung~\ref{obs:kvl-equiv}(2) so verstärkt werden, dass $\mathit{std}_Q$ jedes (nicht nur die optimalen) Beweissystem effektiv p-simulieren kann, also gewissermaßen $\mathit{std}_Q$ „effektiv p-optimal“ ist?
 
@@ -1695,7 +1721,7 @@ Wir wiederholen hier noch einmal die Aussage:
     %\item Das Standardbeweissystem $\mathit{std}_{\mathtt{rSAT}}$ ist p-optimal.
 %\end{itemize}
 Diese beiden Charakterisierungen wollen wir im Folgenden verallgemeinern und auf beliebige $\leqlp$-vollständige NP-Relationen $R$ übertragen. 
-Hieraus ergibt sich schon unmittelbar der technische Beitrag, dass dann diese Charakterisierungen auch in einem relativierten Umgebung angewendet werden können, um z.B. ein Orakel zu konstruieren, was $\hQ$ von anderen Hypothesen trennt.
+Hieraus ergibt sich schon unmittelbar der technische Beitrag, dass dann diese Charakterisierungen auch in einem relativierten Umgebung angewendet werden können, um z.B. ein geeignetes Orakel zu konstruieren, was $\hQ$ von anderen Hypothesen trennt.
 
 Zweitens ergibt sich aus der Verallgemeinerung das überraschende Ergebnis, dass $\leqlp$-Vollständigkeit allein nicht ausreicht. In den originalen Beweisen von \citeauthor{fenner_inverting_2003} und \citeauthor{messner_simulation_2001} wurden diese zusätzlichen ausgenutzten Eigenschaften von $\mathtt{rSAT}$ nur stillschweigend mitgedacht. Die folgende Generalisierung deckt diese Eigenschaften aus, und plausibilisiert dass diese womöglich nicht von allen $\leqlp$-vollständigen NP-Relationen geteilt werden.
 
@@ -1926,6 +1952,8 @@ Damit können wir schon als Ergebnis festhalten, dass
 jede $\leq_\mathrm{L,1,inv}^\mathrm{p}$-vollständige Relation $R$ die in 
 Lemma~\ref{lemma:stdps-q} und~\ref{lemma:q-generalized} genannten Voraussetzungen an die NP-Relation $R$ erfüllt.
 Das sind nach \textcite{goldreich_computational_2008} unrelativierten Fall u.a. $\mathtt{rSAT}$, $\mathtt{rSETCOVER}$, $\mathtt{rVERTEXCOVER}$, $\mathtt{rCLIQUE}$, $\mathtt{r3COLORABILITY}$.
+
+\medskip
 \begin{proof}[Beweis zu Beobachtung~\ref{obs:invcomplete-sind-levinpaddable}]
     Aussage (2) folgt unmittelbar aus (1): Wir haben $\mathtt{rKAN}\leq_\mathrm{L,1,inv}^\mathrm{p} R$ und damit ist die entsprechende Reduktionsfunktion $f$ p-invertierbar, und damit ehrlich.
 
@@ -1965,46 +1993,48 @@ Anstelle der Betrachtung, wie die \emph{Reduktionen} zwischen den einzelnen NP-R
 
 \begin{observation}\label{obs:joinable-sind-levinpaddable}
     %Jede universelle Relation ist Levin-paddable. Dieses Resultat gilt nur im unrelativierten Fall.
-    Jede NP-Relation die \emph{joinable} ist, ist auch Levin-paddable.
+    Jede strenge NP-Relation $R\neq\emptyset$ die \emph{joinable} ist, ist auch Levin-paddable.
 \end{observation}
 Vor dem Beweis können wir mit dieser Aussage festhalten, dass jede universelle Relation $R$ die in 
 Lemma~\ref{lemma:stdps-q} und~\ref{lemma:q-generalized} genannten Voraussetzungen an die NP-Relation $R$ erfüllt.
 Das sind nach \textcite{agrawal_universal_1992} u.a. $\mathtt{rSAT}, \mathtt{rHAM}, \mathtt{rINDSET}, \mathtt{rKNAPSACK}, \mathtt{rMAXCUT}$.
+\medskip
 \begin{proof}[Beweis zu Beobachtung~\ref{obs:joinable-sind-levinpaddable}]
-    \todo{Alles überprüfen! Was meint streng monoton? Wir brauchen auch keinen Block!} Sei $R$ eine NP-Relation, mit zugehörigem Polynom $q$, welches die Zertifikatsgröße spezifiziert. Zur Erinnerung, dieses Polynom ist streng monoton steigend, und aus $(x,y)\in R$ folgt $|y|=q(|x|)$.
+    Sei $R$ eine NP-Relation, mit zugehörigem Polynom $q$, welches die Zertifikatsgröße spezifiziert. Zur Erinnerung, nachdem $R$ streng ist, gilt $(x,y)\in R \Rightarrow |y|=q(|x|)>0$.
+    Ferner haben wir eine Instanz $z\in\Proj(R)$. Damit existiert also auch ein $w$ mit $(z,w)\in R$ und $q(|z|)=|w|>0$.
+
     Wir zeigen zunächst, wie wir für beliebige Instanz $x$ und $n\in\mathbb N$ auf eine Instanz $x'$ hochpadden, in dem Sinne dass $q(|x'|) \geq n$.
-
-    %\strut\marginnote{\note{Es sieht nicht danach aus, dass wir über die Anzahl an Zertifikaten für $x'$ die Länge abschätzen können: ist $x\not\in\Proj(R)$ dann hätte auch $x'$ keine Zertifikate, und könnte sich erlauben entsprechend kurz zu sein.}}
-    Nach Voraussetzung hat  die Relation $R$ einen \emph{building block} $\mathit{block}$. Es lässt sich leicht aus der Definition eines \emph{building block} ableiten, dass $|\mathit{block}|>0$ und $\mathit{block}\in\Proj(R)$. Damit gilt auch dass die Zertifikate $y$ zu $\mathit{block}$ die Länge $l=q(|\mathit{block}|)\geq |\mathit{block}|\geq 1$ haben.
-
     Nach Voraussetzungen  ist die Relation $R$ auch \emph{joinable}, das heißt wir haben eine Funktion $\mathit{join}\in\FP$. Sei 
-    \[ (x',\delta)=\mathit{join}(x, \underbrace{\mathit{block}, \mathit{block}, \ldots, \mathit{block}}_{\text{$n$ mal}}).\]
-    Wir werden nun über die Länge $|\delta|$ auf die Länge von Zertifikaten zu $x'$ schließen, und damit $|x'|$ beschränken.
-    Nach Definition ?? gilt
-    \[ |\delta|=q(|x|)+q(n)\cdot q(|\mathit{block}|)=q(|x|)+q(n)\cdot l\geq n. \]
-    Beob. dass unter Definition ?? alle Zertifikate $y'$ für $x'$ die feste Länge $q(|x'|)$ haben. 
-    Zur Erinnerung: wir haben
-    \begin{multline}\label{eq:levinpad-join} \{ y'[\delta] \mid y'\in\Sigma^{q(|x'|)}, (x', y')\in R \} = \{ yy_1y_2\cdots y_{n} \mid y\in\Sigma^{q(|x|)}, y_1,y_2, \ldots \in \Sigma^{l},\\ (x,y),(\mathit{block}, y_1),(\mathit{block}, y_2), \ldots \in R\} \end{multline}
-    Die Sequenz $\delta$ besteht nach Definition aus paarweise verschiedenen Indizes, daher können wir argumentieren, dass auch alle Zertifikate $y'$ (mit vorgegebener Länge $q(|x'|)$) mindestens die Länge $|\delta|$ haben.
-    Damit gilt
-    \[ q(|x'|) \geq |\delta| \geq n \]
-    wie gewünscht.
+    \[ (x',\delta)=\mathit{join}(x, \underbrace{z, z, \ldots, z}_{\text{$n$ mal}}).\]
+    %Wir werden nun über die Länge $|\delta|$ auf die Länge von Zertifikaten zu $x'$ schließen, und damit $|x'|$ beschränken.
+    Intuitiv muss nun $\delta$ (und damit $x'$) lang sein, da nun aus all den $n$ vielen Instanzen $z$ wieder das jeweilige Zertifikat aus jedem Zertifikat für $x'$ extrahiert werden muss.
+    Nach Definition~\ref{def:universal} gilt
+    \[ q(|x'|) \geq |\delta|=q(|x|) + \underbrace{q(|z|) + \cdots + q(|z|)}_{\text{$n$ mal}} \geq  n\cdot q(|z|) \geq n. \]
+    %Beob. dass unter Definition ?? alle Zertifikate $y'$ für $x'$ die feste Länge $q(|x'|)$ haben. 
+    %Zur Erinnerung: wir haben
+    %\begin{align}\label{eq:levinpad-join} &\{ y'[\delta] \mid y'\in\fset{}R(x') \} = \{ yy_1y_2\cdots y_{n} \mid y\in\Sigma^{q(|x|)}, y_1,y_2, \ldots \in \Sigma^*, y\in\fset{}R(x), y_1,y_2,\dots,y_n\in\fset{}R(z) \} \end{align}
+    %Die Sequenz $\delta$ besteht nach Definition aus paarweise verschiedenen Indizes, daher können wir argumentieren, dass auch alle Zertifikate $y'$ (mit vorgegebener Länge $q(|x'|)$) mindestens die Länge $|\delta|$ haben.
+    %Damit gilt
+    %\[ q(|x'|) \geq |\delta| \geq n \]
+    %wie gewünscht.
 
     Sei nun $\mathit{pad}$ genau jene polynomialzeit-berechenbare Funktion, die aus $x$ und $1^n$ die Instanz $x'$ konstruiert:
     \[ \mathit{pad}(x, 1^n) = x' \quad\text{ wobei }
-    (x',\delta)=\mathit{join}(x, \underbrace{\mathit{block}, \mathit{block}, \ldots, \mathit{block}}_{\text{$q(n)$ mal}}).\]
+    (x',\delta)=\mathit{join}(x, \underbrace{z,z,\ldots, z}_{\text{$n$ mal}}).\]
     Dann gilt schon sofort, dass $q(|\mathit{pad}(x, 1^n)|)=q(|x'|)\geq n$ wie gewünscht.
 
-    Wir zeigen jetzt, dass die Zugehörigkeit zu $\Proj(R)$ erhalten bleibt:
+    Wir zeigen jetzt, dass die Zugehörigkeit zu $\Proj(R)$ erhalten bleibt.
+    Zur Erinnerung, wir haben nach Eigenschaften der $\mathit{join}$-Funktion
+    \begin{align}\label{eq:levinpad-join} &\{ y'[\delta] \mid y'\in\fset{}R(x') \} = \{ yy_1y_2\cdots y_{n} \mid y\in\Sigma^{q(|x|)}, y_1,y_2, \ldots \in \Sigma^*, y\in\fset{}R(x), y_1,y_2,\dots,y_n\in\fset{}R(z) \}. \end{align}
     Gilt $x\not\in\Proj(R)$, dann ist die rechte Menge in (\ref{eq:levinpad-join}) leer, also auch die linke Menge und damit $x'=\mathit{pad}(x, 1^n)\not\in \Proj(R)$.
-    Falls anders herum $x\in\Proj(R)$, dann ist die rechte Menge nicht leer, existiert ja ein Zertifikat $y$ für $x$ und je ein weiters $y_i$ für $\mathit{block}$. Also ist auch die linke Menge nicht leer, damit $\mathit{pad}(x, 1^n)\in \Proj(R)$.
+    Falls anders herum $x\in\Proj(R)$, dann ist die rechte Menge nicht leer, existiert ja ein Zertifikat $y$ für $x$ und je ein $y_i=w$ für jedes $z$. Also ist auch die linke Menge nicht leer, damit $\mathit{pad}(x, 1^n)\in \Proj(R)$.
 
     Die noch verbleibende Funktion $\mathit{padsol}$ ist durch die bitweise Projektion durch $\delta$ leicht möglich:
     \[
-        \mathit{padsol}(x, 1^n, y') = y'[\delta[1:q(|x|)]] \enspace\text{ wobei } (\cdot, \delta) = \mathit{join}(x, \underbrace{\mathit{block}, \mathit{block}, \ldots, \mathit{block}}_{\text{$n$ mal}}).\]
+        \mathit{padsol}(x, 1^n, y') = y'[\delta[0, 1, \ldots, q(|x|)-1]] \enspace\text{ wobei } (\cdot, \delta) = \mathit{join}(x, \underbrace{z,z,\ldots, z}_{\text{$n$ mal}}).\]
     Wir verifizieren: Sei $(\mathit{pad}(x, 1^n), y')\in R$, dann ist nach (\ref{eq:levinpad-join}) $y'[\delta]=yy_1y_2\cdots$ wobei $y\in\Sigma^{q(|x|)}$, $(x, y)\in R$. 
     Wir haben
-    \[ \mathit{padsol}(x, 1^n, y') = y'[\delta[1:q(|x|)]] = (yy_1y_2\cdots)[1:q(|x|)] = y \]
+    \[ \mathit{padsol}(x, 1^n, y') = y'[\delta[0, 1, \ldots, q(|x|)-1]] = (yy_1y_2\cdots)[0,1,\ldots,q(|x|)-1] = y \]
     und damit $(x, \mathit{padsol}(x, 1^n, y')) = (x, y)\in R$, wie gewünscht.
 \end{proof}
 
@@ -2020,12 +2050,13 @@ Präzise meinen wir damit folgendes: sei $A$ ein beliebiger Polynomialzeit-Algor
 Die Existenz einer solchen Einwegfunktion erscheint aus kryptographischer Perspektive naheliegend.
 
 Betrachte nun die Menge
-\[ Q = \{ (f(x), (x,z)) \mid x,z\in\Sigma^*, (x,z)\in\mathtt{rKAN}\}. \]
-Es ist leicht zu sehen dass $\mathtt{rKAN}\leqlp Q$ und damit ist $Q$ $\leqlp$-vollständig.
+\[ Q = \{ (f(\phi), (\phi, z)) \mid x,z\in\Sigma^*, (\phi,z)\in\mathtt{rSAT}\}. \]
+Es ist leicht zu sehen dass $\mathtt{rSAT}\leqlp Q$ und damit ist $Q$ auch $\leqlp$-vollständig.
 Gleichzeitig kann dann $Q$ nicht Levin-paddable sein.
 Denn angenommen, $Q$ ist Levin-paddable, dann lässt sich $f$ mit einem funktionalen Orakel-Query \emph{zumindest auf den Werten $f(\mathtt{SAT})$} p-invertieren: gegeben $w\in f(\mathtt{SAT})$, berechne erst eine zweite Instanz $w'=\mathit{pad}(w, 1^n)\in\Proj(Q)$ mit hinreichend langem $n$ sodass $w'\neq w$. Frage dann an das Orakel und erhalte $(x',z')\in \fset{}Q(w')$.
 Dann gilt $(x,z) = \mathit{padsol}(w, 1^n, (x',z'))$ mit $f(x)=w$, i.e. $x$ ist das gesuchte Urbild von $w$.
-Aus der Existenz der Einwegfunktion $f$ folgt $\P\neq\NP$, und damit ist insbesondere $f(\mathtt{SAT})$ eine nicht-dünne Menge \parencite{mahaney_sparse_1982}.
+Wir können also auf der Bildmenge  $f(\mathtt{SAT})$ die Einwegfunktion $f$ invertieren.
+Diese Menge ist tatsächlich nicht dünn: aus aus der Existenz der Einwegfunktion $f$ folgt $\P\neq\NP$, und damit ist insbesondere die $\leqmp$-vollständige Menge $f(\mathtt{SAT})$ eine nicht-dünne Menge \parencite{mahaney_sparse_1982}.
 Das widerspräche nun den Eigenschaften von $f$, also ist $Q$ nicht Levin-paddable.
 
 Dennoch bleibt die allgemeine Frage zwischen $\leqlp$-Vollständigkeit und Levin-Paddability offen, die wir im Folgenden nicht weiter bearbeiten werden:
@@ -2276,8 +2307,10 @@ Der verbleibende Beweis ist eine Generalisierung von \textcite{dingel_separation
 
 
 
-\chapter{Orakel}
+\chapter{Orakel}\label{chap:orakel}
+
+\chapter{Diskussion und Fazit}\label{chap:conclusion}
 
 
-\note{Abschließend erweitern wir noch unsere Notation, die uns insbesondere bei der Orakelkonstruktion helfen wird. Diese folgt Überlegungen von \textcite{dose_np-completeness_2019}. Anstelle von Orakeln als Menge zu verstehen, können wir äquivalent Orakel auch als unendlich lange Wörter $u\in\Sigma^\omega$ formulieren, die wir als das Orakel $\{ i\mid w[i]=1 \}\subseteq \mathbb N$ interpretieren. Mit der obigen Identifikation von Wörtern und natürlichen Zahlen beschreibt nun $u$ sowohl ein Orakel über $\mathbb N$ als auch über $\Sigma^*$; wir können also z.B. von der relativen Berechnung $M^w(x)$ sprechen. Analog fassen wir endlich lange Wörter $w\in\Sigma^*$ als \emph{partielles} Orakel $\{ i\mid w[i]=1 \}$, welches die Zugehörigkeit der Wörter $x<|w|$ festlegt, aber die Zugehörigkeit aller Wörter $y\geq|w|$ noch nicht endgültig festlegt.
-Auf dieser Idee der endgültigen bzw. noch nicht endgültigen Zugehörigkeit aufbauend können wir auch von \emph{definiten} Berechnungen sprechen: Eine Rechnung $M^w(x)$ ist \emph{definit} wenn auf allen Rechenwegen von $M^w(x)$ nur Orakelfragen gestellt werden, welche eine Länge $<|w|$ haben. }
+%\note{Abschließend erweitern wir noch unsere Notation, die uns insbesondere bei der Orakelkonstruktion helfen wird. Diese folgt Überlegungen von \textcite{dose_np-completeness_2019}. Anstelle von Orakeln als Menge zu verstehen, können wir äquivalent Orakel auch als unendlich lange Wörter $u\in\Sigma^\omega$ formulieren, die wir als das Orakel $\{ i\mid w[i]=1 \}\subseteq \mathbb N$ interpretieren. Mit der obigen Identifikation von Wörtern und natürlichen Zahlen beschreibt nun $u$ sowohl ein Orakel über $\mathbb N$ als auch über $\Sigma^*$; wir können also z.B. von der relativen Berechnung $M^w(x)$ sprechen. Analog fassen wir endlich lange Wörter $w\in\Sigma^*$ als \emph{partielles} Orakel $\{ i\mid w[i]=1 \}$, welches die Zugehörigkeit der Wörter $x<|w|$ festlegt, aber die Zugehörigkeit aller Wörter $y\geq|w|$ noch nicht endgültig festlegt.
+%Auf dieser Idee der endgültigen bzw. noch nicht endgültigen Zugehörigkeit aufbauend können wir auch von \emph{definiten} Berechnungen sprechen: Eine Rechnung $M^w(x)$ ist \emph{definit} wenn auf allen Rechenwegen von $M^w(x)$ nur Orakelfragen gestellt werden, welche eine Länge $<|w|$ haben. }
