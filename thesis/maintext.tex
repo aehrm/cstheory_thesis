@@ -138,7 +138,7 @@ Motiviert von der endlichen Widerspruchsfreiheit von Theorien und \emph{bounded 
     $\hDisjCoNP$ & es ex. kein $\leqmpp$-vollst. disjunktes coNP-Paar für $\DisjCoNP$
 \end{tabular}\par
 \bigskip\noindent
-Hierbei muss hervorgehoben werden, dass Pudlák die Hypothese $\hTAUT$ nicht in dieser Form formuliert hat, sondern als Aussage über die Nicht-Existenz eines p-optimalen Beweissystems speziell für $\mathtt{TAUT}$ gefragt hat, genau wie anfangs des Abschnitts (in seiner Notation die Hypothese $\mathsf{CON}$). Die beiden Charakterisierungen sind aber äquivalent (vgl. Abschnitt~\ref{}).
+Hierbei muss hervorgehoben werden, dass Pudlák die Hypothese $\hTAUT$ nicht in dieser Form formuliert hat, sondern als Aussage über die Nicht-Existenz eines p-optimalen Beweissystems speziell für $\mathtt{TAUT}$ gefragt hat, genau wie anfangs des Abschnitts (in seiner Notation die Hypothese $\mathsf{CON}$). Die beiden Charakterisierungen sind aber äquivalent; gesagtes gilt analog auch für $\hSAT$ (vgl. Abschnitt~\ref{sec:prelim-ps})
 
 \begin{figure}
     \centering\includegraphics[page=8]{figures.pdf}
@@ -185,7 +185,7 @@ Zum anderen werden Arbeiten vorgestellt und eingeordnet, welche gemeinsame Eigen
 
 In Kapitel~\ref{chap:pudlak} werden wir Hypothesen zu NP-Suchproblemen und die Aussage $\hQ$ in das Pudláksche Programm einordnen. Erstens untersuchen wir, ob die (Levin-)Vollständigkeit eines NP-Suchproblems  mit der (Karp-)Vollständigkeit des entsprechenden NP-Suchproblems übereinstimmt. Insbesondere wird plausibilisiert, dass diese Übereinstimmung nicht gilt.
 Zweitens werden wir (nicht-relativerbare) Charakterisierungen von $\hQ$ durch \textcite{fenner_inverting_2003} und \textcite{messner_simulation_2001} verallgemeinern und relativieren, womit wir als Nebeneffekt auch präzise zu (relativierbaren) Implikationen zwischen $\hQ$ und den Pudlákschen Hypothesen kommen.
-Drittens zum Abschluss des Kapitels, wieder in einer Form eines Surveys, wird das Pudláksche Programm durch Hinzufügen weiterer Hypothesen erweitert und verfeinert, die in der Literatur diskutiert werden. Hinzu erarbeiten wir eine Übersicht über die Implikationen zwischen diesen Hypothesen, bzw. Orakeln welche diese Implikationen unter relativierbaren Beweisen trennt. Im Wesentlichen vergrößeren wir Abbildung~\ref{fig:pudlak-small} zu Abbildung~\ref{fig:pudlak-large}.
+Drittens zum Abschluss des Kapitels, wieder in einer Form eines Surveys, wird das Pudláksche Programm durch Hinzufügen weiterer Hypothesen erweitert und verfeinert, die in der Literatur diskutiert werden. Hinzu erarbeiten wir eine Übersicht über die Implikationen zwischen diesen Hypothesen, bzw. Orakeln welche diese Implikationen unter relativierbaren Beweisen trennt. Im Wesentlichen vergrößeren wir Abbildung~\ref{fig:pudlak-small} zu Abbildung~\ref{fig:figure-implications}.
 
 In Kapitel~\ref{chap:orakel} werden zwei Orakel konstruiert, die \todo{Dinge machen}.
 
@@ -194,7 +194,7 @@ Die Arbeit endet mit einer abschließenden Diskussion in Kapitel~\ref{chap:concl
 
 
 
-\chapter{Grundlagen}
+\chapter{Grundlagen}\label{chap:prelim}
 
 Dieses Kapitel legt die definitorischen Grundlagen für die folgenden Kapitel fest. In Abschnitt~\ref{sec:notation} legen wir mathematische Notationen für diese Arbeit fest. Abschnitt~\ref{sec:prelim-machines} spezifiziert das Maschinenmodell.  Abschnitt~\ref{sec:prelim-klassen} wiederholt einige Standarddefinitionen aus der Komplexitätstheorie. Abschnitt~\ref{sec:prelim-orakel} setzt das hier verwendete Verständnis von Relativierungen fest. Abschließend geht Abschnitt~\ref{sec:prelim-ps} kurz auf Beweissysteme im Sinne von \textcite{cook_relative_1979} ein.
 
@@ -554,7 +554,7 @@ So relativiert beispielsweise $\hSAT$ auf Orakel $O$ zur Aussage „kein $\leq_\
 Das entspricht genau der Form von Relativierung, welche als erstes von \textcite{dose_oracle_2020} vorgeschlagen wurde.
 
 
-\chapter{Zur Konzeptionalisierung und Ordnung von Suchproblemen}
+\chapter{Zur Konzeptionalisierung und Ordnung von Suchproblemen}\label{chap:searchproblems}
 
 In diesem Kapitel werden wir grundsätzlich überlegen, wie NP-Suchprobleme in der Komplexitätstheorie erfasst werden können, wie wir diese in ihrer Schwierkigkeit vergleichen können, und welche Ähnlichkeiten zwischen den NP-Suchproblemen erkennbar sind. 
 In Abschnitt~\ref{sec:searchproblems-def} werden wir eine formal präzise Definition von NP-Suchproblemen erarbeiten, wie sie bereits in der Einleitung intuitiv vorgestellt wurden. Das umfasst auch die Unterklasse TFNP der totalen NP-Suchprobleme.
@@ -712,7 +712,7 @@ Mit der Beschäftigung mit TFNP-Problemen kam es zu einer umfassenden Theoriebil
 
         Ein Beispiel hierfür ist das Gleiche-Summe-Suchproblem: gegeben $n$ positive ganze Zahlen die sich zu $<2^n-1$ aufsummieren, finde zwei unterschiedliche nichtleere Teilmengen dieser Zahlen welche die gleiche Summe haben. (Existiert nach Schubfachprinzip: es existieren $2^n-1$ viele nichtleere Teilmengen, jede davon mit Summe $<2^n-1$, die Summen können also nicht alle unterschiedlich sein.)
 \end{itemize}
-Auf die weitere Theorie der TFNP-Probleme wird in dieser Arbeit nicht weiter eingegangen. Wir werden aber in Abschnitt~\ref{} noch Reduktionen auf NP-Relationen definieren; dieser Reduktionsbegriff ist der identische wie auf den TFNP-Problemen \textcite{megiddo_total_1991}.
+Auf die weitere Theorie der TFNP-Probleme wird in dieser Arbeit nicht weiter eingegangen. Wir werden aber in Abschnitt~\ref{sec:levin} noch Reduktionen auf NP-Relationen definieren; dieser Reduktionsbegriff ist der identische wie auf den TFNP-Problemen \textcite{megiddo_total_1991}.
 
 
 %Diese Definition von $\FNP$ entspricht der „Lehrbuchdefinition“ von $\FNP$, wie sie z.B. bei \textcite[cf.][227-228]{papadimitriou_computational_1994} formuliert wird. 
@@ -783,7 +783,7 @@ Zumindest für die $\P$-$\NP$-Frage ist es irrelevant, ob man sich auf Suchprobl
 
 Es ist leicht zu sehen, dass der Suchalgorithmus von obigem Beweis so geändert werden kann, dass anstelle der Entscheidung von $A$ auch Orakelfragen an ein (externes) Orakel $A$ gestellt werden können, d.h. das Suchproblem von $R$ kann \emph{à la Cook} auf das Entscheidungsproblem von $A$ reduziert werden. In anderen Worten, $R\inc \FP^A$. Das generalisiert sogar, wenn statt $A$ irgendein beliebiges für $\NP$-vollständiges Orkel gewählt wird. Ist also $\Proj(R)$ $\leqmp$-vollständig für $\NP$, dann gilt trivialerweise der Spezialfall $R\inc \FP^{\Proj(R)}$. Das ist genau das \emph{search-reduces-to-decision}-Argument: ist das Entscheidungsproblem zu $R$ effizient lösbar, dann auch das Suchproblem zu $R$ effizient lösbar.
 
-\begin{corollary}[\emph{Search reduces to decision} für die NP-Vollständigen]\label{corr:search-to-decision}
+\begin{corollary}[\emph{Search reduces to decision} für die NP-Vollständigen]\label{cor:search-to-decision}
     Sei $R$ eine NP-Relation, für die $\Proj(R)$ auch $\leqmp$-vollständig für $\NP$ ist.
     Dann gilt $R\inc \FP^{\Proj(R)}$.
 \end{corollary}
@@ -813,7 +813,7 @@ Bei dieser NP-Relation wäre nun nicht ersichtlich, wie das Suchproblem auf das 
 
 Für andere Suchprobleme existieren aber nichttriviale Möglichkeiten  das Suchproblem auf das (natürliche) Entscheidungsproblem zu reduzieren, auch wenn das Entscheidungsproblem nicht in der Form einer Bisektion/Präfixsuche ist. Hierbei wird die spezifische Struktur des Problems ausgenutzt. Ein Beispiel ist $\mathtt{rSAT}$: Gegeben Formel $\phi$, teste mittels dem Orakel, ob $\phi[x_1/0]\in\mathtt{SAT}$ oder $\phi[x_1/1]\in\mathtt{SAT}$. Hier meit $\phi[x_1/0]$ die Formel sein soll, die entsteht wenn alle Vorkommen von Variable $x_1$ in $\phi$ mit $0$ ersetzt werden, $\phi[x_1/1]$ analog. Sollte jetzt $\phi[x_1/0]\in\mathtt{SAT}$ stimmen, dann wissen wir dass es eine Belegung für $\phi$ existiert die $\phi$ erfüllt und gleichzeitig $x_1$ auf $0$ setzt. Wir können dann iterativ auf dem gleichen Weg eine Belegung für die nächste Variable $x_2$ bestimmen usw. (Der Fall dass $\phi[x_1/1]\in\mathtt{SAT}$ ist analog.) Es gilt $\mathtt{rSAT}\in\FP^{\Proj(\mathtt{rSAT})}$.
 
-Beachte aber, dass $\Proj(\mathtt{rSAT})=\mathtt{SAT}$ schon NP-vollständig ist. Damit folgt $\mathtt{rSAT}\in \FP^{\mathtt{SAT}}$ schon aus Korollar~\ref{corr:search-to-decision}.
+Beachte aber, dass $\Proj(\mathtt{rSAT})=\mathtt{SAT}$ schon NP-vollständig ist. Damit folgt $\mathtt{rSAT}\in \FP^{\mathtt{SAT}}$ schon aus Korollar~\ref{cor:search-to-decision}.
 
 Ein nichttriviales Beispiel für ein Suchproblem, deren Projektion (mutmaßlich) nicht NP-vollständig ist, wäre die NP-Relation $\mathtt{rGI}$. Zur Erinnerung: dieses Suchproblem sucht nach einem Graphisomorphismus zwischen zwei gegebenen Graphen.
 Hier gilt $\mathtt{rGI}\inc \FP^{\Proj(\mathtt{rGI})}$: es lässt sich ein Graphisomorphismus zwischen $G$ und $H$ bestimmen, indem mehrmals mittels des Orakels bei (anderen) Paaren von  Graphen getestet wird, ob diese isomorph sind \parencite[vgl.][S. 65, 100]{goldreich_computational_2008}.
@@ -830,7 +830,7 @@ Unter stärkeren Bedingungen kann sogar zeigen, dass sogar \emph{Mengen} $L\in\N
 \begin{theorem}[{\cites[Thm.~1.1]{bellare_complexity_1994}{impagliazzo_1991}}]
 Angenommen $\mathrm{EE\neq NEE}$ oder $\mathrm{NE\neq coNE}$. Dann existiert eine Menge $L\in\NP-\P$ sodass $R\not\inc \FP^L$ für jede NP-Relation $R$ für $L$, i.e. für die $\Proj(R)=L$ gilt.
 \end{theorem}
-Beachte dass zu keiner dieser Relationen $R$ aus den beiden vorigen Sätzen die Projektion $\Proj(R)$ eine NP-Intermediate ist; $\Proj(R)$ kann nicht $\leqmp$-vollständig sein, denn das wäre ein Widerspruch zu Korollar~\ref{corr:search-to-decision}.
+Beachte dass zu keiner dieser Relationen $R$ aus den beiden vorigen Sätzen die Projektion $\Proj(R)$ eine NP-Intermediate ist; $\Proj(R)$ kann nicht $\leqmp$-vollständig sein, denn das wäre ein Widerspruch zu Korollar~\ref{cor:search-to-decision}.
 
 Folgendes Resultat charakterisiert diejenigen Sprachen $L\in\NP$ die zumindest \emph{eine} NP-Relation $R$ für $L$ haben, sodass das Suchproblem (bzgl. $R$) auf das Entscheidungsproblem reduzierbar ist.
 \begin{definition}
@@ -900,7 +900,7 @@ Es ist offen ob $\mathtt{rFACTOR}'\stackrel{?}{\in}\mathtt{PLS}$ und zumindest u
 Tatsächlich zeigen die Autorinnen sogar die Konsequenz $\mathtt{rFACTOR}'\in\mathrm{UEOPL}$, was auch noch $\mathtt{rFACTOR}'\in\mathrm{PPAD}$ zur Folge hätte. Auch die Frage ob $\mathtt{rFACTOR}'\stackrel{?}{\in}\mathrm{PPAD}$ ist offen, und wurde breit untersucht. Eine positive Antwort wäre zumindest sehr überraschend (vgl. \cite[67:15]{harsha_downward_2023}; siehe ebd. auch für eine Def. von $\mathrm{UEOPL}$, $\mathrm{PPAD}$).
 Insgesamt ist die Forschung bezüglich Selbstreduzierbarkeit nach unten für TFNP-Probleme (und allgemeiner für FNP-Probleme) noch sehr klein, und es bedarf auf jeden Fall weiterer Untersuchungen, unter anderem auch im Richtung einer Konzeptionalisierung von „kleinerer Instanz“, die robuster als „kürzerer String“ ist. Vergleiche mit der \emph{disjunktiver Selbstreduzierbarkeit} \parencites[vgl.]{balcazar_self_1989}[vgl.]{selman_natural_1988}[vgl.][Abschn. 9.5]{wechsung_vorlesungen_2000}  -- einem ähnlichen Begriff der Selbstreduzierbarkeit auf der Ebene der Entscheidungsprobleme -- liegen nahe.
 
-\section{Levin-Reduzierbarkeit}
+\section{Levin-Reduzierbarkeit}\label{sec:levin}
 
 Ähnlich wie auf den üblichen Entscheidungsproblemen können wir auch von Reduzierbarkeiten zwischen verschiedenen Suchproblemen sprechen. In der Literatur hat sich folgender Begriff von Reduzierbarkeit zwischen NP-Relationen herausgebildet \parencites(vgl.)()[229]{papadimitriou_computational_1994}[61]{goldreich_computational_2008}[50]{arora_computational_2009}:
 
@@ -967,7 +967,7 @@ Beachte dass $\Proj(\mathtt{rKAN})=\mathtt{KAN}$.
     ist $\leq_\mathrm{L,1,inv}^\mathrm p$-vollständig für $\FNP$.
 \end{theorem}
 \begin{proof}
-    Sei $R$ eine beliebige NP-Relation mit Zertifikatsschranke $r$, i.e. $(x,y)\in R\implies |y|\leq r(|x|)$. Sei $M$ die PTM welche $R$ entscheidet, mit Laufzeitschranke $p$. Sei $N$ eine NPTM welche auf Eingabe $x$ zunächst ein Zertifikat $y, |y|\leq r(|x|)$ rät, und dann testet ob $M(x,y)$ akzeptiert. Die Laufzeit von $N$ ist beschränkt auf $p(|(x,y)|)\in O(p(r(|x|)))$ (hier nutzen wir die effiziente Listencodierung von \ref{} aus). Sei daher $q$ ein Polynom, welches die Laufzeit von $N$ beschränkt.
+    Sei $R$ eine beliebige NP-Relation mit Zertifikatsschranke $r$, i.e. $(x,y)\in R\implies |y|\leq r(|x|)$. Sei $M$ die PTM welche $R$ entscheidet, mit Laufzeitschranke $p$. Sei $N$ eine NPTM welche auf Eingabe $x$ zunächst ein Zertifikat $y, |y|\leq r(|x|)$ rät, und dann testet ob $M(x,y)$ akzeptiert. Die Laufzeit von $N$ ist beschränkt auf $p(|(x,y)|)\in O(p(r(|x|)))$ (hier nutzen wir die effiziente Listencodierung von \ref{sec:notation} aus). Sei daher $q$ ein Polynom, welches die Laufzeit von $N$ beschränkt.
 
     Definiere die Reduktionsfunktion $f(x)=(N, x, 1^{q(|x|)})$. Wir zeigen zunächst dass
     \[ x\in \Proj(R)\iff f(x)\in \Proj(\mathtt{rKAN}). \]
@@ -1017,7 +1017,7 @@ Die bekannten NP-Relationen $R$ mit $\leqmp$-vollständiger Projektion $\Proj(R)
 
 Nach \textcite[104]{goldreich_computational_2008} sind die folgenden NP-Relationen jedenfalls definitiv $\leq_\mathrm{L,1,i}^\mathrm p$-vollständig: $\mathtt{rSAT}$, $\mathtt{rSETCOVER}$, $\mathtt{rVC}$, $\mathtt{rCLIQUE}$, $\mathtt{r3COLORABILITY}$.
 Die von \textcite[193-198]{papadimitriou_computational_1994} angegebene Reduktion $\mathtt{SAT}\leqmp\mathtt{rHAMCYCLE}$ lässt sich leicht zu $\mathtt{rSAT}\leqlp\mathtt{rHAMCYCLE}$ erweitern, womit $\mathtt{rHAMCYCLE}$ auch $\leqlp$-vollständig ist.
-Ebenso ist $\mathtt{rANOTHERHAMCYCLE}$ auch $\leqlp$-vollständig \parencite*[232]{papadimitriou_computational_1994}. Damit gilt mit Lemma~\ref{lemma:fnp-completeness}(3) auch die in Abschnitt~\ref{} angegebene Äquivalenz $\NP=\P$ genau dann wenn $\mathtt{rSAT}$, $\mathtt{rVC}$, \dots $\inc \FP$.
+Ebenso ist $\mathtt{rANOTHERHAMCYCLE}$ auch $\leqlp$-vollständig \parencite*[232]{papadimitriou_computational_1994}. Damit gilt mit Lemma~\ref{lemma:fnp-completeness}(3) auch die in Abschnitt~\ref{sec:searchproblems-def} angegebene Äquivalenz $\NP=\P$ genau dann wenn $\mathtt{rSAT}$, $\mathtt{rVC}$, \dots $\inc \FP$.
 
 NP-Relationen $R$ für welche die Projektion zwar $\leqmp$-vollständig, aber $R$ nicht $\leqlp$-vollständig sind, scheinen nicht bekannt zu sein.
 Aus dieser empirischen Beobachtung ergibt sich die Frage, ob das auch für \emph{alle} NP-Relationen $R$ gilt: 
@@ -1030,7 +1030,7 @@ Aus Präsentationsgründen werden wir die pessimistische negative Antwort auf di
 \end{restatable}
 Obwohl diese Frage erstaunlich auf natürlich scheint, und zwei umfassende Reduktionsbegriffe der Komplexitätstheorie in Beziehung setzen versucht, gibt es erstaunlicherweise kaum Forschung welche sich dieser Hypothese annähert.
 Ein Beweis von $\mathsf{KvL}$ ist jedenfalls mindestens so schwer wie die P-NP-Frage, denn $\mathsf{KvL}\Rightarrow \P\neq \NP$.
-In Abschnitt~\ref{} werden wir diese Hypothese und dessen Beziehung zu anderen Hypothesen erarbeiten. Dort werden dann auch Argumente geliefert, die für diese negative Antwort sprechen.
+In Abschnitt~\ref{sec:karp-vs-levin} werden wir diese Hypothese und dessen Beziehung zu anderen Hypothesen erarbeiten. Dort werden dann auch Argumente geliefert, die für diese negative Antwort sprechen.
 
 %Eine natürliche Möglichkeit, die oben genannte Frage abzuschwächen, wäre die, 
 Die oben genannte Frage lässt sich auf natürliche Weise abschwächen, indem man von der konkreten NP-Relation abstrahiert: Wenn $L$ eine $\leqmp$-vollständige Menge für $\NP$ ist, existiert dann zumindest \emph{eine} NP-Relation $R_L$ für $L$ (i.e., $\Proj(R)=L$) sodass $R_L$ $\leqlp$-vollständig ist? In anderen Worten, existiert ein hinreichend ausdruckstarkes „Zertifikatssystem“ $R$ für $L$ sodass $R$ $\leqlp$-vollständig ist?
@@ -1070,7 +1070,7 @@ Andererseits kann gefragt werden, ob TFNP-Relationen existieren die $\leqlp$-vol
 \begin{conjecture}[\hTFNP]
     Es existiert keine NP-Relation $R\in\TFNP$ die $\leqlp$-vollständig für $\TFNP$ ist.
 \end{conjecture}
-Auch hier ist ein Beweis für diese Vermutung mindestens so schwer wie ein Beweis für $\NP\neq\coNP$. Die Beziehung dieser Vermutung mit weiteren Vermutungen betreffend Promise-Probelemen wird in Abschnitt~\ref{} erarbeitet.
+Auch hier ist ein Beweis für diese Vermutung mindestens so schwer wie ein Beweis für $\NP\neq\coNP$. Die Beziehung dieser Vermutung mit weiteren Vermutungen betreffend Promise-Probelemen wird in Kapitel~\ref{chap:pudlak} erarbeitet.
 
 \section{Zur gemeinsamen Struktur von vollständigen Suchproblemen}\label{sec:gemeinsame-struktur}
 
@@ -1205,7 +1205,7 @@ Das gilt nicht nur für die hier gewählten Definition konkret für $\mathtt{rSA
 Ferner ist es sogar möglich, aus den Zertifikaten wieder eine erfüllende Belegung für die 3CNFSAT-Formel projektiv „herauszulesen“.
 Intuitiv wird damit ersichtlich, dass die universellen NP-Relationen auch $\leqlp$-vollständig sind.
 Die spezielle starke Form der Reduzierbarkeit, welche das einfache „Auslesen“ aus den Zertifikaten zulässt, formalisieren \citeauthor{agrawal_universal_1992} wie folgt:
-\begin{definition}[Projektive Levin-Reduktion]
+\begin{definition}[Projektive Levin-Reduktion]\label{def:projective-reduction}
     Seien $Q$ und $R$ zwei strenge NP-Relationen.
     Die NP-Relation $Q$ lässt sich über eine \emph{projektive Levin-Reduktion} auf $R$ reduzieren, wenn eine Funktion $f\in\FP$ existiert, welche die folgenden Bedingungen erfüllen:
     \begin{enumerate}
@@ -1347,7 +1347,7 @@ Wir kommen zum Resultat:
     Sie ist insbesondere nicht $\leq_\mathrm{pars}^\mathrm p$-vollständig außer $\P=\NP$.
 \end{observation}
 
-Gleichzeitig ist nicht klar, ob sich dieses Ergebnis zur Universalität von $\mathtt{r4CHROMINDEX}$ verstärken kann. (Das würde Universalität von $\leq_\mathrm{pars}^\mathrm p$-Vollständigkeit trennen.) Weder ist ist klar, wie sich ein \emph{building block} angeben kann, noch wie (für Aussage (2) von Satz~\ref{}) sich eine projektive Levin-Reduktion von $\mathtt{rSAT}$ auf $\mathtt{r4CHROMINDEX}$ angeben kann. Die wesentliche Schwierigkeit liegt darin, die \emph{projektive} Natur der projektiven Levin-Reduktion umzusetzen: aus den Färbungen bzw. Zertifikaten kann nicht Bit für Bit eine Lösung herausgelesen werden, wie sie die Definition~\ref{} verlangt.
+Gleichzeitig ist nicht klar, ob sich dieses Ergebnis zur Universalität von $\mathtt{r4CHROMINDEX}$ verstärken kann. (Das würde Universalität von $\leq_\mathrm{pars}^\mathrm p$-Vollständigkeit trennen.) Weder ist ist klar, wie sich ein \emph{building block} angeben kann, noch wie (für Aussage (2) von Satz~\ref{thm:universal-relations}) sich eine projektive Levin-Reduktion von $\mathtt{rSAT}$ auf $\mathtt{r4CHROMINDEX}$ angeben kann. Die wesentliche Schwierigkeit liegt darin, die \emph{projektive} Natur der projektiven Levin-Reduktion umzusetzen: aus den Färbungen bzw. Zertifikaten kann nicht Bit für Bit eine Lösung herausgelesen werden, wie sie die Definition~\ref{def:universal} (bzw. äquivalent Definition~\ref{def:projective-reduction}) verlangt.
 
 Dies sei im Folgenden am etwas einfacherem Fall der 3-Kantenfärbbarkeit (die auch $\leqmp$-vollständig ist) illustriert; die wesentliche Idee überträgt sich auch auf $k$-Kantenfärbbarkeit, $k\geq 3$.
 \textcite{holyer_np-completeness_1981} zeigt die $\leqmp$-Vollständigkeit der 3-Kantenfärbbarkeit, indem von 3SAT in CNF darauf reduziert wird. Das ist, gegeben eine 3CNFSAT-Formel $\phi$ in konjunktiver Normalform wird ein 3-regulärer Graph $G$ konstruiert der 3-färbbar ist genau dann wenn $\phi$ erfüllbar ist. Wie üblich ist $G$ aus einzelnen Gadgets zusammengesetzt welche spezielle (aussagenlogische) Aufgaben übernehen. 
@@ -1376,7 +1376,7 @@ Aufbauend darauf lassen sich dann größere Gadgets konstruieren, welche Variabl
     }\label{fig:chromindex}
 \end{figure}
 
-Das zentrale Problem ist nun, dass sich selbst unter einer geeigneten Codierung der Färbungen in den Zertifikaten $w$ nicht mit einem Bit aus dem Zertifikat $w$ der von der Färbung „zugewiesener“ Wahrheitswert einer Variable ausgelesen werden kann. Mit einer flexibleren allgemeinen Levin-Reduktion lässt sich dies aber umsetzen (i.e. lese an zwei Stellen in $w$ die zugewiesene Farbe von zwei Kanten aus und vergleiche die Farben). Ob $\mathtt{r4CHROMINDEX}$ universell im Sinne von Definition~\ref{} ist, bzw. äquivalent vollständig bezüglich projektiven Levin-Reduktionen ist, sei hier offen gelassen und als Frage formuliert:
+Das zentrale Problem ist nun, dass sich selbst unter einer geeigneten Codierung der Färbungen in den Zertifikaten $w$ nicht mit einem Bit aus dem Zertifikat $w$ der von der Färbung „zugewiesener“ Wahrheitswert einer Variable ausgelesen werden kann. Mit einer flexibleren allgemeinen Levin-Reduktion lässt sich dies aber umsetzen (i.e. lese an zwei Stellen in $w$ die zugewiesene Farbe von zwei Kanten aus und vergleiche die Farben). Ob $\mathtt{r4CHROMINDEX}$ universell im Sinne von Definition~\ref{def:universal} ist, bzw. äquivalent vollständig bezüglich projektiven Levin-Reduktionen ist, sei hier offen gelassen und als Frage formuliert:
 \begin{question}\label{question:chromindex}
     Ist $\mathtt{r4CHROMINDEX}$ (bzw. eine geeignete natürliche Variante) universell?
 \end{question}
@@ -1406,7 +1406,7 @@ Eine enstprechende Codierung des Zertifikats wäre z.B. von der Form $h(c_1)h(c_
 Mit dieser letzten Beobachtung wollen wir dieses Kapitel über die NP-Suchprobleme, deren Beziehung zu Entscheidungsproblemen, und die zuletzt präsentierte Übersicht über die gemeinsamen Strukturen der vollständigen NP-Suchprobleme abschließen. 
 
 
-\chapter{Suchprobleme und die Hypothese $\hQ$ im Kontext des Pudlákschen Programms}
+\chapter{Suchprobleme und die Hypothese $\hQ$ im Kontext des Pudlákschen Programms}\label{chap:pudlak}
 
 
 In der Einleitung dieser Arbeit wurde bereits angedeutet, dass die Hypothese $\hQ$ von \citeauthor{fenner_inverting_2003} große Nähe und Verwandtschaft zu Hypothesen hat, die Suchprobleme im Allgemeinen und Beweissystemen im Speziellen betreffen. Damit ergeben sich Beziehungen zu Hypothesen aus dem Pudlákschen Programm, insbesondere $\neg\hSAT$ (also dass eine NP-vollständige Mengen mit p-optimalem Beweissystem für diese Menge existiert).
@@ -1415,9 +1415,9 @@ In diesem Kapitel werden wir diese Beziehungen näher erarbeiten. Zur Erinnerung
 \conjq*
 
 Im Kapitel werden wir uns grob folgenden drei Desiderata widmen: 
-erstens, nähern wir uns in Abschnitt~\ref{} erneut der Frage zwischen Levin- und Karp-Vollständigkeit bzw. der Hypothese $\mathsf{KvL}$ aus vorigem Kapitel. Insbesondere analysieren wir die Beziehungen von $\mathsf{KvL}$ zu $\hQ$ und versuchen, $\mathsf{KvL}$ in das Pudláksche Programm einzuordnen.
+erstens, nähern wir uns in Abschnitt~\ref{sec:karp-vs-levin} erneut der Frage zwischen Levin- und Karp-Vollständigkeit bzw. der Hypothese $\mathsf{KvL}$ aus vorigem Kapitel. Insbesondere analysieren wir die Beziehungen von $\mathsf{KvL}$ zu $\hQ$ und versuchen, $\mathsf{KvL}$ in das Pudláksche Programm einzuordnen.
 
-Zweitens, in Abschnitt~\ref{}, verallgemeinen wir Charakterisierungen $\hQ$, die sich insbesondere auf Suchprobleme und deren Beweissysteme bzw. „Zertifikatsschemata“ beziehen.
+Zweitens, in Abschnitt~\ref{sec:q-vs-search}, verallgemeinen wir Charakterisierungen $\hQ$, die sich insbesondere auf Suchprobleme und deren Beweissysteme bzw. „Zertifikatsschemata“ beziehen.
 Insbesondere zeigen wir für eine große Klasse von vollständigen NP-Suchproblemen $R$ (nämlich jene die Levin-paddable sind) dass das zu $R$ assoziierte \emph{Standardbeweissystem} ($(x,y)$ mit $R(x,y)$ ist ein Beweis für $x$) p-optimal ist, genau dann wenn $\hQ$. Damit wird die p-Optimalität des entsprechenden Standardbeweissystems zu einer Invariante, die entweder für \emph{alle} Levin-paddable NP-Suchprobleme zutrifft, oder für \emph{keins}.
 
 %erstens werden wir weitere Hypothesenzu Suchproblemen, welche sich im Verlauf dieser Arbeit ergeben, in das Pudláksche Programm einordnen, insbesondere $\hQ$ und $\mathsf{KvL}$ bzw. die Frage nach Levin- vs. Karp-Vollständigkeit.
@@ -1425,10 +1425,10 @@ Insbesondere zeigen wir für eine große Klasse von vollständigen NP-Suchproble
 
 %Zweitens eine Verallgemeinerung der Charakterisierung $\hQ$, die sich insbesondere auf Suchprobleme und deren Beweissysteme bzw. „Zertifikatsschemata“ beziehen.
 
-Drittens ergänzen wir im gesamten Verlauf dieses Kapitels das Pudláksche Programm um weitere Hypothesen, sodass Abbildung~\ref{fig:pudlak} der Beziehungen zwischen den Pudlákschen Hypothesen vergrößert wird. Damit erreichen wir den Stand, der in Abbildung~\ref{fig:pudlak-large} dargestellt wird.
+Drittens ergänzen wir im gesamten Verlauf dieses Kapitels das Pudláksche Programm um weitere Hypothesen, sodass Abbildung~\ref{fig:figure-implications} der Beziehungen zwischen den Pudlákschen Hypothesen vergrößert wird. Damit erreichen wir den Stand, der in Abbildung~\ref{fig:figure-implications} dargestellt wird.
 
 
-\begin{figure}\label{fig:pudlak-large}
+\begin{figure}
     \hspace*{-12mm}\includegraphics[page=1]{figures.pdf}
     \caption{Bekannte (relativierenden) Implikationen zwischen den betrachteten Hypothesen und weiteren Aussagen. Satz~\ref{thm:figure-implications} gibt Belegstellen für jede dieser Implikationen an.}\label{fig:figure-implications}
 \end{figure}
@@ -1469,7 +1469,7 @@ Für alle dieser drei Desiderata ist es zunächst notwendig, auf die Hypothese $
 In anderen Worten sagt Aussage (2) aus, dass es modulo Umcodieren nur einen einzigen SAT-Solver gibt, und insbesondere alle SAT-Solver äquivalent zum trivialen Solver ist, welcher nur alle möglichen Belegungen ausprobiert.
 Die Aussage (3) macht eine analoge Aussage über Beweissysteme: egal wie komplex ein Beweissystem $h$ für $\mathtt{SAT}$ ist, wir können immer einen $h$-Beweis für $\phi$ in eine erfüllende Belegung für $\phi$ (quasi ein trivialer Beweis für $\phi\in\mathtt{SAT}$) transformieren. Damit ist auch leicht zu sehen, dass $\hQ\Rightarrow \neg\hSAT$, zumindest im unrelativierten Fall.
 
-In Abschnitt~\ref{} werden wir sehen, dass sich die obigen Charakterisierungen auf weitere (aber möglicherweise nicht alle) vollständigen NP-Relationen generalisiert, womit insbesondere auch die beiden Charakterisierungen von \citeauthor{fenner_inverting_2003} und \citeauthor{messner_simulation_2001} zu einer \emph{relativierbaren} Variante verallgemeinert werden.
+In Abschnitt~\ref{sec:q-vs-search} werden wir sehen, dass sich die obigen Charakterisierungen auf weitere (aber möglicherweise nicht alle) vollständigen NP-Relationen generalisiert, womit insbesondere auch die beiden Charakterisierungen von \citeauthor{fenner_inverting_2003} und \citeauthor{messner_simulation_2001} zu einer \emph{relativierbaren} Variante verallgemeinert werden.
 Mit dieser Verallgemeinerung ist es dann auch für uns möglich, $\hQ$ formal in das Pudláksche Programm (u.a. durch $\hQ\Rightarrow \neg\hSAT$) einzuordnen. Hierfür führen wir jetzt schon den Begriff eines Standardbeweissystems formal ein.
 
 \begin{definition}[Standardbeweissystem]
@@ -1485,7 +1485,7 @@ Bevor wir nun mit einer Diskussion zwischen Karp-Vollständigkeit und Levin-Voll
 \begin{proof}
     Sei $q$ die Zertifikatsschranke von $R$, und sei $w=(x,y)$ gegeben sodass $\mathit{std}_R(x,y) = x$.
     An dieser Stelle müssen wir auf die konkrete Codierung von Beweisen $w=(x,y)$ eingehen.
-    Wie in \ref{} beschrieben, codieren wir Tupel in einer solchen Weise sodass
+    Wie in \ref{sec:notation} beschrieben, codieren wir Tupel in einer solchen Weise sodass
     \[ |w| = |(x,y)| = 2(|x|+|y|+2) = 2|x|+ 2|y| + 4. \]
     Da $(x,y)\in R$ gilt für $y$ auch $|y|\leq q(|x|)$.
     Damit also
@@ -1493,16 +1493,16 @@ Bevor wir nun mit einer Diskussion zwischen Karp-Vollständigkeit und Levin-Voll
     für ein geeignetes Polynom $q'$, wie gewünscht.
 \end{proof}
 
-\section{Karp-Vollständigkeit vs. Levin-Vollständigkeit}
+\section{Karp-Vollständigkeit vs. Levin-Vollständigkeit}\label{sec:karp-vs-levin}
 
-Wir wiederholen hier erneut die zentrale offene Frage und Vermutung aus Abschnitt~\ref{}:
+Wir wiederholen hier erneut die zentrale offene Frage und Vermutung aus Abschnitt~\ref{sec:levin}:
 
 \questionkvl*
 
 \conjkvl*
 
 Ich möchte argumentieren, dass die obige Frage bzw. Vermutung eng mit der Hypothese $\hQ$ zusammenhängt.
-Im speziellen werden wir sehen, dass die Hypothese $\hQ$ so charakterisiert werden kann, dass sie \emph{fast} der Vermutung $\mathsf{KvL}$ entspricht.
+Im speziellen werden wir sehen, dass die Hypothese $\hQ$ so charakterisiert werden kann, dass sie \emph{fast} der Vermutung $\mathsf{KvL}$ entspricht.\sidenote{\textcite{fenner_inverting_2003} gaben hierbei eine ähnliche Aussage an (Cor.~3: „$\hQ$ holds iff every Karp reduction from $A$ to $B$ can be extended to a Levin reduction“), es ist aber hervorzuheben, dass die Autoren von einem unüblichen Begriff von Levin-Reduktionen ausgehen, der sich von dem hier verwendeten unterscheidet. Dieser umfasst nicht eine „Rückwärts-Translation“ von Zertifikaten für $B$-Instanzen zu $A$-Instanzen, sondern eine „Vorwärts-Translation von Zertifikaten für $A$-Instanzen zu $B$-Instanzen.}
 
 \begin{theorem}\label{thm:q-as-levin}
     Folgende Aussagen sind äquivalent:
@@ -1566,7 +1566,7 @@ Mit dieser Charakterisierung folgt auch unmittelbar, dass $\hQ$ hinreichend für
 
 Was sind natürlich notwendige Bedingungen für die Hypothese $\mathsf{KvL}$? Diese Frage erscheint tatsächlich wesentlich schwieriger als gedacht. Insbesondere scheint es unklar, ob aus irgend einer von Pudláks Hypothesen die Aussage $\mathsf{KvL}$ folgt.
 
-Besonders interessant erscheint aber die Beziehung zur Hypothese $\neg\hQ$, also genau die Umkehrung von Satz~\ref{thm:kvl-implies-q}, ist ja die Aussage (2) vom Satz~\ref{} \emph{fast} in der Form „Karp-Vollständigkeit = Levin-Vollständigkeit“ ist.
+Besonders interessant erscheint aber die Beziehung zur Hypothese $\neg\hQ$, also genau die Umkehrung von Satz~\ref{thm:kvl-implies-q}, ist ja die Aussage (2) vom Satz~\ref{thm:q-as-levin} \emph{fast} in der Form „Karp-Vollständigkeit = Levin-Vollständigkeit“ ist.
 Betrachten wir hier exemplarisch den Fall Relationen für $\mathtt{SAT}$. Ich vermute, dass $\neg\hQ\Rightarrow \mathsf{KvL}$; um das zu plausibilisieren möchte ich zeigen, dass $\neg\hQ\land\neg\mathsf{KvL}$ unwahrscheinlich ist.
 
 Starten wir mit $\neg\hQ$, dann gilt mit Satz~\ref{thm:q-fenner-messner} für alle Funktionen $h\in\FP$
@@ -1697,7 +1697,7 @@ Kann in Beobachtung~\ref{obs:kvl-equiv}(2) so verstärkt werden, dass $\mathit{s
 Insgesamt ist durch die vorherigen Überlegungen aber ein erster Schritt getan, die Beziehung zwischen Levin- und Many-one-Vollständigkeit über die Vermutung $\mathsf{KvL}$ im Kontext des Pudlákschen Programms einzuordnen.
 Weitere Forschung in diese Richtung erscheint vielversprechend.
 
-\section{Hypothese $\hQ$ und Suchprobleme}
+\section{Hypothese $\hQ$ und Suchprobleme}\label{sec:q-vs-search}
 
 Wie im Einstieg des Kapitels angesprochen, geben \textcite{fenner_inverting_2003} bzw. \textcite{messner_simulation_2001} äquivalente Charakterisierungen der Hypothese $\hQ$ an, welche sich im Wesentlichen auf die $\leqlp$-Vollständigkeit von $\mathtt{rSAT}$ beziehen.
 Wir wiederholen hier noch einmal die Aussage:
@@ -1989,7 +1989,7 @@ Das sind nach \textcite{goldreich_computational_2008} unrelativierten Fall u.a. 
     Es ist leicht zu sehen, dass sich eine Funktion $\mathit{padsol}_R\in\FP$ angeben kann, die aus $x, 1^n$ dieses entsprechende $y$ berechnen kann.
 \end{proof}
 
-Anstelle der Betrachtung, wie die \emph{Reduktionen} zwischen den einzelnen NP-Relationen aufgebaut sind, können wir auch strukturelle Eigenschaften von NP-Relationen ausnutzen, um Paddability zu zeigen. Hierbei macht die Definition von \emph{Universalität} durch \textcite{agrawal_universal_1992} aus dem Abschnitt~\ref{} einen produktiven Beitrag. Ist eine NP-Relation \emph{joinable}, dann können wir auch zu einer Instanz beliebig viele Dummy-Instanzen anhängen. Aufgrund der speziellen Eigenschaften der $\mathit{join}$-Funktion können wir auch den relevanten Teil aus Zertifikaten für die verlängerten Instanz zielgenau auslesen.
+Anstelle der Betrachtung, wie die \emph{Reduktionen} zwischen den einzelnen NP-Relationen aufgebaut sind, können wir auch strukturelle Eigenschaften von NP-Relationen ausnutzen, um Paddability zu zeigen. Hierbei macht die Definition von \emph{Universalität} durch \textcite{agrawal_universal_1992} aus dem Abschnitt~\ref{sec:gemeinsame-struktur} einen produktiven Beitrag. Ist eine NP-Relation \emph{joinable}, dann können wir auch zu einer Instanz beliebig viele Dummy-Instanzen anhängen. Aufgrund der speziellen Eigenschaften der $\mathit{join}$-Funktion können wir auch den relevanten Teil aus Zertifikaten für die verlängerten Instanz zielgenau auslesen.
 
 \begin{observation}\label{obs:joinable-sind-levinpaddable}
     %Jede universelle Relation ist Levin-paddable. Dieses Resultat gilt nur im unrelativierten Fall.
@@ -2046,7 +2046,7 @@ Präzise meinen wir damit folgendes: sei $A$ ein beliebiger Polynomialzeit-Algor
 %eine injektive Funktion $f\in\FP$ sodass für jede nicht-dünne Menge $W$ aus allen $w\in W$ nicht das Urbild $f^{-1}(w)$ in Polynomialezeit berechnet werden kann, selbst wenn bei einem funktionalem Orakel für ein gewähltes $w'\neq w$ das Urbild $f^{-1}(w')$ erfragt werden kann.
 %In anderen Worten, für die Menge $R_f = \{ (f(x), x) \mid x\in\Sigma^* \}$ kann keine Reduktionsfunktion die Levin-Reduktion $R_f\leq_\mathrm{L}^\mathrm p R_f$ realisieren, außer die Identitätsfunktion.
 %
-(Vgl. die Ähnlichkeit zur Selbstreduzierbarkeit aus Abschnitt~\ref{} und effektiver p-Simulation aus Abschnitt~\ref{sec:kvl}.)
+(Vgl. die Ähnlichkeit zur Selbstreduzierbarkeit aus Abschnitt~\ref{sec:search-vs-decision} und effektiver p-Simulation aus Abschnitt~\ref{sec:karp-vs-levin}.)
 Die Existenz einer solchen Einwegfunktion erscheint aus kryptographischer Perspektive naheliegend.
 
 Betrachte nun die Menge
@@ -2210,7 +2210,7 @@ Jetzt können wir auch die in Abbildung \ref{fig:figure-implications} abgebildet
     Es gelten die notiertern Äquivalenzen:
     \begin{Prooflist}[nosep]
     \item $\neg\hQ \Leftrightarrow \mathit{sat}$ ist p-optimal, nach Satz~\ref{thm:q}.
-    \item $\NP\neq\coNP \Leftrightarrow$ existiert keine NP-harte Funktion in $\TFNP$, nach Satz~\ref{thm:tfnp-vs-npconp}.
+    %\item $\NP\neq\coNP \Leftrightarrow$ existiert keine NP-harte Funktion in $\TFNP$, nach Satz~\ref{thm:tfnp-vs-npconp}.
     \item $\neg\hQ' \Leftrightarrow\exists$ P-inseparierbares $\DisjCoNP$-Paar, nach \textcite{fortnow_separability_2002}.
     \item $\NP\cap\coNP\neq\P \Leftrightarrow \NPSV_t\not\subseteq\FP$, nach \textcite{selman_taxonomy_1994}.
     \item $\UP\neq\P \Leftrightarrow\exists$ Einwegfunktionen, nach \textcite[Thm.~10]{grollmann_complexity_1988}.
@@ -2230,7 +2230,7 @@ Jetzt können wir auch die in Abbildung \ref{fig:figure-implications} abgebildet
 \item $\UP\neq\P \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar, nach \textcite[Thm.~5]{grollmann_complexity_1988}.
 \item $\hNPcoNP\Rightarrow \hTAUT\lor\hSAT$ nach \textcite[Cor.~5.1]{kobler_optimal_2003}. % relativiert offenbar nach Dose
 \item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \hSAT$ nach \textcite[Thm.~25]{beyersdorff_nondeterministic_2009}. Es ist leicht zu sehen, dass der Beweis auch auf unsere relativierte Variante von $\hSAT$ generalisiert.
-\item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \NP\neq\coNP$ nach Satz~\ref{thm:tfnp-vs-npconp}.
+\item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \NP\neq\coNP$ nach Satz~\ref{thm:npmvt-vs-npconp}.
 \item $\mathsf{SAT^{eff}} \Rightarrow \hSAT, \mathsf{SAT^{eff}}\Rightarrow \mathsf{KvL}$, nach Satz~\ref{thm:sateff-generalizes-sat}.
 \item $\mathsf{KvL}\Rightarrow\neg\hQ$, nach Satz~\ref{thm:kvl-implies-q}.
 \item $\neg\hQ\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, denn unter $\neg\hQ$ gilt mit Satz~\ref{thm:q} auch die Negation von \ref{thm:q}(1), also eine NPTM $N$ mit $L(N)=\Sigma^*$ wobei keine Funktion $g\in\FP$ existiert, welche für alle $x$ durch $g(x)$ einen akzeptierenden Rechenweg von $N(x)$ bestimmt.
