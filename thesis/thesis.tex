@@ -33,17 +33,19 @@
 \usepackage{setspace}
 \ifbook
 \usepackage[DIV=9]{typearea}
-\setmainfont[Numbers={OldStyle}]{TeX Gyre Pagella}
+\setmainfont{Gentium Plus}
 \setmathfont{TeX Gyre Pagella Math}
-\setsansfont[Scale=MatchLowercase]{IBM Plex Sans}
-\setmonofont[Scale=MatchLowercase]{JetBrains Mono Light}
+\setmathfont[range=it]{Gentium Plus Italic}
+\setsansfont[Scale=MatchLowercase]{Noto Sans}
+\setmonofont[Scale=MatchUppercase]{Latin Modern Mono}
 \setlength{\baselineskip}{12pt}
-\newfontfamily\cyrfont{Linux Libertine}[Scale=MatchLowercase]
-\else
-\setmainfont{CMU Serif}
-\setsansfont[Scale=MatchLowercase]{IBM Plex Sans}
-\setmonofont[Scale=MatchLowercase]{JetBrains Mono Light}
+%\newfontfamily\cyrfont{Linux Libertine}[Scale=MatchLowercase]
 \def\cyrfont{\normalfont}
+\else
+%\setmainfont{CMU Serif}
+\setsansfont[Scale=MatchLowercase]{Noto Sans}
+\setmonofont[Scale=MatchUppercase]{Latin Modern Mono}
+\newfontfamily\cyrfont{CMU Serif}[Scale=MatchLowercase]
 \fi
 \usepackage{mdframed}
 \usepackage[pdfusetitle,pdfencoding=auto,psdextra,bookmarksopen]{hyperref}
@@ -54,6 +56,11 @@
 \usetikzlibrary{shapes,arrows,positioning}
 
 \setlength{\emergencystretch}{2em}
+\AtBeginDocument{\widowpenalty10000\clubpenalty10000}
+\ifbook
+\AtBeginDocument{\setlength{\abovedisplayskip}{5pt}\setlength{\abovedisplayshortskip}{5pt}%
+\setlength{\belowdisplayskip}{3pt}\setlength{\belowdisplayshortskip}{3pt}}
+\fi
 
 \usepackage{titlesec}		% header customization
 \usepackage{titletoc}		% toc customization
@@ -127,8 +134,8 @@
 \AtBeginDocument{\setcounter{tocdepth}{1}}
 
 \newpagestyle{main}{
-\sethead[\thepage][][\sffamily\scshape{\chaptertitle}] % even
-{\sffamily\scshape\sectiontitle}{}{\thepage}} % odd
+\sethead[\thepage][][\sffamily{\chaptertitle}] % even
+{\sffamily\sectiontitle}{}{\thepage}} % odd
 \pagestyle{main}
 
 \else
@@ -176,7 +183,10 @@
 \renewenvironment{proof}[1][\proofname]{\par
   \begin{mdframed}[backgroundcolor=lightgray!30!white,leftmargin=-5pt,rightmargin=-5pt,innerleftmargin=5pt,innerrightmargin=5pt,linewidth=0pt,skipabove=0pt,skipbelow=10pt]
   \pushQED{\qed}%
-  \normalfont\footnotesize \topsep6\p@\@plus6\p@\relax
+  \ifbook\else
+    \normalfont\footnotesize%
+  \fi
+  \topsep6\p@\@plus6\p@\relax
   \list{}{\leftmargin=0em
           \rightmargin=\leftmargin
           \settowidth{\itemindent}{\itshape#1}%
@@ -192,12 +202,6 @@
 }
 \makeatother
 
-
-\AtBeginDocument{\widowpenalty10000\clubpenalty10000}
-\ifbook
-\AtBeginDocument{\setlength{\abovedisplayskip}{5pt}\setlength{\abovedisplayshortskip}{5pt}%
-\setlength{\belowdisplayskip}{3pt}\setlength{\belowdisplayshortskip}{3pt}}
-\fi
 
 
 \setlist[enumerate]{label=(\arabic*), itemsep=0pt}
