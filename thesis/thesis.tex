@@ -22,7 +22,7 @@
 \ifbook
 \documentclass[10pt,a4paper,twoside]{report}
 \else
-\documentclass[9pt,a4paper]{report}
+\documentclass[10pt,a4paper]{report}
 \usepackage[bottom=2cm,top=2cm,foot=.8cm,left=1.5cm,right=4cm,a4paper]{geometry}
 \fi
 
@@ -40,7 +40,7 @@
 \setmonofont[Scale=MatchUppercase]{Latin Modern Mono}
 \setlength{\baselineskip}{12pt}
 %\newfontfamily\cyrfont{Linux Libertine}[Scale=MatchLowercase]
-\def\cyrfont{\normalfont}
+\newcommand\cyrfont[1]{#1}
 \else
 %\setmainfont{CMU Serif}
 \setsansfont[Scale=MatchLowercase]{Noto Sans}
@@ -154,6 +154,7 @@
 
 
 
+\usepackage{xparse}
 \usepackage{amsthm}
 \usepackage{thmtools}
 \usepackage{thm-restate}
@@ -169,9 +170,13 @@
 \makeatletter
 \def\rep@title{}
 \newtheorem*{rep@theorem}{\protect\rep@title}
-\newenvironment{reptheorem}[1]{%
- \def\rep@title{Satz \ref{#1}}%
- \begin{rep@theorem}}%
+\NewDocumentEnvironment{reptheorem}{ m m o }
+ {
+  \def\rep@title{#1 \ref{#2}}%
+  \IfNoValueTF{#3}
+  {\begin{rep@theorem}}
+  {\begin{rep@theorem}[#3]}
+ }
  {\end{rep@theorem}}
 \makeatother
 
@@ -233,8 +238,10 @@
       }
 }
 \setlength{\bibitemsep}{3pt}
+\renewcommand*{\nameyeardelim}{\addcomma\space}
 
-
+\usepackage{url}
+\urlstyle{same}
 
 \usepackage[vlined,linesnumbered,nofillcomment,german,onelanguage]{algorithm2e}
 \DontPrintSemicolon
@@ -321,7 +328,7 @@
 \def\mhyphen{\text{-}}
 \def\fset{\ensuremath{\mathit{set}\mhyphen}}
 \def\inc{\ensuremath{\in_\mathrm{c}}}
-\def\defeq{\ensuremath{\stachrel{\text{def}}{=}}}
+\def\defeq{\ensuremath{\stackrel{\text{df}}{=}}}
 \def\subseteqc{\ensuremath{\subseteq_\mathrm{c}}}
 \AtBeginDocument{\renewcommand{\phi}{\varphi}}
 \AtBeginDocument{\renewcommand{\epsilon}{\varepsilon}}
