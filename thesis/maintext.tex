@@ -313,21 +313,21 @@ Ist $\mathrm{time}_M(x)$ durch ein Polynom in Abhängigkeit von $|x|$ beschränk
 
 Auf Basis der Turing-Maschinen als Berechnungsmodell können die üblichen Komplexitätsklassen der Entscheidungsprobleme bzw. Sprachen $\P, \NP, \coNP$ usw. definiert werden:
 \begin{align*}
-    \P &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. PTM $M$ die $L$ entscheidet} \}\\
-    \NP &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. NPTM $M$ die $L$ entscheidet} \}\\
-\begin{split} \UP &\defeq \{ L\subseteq\Sigma^* \mid  \text{ex. NPTM $M$ die $L$ entscheidet,}\\ &\qquad\qquad\qquad\text{und $M(x)$ akz. auf höchstens einem Rechenweg} \}\end{split}\\
-    \coNP &\defeq \{ L\subseteq\Sigma^* \mid \overline{L}\in\NP \}\\
+    \P &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. PTM $M$ die $L$ entscheidet} \},\\
+    \NP &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. NPTM $M$ die $L$ entscheidet} \},\\
+\begin{split} \UP &\defeq \{ L\subseteq\Sigma^* \mid  \text{ex. NPTM $M$ die $L$ entscheidet,}\\ &\qquad\qquad\qquad\text{und $M(x)$ akz. auf höchstens einem Rechenweg} \},\end{split}\\
+    \coNP &\defeq \{ L\subseteq\Sigma^* \mid \overline{L}\in\NP \}.
 \intertext{Die Einfach- und Doppelt-Exponentialzeitklassen definieren wir wie folgt:}
-    \mathrm{E} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ die $L$ entscheidet, und ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{c|x|}$ für alle $x$} \}\\
-    \mathrm{EE} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ die $L$ entscheidet, und ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{2^{c|x|}}$ für alle $x$} \}
+    \mathrm{E} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ die $L$ entscheidet, und ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{c|x|}$ für alle $x$} \},\\
+    \mathrm{EE} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ die $L$ entscheidet, und ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{2^{c|x|}}$ für alle $x$} \}.
 \end{align*}
 Die nichtdeterministischen Varianten $\mathrm{NE}, \mathrm{NEE}$ und Komplementklassen $\mathrm{coNE}, \mathrm{coNEE}$ sind analog definiert.
 
 Die Funktionenklassen $\FP, \mathrm{NPMV}, \mathrm{NPSV}$ ist analog definiert \parencite{selman_taxonomy_1994}:
 \begin{align*}
-    \FP &\defeq \{ f: \Sigma^*\to\Sigma^* \mid \text{$f$ ist Funktion und ex. PTM-Transduktor $M$ der $f$ berechnet} \}\\
-    \NPSV &\defeq \{ f:\Sigma^*\to\Sigma^* \mid \text{$f$ ist Funktion und ex. NPTM-Transduktor $M$ der $f$ berechnet} \}\\
-    \NPMV &\defeq \{ f\subseteq \Sigma^*\times\Sigma^* \mid \text{$f$ ist Multifunktion und ex. NPTM-Transduktor $M$ der $f$ berechnet} \}
+    \FP &\defeq \{ f: \Sigma^*\to\Sigma^* \mid \text{$f$ ist Funktion und ex. PTM-Transduktor $M$ der $f$ berechnet} \},\\
+    \NPSV &\defeq \{ f:\Sigma^*\to\Sigma^* \mid \text{$f$ ist Funktion und ex. NPTM-Transduktor $M$ der $f$ berechnet} \},\\
+    \NPMV &\defeq \{ f\subseteq \Sigma^*\times\Sigma^* \mid \text{$f$ ist Multifunktion und ex. NPTM-Transduktor $M$ der $f$ berechnet} \}.
 \end{align*}
 \begin{figure}
     \centering\includegraphics[page=9]{figures.pdf}
@@ -459,7 +459,7 @@ Aus dieser Beschreibung wird klar, dass eine Berechnung einer OTM sowohl von der
 Wir können nun die relativierten Komplexitätsklassen $\P^O, \NP^O, \FP^O, \NPMV^O, \dots$ relativ zu einem gegebenen Orakel $O$ definieren, wobei in der jeweiligen Definition die TM mit OTM ersetzt werden, die Zugriff auf das Orakel $O$ haben.
 Diese Relativierung überträgt sich auch auf unsere weiteren Definitionen, wie z.B. Reduktion und Vollständigkeit. Wir schreiben z.B. $A\leq_\mathrm{m}^{\mathrm{p},O} B$ wenn eine Funktion $f\in\FP^O$ existiert mit $x\in A \leftrightarrow f(x)\in B$.
 Die kanonische $\NP$-vollständige Menge $\mathtt{KAN}$ kann ebenso zu $\mathtt{KAN}^O$ relativiert werden. Zur Vollständigkeit:
-\[ \mathtt{KAN}^O \defeq \{ (N, x, 1^n) \mid \text{$N$ ist eine NOTM und akz. $x$ relativ zu $O$ auf einem RW mit $\leq n$ vielen Schritten} \}. \]
+\[ \begin{split} \mathtt{KAN}^O \defeq \{ (N, x, 1^n) \mid {}&\text{$N$ ist eine NOTM und akz. $x$ relativ zu $O$}\\&\text{auf einem RW mit $\leq n$ vielen Schritten} \}. \end{split} \]
 Die Vollständigkeit relativiert insbesondere, heißt wir haben $A\leq_\mathrm{m}^{\mathrm{p},O}\mathtt{KAN}^O$ für alle Orakel $O$ und Menge $A\in\NP^O$.
 Für \emph{natürliche} Mengen wie $\mathtt{SAT}$ usw. werden wir dagegen keine relativierte Variante definieren. In diesem Sinne ist $\mathtt{SAT}$ im Allgemeinen \emph{nicht} $\leq_\mathrm{m}^{\mathrm{p},O}$-vollständig, in dem Sinne dass ein Orakel $O$ existiert und eine Menge $A\in\NP^O$ sodass $A\not\leq_\mathrm{m}^{\mathrm{p},O} \mathtt{SAT}$.
 
@@ -948,12 +948,12 @@ Zum Verständnis: Wäre die TFNP-Relation $\mathtt{rFACTOR}'\in\TFNP$ (i.e., suc
 Welche TFNP-Probleme nach unten selbstreduzierbar sind, ist erstaunlich wenig untersucht, und eine Beforschung in dieser präzisen Formulierung wurde wohl erst durch \textcite{harsha_downward_2023} angetreten.
 Sie zeigen die Selbstreduzierbarkeit nach unten für folgendes TFNP-Problem „Iterate with source“, welches als ein kanonischer Repräsentant für die Unterklasse $\mathrm{PLS}$ (zur Erinnerung: \emph{polynomial local search}) gilt.
 \begin{quote}
-    \textbf{Iterate with source:}
-
-    Gegeben ist ein Nachfolger-Schaltkreis $S\colon\Sigma^n\to\Sigma^n$ (dieser induziert einen gerichteten Graphen auf den Knoten $\Sigma^n$, i.e. $S(v)$ ist einziger Nachfolger von $v$) polynomieller Größe abh. von $n$, und  ein Startknoten $s\in\Sigma^n$.
-
-    Finde einen Knoten $v\in\Sigma^n$ sodass $v<S(v)\not < S(S(v))$ gilt.
-    (Dieser existiert immer, denn es existieren nur endlich viele Knoten.)
+    \textbf{Iterate with Source:}
+    \begin{description}[nosep]
+        \item[Gegeben:] $n\in\mathbb N$, und ein Nachfolger-Schaltkreis $S\colon\Sigma^n\to\Sigma^n$ polynomieller Größe abhängig von $n$, und ein Startknoten $u\in\Sigma^n$ mit $u<S(u)$. (Der Schaltkreis $S$ induziert einen gerichteten Graphen auf den Knoten $\Sigma^n$, d.i. $S(v)$ ist einziger Nachfolger von $v$. Dabei entspricht $v$ interpretiert als Zahl dem Gewicht von $v$.)
+        \item[Gesucht:] Knoten $v\in\Sigma^n$ sodass $v<S(v)\not < S(S(v))$ gilt.
+            (D.h. gesucht ist ein Knoten $S(v)$ welcher höheres Gewicht als sein Nachfolger hat. Dieser existiert immer, denn es existieren nur endlich viele Knoten, bzw. ist Gewicht nach oben beschränkt.)
+    \end{description}
 \end{quote}
 Die Selbstreduzierbarkeit macht dabei nur Orakelfragen mit kleineren Schaltkreisen $S'\colon\Sigma^{n-1}\to\Sigma^{n-1}$ (die auch eine kürzere Repräsentation haben) und Startknoten $\Sigma^{n-1}$.
 
@@ -1026,8 +1026,10 @@ Formal ausgedrückt ist $\FP$ nach unten abgeschlossen unter der $\leqlp$-Ordnun
     \[ x\in\Proj(Q) \iff f(x)\in\Proj(R) \iff f(x)\in\dom(r) \iff q(x)\neq\bot \iff x\in\dom(q). \]
     Hierbei folgt die erste Äquivalenz nach Definition~\ref{def:levin-reduction}(1).
     Zum anderen haben wir
-    \[ x\in\Proj(Q) \implies f(x)\in\Proj(R) \implies (f(x), r(f(x)))\in R \implies (x, g(x, r(f(x))))\in Q \implies q(x)\in\fset{}Q(x), \]
-    i.e, $q(x)$ ist ein Zertifikat für $x$, wie gewünscht. Hierbei folgt die dritte Implikation nach Definition~\ref{def:levin-reduction}(2).
+    \begin{gather*}
+        x\in\Proj(Q) \implies f(x)\in\Proj(R) \implies (f(x), r(f(x)))\in R\\ \implies (x, g(x, r(f(x))))\in Q \implies q(x)\in\fset{}Q(x) \text{nach Definition~\ref{def:levin-reduction}(2)},
+    \end{gather*}
+    i.e, $q(x)$ ist ein Zertifikat für $x$, wie gewünscht.
 \end{proof}
 
 Genau so wie bei der Many-one-Reduktion auf den Suchproblemen können wir nach größten Elementen auf der $\leqlp$-Ordnung fragen.
@@ -1433,7 +1435,7 @@ Definiere nun
     wobei $y$ ein neues Variablensymbol ist. Es ist leicht zu sehen, dass $\phi'$ genau eine erfüllende Belegung mehr als $\phi$ hat.
 
     Wir haben nun
-    \[ \phi\not\in\mathtt{SAT} \iff |\fset{}\mathtt{rSAT}(\phi)|=0 \iff |\fset{}\mathtt{rSAT}(\phi')|=1 \iff |\fset{}\mathtt{r4CHROMINDEX}(f(\phi'))|=1 \iff f(\phi') \in A, \]
+    \begin{gather*} \phi\not\in\mathtt{SAT} \iff |\fset{}\mathtt{rSAT}(\phi)|=0 \iff |\fset{}\mathtt{rSAT}(\phi')|=1 \\ \iff |\fset{}\mathtt{r4CHROMINDEX}(f(\phi'))|=1 \iff f(\phi') \in A, \end{gather*}
     und damit $\mathtt{SAT}\in\P$.
 \end{proof}
 
