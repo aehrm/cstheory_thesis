@@ -2048,9 +2048,9 @@ Das sind nach \textcite{goldreich_computational_2008} unrelativierten Fall u.a. 
     Definiere nun
     \[ \mathit{pad}_R(x, 1^n) \defeq  f(\mathit{pad}_\mathtt{rKAN}(f'(x), 1^n)). \]
     Die Zugehörigkeit zu $\Proj(R)$ bleibt erhalten:
-    \begin{multline*}
+    \begin{gather*}
         x\in \Proj(R) \iff f'(x) \in \mathtt{KAN} \iff \mathit{pad}_\mathtt{rKAN}(f'(x), 1^n) \in \mathtt{KAN}\\ \iff f(\mathit{pad}_\mathtt{rKAN}(f'(x), 1^n)) \in \Proj(R) \iff \mathit{pad}_R(x, 1^n) \in\Proj(R).
-    \end{multline*}
+    \end{gather*}
     Ferner gilt
     \begin{align*} &q(q(|\mathit{pad}_R(x, 1^n)|)) \\&= q(q(|f(\mathit{pad}_\mathtt{rKAN}(f'(x), 1^n)|))\\&\geq q(|\mathit{pad}_\mathtt{rKAN}(f'(x), 1^n)|)\\ &\geq n.
     \end{align*}
@@ -2079,6 +2079,7 @@ Anstelle der Betrachtung, wie die \emph{Reduktionen} zwischen den einzelnen NP-R
 Vor dem Beweis können wir mit dieser Aussage festhalten, dass jede universelle Relation $R$ die in 
 Lemma~\ref{lemma:stdps-q} und~\ref{lemma:q-generalized} genannten Voraussetzungen an die NP-Relation $R$ erfüllt.
 Das sind nach \textcite{agrawal_universal_1992} u.a. $\mathtt{rSAT}, \mathtt{rHAM}, \mathtt{rINDSET}, \mathtt{rKNAPSACK}, \mathtt{rMAXCUT}$.
+
 \medskip
 \begin{proof}[Beweis zu Beobachtung~\ref{obs:joinable-sind-levinpaddable}]
     Sei $R$ eine NP-Relation, mit zugehörigem Polynom $q$, welches die Zertifikatsgröße spezifiziert. Zur Erinnerung, nachdem $R$ streng ist, gilt $(x,y)\in R \Rightarrow |y|=q(|x|)>0$.

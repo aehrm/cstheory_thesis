@@ -23,7 +23,7 @@
 \documentclass[10pt,a4paper,twoside]{report}
 \else
 \documentclass[10pt,a4paper]{report}
-\usepackage[bottom=2cm,top=2cm,foot=.8cm,left=1.5cm,right=4cm,a4paper]{geometry}
+\usepackage[bottom=3cm,top=2cm,foot=.8cm,left=1.5cm,right=4cm,a4paper]{geometry}
 \fi
 
 \usepackage[ngerman]{babel}
@@ -54,6 +54,9 @@
 \usepackage{enumitem}
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows,positioning}
+
+\usepackage{catchfile}
+\CatchFileDef\gitdescribe{"| git describe --always --dirty='-modified'"}{}
 
 \setlength{\emergencystretch}{2em}
 \AtBeginDocument{\widowpenalty10000\clubpenalty10000}
@@ -141,7 +144,7 @@
 \else
 
 \titleformat{\chapter}
-{\normalfont\Large\bfseries}{\thechapter}{1em}{}
+{\thispagestyle{main}\normalfont\Large\bfseries}{\thechapter}{1em}{}
 \titleformat{\section}
 {\normalfont\large\bfseries}{\thesection}{1em}{}
 \titleformat{\subsection}
@@ -149,6 +152,10 @@
 
 \titlespacing*{\chapter} {0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
 \titlespacing*{\section} {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\newpagestyle{main}{
+\setfoot{\thepage}{}{\sf rev. \gitdescribe{}}} % odd
+\pagestyle{main}
 
 \fi
 
@@ -188,9 +195,9 @@
 \renewenvironment{proof}[1][\proofname]{\par
   \begin{mdframed}[backgroundcolor=lightgray!30!white,leftmargin=-5pt,rightmargin=-5pt,innerleftmargin=5pt,innerrightmargin=5pt,linewidth=0pt,skipabove=0pt,skipbelow=10pt]
   \pushQED{\qed}%
-  \ifbook\else
-    \normalfont\footnotesize%
-  \fi
+  %\ifbook\else
+    %\normalfont\footnotesize%
+  %\fi
   \topsep6\p@\@plus6\p@\relax
   \list{}{\leftmargin=0em
           \rightmargin=\leftmargin
@@ -341,11 +348,7 @@
 \tableofcontents
 \clearpage
 
-\ifbook
 \pagestyle{main}
-\else
-\pagestyle{plain}
-\fi
 \input{maintext}
 
 
