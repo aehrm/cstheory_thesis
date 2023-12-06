@@ -1,29 +1,14 @@
-%\documentclass[a4paper,DIV=8]{scrbook}
 
-%\usepackage{fontspec}
-%\usepackage{unicode-math}
-%\setmainfont{TeX Gyre Pagella}
-%\setmathfont{TeX Gyre Pagella Math}
-
-%\usepackage[ngerman]{babel}
-%\usepackage{blindtext}
-
-
-%\begin{document}
-
-%\blindmathpaper
-%\blindmathpaper
-
-%\end{document}
-
-%\documentclass[11pt,twoside,BCOR=12mm,DIV=9,headings=small]{scrreprt}
 \newif\ifbook
 \bookfalse
 \ifbook
 \documentclass[10pt,a4paper,twoside]{report}
+\usepackage[bottom=4cm,top=3cm,foot=.8cm,inner=1.5cm,outer=6cm,a4paper]{geometry}
+\setlength{\marginparwidth}{4.5cm}
 \else
 \documentclass[10pt,a4paper]{report}
 \usepackage[bottom=3cm,top=2cm,foot=.8cm,left=1.5cm,right=4cm,a4paper]{geometry}
+\setlength{\marginparwidth}{3.5cm}
 \fi
 
 \usepackage[ngerman]{babel}
@@ -32,17 +17,15 @@
 \usepackage{unicode-math}
 \usepackage{setspace}
 \ifbook
-\usepackage[DIV=9]{typearea}
 \setmainfont{Gentium Plus}
 \setmathfont{TeX Gyre Pagella Math}
 \setmathfont[range=it]{Gentium Plus Italic}
+\setmathfont[range=cal]{TeX Gyre Chorus}
 \setsansfont[Scale=MatchLowercase]{Noto Sans}
 \setmonofont[Scale=MatchUppercase]{Latin Modern Mono}
 \setlength{\baselineskip}{12pt}
-%\newfontfamily\cyrfont{Linux Libertine}[Scale=MatchLowercase]
 \newcommand\cyrfont[1]{#1}
 \else
-%\setmainfont{CMU Serif}
 \setsansfont[Scale=MatchLowercase]{Noto Sans}
 \setmonofont[Scale=MatchUppercase]{Latin Modern Mono}
 \newfontfamily\cyrfont{CMU Serif}[Scale=MatchLowercase]
@@ -55,8 +38,35 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows,positioning}
 
+\ifbook
+\usepackage{tufte}
+\else
+%\newcommand{\marginnote}[1]{\marginpar{\marginfont #1}}
+\newcommand{\forcerectofloat}{}
+\newcommand{\forceversofloat}{}
+
+\usepackage{sidenotes}
+\renewcommand*{\marginfont}{\footnotesize\sffamily}
+
+\makeatletter
+\RenewDocumentCommand\sidenotetext{ o o +m }{%
+    \IfNoValueOrEmptyTF{#1}{%
+        \@sidenotes@placemarginal{#2}{\noindent\marginfont\RaggedRight{\thesidenote{}.~#3}}%
+        \refstepcounter{sidenote}%
+    }{%
+        \@sidenotes@placemarginal{#2}{\noindent\marginfont\RaggedRight{#1.~#3}}%
+    }%
+}
+\makeatother
+\def\footnote{\sidenote}
+\def\footnotemark{\sidenotemark}
+\def\footnotetext{\sidenotetext}
+\def\marginfigure{\figure}
+\def\endmarginfigure{\endfigure}
+\fi
+
 \usepackage{catchfile}
-\CatchFileDef\gitdescribe{"| git describe --always --dirty='-modified'"}{}
+\CatchFileDef\gitdescribe{"| git describe --always"}{}
 
 \setlength{\emergencystretch}{2em}
 \AtBeginDocument{\widowpenalty10000\clubpenalty10000}
@@ -74,71 +84,59 @@
 \ifbook
 \titlespacing*{\part}{.2\linewidth}{.3\textheight}{0pt}
 \titlespacing*{\chapter}{0pt}{-10pt}{25pt}
-\titleformat{\part}%[hang]
-	{\thispagestyle{empty}\huge\raggedleft}
-	{\Large\lsstyle\MakeUppercase{\partname}~~\thepart\normalfont}
-	{0em}
-	{\vskip 12pt \setstretch{0.9}\huge\lsstyle\sffamily\uppercase}
-% \let\oldpart\part
-% \renewcommand{\part}{
-% }
-%\titleformat{\chapter}[block]
-	%{\begin{wide}\thispagestyle{empty}\itshape\huge}
-	%{\normalfont\bfseries\huge\thechapter}
-	%{1em}
-	%{\setstretch{0.9}\raggedright\huge\itshape}[\end{wide}]
+
 \titleformat{\chapter}
     {\thispagestyle{empty}\itshape\huge}
-	{\normalfont\bfseries\huge\thechapter}
-	{1em}
-	{\setstretch{0.9}\raggedright\huge\itshape}
+    {\normalfont\bfseries\huge\thechapter}
+    {1em}
+    {\setstretch{0.9}\raggedright\huge\itshape}
 \titleformat{\section}
-	{\itshape\Large}
-	{\normalfont\thesection}
-	{1em}
-	{\setstretch{0.9}\raggedright\itshape}
+    {\itshape\Large}
+    {\normalfont\thesection}
+    {1em}
+    {\setstretch{0.9}\raggedright\itshape}
 \titleformat{\subsection}
-	{\itshape\large}
-	{\raggedright\normalfont\thesubsection}
-	{1em}
-	{\setstretch{0.9}\itshape}
+    {\itshape\large}
+    {\raggedright\normalfont\thesubsection}
+    {1em}
+    {\setstretch{0.9}\itshape}
 \titleformat{\subsubsection}[runin]
-	{}
-	{\itshape\thesubsubsection}
-	{1ex}
-	{\itshape}[~~$\cdot$]
+    {}
+    {\itshape\thesubsubsection}
+    {1ex}
+    {\itshape}[~~$\cdot$]
 
 \contentsmargin[1cm]{0cm}
 \titlecontents*{part}[0em]
-	{\large\scshape}
-	{\scshape\thecontentslabel}
-	{\vskip 4pt\large\scshape\lowercase}
-	{}[\vskip 0pt]
+    {\large\scshape}
+    {\scshape\thecontentslabel}
+    {\vskip 4pt\large\scshape\lowercase}
+    {}[\vskip 0pt]
 \titlecontents{chapter}[0em]
-	{\large\vspace{12pt}}
-	{\makebox[-1em][r]{\thecontentslabel}\large\hspace{1em}}
-	{\large}
-	{~~~~{\contentspage}}[\vskip 2pt]
+    {\large\vspace{12pt}}
+    {\makebox[-1em][r]{\thecontentslabel}\large\hspace{1em}}
+    {\large}
+    {~~~~{\contentspage}}[\vskip 2pt]
 \titlecontents*{section}[0em]
-	{\small}
-	{\thecontentslabel~~}
-	{\small}
-	{~~{\contentspage}}
-	[\\]
+    {\small}
+    {\thecontentslabel~~}
+    {\small}
+    {~~{\contentspage}}
+    [\\]
 
 %	toc offset
 \let\oldtoc\tableofcontents
 \renewcommand{\tableofcontents}{%
-	\begin{quote}\setstretch{1.0}
-	\oldtoc
-	\end{quote}
+    \begin{quote}\setstretch{1.0}
+    \oldtoc
+    \end{quote}
 }
 %	toc depth
 \AtBeginDocument{\setcounter{tocdepth}{1}}
 
 \newpagestyle{main}{
-\sethead[\thepage][][\sffamily{\chaptertitle}] % even
-{\sffamily\sectiontitle}{}{\thepage}} % odd
+\sethead[\hspace*{-4.9cm}\sffamily\thepage\quad\chaptertitle][][] % even
+{}{}{\sffamily\sectiontitle\quad\thepage\hspace*{-4.9cm}}} % odd
 \pagestyle{main}
 
 \else
@@ -158,7 +156,6 @@
 \pagestyle{main}
 
 \fi
-
 
 
 \usepackage{xparse}
@@ -191,28 +188,28 @@
 %\theoremstyle{definition}
 %\newtheorem{definition}[theorem]{Definition}
 \declaretheorem[style=definition,qed={$\triangleleft$},sibling=theorem]{definition}
-\makeatletter
-\renewenvironment{proof}[1][\proofname]{\par
-  \begin{mdframed}[backgroundcolor=lightgray!30!white,leftmargin=-5pt,rightmargin=-5pt,innerleftmargin=5pt,innerrightmargin=5pt,linewidth=0pt,skipabove=0pt,skipbelow=10pt]
-  \pushQED{\qed}%
-  %\ifbook\else
-    %\normalfont\footnotesize%
-  %\fi
-  \topsep6\p@\@plus6\p@\relax
-  \list{}{\leftmargin=0em
-          \rightmargin=\leftmargin
-          \settowidth{\itemindent}{\itshape#1}%
-          \labelwidth=\itemindent
-          % the following line is not needed with amsart, but might be with other classes
-          \parsep=0pt \listparindent=\parindent 
-  }
-  \item[\hskip\labelsep
-        \itshape
-    #1\@addpunct{.}]\ignorespaces
-}{%
-    \popQED\endlist\@endpefalse\end{mdframed}
-}
-\makeatother
+%\makeatletter
+%\renewenvironment{proof}[1][\proofname]{\par
+  %\begin{mdframed}[backgroundcolor=lightgray!30!white,leftmargin=-5pt,rightmargin=-5pt,innerleftmargin=5pt,innerrightmargin=5pt,linewidth=0pt,skipabove=0pt,skipbelow=10pt]
+  %\pushQED{\qed}%
+  %%\ifbook\else
+    %%\normalfont\footnotesize%
+  %%\fi
+  %\topsep6\p@\@plus6\p@\relax
+  %\list{}{\leftmargin=0em
+          %\rightmargin=\leftmargin
+          %\settowidth{\itemindent}{\itshape#1}%
+          %\labelwidth=\itemindent
+          %% the following line is not needed with amsart, but might be with other classes
+          %\parsep=0pt \listparindent=\parindent 
+  %}
+  %\item[\hskip\labelsep
+        %\itshape
+    %#1\@addpunct{.}]\ignorespaces
+%}{%
+    %\popQED\endlist\@endpefalse\end{mdframed}
+%}
+%\makeatother
 
 
 
@@ -230,10 +227,9 @@
 
 
 \usepackage[autostyle]{csquotes}
-\usepackage[labelfont={bf,sf},textfont=sf]{caption}
-\counterwithout{figure}{chapter}
+%\usepackage[labelfont={bf,sf},textfont=sf]{caption}
+%\counterwithout{figure}{chapter}
 
-%\usepackage[authordate,url=false,dashed=false]{biblatex-chicago}
 \usepackage[style=myauthoryear,backend=biber,mergedate=false,maxbibnames=99,dashed=false]{biblatex}
 \addbibresource{zoterolib.bib}
 \DeclareSourcemap{
@@ -266,20 +262,6 @@
 \SetKwInput{Output}{\thesis@algorithmoutput}
 \setlength{\algomargin}{6ex}
 
-\usepackage{sidenotes}
-\setlength{\marginparwidth}{90pt}
-\renewcommand*{\marginfont}{\footnotesize\sffamily}
-
-\makeatletter
-\RenewDocumentCommand\sidenotetext{ o o +m }{%
-    \IfNoValueOrEmptyTF{#1}{%
-        \@sidenotes@placemarginal{#2}{\noindent\marginfont\RaggedRight{\thesidenote{}.~#3}}%
-        \refstepcounter{sidenote}%
-    }{%
-        \@sidenotes@placemarginal{#2}{\noindent\marginfont\RaggedRight{#1.~#3}}%
-    }%
-}
-\makeatother
 
 \newcommand{\todo}[1]{\textcolor{red}{{\sffamily TODO: #1}}}
 \newcommand{\note}[1]{\textcolor{green!30!black}{{\sffamily #1}}}
@@ -341,15 +323,17 @@
 \AtBeginDocument{\renewcommand{\epsilon}{\varepsilon}}
 
 \begin{document}
-\pagestyle{empty}
-\title{Komplexität von Suchproblemen und Beweissystemen}
-\author{Anton Ehrmanntraut}
-\maketitle
+%\pagestyle{empty}
+%\title{Komplexität von Suchproblemen und Beweissystemen}
+%\author{Anton Ehrmanntraut}
+%\maketitle
 \tableofcontents
 \clearpage
 
-\pagestyle{main}
+
+
 \input{maintext}
+
 
 
 \printbibliography
