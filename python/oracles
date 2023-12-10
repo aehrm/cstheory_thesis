@@ -11,7 +11,7 @@ UP SAT
 CONN DisjNP
 SAT NPneqCoNP
 DisjCoNP TAUT
-DisjNPinsep TAUT
+DisjNPinsep CONN
 NPcapCoNP TAUT
 
 DisjNP negQ

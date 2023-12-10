@@ -1,6 +1,6 @@
 
 \newif\ifbook
-\bookfalse
+\booktrue
 \ifbook
 \documentclass[10pt,a4paper,twoside]{report}
 \usepackage[bottom=4cm,top=3cm,foot=.8cm,inner=1.5cm,outer=6cm,a4paper]{geometry}
@@ -57,12 +57,20 @@
         \@sidenotes@placemarginal{#2}{\noindent\marginfont\RaggedRight{#1.~#3}}%
     }%
 }
-\makeatother
 \def\footnote{\sidenote}
 \def\footnotemark{\sidenotemark}
 \def\footnotetext{\sidenotetext}
 \def\marginfigure{\figure}
 \def\endmarginfigure{\endfigure}
+
+%\def\@oldfigure\figure
+%\def\@oldendfigure\endfigure
+%\renewcommand{\figure}{}
+\renewenvironment{figure*}
+{\begin{figure}}
+{\end{figure}}
+
+\makeatother
 \fi
 
 \usepackage{catchfile}
@@ -86,7 +94,7 @@
 \titlespacing*{\chapter}{0pt}{-10pt}{25pt}
 
 \titleformat{\chapter}
-    {\thispagestyle{empty}\itshape\huge}
+    {\itshape\huge}
     {\normalfont\bfseries\huge\thechapter}
     {1em}
     {\setstretch{0.9}\raggedright\huge\itshape}

@@ -1406,7 +1406,7 @@ Zu einem Graphen $G$ mit Kantenmenge $\{0,1,\dots, m-1\}$ können wir eine $k$-\
 Wir wollen im Folgenden die Anzahl der möglichen Kantenfärbungen \emph{als Partitionierungen} zählen, und sind dabei insbesondere nicht an redundanten Lösungen interessiert, die aus reiner Permutation der Farben entsteht. Ähnlich zu $\mathtt{rMAXCUT}'$ setzen wir für eine \emph{gültige} Färbung $w$ daher voraus, dass $w$ die unter Permutationen lexikographisch kleinste Färbung ist, in dem Sinne dass keine Permutation $\pi$ auf $\{1,2,\dots,k\}$ existiert sodass $\pi(w)$ lexikographisch kleiner ist als $w$. (Beachte: wir suchen \emph{nicht} nach einer „global“ lexikographisch kleinsten Färbung von $G$.)
 Definiere nun
 \[ \begin{split} \mathtt{r4CHROMINDEX} \defeq \{ ((G, k), w) \mid {}&\text{$G$ ist Graph mit Kantenmenge $\{0,1,\dots,m-1\}$} \\& \text{$G$ hat maximalem Grad 4,} \\ &\text{und $w\in\{1,2, 3,4\}^m$ ist gültige Färbung mit 4 Farben} \}.\end{split} \]
-\begin{theorem}[{\cite{cai_complexity_2020} nach Edward und Welsh\protect\footnotemark}]\ifbook\expandafter\footnotetext[-7cm]\else\expandafter\footnotetext\fi{Dieses Beispiel geht auf ein unpubliziertes Preprint von Edward und Welsh mit dem Titel „On the Complexity of Uniqueness Problems“ welches offenbar in den 1980ern zirkuliert ist; viele der Arbeiten aus diesem Abschnitt nehmen auf genau dieses Preprint Bezug. Tatsächlich ist überliefert, dass dieses Preprint über die Kantenfärbbarkeit sogar ein „Gegenbeispiel“ zur Berman--Hartmanis-Isomorphievermutung gefunden hätte. Hierbei gingen Edward und Welsh aber von einer wesentlichen stärkeren abweichenden Interpretation der Isomorphievermutung aus: neben der Isomorphie zwischen allen NP-vollständigen Entscheidungsproblemen würde diese Interpretation der Isomorphievermutung (mindestens) eine sparsame Interreduzierbarkeit zwischen allen NP-vollständigen Suchproblemen implizieren. Diese Aussage ist nun aber so stark, dass diese durch eben das Beispiel der Kantenfärbbarkeit widerlegt werden kann. Vgl. \textcites{hemaspaandra_take-home_1998}{wiedermann_witness-isomorphic_1995}{cai_complexity_2020}[118]{welsh_complexity_1993}.}
+\begin{theorem}[{\cite{cai_complexity_2020} nach Edward und Welsh\protect\footnotemark}]\ifbook\def\a{\footnotetext[-7cm]}\expandafter\a\else\expandafter\footnotetext\fi{Dieses Beispiel geht auf ein unpubliziertes Preprint von Edward und Welsh mit dem Titel „On the Complexity of Uniqueness Problems“ welches offenbar in den 1980ern zirkuliert ist; viele der Arbeiten aus diesem Abschnitt nehmen auf genau dieses Preprint Bezug. Tatsächlich ist überliefert, dass dieses Preprint über die Kantenfärbbarkeit sogar ein „Gegenbeispiel“ zur Berman--Hartmanis-Isomorphievermutung gefunden hätte. Hierbei gingen Edward und Welsh aber von einer wesentlichen stärkeren abweichenden Interpretation der Isomorphievermutung aus: neben der Isomorphie zwischen allen NP-vollständigen Entscheidungsproblemen würde diese Interpretation der Isomorphievermutung (mindestens) eine sparsame Interreduzierbarkeit zwischen allen NP-vollständigen Suchproblemen implizieren. Diese Aussage ist nun aber so stark, dass diese durch eben das Beispiel der Kantenfärbbarkeit widerlegt werden kann. Vgl. \textcites{hemaspaandra_take-home_1998}{wiedermann_witness-isomorphic_1995}{cai_complexity_2020}[118]{welsh_complexity_1993}.}
     Die NP-Relation $\mathtt{r4CHROMINDEX}$ ist nicht $\leq_\mathrm{pars}^\mathrm p$-vollständig, außer $\P=\NP$.
 \end{theorem}
 \begin{proof}[Skizze.]
@@ -1612,7 +1612,10 @@ Wir wiederholen hier erneut die zentrale offene Frage und Vermutung aus Abschnit
 
 \conjkvl*
 
-Ich möchte argumentieren, dass die obige Frage bzw. Vermutung eng mit der Hypothese $\hQ$ zusammenhängt.
+Zunächst sei hier noch einmal hervorgehoben, dass eine Beantwortung der Frage~\ref{question:kvl} schwer ist. Zum einen haben wir bereits gesehen, dass ein Beweis $\mathsf{KvL}$ auch sofort $\P\neq\NP$ berweisen würde. Zum anderen existieren Orakel $A$ und $B$, relativ zu diesem $\mathsf{KvL}^A$ und $\neg\mathsf{KvL}^B$ gelten (vgl.~Abschnitt~\ref{} und Satz~\ref{}). Genauso wie die meisten von Pudláks Hypothesen ist damit die Aussage $\mathsf{KvL}$ unabhängig unter relativierenden Beweisen.
+
+Wir werden uns also im Folgenden insbesondere auf Beziehungen zwischen Hypothesen und $\mathsf{KvL}$ konzentrieren.
+In diesem Sinne möchte ich argumentieren, dass die obige Frage bzw. Vermutung eng mit der Hypothese $\hQ$ zusammenhängt.
 Im Speziellen werden wir sehen, dass die Hypothese $\hQ$ so charakterisiert werden kann, dass sie einer Verstärkung der Vermutung $\mathsf{KvL}$ entspricht.\footnote{\textcite{fenner_inverting_2003} gaben hierbei eine ähnliche Aussage an (Cor.~3: „$\hQ$ holds iff every Karp reduction from $A$ to $B$ can be extended to a Levin reduction“), es ist aber hervorzuheben, dass die Autoren von einem unüblichen Begriff von Levin-Reduktionen ausgehen, der sich von dem hier verwendeten unterscheidet. Dieser umfasst nicht eine „Rückwärts-Translation“ von Zertifikaten für $B$-Instanzen zu $A$-Instanzen, sondern eine „Vorwärts-Translation“ von Zertifikaten für $A$-Instanzen zu $B$-Instanzen.}
 
 \begin{theorem}\label{thm:q-as-levin}
@@ -1795,8 +1798,13 @@ Mit der Definition der effektiven p-Simulation und der eben bewiesenen äquivale
 
 Wir haben also je eine notwendige ($\neg\hQ$) und eine hinreichende Hypothese ($\mathsf{SAT^{eff}}$) für $\mathsf{KvL}$. 
 Nichtsdestotrotz bleiben noch viele Fragen offen, die wir hier aus Platzgründen nicht weiter verfolgen werden. 
-Wir konnten zwar $\mathsf{KvL}$ als Aussage über Beweissysteme formulieren, aber sind auch andere Charakterisierungen (z.B. ähnlich wie bei $\hQ$) möglich?
+Zum einen zur Charakterisierung von $\mathsf{KvL}$:
+Wir konnten zwar $\mathsf{KvL}$ als Aussage über Beweissysteme formulieren, aber sind auch andere äquivalente Aussagen möglich, z.B. ähnlich wie bei $\hQ$?
+
+Zum anderen die Beziehungen zwischen $\mathsf{KvL}$ und anderen Hypothesen bzw. Annahmen.
 Gibt es natürliche (z.B. kryptographische) Annahmen die hinreichend für $\mathsf{KvL}$ sind? Wie ist die Beziehung zu den anderen Pudlákschen Hypothesen? Wie verhält sich insbesondere $\hSAT$ zu $\mathsf{SAT^{eff}}$? 
+Diese Fragen werden wir zum Teil in Kapitel~\ref{} klären; dort wird ein Orakel konstruiert, welches zum einen zeigt, dass selbst unter Annahme von \todo{}.
+
 %Kann in Beobachtung~\ref{obs:kvl-equiv}(2) so verstärkt werden, dass $\mathit{std}_Q$ jedes (nicht nur die optimalen) Beweissystem effektiv p-simulieren kann, also gewissermaßen $\mathit{std}_Q$ „effektiv p-optimal“ ist?
 
 Insgesamt ist durch die vorherigen Überlegungen aber ein erster Schritt getan, die Beziehung zwischen Levin- und Many-one-Vollständigkeit über die Vermutung $\mathsf{KvL}$ im Kontext des Pudlákschen Programms einzuordnen.
@@ -2378,14 +2386,27 @@ Der verbleibende Beweis ist eine Generalisierung von \textcite{dingel_separation
     und $h(x)=(i, x, 1^{|x|^i+i})$ realisiert die Reduktion von $g$ auf $f$, wie gewünscht.
 \end{proof}
 
-\todo{Orakel angeben}
-
 \begin{figure*}
-    \centering\includegraphics[page=7]{figures.pdf}
-    \caption{}
+    \vspace*{-5cm}
+    \includegraphics[page=7]{figures.pdf}
+    \vspace*{-2cm}
+\caption{1.~nach \textcite[Thm.~5]{rackoff_relativized_1982}. 
+    2. über eine einfache Variante eines Orakels $D$ von \textcite[Thm.~4.1]{dose_further_2020}, bei der die Zeugensprache $A\in\NP-\P$ nur so konstruiert werden muss, dass $A\in\UP\cap\coUP$. %Im Doses Kontext würde man bei der Diagonalisierung aller PTM $M_1,M_2, \dots$ genau ein Wort $00y$, $y\in\Sigma^{n-1}$ einsetzen falls $M_i(0^n)$ akzeptiert, und ansonsten genau ein Wort $01y$, $y\in\Sigma^{n-1}$ einsetzen wenn $M_i(0^n)$ ablehnt.  Dann kann kein $M_i$ die Sprache $A=\{ 0^n \mid $ ex. $y\in\Sigma^{n-1}$ mit $01y\in D\}$ entscheiden, und $A\in\UP\cap\coUP$.
+    3.~nach \textcite[Thm.~9]{ehrmanntraut_oracle_2022}.
+    4.~nach \textcite[Thm.~4.1]{dose_np-completeness_2019}.
+    5.~nach \textcite[Cor.~3.3]{dose_oracle_2020}.
+    6.~nach \textcite[Thm.~3.2]{dose_further_2020}.
+    7.~nach \textcite[Thm.~3.2]{fortnow_separability_2002}.
+    8.~nach \textcite[Thm.~12.3]{fenner_inverting_2003}.
+    9.~nach \textcite[Cor.~6.6]{glaser_disjoint_2004}.
+    10.~nach \textcite[Thm.~5.1]{khaniki_new_2022}.
+    11.~nach \textcite[Thm.~5.2]{khaniki_new_2022}.
+    12.~nach \textcite[Satz~3.12]{dingel_separation_2022}.
+}\label{fig:oracles}
+    \forcerectofloat
 \end{figure*}
 
-
+Abbildung~\ref{fig:oracles} zeigt, welche der Hypothesen unter relativierbaren Beweisen durch ein Orakel voneinander getrennt sind. 
 
 \chapter{Orakel}\label{chap:orakel}
 
