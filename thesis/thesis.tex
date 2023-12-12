@@ -2,7 +2,7 @@
 \newif\ifbook
 \booktrue
 \ifbook
-\documentclass[10pt,a4paper,twoside]{report}
+\documentclass[10pt,a4paper,twoside,openright]{report}
 \usepackage[bottom=4cm,top=3cm,foot=.8cm,inner=1.5cm,outer=6cm,a4paper]{geometry}
 \setlength{\marginparwidth}{4.5cm}
 \else
@@ -79,8 +79,8 @@
 \setlength{\emergencystretch}{2em}
 \AtBeginDocument{\widowpenalty10000\clubpenalty10000}
 \ifbook
-\AtBeginDocument{\setlength{\abovedisplayskip}{5pt}\setlength{\abovedisplayshortskip}{5pt}%
-\setlength{\belowdisplayskip}{3pt}\setlength{\belowdisplayshortskip}{3pt}}
+\AtBeginDocument{\setlength{\abovedisplayskip}{5pt plus 10pt}\setlength{\abovedisplayshortskip}{3pt plus 6pt}%
+\setlength{\belowdisplayskip}{3pt plus 3pt}\setlength{\belowdisplayshortskip}{3pt plus 6pt}}
 \fi
 
 \usepackage{titlesec}		% header customization
@@ -94,7 +94,7 @@
 \titlespacing*{\chapter}{0pt}{-10pt}{25pt}
 
 \titleformat{\chapter}
-    {\itshape\huge}
+    {\thispagestyle{numbers}\itshape\huge}
     {\normalfont\bfseries\huge\thechapter}
     {1em}
     {\setstretch{0.9}\raggedright\huge\itshape}
@@ -133,12 +133,12 @@
     [\\]
 
 %	toc offset
-\let\oldtoc\tableofcontents
-\renewcommand{\tableofcontents}{%
-    \begin{quote}\setstretch{1.0}
-    \oldtoc
-    \end{quote}
-}
+%\let\oldtoc\tableofcontents
+%\renewcommand{\tableofcontents}{%
+    %\begin{quote}\setstretch{1.0}
+    %\oldtoc
+    %\end{quote}
+%}
 %	toc depth
 \AtBeginDocument{\setcounter{tocdepth}{1}}
 
@@ -146,6 +146,10 @@
 \sethead[\hspace*{-4.9cm}\sffamily\thepage\quad\chaptertitle][][] % even
 {}{}{\sffamily\sectiontitle\quad\thepage\hspace*{-4.9cm}}} % odd
 \pagestyle{main}
+
+\newpagestyle{numbers}{
+\sethead[\hspace*{-4.9cm}\sffamily\thepage][][] % even
+{}{}{\sffamily\thepage\hspace*{-4.9cm}}} % odd
 
 \else
 
@@ -236,7 +240,10 @@
 
 \usepackage[autostyle]{csquotes}
 %\usepackage[labelfont={bf,sf},textfont=sf]{caption}
-%\counterwithout{figure}{chapter}
+\counterwithout{figure}{chapter}
+\makeatletter
+\counterwithout{\@mpfn}{chapter}
+\makeatother
 
 \usepackage[style=myauthoryear,backend=biber,mergedate=false,maxbibnames=99,dashed=false]{biblatex}
 \addbibresource{zoterolib.bib}
@@ -335,8 +342,9 @@
 %\title{Komplexität von Suchproblemen und Beweissystemen}
 %\author{Anton Ehrmanntraut}
 %\maketitle
+
 \tableofcontents
-\clearpage
+\cleardoublepage
 
 
 

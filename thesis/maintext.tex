@@ -463,7 +463,7 @@ Diese Relativierung überträgt sich auch auf unsere weiteren Definitionen, wie 
 Die kanonische $\NP$-vollständige Menge $\mathtt{KAN}$ kann ebenso zu $\mathtt{KAN}^O$ relativiert werden. Zur Vollständigkeit:
 \[ \begin{split} \mathtt{KAN}^O \defeq \{ (N, x, 1^n) \mid {}&\text{$N$ ist eine NOTM und akz. $x$ relativ zu $O$}\\&\text{auf einem RW mit $\leq n$ vielen Schritten} \}. \end{split} \]
 Die Vollständigkeit relativiert insbesondere, heißt wir haben $A\leq_\mathrm{m}^{\mathrm{p},O}\mathtt{KAN}^O$ für alle Orakel $O$ und Menge $A\in\NP^O$.
-Für \emph{natürliche} Mengen wie $\mathtt{SAT}$ usw. werden wir dagegen keine relativierte Variante definieren. In diesem Sinne ist $\mathtt{SAT}$ im Allgemeinen \emph{nicht} $\leq_\mathrm{m}^{\mathrm{p},O}$-vollständig, in dem Sinne dass ein Orakel $O$ existiert und eine Menge $A\in\NP^O$ sodass $A\not\leq_\mathrm{m}^{\mathrm{p},O} \mathtt{SAT}$.
+Für \emph{natürliche} Mengen wie $\mathtt{SAT}$ usw. werden wir in dieser Arbeit dagegen keine relativierte Variante definieren. In diesem Sinne ist $\mathtt{SAT}$ im Allgemeinen \emph{nicht} $\leq_\mathrm{m}^{\mathrm{p},O}$-vollständig, in dem Sinne dass ein Orakel $O$ existiert und eine Menge $A\in\NP^O$ sodass $A\not\leq_\mathrm{m}^{\mathrm{p},O} \mathtt{SAT}$.\footnote{Es ist durchaus möglich, $\mathtt{SAT}$ so zu verallgemeinern dass eine entsprechende Variante auch relativiert vollständig bleibt. Um das zu erreichen, ergänzt man üblicherweise die $\mathtt{SAT}$-Formeln durch $n$-stellige Prädikaten $X_n(x_1, x_2, \dot, x_n)$ und interpretiert diesen Term als wahr genau dann wenn $x_1x_2\cdots x_n$ im Orakel liegt. So zum Beispiel bei \textcite{dingel_separation_2022}.}
 
 In allgemeineren Beweisen, die nicht konkrete natürliche Mengen betreffen, lassen sich üblicherweise alle beteiligten TM mit OTM auswechseln, ohne die Gültigkeit der Aussage zu verändern.
 Aussagen bzw. Beweise, die in solchen relativierten Umgebungen relativ zu jedem beliebigen Orakel $O$ gelten, nennen wir \emph{relativierende} Aussagen bzw. Beweise.
@@ -1536,7 +1536,7 @@ Drittens ergänzen wir im gesamten Verlauf dieses Kapitels das Pudláksche Progr
 \begin{figure*}
     \includegraphics[page=1]{figures.pdf}
     \caption{Bekannte (relativierenden) Implikationen zwischen den betrachteten Hypothesen und weiteren Aussagen. Satz~\ref{thm:figure-implications} gibt Belegstellen für jede dieser Implikationen an.}\label{fig:figure-implications}
-    \forcerectofloat
+    \forceversofloat
 \end{figure*}
 
 Für alle dieser drei Desiderata ist es zunächst notwendig, auf die Hypothese $\hQ$ einzugehen.
@@ -1563,8 +1563,7 @@ Für alle dieser drei Desiderata ist es zunächst notwendig, auf die Hypothese $
 \begin{enumerate}[midpenalty=0,endpenalty=10000]
         \item Hypothese $\hQ$.
         \item \parencite{fenner_inverting_2003} Für jede NPTM $N$ mit $L(N)=\mathtt{SAT}$ existiert eine Funktion $h\in \FP$ sodass 
-\[ N(\phi) \text{ akz. mit Rechenweg $w$} \implies \text{$h(w)$ ist eine erfüllende Belegung für $\phi$.} \]\pagebreak[2]
-             
+\[ N(\phi) \text{ akz. mit Rechenweg $w$} \implies \text{$h(w)$ ist eine erfüllende Belegung für $\phi$.} \]
         \item \parencite{messner_simulation_2001} Das Standardbeweissystem $\mathit{sat}$
             \[ \mathit{sat}(\phi, w) = \begin{cases} \phi & \text{wenn $w$ eine erfüllende Belegung für $\phi$ ist} \\ \bot & \text{sonst.} \end{cases}\]
             für $\mathtt{rSAT}$ ist p-optimal.
@@ -2386,7 +2385,7 @@ Der verbleibende Beweis ist eine Generalisierung von \textcite{dingel_separation
     und $h(x)=(i, x, 1^{|x|^i+i})$ realisiert die Reduktion von $g$ auf $f$, wie gewünscht.
 \end{proof}
 
-\begin{figure*}
+\begin{figure*}[p]
     \vspace*{-5cm}
     \includegraphics[page=7]{figures.pdf}
     \vspace*{-2cm}
