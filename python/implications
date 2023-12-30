@@ -3,7 +3,7 @@ DisjNP DisjNPinsep
 CONN TAUT
 CONN NPneqCoNP
 NPneqCoNP PneqNP
-TAUTorSAT SelfRed
+TAUTorSAT PneqNP
 UP TAUT
 TAUT TAUTorSAT
 UP UPneqP
@@ -16,6 +16,7 @@ negQ' NPMVtnotcontainedinTFNP
 NPMVtnotcontainedinTFNP negQ
 NPcapCoNP NPcapCoNPneqP
 NPcapCoNP TAUTorSAT
+NPcapCoNP NPneqCoNP
 DisjCoNP TFNP
 DisjCoNP negQ'
 TFNP NPMVt
@@ -27,5 +28,4 @@ NPcapCoNPneqP DisjNPinsep
 KvL negQ
 SATeff SAT
 SATeff KvL
-negQ SelfRed
-SelfRed PneqNP
+negQ PneqNP

@@ -14,12 +14,18 @@ DisjCoNP TAUT
 DisjNPinsep CONN
 NPcapCoNP TAUT
 
+# Orakel 1
 DisjNP negQ
 UP negQ
-DisjCoNP UPneqP
+
+# Orakel 2
+#DisjCoNP UPneqP
+#DisjNP UPneqP
+
+# Orakel 3
+#DisjCoNP DisjNPinsep
 
 negQ' DisjNPinsep
 PneqNP TAUTorSAT
 UPcapCoUPneqP TAUTorSAT
 UPcapCoUPneqP NPneqCoNP
-DisjCoNP DisjNPinsep
