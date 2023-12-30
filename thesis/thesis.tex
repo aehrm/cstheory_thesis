@@ -79,8 +79,8 @@
 \setlength{\emergencystretch}{2em}
 \AtBeginDocument{\widowpenalty10000\clubpenalty10000}
 \ifbook
-\AtBeginDocument{\setlength{\abovedisplayskip}{5pt plus 10pt}\setlength{\abovedisplayshortskip}{3pt plus 6pt}%
-\setlength{\belowdisplayskip}{3pt plus 3pt}\setlength{\belowdisplayshortskip}{3pt plus 6pt}}
+\AtBeginDocument{\setlength{\abovedisplayskip}{5pt plus 5pt}\setlength{\abovedisplayshortskip}{3pt plus 4pt}%
+\setlength{\belowdisplayskip}{5pt plus 5pt}\setlength{\belowdisplayshortskip}{3pt plus 4pt}}
 \fi
 
 \usepackage{titlesec}		% header customization
@@ -257,6 +257,12 @@
 }
 \setlength{\bibitemsep}{3pt}
 \renewcommand*{\nameyeardelim}{\addcomma\space}
+\DeclareCiteCommand{\citeyear}
+    {\usebibmacro{prenote}}
+    {\bibhyperref{\printfield{year}}\bibhyperref{\printfield{extrayear}}}
+    {\multicitedelim}
+    {}
+
 
 \usepackage{url}
 \urlstyle{same}
