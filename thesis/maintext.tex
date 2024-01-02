@@ -218,8 +218,10 @@ Dieses Kapitel legt die definitorischen Grundlagen für die folgenden Kapitel fe
 
 \section{Notation}\label{sec:notation}
 
-Sei $\Sigma$ das standardmäßige Alphabet mit $\Sigma=\{0,1\}$. Elemente von $\Sigma^*$ nennen wir \emph{Wörter}, sind also endliche Sequenzen von Zeichen aus $\Sigma$. Teilmengen von $\Sigma^*$ nennen wir auch Sprachen. Wir bezeichnen die Länge eines Wortes $w\in\Sigma^*$ mit $|w|$. Das leere Wort bezeichnen wir mit $\epsilon$. Das $i$-te Zeichen eines Wortes $w$ für $0\leq i< |w|$ identifizieren wir mit $w[i]$. Diese Notation erweitern wir auf Sequenzen von Indizes: für $0\leq i_1, i_2, \dots, i_k< |w|$ und $\alpha=(i_1, i_2, \dots, i_k)$ sei $w[\alpha] \defeq w[i_1]w[i_2]\cdots w[i_k]$. Insbesondere ist damit $w[0,1,2,\dots, |w|-1]= w$.
+Sei $\Sigma$ das standardmäßige Alphabet mit $\Sigma=\{0,1\}$. Elemente von $\Sigma^*$ nennen wir (endliche) \emph{Wörter}, sind also endliche Sequenzen von Zeichen aus $\Sigma$. Die Menge $\Sigma^\omega$ entspricht der Menge der $\omega$-unendlichen Wörtern. Teilmengen von $\Sigma^*$ nennen wir auch Sprachen. Wir bezeichnen die Länge eines Wortes $w\in\Sigma^*$ mit $|w|$. Das leere Wort bezeichnen wir mit $\epsilon$. Das $i$-te Zeichen eines Wortes $w\in\Sigma^*\cup\Sigma^\omega$ für $0\leq i< |w|$ identifizieren wir mit $w[i]$. Diese Notation erweitern wir auf Sequenzen von Indizes: für $0\leq i_1, i_2, \dots, i_k< |w|$ und $\alpha=(i_1, i_2, \dots, i_k)$ sei $w[\alpha] \defeq w[i_1]w[i_2]\cdots w[i_k]$. Insbesondere ist damit $w[0,1,2,\dots, |w|-1]= w$ für $w\in\Sigma^*$.
 Falls $w$ ein (echter) Präfix von $w$ ist dann schreiben wir $w \sqsubseteq v$ (bzw. $w\sqsubsetneq v$).
+In manchen Fällen identifizieren wir Mengen $A\subseteq\mathbb N$ mit ihrem charakteristischem $\omega$-Wort aus $\Sigma^\omega$, wobei $A=a_0a_1a_2\cdots$ und $a_i=1$ wenn $i\in A$, sonst $a_i=0$.
+Heißt, es gilt $A[i] = 1$ genau dann wenn $i\in A$.
 
 Die Menge aller natürlichen (nicht-negativen) Zahlen wird mit $\mathbb N$ bezeichnet. Die leere Menge notieren wir wie üblich als $\emptyset$. Die Kardinalität einer Menge $A$ notieren wir wie üblich als $|A|$. Für eine Menge $A\subseteq\Sigma^*$ und $n\in \mathbb N$ definieren wir $A^{\leq n} \defeq \{ w\in A \mid |w|\leq n\}$. Analog definieren wir $A^{<n}, A^{=n}$, usw. Außerdem bezeichnet $\ell(A)\defeq\sum_{w\in A} |w|$. Für solche Teilmengen $A$ von $\Sigma^*$ verstehen wir das Komplement $\overline{A}$ als $\Sigma^*-A$.
 Wir sagen, dass zwei Mengen $A, B$ \emph{auf Menge $D$ übereinstimmen} wenn $x\in A$ genau dann wenn $x\in B$ für alle $x\in D$, bzw. äquivalent $A\cap D= B\cap D$.
@@ -247,7 +249,7 @@ Falls $f$ eine Funktion bzw. funktional ist, meinen wir mit $f(x)$ wie üblich d
 
 
 
-Für eine Funktion $f$ bezeichnen wir die Urbild- bzw. Bildmenge (domain und range) mit $\dom(f)$ und $\ran(f)$. (Beachte dass $\Proj(f)=\dom(f)$. Wir führen diese Unterscheidung nur wegen den Gewohnheiten dieser zwei Notationen ein.) Ist $f$ eine Funktion, dann bezeichnen wir mit $f^{-1}$ dessen binäre Umkehrrelation. Beobachte dass $f^{-1}$ funktional ist, wenn $f$ injektiv ist. Ist $f$ zusätzlich surjektiv, dann ist die Umkehrfunktion $f^{-1}$ eine totale Funktion.
+Für eine Funktion $f$ bezeichnen wir die Urbild- bzw. Bildmenge (\emph{domain} und \emph{image}) mit $\dom(f)$ und $\img(f)$. (Beachte dass $\Proj(f)=\dom(f)$. Wir führen diese Unterscheidung nur wegen den Gewohnheiten dieser zwei Notationen ein.) Ist $f$ eine Funktion, dann bezeichnen wir mit $f^{-1}$ dessen binäre Umkehrrelation. Beobachte dass $f^{-1}$ funktional ist, wenn $f$ injektiv ist. Ist $f$ zusätzlich surjektiv, dann ist die Umkehrfunktion $f^{-1}$ eine totale Funktion.
 
 Eine Funktion $f\colon\Sigma^*\to\Sigma^*$ nennen wir \emph{verlängernd} wenn $|f(x)|\geq |x|$ für alle $x\in\dom(f)$.
 Die Funktion $f$ nennen wir \emph{polynomiell längenbeschräkt} wenn ein Polynom $p$ existiert sodass $|f(x)|\leq p(|x|)$ für alle $x\in\dom(f)$.
@@ -479,7 +481,7 @@ Im Folgenden soll jede Aussage als relativierbar verstanden werden, es sei denn 
 
 Beweissysteme wurden in der Einleitung schon kurz definiert. In diesem Abschnitt wird die präzise Definition von \textcite{cook_relative_1979} wiedergegeben.
 \begin{definition}
-Eine Funktion $f\in \FP$ ist ein \emph{Beweissystem} für $L$ wenn $\ran(f)=L$.
+Eine Funktion $f\in \FP$ ist ein \emph{Beweissystem} für $L$ wenn $\img(f)=L$.
 Ist $f(w)=x$ schreiben wir auch, dass $w$ ein \emph{$f$-Beweis} für $x$ ist.
 
 Existiert zudem ein Polynom $q$ sodass für jedes $x\in L$ ein $f$-Beweis $x$ der Länge $\leq q(|x|)$ existiert, sagen wir dass $f$ \emph{kurzen Beweise} hat.
@@ -639,7 +641,7 @@ Wir können die beiden obigen Punkte noch einmal in eine formale Definition gie�
                 (x,y)\in R \implies |y|\leq q(|x|) \quad\text{für alle $x,y\in\Sigma^*$}.
             \end{equation}
     \end{enumerate}
-    Die Wörter der ersten Komponente nennen wir \emph{Probleminstanzen} oder \emph{Instanzen} oder \emph{Probleme} von $R$, die Wörter der zweiten Komponente nennen wir die \emph{Zertifikate} (oder manchmal \emph{Lösungen}) von $R$. Wir sagen dann für $(x,y)\in R$, dass $y$ ein Zertifikat \emph{für $x$} ist. In diesem Sinne sagt (\ref{eq:zertifikatsschranke})  aus, dass Zertifikate $y$ für $x$ nicht superpolynomiell länger als $x$ sein dürfen.
+    Die Wörter der ersten Komponente nennen wir \emph{Probleminstanzen} oder \emph{Instanzen} oder \emph{Probleme} von $R$, die Wörter der zweiten Komponente nennen wir die \emph{Zertifikate} (oder manchmal \emph{Lösungen}) von $R$. Wir sagen dann für $(x,y)\in R$, dass $y$ ein Zertifikat \emph{für $x$} ist. In diesem Sinne sagt \eqref{eq:zertifikatsschranke}  aus, dass Zertifikate $y$ für $x$ nicht superpolynomiell länger als $x$ sein dürfen.
     Das Polynom $q$ nennen wir auch die \emph{Zertifikatsschranke} zu $R$. 
 
     Wir schreiben $\FNP$ für die Klasse aller NP-Relationen. \qedhere
@@ -1691,7 +1693,7 @@ Unter der Annahme $\neg\mathsf{KvL}$ existiert nun eine Levin-Reduktion $\mathtt
 %
 Gleichzeitig wäre die Existenz einer solchen Reduktion überraschend. Wir hätten nach Definition
 \begin{equation}\label{eq:effective-simulation} N(f(\phi)) \text{ akz. mit Rechenweg $w$} \implies \phi \text{ wird von Belegung $g(\phi, w)$ erfüllt}. \end{equation}
-Einerseits ist es also nicht möglich, aus dem Rechenweg $w$ effizient eine akzeptierende Belegung für $f(\phi)$ zu bestimmen, obwohl $w$ bezeugt dass $f(\phi)$ erfüllbar ist. (Ersetze in (\ref{eq:weak-irreducibility}) $\psi$ mit $f(\phi)$.)
+Einerseits ist es also nicht möglich, aus dem Rechenweg $w$ effizient eine akzeptierende Belegung für $f(\phi)$ zu bestimmen, obwohl $w$ bezeugt dass $f(\phi)$ erfüllbar ist. (Ersetze in \eqref{eq:weak-irreducibility} $\psi$ mit $f(\phi)$.)
 Andererseits reicht der „Beweis“ $w$ aber aus, um (zusammen mit der Information $\phi$) effizient wieder eine erfüllende Belegung für $\phi$ zu berechnen. 
 Das \emph{plausibilisiert} zwar einen Widerspruch, bzw. dass $\neg\hQ\land\neg\mathsf{KvL}$ wahrscheinlich falsch ist, ist aber natürlich kein solcher. Die Umkehrung von Satz~\ref{thm:kvl-implies-q} bleibt offen.
 
@@ -1994,7 +1996,7 @@ Mit dieser Definition können wir nun einen Beweis von \textcite[Thm. 5.2]{messn
 
     Nun gilt
     \begin{gather*}
-        N_{f'}(x') \text{ akz. mit $\alpha_z$ } \implies (x', \underbrace{h(x', \alpha_z)}_{y'})\in R \text{ nach (\ref{eq:stdps-q-1})}\\
+        N_{f'}(x') \text{ akz. mit $\alpha_z$ } \implies (x', \underbrace{h(x', \alpha_z)}_{y'})\in R \text{ nach \eqref{eq:stdps-q-1}}\\
         \implies (\mathit{pad}(x, 1^{|1z|}), y')\in R \text{ mit $y'=h(x', \alpha_z)$ und obiger Def. von $x'$} \\
     \implies (x, \underbrace{\mathit{padsol}(x, 1^{|1z|}, y')}_y) \in R \text{ nach Def. \ref{def:levin-paddable}(2)}\\
         \implies \mathit{std}_R(x, y)=x \text{ mit $y=\mathit{padsol}(x, 1^{|1z|}, y')$}
@@ -2139,13 +2141,13 @@ Das sind nach \textcite{agrawal_universal_1992} u.a. $\mathtt{rSAT}, \mathtt{rHA
     Wir zeigen jetzt, dass die Zugehörigkeit zu $\Proj(R)$ erhalten bleibt.
     Zur Erinnerung, wir haben nach Eigenschaften der $\mathit{join}$-Funktion
     \begin{align}\label{eq:levinpad-join} &\{ y'[\delta] \mid y'\in\fset{}R(x') \} = \{ yy_1y_2\cdots y_{n} \mid  y\in\fset{}R(x), y_1,y_2,\dots,y_n\in\fset{}R(z) \}. \end{align}
-    Gilt $x\not\in\Proj(R)$, dann ist die rechte Menge in (\ref{eq:levinpad-join}) leer, also auch die linke Menge und damit $x'=\mathit{pad}(x, 1^n)\not\in \Proj(R)$.
+    Gilt $x\not\in\Proj(R)$, dann ist die rechte Menge in \eqref{eq:levinpad-join} leer, also auch die linke Menge und damit $x'=\mathit{pad}(x, 1^n)\not\in \Proj(R)$.
     Falls anders herum $x\in\Proj(R)$, dann ist die rechte Menge nicht leer, existiert ja ein Zertifikat $y$ für $x$ und je ein $y_i=w$ für jedes $z$. Also ist auch die linke Menge nicht leer, damit $\mathit{pad}(x, 1^n)\in \Proj(R)$.
 
     Die noch verbleibende Funktion $\mathit{padsol}$ ist durch die bitweise Projektion durch $\delta$ leicht möglich:
     \[
     \mathit{padsol}(x, 1^n, y') \defeq  y'[\delta][0, 1, \ldots, q(|x|)-1] \enspace\text{ wobei } (\cdot, \delta) = \mathit{join}(x, \underbrace{z,z,\ldots, z}_{\text{$n$ mal}}).\]
-    Wir verifizieren: Sei $(\mathit{pad}(x, 1^n), y')\in R$, dann ist nach (\ref{eq:levinpad-join}) $y'[\delta]=yy_1y_2\cdots$ wobei $(x,y)\in R$. Nachdem $R$ streng ist, gilt insbesondere $y\in\Sigma^{q(|x|)}$ und wir haben
+    Wir verifizieren: Sei $(\mathit{pad}(x, 1^n), y')\in R$, dann ist nach \eqref{eq:levinpad-join} $y'[\delta]=yy_1y_2\cdots$ wobei $(x,y)\in R$. Nachdem $R$ streng ist, gilt insbesondere $y\in\Sigma^{q(|x|)}$ und wir haben
 \[ \mathit{padsol}(x, 1^n, y') = y'[\delta][0, 1, \ldots, q(|x|)-1] = (yy_1y_2\cdots)[0,1,\ldots,q(|x|)-1] = y \]
     und damit $(x, \mathit{padsol}(x, 1^n, y')) = (x, y)\in R$, wie gewünscht.
 \end{proof}
@@ -2489,54 +2491,464 @@ Das sei im Folgenden nun abschließend noch zusammengefasst.
 
 \chapter{Orakelkonstruktionen}\label{chap:orakel}
 
-\todo{Maschinenenumerierungen definieren!}
+\todo{Intro}
 
-\section{Zum Verfahren der Orakelkonstruktion}
+\subsection*{Notation zur Orakelkonstruktion}
 
-Um die beiden Orakel zu konstruieren, wenden wir ein Verfahren von \textcite{dose_np-completeness_2019} an, welche sich als ein starkes Framework erwiesen hat, Orakel zu konstruieren die simultan mehrere Eigenschaften erfüllen.
-Bevor wie die zwei eigentlichen Konstruktionen angeben, sei hier kurz skizziert wie dieses Verfahren abläuft.
+Zunächst sei $\{M_i\}_{i\in \mathbb N}$, $\{N_i\}_{i\in \mathbb N}$, $\{F_i\}_{i\in\mathbb N}$ eine sogenannte \emph{Standardaufzählung} der Orakel-PTMs bzw. Orakel-NPTMs, welche folgende Eigenschaften hat:
+\begin{enumerate}[label=\arabic*.,nosep]
+    \item Die Menge $\{N_i \mid i\in\mathbb N\}$ ist in Polynomialzeit erkennbar.
+    \item Für jedes Orakel $D$ terminiert $N_i^D(x)$ nach höchstens $p_i(|x|)\defeq |x|^i+i$ Schritten.
+    \item Für jede Orakel-NPTM $N$ existiert ein $i$ sodass $L(N^D_i)=L(N^D).$.
+\end{enumerate}
+Analoge Eigenschaften gelten für die Aufzählung $\{M_i\}$ der PTMs und $\{T_i\}$ der PTM-Transduktoren.
 
-Jede der beiden Konstruktionen läuft in $\omega$-geordneten \emph{Stufen} ab, wobei sukzessiv die Zugehörigkeit von natürlichen Zahlen $x\in \mathbb N$ zum finalen Orakel $O$ fixiert wird.
-Im Laufe der Konstruktion haben wir es also mit Orakeln zu tun, welche „partiell definiert“ sind, d.h. zu denen $x\in O$ bwz. $x\not\in O$ für gewisse $x$ noch nicht festgelegt ist.
+Um nun die beiden Orakel zu konstruieren, wenden wir ein Verfahren von \textcite{dose_np-completeness_2019} an, welche sich als ein starkes Framework erwiesen hat, Orakel zu konstruieren die simultan mehrere Eigenschaften erfüllen.
+Dieses Framework werden wir im nächsten Abschnitt gleich beim Einsatz der ersten Konstruktion detailiert erläutern; in der zweiten Konstruktion auf eine detailierte Beschreibung aber weitestgehend verzichten.
+
+Wesentliche Zutat dieses Frameworks sind „partiell definierte“ Orakel, bei denen also z.B. für gewisse $x$ noch nicht endgültig festgelegt ist, ob $x\in O$ oder $x\not\in O$ gelten soll.
 Wir formalisieren solche partiell definierten Orakel mittels finiten Wörten $w\in\Sigma^*$:
 ein finites Wort $w\in\Sigma^*$ können wir im Folgenden auch als die Menge $\{ i \mid i<|w|, w[i] = 1 \}$ verstehen (aber $|w|$ immer als die Länge von $w$).
-Die intendierte Interpretation ist, dass gegenüber der \emph{Menge} $w$ die Zugehörigkeit von Zahlen (bzw. äquivalent Wörtern) $x$ mit $x<|w|$ final speizifiziert ist, nicht dagegen für $x\geq|w|$ (und nur ersatzweise $x\not\in w$ gilt).
+Die intendierte Interpretation ist, dass gegenüber der \emph{Menge} $w$ die Zugehörigkeit aller Zahlen (bzw. äquivalent Wörtern) $x$ mit $x<|w|$ final speizifiziert ist, nicht dagegen für $x\geq|w|$ (und nur ersatzweise $x\not\in w$ gilt).
 
+Diese Interpretation von finiten Wörtern $w$ als Orakel macht es einfacher, unsere Orakelkonstruktionen präzise und knapp zu beschreiben. Üblicherweise werden wir $w$ so erweitern, dass die Zugehörigkeit des kleinsten $x\in\mathbb N$ spezifiziert wird, welche noch nicht final spezifiziert ist. Dieses $x$ ist genau $|w|$ und wir legen die Zugehörigkeit final fest, indem wir an $w$ entweder $0$ anhängen (und $x$ ist final nicht im Orakel $w0$) oder $1$ anhängen (und $x$ ist final im Orakel $w1$).
 
-Diese Interpretation von finiten Wörtern $w$ als Orakel macht es einfacher, unsere Orakelkonstruktionen präzise und knapp zu beschreiben. In den meisten der oben genannte Stufen werden wir $w$ so erweitern, dass die Zugehörigkeit des kleinsten $x\in\mathbb N$ spezifiziert wird, welche noch nicht final spezifiziert ist. Dieses $x$ ist genau $|w|$ und wir legen die Zugehörigkeit final fest, indem wir an $w$ entweder $0$ anhängen (und $x$ ist final nicht im Orakel $w0$) oder $1$ anhängen (und $x$ ist final im Orakel $w1$).
 
 Wir können relativ diesem partiell definierten Orakel auch rechnen. Definiere $M^w(x)$ entsprechend als $M^{\{i\mid w(i)=1\}}(x)$ (heißt, Orakel-Anfragen, für die $w$ nicht definiert ist, werden negativ beantwortet).
 Dies ermöglicht es uns auch, folgenden Begriff zu definieren: Wir sagen, dass NPTM $M^w(x)$ \emph{definit} ist, wenn alle Anfragen auf allen Rechenwegen $<|w|$ sind (oder äquivalent: $w[q]$ ist für alle Anfragen $q$ auf allen Rechenwegen definiert); wir sagen, dass $M^w(x)$ \emph{definitiv akzeptiert} (bzw. \emph{definitiv ablehnt}), wenn $M^w(x)$ definit ist und akzeptiert (bzw. ablehnt). Intuitiv beschreibt der Begriff „definit“ Berechnungen, die sich nicht ändern, wenn das jeweilige partiell definierte Orakel erweitert wird, denn die Anfragen sind zu kurz.
 \begin{observation}\phantomsection\label{obs:partialoracles}
     \begin{enumerate}
-        \item Wenn $M^w(x)$ eine definite Berechnung ist und $v\sqsupseteq w$ ist, dann ist $M^v(x)$ definite. Die Berechnung $M^v(x)$ akzeptiert genau dann, wenn $M^w(x)$ akzeptiert.
-        \item Wenn $w$ für alle Wörter der Länge $p_i(|x|)$ definiert ist, dann ist $M_i^w(x)$ definite.
+        \item Wenn $M^w(x)$ eine definite Berechnung ist und $v\sqsupseteq w$ ist, dann ist $M^v(x)$ definit. Die Berechnung $M^v(x)$ akzeptiert genau dann, wenn $M^w(x)$ akzeptiert.
+        \item Wenn $w$ für alle Wörter der Länge $p_i(|x|)=|x|^i+i$ definiert ist, dann ist $M_i^w(x)$ definit.
         \item Wenn $M^w(x)$ auf einem Rechenweg mit der Menge der Orakel-Anfragen $Q$ akzeptiert, und $w$, $v$ auf $Q$ übereinstimmen, dann akzeptiert $M^v(x)$ auf dem gleichen Rechenweg und mit der gleichen Menge der Anfragen $Q$.
     \end{enumerate}
 \end{observation}
 
-Nun zurück zur Konstruktion. 
-Allgemein legen wir in unserer Konstruktion eine induktive Definition fest. Wir starten mit einem initialen partiell definierten Orakel $w_0 = \epsilon$ (welches die Zugehörigkeit von keinem Wort festlegt) als Basisfall, dieses werden wir nach einer Definitionsvorschrift zu $w_1\sqsupsetneq w_0$ erweitern (damit also die Zugehörigkeit von mehr Wörtern final festlegen), dann zu $w_2\sqsupsetneq w_1$ erweitern usw.
-Wir erhalten also iterativ eine Sequenz
-\[ \{w_i\}_{i<\omega}, \quad w_0\sqsubsetneq w_1 \sqsubsetneq w_2 \sqsubsetneq w_3 \sqsubsetneq \cdots \]
-von partiell definierten Orakeln.
-Setze nun
-\[ O = \bigcup_{i<\omega} w_i \]
-wobei hier also $w_i$ je als (endliche) Menge interpretiert wird.
-Dieses Orakel $O$ ist dann unser abschließendes Orakel.
+Für ein partielles Orakel $w$, einen PTM-Transduktor $F$ und eine (N)PTM $M$ schreiben wir manchmal $M^w(F^w(x))$ als die \emph{eine} Berechnung der Maschine $M\circ F$ auf Eingabe $x$ relativ zu $w$.
+Entsprechend sagen wir dann auch, dass $M^w(F^w(x))$ definit ist (bzw. definitiv akzeptiert, oder definitiv ablehnt) when $M\circ F$ definit auf Eingabe $x$ relativ zu $w$ ist (bzw. definitiv akzeptiert, defitiv ablehnt).
 
-Damit das Orakel $O$ auch die gewünschten Eigenschaften erfüllt, fügen wir noch zwei weitere Typen von Constraints in die Konstruktion ein.
-Die ersten sind eine abzählbar unendlich große Liste von \emph{Tasks}, $\tau_1, \tau_2, \ldots$ die abgearbeitet werden müssen. Das tritt zum Beispiel bei sogenannten Diagonalisierungen auf, bei der also z.B. für jede PTM $M_1, M_2, \ldots$ gesichert werden muss, dass diese relativ zu $O$ eine Zeugenmenge $L\in\NP^O$ nicht entscheiden -- dann wäre $\P^O\neq\NP^O$.
-Jede dieser Tasks $\tau_i$ muss dann durch eine Stufe $w_{i'}$ abgearbeitet werden. Natürlich muss dabei gesichert werden, dass dieser Task durch Verhalten in den höheren Stufen nicht unwirksam gemacht wird. Unser Begriff der „definiten Berechnungen“ wird hierbei dienlich sein.
+In unseren Orakelonstruktionen möchten wir abzählbar unendlich viele \emph{Ebenen} $n$, das heißt, Wörter gleicher Länge $n$, für eine abzählbar unendliche Familie von Zeugensprachen mit zunehmend großen Lücken injektiv reservieren und zuordnen.
+Hierfür sei $e(0) \defeq 2$, $e(i) \defeq 2^{e(i-1)}$.
+Es gibt eine polynomialzeit-berechenbare, polynomialzeit-invertierbare injektive Funktion $f$, die von $(m,h)\in\mathbb N\times\mathbb N$ auf $\mathbb N$ abbildet.
+Definieren nun $H_m \defeq \{ e(f(m,h)) \mid h\in\mathbb N \}$ als die Menge der für die Zeugensprache $m$ reservierten Levels.
+Diese Definition stellt nun Folgendes sicher:
+\begin{observation}\label{obs:leveldefinitions}
+    \begin{enumerate}
+        \item Die Menge $H_m$ ist abzählbar unendlich, eine Teilmenge der geraden Zahlen, und alle $H_0, H_1, \dots$ sind paarweise disjunkt.
+        \item Die Folge $\min H_0, \min H_1, \dots$ ist nach oben unbegrenzt.
+        \item Wenn $n\in H_m$, dann gilt für jedes $a\in\mathbb N$: $n<a<2^{n} \implies a\not\in H_0, H_1, \dots$.
+        \item Jede Menge $H_m\in \P$ für alle $m\in\mathbb N$.
+    \end{enumerate}
+\end{observation}
+Vor der Konstruktion machen wir nun noch folgende kombinatorische Aussage:
+\begin{lemma}\label{lemma:bipartite}
+    Sei $G$ ein gerichteter bipartiter Graph mit den Knotenmengen $A$ und $B$.
+    Das heißt, jede Kante in $G$ führt entweder von einem Knoten in $A$ zu einem Knoten in $B$ oder umgekehrt.
+    Sei $\Delta$ eine obere Schranke für den Ausgangsgrad jedes Knotens in $G$.
 
-Die zweiten Constraints sind \emph{Validitätsbedingungen}. 
-Hierbei setzen wir voraus, dass jedes $w_i$ gewisse Eigenschaften sicherstellen muss.
-In unserer induktiven Definition wird die Anzahl der zu sichernden Eigenschaften sogar in jedem Schritt anwachsen.
-In bisherigen Konstruktionen hat es sich als dienlich erwiesen, diese Bündel an Eigenschaften je über eine (partielle) Funktion 
+    Wenn $|A|,|B|>2\Delta$ gilt, dann gibt es ein $a\in A$ und $b\in B$, sodass weder $(a,b)$ noch $(b,a)$ eine Kante in $G$ ist.
+\end{lemma}
+\begin{proof}
+    Sei $n=\min\{|A|,|B|\}>2\Delta$.
+    Entfernen Knoten aus $A$ und $B$, bis beide Knotenmengen jeweils genau $n$ Knoten haben, um einen gerichteten bipartiten Graphen $G'$ mit den Knotenmengen $A'$ und $B'$ zu bilden.
+    Sei $G''$ der zugrunde liegende ungerichtete Graph von $G'$.
+    In $G'$ gibt es $\leq |A'|\cdot \Delta + |B'|\cdot\Delta<n^2$ viele ungerichtete Kanten,
+    aber $n^2$ viele ungerichtete Kanten im vollständigen bipartiten ungerichteten Graphen $K_{n,n}$.
 
-
-
+    Das bedeutet, dass es $a\in A'\subseteq A$, $b\in B'\subseteq B$ gibt, die in $G''$ nicht adjazent sind; damit sind sowohl $(a,b)\not\in E(G')$ als auch $(b,a)\not\in E(G')$ im induzierten gerichteten bipartiten Teilgraphen $G'$.
+    Also gilt für den ursprünglichen Graphen $G$ sowohl $(a,b)\not\in E(G)$ als auch $(b,a)\not\in E(G)$, wie gewünscht.
+\end{proof}
 \section{Orakel mit $\hDisjNP$, $\hUP$ und $\hQ$}
+
+\todo{Fluff}
+
+\begin{theorem}
+    Es existiert ein Orakel $O$ sodass folgende Aussagen gelten:
+    \begin{enumerate}
+        \item Es existiert kein $\leqmpp$-vollständiges Paar für $\DisjNP^O$ (was $\hDisjNP$ relativ zu $O$ impliziert).
+        \item Es existiert keine $\leqmp$-vollständige Menge für $\UP^O$ (was äquivalent zu $\hUP$ relativ zu $O$ ist).
+        \item Für jede totale NPTM $N$ existiert eine Funktion $g\in\FP^O$ sodass $g(x)$ ein akzeptierender Rechenweg von $N^O(x)$ ist (was äquivalent zu $\hQ$ relativ zu $O$ ist).
+    \end{enumerate}
+\end{theorem}
+
+\todo{Fluff}
+
+
+Starte mit $\mathrm{PSPACE}$-vollständiger Menge $C$ welche keine Wörter der Länge $e(\cdot)$ enthält.
+Definiere folgende Zeugensprachen:
+\begin{gather*}
+    A_m^O \coloneqq \{ 0^n \mid n\in H_m, \text{existiert $x\in \Sigma^{n}$ mit } x\in O \text{ und $x$ endet mit $0$} \}\\
+    B_m^O \coloneqq \{ 0^n \mid n\in H_m, \text{existiert $x\in \Sigma^{n}$ mit } x\in O \text{ und $x$ endet mit $1$} \}\\
+    C_m^O \coloneqq \{ 0^n \mid n\in H_m, \text{existiert $x\in \Sigma^{n}$ mit } x\in O  \}
+\end{gather*}
+%Fakt: wenn $|O\cap \Sigma^{n}|\leq 1$ für alle $n\in H_m$, dann $(A_m^O, B_m^O)\in\DisjUP^O$.\\
+%Wenn $|O\cap \Sigma^n|\leq 1$ für alle $n\in H_m$, dann $C_m^O \in \UP^O$.
+Sind die Ebenen der Höhe $H_m$ in $O$ auf geeignete Weise gefüllt, lässt sich leicht sehen dass diese entsprechenden Zeugensprachen in $\DisjUP$ bzw. $\UP$ fallen:
+\begin{claim}
+    \begin{enumerate}
+        \item Wenn $|O\cap \Sigma^{n}|\leq 1$ für alle $n\in H_m$, dann $(A_m^O, B_m^O)\in\DisjUP^O$.
+        \item Wenn $|O\cap \Sigma^n|\leq 1$ für alle $n\in H_m$, dann $C_m^O \in \UP^O$.
+    \end{enumerate}
+\end{claim}
+
+\subsection*{Idee und Vorschau der Konstruktion}
+\todo{Fluff}
+
+Ein Orakel $w\in\Sigma^*$ ist $t$-valide wenn $t\in\mathcal T$ und folgendes gilt:
+\begin{enumerate}[label={V\arabic*}]
+    \item Wenn $x<|w|$ und $|x|\not\in \img(e)$, dann gilt $x\in w\iff x\in C$.\\
+        (Orakel $w$ und $C$ stimmen auf Wörtern mit Länge $\neq e(\cdot)$ überein.)
+    \item Für alle $i$ gilt $|w\cap \Sigma^{e(i)}|\leq 2$.\\
+        (Orakel $w$ ist dünn auf den Ebenen der Länge $e(\cdot)$.)
+    \item Wenn $t(\tau^1_j)=0$, dann existiert ein $z$ sodass $M_j^w(z)$ definitiv ablehnt.\\
+        ($L(M_j)\neq \Sigma^*$ relativ zum finalen Orakel.)
+    \item Wenn $t(\tau^2_{a,b})=0$, dann existiert ein $z$ sodass $M_a^w(z)$ und $M_b^w(z)$ definitiv akzeptieren.\\
+        (Wenn $t(\tau^2_{a,b})=0$, dann $L(M_a)\cap L(M_b)\neq \emptyset$ relativ zum finalen Orakel.)
+    \item Wenn $0<t(\tau^2_{a,b})=m$, dann gilt für alle $n\in H_m$ dass $|\Sigma^{n}\cap w|\leq 1$.\\
+        (Wenn $0<t(\tau^2_{a,b})=m$, dann $(A_m,B_m)\in\DisjNP$.)
+    \item Wenn $t(\tau^3_{a})=0$, dann existiert ein $z$ sodass $M_a^w(z)$ definitiv auf zwei Rechenwegen akzeptiert.\\
+        (Wenn $t(\tau^3_{a})=0$, dann $L(M_a)\not\in \UP$ relativ zum finalen Orakel.)
+    \item Wenn $0<t(\tau^3_{a})=m$, dann gilt für alle $n\in H_m$ dass $|\Sigma^n\cap w|\leq 1$.\\
+        (Wenn $0<t(\tau^3_{a})=m$, dann $C_m\in\UP$.)
+\end{enumerate}
+
+
+\subsection*{Induktive Definition des Orakels}
+\todo{Fluff}
+
+Sei $T$ eine abzählbare Aufzählung der o.g. Tasks sodass $\tau^2_{a,b,r}$ immer nach $\tau^2_{a,b}$ kommt, sowie $\tau^3_{a,r}$ immer nach $\tau^3_a$ kommt.
+
+\todo{Üblicher Text zur stufenweisen Erweiterung von $w_s$ und $t_s$}
+
+Wir definieren nun Stufe $s>0$, diese startet mit einem $t_{s-1}\in\mathcal T$ und eine $t_{s-1}$-validen Orakel $w_{s-1}$ welche nun den kleinsten Task bearbeitet, welcher noch in $T$ ist. Dieser wird unmittelbar nach der Bearbeitung aus $T$ entfernt. In der Bearbeitung wird das Orakel strikt verlängert.
+\begin{itemize}
+
+    \item $\tau^1_j$: Setze $t'=t_{s-1}\cup\{\tau^1_j\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\coloneqq t'$ und $w_s\coloneqq v$.
+
+        Ansonsten setze $t_s\coloneqq t_{s-1}$ und setze $w_s\coloneqq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. (Das ist möglich nach Behauptung~\ref{claim:oracle-up-extension}.)
+
+    \item $\tau^2_{a,b}$: Setze $t'=t_{s-1}\cup\{\tau^2_{a,b}\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\coloneqq t'$ und $w_s\coloneqq v$. Entferne außerdem alle Tasks der Form $\tau^2_{a,b,r}$ von $T$.
+
+        Ansonsten wähle ein hinreichend großes $m\not\in \img(t_s)$ sodass $w_s$ kein Wort der Länge $\min H_m$ definiert. Setze $t_s\coloneqq t_{s-1}\cup \{ \tau^2_{a,b}\mapsto m \}$; damit ist $w_{s-1}$ auch $t_s$-valide. Setze $w_s\coloneqq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. (Das ist möglich nach Behauptung~\ref{claim:oracle-up-extension}.)
+
+    \item $\tau^2_{a,b,r}$: Wir wissen dass $t_{s-1}(\tau^2_{a,b})=m>0$. Setze $t_s=t_{s-1}$ und wähle ein $t_s$-valides Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
+        \begin{itemize}[nosep,endpenalty=10000]
+            \item $0^n\in A_m^v$ für alle $v\sqsupseteq w_s$ und $M_a(F_r(0^n))$ lehnt relativ zu $w_s$ definitiv ab.
+            \item $0^n\in B_m^v$ für alle $v\sqsupseteq w_s$ und $M_b(F_r(0^n))$ lehnt relativ zu $w_s$ definitiv ab.
+        \end{itemize} (Das ist möglich nach Behauptung 1.2.)
+
+    \item $\tau^3_{a}$: Setze $t'=t_{s-1}\cup\{\tau^3_{a,b}\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\coloneqq t'$ und $w_s\coloneqq v$. Entferne außerdem alle Tasks der Form $\tau^3_{a,b,r}$ von $T$.
+
+        Ansonsten wähle ein hinreichend großes $m\not\in \img(t_s)$ sodass $w_s$ kein Wort der Länge $\min H_m$ definiert. Setze $t_s\coloneqq t_{s-1}\cup \{ \tau^3_{a,b}\mapsto m \}$; damit ist $w_{s-1}$ auch $t_s$-valide. Setze $w_s\coloneqq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. (Das ist möglich nach Behauptung 1.1.)
+
+    \item $\tau^3_{a,r}$: Wir wissen dass $t_{s-1}(\tau^3_{a})=m>0$. Setze $t_s=t_{s-1}$ und wähle ein $t_s$-valides Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
+        \begin{itemize}[nosep,endpenalty=10000]
+            \item $0^n\in C_m^v$ für alle $v\sqsupseteq w_s$ und $M_a(F_r(0^n))$ lehnt relativ zu $w_s$ definitiv ab.
+            \item $0^n\not\in C_m^v$ für alle $v\sqsupseteq w_s$ und $M_a(F_r(0^n))$ akzeptiert relativ zu $w_s$ definitiv.
+        \end{itemize} (Das ist möglich nach Behauptung 1.3.)
+\end{itemize}
+
+\subsection*{Korrektheit}
+
+Wir zeigen im Folgenden zunächst, dass die oben definierte induktive Definition tatsächlich wohldefiniert ist.
+Anschließend verifizieren wir die Eigenschaften des konstruierten finalen Orakels, um so den Beweis von Satz~\ref{} abzuschließen.
+
+Zunächst zeigen wir, dass sich ein $t$-valides Orakel $w$ immer um ein Bit verlängern lassen kann, ohne Validität zu verletzen.
+
+\begin{lemma}\label{claim:oracle-up-extension}
+    Sei $t\in\mathcal T$ und $w$ ein $t$-valides Orakel, und sei $z=|w|$. 
+    (Denke $z$ als das nächste Wort, für welche wir die Zuordnung zum Orakel festlegen wollen, d.h. wahlweise $z\not\in w0$ oder $z\in w1$.)
+    Dann existiert ein $b\in\{0,1\}$ sodass $wb$ auch $t$-valide ist.
+    Insbesondere gilt:
+    \begin{enumerate}
+        \item Falls $|z|\not\in \img(e)$, dann ist $w0$ $t$-valide wenn $z\not\in C$, und $w1$ $t$-valide wenn $z\in C$.
+        \item Falls $|z|=e(i)$ für ein $i$, und $|w\cap\Sigma^{e(i)}|> 1$, dann ist $w0$ $t$-valide.
+        \item Falls ein $\tau=\tau^2_{a,b}$ oder ein $\tau=\tau^3_a$ existiert mit $t(\tau)=m>0$, und ein $n\in H_m$ mit $|z|=n$, und $w\cap\Sigma^{n}\neq\emptyset$, dann ist $w0$ $t$-valide.
+        \item In allen anderen Fällen ist $w0$ und $w1$ $t$-valide.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    %Sei $z=|w|$. Beachte, dass wir mit $b$ kontrollieren, ob $z\in wb$ gilt.
+    %Angenommen, $wb$ ist nicht $t$-valide, dann muss eine der Bedingungen V1--V7 verletzt sein.
+
+    %Angenommen V3 ist verletzt, weil $M_j^{wb}(x)$ nicht definit ablehnt und gleichzeitig $t(\tau_j^1)=0$. Da nach Voraussetzung $w$ aber $t$-valide ist, wird $M_j^{w}(x)$ definitiv ablehnen.
+    %Nach Beobachtung~\ref{obs:partialoracles}(3) wissen wir aber, dass dann auch $M_j^{wb}(x)$ definitiv ablehnen wird. Widerspruch.
+    %Angenommen V4 oder V6 ist verletzt. Wir sehen auf analoge Weise wie bei V3 einen Widerspruch zur $t$-Validität von $w$.
+
+    \todo{}
+
+    %Angenommen V1 ist verletzt, weil für $x<|w0|$, $|x|\not\in\img(e)$ die Äquivalenz von V1 nicht gilt, heißt $x\in wb \not\leftrightarrow x\in C$. Dann kann $x$ nicht $<|w|$ sein, denn V1 gilt hier nach $t$-Validität von $w$. Also muss $x=z$.
+    %Damit auch $|z|\not\in\img(e)$ und wir haben für Fall (2) schon einen Widerspruch zur Voraussetzung.
+    %Wir sind also in Fall (1) und können voraussetzen, dass $b=1$ genau dann wenn $z\in C$.
+    %Dann gilt aber genau $x\in wb\leftrightarrow x\in C$ und wir haben einen Widerspruch.
+
+    %Es kann also nur V2, V5, oder V7 verletzt sein.
+    %Angenommen V5 ist verletzt, weil für $n\in H_m$ gilt $|wb\cap\Sigma^n|> 1$.
+    %Nach Definition wissen wir, dass $wb$ und $w$ auf allen Wörtern $\neq z$ übereinstimmen.
+    %Angenommen $z\not\in\Sigma^n$. Dann stimmen $wb$ und $w$ sogar auf den Wörtern $\Sigma^n$ überein. Das bedeutet dass auch $|w\cap\Sigma^n|>1$.
+    %Das widerspricht der $t$-Validität von $w$; im Fall (1) kann also V5 nicht verletzt sein.
+
+    %Also gilt auch $z\in\Sigma^n$ und wir müssen in Fall (2) des Lemmas sein.
+    %Hier gilt nun wahlweise $b=0$ und
+    %\[ |w0\cap\Sigma^n|>1 \implies |w\cap\Sigma^n|>1, \]
+    %haben also wieder einen Widerspruch zur $t$-Validität von $w$.
+    %Oder $b=1$, dann gilt nach Voraussetzung von Fall (2b) auch $w\cap\Sigma^n=\emptyset$ und
+    %\[ |w1\cap\Sigma^n|>1 \implies |w\cap\Sigma^n|>0 \implies w\cap\Sigma^n\neq \emptyset, \]
+    %wieder Widerspruch.
+
+    %Also kann nur noch V2 oder V7 verletzt sein. Hier lässt sich auf analoge Weise wie eben bei V5 sehen, dass das zu einem Widerspruch führt.
+    %Insgesamt also kann keine Bedingung V1--V7 verletzt sein; $wb$ ist $t$-valide wie gewünscht.
+\end{proof}
+
+Damit haben wir die ersten beiden Fälle in der Definition schon gesichert. Nun zeigen wir, dass die Bearbeitung von $\tau^2_{a,b,r}$ möglich ist.
+
+\begin{lemma}
+    Die Bearbeitung eines Tasks $\tau^2_{a,b,r}$ ist möglich: gilt $t_{s-1}(\tau^2_{a,b})=m>0$, dann lässt sich $w_{s-1}$ so zu $t_{s-1}$-validem $w\sqsupsetneq w_{s-1}$ erweitern, sodass eine der folgenden Aussagen gilt:
+    \begin{enumerate}[nosep,endpenalty=10000]
+        \item $0^n\in A_m^v$ für alle $v\sqsupseteq w$ und $M_a(F_r(0^n))$ lehnt relativ zu $w$ definitiv ab.
+        \item $0^n\in B_m^v$ für alle $v\sqsupseteq w$ und $M_b(F_r(0^n))$ lehnt relativ zu $w$ definitiv ab.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}[Skizze.]
+    Widerspruchsbeweis. Erweitere $w_{s-1}$ so weit zu $u$, dass genau alle Wörter der Länge $<n=e(i)\in H_m$ definiert sind, wobei das $i$ hinreichend groß gewählt wird. Sei $u(X), X\subseteq \Sigma^n$ das Orakel was entsteht, wenn die Ebene $e(i)$ mit genau den Wörtern aus $X$ gefüllt wird, bzw. $u(X)=u\cup X \cup C$. Beob. dass $u(X), |X|\leq 1$ auch $t_{s-1}$-valide ist.
+
+    Nach Annahme gilt
+    \begin{itemize}[nosep]
+        \item für $\alpha\in \Sigma^{n-1}0$ gilt $0^n\in A_m^{u(\{\alpha\})}$ und daher akzeptiert $M_a(F_r(0^n))$ definitiv relativ zu $u(\{\alpha\})$.
+        \item für $\beta\in \Sigma^{n-1}1$ gilt $0^n\in B_m^{u(\{\alpha\})}$ und daher akzeptiert $M_b(F_r(0^n))$ definitiv relativ zu $u(\{\beta\})$.
+    \end{itemize}
+    Kombinatorische Standardmethoden zeigen dann, dass relativ zu $u(\{\alpha,\beta\})$ mit geeignetem $\alpha\in\Sigma^{n-1}0$, $\beta\in\Sigma^{n-1}1$ sowohl $M_a(F_r(0^n))$ also auch $M_b(F_r(0^n))$ relativ zu $u(\{\alpha,\beta\})$ akzeptieren.
+    Damit wäre aber auch $u(\{\alpha,\beta\})$ ein geeignetes Orakel in der Bearbeitung von Task $\tau^2_{a,b}$ und wir hätten $t_{s-1}(\tau^2_{a,b})=0$.
+\end{proof}
+\begin{proof}
+Wir fixieren die Werte von $a$, $b$ und $r$ im gesamten Beweis dieses Satzes.
+
+Sei $\hat{s} < s$ die Stufe, die $\tau^2_{a,b}$ behandelt hat.
+Eine solche Stufe existiert, da andernfalls $t_{s}(\tau^2_{a,b})$ undefiniert wäre.
+Wir haben $m = t_{\hat{s}}(\tau^2_{a,b}) = t_s(\tau^2_{a,b})$; fixiere auch $m$ für den Rest des Beweises.
+
+Wir nehmen an, dass für alle $t_{s}$-gültigen $w\sqsupsetneq w_{s-1}$ weder (1) noch (2) zutrifft.
+Daraus werden wir einen Widerspruch ableiten, indem wir ein geeignetes Orakel $u'\sqsupsetneq w_{\hat{s}-1}$ konstruieren, das bezüglich $t' \coloneqq  t_{\hat{s}-1}\cup \{\tau^2_{i,j}\mapsto 0\}$ valide ist. (Gemeint ist: relativ zu $u'$ wird $M_a$ und $M_b$ eine Eingabe definitiv akzeptieren.)
+Dann folgt nach Definition, dass $u'$ eine mögliche $t'$-valide Erweiterung von $w_{\hat{s}-1}$ in Stufe $\hat{s}$ ist, daher hätte die Bearbeitung von $\tau^2_{a,b}$ eben $t_{\hat{s}}=t'$ gesetzt, was der Voraussetzung widerspricht.
+
+Sei
+\begin{equation*} \gamma(n) \coloneqq  \max(p_a(p_r(n))+p_r(n), p_b(p_r(n))+p_r(n)) \end{equation*}
+das Polynom, das die Laufzeit von $M_a\circ F_r$, $M_b\circ F_r$ bezüglich der Eingabelänge $n$ relativ zu einem beliebigen Orakel beschränkt.
+Das bedeutet immer dann, wenn ein partielles Orakel $u'$ für alle Wörter der Länge $\leq \gamma(n)$ definiert ist, auch $M_i^{u'}(F_r^{u'}(x))$, $M_j^{u'}(F_r^{u'}(x))$ für alle Eingaben $x\in\Sigma^n$ definit sind.
+Sei $n\in\mathbb N$ eine geeignete Zahl sodass $n\in H_m$, und $w_{s-1}$ keine Wörter der Länge $\geq n$ definiert,
+und
+\begin{equation}\label{eq:oracle1-expbound}
+    2^n > \gamma(n),\quad  2^{n-1} > 2\gamma(n).
+\end{equation}
+Die erste Ungleichung von \eqref{eq:oracle1-expbound} stellt sicher, dass kein Level $a$, $n<a\leq \gamma(n)$ für irgendeine Zeugensprache reserviert ist, das heißt, $a\not\in H_0, H_1, \dots$ (vgl. Beobachtung~\ref{obs:leveldefinitions}(3)). Die zweite Ungleichung stellt sicher, dass es genügend Wörter der Länge $n$ gibt, damit bestimmte kombinatorische Argumente funktionieren.
+Die Ungleichung stellt sicher, dass es genügend Wörter der Länge $n$ gibt, damit bestimmte kombinatorische Argumente funktionieren.
+
+Für den restlichen Beweis fixieren wir zusätzlich $n$.
+Beachte, dass $\ell(Q)\leq\gamma(n)$ für $Q$ die Menge der Orakelqueries ist, die jeweils von der Berechnung $M_i(F_r(0^n))$ oder der Berechnung $M_j(F_r(0^n))$ gestellt werden.
+Wir definieren nun $u\sqsupseteq w_{s-1}$ als ein $t_{s}$-gültiges partielles Orakel, das genau für alle Wörter bis zur Länge $<n$ definiert ist. Ein solches Orakel existiert nach Lemma~\ref{claim:oracle-up-extension}, indem man $w_{s-1}$ bitweise erweitert, so dass es $t_{s}$-gültig bleibt.
+
+Für unseren Beweis betrachten wir nicht alle $t_s$-gültigen $w$, sondern vielmehr eine ausreichende Teilmenge davon.
+Für $X \subseteq \Sigma^n, |X|\leq 2$ definieren wir ein partielles Orakel $u(X)\sqsupsetneq u$ als
+%\[ u(X) = (u\cup X \cup C)\cap\Sigma^{\leq\gamma(n)} \]
+\[
+    u(X)[x] \defeq \begin{cases} u[x] & \text{falls $|x|\leq n$}\\
+    X[x] & \text{falls $|x|=n$}\\
+    C[X] & \text{falls $n<|x|\leq \gamma(n)$} \\ \bot & \text{sonst}, \end{cases}
+\]
+das für alle Wörter bis zur Länge $\leq\gamma(n)$ definiert ist, und so dass $u(X) \cap \Sigma^n = X$, das heißt, $u(X)$ und $X$ stimmen in $\Sigma^n$ überein.
+
+Im Wesentlichen entsteht also $u(X)$ aus $u$, indem die Ebene $n$ mit $X$ gefüllt wird, und dann in den höheren Ebenen mit dem PSPACE-Orakel $C$ weitergemacht wird.
+Es ist leicht zu sehen, dass für $|X|\leq 1$ das Orakel $u(X)$ sogar $t_s$-valide ist, indem iterativ $u$ erweitert wird.
+
+\begin{claim}
+    Sei $|X|\leq 1$. Dann ist $u(X)$ ein $t_s$-valides Orakel.
+\end{claim}
+\begin{proof}
+Seien $u_0, u_1, u_2, \dots, u_l$ eine nach Länge geordnete Aufzählung aller Präfixe von $u(X)$, die für mindestens alle Wörter der Länge $<n$ definiert sind, das heißt, 
+\[ u = u_0 \sqsubsetneq u_1 \sqsubsetneq u_2 \sqsubsetneq \dots \sqsubsetneq u_l = u(X) \]
+für ein geeignetes $l\in\mathbb N$.
+Wir zeigen induktiv, dass jedes $u_k$, $0\leq k\leq l$, $t_s$-valide ist.
+Daraus folgt, dass $u_l=u(X)$ auch $t_s$-valide ist.
+Der Basisfall ist klar, da $u_0 = u$ nach Konstruktion $t_s$-valide ist.
+
+Für den Induktionsfall von $u_k$ zu $u_{k+1}$ sei $z=|u_k|$ und $y=u(X)[z]$. Es gilt also $u_ky=u_{k+1}\sqsubseteq u(X)$, das heißt, $y$ ist das letzte Bit von $u_{k+1}$.
+Beachte dass $n\leq |y|\leq \gamma(n)$.
+Das Orakel $u_k$ ist nach Induktionshypothese $t_s$-valide.
+Wir zeigen nun aufgeteilt in zwei Fälle, dass $u_ky=u_{k+1}$ auch $t_s$-valide ist. Hierfür werden wir Lemma~\ref{claim:oracle-up-extension} in Bezug auf das $t_s$-valide $u_k$ verwenden.
+
+Gilt $n<|y|\leq \gamma(n)$, dann wissen wir nach Definition dass $y=C[y]$. Da nach \eqref{eq:oracle1-expbound} insbesondere $n<|y|<2^n$ gilt, wissen wir auch dass $|y|\neq e(\cdot)$. Damit ist Lemma~\ref{claim:oracle-up-extension}(1) anwendbar, und es folgt dass $u_ky$ auch $t_s$-valide ist (gilt ja $y=1$ genau dann wenn $y\in C$).
+
+Gilt ansonsten $|y|=n$, dann gilt nach Definition dass $y=X[y]$. Insbesondere gilt $|y|=n\in H_m$, wobei $m=t_{s-1}(\tau^2_{a,b})$ nach Wahl. %Damit ist Lemma~\ref{claim:oracle-up-extension}(2) anwendbar.
+Gilt nun $u_k\cap\Sigma^n=\emptyset$, dann sind wir schon fertig da nur Fall (4) von Lemma~\ref{claim:oracle-up-extension} anwendbar ist, also $u_ky$ auch $t_s$-valide.
+
+Gilt stattdessen $u_k\cap\Sigma^n\neq\empsyset$, dann muss auch $y=0$. Ansonsten wäre
+\[ |u_{k}1\cap\Sigma^{e(i)}|>1 \implies |u(X)\cap\Sigma^{e(i)}|>1 \implies |X|>1, \]
+was ein Widerspruch zur Wahl von $X$ ist.
+Damit ist $y=0$ und Lemma~\ref{claim:oracle-up-extension}(3) anwendbar, und damit $u_k0=u_ky$ auch $t_s$-valide wie gewünscht.
+\end{proof}
+
+Wir haben angenommen, dass für $t_s$-valide Orakel nicht (1) oder (2) gilt. Angewendet auf $u(X), |X|\leq 1$ bedeutet das
+\begin{itemize}[nosep]
+    \item für $\alpha\in \Sigma^{n-1}0$ gilt $0^n\in A_m^{u(\{\alpha\})}$ und daher akzeptiert $M_a(F_r(0^n))$ definitiv relativ zu $u(\{\alpha\})$ auf einem Rechenweg mit Orakelmenge $Q_\alpha$.
+    \item für $\beta\in \Sigma^{n-1}1$ gilt $0^n\in B_m^{u(\{\alpha\})}$ und daher akzeptiert $M_b(F_r(0^n))$ definitiv relativ zu $u(\{\beta\})$ auf einem Rechenweg mit Orakelmenge $Q_\beta$.
+\end{itemize}
+Wir wollen nun ein Orakel $u'$ konstruieren, sodass sowohl $M_a$ als auch $M_b$ akzeptieren.
+Hierfür wollen wir die beiden jewieligen akzeptierenden Rechenwege fixieren.
+Wir stellen das sicher, indem wir $u'$ so wählen, dass $u'$ mit $u(\{\alpha\})$ auf $Q_\alpha$ übereinstimmt, dann wird auch $M_a(F_r(0^n))$ relativ zu $u'$ akzeptieren.
+Symmetrisch stellen wir das auch für $M_b$ bzw. $\beta$ sicher, sodass auch $M_a(F_r(0^n))$ relativ zu $u'$ akzeptieren wird.
+
+Hierzu müssen wir $\alpha\in\Sigma^{n-1}0$ und $\beta\in\Sigma^{n-1}1$ finden, die sich nicht gegenseitig „stören“.
+Ein Wort $\alpha\in\Sigma^{n-1}0$ stört $\beta\in\Sigma^{n-1}1$ falls $\alpha\in Q_\beta$, 
+symmetrisch stört ein Wort $\beta\in\Sigma^{n-1}0$ ein Wort  $\alpha\in\Sigma^{n-1}1$ falls $\beta\in Q_\alpha$.
+
+Es existieren $\alpha\in\Sigma^{n-1}0$ und $\beta\in\Sigma^{n-1}1$ die sich nicht gegenseitig stören. Wir zeigen das über einen bipartiten „Störgraph“ $G$.
+Setze 
+\[ A=\Sigma^{n-1}0, B=\Sigma^{n-1}1 \]
+als die zwei Knotenmengen von $G$.
+Setze nun
+\[ E = \{ (\alpha, \beta) \mid \alpha\in\Sigma^{n-1}0, \beta\in\Sigma^{n-1}1, \alpha\in Q_\beta\} \cup \{ (\beta, \alpha) \mid \alpha\in\Sigma^{n-1}0, \beta\in\Sigma^{n-1}1, \beta\in Q_\alpha\} \]
+als Kantenmenge.
+Beachte, dass der Ausgangsgrad $\Delta$ von $G$ höchstens $\gamma(n)$ sein kann, denn ein Rechenweg auf $M_a(F_r(0^n))$ (bzw. $M_b(\cdots)$) ist auf $\leq \gamma(n)$ viele Schritte beschränkt.
+
+Nach \eqref{eq:oracle1-expbound} wissen wir nun, dass $|A|, |B|>2\Delta$. Mittels Lemma~\ref{lemma:bipartite} exisieren also $\alpha\in A = \Sigma^{n-1}0$, $\beta\in B=\Sigma^{n-1}1$ sodass weder $(a,b)\in E$ noch $(b,a)\in E$.
+In anderen Worten, es gilt $\alpha\not\in Q_\beta$ und $\beta\not\in Q_\alpha$.
+
+Setze nun $u'=u(\{\alpha, \beta\})$. Wir zeigen nun zwei Dinge: erstens, dass $M_a(F_r(0^n))$ und $M_b(F_r(0^n))$ definitiv relativ zu $u(\{\alpha, \beta\})$ akzeptieren.
+Zweitens anschließend, dass $u'$ auch $t'$-valide ist.
+
+Für die erste Aussage beobachten wir, dass $u(\{\alpha\})$ und $u(\{\alpha, \beta\})$ auf $Q_\alpha$ übereinstimmen. Angenommen sie stimmen nicht überein, dann müssen sie nach Konstruktion auf $\beta$ nicht übereinstimmen. Dann wäre aber $\beta\in Q_\alpha$, was ein Widerspruch zur Wahl von $\beta$ ist.
+Symmetrisch sehen wir, dass $u(\{\beta\})$ und $u(\{\alpha, \beta\})$ auf $Q_\beta$ ist.
+Also akzeptieren $M_a(F_r(0^n))$ und $M_b(F_r(0^n))$ definitiv relativ zu $u(\{\alpha, \beta\})$.
+
+Nun zur zweiten Aussage. Zunächst zeigen wir $t_{\hat{s}-1}$-Validität.
+\begin{claim}
+    Das Orakel $u(\{\alpha, \beta\})$ ist $t_{\hat{s}-1}$-valide.
+\end{claim}
+\begin{proof}
+    Seien wieder $u_0, u_1, u_2, \dots, u_l$ eine nach Länge geordnete Aufzählung aller Präfixe von $u(\{\alpha, \beta\})$, die für mindestens alle Wörter der Länge $<n$ definiert sind, das heißt, 
+\[ u = u_0 \sqsubsetneq u_1 \sqsubsetneq u_2 \sqsubsetneq \dots \sqsubsetneq u_l = u(\{\alpha,\beta\}) \]
+für ein geeignetes $l\in\mathbb N$.
+Wir zeigen induktiv, dass jedes $u_k$, $0\leq k\leq l$, $t_s$-valide ist.
+Der Basisfall ist klar, da $u_0 = u$ nach Konstruktion $t_s$-valide ist, und damit ist leicht zu sehen dass $u$ auch $t_{\hat{s}-1}$-valide ist.
+
+Für den Induktionsfall von $u_k$ zu $u_{k+1}$ sei $z=|u_k|$ und $y=u(X)[z]$. 
+Beachte wieder dass $n\leq |y|\leq \gamma(n)$.
+Das Orakel $u_k$ ist nach Induktionshypothese $t_{\hat{s}-1}$-valide.
+
+Gilt $n<|y|\leq \gamma(n)$, dann wissen wir nach Definition dass $y=C[y]$. Wie bei Beweis von Behauptung~\ref{} ist Lemma~\ref{claim:oracle-up-extension}(1) anwendbar, und es folgt dass $u_ky$ auch $t_{\hat{s}-1}$-valide ist.
+
+\todo{}
+\end{proof}
+
+
+
+Da also $u'\sqsupsetneq w_{\hat{s}-1}$ eben $t'$-valide ist, sind wir dann auch schon fertig und erreichen einen Widerspruch, wie anfangs argumentiert.
+\end{proof}
+
+\begin{claim}
+    Die Bearbeitung eines Tasks $\tau^3_{a,r}$ ist möglich: gilt $t_{s-1}(\tau^3_{a,b})=m>0$, dann lässt sich $w_{s-1}$ so zu $t_{s-1}$-validem $u\sqsupsetneq w_{s-1}$ erweitern, dass eine der o.g. Fälle eintritt.
+\end{claim}
+\begin{proof}[Skizze.]
+    Widerspruchsbeweis symmetrisch zu Behauptunng 2. Betrachte wieder die identisch definierten Orakel $u(X)$.
+    Nach Annahme gilt
+    \begin{itemize}
+        \item es gilt $0^n\in C_m^{u(\emptyset)}$ und daher lehnt $M_a(F_r(0^n))$ definitiv relativ zu $u(\emptyset)$ ab. [Das ist wichtig um zu zeigen dass es zwei \emph{unterschiedliche} Berechnungen gibt.]
+        \item für gerades $\alpha\in \Sigma^n$ gilt $0^n\in C_m^{u(\{\alpha\})}$ und daher akzeptiert $M_a(F_r(0^n))$ definitiv relativ zu $u(\{\alpha\})$.
+        \item für ungerades $\beta\in \Sigma^n$ gilt $0^n\in C_m^{u(\{\beta\})}$ und daher akzeptiert $M_a(F_r(0^n))$ definitiv relativ zu $u(\{\beta\})$.
+    \end{itemize}
+    Sei für $\xi\in\Sigma^n$ die Menge $Q_\xi$ die Menge an Orakelfragen auf dem akzeptierenden Rechenweg von $M_a(F_r(0^n))$ relativ zu $u(\{\xi\})$.
+    Es gilt $\xi\in Q_\xi$, denn andernfalls würde $u(\emptyset)$ und $u(\{\xi\})$ auf $Q_\xi$ übereinstimmen und wir hätten dass auch $M_a(F_r(0^n))$ relativ zu $u(\emptyset)$ akzeptiert. Das widerspricht der Annahme.
+
+    Kombinatorische Standarmethoden zeigen dann, dass es ein gerades $\alpha$, ungerades $\beta$ gibt mit $\alpha\not\in Q_\beta$, $\beta\not\in Q_\alpha$ und so $M_a(F_r(0^n))$ relativ zu $u(\{\alpha,\beta\})$ auf zwei Rechenwegen akzeptiert, je mit Orakelfragen $Q_\alpha$ und $Q_\beta$. Diese Rechenwege sind nicht gleich, da $\alpha\in Q_\alpha$ nach obiger Behauptung, aber $\beta\not\in Q_\beta$.
+
+    Damit wäre aber auch $u(\{\alpha,\beta\})$ ein geeignetes Orakel in der Bearbeitung von Task $\tau^3_{a}$ und wir hätten $t_{s-1}(\tau^3_{a})=0$.
+\end{proof}
+
+Damit ist die Konstruktion möglich. Sei $O=\lim_{s\to\infty} w_s$.
+
+\begin{claim}
+    Kein Paar aus $\DisjNP^O$ ist $\leqmpp$-hart für $\DisjUP$.
+\end{claim}
+
+\begin{claim}
+    Keine Menge aus $\UP^O$ ist $\leqmp$-vollständig.
+\end{claim}
+
+
+\begin{claim}
+    Sei $M_j$ eine totale Maschine, d.h. $L(M_j^O)=\Sigma^*$.
+    Es existiert eine Länge $n$ mit folgender Eigenschaft: 
+    falls $T\subseteq O$ mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern $\leq n$ übereinstimmt, dann $L(M_j^T)=\Sigma^*$.
+\end{claim}
+\begin{proof}[Skizze.]
+    Sei $s$ die Stufe bei der $\tau^1_j$ bearbeitet wurde. Setze $n=|w_{s-1}|$.
+    Wir zeigen nun, dass dieses $n$ die behauptete Eigenschaft erfüllt.
+    Angenommen, dies gilt nicht, dann existiert ein $T\subseteq O$ dass mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern $\leq n$ übereinstimmt, aber für ein Wort $z$ lehnt $M_j^T(z)$ ab.
+    Sei $t'=t_{s-1}\cup \{\tau^1_j\mapsto 0\}$ und sei $v=T\cap\Sigma^{\leq m}$ wobei $m\geq p_j(|x|), n+1$. 
+    Beob. dass $M_j^v(z)$ definitiv ablehnt.
+
+    Wir zeigen, dass $v$ auch $t'$-valide ist;  damit wäre $v$ eine geeignete Erweiterung in Stufe $s$ und wir hätten $t_s=t'$. 
+    Das bedeutet nach V3, dass $M_j^{w_s}(z)$ definitiv ablehnt, damit auch $M_j^O(z)$ ablehnt, was der Voraussetzung widerspricht.
+
+    Nun verifizieren wir diese $t'$-Validität:
+    V1, V2, V5, V7 sind sofort erfüllt nach Definition von $T$ als Teilmenge von $O$ bzw. übereinstimmend mit $O$ auf Wörtern der Länge $\neq e(\cdot)$.
+    Da $v\sqsupsetneq w_{s-1}$, sind auch V4 und V6 erfüllt, außer der neue V3-Fall von $t'(\tau_j^2)=0$.
+
+    Aber auch hier erfüllen wir entsprechende Instanz von V3, da ja $M_j^v(z)$ definitiv ablehnt.
+\end{proof}
+
+\begin{claim}
+    Sei $M_j$ eine totale Maschine, d.h. $L(M_j^O)=\Sigma^*$. Dann existiert eine Funktion $g\in \FP^O$ sodass $g(x)$ einen akzeptierenden Rechenweg von $M^O_j(x)$ ausgibt. Damit gilt nach Definition die Hypothese $\hQ$ relativ zu $O$.
+\end{claim}
+\begin{proof}
+    %Es reicht aus, dass $g\in\FP^O$ nur Wörter hinreichender Länge verarbeiten muss.
+    Sei $n$ hinreichend groß, sodass diese vorige Behauptung 1.6 erfüllt ist.
+    Damit gilt: 
+\begin{equation} \begin{split}&T\subseteq O, \text{$T$ stimmt mit Wörtern der Länge $\neq e(\cdot)$ und der Länge $\leq n$ mit $O$ überein} \\ &\implies L(M_j^T)=\Sigma^*.\end{split}\label{eq:oracle-1a} \end{equation}
+
+    Sei exemplarisch $x\in\Sigma^*$ gegeben. 
+    Wir werden obige Eigenschaft ausnutzen und iterativ eine Menge $D\subseteq O$ an Orakelwörtern der Länge $e(\cdot)$ aufbauen, welche für die Berechnung $M_j^O(x)$ relevant ist, bis wir alle solchen relevanten Wörter gefunden haben.
+    Wir starten hierbei mit der Menge aller Orakelwörter in $O$, welche Länge $\leq n$  und Länge $=e(\cdot)$ haben, d.h. setze zunächst
+    \[ D\gets \{ w\mid w\in O, |w|\leq n, \exists i.|w|=e(i)\}. \]
+Beob. dass damit $C\cup D\subseteq O$ und mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern der Länge $\leq n$ übereinstimmt, also nach \eqref{eq:oracle-1a} auch $L(M_j^{C\cup D})=\Sigma^*$.
+    Beachte dass $C$ und $D$ disjunkt sind. Damit können wir auch das (finite) $D$ sogar in $M_j$ hineincodieren.
+    Gemeint ist, $D$ in das „Programm“ $M_j$ hineincodieren, sodass für Queries $q, |q|=e(\cdot)$ nur getestet wird ob $q\in D$ anstelle einer echten Orakelfrage.
+    Es existiert also eine Orakel-NPTM $M'_j$, sodass $\smash{M'^C_j(x)}$ äquivalent zu $M_j^{C\cup D}(x)$ arbeitet. Und da $\smash{\P^C=\mathrm{PSPACE}^C}$, können wir in $\FP^C$ auch einen akzeptierenden Rechenweg von $M'^C_j(x)$ effizient bestimmen.
+    Das geht dann auch in $\FP^O\supseteq \FP^C$. (Jeder $\FP^C$-Algorithmus kann simuliert werden, imdem Orakelfragen mit Länge $e(\cdot)$ negativ beantwortet werden.)
+    Damit ergibt sich: gegeben $D$ (unter den genannten Eigenschaften), kann ein akzeptierender Rechenweg von $M_j^{C\cup D}(x)$ in $\FP^O$ berechnet werden.
+
+    Wir betrachten nun folgenden formalen Algorithmus relativ zu $O$ auf Eingabe $x$:\\
+    \SetKwFor{Loop}{wiederhole}{}{}
+    \begin{algorithm}[H]
+        $D\gets \{ w\mid w\in O, |w|\leq n, \exists i.|w|=e(i)\}$ \tcc{Konstante, muss nicht berechnet werden}
+        \Loop(\tcp*[h]{Invariante: $D\subseteq O\cap \{ w \mid \exists i.|w|=e(i)\}$}){}
+        {
+            Sei $\alpha$ ein akzeptierender Rechenweg auf $M_j^{C\cup D}(x)$ und $Q$ die Menge an Orakelfragen\;
+            \eIf{existiert eine Frage $q\in Q$ für die $q\in O-C$ aber $q\not\in D$}
+            {
+                $D\gets D \cup \{q\}$\;
+            }
+            {
+                Gebe {$\alpha$} aus\;
+            }
+        }
+    \end{algorithm}
+
+    Korrektheit: Beobachte zunächst die Invariante dass $D\subseteq O\cap \{ w \mid \exists i.|w|=e(i)\}$.
+    Wie oben argumentiert gilt außerdem, dass $C\cup D\subseteq O$ und mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern der Länge $\leq n$ übereinstimmt. Damit nach \eqref{eq:oracle-1a} auch $L(M_j^{C\cup D})=\Sigma^*$ und insbesondere existiert dann auch ein akzeptierender Rechenweg auf $M_j^{C\cup D}(x)$. Damit ist Z.~3 wohldefiniert.
+    Terminiert nun der Algorithmus mit einem Rechenweg $\alpha$ in Z.~7, wissen wir auch dass für alle Orakelfragen $q\in Q$ entweder $q\in C$ gilt oder $q\not\in O$ oder $q\in O, D$ gilt.
+    Damit stimmt $C\cup D$ mit $O$ auf $Q$ überein, und auch $M_j^O(x)$ akzeptiert mit Rechenweg $\alpha$.
+
+    Laufzeit: Wir zeigen dass der Algorithmus in polynomiell beschränkter deterministischer Zeit (abhängig von $|x|$) relativ zu $O$ arbeitet. 
+    Wir wissen, dass für jede Orakelfrage $q\in Q$ gilt, dass $|q|\leq p_j(|x|)$.
+    Zusammen mit oben genannten Invariante gilt $D\subseteq O\cap \{w \mid \exists i.|w|=e(i)\leq p_j(|x|)\}$.
+    Nach V2 gilt damit $\ell(D)\leq p_j(|x|)\cdot p_j(|x|)\cdot 2$, denn in den je $\leq p_j(|x|)$ Ebenen der Länge $e(i)\leq p_j(|x|)$ existieren höchstens zwei Wörter der Länge $e(i)\leq p_j(|x|)$.
+    Damit folgt auch unmittelbar, dass der Algorithmus nach höchstens polynomiell vielen Iterationen terminiert.
+
+    Zeile 3 kann damit auch in polynomiell beschränkter deterministischer Zeit berechnet werden. Wie oben skizziert kann der Rechenweg in deterministisch polynomieller Zeit abh. von $|x|$ und $\ell(D)$ relativ zu $C$ bestimmt werden.
+    Nach Konstruktion ist leicht zu sehen, dass dieser Rechenweg dann auch relativ zu $O$ bestimmt werden kann.
+\end{proof}
+
 
 \section{Orakel mit $\mathsf{KvL}$ und $\neg\hSAT$}
 
