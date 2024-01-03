@@ -295,7 +295,7 @@ Wir sehen nun, dass $\mathsf{SAT^{eff}}$ eine Verstärkung von sowohl $\hSAT$ al
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-\begin{prooflist}
+\begin{prooflist}[label={}]
 \item Zu (1): Klar aus Kontraposition. Wenn $\neg\hSAT$, dann existiert für eine $\leqmp$-vollständige Menge $L\in\NP$ ein $\P$-optimales Beweissystem $h$ für $L$ existiert, dann kann dieses (optimale) $h$ auch alle anderen Beweissysteme $\P$-simulieren, und damit insbesondere auch alle optimalen Beweissysteme $h'$ effektiv $\P$-simulieren.
 
 \item Zu (2): Wieder klar aus Kontraposition. Unter $\neg\mathsf{KvL}$ folgt mit der Formulierung aus Vermutung~\ref{conj:kvl-ps} dass für jede NP-Relation $Q$, $\Proj(Q)$ vollständig, das (optimale) Standardbeweissystem $\mathit{std}_Q$ alle optimalen Beweissysteme für $\Proj(Q)$ effektiv $\P$-simulieren kann. Das gilt dann insbesondere auch für die $\leqlp$-vollständige NP-Relation $\mathtt{rKAN}$, also hat die $\leqmp$-vollständige Menge $\mathtt{KAN}$ \emph{ein} Beweissystem, welches alle optimalen Beweissysteme effektiv $\P$-simulieren kann.

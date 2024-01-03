@@ -230,7 +230,7 @@
 \setlist[itemize]{itemsep=0pt}
 \setlist{beginpenalty=10000, midpenalty=10000}
 \newlist{Prooflist}{enumerate}{1}
-\setlist[Prooflist]{wide,labelwidth=!,leftmargin=0pt,itemindent=!,labelindent=0pt,label={\arabic*.},labelsep=3pt,itemsep=.3em plus .2em minus .1em}
+\setlist[Prooflist]{wide,labelwidth=!,leftmargin=0pt,itemindent=!,labelindent=0pt,label={\arabic*.},labelsep=3pt,itemsep=.3em plus .2em minus .1em,parsep=0pt}
 \newenvironment{prooflist}[1][]{%
     \begin{Prooflist}[#1]%
 }{%
@@ -338,7 +338,7 @@
 \def\mhyphen{\text{-}}
 \def\fset{\ensuremath{\mathit{set}\mhyphen}}
 \def\inc{\ensuremath{\in_\mathrm{c}}}
-\def\defeq{\ensuremath{\stackrel{\text{df}}{=}}}
+\def\defeq{\ensuremath{\stackrel{\text{\smash{\tiny df}}}{=}}}
 \def\subseteqc{\ensuremath{\subseteq_\mathrm{c}}}
 \AtBeginDocument{\renewcommand{\phi}{\varphi}}
 \AtBeginDocument{\renewcommand{\epsilon}{\varepsilon}}

@@ -329,7 +329,7 @@ Für die Mengen aus $\P$ bzw. $\NP$ existieren $\P$-optimale bzw. optimale Bewei
     \end{enumerate}
 \end{observation}
 \begin{proof}
-\begin{prooflist}
+\begin{prooflist}[label={}]
 \item Zu (1): Betrachte die Funktion
     \[ h(x) \defeq \begin{cases} x & \text{wenn $x\in A$} \\ \bot & \text{sonst} \end{cases}. \]
     Diese Funktion ist definitiv ein Beweissystem für $A$. Sie ist in $\FP$, ist ja der Test „$x\in A$“ in Polynomialzeit möglich. Klar ist auch dass $h$ kurze Beweise hat. Dieses Beweissystem ist $\P$-optimal, denn wenn $g$ ein weiteres Beweissystem für $A$ ist, und wenn $w$ ein $g$-Beweis für $x$ ist, dann ist $h(g(w))=h(x)=x$, also $g(w)$ ein $h$-Beweis für $x$, wie gewünscht. 

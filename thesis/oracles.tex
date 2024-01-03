@@ -50,7 +50,7 @@ Diese Definition stellt nun Folgendes sicher:
         \item Jede Menge $H_m\in \P$ für alle $m\in\mathbb N$.
     \end{enumerate}
 \end{observation}
-Vor der Konstruktion machen wir nun noch folgende kombinatorische Aussage:
+Vor der Konstruktion machen wir nun noch folgende bekannte kombinatorische Aussage:
 \begin{lemma}\label{lemma:bipartite}
     Sei $G$ ein gerichteter bipartiter Graph mit den Knotenmengen $A$ und $B$.
     Das heißt, jede Kante in $G$ führt entweder von einem Knoten in $A$ zu einem Knoten in $B$ oder umgekehrt.
@@ -169,68 +169,54 @@ Zunächst zeigen wir, dass sich ein $t$-valides Orakel $w$ immer um ein Bit verl
     Sei $t\in\mathcal T$ und $w$ ein $t$-valides Orakel, und sei $z=|w|$. 
     (Denke $z$ als das nächste Wort, für welche wir die Zuordnung zum Orakel festlegen wollen, d.h. wahlweise $z\not\in w0$ oder $z\in w1$.)
     Dann existiert ein $b\in\{0,1\}$ sodass $wb$ auch $t$-valide ist.
-    Insbesondere gilt:
+    Insbesondere gilt
     \begin{enumerate}
-        \item Falls $|z|\not\in \img(e)$, dann ist $w0$ $t$-valide wenn $z\not\in C$, und $w1$ $t$-valide wenn $z\in C$.
-        \item Falls $|z|=e(i)$ für ein $i$, und $|w\cap\Sigma^{e(i)}|> 1$, dann ist $w0$ $t$-valide.
-        \item Falls ein $\tau=\tau^2_{a,b}$ oder ein $\tau=\tau^3_a$ existiert mit $t(\tau)=m>0$, und ein $n\in H_m$ mit $|z|=n$, und $w\cap\Sigma^{n}\neq\emptyset$, dann ist $w0$ $t$-valide.
-        \item In allen anderen Fällen (heißt, wenn weder (1) noch (2) noch (3) zutreffen) ist $w0$ und $w1$ $t$-valide.
+        \item Falls $|z|\not\in\img(e)$, dann ist $w0$ $t$-valide wenn $z\in C$, und $w1$ $t$-valide wenn $z\not\in C$.
+        \item Ansonsten, falls ein $i$ existiert mit $|z|=e(i)$, dann ist $w0$ $t$-valide.
     \end{enumerate}
 \end{lemma}
 \begin{proof}
     Sei $z=|w|$. Beachte, dass wir mit $b$ kontrollieren, ob $z\in wb$ gilt.
     Angenommen, $wb$ ist nicht $t$-valide, dann muss eine der Bedingungen V1--V7 verletzt sein.
-    Wir zeigen nun für jede dieser Bedingungen, dass eine Verletzung zu eine Widerspruch führt.
 
     Angenommen V3 ist verletzt, weil $M_j^{wb}(x)$ nicht definit ablehnt und gleichzeitig $t(\tau_j^1)=0$. Da nach Voraussetzung $w$ aber $t$-valide ist, wird $M_j^{w}(x)$ definitiv ablehnen.
     Nach Beobachtung~\ref{obs:partialoracles}(3) wissen wir aber, dass dann auch $M_j^{wb}(x)$ definitiv ablehnen wird. Widerspruch.
-    Angenommen V4 oder V6 ist verletzt. Wir sehen auf analoge Weise wie bei V3 einen Widerspruch zur $t$-Validität von $w$.
+    Also kann V3 nicht verletzt sein. Mit analoger Argumentation sehen wir auch, dass V4 und V6 nicht verletzt sein können.
 
-    Angenommen V1 ist verletzt, weil für $x<|w0|$, $|x|\not\in\img(e)$ die Äquivalenz von V1 nicht gilt, heißt $x\in wb \not\leftrightarrow x\in C$. Dann kann $x$ nicht $<|w|$ sein, denn V1 gilt hier nach $t$-Validität von $w$. Also muss $x=z$.
-    Damit auch $|z|\not\in\img(e)$ und wir haben für Fall (2)--(4) schon einen Widerspruch zur Voraussetzung.
+    Angenommen V1 ist verletzt, weil für $x<|wb|$, $|x|\not\in\img(e)$ die Äquivalenz von V1 nicht gilt, heißt $x\in wb \not\leftrightarrow x\in C$. Dann kann $x$ nicht $<|w|$ sein, denn V1 gilt hier nach $t$-Validität von $w$. Also muss $x=z$.
+    Damit auch $|z|\not\in\img(e)$ und wir haben für Fall (2) schon einen Widerspruch zur Voraussetzung.
     Wir sind also in Fall (1) und können voraussetzen, dass $b=1$ genau dann wenn $z\in C$.
-    Dann gilt aber genau $x\in wb\leftrightarrow x\in C$ und wir erhalten einen Widerspruch.
+    Dann gilt aber genau $x\in wb\leftrightarrow x\in C$ und wir haben einen Widerspruch.
 
     Es kann also nur V2, V5, oder V7 verletzt sein.
-    Angenommen V2 ist verletzt, weil $|wb\cap\Sigma^{n}|>2$ für ein $i$ mit $n=e(i)$.
+    Angenommen V5 ist verletzt, weil für $n\in H_m$ gilt $|wb\cap\Sigma^n|> 1$.
     Nach Definition wissen wir, dass $wb$ und $w$ auf allen Wörtern $\neq z$ übereinstimmen.
-    Dann muss $z\in\Sigma^n$ sein, da sonst $wb$ und $w$ sogar auf den Wörtern $\Sigma^n$ übereinstimmen.
-    Das bedeutet dass auch $|w\cap\Sigma^n|>2$, und widerspricht der $t$-Validität von $w$.
-    \begin{itemize}[nosep]
-        \item Fall (1) kann nicht zutreffen, da $|z|\in\img(e)$.
-        \item Im Fall (2) haben wir $b=0$, und damit auch $|w\cap\Sigma^n|=|wb\cap\Sigma^n|>2$; wieder Widerspruch zur $t$-Validität von $w$.
-        \item Im Fall (3) symmetrisch wie bei (2).
-        \item Im Fall (4) wissen wir, dass Fall (2) nicht zutrifft, also muss $|w\cap\Sigma^n|\leq 1$.
-            Dann haben wir $|wb\cap\Sigma^n|\leq |w\cap\Sigma^n|+1 \leq 2$; Widerspruch zur Annahme $|wb\cap\Sigma^{n}|>2$ oben.
-    \end{itemize}
+    Wir unterscheiden nun zwei Fälle: $z\not\in\Sigma^n$ und $z\in\Sigma^n$.
+    Für den ersten Fall sei angenommen $z\not\in\Sigma^n$. Dann stimmen $wb$ und $w$ sogar auf den Wörtern $\Sigma^n$ überein. Das bedeutet dass auch $|w\cap\Sigma^n|>1$.
+    Das widerspricht der $t$-Validität von $w$.
 
-    Die Argumentation bei V5 läuft analog:
-    angenommen V5 ist verletzt, weil für ein $\tau^2_{a,b}$ mit $m=t(\tau^2_{a,b})>0$ und einem $n\in H_m$ gilt, dass $|wb\cap\Sigma^n|> 1$.
-    Zur Erinnerung: $wb$ und $w$ stimmen auf allen Wörtern $\neq z$ überein.
-    Damit muss wieder $z\in\Sigma^n$ sein.
-    \begin{itemize}[nosep]
-        \item Fall (1) kann nicht zutreffen, da $|z|\in\img(e)$.
-        \item Im Fall (2) haben wir $b=0$, und damit auch $|w\cap\Sigma^n|=|wb\cap\Sigma^n|>1$; wieder Widerspruch zur $t$-Validität von $w$.
-        \item Im Fall (3) symmetrisch wie bei (2).
-        \item Im Fall (4) wissen wir, dass Fall (3) nicht zutrifft, also muss $w\cap\Sigma^n=\emptyset$.
-            Dann haben wir $|wb\cap\Sigma^n|\leq |w\cap\Sigma^n|+1 = 1$; Widerspruch zur Annahme $|wb\cap\Sigma^n|> 1$.
-    \end{itemize}
-    Auf analoge Weise lässt sich zeigen, dass Verletzung von V7 zum Widerspruch führt.
+    Für den zweiten Fall nehmen wir nun $z\in\Sigma^n$ an.
+    Damit müssen wir auch nur Fall (2) prüfen, da Voraussetzung von Fall (1) nicht erfüllt sind.
+    Hier gilt nun $b=0$ und
+    \[ |wb\cap\Sigma^n|=|w0\cap\Sigma^n|=|w\cap\Sigma^n|>1, \]
+    haben also wieder einen Widerspruch zur $t$-Validität von $w$.
 
-    Insgesamt also kann keine Bedingung V1--V7 verletzt sein; $wb$ ist $t$-valide wie gewünscht.
+    Die Bedingung V5 kann also nicht verletzt sein.
+    Auf analoge Weise wie eben bei V5 lässt sich auch zeigen, dass V2 und V7 nicht verletzt sein können.
+    Insgesamt kann also keine Bedingung V1--V7 verletzt sein; $wb$ ist $t$-valide wie gewünscht.
 \end{proof}
 
 Damit haben wir die ersten beiden Fälle in der Definition schon gesichert. Nun zeigen wir, dass die Bearbeitung von $\tau^2_{a,b,r}$ möglich ist.
 
 \begin{lemma}
-    Die Bearbeitung eines Tasks $\tau^2_{a,b,r}$ ist möglich: gilt $t_{s-1}(\tau^2_{a,b})=m>0$, dann lässt sich $w_{s-1}$ so zu $t_{s-1}$-validem $w\sqsupsetneq w_{s-1}$ erweitern, sodass eine der folgenden Aussagen gilt:
+    Die Bearbeitung eines Tasks $\tau^2_{a,b,r}$ ist möglich: gilt $t_s=t_{s-1}, t_{s}(\tau^2_{a,b})=m>0$, dann lässt sich $w_{s}$ so zu $t_{s}$-validem $w\sqsupsetneq w_{s}$ erweitern, sodass eine der folgenden Aussagen gilt:
     \begin{enumerate}[nosep,endpenalty=10000]
         \item $0^n\in A_m^v$ für alle $v\sqsupseteq w$ und $M_a(F_r(0^n))$ lehnt relativ zu $w$ definitiv ab.
         \item $0^n\in B_m^v$ für alle $v\sqsupseteq w$ und $M_b(F_r(0^n))$ lehnt relativ zu $w$ definitiv ab.
     \end{enumerate}
 \end{lemma}
 \begin{proof}[Skizze.]
-    Widerspruchsbeweis. Erweitere $w_{s-1}$ so weit zu $u$, dass genau alle Wörter der Länge $<n=e(i)\in H_m$ definiert sind, wobei das $i$ hinreichend groß gewählt wird. Sei für jedes $X\subseteq \Sigma^n$ das Orakel $u(X)\sqsupsetneq w_{s-1}$ jenes Orakel was entsteht, wenn die Ebene $e(i)$ mit genau den Wörtern aus $X$ gefüllt wird, heißt $u(X)$ und $X$ stimmen auf $\Sigma^n$ überein. Beob. dass $u(X), |X|\leq 1$ auch $t_{s-1}$-valide ist.
+    Widerspruchsbeweis. Erweitere $w_{s-1}$ so weit zu $u$, dass genau alle Wörter der Länge $<n=e(i)\in H_m$ definiert sind, wobei das $i$ hinreichend groß gewählt wird. Sei für jedes $X\subseteq \Sigma^n$ das Orakel $u(X)\sqsupsetneq w_{s-1}$ jenes Orakel was entsteht, wenn die Ebene $e(i)$ mit genau den Wörtern aus $X$ gefüllt wird, heißt $u(X)$ und $X$ stimmen auf $\Sigma^n$ überein. Beob. dass $u(X), |X|\leq 1$ auch $t_{s}$-valide ist.
 
     Nach Annahme gilt
     \begin{itemize}[nosep]
@@ -238,18 +224,18 @@ Damit haben wir die ersten beiden Fälle in der Definition schon gesichert. Nun 
         \item für $\beta\in \Sigma^{n-1}1$ gilt $0^n\in B_m^{u(\{\alpha\})}$ und daher akzeptiert $M_b(F_r(0^n))$ relativ zu $u(\{\beta\})$.
     \end{itemize}
     Kombinatorische Standardmethoden zeigen dann, dass relativ zu $u(\{\alpha,\beta\})$ mit geeignetem $\alpha\in\Sigma^{n-1}0$, $\beta\in\Sigma^{n-1}1$ sowohl $M_a(F_r(0^n))$ also auch $M_b(F_r(0^n))$ relativ zu $u(\{\alpha,\beta\})$ akzeptieren.
-    Damit wäre aber auch $u(\{\alpha,\beta\})$ ein geeignetes Orakel in der Bearbeitung von Task $\tau^2_{a,b}$ und wir hätten $t_{s-1}(\tau^2_{a,b})=0$.
+    Damit wäre aber auch $u(\{\alpha,\beta\})$ ein geeignetes Orakel in der Bearbeitung von Task $\tau^2_{a,b}$ und wir hätten $t_{s}(\tau^2_{a,b})=0$.
 \end{proof}
 \begin{proof}
 Wir fixieren die Werte von $a$, $b$ und $r$ im gesamten Beweis dieses Satzes.
 
 Sei $\hat{s} < s$ die Stufe, die $\tau^2_{a,b}$ behandelt hat.
-Eine solche Stufe existiert, da andernfalls $t_{s-1}(\tau^2_{a,b})$ undefiniert wäre.
-Wir haben $m = t_{\hat{s}}(\tau^2_{a,b}) = t_{s-1}tau^2_{a,b})$; fixiere auch $m$ für den Rest des Beweises.
+Eine solche Stufe existiert, da andernfalls $t_{s}(\tau^2_{a,b})$ undefiniert wäre.
+Wir haben $m = t_{\hat{s}}(\tau^2_{a,b}) = t_{s}tau^2_{a,b})$; fixiere auch $m$ für den Rest des Beweises.
 
-Wir nehmen an, dass für alle $t_{s-1}$-gültigen $w\sqsupsetneq w_{s-1}$ weder (1) noch (2) zutrifft.
+Wir nehmen an, dass für alle $t_{s}$-gültigen $w\sqsupsetneq w_{s-1}$ weder (1) noch (2) zutrifft.
 Daraus werden wir einen Widerspruch ableiten, indem wir ein geeignetes Orakel $u'\sqsupsetneq w_{\hat{s}-1}$ konstruieren, das bezüglich $t' \defeq  t_{\hat{s}-1}\cup \{\tau^2_{a,b}\mapsto 0\}$ valide ist. (Gemeint ist: relativ zu $u'$ wird $M_a$ und $M_b$ eine Eingabe definitiv akzeptieren.)
-Dann folgt nach Definition, dass $u'$ eine mögliche $t'$-valide Erweiterung von $w_{\hat{s}-1}$ in Stufe $\hat{s}$ ist, daher hätte die Bearbeitung von $\tau^2_{a,b}$ eben $t_{\hat{s}}=t'$ gesetzt, damit auch $t_{s-1}tau^2_{a,b})=t'(\tau^2_{a,b})=0$, was der Voraussetzung widerspricht.
+Dann folgt nach Definition, dass $u'$ eine mögliche $t'$-valide Erweiterung von $w_{\hat{s}-1}$ in Stufe $\hat{s}$ ist, daher hätte die Bearbeitung von $\tau^2_{a,b}$ eben $t_{\hat{s}}=t'$ gesetzt, damit auch $t_{s}tau^2_{a,b})=t'(\tau^2_{a,b})=0$, was der Voraussetzung widerspricht.
 
 Sei
 \begin{equation*} \gamma(n) \defeq  \max(p_a(p_r(n))+p_r(n), p_b(p_r(n))+p_r(n)) \end{equation*}
@@ -265,9 +251,9 @@ Die Ungleichung stellt sicher, dass es genügend Wörter der Länge $n$ gibt, da
 
 Für den restlichen Beweis fixieren wir zusätzlich $n$.
 Beachte, dass $\ell(Q)\leq\gamma(n)$ für $Q$ die Menge der Orakelqueries ist, die jeweils von der Berechnung $M_a(F_r(0^n))$ oder der Berechnung $M_b(F_r(0^n))$ gestellt werden.
-Wir definieren nun $u\sqsupseteq w_{s-1}$ als ein $t_{s-1}$-gültiges partielles Orakel, das genau für alle Wörter bis zur Länge $<n$ definiert ist. Ein solches Orakel existiert nach Lemma~\ref{claim:oracle-up-extension}, indem man $w_{s-1}$ bitweise erweitert, so dass es $t_{s-1}$-gültig bleibt.
+Wir definieren nun $u\sqsupseteq w_{s-1}$ als ein $t_{s}$-gültiges partielles Orakel, das genau für alle Wörter bis zur Länge $<n$ definiert ist. Ein solches Orakel existiert nach Lemma~\ref{claim:oracle-up-extension}, indem man $w_{s-1}$ bitweise erweitert, so dass es $t_{s}$-gültig (bzw. identisch $t_{s-1}$-gültig) bleibt.
 
-Für unseren Beweis betrachten wir nicht alle $t_{s-1}$-gültigen $w$, sondern vielmehr eine ausreichende Teilmenge davon.
+Für unseren Beweis betrachten wir nicht alle $t_{s}$-gültigen $w$, sondern vielmehr eine ausreichende Teilmenge davon.
 Für $X \subseteq \Sigma^n, |X|\leq 2$ definieren wir ein partielles Orakel $u(X)\sqsupsetneq u$ als
 %\[ u(X) = (u\cup X \cup C)\cap\Sigma^{\leq\gamma(n)} \]
 \[
@@ -278,37 +264,28 @@ Für $X \subseteq \Sigma^n, |X|\leq 2$ definieren wir ein partielles Orakel $u(X
 das für alle Wörter bis zur Länge $\leq\gamma(n)$ definiert ist, und so dass $u(X) \cap \Sigma^n = X$, das heißt, $u(X)$ und $X$ stimmen in $\Sigma^n$ überein.
 
 Im Wesentlichen entsteht also $u(X)$ aus $u$, indem die Ebene $n$ mit $X$ gefüllt wird, und dann in den höheren Ebenen mit dem PSPACE-Orakel $C$ weitergemacht wird.
-Es ist leicht zu sehen, dass für $|X|\leq 1$ das Orakel $u(X)$ sogar $t_{s-1}$-valide ist, indem iterativ $u$ erweitert wird.
+Es ist leicht zu sehen, dass für $|X|\leq 1$ das Orakel $u(X)$ sogar $t_{s}$-valide ist, indem iterativ $u$ erweitert wird.
 
 \begin{claim}
-    Sei $|X|\leq 1$. Dann ist $u(X)$ ein $t_{s-1}$-valides Orakel.
+    Sei $|X|\leq 1$. Dann ist $u(X)$ ein $t_{s}$-valides Orakel.
 \end{claim}
 \begin{proof}
-    Seien $u_0, u_1, u_2, \dots, u_l$ eine nach Länge geordnete Aufzählung aller Präfixe von $u(X)$, die für mindestens alle Wörter der Länge $<n$ definiert sind, das heißt, 
-    \[ u = u_0 \sqsubsetneq u_1 \sqsubsetneq u_2 \sqsubsetneq \dots \sqsubsetneq u_l = u(X) \]
-    für ein geeignetes $l\in\mathbb N$.
-    Wir zeigen induktiv, dass jedes $u_k$, $0\leq k\leq l$, $t_{s-1}$-valide ist.
-    Daraus folgt, dass $u_l=u(X)$ auch $t_{s-1}$-valide ist.
-    Der Basisfall ist klar, da $u_0 = u$ nach Konstruktion $t_{s-1}$-valide ist.
+    Angenommen, es ist kein $t_{s}$-valies Orakel. Dann ist eine der Bedingungen V1--V7 verletzt. Wir zeigen, dass diese Annahme zu einem Widerspruch führt.
+    Klar ist, dass V3, V4, V6 nicht verletzt sein können, denn jede definite Berechnung relativ zu $u$ ist auch eine definite Berechnung relativ zu $u(X)$ nach Beobachtung~\ref{obs:partialoracles}(1).
 
-    Für den Induktionsfall von $u_k$ zu $u_{k+1}$ sei $z=|u_k|$ und $b=u(X)[z]$. Es gilt also $u_kb=u_{k+1}\sqsubseteq u(X)$, das heißt, $b$ ist das letzte Bit von $u_{k+1}$.
-    Beachte dass $n\leq |z|\leq \gamma(n)$.
-    Das Orakel $u_k$ ist nach Induktionshypothese $t_{s-1}$-valide.
-    Wir zeigen nun aufgeteilt in zwei Fälle, dass $u_kb=u_{k+1}$ auch $t_{s-1}$-valide ist. Hierfür werden wir Lemma~\ref{claim:oracle-up-extension} in Bezug auf das $t_{s-1}$-valide $u_k$ verwenden.
+    Angeommen, V1 ist verletzt. Dann muss ein $x$ mit $|x|\leq \gamma(n), |x|\neq e(\cdot)$ existieren, sodass $x\in u(X) \not\leftrightarrow x\in C$.
+    Klar ist, dass $|x|\geq n$ sein muss, da ansonsten schon $u$ nicht $t_{s}$-valide wäre; das wäre ein Widerspruch zur Konstruktion von $u$.
+    Also $n<|x|\leq \gamma(n)$. Dann wissen wir aber nach Definition von $u(X)$ dass $x\in u(X) \leftrightarrow x\in C$; Widerspruch zur Wahl von $x$.
 
-    Gilt $n<|z|\leq \gamma(n)$, dann wissen wir nach Definition dass $b=C[z]$. Da nach \eqref{eq:oracle1-expbound} insbesondere $n<|z|<2^n$ gilt, wissen wir auch dass $|z|\neq e(\cdot)$. Damit ist Lemma~\ref{claim:oracle-up-extension}(1) anwendbar, und es folgt dass $u_kb$ auch $t_{s-1}$-valide ist (gilt ja $b=1$ genau dann wenn $z\in C$).
+    Angenommen, V5 ist verletzt. Dann existiert ein $\tau'$ mit $t_{s}(\tau')=m'>0$ und $n'\in H_{m'}$ und $|\Sigma^{n'}\cap u(X)|>1$. Wieder klar ist, dass $n\leq n'\leq\gamma(n)<2^n$ sein muss, ansonsten wäre schon $u$ nicht mehr $t_{s}$-valide.
+    Dann aber muss auch $n=n'$, denn ansonsten wäre $n'\not\in H_{m'}$, nach Beobachtung~\ref{obs:leveldefinitions}.
+    Jetzt haben wir aber $|\Sigma^{n'}\cap u(X)|=|\Sigma^n\cap u(X)| = |X|\leq 1$; das ist ein Widerspruch zur Annahme $|\Sigma^{n'}\cap u(X)|>1$. Also kann V5 nicht verletzt sein. 
 
-    Gilt ansonsten $|z|=n$, dann gilt nach Definition dass $b=X[z]$. %Insbesondere gilt $|z|=n\in H_m$, wobei $m=t_{s-1}(\tau^2_{a,b})$ nach Wahl. %Damit ist Lemma~\ref{claim:oracle-up-extension}(2) anwendbar.
-    Da $n\in H_m$ gilt sofort, dass $|z|=e(\cdot)$ und Fall (1) von Lemma~\ref{claim:oracle-up-extension} nicht anwendbar ist.
-    Wenn nun $b=0$, dann sind wir sofort fertig, da in Fällen (2), (3) und (4) je $u_k0=u_kb$ $t_{\hat{s}-1}$-valide ist.
-
-    Sei also nun $b=1$. Dann muss auch $u_k\cap\Sigma^n=\emptyset$ gelten. Andernfalls wäre
-    \[ |u_{k}1\cap\Sigma^{n}|>1 \implies |u(X)\cap\Sigma^{n}|>1 \implies |X|>1, \]
-    was ein Widerspruch zur Wahl von $X$ ist.
-    Damit können Fälle (2) und (3) nicht auftreten. Heißt Lemma~\ref{claim:oracle-up-extension}(4) ist anwendbar und $u_k1=u_kb$ ist $t_{s-1}$-valide wie gewünscht.
+    Auf analoge Weise ist ersichtlich, dass auch V2 und V7 nicht verletzt sein können.
+    Damit ist keine Bedingung verletzt, $u(X)$ muss also $t_s$-valide sein.
 \end{proof}
 
-Wir haben angenommen, dass für $t_{s-1}$-valide Orakel nicht (1) oder (2) gilt. Angewendet auf $u(X), |X|\leq 1$ bedeutet das
+Wir haben angenommen, dass für $t_{s}$-valide Orakel nicht (1) oder (2) gilt. Angewendet auf $u(X), |X|\leq 1$ bedeutet das
 \begin{itemize}[nosep]
     \item Für $\alpha\in \Sigma^{n-1}0$ gilt $0^n\in A_m^{u(\{\alpha\})}$ und daher akzeptiert $M_a(F_r(0^n))$ definitiv relativ zu $u(\{\alpha\})$ auf einem Rechenweg mit Orakelmenge $Q_\alpha$.
     \item Für $\beta\in \Sigma^{n-1}1$ gilt $0^n\in B_m^{u(\{\alpha\})}$ und daher akzeptiert $M_b(F_r(0^n))$ definitiv relativ zu $u(\{\beta\})$ auf einem Rechenweg mit Orakelmenge $Q_\beta$.
@@ -334,7 +311,7 @@ Beachte, dass der Ausgangsgrad $\Delta$ von $G$ höchstens $\gamma(n)$ sein kann
 Nach \eqref{eq:oracle1-expbound} wissen wir nun, dass $|A|, |B|>2\Delta$. Mittels Lemma~\ref{lemma:bipartite} exisieren also $\alpha\in A = \Sigma^{n-1}0$, $\beta\in B=\Sigma^{n-1}1$ sodass weder $(a,b)\in E$ noch $(b,a)\in E$.
 In anderen Worten, es gilt $\alpha\not\in Q_\beta$ und $\beta\not\in Q_\alpha$.
 
-Betrachte nun $u(\{\alpha, \beta\})$. Wir zeigen nun zwei Dinge: erstens, dass $M_a(F_r(0^n))$ und $M_b(F_r(0^n))$ definitiv relativ zu $u(\{\alpha, \beta\})$ akzeptieren.
+Betrachte nun $u'\defeq u(\{\alpha, \beta\})$. Wir zeigen nun zwei Dinge: erstens, dass $M_a(F_r(0^n))$ und $M_b(F_r(0^n))$ definitiv relativ zu $u(\{\alpha, \beta\})$ akzeptieren.
 Zweitens anschließend, dass $u(\{\alpha,\beta\})$ auch $t'$-valide ist.
 
 Für die erste Aussage beobachten wir, dass $u(\{\alpha\})$ und $u(\{\alpha, \beta\})$ auf $Q_\alpha$ übereinstimmen. Angenommen sie stimmen nicht überein, dann müssen sie nach Konstruktion auf $\beta$ nicht übereinstimmen. Dann wäre aber $\beta\in Q_\alpha$, was ein Widerspruch zur Wahl von $\beta$ ist.
@@ -343,51 +320,40 @@ Also akzeptieren $M_a(F_r(0^n))$ und $M_b(F_r(0^n))$ definitiv relativ zu $u(\{\
 
 Nun zur zweiten Aussage. Zunächst zeigen wir $t_{\hat{s}-1}$-Validität.
 \begin{claim}
-    Das Orakel $u(\{\alpha, \beta\})$ ist $t_{\hat{s}-1}$-valide.
+    Das Orakel $u'=u(\{\alpha, \beta\})$ ist $t_{\hat{s}-1}$-valide.
 \end{claim}
 \begin{proof}
-    Seien wieder $u_0, u_1, u_2, \dots, u_l$ eine nach Länge geordnete Aufzählung aller Präfixe von $u(\{\alpha, \beta\})$, die für mindestens alle Wörter der Länge $<n$ definiert sind, das heißt, 
-    \[ u = u_0 \sqsubsetneq u_1 \sqsubsetneq u_2 \sqsubsetneq \dots \sqsubsetneq u_l = u(\{\alpha,\beta\}) \]
-    für ein geeignetes $l\in\mathbb N$.
-    Wir zeigen induktiv, dass jedes $u_k$, $0\leq k\leq l$, $t_{s-1}$-valide ist.
-    Der Basisfall ist klar, da $u_0 = u$ nach Konstruktion $t_{s-1}$-valide ist, und damit ist leicht zu sehen dass $u$ auch $t_{\hat{s}-1}$-valide ist.
+    Angenommen, es ist kein $t_{\hat{s}-1}$-valies Orakel. Dann ist eine der Bedingungen V1--V7 verletzt. Wir zeigen, dass diese Annahme zu einem Widerspruch führt.
+    Wieder klar ist, dass V3, V4, V6 nicht verletzt sein können, denn jede definite Berechnung relativ zu $t_{\hat{s}-1}$-validem $u$ ist auch eine definite Berechnung relativ zu $u'$ nach Beobachtung~\ref{obs:partialoracles}(1).
+    Auch V1 kann nicht verletzt sein; das folgt aus dem gleichen Argument wie im Beweis von Behauptung~\ref{}.
 
-    Für den Induktionsfall von $u_k$ zu $u_{k+1}$ sei $z=|u_k|$ und $b=u(X)[z]$. 
-    Beachte wieder dass $n\leq |z|\leq \gamma(n)$.
-    Das Orakel $u_k$ ist nach Induktionshypothese $t_{\hat{s}-1}$-valide.
+    Angenommen, V5 ist verletzt. Dann existiert ein $\tau'$ mit $t_{\hat{s}-1}(\tau')=m'>0$ und $n'\in H_{m'}$ und $|\Sigma^{n'}\cap u(X)|>1$. 
+    Wieder folgt $n=n'$.
+    Insbesondere folgt daraus auch $m=m'$, denn $n$ ist nur in $H_m$ enthalten.
+    Gleichzeitig haben wir $\tau'\neq \tau^2_{a,b}$, da $\tau^2_{a,b}\not\in\dom(t_{\hat{s}-1})$.
+    Damit gilt aber $t_s(\tau')=t_{\hat{s}-1}(\tau')=m'=m=t_s(\tau^2_{a,b})$; Widerspruch zur Injektivität von $t_s\in\mathcal T$ auf dem Support.
+    Also kann V5 nicht verletzt sein. 
+    Auf analoge Weise ist ersichtlich, dass auch V7 nicht verletzt sein kann.
 
-    Gilt $n<|z|\leq \gamma(n)$, dann wissen wir nach Definition dass $z=C[b]$. Wie bei Beweis von Behauptung~\ref{} ist Lemma~\ref{claim:oracle-up-extension}(1) anwendbar, und es folgt dass $u_kb$ auch $t_{\hat{s}-1}$-valide ist.
+    Angenommen, V2 ist verletzt. Dann existiert ein $i$ mit $|u'\cap\Sigma^{n'}|>2$ für $n'=e(i)$.
+    Wieder folgt $n=n'$.
+    Jetzt haben wir aber $|\Sigma^{n'}\cap u'|=|\Sigma^n\cap u(\{\alpha, \beta\})| = |\{\alpha,\beta\}|=2$; das ist ein Widerspruch zur Annahme $|\Sigma^{n'}\cap u'|>2$. Also kann V2 nicht verletzt sein. 
 
-    Gilt ansonsten $|z|=n$, dann gilt nach Definition dass $b=X[z]$. 
-    Da $n\in H_m$ gilt sofort, dass $|z|=e(\cdot)$ und Fall (1) von Lemma~\ref{claim:oracle-up-extension} nicht anwendbar ist.
-    Wenn nun $b=0$, dann sind wir sofort fertig, da in Fällen (2), (3) und (4) je $u_k0=u_kb$ $t_{\hat{s}-1}$-valide ist.
-
-    Sei also nun $b=1$. Wir zeigen, dass Fall (4) von Lemma~\ref{claim:oracle-up-extension} zur Anwendung kommt und daher $u_kb$ auch $t_{\hat{s}-1}$-valide ist.
-    Hierfür zeigen wir, dass Fälle (2) und (3) nicht auftreten können.
-
-    Angenommen, Fall (2)  von Lemma~\ref{claim:oracle-up-extension} kommt zur Anwendung, dann gilt insbesondere $|u_k\cap\Sigma^{n}|\geq 2$.
-    Dann aber wäre
-    \[ |u_k1\cap\Sigma^n|>2 \implies |u(\{\alpha,\beta\})\cap\Sigma^n|>2 \]
-    was der Konstruktion von $u(\{\alpha,\beta\})$ widersprechen würde, da $u(\{\alpha,\beta\})\cap\Sigma^n=\{\alpha,\beta\}$.
-    Also kann Fall (2) nicht zur Anwendung kommen.
-
-    Angenommen, Fall (3) von Lemma~\ref{claim:oracle-up-extension} kommt zur Anwendung, dann existiert aber ein $\tau\in\dom(t_{\hat{s}-1})$, $\tau\neq\tau^2_{a,b}$ mit $t_{\hat{s}-1}(\tau)=m>0$, also auch $t_{s-1}(\tau)=m=t_{s-1}(\tau^2_{a,b})$, was einen Widerspruch zur Injektivität von $t_{s-1}\in\mathbb T$ auf dem Support ist. Also kann Fall (3) nicht zur Anwendung kommen.
-
-    Also ist $u_kb=u_k1$ auch $t_{\hat{s}-1}$-valide mit Lemma~\ref{claim:oracle-up-extension}(4), wie gewünscht.
+    Damit ist keine Bedingung verletzt, $u'$ muss also $t_{\hat{s}-1}$-valide sein.
 \end{proof}
-Wir erinnern uns daran dass $t'=t_{s-1}\cup \{\tau^2_{a,b}\mapsto 0\}$.
+Wir erinnern uns daran dass $t'=t_{\hat{s}-1}\cup \{\tau^2_{a,b}\mapsto 0\}$.
 Nun ist es leicht zu sehen, dass $u'\defeq u(\{\alpha,\beta\})$ auch $t'$-valide ist. Das Orakel $u'$ ist nach voriger Behauptung $t_{\hat{s}-1}$-valide, und bei der Erweiterung von $t_{\hat{s}-1}$ zu $t'$ kommt nur $\tau^2_{a,b}\mapsto 0$ hinzu. Das bedeutet, dass wir nur noch die Bedingung V4 bezüglich $a,b$ verifizieren müssen.
 Sei nun $y=F_r(0^n)$ relativ zu $u'$.
 Nach voriger Aussage oben wissen wir aber, dass $M_a(y)$ und $M_b(y)$ relativ zu $u'$ beide definitiv akzeptieren, wie von V4 verlangt.
 
 Da nun also $u'\sqsupsetneq u \sqsupsetneq w_{\hat{s}-1}$ auch $t'$-valide ist, sind wir fertig und erreichen einen Widerspruch, wie anfangs argumentiert: während der Bearbeitung von Task $\tau^2_{a,b}$ in Stufe $\hat{s}$ war das Orakel $u'$ eine mögliche $t'$-valide Erweiterung von $w_{\hat{s}-1}$, denn es ist $t'$-valide und $u'\sqsupsetneq w_{\hat{s}-1}$. Also wäre nach Definition des Tasks $\tau^2_{a,b}$ dann $t_{\hat{s}}=t'$ gesetzt worden.
-Damit wäre dann auch $t_{s-1}(\tau^2_{a,b})=t'(\tau^2_{a,b})=0$, was der Voraussetzung dieses Lemma~\ref{} widerspricht.
+Damit wäre dann auch $t_{s}(\tau^2_{a,b})=t'(\tau^2_{a,b})=0$, was der Voraussetzung dieses Lemma~\ref{} widerspricht.
 \end{proof}
 
 \todo{Fluff}
 
 \begin{lemma}
-    Die Bearbeitung eines Tasks $\tau^3_{a,r}$ ist möglich: gilt $t_{s-1}(\tau^3_{a})=m>0$, dann lässt sich $w_{s-1}$ so zu $t_{s-1}$-validem $w\sqsupsetneq w_{s-1}$ erweitern, dass eine der folgenden Fälle eintritt:
+    Die Bearbeitung eines Tasks $\tau^3_{a,r}$ ist möglich: gilt $t_s=t_{s-1}, t_{s}(\tau^3_{a})=m>0$, dann lässt sich $w_{s}$ so zu $t_{s}$-validem $w\sqsupsetneq w_{s-1}$ erweitern, dass eine der folgenden Fälle eintritt:
         \begin{itemize}[nosep,endpenalty=10000]
             \item $0^n\in C_m^v$ für alle $v\sqsupseteq w$ und $M_a(F_r(0^n))$ lehnt relativ zu $w$ definitiv ab.
             \item $0^n\not\in C_m^v$ für alle $v\sqsupseteq w$ und $M_a(F_r(0^n))$ akzeptiert relativ zu $w$ definitiv.
@@ -395,11 +361,11 @@ Damit wäre dann auch $t_{s-1}(\tau^2_{a,b})=t'(\tau^2_{a,b})=0$, was der Voraus
 \end{lemma}
 \begin{proof}
 Wir verfahren wie im Beweis von Lemma~\ref{thm:disjnp}.
-Um wieder einen Widerspruch abzuleiten, nehmen wir an, dass für alle $t_{s-1}$-gültigen $w\sqsupsetneq w_{s-1}$ weder (1) noch (2) zutrifft.
+Um wieder einen Widerspruch abzuleiten, nehmen wir an, dass für alle $t_{s}$-gültigen $w\sqsupsetneq w_{s-1}$ weder (1) noch (2) zutrifft.
 Definiere wieder identisch $u$ und $u(X)$.
-Wieder gilt nach Behauptung~\ref{} dass $u(X)$ immer $t_{s-1}$-valide ist wenn $|X|\leq 1$.
+Wieder gilt nach Behauptung~\ref{} dass $u(X)$ immer $t_{s}$-valide ist wenn $|X|\leq 1$.
 Wir haben also:
-\begin{itemize}[noitemsep]
+\begin{itemize}[nosep]
     \item Die Berechnung $M_a(F_r(0^n))$ lehnt relativ zu $u(\emptyset)$ definitiv ab.
     \item Für $\xi\in \Sigma^{n}$ gilt $0^n\in C_m^{u(\{\xi\})}$ und daher akzeptiert $M_a(F_r(0^n))$ definitiv relativ zu $u(\{\xi\})$ auf einem Rechenweg mit Orakelmenge $Q_\xi$.
 \end{itemize}
@@ -422,12 +388,48 @@ Wieder gilt nach Behauptung~\ref{} dass $u'\defeq u(\{\alpha, \beta\})$ auch $t_
 Dann lässt sich auch leicht sehen, dass $u'$ auch $t'$-valide ist. Es kommt V6 bezüglich $a$ hinzu, aber wir haben ja eben gesehen, dass $M_a$ auf zwei unterschiedlichen Rechenwegen definitiv akzeptiert.
 
 Da nun also $u'\sqsupsetneq u \sqsupsetneq w_{\hat{s}-1}$ auch $t'$-valide ist, sind wir fertig und erreichen einen Widerspruch: während der Bearbeitung von Task $\tau^2_{a,b}$ in Stufe $\hat{s}$ war das Orakel $u'$ eine mögliche $t'$-valide Erweiterung von $w_{\hat{s}-1}$. Also wäre nach Definition des Tasks $\tau^2_{a,b}$ dann $t_{\hat{s}}=t'$ gesetzt worden.
-Damit wäre dann auch $t_{s-1}(\tau^2_{a,b})=t'(\tau^2_{a,b})=0$, was der Voraussetzung dieses Lemma~\ref{} widerspricht.
+Damit wäre dann auch $t_{s}(\tau^2_{a,b})=t'(\tau^2_{a,b})=0$, was der Voraussetzung dieses Lemma~\ref{} widerspricht.
 \end{proof}
 
 Damit ist die Konstruktion möglich. Sei $O\defeq \bigcup_{s\in\mathbb N} w_s$.
+Beachte dass $w_s\sqsubsetneq O$ für alle $w_s$.
+
+Sei außerdem $t_\omega \defeq \bigcup_{s\in\mathbb N} t_s$. Beachte, dass nach Definition von $t_0, t_1, \dots$ auch $t_\omega$ eine (totale) Funktion ist.
+Beachte außerdem, dass $|w_0|<|w_1|< |w_2|< \ldots$ eine nach oben unbeschränkte Folge ist.
 
 \subsection*{Eigenschaften vom konstruierten Orakel}
+
+
+\begin{claim}
+    \begin{enumerate}
+        \item Es gilt $C\subseteq O$ und $O$ und $C$ stimmen auf allen Wörtern der Länge $\neq e(\cdot)$ überein.
+        \item Wenn $t_\omega(\tau^1_j)=0$, dann gilt $L(M_j^O)\neq\Sigma^*$.
+        \item Wenn $t_\omega(\tau^2_{a,b})=m>0$, dann gilt $|O\cap \Sigma^n|\leq 1$ für alle $n\in H_m$. Insbesondere gilt damit $(A_m^O, B_m^O)\in\DisjUP^O$.
+        \item Wenn $t_\omega(\tau^3_{a})=m>0$, dann gilt $|O\cap \Sigma^n|\leq 1$ für alle $n\in H_m$. Insbesondere gilt damit $(C_m^O)\in\UP^O$.
+    \end{enumerate}
+\end{claim}
+\begin{proof}
+    \begin{prooflist}
+    \item Zu (1): Wir zeigen zunächst Übereinstimmung. Sei $x$ ein Wort mit $|x|\neq e(\cdot)$. Wir zeigen dass $x\in C$ genau dann wenn $x\in O$. Wähle ein $s$ sodass $x<|w_s|$, heißt $w_s$ wird von $x$ definiert. Nun ist $w_s$ auch $t_s$-valide, und mit V1 gilt insbesondere $x\in w_s \iff x\in C$.
+        Da nun $w_s\sqsubsetneq O$, gilt auch $x\in O \iff x\in w_s \iff x\in C$ und wir sind fertig.
+
+        Für die Inklusion $C\subseteq O$ sei $y\in C$ gegeben. Nach unserer Wahl von $C$ war $C\cap\Sigma^{e(i)}=\emptyset$ für alle $i$, heißt $y$ kann nicht die Länge $e(\cdot)$ haben.
+        Damit gilt dann mit Übereinstimmung auch $y\in O$.
+
+    \item Zu (2): Nach Voraussetzung muss es ein $s$ geben, für das $t_s(\tau^1_j)=0$. Insbesondere ist $w_s$ auch $t_s$-valide, und mit V3 existiert ein $z$ sodass $M_j^{w_s}(z)$ definitiv ablehnt.
+        Da $w_s\sqsubseteq O$, folgt mit Beobachtung~\ref{obs:partialoracles}(1), dass $M_j^O(z)$ auch definitiv ablehnen wird.
+
+    \item Zu (3): Angenommen, es existiert ein $n\in H_m$ für das $|O\cap\Sigma^n|>1$.
+        Wähle ein $s$ sodass $w_s$ alle Wörter der Länge $\leq n$ definiert. Dieses $w_s$ ist insbesondere $t_s$-valide.
+
+        Nun gilt $t_s(\tau^2_{a,b})=t_\omega(\tau^2_{a,b})=m>0$, und mit V5 gilt insbesondere $|w_s\cap\Sigma^n|\leq 1$.
+        Da nun $w_s$ und $O$ auf $\Sigma^{n}$ übereinstimmen, haben wir auch $|O\cap\Sigma^n|\leq 1$. Das widerspricht der Annahme.
+
+        Also gilt $|O\cap\Sigma^n|\leq 1$ für alle $n\in H_m$. Dann folgt aus Beobachtung~\ref{}(1) auch schon sofort, dass $(A_m^O, B_m^O)\in\DisjUP$.
+
+    \item Zu (4): Beweis läuft analog wie bei (3).
+    \end{prooflist}
+\end{proof}
 
 \begin{claim}
     \begin{enumerate}
@@ -447,22 +449,13 @@ Damit ist die Konstruktion möglich. Sei $O\defeq \bigcup_{s\in\mathbb N} w_s$.
     Das bedeutet aber $x\in U\cap U'$; Widerspruch zur Wahl von $U, U'$ als disjunkt.
 
     Daher können wir annehmen, dass $m\defeq  t_{\hat{s}}(\tau^2_{a,b})>0$ ist.
-    Betrachte nun das Paar $(A^O_m, B^O_m)$. Wir zeigen mit V4, dass dieses Paar ein disjunktes UP-Paar ist.
-    %Nehmen Sie andernfalls an, dass gemäß der Kontraposition von Beobachtung~\ref{obs:witnesses}(i) für einige $n$ gilt $|O\cap \Sigma^n|>1$.
-    Andernfalls gilt mit Kontraposition von Beobachtung~\ref{}(1), dass $|O\cap\Sigma^n|>1$ für ein $n$.
-    Wähle nun ein hinreichend großes $s'$, sodass $w_{s'}$ für alle Wörter der Länge $n$ definiert ist.
-    Da $w_{s'}$ $t_{s'}$-gültig ist, ist V4 anwendbar und sagt aus, dass $|\Sigma^n\cap w_{s'}|\leq 1$ ist. Da $w_{s'}$ so gewählt ist, dass es für alle Wörter der Länge $n$ definiert ist, stimmen $w_{s'}$ und $O$ in $\Sigma^n$ überein. Daher erhalten wir $|\Sigma^n\cap O|\leq 1$, was im Widerspruch zur Annahme steht.
-
-    Daher gilt $(A^O_m, B^O_m)\in\DisjUP^O$. Also gilt nach Annahme auch $(A^O_m, B^O_m) \leqmpp (U, U')$.
+    Insbesondere ist daher $t_\omega(\tau^2_{a,b})>0$ und nach voriger Behauptung~\ref{}(3) gilt dann auch $(A^O_m, B^O_m)\in\DisjUP^O$. Also gilt nach Annahme auch $(A^O_m, B^O_m) \leqmpp (U, U')$.
+    
     Sei nun $r$ so gewählt, dass diese Reduktion von $F^O_r$ realisiert wird, und betrachte Task  $\tau^2_{i,j,r}$, welcher in einem bestimmten Schritt $s$ behandelt wird.
     Nach Definition dieses Task existiert ohne Beschränkung der Allgemeinheit ein $n\in\mathbb N$ sodass $0^n\in A_m^O$, und $M_a(F_r(0^n))$ definitiv relativ zu $w_s$ ablehnt.
 
     Mit Beobachtung~\ref{obs:partialoracles}(1) erhalten wir dann, dass $M_a(F_r(0^n))$ relativ zu $O$ ablehnt. Also auch $F^O_r(0^n)\not\in U$. Dies widerspricht der Annahme, dass $F_r^O$ die Reduktion realisiert, denn wir haben ja $0^n\in A_m^O$.
 \end{proof}
-
-\begin{claim}
-    Es gilt $C\subseteq O$ und $O$ und $C$ stimmen auf allen Wörtern der Länge $\neq e(\cdot)$ überein.
-\end{claim}
 
 
 \begin{claim}
@@ -484,28 +477,31 @@ Damit ist die Konstruktion möglich. Sei $O\defeq \bigcup_{s\in\mathbb N} w_s$.
     Außerdem ist klar, dass $v\sqsupsetneq w_s \sqsupsetneq w_{s-1}$.
 
     Sei $t'=t_{s-1}\cup \{\tau^1_j\mapsto 0\}$
-    Wir zeigen nun, dass $v$ auch $t'$-valide ist. Damit wäre $v$ eine geeignete Erweiterung in Stufe $s$ und wir hätten $t_s=t'$. 
+    Wir zeigen unten, dass $v$ auch $t_{s-1}$-valide ist. Damit ist dann klar,
+    dass $v$ auch $t'$-valide ist: es kommt nur V3 bezüglich $M_j$ hinzu, aber wir haben ja bereits gesehen dass $M_j^v(z)$ definitiv ablehnt.
 
-
-
-    Damit wäre während der Bearbeitung von Task $\tau^1_{j}$ in Stufe $s$ das Orakel $v$ eine mögliche $t'$-valide Erweiterung von $w_{s-1}$, denn es ist $t'$-valide und $v\sqsupsetneq w_{s-1}$. Also wäre nach Definition des Tasks $\tau^1_{j}$ dann $t_{s}=t'$ gesetzt worden,
+    %Damit wäre $v$ eine geeignete Erweiterung in Stufe $s$ und wir hätten $t_s=t'$. 
+    Insbesondere ist dann während der Bearbeitung von Task $\tau^1_{j}$ in Stufe $s$ das Orakel $v$ eine mögliche $t'$-valide Erweiterung von $w_{s-1}$, denn es ist $t'$-valide und $v\sqsupsetneq w_{s-1}$. Also wäre nach Definition des Tasks $\tau^1_{j}$ dann $t_{s}=t'$ gesetzt worden,
     und wir hätten $t_s(\tau^1_j)=0$.
+    Dann wäre aber auch $t_\omega(\tau^1_j)=0$, und nach voriger Behauptung~\ref{}(2) damit $L(M_j^O)\neq\Sigma^*$. Widerspruch zur Wahl von $M_j$.
 
-    Damit erreichen wir einen Widerspruch: nach V3 wird $M_j$ eine Eingabe relativ zu $w_s$ definitiv ablehnen, mit Beobachtung~\ref{obs:partialoracles}(1) dann auch $L(M_j^O)\neq\Sigma^*$; Widerspruch zur Wahl von $M_j$.
+    Es bleibt zu zeigen dass $v$ auch $t_{s-1}$-valide ist. Angenommen, $v$ ist nicht $t_{s-1}$-valide, dann muss eine Bedingung V1--V7 verletzt sein. Zur Erinnerung: $v\sqsupsetneq w_{s-1}$ und $w_{s-1}$ ist $t_{s-1}$-valide.
+    Wieder klar ist, dass V3, V4, V6 nicht verletzt sein können, denn jede definite Berechnung relativ zu $w_{s-1}$ ist auch eine definite Berechnung relativ zu $v$ nach Beobachtung~\ref{obs:partialoracles}(1).
 
-    Seien $v_0, v_1, v_2, \dots, v_l$ eine nach Länge geordnete Aufzählung aller Präfixe von $v$, die mindestens $w_{s-1}$ als Präfix haben, das heißt, 
-    \[ w_{s-1} = v_0 \sqsubsetneq v_1 \sqsubsetneq v_2 \sqsubsetneq \dots \sqsubsetneq v_l = v \]
-    für ein geeignetes $l\in\mathbb N$.
-    Wir zeigen induktiv, dass jedes $v_k$, $0\leq k\leq l$, $t_{s-1}$-valide ist.
-    Basisfall klar.
-    Für den Induktionsfall von $v_k$ zu $v_{k+1}$ sei $z=|v_k|$ und $b=v[z]$. 
-    Das Orakel $v_k$ ist nach Induktionshypothese $t_{s-1}$-valide.
+    Angenommen V1 ist verletzt. Dann existiert ein $x<|v|$ und $|x|\neq e(\cdot)$ und $x\in v \not\leftrightarrow x\in C$.
+    Nach Voraussetzung dieser Behauptung stimmen aber $T$ und $O$ auf $x$ überein; wir haben daher
+    \[ x\in v \leftrightarrow x\in T \leftrightarrow x\in O \leftrightarrow x\in C, \]
+    wobei letzte Äquivalenz aus Beobachtung~\ref{}(1) folgt. Widerspruch zur Annahme; V1 kann nicht verletzt sein.
 
-    Gilt $|z|\not\in\img(e)$, dann wissen wir dass $b = v[z] = O[z]$, und nach voriger Behauptung~\ref{} dann auch $b = O[z] = C[z]$.
-    Mit Lemma~\ref{claim:oracle-up-extension}(1) gilt dann sofort, dass $v_kb$ auch $t_{s-1}$-valide ist.
+    Angenommen, V5 ist verletzt. Dann existiert ein $\tau'$ mit $t_{s-1}(\tau')=m'>0$ und $n'\in H_{m'}$ und $|\Sigma^{n'}\cap v|>1$. Insbesondere gilt $t_\omega(\tau')=m'>0$.
+    Außerdem muss $n'\leq m$ sein, da ansonsten $\Sigma^{n'}$ nicht durch $v$ definiert ist (und damit $v\cap\Sigma^{n'}=\emptyset$.
+    Insbesondere stimmen damit $v$ und $T$ auf $\Sigma^{n'}$ überein.
+    Damit gilt
+    \[ |\Sigma^{n'}\cap v|=|\Sigma^{n'}\cap T|\leq |\Sigma^{n'}\cap O| \leq 1, \]
+    wobei die erste Ungleichung aus $T\subseteq O$ folgt, und die zweite Ungleichung aus voriger Behauptung~\ref{}(2) folgt.
+    Das widerspricht der Annahme $|\Sigma^{n'}\cap v|>1$, also kann V5 nicht verletzt sein. Auf analoge Weise lässt sich zeigen, dass V2 und V7 nicht verletzt sein können.
 
-    Gilt $|z|=e(i)$ für ein $i$, dann 
-    
+    Damit ist keine Bedingung verletzt, $v$ muss also $t_{s-1}$-valide sein.
 \end{proof}
 
 \begin{claim}
