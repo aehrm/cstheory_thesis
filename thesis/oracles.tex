@@ -5,13 +5,18 @@
 
 \subsection*{Notation zur Orakelkonstruktion}
 
-Zunächst sei $\{M_i\}_{i\in \mathbb N}$, $\{N_i\}_{i\in \mathbb N}$, $\{F_i\}_{i\in\mathbb N}$ eine sogenannte \emph{Standardaufzählung} der Orakel-PTMs bzw. Orakel-NPTMs, welche folgende Eigenschaften hat:
+Zunächst seien $\{M_i\}_{i\in \mathbb N}$, $\{N_i\}_{i\in \mathbb N}$, $\{F_i\}_{i\in\mathbb N}$ sogenannte \emph{Standardaufzählungen} der Orakel-PTMs, Orakel-NPTMs, bzw. Orakel-PTM-Tranduktoren, welche folgende Eigenschaften hat:
 \begin{enumerate}[label=\arabic*.,nosep]
-    \item Die Menge $\{N_i \mid i\in\mathbb N\}$ ist in Polynomialzeit erkennbar.
-    \item Für jedes Orakel $D$ terminiert $N_i^D(x)$ nach höchstens $p_i(|x|)\defeq |x|^i+i$ Schritten.
-    \item Für jede Orakel-NPTM $N$ existiert ein $i$ sodass $L(N^D_i)=L(N^D).$.
+    \item Die Mengen $\{M_i \mid i\in\mathbb N\}$, $\{N_i \mid i\in\mathbb N\}$, $\{F_i \mid i\in\mathbb N\}$ sind in Polynomialzeit entscheidbar, heißt es ist effizient entscheidbar, ob der gegebene Maschinencode einer TM der Standardaufzählung entspricht.
+    \item Für jedes Orakel $D$ terminiert $M_i^D(x)$ nach höchstens $p_i(|x|)\defeq |x|^i+i$ Schritten; analog für $N_i$ und $T_i$.
+    \item Für jede Orakel-PTM $M$ existiert ein $i$ sodass $L(M^D_i)=L(M^D)$, 
+        für jede Orakel-NPTM $N$ existiert ein $i$ sodass $L(N^D_i)=L(N^D)$, und
+        für jeden Orakel-PTM-Transduktor $T$ existiert ein $i$ sodass $T^D(x)=T_i^D(x)$.
+        %Insbesondere kann jeder akzeptierender Rechenweg $\alpha$ einer Berechnung $N_i(x)$ in einen akzeptierenden Rechenweg $\alpha'$ der Berechnung $N(x)$ effizient übersetzt werden.
 \end{enumerate}
-Analoge Eigenschaften gelten für die Aufzählung $\{M_i\}$ der PTMs und $\{T_i\}$ der PTM-Transduktoren.
+%Analoge Eigenschaften gelten für die Aufzählung $\{M_i\}$ der PTMs und $\{T_i\}$ der PTM-Transduktoren.
+Solche Standardaufzählungen existieren. Eine Möglichkeit, diese zu konstruieren ist beispielsweise, jede nichtdeterministische TM mit einem Timer auszustatten, die nach polynomieller Laufzeit die Berechnung abbricht. Konkret: gegeben $i$, sei zunächst $N$ die nichtdeterministische TM mit Codierung $i$. Die TM $N_i$ führt dann auf Eingabe $x$ parallel zur Rechnung $N(x)$ auf jedem Rechenweg einen Timer aus, der nach $>|x|^i+i$ Schritten den Rechenweg ablehnend abbricht.
+Damit ist die Laufzeit von $N_i$ polynomiell beschränkt auf $p_i$.
 
 Um nun die beiden Orakel zu konstruieren, wenden wir ein Verfahren von \textcite{dose_np-completeness_2019} an, welche sich als ein starkes Framework erwiesen hat, Orakel zu konstruieren die simultan mehrere Eigenschaften erfüllen.
 Dieses Framework werden wir im nächsten Abschnitt gleich beim Einsatz der ersten Konstruktion detailiert erläutern; in der zweiten Konstruktion auf eine detailierte Beschreibung aber weitestgehend verzichten.
@@ -21,7 +26,7 @@ Wir formalisieren solche partiell definierten Orakel mittels finiten Wörten $w\
 ein finites Wort $w\in\Sigma^*$ können wir im Folgenden auch als die Menge $\{ i \mid i<|w|, w[i] = 1 \}$ verstehen (aber $|w|$ immer als die Länge von $w$).
 Die intendierte Interpretation ist, dass gegenüber der \emph{Menge} $w$ die Zugehörigkeit aller Zahlen (bzw. äquivalent Wörtern) $x$ mit $x<|w|$ final speizifiziert ist, nicht dagegen für $x\geq|w|$ (und nur ersatzweise $x\not\in w$ gilt).
 
-Diese Interpretation von finiten Wörtern $w$ als Orakel macht es einfacher, unsere Orakelkonstruktionen präzise und knapp zu beschreiben. Üblicherweise werden wir $w$ so erweitern, dass die Zugehörigkeit des kleinsten $x\in\mathbb N$ spezifiziert wird, welche noch nicht final spezifiziert ist. Dieses $x$ ist genau $|w|$ und wir legen die Zugehörigkeit final fest, indem wir an $w$ entweder $0$ anhängen (und $x$ ist final nicht im Orakel $w0$) oder $1$ anhängen (und $x$ ist final im Orakel $w1$).
+Diese Inerpretation von finiten Wörtern $w$ als Orakel macht es einfacher, unsere Orakelkonstruktionen präzise und knapp zu beschreiben. Üblicherweise werden wir $w$ so erweitern, dass die Zugehörigkeit des kleinsten $x\in\mathbb N$ spezifiziert wird, welche noch nicht final spezifiziert ist. Dieses $x$ ist genau $|w|$ und wir legen die Zugehörigkeit final fest, indem wir an $w$ entweder $0$ anhängen (und $x$ ist final nicht im Orakel $w0$) oder $1$ anhängen (und $x$ ist final im Orakel $w1$).
 
 
 Wir können relativ diesem partiell definierten Orakel auch rechnen. Definiere $M^w(x)$ entsprechend als $M^{\{i\mid w(i)=1\}}(x)$ (heißt, Orakel-Anfragen, für die $w$ nicht definiert ist, werden negativ beantwortet).
@@ -34,7 +39,7 @@ Dies ermöglicht es uns auch, folgenden Begriff zu definieren: Wir sagen, dass N
     \end{enumerate}
 \end{observation}
 
-Für ein partielles Orakel $w$, einen PTM-Transduktor $F$ und eine (N)PTM $M$ schreiben wir manchmal $M^w(F^w(x))$ als die \emph{eine} Berechnung der Maschine $M\circ F$ auf Eingabe $x$ relativ zu $w$.
+Für ein partielles Orakel $w$, einen PTM-Transduktor $F$ und eine (N)PTM $M$ schreiben wir manchmal $M^w(F^w(x))$ als die \emph{eine} Berechnung der (N)PTM $M\circ F$ auf Eingabe $x$ relativ zu $w$.
 Entsprechend sagen wir dann auch, dass $M^w(F^w(x))$ definit ist (bzw. definitiv akzeptiert, oder definitiv ablehnt) when $M\circ F$ definit auf Eingabe $x$ relativ zu $w$ ist (bzw. definitiv akzeptiert, defitiv ablehnt).
 
 In unseren Orakelonstruktionen möchten wir abzählbar unendlich viele \emph{Ebenen} $n$, das heißt, Wörter gleicher Länge $n$, für eine abzählbar unendliche Familie von Zeugensprachen mit zunehmend großen Lücken injektiv reservieren und zuordnen.
@@ -102,7 +107,7 @@ Sind die Ebenen der Höhe $H_m$ in $O$ auf geeignete Weise gefüllt, lässt sich
 \end{claim}
 
 \subsection*{Idee und Vorschau der Konstruktion}
-\todo{Fluff}
+\todo{Idee skizzieren}
 
 Ein Orakel $w\in\Sigma^*$ ist $t$-valide wenn $t\in\mathcal T$ und folgendes gilt:
 \begin{enumerate}[label={V\arabic*}]
@@ -110,8 +115,8 @@ Ein Orakel $w\in\Sigma^*$ ist $t$-valide wenn $t\in\mathcal T$ und folgendes gil
         (Orakel $w$ und $C$ stimmen auf Wörtern mit Länge $\neq e(\cdot)$ überein.)
     \item Für alle $i$ gilt $|w\cap \Sigma^{e(i)}|\leq 2$.\\
         (Orakel $w$ ist dünn auf den Ebenen der Länge $e(\cdot)$.)
-    \item Wenn $t(\tau^1_j)=0$, dann existiert ein $z$ sodass $M_j^w(z)$ definitiv ablehnt.\\
-        ($L(M_j)\neq \Sigma^*$ relativ zum finalen Orakel.)
+    \item Wenn $t(\tau^1_j)=0$, dann existiert ein $z$ sodass $N_j^w(z)$ definitiv ablehnt.\\
+        ($L(N_j)\neq \Sigma^*$ relativ zum finalen Orakel.)
     \item Wenn $t(\tau^2_{a,b})=0$, dann existiert ein $z$ sodass $M_a^w(z)$ und $M_b^w(z)$ definitiv akzeptieren.\\
         (Wenn $t(\tau^2_{a,b})=0$, dann $L(M_a)\cap L(M_b)\neq \emptyset$ relativ zum finalen Orakel.)
     \item Wenn $0<t(\tau^2_{a,b})=m$, dann gilt für alle $n\in H_m$ dass $|\Sigma^{n}\cap w|\leq 1$.\\
@@ -124,46 +129,63 @@ Ein Orakel $w\in\Sigma^*$ ist $t$-valide wenn $t\in\mathcal T$ und folgendes gil
 
 
 \subsection*{Induktive Definition des Orakels}
-\todo{Fluff}
 
-Sei $T$ eine abzählbare Aufzählung der o.g. Tasks sodass $\tau^2_{a,b,r}$ immer nach $\tau^2_{a,b}$ kommt, sowie $\tau^3_{a,r}$ immer nach $\tau^3_a$ kommt.
+Sei $T$ eine abzählbare Aufzählung der oben genannten Tasks sodass $\tau^2_{a,b,r}$ immer nach $\tau^2_{a,b}$ kommt, sowie $\tau^3_{a,r}$ immer nach $\tau^3_a$ kommt.
+Die Orakelkonstruktion erfolgt nun in abzähnlbar unendlich vielen \emph{Stufen}. In jeder Stufe bearbeiten wir den kleinsten Task $\tau$ in der durch $T$ festgelegten Reihenfolge. Anschließend entfernen wir $\tau$ aus $T$, und entfernen möglicherweise zusätzlich höhere Tasks aus $T$.
+In der nächsten Stufe fahren wir mit dem nächsten Task fort, die noch nicht aus $T$ entfernt wurde. (In jeder Stufe existiert immer mindestens ein Task, die noch nicht entfernt wurde, da wir in keiner Stufe alle Tasks aus $T$ entfernen werden.)
 
-\todo{Üblicher Text zur stufenweisen Erweiterung von $w_s$ und $t_s$}
+Eine Stufe $s<\omega$ identifizieren wir hierbei mit einem partiellen Orakel $w_s\in\Sigma^*$, einer „Validitäts“-Funktion $t_s\in\mathcal T$, und einem Task (bzw. mehreren Tasks) welcher in dieser Stufe bearbeitet wurde.
+Wir werden die einzelen $w_0, w_1, \dots$ und $t_0, t_1, t_2, \dots$ so defineren, dass
+\[ w_0\sqsubsetneq w_1 \sqsubsetneq w_2 \sqsubsetneq \cdots, \]
+und 
+\[ t_0 \subseteq t_1 \subseteq t_2 \subseteq \cdots, \]
+heißt insbesondere das $t_j$ eine Fortsetzung von $t_i$ ist, wenn immer $j\geq i$.
+Außerdem werden wir sichern, dass jedes $w_s$ ein $t_s$-valides Orakel ist.
+Es ist klar, dass jeder Task $\tau\in T$ letzlich in irgendeiner Stufe $s$ bearbeitet wird.
 
-Wir definieren nun Stufe $s>0$, diese startet mit einem $t_{s-1}\in\mathcal T$ und eine $t_{s-1}$-validen Orakel $w_{s-1}$ welche nun den kleinsten Task bearbeitet, welcher noch in $T$ ist. Dieser wird unmittelbar nach der Bearbeitung aus $T$ entfernt. In der Bearbeitung wird das Orakel strikt verlängert.
-\begin{itemize}
 
-    \item $\tau^1_j$: Setze $t'=t_{s-1}\cup\{\tau^1_j\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$.
+Nun zur Definition von $w_s, t_s$: wir werden die einzelnen Stufen induktiv definieren. Als Basisklausel setzen wir $w_0 = \epsilon$ und $t_0 = \emptyset$.
+Für unsere induktive Klausel sei $s>0$. Die Definition für $w_s, t_s$ ergibt sich nun aus der bereits definierten Funktion $t_{s-1}\in\mathcal T$, und dem bereits definierten $t_{s-1}$-validen Orakel $w_{s-1}$, sowie dem zu bearbeitenden kleinsten verbleibenden Task $\tau$ in $T$.
+Zur Erinnerung: dieser wird unmittelbar nach der Bearbeitung aus $T$ entfernt. In der Bearbeitung wird das Orakel strikt verlängert.
+Es gibt nun fünf Fälle, je nach dem welche Form der bearbeitete Task $\tau$ hat.
+\begin{description}
+    \item[Task $\tau^1_j$:] Setze $t'\defeq t_{s-1}\cup\{\tau^1_j\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$.
 
         Ansonsten setze $t_s\defeq t_{s-1}$ und setze $w_s\defeq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. (Das ist möglich nach Behauptung~\ref{claim:oracle-up-extension}.)
 
-    \item $\tau^2_{a,b}$: Setze $t'=t_{s-1}\cup\{\tau^2_{a,b}\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$. Entferne außerdem alle Tasks der Form $\tau^2_{a,b,r}$ von $T$.
+    \item[$\tau^2_{a,b}$:] Setze $t'\defeq t_{s-1}\cup\{\tau^2_{a,b}\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$. Entferne außerdem alle Tasks der Form $\tau^2_{a,b,r}$ von $T$.
 
         Ansonsten wähle ein hinreichend großes $m\not\in \img(t_s)$ sodass $w_s$ kein Wort der Länge $\min H_m$ definiert. Setze $t_s\defeq t_{s-1}\cup \{ \tau^2_{a,b}\mapsto m \}$; damit ist $w_{s-1}$ auch $t_s$-valide. Setze $w_s\defeq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. (Das ist möglich nach Behauptung~\ref{claim:oracle-up-extension}.)
 
-    \item $\tau^2_{a,b,r}$: Wir wissen dass $t_{s-1}(\tau^2_{a,b})=m>0$. Setze $t_s=t_{s-1}$ und wähle ein $t_s$-valides Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
+    \item[$\tau^2_{a,b,r}$:] Wir wissen dass $t_{s-1}(\tau^2_{a,b})=m>0$. Setze $t_s=t_{s-1}$ und wähle ein $t_s$-valides Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
         \begin{itemize}[nosep,endpenalty=10000]
             \item $0^n\in A_m^v$ für alle $v\sqsupseteq w_s$ und $M_a(F_r(0^n))$ lehnt relativ zu $w_s$ definitiv ab.
             \item $0^n\in B_m^v$ für alle $v\sqsupseteq w_s$ und $M_b(F_r(0^n))$ lehnt relativ zu $w_s$ definitiv ab.
         \end{itemize} (Das ist möglich nach Behauptung 1.2.)
 
-    \item $\tau^3_{a}$: Setze $t'=t_{s-1}\cup\{\tau^3_{a,b}\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$. Entferne außerdem alle Tasks der Form $\tau^3_{a,b,r}$ von $T$.
+    \item[$\tau^3_{a}$:] Setze $t'\defeq t_{s-1}\cup\{\tau^3_{a,b}\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$. Entferne außerdem alle Tasks der Form $\tau^3_{a,b,r}$ von $T$.
 
         Ansonsten wähle ein hinreichend großes $m\not\in \img(t_s)$ sodass $w_s$ kein Wort der Länge $\min H_m$ definiert. Setze $t_s\defeq t_{s-1}\cup \{ \tau^3_{a,b}\mapsto m \}$; damit ist $w_{s-1}$ auch $t_s$-valide. Setze $w_s\defeq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. (Das ist möglich nach Behauptung 1.1.)
 
-    \item $\tau^3_{a,r}$: Wir wissen dass $t_{s-1}(\tau^3_{a})=m>0$. Setze $t_s=t_{s-1}$ und wähle ein $t_s$-valides Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
+    \item[$\tau^3_{a,r}$:] Wir wissen dass $t_{s-1}(\tau^3_{a})=m>0$. Setze $t_s\defeq t_{s-1}$ und wähle ein $t_s$-valides Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
         \begin{itemize}[nosep,endpenalty=10000]
             \item $0^n\in C_m^v$ für alle $v\sqsupseteq w_s$ und $M_a(F_r(0^n))$ lehnt relativ zu $w_s$ definitiv ab.
             \item $0^n\not\in C_m^v$ für alle $v\sqsupseteq w_s$ und $M_a(F_r(0^n))$ akzeptiert relativ zu $w_s$ definitiv.
         \end{itemize} (Das ist möglich nach Behauptung 1.3.)
-\end{itemize}
+\end{description}
+
+Beobachte, dass $t_s$ immer als Element von $\mathcal T$ definiert ist.
+
+Damit ist die Definition der Stufe $s$ abgeschlossen, und somit die gesamten Folgen $\{w_s\}_{s<\omega}$ $\{t_s\}_{s<\omega}$.
+Damit ist die Konstruktion möglich. Später werden wir das finale Orakel $O$ als $\bigcup_{s\in\mathbb N} w_s = \bigcup_{s\in\mathbb N} \{ i \mid w_s[i]=1, i<|w_s|\} $ definieren, heißt die Vereinigung über alle partiell definierten Orakel, oder äquivalent, der Grenzwert $\lim_{n\to\omega} w_s = O\in\Sigma^\omega$ der Folge von finiten Wörtern $w_0\sqsubsetneq  w_1\sqsubsetneq \cdots$.
+
+Wir müssen nun zwei Aussagen zeigen: erstens, dass diese Konstruktion tatsächlich möglich ist, indem wir die in der Definition angekündigten Lemmata angeben und beweisen.
+Zweitens müssen wir zeigen, dass die Konstruktion das leistet was wir uns wünschen, also dass $O$ die behaupteten Eigenschaften des Satzes~\ref{} erfüllen.
 
 \subsection*{Korrektheit der Definition}
 
 Wir zeigen im Folgenden zunächst, dass die oben definierte induktive Definition tatsächlich wohldefiniert ist.
-Anschließend verifizieren wir die Eigenschaften des konstruierten finalen Orakels, um so den Beweis von Satz~\ref{} abzuschließen.
-
-Zunächst zeigen wir, dass sich ein $t$-valides Orakel $w$ immer um ein Bit verlängern lassen kann, ohne Validität zu verletzen.
+Zunächst beweisen wir, dass sich ein $t$-valides Orakel $w$ immer um ein Bit verlängern lassen kann, ohne Validität zu verletzen.
 
 \begin{lemma}\label{claim:oracle-up-extension}
     Sei $t\in\mathcal T$ und $w$ ein $t$-valides Orakel, und sei $z=|w|$. 
@@ -179,8 +201,8 @@ Zunächst zeigen wir, dass sich ein $t$-valides Orakel $w$ immer um ein Bit verl
     Sei $z=|w|$. Beachte, dass wir mit $b$ kontrollieren, ob $z\in wb$ gilt.
     Angenommen, $wb$ ist nicht $t$-valide, dann muss eine der Bedingungen V1--V7 verletzt sein.
 
-    Angenommen V3 ist verletzt, weil $M_j^{wb}(x)$ nicht definit ablehnt und gleichzeitig $t(\tau_j^1)=0$. Da nach Voraussetzung $w$ aber $t$-valide ist, wird $M_j^{w}(x)$ definitiv ablehnen.
-    Nach Beobachtung~\ref{obs:partialoracles}(3) wissen wir aber, dass dann auch $M_j^{wb}(x)$ definitiv ablehnen wird. Widerspruch.
+    Angenommen V3 ist verletzt, weil $N_j^{wb}(x)$ nicht definit ablehnt und gleichzeitig $t(\tau_j^1)=0$. Da nach Voraussetzung $w$ aber $t$-valide ist, wird $N_j^{w}(x)$ definitiv ablehnen.
+    Nach Beobachtung~\ref{obs:partialoracles}(3) wissen wir aber, dass dann auch $N_j^{wb}(x)$ definitiv ablehnen wird. Widerspruch.
     Also kann V3 nicht verletzt sein. Mit analoger Argumentation sehen wir auch, dass V4 und V6 nicht verletzt sein können.
 
     Angenommen V1 ist verletzt, weil für $x<|wb|$, $|x|\not\in\img(e)$ die Äquivalenz von V1 nicht gilt, heißt $x\in wb \not\leftrightarrow x\in C$. Dann kann $x$ nicht $<|w|$ sein, denn V1 gilt hier nach $t$-Validität von $w$. Also muss $x=z$.
@@ -350,7 +372,7 @@ Da nun also $u'\sqsupsetneq u \sqsupsetneq w_{\hat{s}-1}$ auch $t'$-valide ist, 
 Damit wäre dann auch $t_{s}(\tau^2_{a,b})=t'(\tau^2_{a,b})=0$, was der Voraussetzung dieses Lemma~\ref{} widerspricht.
 \end{proof}
 
-\todo{Fluff}
+Ohne größeren Veränderungen lässt sich auf fast gleiche Weise auch zeigen, dass die Tasks $\tau^3_{a,r}$ bearbeitet werden können.
 
 \begin{lemma}
     Die Bearbeitung eines Tasks $\tau^3_{a,r}$ ist möglich: gilt $t_s=t_{s-1}, t_{s}(\tau^3_{a})=m>0$, dann lässt sich $w_{s}$ so zu $t_{s}$-validem $w\sqsupsetneq w_{s-1}$ erweitern, dass eine der folgenden Fälle eintritt:
@@ -399,11 +421,13 @@ Beachte außerdem, dass $|w_0|<|w_1|< |w_2|< \ldots$ eine nach oben unbeschränk
 
 \subsection*{Eigenschaften vom konstruierten Orakel}
 
+Nun müssen wir noch verifizieren, dass $O$ tatsächlich alle gewünschten Eigenschaften erfüllt, die in Satz~\ref{} behauptet wurden.
+Wir starten mit einer Beobachtung über den groben Aufbau von $O$, der sich sofort aus der Ebenen-Konstruktion und unserem Validitätsbegriff ergibt.
 
 \begin{claim}
     \begin{enumerate}
         \item Es gilt $C\subseteq O$ und $O$ und $C$ stimmen auf allen Wörtern der Länge $\neq e(\cdot)$ überein.
-        \item Wenn $t_\omega(\tau^1_j)=0$, dann gilt $L(M_j^O)\neq\Sigma^*$.
+        \item Wenn $t_\omega(\tau^1_j)=0$, dann gilt $L(N_j^O)\neq\Sigma^*$.
         \item Wenn $t_\omega(\tau^2_{a,b})=m>0$, dann gilt $|O\cap \Sigma^n|\leq 1$ für alle $n\in H_m$. Insbesondere gilt damit $(A_m^O, B_m^O)\in\DisjUP^O$.
         \item Wenn $t_\omega(\tau^3_{a})=m>0$, dann gilt $|O\cap \Sigma^n|\leq 1$ für alle $n\in H_m$. Insbesondere gilt damit $(C_m^O)\in\UP^O$.
     \end{enumerate}
@@ -416,8 +440,8 @@ Beachte außerdem, dass $|w_0|<|w_1|< |w_2|< \ldots$ eine nach oben unbeschränk
         Für die Inklusion $C\subseteq O$ sei $y\in C$ gegeben. Nach unserer Wahl von $C$ war $C\cap\Sigma^{e(i)}=\emptyset$ für alle $i$, heißt $y$ kann nicht die Länge $e(\cdot)$ haben.
         Damit gilt dann mit Übereinstimmung auch $y\in O$.
 
-    \item Zu (2): Nach Voraussetzung muss es ein $s$ geben, für das $t_s(\tau^1_j)=0$. Insbesondere ist $w_s$ auch $t_s$-valide, und mit V3 existiert ein $z$ sodass $M_j^{w_s}(z)$ definitiv ablehnt.
-        Da $w_s\sqsubseteq O$, folgt mit Beobachtung~\ref{obs:partialoracles}(1), dass $M_j^O(z)$ auch definitiv ablehnen wird.
+    \item Zu (2): Nach Voraussetzung muss es ein $s$ geben, für das $t_s(\tau^1_j)=0$. Insbesondere ist $w_s$ auch $t_s$-valide, und mit V3 existiert ein $z$ sodass $N_j^{w_s}(z)$ definitiv ablehnt.
+        Da $w_s\sqsubseteq O$, folgt mit Beobachtung~\ref{obs:partialoracles}(1), dass $N_j^O(z)$ auch definitiv ablehnen wird.
 
     \item Zu (3): Angenommen, es existiert ein $n\in H_m$ für das $|O\cap\Sigma^n|>1$.
         Wähle ein $s$ sodass $w_s$ alle Wörter der Länge $\leq n$ definiert. Dieses $w_s$ ist insbesondere $t_s$-valide.
@@ -430,6 +454,8 @@ Beachte außerdem, dass $|w_0|<|w_1|< |w_2|< \ldots$ eine nach oben unbeschränk
     \item Zu (4): Beweis läuft analog wie bei (3).
     \end{prooflist}
 \end{proof}
+
+Über die Definition von Task $\tau^2_{a,b}$ bzw. $\tau^3_{a,r}$ ist nun in Verbindung mit der vorigen Beobachtung auch ersichtlich, dass für $\DisjNP$ bzw. $\UP$ keine vollständigen Elemente existieren können.
 
 \begin{claim}
     \begin{enumerate}
@@ -457,33 +483,35 @@ Beachte außerdem, dass $|w_0|<|w_1|< |w_2|< \ldots$ eine nach oben unbeschränk
     Mit Beobachtung~\ref{obs:partialoracles}(1) erhalten wir dann, dass $M_a(F_r(0^n))$ relativ zu $O$ ablehnt. Also auch $F^O_r(0^n)\not\in U$. Dies widerspricht der Annahme, dass $F_r^O$ die Reduktion realisiert, denn wir haben ja $0^n\in A_m^O$.
 \end{proof}
 
+Damit erfüllt $O$ schon die Aussagen (1) und (2) von Satz~\ref{}. Die letzte Aussage (3) ist aufwändiger zu beweisen.
+Folgende Behauptung sagt aus, dass totale NPTM $N_j$ relativ zu $O$ „besonders total“ sind. Nimmt man (ab hinreichender Länge) Wörter der Länge $=e(\cdot)$ aus $O$ weg, und erhält $T\subseteq O$, bleibt die NPTM relativ zu $T$ immer noch total. Das ergibt auch Sinn, denn in der Bearbeitung von Task $\tau^1_j$ wurden sämtlichen geeigneten Erweiterungen ausprobiert, welche die Totalität von $N_j$ zerstören würden. Da keine solche Erweiterung existiert, wird auch $T$ nicht die Totalität von $N_j$ zerstören können.
 
 \begin{claim}
-    Sei $M_j$ eine totale Maschine, d.h. $L(M_j^O)=\Sigma^*$.
+    Sei $N_j$ eine totale NPTM, d.h. $L(N_j^O)=\Sigma^*$.
     Es existiert eine Länge $n$ mit folgender Eigenschaft: 
-    falls $T\subseteq O$ mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern $\leq n$ übereinstimmt, dann $L(M_j^T)=\Sigma^*$.
+    falls $T\subseteq O$ mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern $\leq n$ übereinstimmt, dann $L(N_j^T)=\Sigma^*$.
 \end{claim}
 \begin{proof}
     Sei $s$ die Stufe bei der $\tau^1_j$ bearbeitet wurde, 
-    %Angenommen $t_s(\tau^1_j)=0$. Dann hätten wir schon sofort einen Widerspruch: nach V3 wird $M_j$ eine Eingabe relativ zu $w_s$ definitiv ablehnen, mit Beobachtung~\ref{obs:partialoracles}(1) dann auch $L(M_j^O)\neq\Sigma^*$; Widerspruch zur Wahl von $M_j$.
+    %Angenommen $t_s(\tau^1_j)=0$. Dann hätten wir schon sofort einen Widerspruch: nach V3 wird $N_j$ eine Eingabe relativ zu $w_s$ definitiv ablehnen, mit Beobachtung~\ref{obs:partialoracles}(1) dann auch $L(N_j^O)\neq\Sigma^*$; Widerspruch zur Wahl von $N_j$.
     %Also gilt $t_s(\tau^1_j)>0$. 
     und setze $n=|w_{s}|$.
     Wir zeigen nun, dass dieses $n$ die behauptete Eigenschaft erfüllt.
-    Angenommen, dies gilt nicht, dann existiert ein $T\subseteq O$ dass mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern $\leq n$ übereinstimmt, aber für ein Wort $z$ lehnt $M_j^T(z)$ ab.
+    Angenommen, dies gilt nicht, dann existiert ein $T\subseteq O$ dass mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern $\leq n$ übereinstimmt, aber für ein Wort $z$ lehnt $N_j^T(z)$ ab.
 
     Sei $m\in\mathbb N$ so gewählt dass $m> n, p_j(|x|)$, und definiere das folgende partielle Orakel $v$, das genau für alle Wörter der Länge $\leq m$ definiert ist:
     \[ v[x] \defeq \begin{cases} T[x] & \text{falls $|x|\leq m$} \\ \bot & \text{sonst}. \end{cases}\]
-    Es ist leicht zu sehen, dass $M_j^v(z)$ definitiv ablehnt, stimmen $v$ und $T$ ja auf allen Wörtern der Länge $\leq p_j(|x|)$ überein.
+    Es ist leicht zu sehen, dass $N_j^v(z)$ definitiv ablehnt, stimmen $v$ und $T$ ja auf allen Wörtern der Länge $\leq p_j(|x|)$ überein.
     Außerdem ist klar, dass $v\sqsupsetneq w_s \sqsupsetneq w_{s-1}$.
 
     Sei $t'=t_{s-1}\cup \{\tau^1_j\mapsto 0\}$
     Wir zeigen unten, dass $v$ auch $t_{s-1}$-valide ist. Damit ist dann klar,
-    dass $v$ auch $t'$-valide ist: es kommt nur V3 bezüglich $M_j$ hinzu, aber wir haben ja bereits gesehen dass $M_j^v(z)$ definitiv ablehnt.
+    dass $v$ auch $t'$-valide ist: es kommt nur V3 bezüglich $N_j$ hinzu, aber wir haben ja bereits gesehen dass $N_j^v(z)$ definitiv ablehnt.
 
     %Damit wäre $v$ eine geeignete Erweiterung in Stufe $s$ und wir hätten $t_s=t'$. 
     Insbesondere ist dann während der Bearbeitung von Task $\tau^1_{j}$ in Stufe $s$ das Orakel $v$ eine mögliche $t'$-valide Erweiterung von $w_{s-1}$, denn es ist $t'$-valide und $v\sqsupsetneq w_{s-1}$. Also wäre nach Definition des Tasks $\tau^1_{j}$ dann $t_{s}=t'$ gesetzt worden,
     und wir hätten $t_s(\tau^1_j)=0$.
-    Dann wäre aber auch $t_\omega(\tau^1_j)=0$, und nach voriger Behauptung~\ref{}(2) damit $L(M_j^O)\neq\Sigma^*$. Widerspruch zur Wahl von $M_j$.
+    Dann wäre aber auch $t_\omega(\tau^1_j)=0$, und nach voriger Behauptung~\ref{}(2) damit $L(N_j^O)\neq\Sigma^*$. Widerspruch zur Wahl von $N_j$.
 
     Es bleibt zu zeigen dass $v$ auch $t_{s-1}$-valide ist. Angenommen, $v$ ist nicht $t_{s-1}$-valide, dann muss eine Bedingung V1--V7 verletzt sein. Zur Erinnerung: $v\sqsupsetneq w_{s-1}$ und $w_{s-1}$ ist $t_{s-1}$-valide.
     Wieder klar ist, dass V3, V4, V6 nicht verletzt sein können, denn jede definite Berechnung relativ zu $w_{s-1}$ ist auch eine definite Berechnung relativ zu $v$ nach Beobachtung~\ref{obs:partialoracles}(1).
@@ -504,25 +532,33 @@ Beachte außerdem, dass $|w_0|<|w_1|< |w_2|< \ldots$ eine nach oben unbeschränk
     Damit ist keine Bedingung verletzt, $v$ muss also $t_{s-1}$-valide sein.
 \end{proof}
 
+Nun können wir für die Hypothese $\hQ$ argumentieren.
+%Hierfür müssen wir, gegeben eine totale NPTM $N_j$, effizient einen akzeptierenden Rechenweg von $N_j^O(x)$ bestimmen.
+%Offensichtlich ist das zumindest relativ zu $C$ (anstelle $O$) möglich, da insbesondere $\P^C=\NP^C$ gilt.
+%Beachte, dass wir $O$ als $C\cup D$ schreiben können, wobei $D=O^{=e(0)}\cup O^{=e(1)}\cup\cdots$, und $C$ und $D$ sind insbesondere disjunkt.
+%Sei nun angenommen, dass wir effizient $D$ entscheiden könnten, dann wäre auch $\P^{O}=\NP^{O}$ und wir könnten einen akzeptierenden Rechenweg von $N_j^O(x)$ einfach ausrechnen.
+%Nun können wir zwar $D$ nicht effizient entscheiden, aber wir können -- mittels $N_j$ und Behauptung~\ref{} -- zunmindest iterativ einen relevanten Teil von $D$ bestimmen.
+
+
 \begin{claim}
-    Sei $M_j$ eine totale Maschine, d.h. $L(M_j^O)=\Sigma^*$. Dann existiert eine Funktion $g\in \FP^O$ sodass $g(x)$ einen akzeptierenden Rechenweg von $M^O_j(x)$ ausgibt. Damit gilt nach Definition die Hypothese $\hQ$ relativ zu $O$.
+    Sei $N_j$ eine totale NPTM, d.h. $L(N_j^O)=\Sigma^*$. Dann existiert eine Funktion $g\in \FP^O$ sodass $g(x)$ einen akzeptierenden Rechenweg von $M^O_j(x)$ ausgibt. Damit gilt nach Definition die Hypothese $\hQ$ relativ zu $O$.
 \end{claim}
 \begin{proof}
     %Es reicht aus, dass $g\in\FP^O$ nur Wörter hinreichender Länge verarbeiten muss.
     Sei $n$ hinreichend groß, sodass diese vorige Behauptung 1.6 erfüllt ist.
     Damit gilt: 
-\begin{equation} \begin{split}&T\subseteq O, \text{$T$ stimmt mit Wörtern der Länge $\neq e(\cdot)$ und der Länge $\leq n$ mit $O$ überein} \\ &\implies L(M_j^T)=\Sigma^*.\end{split}\label{eq:oracle-1a} \end{equation}
+\begin{equation} \begin{split}&T\subseteq O, \text{$T$ stimmt mit Wörtern der Länge $\neq e(\cdot)$ und der Länge $\leq n$ mit $O$ überein} \\ &\implies L(N_j^T)=\Sigma^*.\end{split}\label{eq:oracle-1a} \end{equation}
 
     Sei exemplarisch $x\in\Sigma^*$ gegeben. 
-    Wir werden obige Eigenschaft ausnutzen und iterativ eine Menge $D\subseteq O$ an Orakelwörtern der Länge $e(\cdot)$ aufbauen, welche für die Berechnung $M_j^O(x)$ relevant ist, bis wir alle solchen relevanten Wörter gefunden haben.
+    Wir werden obige Eigenschaft ausnutzen und iterativ eine Menge $D\subseteq O$ an Orakelwörtern der Länge $e(\cdot)$ aufbauen, welche für die Berechnung $N_j^O(x)$ relevant ist, bis wir alle solchen relevanten Wörter gefunden haben.
     Wir starten hierbei mit der Menge aller Orakelwörter in $O$, welche Länge $\leq n$  und Länge $=e(\cdot)$ haben, d.h. setze zunächst
     \[ D\gets \{ w\mid w\in O, |w|\leq n, \exists i.|w|=e(i)\}. \]
-Beob. dass damit $C\cup D\subseteq O$ und mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern der Länge $\leq n$ übereinstimmt, also nach \eqref{eq:oracle-1a} auch $L(M_j^{C\cup D})=\Sigma^*$.
-    Beachte dass $C$ und $D$ disjunkt sind. Damit können wir auch das (finite) $D$ sogar in $M_j$ hineincodieren.
-    Gemeint ist, $D$ in das „Programm“ $M_j$ hineincodieren, sodass für Queries $q, |q|=e(\cdot)$ nur getestet wird ob $q\in D$ anstelle einer echten Orakelfrage.
-    Es existiert also eine Orakel-NPTM $M'_j$, sodass $\smash{M'^C_j(x)}$ äquivalent zu $M_j^{C\cup D}(x)$ arbeitet. Und da $\smash{\P^C=\mathrm{PSPACE}^C}$, können wir in $\FP^C$ auch einen akzeptierenden Rechenweg von $M'^C_j(x)$ effizient bestimmen.
-    Das geht dann auch in $\FP^O\supseteq \FP^C$. (Jeder $\FP^C$-Algorithmus kann simuliert werden, imdem Orakelfragen mit Länge $e(\cdot)$ negativ beantwortet werden.)
-    Damit ergibt sich: gegeben $D$ (unter den genannten Eigenschaften), kann ein akzeptierender Rechenweg von $M_j^{C\cup D}(x)$ in $\FP^O$ berechnet werden.
+Beob. dass damit $C\cup D\subseteq O$ und mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern der Länge $\leq n$ übereinstimmt, also nach \eqref{eq:oracle-1a} auch $L(N_j^{C\cup D})=\Sigma^*$.
+    Beachte dass $C$ und $D$ disjunkt sind. Damit können wir auch das (finite) $D$ sogar in $N_j$ hineincodieren.
+    Gemeint ist, $D$ in das „Programm“ $N_j$ hineincodieren, sodass für Queries $q, |q|=e(\cdot)$ nur getestet wird ob $q\in D$ anstelle einer echten Orakelfrage.
+    Es existiert also eine Orakel-NPTM $M'_j$, sodass $\smash{M'^C_j(x)}$ äquivalent zu $N_j^{C\cup D}(x)$ arbeitet. Und da $\smash{\P^C=\mathrm{PSPACE}^C}$, können wir in $\FP^C$ auch einen akzeptierenden Rechenweg von $M'^C_j(x)$ effizient bestimmen.
+    Das geht dann auch in $\FP^O\supseteq \FP^C$. (Jeder $\FP^C$-Algorithmus kann simuliert werden, indem Orakelfragen mit Länge $e(\cdot)$ negativ beantwortet werden.)
+    Damit ergibt sich: gegeben $D$ (unter den genannten Eigenschaften), kann ein akzeptierender Rechenweg von $N_j^{C\cup D}(x)$ in $\FP^O$ berechnet werden.
 
     Wir betrachten nun folgenden formalen Algorithmus relativ zu $O$ auf Eingabe $x$:\\
     \SetKwFor{Loop}{wiederhole}{}{}
@@ -530,7 +566,7 @@ Beob. dass damit $C\cup D\subseteq O$ und mit $O$ auf Wörtern der Länge $\neq 
         $D\gets \{ w\mid w\in O, |w|\leq n, \exists i.|w|=e(i)\}$ \tcc{Konstante, muss nicht berechnet werden}
         \Loop(\tcp*[h]{Invariante: $D\subseteq O\cap \{ w \mid \exists i.|w|=e(i)\}$}){}
         {
-            Sei $\alpha$ ein akzeptierender Rechenweg auf $M_j^{C\cup D}(x)$ und $Q$ die Menge an Orakelfragen\;
+            Sei $\alpha$ ein akzeptierender Rechenweg auf $N_j^{C\cup D}(x)$ und $Q$ die Menge an Orakelfragen\;
             \eIf{existiert eine Frage $q\in Q$ für die $q\in O-C$ aber $q\not\in D$}
             {
                 $D\gets D \cup \{q\}$\;
@@ -542,9 +578,9 @@ Beob. dass damit $C\cup D\subseteq O$ und mit $O$ auf Wörtern der Länge $\neq 
     \end{algorithm}
 
     Korrektheit: Beobachte zunächst die Invariante dass $D\subseteq O\cap \{ w \mid \exists i.|w|=e(i)\}$.
-    Wie oben argumentiert gilt außerdem, dass $C\cup D\subseteq O$ und mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern der Länge $\leq n$ übereinstimmt. Damit nach \eqref{eq:oracle-1a} auch $L(M_j^{C\cup D})=\Sigma^*$ und insbesondere existiert dann auch ein akzeptierender Rechenweg auf $M_j^{C\cup D}(x)$. Damit ist Z.~3 wohldefiniert.
+    Wie oben argumentiert gilt außerdem, dass $C\cup D\subseteq O$ und mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern der Länge $\leq n$ übereinstimmt. Damit nach \eqref{eq:oracle-1a} auch $L(N_j^{C\cup D})=\Sigma^*$ und insbesondere existiert dann auch ein akzeptierender Rechenweg auf $N_j^{C\cup D}(x)$. Damit ist Z.~3 wohldefiniert.
     Terminiert nun der Algorithmus mit einem Rechenweg $\alpha$ in Z.~7, wissen wir auch dass für alle Orakelfragen $q\in Q$ entweder $q\in C$ gilt oder $q\not\in O$ oder $q\in O, D$ gilt.
-    Damit stimmt $C\cup D$ mit $O$ auf $Q$ überein, und auch $M_j^O(x)$ akzeptiert mit Rechenweg $\alpha$.
+    Damit stimmt $C\cup D$ mit $O$ auf $Q$ überein, und auch $N_j^O(x)$ akzeptiert mit Rechenweg $\alpha$.
 
     Laufzeit: Wir zeigen dass der Algorithmus in polynomiell beschränkter deterministischer Zeit (abhängig von $|x|$) relativ zu $O$ arbeitet. 
     Wir wissen, dass für jede Orakelfrage $q\in Q$ gilt, dass $|q|\leq p_j(|x|)$.
@@ -555,6 +591,8 @@ Beob. dass damit $C\cup D\subseteq O$ und mit $O$ auf Wörtern der Länge $\neq 
     Zeile 3 kann damit auch in polynomiell beschränkter deterministischer Zeit berechnet werden. Wie oben skizziert kann der Rechenweg in deterministisch polynomieller Zeit abh. von $|x|$ und $\ell(D)$ relativ zu $C$ bestimmt werden.
     Nach Konstruktion ist leicht zu sehen, dass dieser Rechenweg dann auch relativ zu $O$ bestimmt werden kann.
 \end{proof}
+
+\todo{Abschluss}
 
 
 \section{Orakel mit $\mathsf{KvL}$ und $\neg\hSAT$}
