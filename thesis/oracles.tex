@@ -22,7 +22,7 @@ Damit ist die Laufzeit von $N_i$ polynomiell beschränkt auf $p_i$.
 Um nun die beiden Orakel zu konstruieren, wenden wir ein Verfahren von \textcite{dose_np-completeness_2019} an, welche sich als ein starkes Framework erwiesen hat, Orakel zu konstruieren die simultan mehrere Eigenschaften erfüllen.
 Dieses Framework werden wir im nächsten Abschnitt gleich beim Einsatz der ersten Konstruktion detailiert erläutern; in der zweiten Konstruktion auf eine detailierte Beschreibung aber weitestgehend verzichten.
 
-Wesentliche Zutat dieses Frameworks sind „partiell definierte“ Orakel, bei denen also z.B. für gewisse $x$ noch nicht endgültig festgelegt ist, ob $x\in O$ oder $x\not\in O$ gelten soll.
+Wesentliche Zutat dieses Frameworks sind „partiell definierte“ Orakel, bei denen also z.B. für gewisse $x$ noch nicht endgültig festgelegt ist, ob $x\in O$ oder $x\not\in O$ gelten soll.\sidenote{\todo{überprüfen, wo „partiell“ fehlt!}}
 Wir formalisieren solche partiell definierten Orakel mittels finiten Wörten $w\in\Sigma^*$:
 ein finites Wort $w\in\Sigma^*$ können wir im Folgenden auch als die Menge $\{ i \mid i<|w|, w[i] = 1 \}$ verstehen (aber $|w|$ immer als die Länge von $w$).
 Die intendierte Interpretation ist, dass gegenüber der \emph{Menge} $w$ die Zugehörigkeit aller Zahlen (bzw. äquivalent Wörtern) $x$ mit $x<|w|$ final speizifiziert ist, nicht dagegen für $x\geq|w|$ (und nur ersatzweise $x\not\in w$ gilt).
@@ -91,19 +91,20 @@ Aufbauend auf dem oben skizzierten Framework von \textcite{dose_np-completeness_
 
 
 Starte mit $\mathrm{PSPACE}$-vollständiger Menge $C$ welche keine Wörter der Länge $e(\cdot)$ enthält.
-Definiere folgende Zeugensprachen:
+Definiere folgende Zeugensprachen, wobei $w\in\Sigma^*\cup\Sigma^{\omega}$:
 \begin{gather*}
-    A_m^O \defeq \{ 0^n \mid n\in H_m, \text{existiert $x\in \Sigma^{n}$ mit } x\in O \text{ und $x$ endet mit $0$} \}\\
-    B_m^O \defeq \{ 0^n \mid n\in H_m, \text{existiert $x\in \Sigma^{n}$ mit } x\in O \text{ und $x$ endet mit $1$} \}\\
-    C_m^O \defeq \{ 0^n \mid n\in H_m, \text{existiert $x\in \Sigma^{n}$ mit } x\in O  \}
+    A_m^w \defeq \{ 0^n \mid n\in H_m, \text{existiert $x\in \Sigma^{n}$ mit } x\in w \text{ und $x$ endet mit $0$} \}\\
+    B_m^w \defeq \{ 0^n \mid n\in H_m, \text{existiert $x\in \Sigma^{n}$ mit } x\in w \text{ und $x$ endet mit $1$} \}\\
+    C_m^w \defeq \{ 0^n \mid n\in H_m, \text{existiert $x\in \Sigma^{n}$ mit } x\in w  \}
 \end{gather*}
 %Fakt: wenn $|O\cap \Sigma^{n}|\leq 1$ für alle $n\in H_m$, dann $(A_m^O, B_m^O)\in\DisjUP^O$.\\
 %Wenn $|O\cap \Sigma^n|\leq 1$ für alle $n\in H_m$, dann $C_m^O \in \UP^O$.
-Sind die Ebenen der Höhe $H_m$ in $O$ auf geeignete Weise gefüllt, lässt sich leicht sehen dass diese entsprechenden Zeugensprachen in $\DisjUP$ bzw. $\UP$ fallen:
+Sind die Ebenen der Höhe $H_m$ in $w$ auf geeignete Weise gefüllt, lässt sich leicht sehen dass diese entsprechenden Zeugensprachen in $\DisjUP$ bzw. $\UP$ fallen:
 \begin{claim}
+    Sei $w\in\Sigma^*\cup\Sigma^\omega$ ein beliebiges Orakel.
     \begin{enumerate}
-        \item Wenn $|O\cap \Sigma^{n}|\leq 1$ für alle $n\in H_m$, dann $(A_m^O, B_m^O)\in\DisjUP^O$.
-        \item Wenn $|O\cap \Sigma^n|\leq 1$ für alle $n\in H_m$, dann $C_m^O \in \UP^O$.
+        \item Wenn $|w\cap \Sigma^{n}|\leq 1$ für alle $n\in H_m$, dann $(A_m^w, B_m^w)\in\DisjUP^w$.
+        \item Wenn $|w\cap \Sigma^n|\leq 1$ für alle $n\in H_m$, dann $C_m^w \in \UP^w$.
     \end{enumerate}
 \end{claim}
 
@@ -539,7 +540,11 @@ Folgende Behauptung sagt aus, dass totale NPTM $N_j$ relativ zu $O$ „besonders
 Nun können wir für die Hypothese $\hQ$ argumentieren.
 Hierfür müssen wir, gegeben eine totale NPTM $N_j$, effizient einen akzeptierenden Rechenweg von $N_j^O(x)$ bestimmen.
 Offensichtlich ist das zumindest relativ zu $C$ (anstelle $O$) möglich, da insbesondere $\P^C=\NP^C$ gilt.
-Beachte, dass wir $O$ als $C\cup D$ schreiben können, wobei $D=O^{=e(0)}\cup O^{=e(1)}\cup\cdots$, und $C$ und $D$ sind insbesondere disjunkt.
+Beachte, dass wir $O$ als $C\cup D$ schreiben können, wobei 
+\[ D=O-C=\{ w \mid w\in O, \exists i. |w|=e(i) \}, \]
+und $C$ und $D$ sind insbesondere disjunkt.
+Beachte dass $C$ das ursprünglich gewählte PSPACE-vollständige Orakel ist, wobei die Ebenen der Höhe $e(\cdot)$ leer waren. Die Menge $D$ entspricht dann genau dem Inhalt dieser Lücken.
+
 Hätten wir nun die Möglichkeit, effizient $D$ entscheiden zu können, dann wäre auch $\P^{O}=\NP^{O}$ und wir könnten einen akzeptierenden Rechenweg von $N_j^O(x)$ einfach ausrechnen.
 Nun können wir zwar $D$ nicht effizient entscheiden, aber wir können mittels $N_j$ und Behauptung~\ref{} zunmindest iterativ eine relevante finite Approximation $D'\subseteq D$ von $D$ bestimmen.
 Das soll kurz skizziert werden: Gegeben unsere finite Approximation $D'\subseteq D$, können wir relativ zu $C\cup D'$ einen akzeptierenden Rechenweg $\alpha$ von $N_j(x)$ ausrechnen. Dieser existiert insbesondere nach Behauptung~\ref{}. Nun können wir die Orakelfragen auf $\alpha$ mit dem „echten“ $D$ abgleichen, und so überprüfen wo unsere Approximation fehlerhaft ist, und ggf. unsere Apprixmation aktualisieren. Nachdem $D$ dünn ist (Behauptung~\ref{}) enden wir spätestens nach polynomiell vielen Iterationen bei einer Approximation $D'$, die auf allen relevanten Wörtern mit $D$ übereinstimmt.
