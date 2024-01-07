@@ -12,7 +12,8 @@ Zunächst seien $\{M_i\}_{i\in \mathbb N}$, $\{N_i\}_{i\in \mathbb N}$, $\{F_i\}
     \item Für jede Orakel-PTM $M$ existiert ein $i$ sodass $L(M^D_i)=L(M^D)$, 
         für jede Orakel-NPTM $N$ existiert ein $i$ sodass $L(N^D_i)=L(N^D)$, und
         für jeden Orakel-PTM-Transduktor $T$ existiert ein $i$ sodass $T^D(x)=T_i^D(x)$.
-        %Insbesondere kann jeder akzeptierender Rechenweg $\alpha$ einer Berechnung $N_i(x)$ in einen akzeptierenden Rechenweg $\alpha'$ der Berechnung $N(x)$ effizient übersetzt werden.
+
+        Insbesondere kann jeder akzeptierender Rechenweg $\alpha$ Berechnung $N_i(x)$ in einen akzeptierenden Rechenweg $\alpha'$ der Berechnung $N(x)$ effizient übersetzt werden.
 \end{enumerate}
 %Analoge Eigenschaften gelten für die Aufzählung $\{M_i\}$ der PTMs und $\{T_i\}$ der PTM-Transduktoren.
 Solche Standardaufzählungen existieren. Eine Möglichkeit, diese zu konstruieren ist beispielsweise, jede nichtdeterministische TM mit einem Timer auszustatten, die nach polynomieller Laufzeit die Berechnung abbricht. Konkret: gegeben $i$, sei zunächst $N$ die nichtdeterministische TM mit Codierung $i$. Die TM $N_i$ führt dann auf Eingabe $x$ parallel zur Rechnung $N(x)$ auf jedem Rechenweg einen Timer aus, der nach $>|x|^i+i$ Schritten den Rechenweg ablehnend abbricht.
@@ -75,12 +76,12 @@ Vor der Konstruktion machen wir nun noch folgende bekannte kombinatorische Aussa
 \end{proof}
 \section{Orakel mit $\hDisjNP$, $\hUP$ und $\hQ$}
 
-\todo{Fluff}
+Aufbauend auf dem oben skizzierten Framework von \textcite{dose_np-completeness_2019} werden wir nun ein erstes Orakel konstruieren.
 
 \begin{theorem}
     Es existiert ein Orakel $O$ sodass folgende Aussagen gelten:
     \begin{enumerate}
-        \item Es existiert kein $\leqmpp$-vollständiges Paar für $\DisjNP^O$ (was $\hDisjNP$ relativ zu $O$ impliziert).
+        \item Es existiert kein $\leqmpp$-hartes Paar in $\DisjNP^O$ für $\DisjUP^O$ (was $\hDisjNP$ relativ zu $O$ impliziert).
         \item Es existiert keine $\leqmp$-vollständige Menge für $\UP^O$ (was äquivalent zu $\hUP$ relativ zu $O$ ist).
         \item Für jede totale NPTM $N$ existiert eine Funktion $g\in\FP^O$ sodass $g(x)$ ein akzeptierender Rechenweg von $N^O(x)$ ist (was äquivalent zu $\hQ$ relativ zu $O$ ist).
     \end{enumerate}
@@ -153,21 +154,21 @@ Es gibt nun fünf Fälle, je nach dem welche Form der bearbeitete Task $\tau$ ha
 
         Ansonsten setze $t_s\defeq t_{s-1}$ und setze $w_s\defeq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. (Das ist möglich nach Behauptung~\ref{claim:oracle-up-extension}.)
 
-    \item[$\tau^2_{a,b}$:] Setze $t'\defeq t_{s-1}\cup\{\tau^2_{a,b}\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$. Entferne außerdem alle Tasks der Form $\tau^2_{a,b,r}$ von $T$.
+    \item[Task $\tau^2_{a,b}$:] Setze $t'\defeq t_{s-1}\cup\{\tau^2_{a,b}\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$. Entferne außerdem alle Tasks der Form $\tau^2_{a,b,r}$ von $T$.
 
         Ansonsten wähle ein hinreichend großes $m\not\in \img(t_s)$ sodass $w_s$ kein Wort der Länge $\min H_m$ definiert. Setze $t_s\defeq t_{s-1}\cup \{ \tau^2_{a,b}\mapsto m \}$; damit ist $w_{s-1}$ auch $t_s$-valide. Setze $w_s\defeq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. (Das ist möglich nach Behauptung~\ref{claim:oracle-up-extension}.)
 
-    \item[$\tau^2_{a,b,r}$:] Wir wissen dass $t_{s-1}(\tau^2_{a,b})=m>0$. Setze $t_s=t_{s-1}$ und wähle ein $t_s$-valides Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
+    \item[Task $\tau^2_{a,b,r}$:] Wir wissen dass $t_{s-1}(\tau^2_{a,b})=m>0$. Setze $t_s=t_{s-1}$ und wähle ein $t_s$-valides Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
         \begin{itemize}[nosep,endpenalty=10000]
             \item $0^n\in A_m^v$ für alle $v\sqsupseteq w_s$ und $M_a(F_r(0^n))$ lehnt relativ zu $w_s$ definitiv ab.
             \item $0^n\in B_m^v$ für alle $v\sqsupseteq w_s$ und $M_b(F_r(0^n))$ lehnt relativ zu $w_s$ definitiv ab.
         \end{itemize} (Das ist möglich nach Behauptung 1.2.)
 
-    \item[$\tau^3_{a}$:] Setze $t'\defeq t_{s-1}\cup\{\tau^3_{a,b}\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$. Entferne außerdem alle Tasks der Form $\tau^3_{a,b,r}$ von $T$.
+    \item[Task $\tau^3_{a}$:] Setze $t'\defeq t_{s-1}\cup\{\tau^3_{a,b}\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$. Entferne außerdem alle Tasks der Form $\tau^3_{a,b,r}$ von $T$.
 
         Ansonsten wähle ein hinreichend großes $m\not\in \img(t_s)$ sodass $w_s$ kein Wort der Länge $\min H_m$ definiert. Setze $t_s\defeq t_{s-1}\cup \{ \tau^3_{a,b}\mapsto m \}$; damit ist $w_{s-1}$ auch $t_s$-valide. Setze $w_s\defeq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. (Das ist möglich nach Behauptung 1.1.)
 
-    \item[$\tau^3_{a,r}$:] Wir wissen dass $t_{s-1}(\tau^3_{a})=m>0$. Setze $t_s\defeq t_{s-1}$ und wähle ein $t_s$-valides Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
+    \item[Task $\tau^3_{a,r}$:] Wir wissen dass $t_{s-1}(\tau^3_{a})=m>0$. Setze $t_s\defeq t_{s-1}$ und wähle ein $t_s$-valides Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
         \begin{itemize}[nosep,endpenalty=10000]
             \item $0^n\in C_m^v$ für alle $v\sqsupseteq w_s$ und $M_a(F_r(0^n))$ lehnt relativ zu $w_s$ definitiv ab.
             \item $0^n\not\in C_m^v$ für alle $v\sqsupseteq w_s$ und $M_a(F_r(0^n))$ akzeptiert relativ zu $w_s$ definitiv.
@@ -427,6 +428,7 @@ Wir starten mit einer Beobachtung über den groben Aufbau von $O$, der sich sofo
 \begin{claim}
     \begin{enumerate}
         \item Es gilt $C\subseteq O$ und $O$ und $C$ stimmen auf allen Wörtern der Länge $\neq e(\cdot)$ überein.
+        \item Es gilt $|C\cup\Sigma^{e(i)}|\leq 2$ für alle $i$.
         \item Wenn $t_\omega(\tau^1_j)=0$, dann gilt $L(N_j^O)\neq\Sigma^*$.
         \item Wenn $t_\omega(\tau^2_{a,b})=m>0$, dann gilt $|O\cap \Sigma^n|\leq 1$ für alle $n\in H_m$. Insbesondere gilt damit $(A_m^O, B_m^O)\in\DisjUP^O$.
         \item Wenn $t_\omega(\tau^3_{a})=m>0$, dann gilt $|O\cap \Sigma^n|\leq 1$ für alle $n\in H_m$. Insbesondere gilt damit $(C_m^O)\in\UP^O$.
@@ -439,11 +441,13 @@ Wir starten mit einer Beobachtung über den groben Aufbau von $O$, der sich sofo
 
         Für die Inklusion $C\subseteq O$ sei $y\in C$ gegeben. Nach unserer Wahl von $C$ war $C\cap\Sigma^{e(i)}=\emptyset$ für alle $i$, heißt $y$ kann nicht die Länge $e(\cdot)$ haben.
         Damit gilt dann mit Übereinstimmung auch $y\in O$.
+        
+    \item Zu (2): Beweis läuft analog wie bei (1), unter Berufung auf V2.
 
-    \item Zu (2): Nach Voraussetzung muss es ein $s$ geben, für das $t_s(\tau^1_j)=0$. Insbesondere ist $w_s$ auch $t_s$-valide, und mit V3 existiert ein $z$ sodass $N_j^{w_s}(z)$ definitiv ablehnt.
+    \item Zu (3): Nach Voraussetzung muss es ein $s$ geben, für das $t_s(\tau^1_j)=0$. Insbesondere ist $w_s$ auch $t_s$-valide, und mit V3 existiert ein $z$ sodass $N_j^{w_s}(z)$ definitiv ablehnt.
         Da $w_s\sqsubseteq O$, folgt mit Beobachtung~\ref{obs:partialoracles}(1), dass $N_j^O(z)$ auch definitiv ablehnen wird.
 
-    \item Zu (3): Angenommen, es existiert ein $n\in H_m$ für das $|O\cap\Sigma^n|>1$.
+    \item Zu (4): Angenommen, es existiert ein $n\in H_m$ für das $|O\cap\Sigma^n|>1$.
         Wähle ein $s$ sodass $w_s$ alle Wörter der Länge $\leq n$ definiert. Dieses $w_s$ ist insbesondere $t_s$-valide.
 
         Nun gilt $t_s(\tau^2_{a,b})=t_\omega(\tau^2_{a,b})=m>0$, und mit V5 gilt insbesondere $|w_s\cap\Sigma^n|\leq 1$.
@@ -451,7 +455,7 @@ Wir starten mit einer Beobachtung über den groben Aufbau von $O$, der sich sofo
 
         Also gilt $|O\cap\Sigma^n|\leq 1$ für alle $n\in H_m$. Dann folgt aus Beobachtung~\ref{}(1) auch schon sofort, dass $(A_m^O, B_m^O)\in\DisjUP$.
 
-    \item Zu (4): Beweis läuft analog wie bei (3).
+    \item Zu (5): Beweis läuft analog wie bei (4).
     \end{prooflist}
 \end{proof}
 
@@ -533,11 +537,12 @@ Folgende Behauptung sagt aus, dass totale NPTM $N_j$ relativ zu $O$ „besonders
 \end{proof}
 
 Nun können wir für die Hypothese $\hQ$ argumentieren.
-%Hierfür müssen wir, gegeben eine totale NPTM $N_j$, effizient einen akzeptierenden Rechenweg von $N_j^O(x)$ bestimmen.
-%Offensichtlich ist das zumindest relativ zu $C$ (anstelle $O$) möglich, da insbesondere $\P^C=\NP^C$ gilt.
-%Beachte, dass wir $O$ als $C\cup D$ schreiben können, wobei $D=O^{=e(0)}\cup O^{=e(1)}\cup\cdots$, und $C$ und $D$ sind insbesondere disjunkt.
-%Sei nun angenommen, dass wir effizient $D$ entscheiden könnten, dann wäre auch $\P^{O}=\NP^{O}$ und wir könnten einen akzeptierenden Rechenweg von $N_j^O(x)$ einfach ausrechnen.
-%Nun können wir zwar $D$ nicht effizient entscheiden, aber wir können -- mittels $N_j$ und Behauptung~\ref{} -- zunmindest iterativ einen relevanten Teil von $D$ bestimmen.
+Hierfür müssen wir, gegeben eine totale NPTM $N_j$, effizient einen akzeptierenden Rechenweg von $N_j^O(x)$ bestimmen.
+Offensichtlich ist das zumindest relativ zu $C$ (anstelle $O$) möglich, da insbesondere $\P^C=\NP^C$ gilt.
+Beachte, dass wir $O$ als $C\cup D$ schreiben können, wobei $D=O^{=e(0)}\cup O^{=e(1)}\cup\cdots$, und $C$ und $D$ sind insbesondere disjunkt.
+Hätten wir nun die Möglichkeit, effizient $D$ entscheiden zu können, dann wäre auch $\P^{O}=\NP^{O}$ und wir könnten einen akzeptierenden Rechenweg von $N_j^O(x)$ einfach ausrechnen.
+Nun können wir zwar $D$ nicht effizient entscheiden, aber wir können mittels $N_j$ und Behauptung~\ref{} zunmindest iterativ eine relevante finite Approximation $D'\subseteq D$ von $D$ bestimmen.
+Das soll kurz skizziert werden: Gegeben unsere finite Approximation $D'\subseteq D$, können wir relativ zu $C\cup D'$ einen akzeptierenden Rechenweg $\alpha$ von $N_j(x)$ ausrechnen. Dieser existiert insbesondere nach Behauptung~\ref{}. Nun können wir die Orakelfragen auf $\alpha$ mit dem „echten“ $D$ abgleichen, und so überprüfen wo unsere Approximation fehlerhaft ist, und ggf. unsere Apprixmation aktualisieren. Nachdem $D$ dünn ist (Behauptung~\ref{}) enden wir spätestens nach polynomiell vielen Iterationen bei einer Approximation $D'$, die auf allen relevanten Wörtern mit $D$ übereinstimmt.
 
 
 \begin{claim}
@@ -545,54 +550,68 @@ Nun können wir für die Hypothese $\hQ$ argumentieren.
 \end{claim}
 \begin{proof}
     %Es reicht aus, dass $g\in\FP^O$ nur Wörter hinreichender Länge verarbeiten muss.
-    Sei $n$ hinreichend groß, sodass diese vorige Behauptung 1.6 erfüllt ist.
-    Damit gilt: 
-\begin{equation} \begin{split}&T\subseteq O, \text{$T$ stimmt mit Wörtern der Länge $\neq e(\cdot)$ und der Länge $\leq n$ mit $O$ überein} \\ &\implies L(N_j^T)=\Sigma^*.\end{split}\label{eq:oracle-1a} \end{equation}
+    Wir schreiben erneut $O$ als $C\cup D$, wobei $D\defeq O \cap \{ w \mid \exists i.|w|=e(i)\}$
+    Sei $n$ hinreichend groß, sodass diese vorige Behauptung~\ref{} erfüllt ist.
+    Damit gilt (mit $T=C\cup D'$) 
+    \begin{equation} \begin{split}&D'\subseteq D, \text{$D$ stimmt mit Wörtern der Länge $\leq n$ mit $D$ überein} \\ &\implies L(N_j^{C\cup D'})=\Sigma^*.\end{split}\label{eq:oracle-1a} \end{equation}
 
-    Sei exemplarisch $x\in\Sigma^*$ gegeben. 
-    Wir werden obige Eigenschaft ausnutzen und iterativ eine Menge $D\subseteq O$ an Orakelwörtern der Länge $e(\cdot)$ aufbauen, welche für die Berechnung $N_j^O(x)$ relevant ist, bis wir alle solchen relevanten Wörter gefunden haben.
-    Wir starten hierbei mit der Menge aller Orakelwörter in $O$, welche Länge $\leq n$  und Länge $=e(\cdot)$ haben, d.h. setze zunächst
-    \[ D\gets \{ w\mid w\in O, |w|\leq n, \exists i.|w|=e(i)\}. \]
-Beob. dass damit $C\cup D\subseteq O$ und mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern der Länge $\leq n$ übereinstimmt, also nach \eqref{eq:oracle-1a} auch $L(N_j^{C\cup D})=\Sigma^*$.
-    Beachte dass $C$ und $D$ disjunkt sind. Damit können wir auch das (finite) $D$ sogar in $N_j$ hineincodieren.
-    Gemeint ist, $D$ in das „Programm“ $N_j$ hineincodieren, sodass für Queries $q, |q|=e(\cdot)$ nur getestet wird ob $q\in D$ anstelle einer echten Orakelfrage.
-    Es existiert also eine Orakel-NPTM $M'_j$, sodass $\smash{M'^C_j(x)}$ äquivalent zu $N_j^{C\cup D}(x)$ arbeitet. Und da $\smash{\P^C=\mathrm{PSPACE}^C}$, können wir in $\FP^C$ auch einen akzeptierenden Rechenweg von $M'^C_j(x)$ effizient bestimmen.
-    Das geht dann auch in $\FP^O\supseteq \FP^C$. (Jeder $\FP^C$-Algorithmus kann simuliert werden, indem Orakelfragen mit Länge $e(\cdot)$ negativ beantwortet werden.)
-    Damit ergibt sich: gegeben $D$ (unter den genannten Eigenschaften), kann ein akzeptierender Rechenweg von $N_j^{C\cup D}(x)$ in $\FP^O$ berechnet werden.
+    %Sei exemplarisch $x\in\Sigma^*$ gegeben. 
+    %Wir werden obige Eigenschaft ausnutzen und iterativ eine Menge $D\subseteq O$ an Orakelwörtern der Länge $e(\cdot)$ aufbauen, welche für die Berechnung $N_j^O(x)$ relevant ist, bis wir alle solchen relevanten Wörter gefunden haben.
+    %Wir starten hierbei mit der Menge aller Orakelwörter in $O$, welche Länge $\leq n$  und Länge $=e(\cdot)$ haben, d.h. setze zunächst
+    %\[ D\gets \{ w\mid w\in O, |w|\leq n, \exists i.|w|=e(i)\}. \]
+%Beob. dass damit $C\cup D\subseteq O$ und mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern der Länge $\leq n$ übereinstimmt, also nach \eqref{eq:oracle-1a} auch $L(N_j^{C\cup D})=\Sigma^*$.
+    %Beachte dass $C$ und $D$ disjunkt sind. Damit können wir auch das (finite) $D$ sogar in $N_j$ hineincodieren.
+    %Gemeint ist, $D$ in das „Programm“ $N_j$ hineincodieren, sodass für Queries $q, |q|=e(\cdot)$ nur getestet wird ob $q\in D$ anstelle einer echten Orakelfrage.
+    %Es existiert also eine Orakel-NPTM $M'_j$, sodass $\smash{M'^C_j(x)}$ äquivalent zu $N_j^{C\cup D}(x)$ arbeitet. Und da $\smash{\P^C=\mathrm{PSPACE}^C}$, können wir in $\FP^C$ auch einen akzeptierenden Rechenweg von $M'^C_j(x)$ effizient bestimmen.
+    %Das geht dann auch in $\FP^O\supseteq \FP^C$. %(Jeder $\FP^C$-Algorithmus kann simuliert werden, indem Orakelfragen mit Länge $e(\cdot)$ negativ beantwortet werden.)
+    %Damit ergibt sich: gegeben $D$ (unter den genannten Eigenschaften), kann ein akzeptierender Rechenweg von $N_j^{C\cup D}(x)$ in $\FP^O$ berechnet werden.
 
     Wir betrachten nun folgenden formalen Algorithmus relativ zu $O$ auf Eingabe $x$:\\
     \SetKwFor{Loop}{wiederhole}{}{}
     \begin{algorithm}[H]
-        $D\gets \{ w\mid w\in O, |w|\leq n, \exists i.|w|=e(i)\}$ \tcc{Konstante, muss nicht berechnet werden}
-        \Loop(\tcp*[h]{Invariante: $D\subseteq O\cap \{ w \mid \exists i.|w|=e(i)\}$}){}
+        $D'\gets \{ w\mid w\in O, |w|\leq n, \exists i.|w|=e(i)\}$ \tcc{Konstante, muss nicht berechnet werden}
+        \Loop(\tcp*[h]{Invariante: $D'\subseteq D=O\cap \{ w \mid \exists i.|w|=e(i)\}$}){}
         {
-            Sei $\alpha$ ein akzeptierender Rechenweg auf $N_j^{C\cup D}(x)$ und $Q$ die Menge an Orakelfragen\;
-            \eIf{existiert eine Frage $q\in Q$ für die $q\in O-C$ aber $q\not\in D$}
+            Sei $\alpha$ ein akzeptierender Rechenweg auf $N_j^{C\cup D'}(x)$ und $Q$ die Menge an Orakelfragen\;
+            \uIf{existiert eine Frage $q\in Q$ für die $q\in D$ aber $q\not\in D'$}
             {
-                $D\gets D \cup \{q\}$\;
+                $D'\gets D' \cup \{q\}$\;
             }
-            {
+            \Else(\tcp*[h]{für alle $q\in Q$ gilt: $q\not\in D\lor q\in D'$}){
                 Gebe {$\alpha$} aus\;
             }
         }
     \end{algorithm}
 
-    Korrektheit: Beobachte zunächst die Invariante dass $D\subseteq O\cap \{ w \mid \exists i.|w|=e(i)\}$.
-    Wie oben argumentiert gilt außerdem, dass $C\cup D\subseteq O$ und mit $O$ auf Wörtern der Länge $\neq e(\cdot)$ und Wörtern der Länge $\leq n$ übereinstimmt. Damit nach \eqref{eq:oracle-1a} auch $L(N_j^{C\cup D})=\Sigma^*$ und insbesondere existiert dann auch ein akzeptierender Rechenweg auf $N_j^{C\cup D}(x)$. Damit ist Z.~3 wohldefiniert.
-    Terminiert nun der Algorithmus mit einem Rechenweg $\alpha$ in Z.~7, wissen wir auch dass für alle Orakelfragen $q\in Q$ entweder $q\in C$ gilt oder $q\not\in O$ oder $q\in O, D$ gilt.
-    Damit stimmt $C\cup D$ mit $O$ auf $Q$ überein, und auch $N_j^O(x)$ akzeptiert mit Rechenweg $\alpha$.
+    Korrektheit: Beobachte zunächst die Invariante dass $D'\subseteq D$.
+    Damit gilt nach \eqref{eq:oracle-1a} auch $L(N_j^{C\cup D})=\Sigma^*$ und insbesondere existiert dann auch ein akzeptierender Rechenweg auf $N_j^{C\cup D}(x)$. Damit ist Z.~3 wohldefiniert.
+    Terminiert nun der Algorithmus mit einem Rechenweg $\alpha$ in Z.~7, 
+    dann stimmt aber $D'$ mit $D$ auf $Q$ überein: 
+    Falls $q\in D'$, dann auch $q\in D'$ (nach Invariante).
+    Falls $q\not\in D'$, dann $q\in D$ (nach Negation der If-Bedingung).
+    Damit stimmen auch $C\cup D'$ und $C\cup D=O$ auf $Q$ überein.
+    Also wird auch $N_j^O(x)$ mit Rechenweg $\alpha$ akzeptieren, nach Beobachtung~\ref{obs:partialoracles}(3).
 
     Laufzeit: Wir zeigen dass der Algorithmus in polynomiell beschränkter deterministischer Zeit (abhängig von $|x|$) relativ zu $O$ arbeitet. 
     Wir wissen, dass für jede Orakelfrage $q\in Q$ gilt, dass $|q|\leq p_j(|x|)$.
-    Zusammen mit oben genannten Invariante gilt $D\subseteq O\cap \{w \mid \exists i.|w|=e(i)\leq p_j(|x|)\}$.
-    Nach V2 gilt damit $\ell(D)\leq p_j(|x|)\cdot p_j(|x|)\cdot 2$, denn in den je $\leq p_j(|x|)$ Ebenen der Länge $e(i)\leq p_j(|x|)$ existieren höchstens zwei Wörter der Länge $e(i)\leq p_j(|x|)$.
-    Damit folgt auch unmittelbar, dass der Algorithmus nach höchstens polynomiell vielen Iterationen terminiert.
+    Zusammen mit oben genannten Invariante gilt $D'\subseteq D\cap \{w \mid \exists i.|w|=e(i)\leq p_j(|x|)\}$.
+    Nachdem nun $D$ aber dünn ist (Behauptung~\ref{}(2)), gilt damit 
+    %\[ |D'| \leq \sum_{i\in\mathbb N, e(i)\leq p_j(|x|)} |D\cap\Sigma^{e(i)}| \leq \sum_{i\in\mathbb N, e(i)\leq p_j(|x|)} 2 \leq 2p_j(|x|), \]
+\[ \ell(D') \leq \sum_{\mathclap{\substack{i\in\mathbb N\\ e(i)\leq p_j(|x|)}}} \ell(D\cap\Sigma^{e(i)}) = \sum_{\mathclap{\substack{i\in\mathbb N\\ e(i)\leq p_j(|x|)}}} e(i)\cdot |D\cap\Sigma^{e(i)}| \leq \sum_{\mathclap{\substack{i\in\mathbb N\\ e(i)\leq p_j(|x|)}}} 2e(i) \leq 2p_j(|x|)^2, \]
+    heißt nach polynomiell vielen Iterationen wird kein weiteres Wort zu $D'$ hinzugefügt und der Algorithmus terminiert.
 
-    Zeile 3 kann damit auch in polynomiell beschränkter deterministischer Zeit berechnet werden. Wie oben skizziert kann der Rechenweg in deterministisch polynomieller Zeit abh. von $|x|$ und $\ell(D)$ relativ zu $C$ bestimmt werden.
-    Nach Konstruktion ist leicht zu sehen, dass dieser Rechenweg dann auch relativ zu $O$ bestimmt werden kann.
+    Wir zeigen nun abschließend, dass Zeile 3 in polynomiell beschränkter deterministischer Zeit berechnet werden kann.
+    Hierfür werden wir das finite $D'$ in $N_j$ „hineincodieren“.
+    Gemeint ist, $D'$ in das „Programm“ $N_j$ hineincodieren, sodass für Queries $q, |q|=e(\cdot)$ nur getestet wird ob $q\in D'$ anstelle einer echten Orakelfrage.
+    Es existiert also eine Orakel-NPTM $N'_j$, sodass $\smash{N'^C_j(x)}$ äquivalent zu $N_j^{C\cup D'}(x)$ arbeitet. Und da $\smash{\P^C=\mathrm{PSPACE}^C}$, können wir in $\FP^C$ auch einen akzeptierenden Rechenweg $\beta'$ von $N'^C_j(x)$ effizient bestimmen.
+    Das geht dann auch in $\FP^O\supseteq \FP^C$. %(Jeder $\FP^C$-Algorithmus kann simuliert werden, indem Orakelfragen mit Länge $e(\cdot)$ negativ beantwortet werden.)
+    Also können wir auch einen akzeptierender Rechenweg von $N_j^{C\cup D'}(x)$ in $\FP^O$ berechnen.
+    Beachte insbesondere, dass das Hineincodieren in Polynomialzeit möglich ist, ist ja $\ell(D')$ polynomiell in Abhängigkeit von $|x|$ beschränkt.
 \end{proof}
 
-\todo{Abschluss}
+Damit ist der Beweis von Satz~\ref{} abgeschlossen: das Orakel $O$ erfüllt alle Eigenschaften.
+Relativ zu $O$ existiert nach Behauptung~\ref{} (1) kein $\leqmpp$-hartes Paar in $\DisjNP$ für $\DisjUP$, und (2) kein $\leqmp$-vollständige Menge für $\UP$.
+Nach Behauptung~\ref{} kann für jede totale NPTM $N_j$ eine Funktion $g\in\FP$ angegeben werden, für die $g(x)$ ein akzeptierender Rechenweg für $N_j(x)$ ist. Mit den Eigenschaften der Standardenumeration ist klar, dass dass auch für \emph{alle} totalen NPTM $N$ gilt. (Übersetze $N$ in äquivalente Standard-NPTM $N_j$, übersetze dann den akzeptierenden Rechenweg $g(x)=\alpha$ von $N_j(x)$ in einen akzeptierenden Rechenweg $\alpha'$ von $N(x)$ zurück.)
 
 
 \section{Orakel mit $\mathsf{KvL}$ und $\neg\hSAT$}

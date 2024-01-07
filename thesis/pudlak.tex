@@ -6,7 +6,7 @@ In der Einleitung dieser Arbeit wurde bereits angedeutet, dass die Hypothese $\h
 In diesem Kapitel werden wir diese Beziehungen näher erarbeiten. Zur Erinnerung:
 
 \begin{reptheorem}{Vermutung}{conj:q}[$\hQ$, \cite{fenner_inverting_2003}]
-    Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ ein akzeptierender Rechenweg von $N(x)$ ist. 
+    Für jede totale NPTM $N$ (d.h. $L(N)=\Sigma^*$) existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ ein akzeptierender Rechenweg von $N(x)$ ist. 
 \end{reptheorem}
 
 Im Kapitel werden wir uns grob folgenden drei Desiderata widmen: 
@@ -116,7 +116,7 @@ Im Speziellen werden wir sehen, dass die Hypothese $\hQ$ so charakterisiert werd
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-    \begin{prooflist}[label={}]
+    \begin{prooflist}
 \item (1)$\implies$(2): Die Richtung von rechts nach links ist klar. Für die andere Richtung sei $\Proj(A) \leqmp \Proj(B)$ mit $A,B$ NP-Relationen. Sei $q$ hierbei das Polynom was die Zertifikatslänge in $A$ begrenzt.
     Wir wollen nun eine Levin-Reduktion von $A$ auf $B$ angeben. Sei $f\in \FP$ die Funktion, welche die Reduktion $\Proj(A) \leqmp \Proj(B)$ realisiert.
 
@@ -224,7 +224,7 @@ Dass die Formulierung der Vermutungen \ref{conj:kvl} und \ref{conj:kvl-ps} äqui
     \end{enumerate}
 \end{observation}
 \begin{proof}
-    \begin{prooflist}[label={}]
+    \begin{prooflist}
     \item (1)$\Rightarrow$(2): 
         Sei $R$ eine NP-Relation mit $\leqmp$-vollständigem $\Proj(R)$.
     Wir zeigen, dass $\mathit{std}_{R}$ jedes andere optimale Beweissystem $h$ effektiv $\P$-simulieren kann.
@@ -295,7 +295,7 @@ Wir sehen nun, dass $\mathsf{SAT^{eff}}$ eine Verstärkung von sowohl $\hSAT$ al
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-\begin{prooflist}[label={}]
+\begin{prooflist}
 \item Zu (1): Klar aus Kontraposition. Wenn $\neg\hSAT$, dann existiert für eine $\leqmp$-vollständige Menge $L\in\NP$ ein $\P$-optimales Beweissystem $h$ für $L$ existiert, dann kann dieses (optimale) $h$ auch alle anderen Beweissysteme $\P$-simulieren, und damit insbesondere auch alle optimalen Beweissysteme $h'$ effektiv $\P$-simulieren.
 
 \item Zu (2): Wieder klar aus Kontraposition. Unter $\neg\mathsf{KvL}$ folgt mit der Formulierung aus Vermutung~\ref{conj:kvl-ps} dass für jede NP-Relation $Q$, $\Proj(Q)$ vollständig, das (optimale) Standardbeweissystem $\mathit{std}_Q$ alle optimalen Beweissysteme für $\Proj(Q)$ effektiv $\P$-simulieren kann. Das gilt dann insbesondere auch für die $\leqlp$-vollständige NP-Relation $\mathtt{rKAN}$, also hat die $\leqmp$-vollständige Menge $\mathtt{KAN}$ \emph{ein} Beweissystem, welches alle optimalen Beweissysteme effektiv $\P$-simulieren kann.
@@ -363,7 +363,7 @@ Folgende Aussagen sind äquivalent:
 \end{enumerate}
 \end{lemma}
 \begin{proof}
-\begin{prooflist}[label={}]
+\begin{prooflist}
 \item (1)$\Rightarrow$(2): 
     Nachdem $\hQ$ gilt, gilt auch $\TFNP\subseteqc\FP$ nach Beobachtung~\ref{obs:tfnp-q}.
     Sei nun $R$ eine beliebige NP-Relation mit Zertifikatsschranke $q$, und
@@ -453,7 +453,7 @@ Mit dieser Definition können wir nun einen Beweis von \textcite[Thm. 5.2]{messn
     \end{enumerate}
 \end{lemma}
 \begin{proof}
-\begin{prooflist}[label={}]
+\begin{prooflist}
 \item (1)$\Rightarrow$(2): Klar.
 
 \item (2)$\Rightarrow$(3): Klar.
@@ -671,7 +671,7 @@ Die Äquivalenz zu Aussage (8) ist hierbei eine einfache relativierbare Generali
 \begin{theorem}[Äquivalente Formulierungen der Hypothese $\hQ$]\label{thm:q}
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}[midpenalty=0]
-        \item Hypothese $\hQ$: Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ ein akzeptierender Rechenweg von $N(x)$ ist.
+        \item Hypothese $\hQ$: Für jede totale NPTM $N$  existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ ein akzeptierender Rechenweg von $N(x)$ ist.
         \item $\TFNP\subseteqc \FP$
         \item $\mathrm{NPMV}_t\subseteqc \FP$
         \item $\P=\NP\cap\coNP$ und $\mathrm{NPMV}_t\subseteqc \mathrm{NPSV}_t$
@@ -688,7 +688,7 @@ Die Äquivalenz zu Aussage (8) ist hierbei eine einfache relativierbare Generali
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-\begin{prooflist}
+\begin{prooflist}[label={\arabic*.},labelsep=3pt]
 \item (1)$\iff$(2)$\iff$(4)$\iff$(5)$\iff$(6): nach \textcite[Thm.~2]{fenner_inverting_2003}. 
 
 \item (1)$\iff$(3): nach Beobachtung~\ref{obs:tfnp-q}.
@@ -791,7 +791,7 @@ Zum Schluss wird noch angegeben, welche der Hypothesen im (vergrößertem) Pudl�
 Zunächst führen wir noch eine abgeschwächte Variante von $\hQ$ ein, die von \textcite{fenner_inverting_2003} vorgeschlagen wurde.
 
 \begin{conjecture}[$\hQ'$, \cite{fenner_inverting_2003}]
-    Für jede NPTM $N$ mit $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)\in\{0,1\}$ das erste Bit eines akzeptierenden Rechenwegs von $N(x)$ ist. 
+    Für jede totale NPTM $N$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)\in\{0,1\}$ das erste Bit eines akzeptierenden Rechenwegs von $N(x)$ ist. 
 \end{conjecture}
 
 Jetzt können wir auch die in Abbildung \ref{fig:figure-implications} abgebildeten Implikationen und Äquivalenzen nachweisen.
@@ -800,7 +800,7 @@ Jetzt können wir auch die in Abbildung \ref{fig:figure-implications} abgebildet
 \end{theorem}
 \begin{proof}
     Es gelten die notierten Äquivalenzen:
-    \begin{Prooflist}[nosep,midpenalty=0]
+    \begin{Prooflist}[nosep,midpenalty=0,label={\arabic*.},labelsep=3pt]
         \item $\neg\hQ \Leftrightarrow \exists$ optimales Beweissystem was nicht $\P$-optimal ist $\Leftrightarrow \TFNP\not\subseteq_\mathrm{c} \FP$, nach Satz~\ref{thm:q}.
     %\item $\NP\neq\coNP \Leftrightarrow$ existiert keine NP-harte Funktion in $\TFNP$, nach Satz~\ref{thm:tfnp-vs-npconp}.
         \item $\neg\hQ' \Leftrightarrow\exists$ P-inseparierbares $\DisjCoNP$-Paar, nach \textcite[Lemma~2.12, vgl. Appendix]{fortnow_separability_1993}.
@@ -812,7 +812,7 @@ Jetzt können wir auch die in Abbildung \ref{fig:figure-implications} abgebildet
     \end{Prooflist}
 
     Es gelten die eingezeichneten Implikationen:
-    \begin{Prooflist}[nosep,midpenalty=0]
+    \begin{Prooflist}[nosep,midpenalty=0, label={\arabic*.},labelsep=3pt]
 \item $\hDisjNP \Rightarrow \mathsf{TAUT^N}$ nach \textcite[Cor.~6.1]{kobler_optimal_2003}.
 \item $\hUP \Rightarrow \hTAUT$ nach \textcite[Cor.~4.1]{kobler_optimal_2003}. % relativiert offenbar nach Dose
 \item $\mathsf{TAUT^N}\Rightarrow \mathrm{NEE\neq coNEE}$ nach \textcite[Cor.~7.1]{kobler_optimal_2003}.

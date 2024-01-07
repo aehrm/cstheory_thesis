@@ -101,6 +101,8 @@ In sowohl dem deterministischen und nichtdeterministischen Fall können wir Bere
 \[ \mathrm{time}_M(x) \defeq \max \{ \text{Anz. Rechenschritte in $\alpha$} \mid \text{$\alpha$ ist ein Rechenweg von $M(x)$}  \}. \]
 Ist $\mathrm{time}_M(x)$ durch ein Polynom in Abhängigkeit von $|x|$ beschränkt, und $M$ eine deterministische (bzw. nichtdeterministische) TM, sagen wir auch dass $M$ eine \emph{deterministische (bzw. nichtdeterministische) Polynomialzeit-Turing-Maschine} (PTM bzw. NPTM) ist. 
 
+Eine PTM bzw. NPTM $M$ nennen wir \emph{total} falls $L(M)=\Sigma^*$, heißt $M(x)$ akzeptiert für jede Eingabe $x$.
+
 
 \section{Komplexitätsklassen}\label{sec:prelim-klassen}
 
@@ -329,7 +331,7 @@ Für die Mengen aus $\P$ bzw. $\NP$ existieren $\P$-optimale bzw. optimale Bewei
     \end{enumerate}
 \end{observation}
 \begin{proof}
-\begin{prooflist}[label={}]
+\begin{prooflist}
 \item Zu (1): Betrachte die Funktion
     \[ h(x) \defeq \begin{cases} x & \text{wenn $x\in A$} \\ \bot & \text{sonst} \end{cases}. \]
     Diese Funktion ist definitiv ein Beweissystem für $A$. Sie ist in $\FP$, ist ja der Test „$x\in A$“ in Polynomialzeit möglich. Klar ist auch dass $h$ kurze Beweise hat. Dieses Beweissystem ist $\P$-optimal, denn wenn $g$ ein weiteres Beweissystem für $A$ ist, und wenn $w$ ein $g$-Beweis für $x$ ist, dann ist $h(g(w))=h(x)=x$, also $g(w)$ ein $h$-Beweis für $x$, wie gewünscht. 

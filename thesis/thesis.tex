@@ -113,6 +113,7 @@
     {\itshape\thesubsubsection}
     {1ex}
     {\itshape}[~~$\cdot$]
+%\newcommand{\subsectionbreak}{\vfil}
 
 \contentsmargin[1cm]{0cm}
 \titlecontents*{part}[0em]
@@ -230,7 +231,7 @@
 \setlist[itemize]{itemsep=0pt}
 \setlist{beginpenalty=10000, midpenalty=10000}
 \newlist{Prooflist}{enumerate}{1}
-\setlist[Prooflist]{wide,labelwidth=!,leftmargin=0pt,itemindent=!,labelindent=0pt,label={\arabic*.},labelsep=3pt,itemsep=.3em plus .2em minus .1em,parsep=0pt}
+\setlist[Prooflist]{wide,labelwidth=!,leftmargin=0pt,itemindent=!,labelindent=0pt,label={},labelsep=0pt,itemsep=.4em plus .2em minus .1em,parsep=0pt}
 \newenvironment{prooflist}[1][]{%
     \begin{Prooflist}[#1]%
 }{%
@@ -247,6 +248,10 @@
 
 \usepackage[style=myauthoryear,backend=biber,mergedate=false,maxbibnames=99,dashed=false]{biblatex}
 \addbibresource{zoterolib.bib}
+\makeatletter
+\newcommand{\printallnames}{\AtNextCite{\numdef\blx@maxcitenames{99}}}
+\makeatother
+
 \DeclareSourcemap{
   \maps[datatype=bibtex]{
      \map{
@@ -351,8 +356,6 @@
 
 \tableofcontents
 \cleardoublepage
-
-
 
 \input{intro}
 \input{prelim}

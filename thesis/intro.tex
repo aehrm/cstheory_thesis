@@ -91,12 +91,15 @@ Das haben wir bereits bei den Suchproblemen (1) und (3) gesehen.
 Diese \emph{totalen} NP-Suchprobleme sind insofern interessant, da viele effizient lösbar sind (z.B. Suchproblem 3), andererseits für viele die effiziente Lösbarkeit noch offen ist. Gleichzeitig wird erwartet, dass die totalen NP-Suchprobleme nicht NP-hart sind; damit ist die effiziente Lösbarkeit zumindest dieser Suchprobleme durchaus in Reichweite. 
 Das trifft zum Beispiel für das Suchproblem (1) der Faktorisierung zu. Dieses totale NP-Suchproblem ist momentan nicht effizient lösbar, aber gleichzeitig auch nicht NP-hart. Die Untersuchung solcher totalen NP-Suchprobleme geht im Wesentlichen auf \textcites{johnson_how_1988}{megiddo_total_1991} zurück.
 
-\AtNextCite{\defcounter{maxnames}{99}}
-\textcite{fenner_inverting_2003} können die Vermutung „alle totalen NP-Suchprobleme sind effizient lösbar“ in verschiedensten äquivalenten Formulierungen charakterisieren, so zum Beispiel als Invertierbarkeit von surjektiven Funktionen, oder als das effiziente Lösen vom Suchproblem (7) unter Angabe einer nichtdeterministische Turing-Maschine, die $\mathtt{SAT}$ erkennt.
-\citeauthor{fenner_inverting_2003} fassen diese jeweils äquivalenten Charakterisierungen unter der Hypothese $\hQ$ zusammen. Für diese Arbeit werden wir hier folgende Formulierung von  $\hQ$ anwenden:
+%\AtNextCite{\defcounter{maxnames}{99}}
+\printallnames%
+\textcite{fenner_inverting_2003} können die Vermutung „alle totalen NP-Suchprobleme sind effizient lösbar“ in verschiedensten äquivalenten Formulierungen charakterisieren, so zum Beispiel als Invertierbarkeit von surjektiven Funktionen, oder als das effiziente Lösen vom Suchproblem (7) unter Angabe einer nichtdeterministische Turing-Maschine, welche die Menge $\mathtt{SAT}$ der erfüllbaren aussagenlogischen Formeln erkennt.
+\citeauthor{fenner_inverting_2003} fassen diese jeweils äquivalenten Charakterisierungen unter der Hypothese $\hQ$ zusammen. Für diese Arbeit werden wir hier folgende Formulierung von  $\hQ$ anwenden, die über nichtdeterministische Turing-Maschinen spricht, welche jede Eingabe akzeptieren:
 \begin{conjecture}[$\hQ$, \cite{fenner_inverting_2003}]\label{conj:q}
     Für jede nichtdeterministische Turing-Maschine $N$ mit polynomieller Laufzeitbeschränkung, und $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierender Rechenweg von $N(x)$ ist. 
 \end{conjecture}
+In dieser Formulierung wird auch die Schwierigkeit dieser Vermutung klar: wir bekommen zwar versprochen, dass $N(x)$ akzeptiert, wir wissen aber nicht, \emph{welcher} nichtdeterministische Rechenweg $x$ akzeptiert, und nicht wie wir einen solchen Rechenweg effizient berechnen könnten.
+
 %Die Hypthese $\hQ$ lässt sich ferner in Beziehung zu vollständigen NP-Suchproblemen und sogenannten Beweissystemen setzen.
 Obwohl $\hQ$ zunächst nur über totale Suchprobleme spricht, hat die Hypothese 
  $\hQ$ große Nähe und Verwandtschaft zu analogen Aussagen, die NP-Suchprobleme einerseits und die sogenannten Beweissysteme andererseits betreffen.
@@ -131,7 +134,7 @@ Diese Einsicht motivierte das sogenannte \emph{Cook--Reckow-Programm} \parencite
 Um $\NP\neq\coNP$ zu erreichen, könnten wir entweder zeigen dass kein (längen-)optimales aussagenlogisches Beweissystem (d.h. ein Beweissystem welches höchstens polynomiell längere Beweise als jedes andere Beweissystem hat) existiert, oder ein optimales aussagenlogisches Beweissystem angeben, sodass dieses keine kurzen Beweise hat.
 Aufbauend auf dieser Verbindung wurden zunehmend auch untere und obere Schranken von speziellen aussagenlogischen Beweissystemen untersucht, sowie auch Beweissysteme allgemein für beliebige Mengen (und nicht nur Tautologien) betrachtet.
 
-Die Existenz von optimalen Beweissystemen bzw. $\P$-optimalen (d.i. optimal in de Sinn dass sogar die Beweise zwischen den Beweissystemen effizient übersetzt werden können) Beweissystemen  wurde von \textcite{krajicek_propositional_1989} in Beziehung gesetzt mit endlicher Konsistenz von mathematischen Theorien. Darauf aufbauend zeigt \textcites[Kap.~6]{pudlak_logical_2013}{pudlak_incompleteness_2017} ferner Verbindungen zwischen $\P$-optimalen bzw. optimalen Beweissystemen, Arithmetik mit polynomiell beschränkten Quantoren („\emph{bounded arithmetic}“) und der Existenz von vollständigen Elementen sogenannter \emph{Promise-Klassen}. Promise-Klassen sind solche Komplexitätsklassen, die durch speziell operierende Turing-Maschinen mit speziellen Eigenschaften erkannt werden können, wobei diese Eigenschaften üblicherweise über (Nicht)determinismus und polynomiell Laufzeit hinaus gehen. Für die Klasse $\UP\subseteq\NP$ bedeutet das z.B., dass die Sprache (wie bei NP) von einer nichtdeterministischen Polynomialzeit-Turing-Maschine erkannt werden muss, die aber -- das ist der Promise -- auch nur auf höchstens einem nichtdeterministischne Rechenweg akzeptieren darf.
+Die Existenz von optimalen Beweissystemen bzw. $\P$-optimalen (d.i. optimal in de Sinn dass sogar die Beweise zwischen den Beweissystemen effizient übersetzt werden können) Beweissystemen  wurde von \textcite{krajicek_propositional_1989} in Beziehung gesetzt mit endlicher Konsistenz von mathematischen Theorien. Darauf aufbauend zeigt \textcites[Kap.~6]{pudlak_logical_2013}{pudlak_incompleteness_2017} ferner Verbindungen zwischen $\P$-optimalen bzw. optimalen Beweissystemen, Arithmetik mit exponentiell beschränkten Quantoren („\emph{bounded arithmetic}“) und der Existenz von vollständigen Elementen sogenannter \emph{Promise-Klassen}. Promise-Klassen sind solche Komplexitätsklassen, die durch speziell operierende Turing-Maschinen mit speziellen Eigenschaften erkannt werden können, wobei diese Eigenschaften üblicherweise über (Nicht)determinismus und polynomiell Laufzeit hinaus gehen. Für die Klasse $\UP\subseteq\NP$ bedeutet das z.B., dass die Sprache (wie bei NP) von einer nichtdeterministischen Polynomialzeit-Turing-Maschine erkannt werden muss, die aber -- das ist der Promise -- auch nur auf höchstens einem nichtdeterministischne Rechenweg akzeptieren darf.
 
 \textcite{razborov_provably_1994} zeigt hierbei als erstes eine Verbindung zwischen der Promise-Klasse $\DisjNP$ und der Existenz von optimalen aussagenlogischen Beweissystemen (für $\mathtt{TAUT}$). Viele weitere Beziehungen zur Existenz vollständiger Elemente der Promise-Klassen $\UP, \NP\cap\coNP, \DisjCoNP$ wurden ausgemacht \parencites(vgl. auch)(){messner_simulation_2001}{kobler_optimal_2003}{beyersdorff_there_2011}.
 \textcite{beyersdorff_nondeterministic_2009} und \textcite{pudlak_incompleteness_2017} zeigen ferner analoge Verbindungen zu den Funktionenklassen $\NPMVt$ und $\TFNP$.
@@ -139,8 +142,13 @@ Die Existenz von optimalen Beweissystemen bzw. $\P$-optimalen (d.i. optimal in d
 %Damit können wir uns der $\NP$-$\coNP$-Frage nähern, indem wir immer stärkere aussagenlogische Beweissysteme unteruschen. 
 %Diese Herangehensweise an die $\NP$-$\coNP$-Frage über aussagenlogische Beweissysteme 
 
+\begin{figure}[tb]
+    \centering\includegraphics[page=8]{figures.pdf}
+    \caption{Implikationen zwischen Pudláks Hypothesen \parencite*{pudlak_incompleteness_2017}. Beachte dass diese Implikationen relativieren.}\label{fig:pudlak-small}
+\end{figure}
+
 Motiviert durch Fragen der endlichen Widerspruchsfreiheit von Theorien und \emph{bounded arithmetic} formuliert \textcite{pudlak_incompleteness_2017} folgende Hypothesen, die hier in ihrer komplexitätstheoretischen Fassung genannt werden:\par
-\bigskip
+\medskip
 \begin{tabular}{l@{\quad:\quad}l}
     $\hSAT$ & es ex. keine $\leqmp$-vollst. Menge für $\NP$ mit $\P$-opt. Beweissystem\\
     $\hTAUT$ & es ex. keine $\leqmp$-vollst. Menge für $\coNP$ mit $\P$-opt. Beweissystem\\
@@ -150,9 +158,13 @@ Motiviert durch Fragen der endlichen Widerspruchsfreiheit von Theorien und \emph
     $\hDisjNP$ & es ex. kein $\leqmpp$-vollst. disjunktes NP-Paar für $\DisjNP$\\
     $\hDisjCoNP$ & es ex. kein $\leqmpp$-vollst. disjunktes coNP-Paar für $\DisjCoNP$
 \end{tabular}\par
-\bigskip\noindent
+\medskip\noindent
+Seien an dieser Stelle auch schon die folgenden zwei wichtigen natürlichen Mengen definiert:
+\begin{alignat*}{2}
+    &\mathtt{SAT} &&= \{ \phi \mid \text{$\phi$ ist eine erfüllbare aussagenlogische Formel} \},\\
+    &\mathtt{TAUT} &&= \{ \phi \mid \text{$\phi$ ist eine gültige aussagenlogische Formel} \}.
+\end{alignat*}
 Zur Notation: natürliche Mengen wie $\mathtt{TAUT}$ werden wir Schreibmaschinenschrift notieren, während Hypothesen in serifenloser Schrift notiert werden.
-
 
 Es muss hervorgehoben werden, dass Pudlák die Hypothese $\hTAUT$ nicht in dieser Form formuliert hat, sondern als Aussage über die Nicht-Existenz eines $\P$-optimalen Beweissystems speziell für $\mathtt{TAUT}$, genau wie anfangs des Abschnitts gefragt wurde. (In seiner Notation die Hypothese $\mathsf{CON}$.) Die beiden Charakterisierungen sind aber äquivalent; Gesagtes gilt analog auch für $\hSAT$ (vgl. Abschnitt~\ref{sec:prelim-ps}).
 
@@ -161,11 +173,6 @@ Insbesondere arbeitet Pudlák die Beziehung zwischen diesen einzelnen Hypothesen
 Auf der Seite der Komplexitätstheorie fragt Pudlák im Sepziellen nach natürlichen plausiblen stärkeren Hypothesen (die bspw. sowohl $\hTAUT$ als auch $\hTFNP$ implizieren, wobei Pudlák diese beiden Hypothesen jeweils als plausibel ansieht), sowie im Allgemeinen nach Separationen zwischen diesen Hypothesen. Zum Beispiel kann durch Angabe von Orakeln gezeigt werden, dass zwei Hypothesen unter relativierbaren Beweisen nicht gleich sind, oder stärker sogar unabhängig unter relativierbaren Beweisen sind. 
 %Das wird später näher erläutert.
 Dieses allgemeine Forschungsdesiderat fasse ich für diese Arbeit lose als \emph{Pudláksches Programm} zusammen.
-
-\begin{figure}[tb]
-    \centering\includegraphics[page=8]{figures.pdf}
-    \caption{Implikationen zwischen Pudláks Hypothesen \parencite*{pudlak_incompleteness_2017}. Beachte dass diese Implikationen relativieren.}\label{fig:pudlak-small}
-\end{figure}
 
 Die vorliegende Arbeit will drittens an genau diesem Pudlákschen Programm beitragen, indem im Wesentlichen die Übersicht in Abbildung~\ref{fig:pudlak-small} verfeinert wird, und dabei stärkere (und schwächere) Hypothesen eingeordnet werden. Hierbei fokussiere ich mich insbesondere auf jene Hypothesen, die mit NP-Suchproblemen im Zusammenhang stehen, wie z.B. $\hQ$.
 Im Folgenden gehen wir noch auf den „Orakel“-Teil des Pudlákschen Programms ein.
