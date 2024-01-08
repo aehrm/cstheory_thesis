@@ -101,9 +101,9 @@ Wir wiederholen hier erneut die zentrale offene Frage und Vermutung aus Abschnit
 
 \conjkvl*
 
-Zunächst sei hier noch einmal hervorgehoben, dass eine Beantwortung der Frage~\ref{question:kvl} schwer ist. Zum einen haben wir bereits gesehen, dass ein Beweis $\mathsf{KvL}$ auch sofort $\P\neq\NP$ berweisen würde. Zum anderen existieren Orakel $A$ und $B$, relativ zu diesem $\mathsf{KvL}^A$ und $\neg\mathsf{KvL}^B$ gelten (vgl.~Abschnitt~\ref{} und Satz~\ref{}). Genauso wie die meisten von Pudláks Hypothesen ist damit die Aussage $\mathsf{KvL}$ unabhängig unter relativierenden Beweisen.
+Zunächst sei hier noch einmal hervorgehoben, dass eine Beantwortung der Frage~\ref{question:kvl} schwer ist. Zum einen haben wir bereits gesehen, dass ein Beweis $\mathsf{KvL}$ auch sofort $\P\neq\NP$ berweisen würde. Insbesondere ist ein relativierender Beweis von $\mathsf{KvL}$ ausgeschlossen, denn existiert ein Orakel, relativ zu diesem $\neg\mathsf{KvL}$ (z.B. ein PSPACE-vollständiges Orakel, welches $\NP$ auf $\P$ kollabiert).
 
-Wir werden uns also im Folgenden insbesondere auf Beziehungen zwischen Hypothesen und $\mathsf{KvL}$ konzentrieren.
+Wir werden uns daher im Folgenden insbesondere auf Beziehungen zwischen Hypothesen und $\mathsf{KvL}$ konzentrieren.
 In diesem Sinne möchte ich argumentieren, dass die obige Frage bzw. Vermutung eng mit der Hypothese $\hQ$ zusammenhängt.
 Im Speziellen werden wir sehen, dass die Hypothese $\hQ$ so charakterisiert werden kann, dass sie einer Verstärkung der Vermutung $\mathsf{KvL}$ entspricht.\footnote{\textcite{fenner_inverting_2003} gaben hierbei eine ähnliche Aussage an (Cor.~3: „$\hQ$ holds iff every Karp reduction from $A$ to $B$ can be extended to a Levin reduction“), es ist aber hervorzuheben, dass die Autoren von einem unüblichen Begriff von Levin-Reduktionen ausgehen, der sich von dem hier verwendeten unterscheidet. Dieser umfasst nicht eine „Rückwärts-Translation“ von Zertifikaten für $B$-Instanzen zu $A$-Instanzen, sondern eine „Vorwärts-Translation“ von Zertifikaten für $A$-Instanzen zu $B$-Instanzen.}
 
@@ -309,7 +309,7 @@ Wir konnten zwar $\mathsf{KvL}$ als Aussage über Beweissysteme formulieren, abe
 
 Zum anderen die Beziehungen zwischen $\mathsf{KvL}$ und anderen Hypothesen bzw. Annahmen.
 Gibt es natürliche (z.B. kryptographische) Annahmen die hinreichend für $\mathsf{KvL}$ sind? Wie ist die Beziehung zu den anderen Pudlákschen Hypothesen? Wie verhält sich insbesondere $\hSAT$ zu $\mathsf{SAT^{eff}}$? 
-Diese Fragen werden wir zum Teil in Kapitel~\ref{} klären; dort wird ein Orakel konstruiert, welches zum einen zeigt, dass selbst unter Annahme von \todo{}.
+Diese Fragen werden wir zum Teil in Kapitel~\ref{chap:orakel} klären; dort wird ein Orakel konstruiert, welches zeigt, dass selbst unter der Annahme von $\hDisjNP$ und $\hUP$ es nicht möglich ist, mit relativierenden Beweismethoden auf $\mathsf{KvL}$ zu schließen.
 
 %Kann in Beobachtung~\ref{obs:kvl-equiv}(2) so verstärkt werden, dass $\mathit{std}_Q$ jedes (nicht nur die optimalen) Beweissystem effektiv p-simulieren kann, also gewissermaßen $\mathit{std}_Q$ „effektiv p-optimal“ ist?
 
@@ -347,7 +347,7 @@ Ganz ähnlich wie NP-Relationen ein Standardbeweissystem induzieren, können wir
 Diese beiden Charakterisierungen wollen wir im Folgenden verallgemeinern und auf beliebige $\leqlp$-vollständige NP-Relationen $R$ übertragen. 
 Hieraus ergibt sich schon unmittelbar der technische Beitrag, dass dann diese Charakterisierungen auch in einer relativierten Umgebung angewendet werden können, um z.B. ein geeignetes Orakel zu konstruieren, was $\hQ$ von anderen Hypothesen trennt.
 
-Zweitens ergibt sich aus der Verallgemeinerung das überraschende Ergebnis, dass $\leqlp$-Vollständigkeit allein nicht ausreicht. In den originalen Beweisen von \citeauthor{fenner_inverting_2003} und \citeauthor{messner_simulation_2001} wurden stillschweigend zusätzliche Eigenschaften von $\mathtt{rSAT}$ mitgedacht und ausgenutzt. Die folgende Generalisierung deckt diese Eigenschaften auf, und plausibilisiert dass diese womöglich nicht von allen $\leqlp$-vollständigen NP-Relationen geteilt werden.
+Zweitens ergibt sich aus der Verallgemeinerung das überraschende Ergebnis, dass $\leqlp$-Vollständigkeit allein zur Generalisierung nicht ausreicht. In den originalen Beweisen von \citeauthor{fenner_inverting_2003} und \citeauthor{messner_simulation_2001} wurden stillschweigend zusätzliche Eigenschaften von $\mathtt{rSAT}$ mitgedacht und ausgenutzt. Die folgende Generalisierung deckt diese Eigenschaften auf, und plausibilisiert dass diese womöglich nicht von allen $\leqlp$-vollständigen NP-Relationen geteilt werden.
 
 Eine dieser stärkeren Eigenschaften von $\mathtt{rSAT}$, welche \citeauthor{fenner_inverting_2003} in ihren Beweisen gebrauchten, ist die $\leq_\mathrm{1,i}^\mathrm p$-Vollständigkeit von $\mathtt{rSAT}$. Wir schwächen im Folgenden diese Voraussetzunt ab, und verlangen nur, dass eine NP-Relation unter ehrlichen Reduktionen vollständig ist. Dies gilt insbesondere für $\mathtt{rSAT}$.
 Für welche $\leqlp$-vollständigen NP-Relationen das noch zutrifft, werden wir unten betrachten.
@@ -849,31 +849,29 @@ Der verbleibende Beweis ist eine Generalisierung von \textcite{dingel_separation
 \end{theorem}
 \begin{proof}
     Nach Voraussetzung können wir in $\NP$ testen, ob ein Wort $x$ im Urbild einer beliebigen $\NPMV$-Multifunktion liegt.
-    Es gilt $\mathtt{KAN}\in\NP$ und damit $\mathtt{KAN}\in\coNP$. Insbesondere ist dann die Menge\marginnote{\todo{haben keine Enumerierung definiert!}}
+    Es gilt $\mathtt{KAN}\in\NP$ und damit $\mathtt{KAN}\in\coNP$. Insbesondere ist dann die Menge
     \[ U \defeq  \{ (T, x, 1^n) \mid \text{$T$ ist ein NPTM-Transduktur und akz. $x$ auf keinem Rechenweg der Länge $\leq n$} \} \in\NP,  \]
     und wird von der NPTM $N_u$ in Laufzeit $q(|(T, x, 1^n)|)$ entschieden.
 
     Betrachte nun die Multifunktion $f$, die durch folgenden nichtdeterministischen Transduktor $T'(T, x, 1^n)$ berechnet wird:\pagebreak[1]\\
     \begin{algorithm}[H]
-        \uIf{$T$ kein Transduktor ist}{Gebe $\epsilon$ aus}
+        \lIf{$T$ kein Transduktor ist}{Gebe $\epsilon$ aus}
         Rate nichtdeterministisch einen Rechenweg $\alpha$ von $T$ der Länge $\leq n$\;
         Rate nichtdeterministisch einen Rechenweg $\beta$ von $N_u$ der Länge $\leq q(|(T, x, 1^n)|)$\;
-        \uIf{$T(x)$ auf $\alpha$ nicht terminiert, heißt ein weiterer Rechenschritt ist möglich}
-        {
-            Gebe $\epsilon$ aus\;
-        }
+        \lIf{$T(x)$ auf $\alpha$ nicht terminiert, heißt ein weiterer Rechenschritt ist möglich}
+        { Gebe $\epsilon$ aus }
         \uElseIf{$T(x)$ mit $\alpha$ akzeptiert}
         {
             $y\gets $ Ausgabe von $T(x)$ auf $\alpha$\;
             Gebe $y$ aus\;
         }
-        \uElseIf{$N_u(i, x, 1^n)$ mit $\beta$ akzeptiert}
+        \lElseIf{$N_u(i, x, 1^n)$ mit $\beta$ akzeptiert}
         {
-            Gebe $\epsilon$ aus\;
+            Gebe $\epsilon$ aus
         }
-        \Else
+        \lElse
         {
-            Lehne ab\;
+            Lehne ab
         }
     \end{algorithm}
     Es ist leicht zu sehen dass $T'$ in Polynomialzeit arbeitet. 
@@ -908,7 +906,7 @@ Der verbleibende Beweis ist eine Generalisierung von \textcite{dingel_separation
     \vspace*{-5cm}
     \includegraphics[page=7]{figures.pdf}
     \vspace*{-3cm}
-    \caption{Bekannte Orakel, welche (relativierende) Implikationen zwischen zwei Hypothesen ausschließen. Ein durchgezogener Pfeil von $\mathsf A$ nach $\mathsf B$ sagt aus, dass $\mathsf A$ die Aussage $\mathsf B$ relativierend impliziert (wie in Abb.~\ref{fig:figure-implications}). Ein durchgestrichener Pfeil von $\mathsf A$ nach $\mathsf B$ sagt aus, dass ein Orakel existiert, relativ zu diesem $\mathsf A\land\neg\mathsf B$ gilt.\\
+    \caption{Bekannte Orakel, welche (relativierende) Implikationen zwischen zwei Hypothesen ausschließen. Ein durchgezogener Pfeil von $\mathsf A$ nach $\mathsf B$ sagt aus, dass $\mathsf A$ die Aussage $\mathsf B$ relativierend impliziert (wie in Abb.~\ref{fig:figure-implications}). Ein durchgestrichener Pfeil von $\mathsf A$ nach $\mathsf B$ sagt aus, dass ein Orakel existiert, relativ zu diesem $\mathsf A\land\neg\mathsf B$ gilt. Das Orakel $O$ an den blauen durchgestrichenen Pfeilen entspricht dem Orakel aus Satz~\ref{thm:myoracle}.\\
     1.~nach \textcite[Thm.~5]{rackoff_relativized_1982}. 
     2. über eine einfache Variante eines Orakels $D$ von \textcite[Thm.~4.1]{dose_further_2020}, bei der die Zeugensprache $A\in\NP-\P$ nur so konstruiert werden muss, dass $A\in\UP\cap\coUP$. %Im Doses Kontext würde man bei der Diagonalisierung aller PTM $M_1,M_2, \dots$ genau ein Wort $00y$, $y\in\Sigma^{n-1}$ einsetzen falls $M_i(0^n)$ akzeptiert, und ansonsten genau ein Wort $01y$, $y\in\Sigma^{n-1}$ einsetzen wenn $M_i(0^n)$ ablehnt.  Dann kann kein $M_i$ die Sprache $A=\{ 0^n \mid $ ex. $y\in\Sigma^{n-1}$ mit $01y\in D\}$ entscheiden, und $A\in\UP\cap\coUP$.
     3.~nach \textcite[Thm.~9]{ehrmanntraut_oracle_2022}.
@@ -920,14 +918,14 @@ Der verbleibende Beweis ist eine Generalisierung von \textcite{dingel_separation
     9.~nach \textcite[Cor.~6.6]{glaser_disjoint_2004}.
     10.~nach \textcite[Thm.~5.1]{khaniki_new_2022}.
     11.~nach \textcite[Thm.~5.2]{khaniki_new_2022}.
-    12.~nach \textcite[Satz~3.12]{dingel_separation_2022}.
+    12.~nach \textcite[Satz~3.12]{dingel_separation_2022}.\\
 }\label{fig:oracles}
     \forcerectofloat
 \end{figure*}
 
 Abbildung~\ref{fig:oracles} zeigt, welche Hypothesen unter relativierbaren Beweisen durch ein Orakel voneinander getrennt sind.
 Beachte, dass im Gegensatz zur Abbildung~\ref{fig:figure-implications} aus Übersichtlichkeit einige Hypothesen ausgelassen wurden, nämlich jene der Exponentialzeitklassen, und jene der Reduzierbarkeit von Such- auf Entscheidungsprobleme.
-Das blau hervorgehobene Orakel \todo{} wird im folgenden Kapitel konstruiert.
+Das blau hervorgehobene Orakel $O$ wird im folgenden Kapitel~\ref{chap:orakel} konstruiert, vgl. Satz~\ref{thm:myoracle}.
 
 %Im Folgenden sei abschließend noch zusammengefasst, welche relativierenden Implikationen bzw. Orakelkonstruktionen zur Trennung von jeweils zwei Hypothesen offen sind.
 Für viele Paare von Hypothesen $\mathsf{A}$, $\mathsf{B}$ haben wir damit entweder eine relativierende Implikation $\mathsf{A}\Rightarrow\mathsf{B}$ oder es existiert ein Orakel welches $\mathsf{A}$ und $\mathsf{B}$ trennt,  also ein Orakel relativ zu diesem $\mathsf{A}\land \neg\mathsf{B}$ gilt, und damit einen relativierenden Beweis für diese Implikation ausschließen. 
@@ -935,15 +933,13 @@ Für viele Paare von Hypothesen $\mathsf{A}$, $\mathsf{B}$ haben wir damit entwe
 Wir wollen hierbei die Stellung von $\hQ$ hervorheben: mittels Orakelkonstruktionen erkennen wir eine weitestgehende Unabhängigkeit zwischen der Hypothese $\neg\hQ$ auf der einen Seite und den anderen Hypothesen des Pudlákschen Programms. Zum einen wissen wir 
 über ein Orakel von \textcite[Thm.~12.3]{fenner_inverting_2003}, dass die Annahme von $\UP\neq\P\land \NP\neq\coNP$ unter relativierenden Beweisen nicht ausreicht, um $\neg\hQ$ zu zeigen, also diese Annahme auch nicht ausreicht um $\mathsf{KvL}$ zu zeigen.
 Auf ähnliche Weise ergibt sich aus dem in Kapitel~\ref{chap:orakel} konstruierten Orakel, dass auch die Annahme $\hDisjNP\land\hUP$ nicht ausreicht, um $\neg\hQ$ zu zeigen.
-Symmetrisch sehen wir über eine Variante eines Orakels von \textcite{dose_further_2020}, dass die Anname $\neg\hQ$ (bzw. sogar die stärkere Annahme $\neg\hQ'$) nicht aussreicht, um $\hTAUT$ oder $\hSAT$ zu zeigen, also auch nicht um die stärkeren ursprünglichen Pudlákschen Hypothesen ($\hDisjNP, \hNPcoNP, \hDisjCoNP$, usw.) zu beweisen.
+Symmetrisch sehen wir über eine Variante eines Orakels von \textcite{dose_further_2020}, dass die Anname $\neg\hQ$ (bzw. sogar die stärkere Annahme $\neg\hQ'$) nicht aussreicht, um $\hTAUT$ oder $\hSAT$ zu zeigen, also auch nicht um die stärkeren ursprünglichen Pudlákschen Hypothesen ($\hDisjNP, \hNPcoNP, \hDisjCoNP$, usw.) zu beweisen.\marginnote{\todo{sollten wir irgendwo hinschreiben!}}
 
 Teile dieser Beobachtung übertragen sich entsprechend auch auf die Verstärkung $\mathsf{KvL}$ von $\neg\hQ$. Weder $\UP\neq\P\land \NP\neq\coNP$ noch $\hDisjNP\land\hUP$ reicht als Annahme aus, um relativierend $\mathsf{KvL}$ zu berweisen.
 Damit wissen wir zumindest schon, dass $\mathsf{KvL}$ (unter relativierenden Beweisen) nicht äquivalent zu einer der Aussagen „$\UP\neq \P$“, $\NP\neq\coNP$“, $\hDisjNP$, $\hUP$ ist.
-Dennoch fehlen uns Orakelkonstruktionen, die \ldots
+Andererseits wären einige weitere Orakel wünschenswert, um $\mathsf{KvL}$ besser zu situieren. Existiert ein Orakel relativ zu diesem $\mathsf{KvL}$ (also relativierende Beweise für $\neg\mathsf{KvL}$ ausschließt)? Existiert ein Orakel relativ zu diesem $\mathsf{KvL}\land \hQ$ (und damit $\mathsf{KvL}$ von $\hQ$ trennt)? 
 
-\todo{}
-
-Nun stellt sich die allgemeine Frage, für welche Paare $\mathsf{A}$, $\mathsf{B}$ das noch offen ist.
+In diesem Sinne können wir auch allgemein fragen, für welche Paare $\mathsf{A}$, $\mathsf{B}$ von Hypothesen sowohl unbekannt ist, ob $A\Rightarrow B$ über einen relativierbaren Beweis, noch ob ein Orakel existiert relativ zu diesem $\mathsf{A\land \neg B}$.
 Das sei im Folgenden nun abschließend noch zusammengefasst.
 
 \begin{itemize}[parsep=0pt,listparindent=\parindent,itemsep=5pt plus 1pt minus 1pt,midpenalty=0]
@@ -969,8 +965,8 @@ Das sei im Folgenden nun abschließend noch zusammengefasst.
         Besonders im Hinblick auf den Schwerpunkt dieser Arbeit auf Suchprobleme und auf die Hypothese $\mathsf{KvL}$ sind die folgenden Paare interessant:
         \begin{enumerate}[nosep]
             \item $\mathsf{KvL}\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{SAT^{eff}}$,
-            \item $\mathsf{KvL}\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\hTAUT$ (oder stärker $\hSAT\lor\hTAUT$),
-            \item $\hDisjCoNP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{KvL}$.
+            \item $\mathsf{KvL}\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\hSAT$ (oder stärker $\hSAT\lor\hTAUT$),
+            \item $\hDisjCoNP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{KvL}$ (oder schwächer $\neg\hQ\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{KvL}$).
         \end{enumerate}
         Diese Fragen werden im Folgenden nicht weiter untersucht. Stattdessen seien sie hier als zukünftige Forschungsdesiderata formuliert: zeige dass eine der obigen Implikationen gilt, gebe ein Gegenbeispiel an, oder konstruiere ein Orakel relativ zu diesem eine der obigen Implikationen nicht gilt.
 \end{itemize}
