@@ -1,22 +1,22 @@
-DisjNP NPcapCoNPneqP
-DisjCoNP NPcapCoNPneqP
-DisjNP UPneqP
-NPcapCoNP UPneqP
-NPcapCoNP SAT
-UPneqP negQ
-SAT NPneqCoNP
-UPneqP negQ
-DisjNP SAT
-UP SAT
-CONN DisjNP
-SAT NPneqCoNP
-DisjCoNP TAUT
-DisjNPinsep CONN
-NPcapCoNP TAUT
+DisjNP NPcapCoNPneqP 3
+DisjCoNP NPcapCoNPneqP 3
+DisjNP UPneqP 4 
+NPcapCoNP UPneqP 4
+NPcapCoNP SAT 5 
+UPneqP negQ 8
+SAT NPneqCoNP 12
+DisjNP SAT 5
+UP SAT 5
+CONN DisjNP 13
+CONN DisjNPinsep 13
+SAT NPneqCoNP 12
+DisjCoNP TAUT 10
+DisjNPinsep CONN 9
+NPcapCoNP TAUT 6
 
 # Orakel 1
-DisjNP negQ
-UP negQ
+DisjNP negQ O
+UP negQ O
 
 # Orakel 2
 #DisjCoNP UPneqP
@@ -25,7 +25,7 @@ UP negQ
 # Orakel 3
 #DisjCoNP DisjNPinsep
 
-negQ' DisjNPinsep
-PneqNP TAUTorSAT
-UPcapCoUPneqP TAUTorSAT
-UPcapCoUPneqP NPneqCoNP
+negQ' DisjNPinsep 7
+PneqNP TAUTorSAT 2 
+#UPcapCoUPneqP TAUTorSAT
+UPcapCoUPneqP NPneqCoNP 1

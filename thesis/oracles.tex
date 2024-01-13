@@ -28,10 +28,10 @@ Zunächst seien $\{M_i\}_{i\in \mathbb N}$, $\{N_i\}_{i\in \mathbb N}$, $\{F_i\}
 Solche Standardaufzählungen existieren. Eine Möglichkeit, diese zu konstruieren ist beispielsweise, jede nichtdeterministische TM mit einem Timer auszustatten, die nach polynomieller Laufzeit die Berechnung abbricht. Konkret: gegeben $i$, sei zunächst $N$ die nichtdeterministische TM mit Codierung $i$. Die TM $N_i$ führt dann auf Eingabe $x$ parallel zur Rechnung $N(x)$ auf jedem Rechenweg einen Timer aus, der nach $>|x|^i+i$ Schritten den Rechenweg ablehnend abbricht.
 Damit ist die Laufzeit von $N_i$ polynomiell beschränkt auf $p_i$.
 
-Um nun das gewünschte Orakel zu konstruieren, wenden wir ein Verfahren von \textcite{dose_np-completeness_2019} an, welche sich als ein starkes Framework erwiesen hat, Orakel zu konstruieren die simultan mehrere Eigenschaften erfüllen.
-%Dieses Framework werden wir im nächsten Abschnitt gleich beim Einsatz der ersten Konstruktion detailiert erläutern; in der zweiten Konstruktion auf eine detailierte Beschreibung aber weitestgehend verzichten.
-%
-Wesentliche Zutat dieses Frameworks sind „partiell definierte“ Orakel, bei denen also z.B. für gewisse $x$ noch nicht endgültig festgelegt ist, ob $x\in O$ oder $x\not\in O$ gelten soll.
+Um nun das gewünschte Orakel zu konstruieren, wenden wir ein Verfahren von \textcite{dose_np-completeness_2019} an, welche sich als ein starkes Framework erwiesen hat, Orakel zu konstruieren die simultan mehrere Eigenschaften erfüllen. Dieses Framework baut maßgeblich auf drei Zutaten auf: erstens, partiell definierten Orakeln, zweitens, ein Begriff von Validität, und drittens, eine stufenweise nicht-konstruktive Definitionsvorschrift des Orakels.
+Das werden wir gleich beim Einsatz in der Konstruktion näher erläutern.
+
+Die erste von drei wesentlichen Zutaten dieses Frameworks ist der Begriff von „partiell definierten“ Orakeln, bei denen also für gewisse $x$ noch nicht endgültig festgelegt ist, ob $x\in O$ oder $x\not\in O$ gelten soll.
 Wir formalisieren solche partiell definierten Orakel mittels finiten Wörten $w\in\Sigma^*$:
 ein finites Wort $w\in\Sigma^*$ können wir im Folgenden auch als die Menge $\{ i \mid i<|w|, w[i] = 1 \}$ verstehen (aber $|w|$ immer als die Länge von $w$).
 Die intendierte Interpretation ist, dass gegenüber der \emph{Menge} $w$ die Zugehörigkeit aller Zahlen (bzw. äquivalent Wörtern) $x$ mit $x<|w|$ final speizifiziert ist, nicht dagegen für $x\geq|w|$ (und nur ersatzweise $x\not\in w$ gilt).
@@ -112,9 +112,8 @@ Sind die Ebenen der Höhe $H_m$ in $w$ auf geeignete Weise gefüllt, lässt sich
 \end{claim}
 
 \subsection*{Idee und Vorschau der Konstruktion}
-\todo{Idee skizzieren}
+\todo{Idee skizzieren; Verweise darauf dass das Zutat Nr. 2 von Dose/Glaßer ist}
 
-\todo{Verweise darauf dass das Zutat Nr. 2 von Dose/Glaßer ist}
 Ein Orakel $w\in\Sigma^*$ ist $t$-valide wenn $t\in\mathcal T$ und folgendes gilt:
 \begin{enumerate}[label={V\arabic*}]
     \item Wenn $x<|w|$ und $|x|\not\in \img(e)$, dann gilt $x\in w\iff x\in C$.\\
@@ -191,9 +190,12 @@ Es gibt nun fünf Fälle, je nach dem welche Form der bearbeitete Task $\tau$ ha
 \end{description}
 
 Beobachte, dass $t_s$ immer als Element von $\mathcal T$ definiert ist.
-\todo{Nichtkonstruktiv, nutzt LEM; das ist ein Feature von Dose/Glaßer}
+Beachte auch den „Existenzquantor“ in Task $\tau^1_j$ (bzw. ähnlich bei $\tau^2_{a,b}, \tau^3_a$), welcher in der Konstruktion „testet“, ob eine valide Erweiterung des Orakels existiert, welche die Totalität der NPTM $N_j$ definitiv ausschließt. 
+Hierzu zwei Bemerkungen: Erstens handelt es sich hierbei insbesondere um ein nicht-konstruktives Argument. Falls eine solche Erweiterung existieren sollte, dann können wir diese auch auswählen (z.B. indem die lexikographisch kleinste gewält wird), ohne dass diese in expliziter Weise angegeben wird.
+Zweitens, falls eine solche valide Erweiterung nicht existiert, dann ist die NPTM $N_j$ sogar „besonders total“, in dem Sinn dass $N_j$ sogar unter \emph{jeder} gülitgen Erweiterung total ist. 
+Diese Konstruktionstaktik ist die dritte Zutat des Verfahrens von \citeauthor{dose_np-completeness_2019}.
 
-Damit ist die Definition der Stufe $s$ abgeschlossen, und somit die gesamten Folgen $\{w_s\}_{s<\omega}$ $\{t_s\}_{s<\omega}$.
+Mit den oben genannten Tasks ist die die Definition der Stufe $s$ abgeschlossen, und somit die beiden Folgen $\{w_s\}_{s<\omega}$ $\{t_s\}_{s<\omega}$.
 Später werden wir das finale Orakel $O$ als $\bigcup_{s\in\mathbb N} w_s = \bigcup_{s\in\mathbb N} \{ i \mid w_s[i]=1, i<|w_s|\} $ definieren, heißt die Vereinigung über alle partiellen Orakel, oder äquivalent, der Grenzwert $\lim_{n\to\omega} w_s = O\in\Sigma^\omega$ der Folge von finiten Wörtern $w_0\sqsubsetneq  w_1\sqsubsetneq \cdots$.
 
 Wir müssen nun zwei Aussagen zeigen: erstens, dass diese Konstruktion tatsächlich möglich ist, indem wir die in der Definition angekündigten Lemmata angeben und beweisen.
@@ -635,7 +637,39 @@ Das soll kurz skizziert werden: Gegeben unsere finite Approximation $D'\subseteq
 
 Damit ist der Beweis von Satz~\ref{thm:myoracle} abgeschlossen: das Orakel $O$ erfüllt alle Eigenschaften.
 Relativ zu $O$ existiert nach Behauptung~\ref{claim:myoracle-completness} (1) kein $\leqmpp$-hartes Paar in $\DisjNP$ für $\DisjUP$, und (2) kein $\leqmp$-vollständige Menge für $\UP$.
-Nach Behauptung~\ref{claim:myoracle-q} kann für jede totale NPTM $N_j$ eine Funktion $g\in\FP$ angegeben werden, für die $g(x)$ ein akzeptierender Rechenweg für $N_j(x)$ ist. Mit den Eigenschaften der Standardenumeration ist klar, dass dass auch für \emph{alle} totalen NPTM $N$ gilt. (Übersetze $N$ in äquivalente Standard-NPTM $N_j$, übersetze dann den akzeptierenden Rechenweg $g(x)=\alpha$ von $N_j(x)$ in einen akzeptierenden Rechenweg $\alpha'$ von $N(x)$ zurück.)
+Nach Behauptung~\ref{claim:myoracle-q} kann für jede totale NPTM $N_j$ eine Funktion $g\in\FP$ angegeben werden, für die $g(x)$ ein akzeptierender Rechenweg für $N_j(x)$ ist. Mit den Eigenschaften der Standardenumeration ist klar, dass dass auch für \emph{alle} totalen NPTM $N$ gilt. (Übersetze $N$ in äquivalente Standard-NPTM $N_j$, übersetze dann den akzeptierenden Rechenweg $g(x)=\alpha$ von $N_j(x)$ in einen akzeptierenden Rechenweg $\alpha'$ von $N(x)$ zurück.) Damit gilt relativ zu $O$ also auch die Hypothese $\hQ$ (3).
+
+Wir schließen dieses Kapitel mit einer Zusammenfassung weiterer Eigenschaften von $O$, die sich unmittelbar aus relativierenden Implikationen ergeben.
+\begin{corollary}
+    Folgende Aussagen gelten relativ zum Orakel $O$:
+    \begin{enumerate}[noitemsep,midpenalty=0]
+        \item $\P=\UP\cap\coUP=\NP\cap\coNP\subsetneq \UP \subsetneq \NP$.
+        \item $\mathrm{NP, UP, NE, NEE}$ sind nicht abgeschlossen unter Komplement. 
+        \item $\mathrm{P, E, EE}$ sind nicht abgeschlossen unter Nichtdeterminismus.
+        \item $\UP\not\subseteq \coNP$.
+        \item $\NPSVt\subseteq\FP$.
+        \item $\mathrm{NP}b\mathrm{V_t} \subseteq_{\mathrm{t}} \NPSVt$.
+        \item $\mathrm{NP}k\mathrm{V_t} \subseteq_{\mathrm{t}} \NPSVt$ für alle $k\geq 2$.
+        \item $\NPMVt \subseteq_{\mathrm{t}} \FP$.
+        \item $\NPMVt \subseteq_{\mathrm{t}} \NPSVt$.
+        \item $\NPMVt \subseteq_{\mathrm{t}} \TFNP$.
+        \item $\mathrm{NPMV} \subseteq_{\mathrm{t}} \NPSV$.
+        \item $\TFNP\subseteq_{\mathrm{t}} \FP$.
+        \item Es existiert eine NP-Relation $R$ mit $\leqmp$-vollständigem $\Proj(R)\in\NP$ und $R$ ist nicht $\leqlp$-vollständig.
+        \item $\NP\cap\coNP$ hat keine $\leqmp$-vollständige Menge.
+        \item $\UP$ hat keine $\leqmp$-vollständige Menge.
+        \item $\DisjNP$ hat keine $\leqmpp$-vollständiges Paar.
+        \item $\NPMVt$ hat eine $\leqmp$-vollständige Multifunktion.
+        \item $\TFNP$ hat eine $\leqmp$-vollständige Multifunktion.
+        \item $\DisjCoNP$ hat ein $\leqmpp$-vollständiges Paar.
+        \item Für keine $\leqmp$-vollständige Menge $A\in\NP$ existiert ein $\P$-optimales Beweissystem.
+        \item Für alle Mengen $A\in\coNP$ existiert ein $\P$-optimales Beweissystem.
+        \item Es existiert ein $\P$-inseparables $\DisjNP$-Paar.
+        \item Jedes $\DisjCoNP$-Paar ist $\P$-separierbar.
+        \item Weder $\NP$ noch $\coNP$ haben die \emph{shrinking property}.
+        \item Weder $\NP$ noch $\coNP$ haben die \emph{separation property}.
+    \end{enumerate}
+\end{corollary}
 
 
 

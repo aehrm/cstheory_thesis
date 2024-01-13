@@ -20,14 +20,9 @@ Insbesondere zeigen wir für eine große Klasse von vollständigen NP-Suchproble
 
 %Zweitens eine Verallgemeinerung der Charakterisierung $\hQ$, die sich insbesondere auf Suchprobleme und deren Beweissysteme bzw. „Zertifikatsschemata“ beziehen.
 
-Drittens ergänzen wir im gesamten Verlauf dieses Kapitels das Pudláksche Programm um weitere Hypothesen, sodass Abbildung~\ref{fig:pudlak-small} der Beziehungen zwischen den Pudlákschen Hypothesen vergrößert wird. Damit erreichen wir den Stand, der in Abbildung~\ref{fig:figure-implications} dargestellt wird.
+Drittens ergänzen wir im gesamten Verlauf dieses Kapitels das Pudláksche Programm um weitere Hypothesen ($\mathsf{KvL}, \hQ, \dots$), sodass Abbildung~\ref{fig:pudlak-small} der Beziehungen zwischen den Pudlákschen Hypothesen vergrößert wird. Damit erreichen wir den Stand, der in Abbildung~\ref{fig:figure-implications} dargestellt wird.
+Damit einher wird abschließend ein Überblick über Orakel angegeben, welche Hypothesen des Pudlákschen Programms (ergänzt um $\hQ, \mathsf{KvL}, \dots$) trennen.
 
-
-\begin{figure*}
-    \includegraphics[page=1]{figures.pdf}
-    \caption{Bekannte (relativierenden) Implikationen zwischen den betrachteten Hypothesen und weiteren Aussagen. Satz~\ref{thm:figure-implications} gibt Belegstellen für jede dieser Implikationen an.}\label{fig:figure-implications}
-    \forceversofloat
-\end{figure*}
 
 Für alle dieser drei Desiderata ist es zunächst notwendig, auf die Hypothese $\hQ$ einzugehen.
 \textcite{fenner_inverting_2003} beobachten, dass das Invertieren von surjektiven ehrlichen FP-Funktionen eine erstaunlich robuste Aussage ist, die eine Vielzahl von äquivalenten „fundamentalen“ \parencite{fenner_inverting_2003} Charakterisierungen aus der Komplexitätstheorie zulässt, so zum Beispiel die effiziente Lösbarkeit von TFNP-Suchproblemen, oder das effiziente Ausrechnen akzeptierender Rechenwege einer totalen NPTM. Wir können jetzt schon festhalten, dass die aktuelle Forschung diese Hypothese als sehr stark einschätzt, und eher die negative Beantwortung (i.e. $\neg\hQ$) vermutet.
@@ -92,6 +87,12 @@ Bevor wir nun mit einer Diskussion zwischen Karp-Vollständigkeit und Levin-Voll
     %\[ |w| \leq 2|x|+ 2q(|x|) + 4 \leq q'(|x|) = q'(|\mathit{std}_R(w)|). \]
     %für ein geeignetes Polynom $q'$, wie gewünscht.
 %\end{proof}
+
+\begin{figure*}
+    \includegraphics[page=1]{figures.pdf}
+    \caption{Bekannte (relativierenden) Implikationen zwischen den betrachteten Hypothesen und weiteren Aussagen. Satz~\ref{thm:figure-implications} gibt Belegstellen für jede dieser Implikationen an.}\label{fig:figure-implications}
+    \forcerectofloat
+\end{figure*}
 
 \section{Karp-Vollständigkeit vs. Levin-Vollständigkeit}\label{sec:karp-vs-levin}
 
@@ -310,6 +311,7 @@ Wir konnten zwar $\mathsf{KvL}$ als Aussage über Beweissysteme formulieren, abe
 Zum anderen die Beziehungen zwischen $\mathsf{KvL}$ und anderen Hypothesen bzw. Annahmen.
 Gibt es natürliche (z.B. kryptographische) Annahmen die hinreichend für $\mathsf{KvL}$ sind? Wie ist die Beziehung zu den anderen Pudlákschen Hypothesen? Wie verhält sich insbesondere $\hSAT$ zu $\mathsf{SAT^{eff}}$? 
 Diese Fragen werden wir zum Teil in Kapitel~\ref{chap:orakel} klären; dort wird ein Orakel konstruiert, welches zeigt, dass selbst unter der Annahme von $\hDisjNP$ und $\hUP$ es nicht möglich ist, mit relativierenden Beweismethoden auf $\mathsf{KvL}$ zu schließen.
+Wir kommen hierauf am Ende dieses Kapitels noch einmal zurück.
 
 %Kann in Beobachtung~\ref{obs:kvl-equiv}(2) so verstärkt werden, dass $\mathit{std}_Q$ jedes (nicht nur die optimalen) Beweissystem effektiv p-simulieren kann, also gewissermaßen $\mathit{std}_Q$ „effektiv p-optimal“ ist?
 
@@ -801,10 +803,10 @@ Jetzt können wir auch die in Abbildung \ref{fig:figure-implications} abgebildet
 \begin{proof}
     Es gelten die notierten Äquivalenzen:
     \begin{Prooflist}[nosep,midpenalty=0,label={\arabic*.},labelsep=3pt]
-        \item $\neg\hQ \Leftrightarrow \exists$ optimales Beweissystem was nicht $\P$-optimal ist $\Leftrightarrow \TFNP\not\subseteq_\mathrm{c} \FP$, nach Satz~\ref{thm:q}.
-    %\item $\NP\neq\coNP \Leftrightarrow$ existiert keine NP-harte Funktion in $\TFNP$, nach Satz~\ref{thm:tfnp-vs-npconp}.
-        \item $\neg\hQ' \Leftrightarrow\exists$ P-inseparierbares $\DisjCoNP$-Paar, nach \textcite[Lemma~2.12, vgl. Appendix]{fortnow_separability_1993}.
-        \item $\NP\cap\coNP\neq\P \Leftrightarrow \NPSV_t\not\subseteq\FP$, nach \textcite[Prop.~1]{fenner_inverting_2003}.
+    \item $\neg\hQ \Leftrightarrow \exists$ optimales Beweissystem was nicht $\P$-optimal ist $\Leftrightarrow \TFNP\not\subseteq_\mathrm{c} \FP$, nach Satz~\ref{thm:q}.
+%\item $\NP\neq\coNP \Leftrightarrow$ existiert keine NP-harte Funktion in $\TFNP$, nach Satz~\ref{thm:tfnp-vs-npconp}.
+    \item $\neg\hQ' \Leftrightarrow\exists$ P-inseparierbares $\DisjCoNP$-Paar, nach \textcite[Lemma~2.12, vgl. Appendix]{fortnow_separability_1993}.
+    \item $\NP\cap\coNP\neq\P \Leftrightarrow \NPSV_t\not\subseteq\FP$, nach \textcite[Prop.~1]{fenner_inverting_2003}.
     \item $\UP\neq\P \Leftrightarrow\exists$ Einwegfunktionen, nach \textcite[Thm.~10]{grollmann_complexity_1988}.
     \item $\UP\cap\coUP\neq\P \Leftrightarrow\exists$ Einwegpermutationen, nach \textcite{homan_one-way_2003}.
     \item $\hNPcoNP \Leftrightarrow \NPSV_t$ hat keine vollständige Funktion, nach \textcite[Prop.~3]{beyersdorff_nondeterministic_2009}.
@@ -853,7 +855,7 @@ Der verbleibende Beweis ist eine Generalisierung von \textcite{dingel_separation
     \[ U \defeq  \{ (T, x, 1^n) \mid \text{$T$ ist ein NPTM-Transduktur und akz. $x$ auf keinem Rechenweg der Länge $\leq n$} \} \in\NP,  \]
     und wird von der NPTM $N_u$ in Laufzeit $q(|(T, x, 1^n)|)$ entschieden.
 
-    Betrachte nun die Multifunktion $f$, die durch folgenden nichtdeterministischen Transduktor $T'(T, x, 1^n)$ berechnet wird:\pagebreak[1]\\
+    Betrachte nun die Multifunktion $f$, die durch folgenden nichtdeterministischen Transduktor $T'(T, x, 1^n)$ berechnet wird:\\
     \begin{algorithm}[H]
         \lIf{$T$ kein Transduktor ist}{Gebe $\epsilon$ aus}
         Rate nichtdeterministisch einen Rechenweg $\alpha$ von $T$ der Länge $\leq n$\;
@@ -902,26 +904,6 @@ Der verbleibende Beweis ist eine Generalisierung von \textcite{dingel_separation
     und $h(x)=(T_g, x, 1^{p(|x|)})$ realisiert die Reduktion von $g$ auf $f$, wie gewünscht.
 \end{proof}
 
-\begin{figure*}[p]
-    \vspace*{-5cm}
-    \includegraphics[page=7]{figures.pdf}
-    \vspace*{-3cm}
-    \caption{Bekannte Orakel, welche (relativierende) Implikationen zwischen zwei Hypothesen ausschließen. Ein durchgezogener Pfeil von $\mathsf A$ nach $\mathsf B$ sagt aus, dass $\mathsf A$ die Aussage $\mathsf B$ relativierend impliziert (wie in Abb.~\ref{fig:figure-implications}). Ein durchgestrichener Pfeil von $\mathsf A$ nach $\mathsf B$ sagt aus, dass ein Orakel existiert, relativ zu diesem $\mathsf A\land\neg\mathsf B$ gilt. Das Orakel $O$ an den blauen durchgestrichenen Pfeilen entspricht dem Orakel aus Satz~\ref{thm:myoracle}.\\
-    1.~nach \textcite[Thm.~5]{rackoff_relativized_1982}. 
-    2. über eine einfache Variante eines Orakels $D$ von \textcite[Thm.~4.1]{dose_further_2020}, bei der die Zeugensprache $A\in\NP-\P$ nur so konstruiert werden muss, dass $A\in\UP\cap\coUP$. %Im Doses Kontext würde man bei der Diagonalisierung aller PTM $M_1,M_2, \dots$ genau ein Wort $00y$, $y\in\Sigma^{n-1}$ einsetzen falls $M_i(0^n)$ akzeptiert, und ansonsten genau ein Wort $01y$, $y\in\Sigma^{n-1}$ einsetzen wenn $M_i(0^n)$ ablehnt.  Dann kann kein $M_i$ die Sprache $A=\{ 0^n \mid $ ex. $y\in\Sigma^{n-1}$ mit $01y\in D\}$ entscheiden, und $A\in\UP\cap\coUP$.
-    3.~nach \textcite[Thm.~9]{ehrmanntraut_oracle_2022}.
-    4.~nach \textcite[Thm.~4.1]{dose_np-completeness_2019}.
-    5.~nach \textcite[Cor.~3.3]{dose_oracle_2020}.
-    6.~nach \textcite[Thm.~3.2]{dose_further_2020}.
-    7.~nach \textcite[Thm.~3.2]{fortnow_separability_2002}.
-    8.~nach \textcite[Thm.~12.3]{fenner_inverting_2003}.
-    9.~nach \textcite[Cor.~6.6]{glaser_disjoint_2004}.
-    10.~nach \textcite[Thm.~5.1]{khaniki_new_2022}.
-    11.~nach \textcite[Thm.~5.2]{khaniki_new_2022}.
-    12.~nach \textcite[Satz~3.12]{dingel_separation_2022}.\\
-}\label{fig:oracles}
-    \forcerectofloat
-\end{figure*}
 
 Abbildung~\ref{fig:oracles} zeigt, welche Hypothesen unter relativierbaren Beweisen durch ein Orakel voneinander getrennt sind.
 Beachte, dass im Gegensatz zur Abbildung~\ref{fig:figure-implications} aus Übersichtlichkeit einige Hypothesen ausgelassen wurden, nämlich jene der Exponentialzeitklassen, und jene der Reduzierbarkeit von Such- auf Entscheidungsprobleme.
@@ -931,44 +913,131 @@ Das blau hervorgehobene Orakel $O$ wird im folgenden Kapitel~\ref{chap:orakel} k
 Für viele Paare von Hypothesen $\mathsf{A}$, $\mathsf{B}$ haben wir damit entweder eine relativierende Implikation $\mathsf{A}\Rightarrow\mathsf{B}$ oder es existiert ein Orakel welches $\mathsf{A}$ und $\mathsf{B}$ trennt,  also ein Orakel relativ zu diesem $\mathsf{A}\land \neg\mathsf{B}$ gilt, und damit einen relativierenden Beweis für diese Implikation ausschließen. 
 
 Wir wollen hierbei die Stellung von $\hQ$ hervorheben: mittels Orakelkonstruktionen erkennen wir eine weitestgehende Unabhängigkeit zwischen der Hypothese $\neg\hQ$ auf der einen Seite und den anderen Hypothesen des Pudlákschen Programms. Zum einen wissen wir 
-über ein Orakel von \textcite[Thm.~12.3]{fenner_inverting_2003}, dass die Annahme von $\UP\neq\P\land \NP\neq\coNP$ unter relativierenden Beweisen nicht ausreicht, um $\neg\hQ$ zu zeigen, also diese Annahme auch nicht ausreicht um $\mathsf{KvL}$ zu zeigen.
-Auf ähnliche Weise ergibt sich aus dem in Kapitel~\ref{chap:orakel} konstruierten Orakel, dass auch die Annahme $\hDisjNP\land\hUP$ nicht ausreicht, um $\neg\hQ$ zu zeigen.
-Symmetrisch sehen wir über eine Variante eines Orakels von \textcite{dose_further_2020}, dass die Anname $\neg\hQ$ (bzw. sogar die stärkere Annahme $\neg\hQ'$) nicht aussreicht, um $\hTAUT$ oder $\hSAT$ zu zeigen, also auch nicht um die stärkeren ursprünglichen Pudlákschen Hypothesen ($\hDisjNP, \hNPcoNP, \hDisjCoNP$, usw.) zu beweisen.\marginnote{\todo{sollten wir irgendwo hinschreiben!}}
+über ein Orakel von \textcite[Thm.~12.3, Nr.~8 in der Abb.]{fenner_inverting_2003}, dass die Annahme von $\UP\neq\P\land \NP\neq\coNP$ unter relativierenden Beweisen nicht ausreicht, um $\neg\hQ$ zu zeigen, also diese Annahme auch nicht ausreicht um $\mathsf{KvL}$ zu zeigen.
+Auf ähnliche Weise ergibt sich aus dem in Kapitel~\ref{chap:orakel} konstruierten Orakel ($O$ in der Abb.), dass auch die Annahme $\hDisjNP\land\hUP$ nicht ausreicht, um $\neg\hQ$ zu zeigen.
+Symmetrisch sehen wir über zwei Orakel von \textcites()(Nr.~5 u. 6 in der Abb.)[Cor.~3.3]{dose_oracle_2020}[Thm.~3.2]{dose_further_2020}, dass die Annahme $\neg\hQ$ (bzw. sogar die stärkere Annahme $\neg\hQ'$) nicht ausreicht, um $\hTAUT$ bzw. $\hSAT$ zu zeigen, also auch nicht um die stärkeren ursprünglichen Pudlákschen Hypothesen ($\hDisjNP, \hUP, \hDisjCoNP$, usw.) zu beweisen.
 
 Teile dieser Beobachtung übertragen sich entsprechend auch auf die Verstärkung $\mathsf{KvL}$ von $\neg\hQ$. Weder $\UP\neq\P\land \NP\neq\coNP$ noch $\hDisjNP\land\hUP$ reicht als Annahme aus, um relativierend $\mathsf{KvL}$ zu berweisen.
-Damit wissen wir zumindest schon, dass $\mathsf{KvL}$ (unter relativierenden Beweisen) nicht äquivalent zu einer der Aussagen „$\UP\neq \P$“, $\NP\neq\coNP$“, $\hDisjNP$, $\hUP$ ist.
+Damit wissen wir zumindest schon, dass $\mathsf{KvL}$ (wieder unter relativierenden Beweisen) nicht äquivalent zu einer der Aussagen „$\UP\neq \P$“, $\NP\neq\coNP$“, $\hDisjNP$, $\hUP$ ist.
 Andererseits wären einige weitere Orakel wünschenswert, um $\mathsf{KvL}$ besser zu situieren. Existiert ein Orakel relativ zu diesem $\mathsf{KvL}$ (also relativierende Beweise für $\neg\mathsf{KvL}$ ausschließt)? Existiert ein Orakel relativ zu diesem $\mathsf{KvL}\land \hQ$ (und damit $\mathsf{KvL}$ von $\hQ$ trennt)? 
 
 In diesem Sinne können wir auch allgemein fragen, für welche Paare $\mathsf{A}$, $\mathsf{B}$ von Hypothesen sowohl unbekannt ist, ob $A\Rightarrow B$ über einen relativierbaren Beweis, noch ob ein Orakel existiert relativ zu diesem $\mathsf{A\land \neg B}$.
-Das sei im Folgenden nun abschließend noch zusammengefasst.
+Das sei im Folgenden nun abschließend noch zusammengefasst (vgl. Tabelle~\ref{table:orakel}.
+
+\begin{figure*}[p]
+    \includegraphics[page=7]{figures.pdf}
+    \vspace*{-5cm}
+    \caption[]{
+       Bekannte Orakel, welche (relativierende) Implikationen zwischen zwei Hypothesen ausschließen. Ein durchgezogener Pfeil von $\mathsf A$ nach $\mathsf B$ sagt aus, dass $\mathsf A$ die Aussage $\mathsf B$ relativierend impliziert (wie in Abb.~\ref{fig:figure-implications}). Ein durchgestrichener Pfeil von $\mathsf A$ nach $\mathsf B$ sagt aus, dass ein Orakel existiert, relativ zu diesem $\mathsf A\land\neg\mathsf B$ gilt. Das Orakel $O$ an den blauen durchgestrichenen Pfeilen entspricht dem Orakel aus Satz~\ref{thm:myoracle}.\par
+    1.~nach \textcite[Thm.~5]{rackoff_relativized_1982}. 
+    2. nach \textcite[Thm.~4.1]{dose_further_2020}.
+    3.~nach \textcite[Thm.~9]{ehrmanntraut_oracle_2022}.
+    4.~nach \textcite[Thm.~4.1]{dose_np-completeness_2019}.
+    5.~nach \textcite[Cor.~3.3]{dose_oracle_2020}.
+    6.~nach \textcite[Thm.~3.2]{dose_further_2020}.
+    7.~nach \textcite[Thm.~3.2]{fortnow_separability_2002}.
+    8.~nach \textcite[Thm.~12.3]{fenner_inverting_2003}.
+    9.~nach \textcite[Cor.~6.6]{glaser_disjoint_2004}.
+    10.~nach \textcite[Thm.~5.1]{khaniki_new_2022}.
+    11.~nach \textcite[Thm.~5.2]{khaniki_new_2022}.
+    12.~nach \textcite[Satz~3.12]{dingel_separation_2022}.
+    13.~nach \textcite[Cor.~6.34]{glaser_disjoint_2004}.
+}\label{fig:oracles}
+    \forcerectofloat
+\end{figure*}
+\clearpage
 
 \begin{itemize}[parsep=0pt,listparindent=\parindent,itemsep=5pt plus 1pt minus 1pt,midpenalty=0]
-    \item Unter dem ursprünglichen Hypothesen des Pudlákschen Programms ($\hSAT, \hTAUT, \mathsf{CON^N}$, Vollständigkeit von $\DisjNP, \DisjCoNP, \UP, \NP\cap\coNP, \TFNP, \NPMVt$, Kollaps $\NP=\coNP$, $\NP\cap\coNP=\P$) kennen wir für fast alle Paare an Hypothesen eine relativierende Implikation oder ein entsprechendes Orakel, relativ zu diesem die Implikation nicht gilt. Offen bleiben nur diese neun Paare:
-        \begin{enumerate}[nosep,midpenalty=0]
-            \item $\NP\neq\coNP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow} \hTAUT\lor\hSAT$,
-            \item $\hUP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\NP\neq\coNP$,
-            \item $\hTAUT\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\NP\neq\coNP$,
+    \item Unter dem ursprünglichen Hypothesen des Pudlákschen Programms ($\hSAT, \hTAUT, \mathsf{CON^N}$, Vollständigkeit von $\DisjNP, \DisjCoNP, \UP, \NP\cap\coNP, \TFNP, \NPMVt$, Kollaps $\NP=\coNP$, $\NP\cap\coNP=\P$; die zusammengesetzte Hypothese $\hSAT\lor\hTAUT$ diskutieren wir hier dagegen noch nicht) kennen wir für fast alle Paare an Hypothesen eine relativierende Implikation oder ein entsprechendes Orakel, relativ zu diesem die Implikation nicht gilt. Offen bleiben nur diese neun Paare:
+        \begin{enumerate}[noitemsep,midpenalty=0,label=(\roman*)]
             \item $\hTAUT\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{CON^N}$,
+            \item $\hTAUT\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\NP\neq\coNP$,
             \item $\hUP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{CON^N}$,
             \item $\hUP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\hDisjNP$,
-            \item $\hTFNP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow} \hDisjCoNP$,
+            \item $\hUP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\NP\neq\coNP$,
             \item „$\NPMVt$ hat keine vollst. Fkt.“ $\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow} \hTFNP$,
+            \item $\hTFNP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow} \hDisjCoNP$,
             \item „$\NPMVt$ hat keine vollst. Fkt.“ $\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow} \hDisjCoNP$.
-        \end{enumerate}
-        Ein Orakel für (2) wäre insbesondere auch ein Orakel für (3)--(6); ein Orakel für (7) oder (8) wäre insbesondere auch ein Orakel für (9).
-        
-    \item Erweitern wir den Blick um $\hQ$ und verwandte Hypothesen $\hQ'$, „$\NPMVt\not\subseteqc \TFNP$“, so entstehen einige neue Paare $\mathsf{A,B}$, für die unbekannt ist ob ein Orakel diese trennt oder ob ein Beweis einer relativierbare Implikation existiert, z.B. $\hTFNP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\neg\hQ'$. Beachte aber, dass für jedes dieser offenen Paare $\mathsf{A,B}$ (mit $\mathsf A$ oder $\mathsf B$ in $\{\hQ, \hQ', „\NPMVt\not\subseteqc \TFNP“\}$) die Konstruktion eines Orakes $O$ mit $\mathsf{A\land \neg B}$ höchstwahrscheinlich sehr schwierig ist: für jedes offene Paar $\mathsf{A,B}$ lässt sich verifizieren, dass relativ zu einem trennenden Orakel $O$ auch $\hQ'\land \neg \hQ$ gilt. Damit trennt $O$ insbesondere $\hQ$ und $\hQ'$ unter relativierenden Beweisen, und würde eine seit 28 Jahren offene Frage von \citeauthor{fenner_inverting_2003} (\citeyear{fenner_inverting_2003}, vgl. auch \citeyear{fenner_inverting_1996}) beantworten.
 
-    \item Ergänzen wir weiter mit dem Kollaps „$\UP=\P$“ und der $\P$-Separierbarkeit von $\DisjNP$-Paaren entstehen weiter neue offenen Paare $\mathsf{A,B}$ von Hypothesen, unter anderem $\hDisjCoNP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}$ „$\DisjNP$ inseparierbar“ und $\mathsf{CON^N}\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}$ „$\DisjNP$ inseparierbar“. In Abschnitt~\ref{} wird vermutet, dass für diese beiden offenen Implikationen je ein Orakel gegen diese Implikation existieren. Sämtliche anderen offenen Paare $\mathsf{A,B}$ mit $\mathsf{A}$ oder $\mathsf{B}$ in $\{„\UP\neq\P“, „\DisjNP\text{ insep.}“\}$ werden dann auch durch eines dieser Orakel getrennt.
+        \end{enumerate}
+        Ein Orakel für (ii) wäre insbesondere auch ein Orakel für (iii)--(vi); ein Orakel für (vi) oder (vii) wäre insbesondere auch ein Orakel für (viii).
+        
+    \item Erweitern wir den Blick um $\hQ$ und verwandte Hypothesen $\hQ'$, „$\NPMVt\not\subseteqc \TFNP$“, so entstehen einige neue Paare $\mathsf{A,B}$, für die unbekannt ist ob ein Orakel diese trennt oder ob ein Beweis einer relativierbare Implikation existiert, z.B. $\hTFNP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\neg\hQ'$. Beachte aber, dass für jedes dieser offenen Paare $\mathsf{A,B}$ (mit $\mathsf A$ oder $\mathsf B$ in $\{\hQ, \hQ', „\NPMVt\not\subseteqc \TFNP“\}$) die Konstruktion eines Orakes $O$ mit $\mathsf{A\land \neg B}$ höchstwahrscheinlich sehr schwierig ist: für jedes offene Paar $\mathsf{A,B}$ lässt sich verifizieren, dass relativ zu einem trennenden Orakel $O$ auch $\hQ'\land \neg \hQ$ gilt. Damit trennt $O$ insbesondere $\hQ$ und $\hQ'$ unter relativierenden Beweisen, und würde eine seit 28 Jahren offene Frage von \citeauthor{fenner_inverting_2003} (\citeyear{fenner_inverting_2003}, vgl. auch \citeyear{fenner_inverting_1996}) beantworten. Das entspricht genau jenen offenen Orakelkonstruktionen, die in Tabelle~\ref{table:orakel} mit \dag{} markiert sind.
+
+    \item Ergänzen wir weiter mit dem Kollaps „$\UP=\P$“ und der $\P$-Separierbarkeit von $\DisjNP$-Paaren entstehen weiter neue offenen Paare $\mathsf{A,B}$ von Hypothesen, unter anderem
+        \begin{enumerate}[noitemsep,resume,label=(\roman*)]
+            \item $\hDisjCoNP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}$ „$\DisjNP$ inseparierbar“,
+            \item $\mathsf{CON^N}\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}$ „$\DisjNP$ inseparierbar“,
+            \item $\UP\neq\P\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow} \hTAUT$
+        \end{enumerate}
+        Dies sind die drei „stärksten“ Implikationen bzw. diejenigen Paare an Hypothesen, deren Orakelkonstruktionen gegen diese Implikationen am „schwierigsten“ ist. Gemeint ist, dass sämtliche anderen offenen Paare $\mathsf{A,B}$ mit $\mathsf{A}$ oder $\mathsf{B}$ in $\{„\UP\neq\P“, „\DisjNP\text{ insep.}“\}$ dann auch durch eines dieser Orakel getrennt wird, die (ix), (x), und (xi) trennen.
+        %In Abschnitt~\ref{} wird vermutet, dass für die erste offene Implikation (1) ein Orakel gegen diese Implikation existiert.
 
     \item Ergänzen wir nun abschließend mit den hier neu definierten Hypothesen $\mathsf{KvL}$ und $\mathsf{SAT^{eff}}$ entstehen wieder neue Paare $\mathsf{A,B}$ für die offen ist, ob $\mathsf A$ die Hypothese $\mathsf B$ impliziert, oder ob ein Orakel gegen diese Implikation existiert. Das gilt für so gut wie alle möglichen Paare zwischen $\mathsf{KvL}$ bzw. $\mathsf{SAT^{eff}}$ und den übrigen betrachteten Hypothesen. 
         Besonders im Hinblick auf den Schwerpunkt dieser Arbeit auf Suchprobleme und auf die Hypothese $\mathsf{KvL}$ sind die folgenden Paare interessant:
-        \begin{enumerate}[nosep]
+        \begin{enumerate}[noitemsep,resume,label=(\roman*)]
             \item $\mathsf{KvL}\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{SAT^{eff}}$,
             \item $\mathsf{KvL}\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\hSAT$ (oder stärker $\hSAT\lor\hTAUT$),
             \item $\hDisjCoNP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{KvL}$ (oder schwächer $\neg\hQ\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{KvL}$).
         \end{enumerate}
         Diese Fragen werden im Folgenden nicht weiter untersucht. Stattdessen seien sie hier als zukünftige Forschungsdesiderata formuliert: zeige dass eine der obigen Implikationen gilt, gebe ein Gegenbeispiel an, oder konstruiere ein Orakel relativ zu diesem eine der obigen Implikationen nicht gilt.
+
+    \item Schließlich gehen wir noch auf die zusammengesetzte Hypothese $\hTAUT\lor\hSAT$ ein. Zur Erinnerung: diese Hypothese besagt (in Verbindung mit Korollar~\ref{cor:con-characterization}), dass eine Menge $L\in\NP\cup\coNP$ existiert für die kein $\P$-optimales Beweissystem existiert.
+        Trotz der zusammengesetzten Natur dieser Hypothese lässt sich zeigen, dass $\hTAUT\lor\hSAT$ äquivalent zu weiteren natürlichen Hypothesen ist.
+        Zum einen zeigt \textcite[Thm.~3.2]{khaniki_new_2022} die Äquivalenz zur Hypothese $\mathsf{RFN_1}$ betreffend der Beweisbarkeit endlicher Widerspruchsfreiheit \parencites(vgl.){pudlak_incompleteness_2017}.
+        Zum anderen geben \textcite{egidy_upward_2023} eine Verbesserung der ersten genannten Charakterisierung an, hierbei bezogen auf die Mengen der Boolschen Hierarhie ($\mathrm{BH}$, \cites(vgl.)(){cai_boolean_1986}{cai_boolean_1988}{cai_boolean_1989}). Aufbauend auf Ergebnissen von \textcite{kobler_optimal_2003} ergibt sich, dass $\hTAUT\lor\hSAT$ genau dann gilt wenn sogar eine Menge $L \in \mathrm{BH}\supseteq \NP\cup\coNP$ existiert für die es kein $\P$-optimales Beweissystem gibt.
+
+        Auf diese beiden Charakterisierungen soll hier aber nicht weiter eingegangen werden.
+        Trotzdem sei hier noch knapp die Beziehung der Hypothese  zu den anderen (unter relativierbaren Beweisen) erläutert.
+        Einerseits existieren Orakel, sodass $(\hTAUT\lor\hSAT)\land \neg\mathsf{A}$ für alle bisher genannten Hypothesen $\mathsf A$ (außer $\P\neq\NP$, was trivialerweise eine notwendige Bedingung ist) . Andererseits bleibt für viele Hypothesen noch offen, ob diese hinreichend für $\hTAUT\lor\hSAT$ sein könnten. Insbesondere sind folgende Paare noch offen:
+        \begin{enumerate}[noitemsep,resume,label=(\roman*)]
+            \item $\UP\cap\coUP\neq \P\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\hTAUT\lor\hSAT$,
+            \item $\mathsf{KvL}\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\hTAUT\lor\hSAT$.
+        \end{enumerate}
 \end{itemize}
 
+Hiermit wollen wir die Diskussion über die Beziehungen der Hypothesen des erweiterten Pudláksche Programms abschließen. Im folgenden Kapitel werden wir nun noch das angekündigte Orakel $O$ konstruieren.
+
+\begin{table}[!b]\centering\scriptsize
+\newcommand\rot[1]{\rotatebox{90}{#1\enspace}}
+\setlength{\tabcolsep}{3pt}
+\def\arraystretch{1.2}
+\begin{tabular}{|r|ccccccccccc|ccc|cc|cc|c|}
+\hline
+Antezendent $\mathsf A$\quad\llap{\rotatebox{90}{\smash{\strut\quad{}Konsequent} $\mathsf B$}}\strut & \rot{$\hTAUT$} & \rot{$\mathsf{CON^N}$} & \rot{$\hDisjNP$} & \rot{$\hUP$} & \rot{$\hSAT$} & \rot{$\NPMVt$ unvollst.} & \rot{$\hTFNP$} & \rot{$\hDisjCoNP$} & \rot{$\NPcoNP$} & \rot{$\NP\neq\coNP$} & \rot{$\NP\cap\coNP\neq\P$} & \rot{$\neg\hQ$} & \rot{$\neg\hQ'$} & \rot{$\NPMVt\not\subseteq_{\mathrm{t}}\TFNP$} & \rot{$\UP\neq\P$} & \rot{$\DisjNP$ unsep.} & \rot{$\mathsf{KvL}$} & \rot{$\mathsf{SAT^{eff}}$} & \rot{$\hTAUT\lor\hSAT$}\\
+ \hline
+$\hTAUT$ &   & \textcolor{red}{\textbf{?}} & 13 & 4 & O & O & O & O & O & \textcolor{red}{\textbf{?}} & O & O & O & O & 4 & 13 & O & O &   \\
+$\mathsf{CON^N}$ &   &   & 13 & 4 & O & O & O & O & O &   & O & O & O & O & 4 & \textbf{\itshape 13} & O & O &   \\
+$\hDisjNP$ &   &   &   & 4 & O & O & O & O & O &   & O & \textbf{\itshape O} & O & O & \textbf{\itshape 4} &   & O & O &   \\
+$\hUP$ &   & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   & O & O & O & O & O & \textcolor{red}{\textbf{?}} & O & \textbf{\itshape O} & O & O &   &   & O & O &   \\
+$\hSAT$ & 10 & 10 & 10 & 10 &   & 12 & 12 & 12 & 3 & \textbf{\itshape 12} & 3 &   & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   \\
+$\NPMVt$ unvollst. & 10 & 10 & 10 & 10 &   &   & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & 3 &   & 3 &   & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   \\
+$\hTFNP$ & 10 & 10 & 10 & 10 &   &   &   & \textcolor{red}{\textbf{?}} & 3 &   & 3 &   & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   \\
+$\hDisjCoNP$ & \textbf{\itshape 10} & 10 & 10 & 10 &   &   &   &   & 3 &   & \textbf{\itshape 3} &   &   &   & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   \\
+$\NPcoNP$ & \textbf{\itshape 6} & 6 & 6 & 4 & \textbf{\itshape 5} & 5 & 5 & 5 &   &   &   &   &   &   & \textbf{\itshape 4} &   & \textcolor{red}{\textbf{?}} & 5 &   \\
+$\NP\neq\coNP$ & 6 & 6 & 6 & 4 & O & O & O & O & O &   & O & O & O & O & 4 & 13 & O & O & \textcolor{red}{\textbf{?}} \\
+$\NP\cap\coNP\neq\P$ & 6 & 1 & 1 & 4 & 5 & 1 & 1 & 1 & 1 & 1 &   &   &   &   & 4 &   & \textcolor{red}{\textbf{?}} & 5 & \textcolor{red}{\textbf{?}} \\
+\hline
+$\neg\hQ$ & 6 & 1 & 1 & 4 & 5 & 1 & 1 & 1 & 1 & 1 & 3 &   & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{\dag}} & 4 & 7 & \textcolor{red}{\textbf{?}} & 5 & \textcolor{red}{\textbf{?}} \\
+$\neg\hQ'$ & 6 & 1 & 1 & 4 & 5 & 1 & 1 & 1 & 1 & 1 & 3 &   &   &   & 4 & \textbf{\itshape 7} & \textcolor{red}{\textbf{?}} & 5 & \textcolor{red}{\textbf{?}} \\
+$\NPMVt\not\subseteq_{\mathrm{t}}\TFNP$ & 6 & 1 & 1 & 4 & 5 & 1 & 1 & 1 & 1 & 1 & 3 &   & \textcolor{red}{\textbf{\dag}} &   & 4 & 7 & \textcolor{red}{\textbf{?}} & 5 & \textcolor{red}{\textbf{?}} \\
+\hline
+$\UP\neq\P$ & \textcolor{red}{\textbf{?}} & 1 & 1 & \textcolor{red}{\textbf{?}} & O & O & O & O & O & 1 & O & O & O & O &   &   & O & O & \textcolor{red}{\textbf{?}} \\
+$\DisjNP$ unsep. & 6 & 1 & 1 & 4 & O & O & O & O & O & 1 & O & O & O & O & 4 &   & O & O & \textcolor{red}{\textbf{?}} \\
+\hline
+$\mathsf{KvL}$ & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} \\
+$\mathsf{SAT^{eff}}$ & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   &   &   \\
+\hline
+$\hTAUT\lor\hSAT$ & 6 & 6 & 6 & 4 & O & O & O & O & O & 12 & O & O & O & O & 4 & 13 & O & O &   \\
+ \hline
+\end{tabular}
+\caption[]{Überblick über Orakel, welche Impliationen $\mathsf{A\Rightarrow B}$ zwischen den betrachteten Hypothesen unter relativierbaren Beweisen trennen, in dem Sinn dass ein Orakel existiert relativ zu diesem $\mathsf{A\land\neg B}$ gilt. Jede Zelle entspricht hierbei einer solchen Implikation. Die Hypothese $\mathsf A$ links ist hierbei der Antezendent, die Hypothese $\mathsf B$ oben der Konsequent.\par
+    Leere Zellen bedeuten, dass kein Orakel mit $\mathsf{A\land\neg B}$ existiert, enn es existiert nein relativierender Beweis für $\mathsf{A \Rightarrow B}$.\par
+Eine Zahl (bzw. $O$) in der Zelle bedeutet, dass relativ zu einem Orakel $\mathsf{A\land\neg B}$ gilt, also ein Orakel gegen die Impliakation $\mathsf{A\Rightarrow B}$.
+Die Zahl  gibt hierbei an, um welches Orakel es sich aus Abb.~\ref{fig:oracles} handelt, das Label $O$, dass es sich um das konstruierte Orakel aus Kapitel~\ref{chap:orakel} handelt.
+Ist die Zahl (bzw. $O$) fett gedruckt, dann entspricht das Orakel genau dem Eingezeichneten, ansonsten folgt die behauptete Eigenschaft aus relativierbaren Implikationen zwischen den Hypothesen.\par
+Ein rotes ? bedeutet, dass unbekannt ist, ob ein solches Orakel existiert.\par
+Ein rotes \dag{} bedeutet, dass auch unbekannt ist, ob ein solches Orakel $D$ existiert. Hierbei ist aber die Konstruktion besonders schwierig: wenn nämlich ein solches Orakel existiert, also $\mathsf{A\land\neg B}$ relativ zu $D$ gilt, dann muss auch $\hQ'\land\neg\hQ$ relativ zu $D$ gelten.}\label{table:orakel}
+\setfloatalignment{b}
+\end{table}
 

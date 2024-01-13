@@ -32,7 +32,7 @@
 \fi
 \usepackage{mdframed}
 \usepackage[pdfusetitle,pdfencoding=auto,psdextra,bookmarksopen]{hyperref}
-\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{ragged2e}
 \usepackage{enumitem}
 \usepackage{tikz}
@@ -82,6 +82,10 @@
 \AtBeginDocument{\setlength{\abovedisplayskip}{5pt plus 5pt}\setlength{\abovedisplayshortskip}{3pt plus 4pt}%
 \setlength{\belowdisplayskip}{5pt plus 5pt}\setlength{\belowdisplayshortskip}{3pt plus 4pt}}
 \fi
+
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
 
 \usepackage{titlesec}		% header customization
 \usepackage{titletoc}		% toc customization
@@ -242,6 +246,7 @@
 \usepackage[autostyle]{csquotes}
 %\usepackage[labelfont={bf,sf},textfont=sf]{caption}
 \counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
 \makeatletter
 \counterwithout{\@mpfn}{chapter}
 \makeatother
@@ -287,6 +292,8 @@
 \SetKwInput{Input}{\thesis@algorithminput}
 \SetKwInput{Output}{\thesis@algorithmoutput}
 \setlength{\algomargin}{6ex}
+
+\usepackage{booktabs}
 
 
 \newcommand{\todo}[1]{\textcolor{red}{{\sffamily TODO: #1}}}
@@ -405,6 +412,7 @@ Algorithmen und Komplexität\\
 \input{conclusion}
 
 \printbibliography
+\clearpage\strut\thispagestyle{empty}\clearpage
 
 \cleardoublepage
 \section*{Erklärung}
@@ -419,7 +427,6 @@ Würzburg, \today
 \noindent
 \makebox[50mm]{\dotfill}\\
 Anton Ehrmanntraut
-
 
 
 

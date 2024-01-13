@@ -272,7 +272,7 @@ Im Folgenden soll jede Aussage als relativierbar verstanden werden, es sei denn 
 
 Beweissysteme wurden in der Einleitung schon kurz definiert. In diesem Abschnitt wird die präzise Definition von \textcite{cook_relative_1979} wiedergegeben.
 \begin{definition}
-Eine Funktion $f\in \FP$ ist ein \emph{Beweissystem} für $L$ wenn $\img(f)=L$.
+Eine Funktion $f\in \FP$ ist ein \emph{Beweissystem für $L$} wenn $\img(f)=L$.
 Ist $f(w)=x$ schreiben wir auch, dass $w$ ein \emph{$f$-Beweis} für $x$ ist.
 
 Existiert zudem ein Polynom $q$ sodass für jedes $x\in L$ ein $f$-Beweis $x$ der Länge $\leq q(|x|)$ existiert, sagen wir dass $f$ \emph{kurzen Beweise} hat.
@@ -374,7 +374,7 @@ Die Existenz eines ($\P$-)optimalen Beweissystems für eine Menge $L$ ist eine E
 \end{proof}
 Beachte insbesondere dass dieser Beweis relativiert.
 In Kombination mit vollständigen Mengen erhalten wir hieraus folgendes Korollar:
-\begin{corollary}
+\begin{corollary}\label{cor:con-characterization}
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
         \item Es existiert eine $\leqmp$-vollständige Menge $A$ für $\NP$, für welche ein ($\P$-)optimales Beweissystem $h$ existiert. (Das ist die Aussage $\neg\hSAT$.)
