@@ -178,7 +178,7 @@
 \usepackage{xparse}
 \usepackage{amsthm}
 \usepackage{thmtools}
-\usepackage{thm-restate}
+%\usepackage{thm-restate}
 \newtheorem{theorem}{Satz}[chapter]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -355,80 +355,20 @@
 \AtBeginDocument{\renewcommand{\phi}{\varphi}}
 \AtBeginDocument{\renewcommand{\epsilon}{\varepsilon}}
 
-\begin{document}
-%\pagestyle{empty}
-
-\newgeometry{margin=4cm}
-\pagenumbering{roman}
-\pagestyle{empty}
 \title{Komplexität von Suchproblemen und Beweissystemen}
 \author{Anton Ehrmanntraut}
 
-\begin{center}{\setstretch{1.8}
-
-\vspace*{2cm}
-
-{\large\textbf{Masterarbeit}}\par
-    \vspace*{1cm}
-{\addfontfeature{LetterSpace=6.0}\LARGE\textsc{komplexität von suchproblemen und beweissystemen}}\par
-    \vspace*{.3cm}
-{\addfontfeature{LetterSpace=6.0}\large\textsc{anton ehrmanntraut}}\par}
-\vspace*{5cm}
-
-\includegraphics[width=4cm]{siegel.pdf}
-
-\vspace*{2cm}
+\begin{document}
 
 
-%\setstretch{1.1}\par
-{\large\today}\vspace*{.9cm}
-
-{\large Betereuer: Prof. Dr. Christian Glaßer}\vspace*{.5cm}
-
-
-{\large
-Julius-Maximilians-Universität Würzburg\\
-Lehrstuhl für Informatik I\\
-Algorithmen und Komplexität\\
-}
-
-
-\end{center}
-
-\cleardoublepage
-\restoregeometry
-
-\tableofcontents
-\thispagestyle{empty}
-\cleardoublepage
-\pagenumbering{arabic}
-\pagestyle{main}
-
-\input{intro}
-\input{prelim}
-\input{searchproblems}
+%\input{frontmatter}
+%\input{intro}
+%\input{prelim}
+%\input{searchproblems}
 \input{pudlak}
 \input{oracles}
 \input{conclusion}
-
-\printbibliography
-\clearpage\strut\thispagestyle{empty}\clearpage
-
-\cleardoublepage
-\section*{Erklärung}
-
-Hiermit versichere ich, die vorliegende Abschlussarbeit selbstständig verfasst zu haben, keine anderen als die angegebenen Quellen und Hilfsmittel benutzt zu haben und die Arbeit bisher oder gleichzeitig keiner anderen Prüfungsbehörde unter Erlangung eines akademischen Grades vorgelegt zu haben.
-
-\vspace*{1cm}
-\noindent
-Würzburg, \today
-
-\vspace*{1cm}
-\noindent
-\makebox[50mm]{\dotfill}\\
-Anton Ehrmanntraut
-
-
+%\input{backmatter}
 
 
 

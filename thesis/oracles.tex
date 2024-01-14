@@ -1,18 +1,42 @@
 %! TEX root = ./thesis.tex
 \chapter{Orakel mit $\hDisjNP$, $\hUP$ und $\hQ$}\label{chap:orakel}
 
-\todo{Intro}
+Ziel dieses Kapitels ist die Konstruktion eines Orakels $O$, relativ zu dem einerseits die Hypothesen $\hDisjNP$ und $\hUP$ gilt, andererseits auch die Hypothese $\hQ$ gilt.
+Damit wird ausgeschlossen, dass $\neg\hQ$ nicht mit relativierenden Mitteln beweisen werden kann, selbst unter Annahme der starken, aber wahrscheinlichen Annahme $\hDisjNP\land\hUP$.
+Dies verbessert auch ein Ergebnis von \textcite[Cor.~3.3]{dose_oracle_2020}, welcher ein ähnliches Orakel konstruiert, relativ zu diesem $\hDisjNP\land\hUP\land\neg\hSAT$ gilt.
+
+Präzise werden wir folgenden Satz beweisen:
 
 \begin{theorem}\label{thm:myoracle}
     Es existiert ein Orakel $O$ sodass folgende Aussagen gelten:
     \begin{enumerate}
-        \item Es existiert kein $\leqmpp$-hartes Paar in $\DisjNP^O$ für $\DisjUP^O$ (was $\hDisjNP$ relativ zu $O$ impliziert).
-        \item Es existiert keine $\leqmp$-vollständige Menge für $\UP^O$ (was äquivalent zu $\hUP$ relativ zu $O$ ist).
         \item Für jede totale NPTM $N$ existiert eine Funktion $g\in\FP^O$ sodass $g(x)$ ein akzeptierender Rechenweg von $N^O(x)$ ist (was äquivalent zu $\hQ$ relativ zu $O$ ist).
+        \item Es existiert kein $\leq_\mathrm{m}^{\mathrm{pp},O}$-hartes Paar in $\DisjNP^O$ für $\DisjUP^O$ (was $\hDisjNP$ relativ zu $O$ impliziert).
+        \item Es existiert keine $\leq_\mathrm{m}^{\mathrm{p},O}$-vollständige Menge für $\UP^O$ (was äquivalent zu $\hUP$ relativ zu $O$ ist).
     \end{enumerate}
 \end{theorem}
 
-\section{Notation zur Orakelkonstruktion}
+Die Orakelkonstruktion bedient sich zwei zentralen Ideen. Die erste Idee besteht darin, von einem PSPACE-vollständigem Orakel $E$ auszugen und dieses zu modifizeren, um die gewünschten Eigenschaften zu erhalten. Durch geschicktes Rückgreifen auf das ursprüngliche Orakel lassen sich dann gewisse nichttriviale Berechnungen effizient umsetzen. Diese Idee geht auf \textcite{baker_relativizations_1975} zurück.
+
+Die zweite Idee betrifft vor allem die Konstruktion. 
+Wir wenden hierbei ein Verfahren von \textcite{dose_np-completeness_2019} an, welche sich als ein starkes Framework erwiesen hat, schrittweise Orakel zu konstruieren, die simultan mehrere Eigenschaften erfüllen. Dieses Framework baut maßgeblich auf drei Zutaten auf: erstens, partiell definierten Orakeln, zweitens, ein Begriff von Gültigkeit, und drittens, eine stufenweise nicht-konstruktive Definitionsvorschrift des Orakels.
+Das werden wir später beim Einsatz in der Konstruktion näher erläutern.
+
+
+Wir starten mit einem groben Überblick über die Orakelkonstruktion:
+Startpunkt der Konstruktion ist ein PSPACE-vollständiges Orakel $E$, wobei $E$ so gewählt wird dass gewisse „Ebenen“ leer bleiben. Gemeint ist, dass keine Wörter der Länge $2,4,8,\dots$ in $E$ enthalten sind. Wir werden nun in diese leeren Ebenen geschickt einige wenige Wörter einsetzen und erreichen so das Orakel $O\supseteq E$.
+Diese Wörter können wir so wählen, dass für jede $\UP^O$-Maschine und jeden $\FP^O$-Transduktor die Reduktion auf eine gewisse Zeugensprache $C\in\UP^O$ ausgeschlossen wird.
+Das läuft über ein klassisches Diagonalargument, und kann analog für $\DisjNP$ umgesetzt werden.
+
+Nun zur Aussage $\hQ$. Trivialerweise gilt relativ zu $E$ auch $\hQ$. Hätten wir die Möglichkeit, effizient die Differenz $O-E$ auszurechnen, hätten wir auch $\hQ$ relativ zu $O$. Das ist zwar nicht möglich, aber für totale NPTM $N$ ist es zumindest möglich, eine relevante Portion von $O-E$ zu berechnen, sodass sich auch ein akzeptierender Rechenweg von $N$ mithilfe des PSPACE-vollständigen Orakel $E$ berechnen lässt.
+
+
+Im folgenden Abschnitt~\ref{sec:oracle-notation} spezifizieren wir noch einige spezielle Notationen, die wir zur Orakelkonstruktion benötigen.
+Aufbauend auf der obigen Skizzze können wir anschließend in Abschnitt~\ref{sec:oracle-definition} die konkrete Konstruktionsvorschrift des Orakels formulieren.
+In Abschnitt~\ref{sec:oracle-correctness} wird dann abschließend nachgewiesen, dass diese Konstruktionsvorschrift zum einen wohldefiniert ist, und zum anderen dass sich hieraus die gewünschten Eigenschaften wie in Satz~\ref{thm:myoracle} ergeben.
+
+
+\section{Notation zur Orakelkonstruktion}\label{sec:oracle-notation}
 
 Zunächst seien $\{M_i\}_{i\in \mathbb N}$, $\{N_i\}_{i\in \mathbb N}$, $\{F_i\}_{i\in\mathbb N}$ sogenannte \emph{Standardaufzählungen} der Orakel-PTMs, Orakel-NPTMs, bzw. Orakel-PTM-Tranduktoren, welche folgende Eigenschaften hat:
 \begin{enumerate}[label=\arabic*.,nosep]
@@ -28,11 +52,8 @@ Zunächst seien $\{M_i\}_{i\in \mathbb N}$, $\{N_i\}_{i\in \mathbb N}$, $\{F_i\}
 Solche Standardaufzählungen existieren. Eine Möglichkeit, diese zu konstruieren ist beispielsweise, jede nichtdeterministische TM mit einem Timer auszustatten, die nach polynomieller Laufzeit die Berechnung abbricht. Konkret: gegeben $i$, sei zunächst $N$ die nichtdeterministische TM mit Codierung $i$. Die TM $N_i$ führt dann auf Eingabe $x$ parallel zur Rechnung $N(x)$ auf jedem Rechenweg einen Timer aus, der nach $>|x|^i+i$ Schritten den Rechenweg ablehnend abbricht.
 Damit ist die Laufzeit von $N_i$ polynomiell beschränkt auf $p_i$.
 
-Um nun das gewünschte Orakel zu konstruieren, wenden wir ein Verfahren von \textcite{dose_np-completeness_2019} an, welche sich als ein starkes Framework erwiesen hat, Orakel zu konstruieren die simultan mehrere Eigenschaften erfüllen. Dieses Framework baut maßgeblich auf drei Zutaten auf: erstens, partiell definierten Orakeln, zweitens, ein Begriff von Validität, und drittens, eine stufenweise nicht-konstruktive Definitionsvorschrift des Orakels.
-Das werden wir gleich beim Einsatz in der Konstruktion näher erläutern.
-
-Die erste von drei wesentlichen Zutaten dieses Frameworks ist der Begriff von „partiell definierten“ Orakeln, bei denen also für gewisse $x$ noch nicht endgültig festgelegt ist, ob $x\in O$ oder $x\not\in O$ gelten soll.
-Wir formalisieren solche partiell definierten Orakel mittels finiten Wörten $w\in\Sigma^*$:
+Wie bereits angesprochen werden wir ein Konstruktionsverfahren von \citeauthor{dose_np-completeness_2019} anwenden. Die erste wesentliche Zutat dieses Framekworks ist der Begriff von „partiell definierten“ Orakeln, bei denen also für gewisse $x$ noch nicht endgültig festgelegt ist, ob $x\in O$ oder $x\not\in O$ gelten soll.
+Diese werden mittels finiten Wörtern $w\in\Sigma^*$ formalisiert:
 ein finites Wort $w\in\Sigma^*$ können wir im Folgenden auch als die Menge $\{ i \mid i<|w|, w[i] = 1 \}$ verstehen (aber $|w|$ immer als die Länge von $w$).
 Die intendierte Interpretation ist, dass gegenüber der \emph{Menge} $w$ die Zugehörigkeit aller Zahlen (bzw. äquivalent Wörtern) $x$ mit $x<|w|$ final speizifiziert ist, nicht dagegen für $x\geq|w|$ (und nur ersatzweise $x\not\in w$ gilt).
 
@@ -72,13 +93,9 @@ Vor der Konstruktion machen wir nun noch folgende bekannte kombinatorische Aussa
     Also gilt für den ursprünglichen Graphen $G$ sowohl $(a,b)\not\in E(G)$ als auch $(b,a)\not\in E(G)$, wie gewünscht.
 \end{proof}
 
-\section{Definition}
+\section{Definition}\label{sec:oracle-definition}
 
-%Aufbauend auf dem oben skizzierten Framework von \textcite{dose_np-completeness_2019} werden wir nun ein erstes Orakel konstruieren.
-
-\todo{Fluff}
-
-In unseren Orakelonstruktion möchten wir abzählbar unendlich viele \emph{Ebenen} $n$, das heißt, Wörter gleicher Länge $n$, für eine abzählbar unendliche Familie von Zeugensprachen mit zunehmend großen Lücken injektiv reservieren und zuordnen.
+Wie zum Teil anfangs des Kapitels skizziert, möchten wir in unseren Orakelonstruktion abzählbar unendlich viele \emph{Ebenen} $n$, das heißt, Wörter gleicher Länge $n$, für eine abzählbar unendliche Familie von Zeugensprachen mit zunehmend großen Lücken injektiv reservieren und zuordnen.
 Hierfür sei $e(0) \defeq 2$, $e(i) \defeq 2^{e(i-1)}$.
 Es gibt eine polynomialzeit-berechenbare, polynomialzeit-invertierbare injektive Funktion $f$, die von $(m,h)\in\mathbb N\times\mathbb N$ auf $\mathbb N$ abbildet.
 Definiere nun $H_m \defeq \{ e(f(m,h)) \mid h\in\mathbb N \}$ als die Menge der für die Zeugensprache $m$ reservierten Ebenen.
@@ -93,8 +110,11 @@ Diese Definition stellt nun Folgendes sicher:
 \end{observation}
 
 
-Starte mit $\mathrm{PSPACE}$-vollständiger Menge $C$ welche keine Wörter der Länge $e(\cdot)$ enthält.
-Definiere folgende Zeugensprachen, wobei $w\in\Sigma^*\cup\Sigma^{\omega}$:
+Wir starten nun die Orakelkonstruktion mit einer $\mathrm{PSPACE}$-vollständiger Menge $C$ welche keine Wörter der Länge $e(0), e(1), e(2), \dots$ enthält.
+Damit sind also die oben definierten Ebenen in $C$ leer, wir haben also $\Sigma^n\cap E = \emptyset$ für alle $n\in H_m$.
+
+Wie bereits angesproche, werden wir in der Konstruktion Wörter der Länge $n\in H_m$ in das Orakel $C$ einsetzen und $O\supseteq C$ erhalten, sodass $O$ die gewünschten Eigenschaften hat.
+Hierzu definieren wir folgende Zeugensprachen, welche vom Inhalt der Ebenen abhängig sind. Sei hierfür $m\in\mathbb N$ und $w\in\Sigma^*\cup\Sigma^{\omega}$ beliebig:
 \begin{gather*}
     A_m^w \defeq \{ 0^n \mid n\in H_m, \text{existiert $x\in \Sigma^{n}$ mit } x\in w \text{ und $x$ endet mit $0$} \}\\
     B_m^w \defeq \{ 0^n \mid n\in H_m, \text{existiert $x\in \Sigma^{n}$ mit } x\in w \text{ und $x$ endet mit $1$} \}\\
@@ -102,7 +122,7 @@ Definiere folgende Zeugensprachen, wobei $w\in\Sigma^*\cup\Sigma^{\omega}$:
 \end{gather*}
 %Fakt: wenn $|O\cap \Sigma^{n}|\leq 1$ für alle $n\in H_m$, dann $(A_m^O, B_m^O)\in\DisjUP^O$.\\
 %Wenn $|O\cap \Sigma^n|\leq 1$ für alle $n\in H_m$, dann $C_m^O \in \UP^O$.
-Sind die Ebenen der Höhe $H_m$ in $w$ auf geeignete Weise gefüllt, lässt sich leicht sehen dass diese entsprechenden Zeugensprachen in $\DisjUP$ bzw. $\UP$ fallen:
+Sind die Ebenen der Höhe $H_m$ in $w$ auf geeignete Weise gefüllt, lässt sich leicht sehen dass diese entsprechenden Zeugensprachen in $\DisjUP^w$ bzw. $\UP^w$ fallen:
 \begin{claim}\label{claim:witnesslanguages}
     Sei $w\in\Sigma^*\cup\Sigma^\omega$ ein beliebiges Orakel.
     \begin{enumerate}
@@ -112,9 +132,30 @@ Sind die Ebenen der Höhe $H_m$ in $w$ auf geeignete Weise gefüllt, lässt sich
 \end{claim}
 
 \subsection*{Idee und Vorschau der Konstruktion}
+\begin{enumerate}[label=\arabic*.,midpenalty=0,endpenalty=0]
+
+    \item Erarbeitung (1), bzw. $\hQ$: Für alle $j\in\mathbb N$ versucht die Konstruktion die Stufen so einzurichten, dass $N_j$ nicht total ist.
+        Falls dies nicht möglich ist, dann wird $N_j$ inhärent total akzeptieren. Diese Eigenschaft können wir dann algorithmisch ausnutzen, um eine relevante Portion von $O-E$ zu bestimmen, und so einen akzeptierenden Rechenweg für $N_j(x)$ bestimmen.
+
+    \item Erarbeitung von (2), bzw. $\hDisjNP$: Für alle $a\neq b$ versucht die Konstruktion die Stufen so einzurichten, dass $N_a, N_b$ beide eine Eingabe $x$ akzeptieren, womit $x\in L(N_a)\cap L(N_b)$ und $(L(N_a), L(N_b))\not\in \DisjNP$.
+        Falls dies nicht möglich ist, ist $(N_a, N_b)$ inhärent ein disjunktes $\NP$-Paar.
+        In diesem Fall fixieren wir ein $m$, stellen sicher, dass $(A_m,B_m)$ ein disjunktes $\UP$-Paar ist, und diagonalisieren gegen jeden PTM-Transduktor $F_r$, sodass $F_r$ die Reduktion $(A_m, B_m)\leqmpp (L(N_a), L(N_b))$ nicht realisiert.
+        Dies wird folgendermaßen erreicht: (i) Für alle $n\in H_m$ fügen wir höchstens ein Wort der Länge $n$ in $O$ ein (und somit $(A_m, B_m)\in\DisjUP$), und (ii) für jedes $r$ gibt es ein $n\in H_m$ so, dass $0^{n}\in A_m$, aber $N_a(F_r(0^n))$ ablehnt (oder analog $0^n\in B_m$, aber $N_b(F_r(0^n))$ ablehnt).
+
+    \item Erarbeitung von (3), bzw. $\hUP$: Für alle $a$ versucht die Konstruktion die Stufen so einzurichten, dass $N_a$ eine Eingabe $x$ auf zwei Rechenwegen akzeptieren, womit  $L(N_a)\not\in \UP$.
+        Falls dies nicht möglich ist, $L(N_a)$ inhärent eine $\UP$-Sprache.
+        In diesem Fall fixieren wir ein $m$, stellen sicher, dass $C_m$ eine Sprache in $\UP$ ist, und diagonalisieren gegen jeden PTM-Transduktor $F_r$, sodass $F_r$ die Reduktion $C_m\leqmpp L(N_a)$ nicht realisiert.
+        Dies wird folgendermaßen erreicht: (i) Für alle $n\in H_m$ fügen wir höchstens ein Wort der Länge $n$ in $O$ ein (und somit $C_m\in\DisjUP$), und (ii) für jedes $r$ gibt es ein $n\in H_m$ so, dass $0^{n}\in C_m$ genau dann wenn $N_a(F_r(0^n))$ ablehnt.
+\end{enumerate}
+Wir weisen diesen Arbeitsschritten folgende Symbole zu, welche die einzelnen Tasks repräsentieren sollen: $\tau^1_j$, $\tau^2_{a,b}$, $\tau^2_{a,b,r}$, $\tau^3_a$, $\tau^3_{a,r}$.
+Symbol $\tau^1_j$ repräsentiert den (versuchsweisen) Ausschluss der Totalität von $N_j$. Symbol $\tau^2_{a,b}$ repräsentiert analog den Ausschluss der Disunktheit von $L(N_a), L(N_b)$, Symbol $\tau^2_{a,b,r}$ dann die Diagonalisierung dieses Paares gegen den Transduktor $F_r$. Analog für $\UP$ und $\tau^3_a, \tau^3_{a,r}$.
+
+Intuitiv gesprochen verläuft die Konstruktion nun wie folgt: wir starten mit einem partiell definierten Orakel $w$, und wollen dieses nun schrittweise erweitern. In jeder Erweiterung nehmen wir uns einen noch nicht bearbeiteten Task $\tau$, und werden die Erweiterung so wählen, dass $\tau$ relativ zu dieser Erweiterung erfüllt wird. Wir passen dabei auf, dass auch in zukünftigen Erweiterungen $\tau$ erhalten bleibt.
+Führen wir das nun unendlich oft durch, enden wir „im Limit“ mit einem $\omega$-langen Orakel, welcher alle unsere Tasks $\tau$ abgearbeitet hat.
+
 \todo{Idee skizzieren; Verweise darauf dass das Zutat Nr. 2 von Dose/Glaßer ist}
 
-Ein Orakel $w\in\Sigma^*$ ist $t$-valide wenn $t\in\mathcal T$ und folgendes gilt:
+Ein Orakel $w\in\Sigma^*$ ist $t$-gültig wenn $t\in\mathcal T$ und folgendes gilt:
 \begin{enumerate}[label={V\arabic*}]
     \item Wenn $x<|w|$ und $|x|\not\in \img(e)$, dann gilt $x\in w\iff x\in C$.\\
         (Bedeutung: Orakel $w$ und $C$ stimmen auf Wörtern mit Länge $\neq e(\cdot)$ überein.)
@@ -135,38 +176,39 @@ Ein Orakel $w\in\Sigma^*$ ist $t$-valide wenn $t\in\mathcal T$ und folgendes gil
 
 \subsection*{Induktive Definition des Orakels}
 
+%Diese Idee formalisiern wir nun.
 Sei $T$ eine abzählbare Aufzählung der oben genannten Tasks sodass $\tau^2_{a,b,r}$ immer nach $\tau^2_{a,b}$ kommt, sowie $\tau^3_{a,r}$ immer nach $\tau^3_a$ kommt.
 Die Orakelkonstruktion erfolgt nun in abzähnlbar unendlich vielen \emph{Stufen}. In jeder Stufe bearbeiten wir den kleinsten Task $\tau$ in der durch $T$ festgelegten Reihenfolge. Anschließend entfernen wir $\tau$ aus $T$, und entfernen möglicherweise zusätzlich höhere Tasks aus $T$.
 In der nächsten Stufe fahren wir mit dem nächsten Task fort, die noch nicht aus $T$ entfernt wurde. (In jeder Stufe existiert immer mindestens ein Task, die noch nicht entfernt wurde, da wir in keiner Stufe alle Tasks aus $T$ entfernen werden.)
 
-Eine Stufe $s<\omega$ identifizieren wir hierbei mit einem Orakel $w_s\in\Sigma^*$, einer „Validitäts“-Funktion $t_s\in\mathcal T$, und einem Task (bzw. mehreren Tasks) welcher in dieser Stufe bearbeitet wurde.
+Eine Stufe $s<\omega$ identifizieren wir hierbei mit einem Orakel $w_s\in\Sigma^*$, einer „Gültigkeits“-Funktion $t_s\in\mathcal T$, und einem Task (bzw. mehreren Tasks) welcher in dieser Stufe bearbeitet wurde.
 Wir werden die einzelen $w_0, w_1, \dots$ und $t_0, t_1, t_2, \dots$ so defineren, dass
 \[ w_0\sqsubsetneq w_1 \sqsubsetneq w_2 \sqsubsetneq \cdots, \]
 und 
 \[ t_0 \subseteq t_1 \subseteq t_2 \subseteq \cdots, \]
 heißt insbesondere das $t_j$ eine Fortsetzung von $t_i$ ist, wenn immer $j\geq i$.
-Außerdem werden wir sichern, dass jedes $w_s$ ein $t_s$-valides Orakel ist.
+Außerdem werden wir sichern, dass jedes $w_s$ ein $t_s$-gültiges Orakel ist.
 Es ist klar, dass jeder Task $\tau\in T$ letzlich in irgendeiner Stufe $s$ bearbeitet wird.
 
 
 Nun zur Definition von $w_s, t_s$: wir werden die einzelnen Stufen induktiv definieren. Als Basisklausel setzen wir $w_0 = \epsilon$ und $t_0 = \emptyset$.
-Für unsere induktive Klausel sei $s>0$. Die Definition für $w_s, t_s$ ergibt sich nun aus der bereits definierten Funktion $t_{s-1}\in\mathcal T$, und dem bereits definierten $t_{s-1}$-validen Orakel $w_{s-1}$, sowie dem zu bearbeitenden kleinsten verbleibenden Task $\tau$ in $T$.
+Für unsere induktive Klausel sei $s>0$. Die Definition für $w_s, t_s$ ergibt sich nun aus der bereits definierten Funktion $t_{s-1}\in\mathcal T$, und dem bereits definierten $t_{s-1}$-gültigen Orakel $w_{s-1}$, sowie dem zu bearbeitenden kleinsten verbleibenden Task $\tau$ in $T$.
 Zur Erinnerung: dieser wird unmittelbar nach der Bearbeitung aus $T$ entfernt. In der Bearbeitung wird das Orakel strikt verlängert.
 Es gibt nun fünf Fälle, je nach dem welche Form der bearbeitete Task $\tau$ hat.
 \begin{description}
-    \item[Task $\tau^1_j$:] Setze $t'\defeq t_{s-1}\cup\{\tau^1_j\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$.
+    \item[Task $\tau^1_j$:] Setze $t'\defeq t_{s-1}\cup\{\tau^1_j\mapsto 0\}$. Existiert ein $t'$-gültiges Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$.
 
-        Ansonsten setze $t_s\defeq t_{s-1}$ und setze $w_s\defeq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. Das ist möglich nach Behauptung~\ref{claim:myoracle-up-extension}.
+        Ansonsten setze $t_s\defeq t_{s-1}$ und setze $w_s\defeq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-gültig ist. Das ist möglich nach Behauptung~\ref{claim:myoracle-up-extension}.
 
         (Bedeutung: wenn das Orakel $w_s$ so eingerichtet werden kann, dass $N_j$ nicht mehr total arbeitet, dann erweitere genau so, vgl. V2.) 
 
-    \item[Task $\tau^2_{a,b}$:] Setze $t'\defeq t_{s-1}\cup\{\tau^2_{a,b}\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$. Entferne außerdem alle Tasks der Form $\tau^2_{a,b,r}$ von $T$.
+    \item[Task $\tau^2_{a,b}$:] Setze $t'\defeq t_{s-1}\cup\{\tau^2_{a,b}\mapsto 0\}$. Existiert ein $t'$-gültiges Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$. Entferne außerdem alle Tasks der Form $\tau^2_{a,b,r}$ von $T$.
 
-        Ansonsten wähle ein hinreichend großes $m\not\in \img(t_s)$ sodass $w_s$ kein Wort der Länge $\min H_m$ definiert. Setze $t_s\defeq t_{s-1}\cup \{ \tau^2_{a,b}\mapsto m \}$; damit ist $w_{s-1}$ auch $t_s$-valide. Setze $w_s\defeq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. Das ist möglich nach Behauptung~\ref{claim:myoracle-up-extension}.
+        Ansonsten wähle ein hinreichend großes $m\not\in \img(t_s)$ sodass $w_s$ kein Wort der Länge $\min H_m$ definiert. Setze $t_s\defeq t_{s-1}\cup \{ \tau^2_{a,b}\mapsto m \}$; damit ist $w_{s-1}$ auch $t_s$-gültig. Setze $w_s\defeq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-gültig ist. Das ist möglich nach Behauptung~\ref{claim:myoracle-up-extension}.
 
         (Bedeutung: wenn das Orakel $w_s$ so eingerichtet werden kann, dass $N_a, N_b$ nicht mehr disjunkt akzeptieren, dann erweitere genau so, vgl. V4. Ansonsten, falls das nicht möglich ist, wähle ein geeignetes frisches $m$ und setze ab dieser Stufe voraus, dass $(A_m, B_m)\in \DisjUP$.) 
 
-    \item[Task $\tau^2_{a,b,r}$:] Wir wissen dass $t_{s-1}(\tau^2_{a,b})=m>0$. Setze $t_s=t_{s-1}$ und wähle ein $t_s$-valides Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
+    \item[Task $\tau^2_{a,b,r}$:] Wir wissen dass $t_{s-1}(\tau^2_{a,b})=m>0$. Setze $t_s=t_{s-1}$ und wähle ein $t_s$-gültiges Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
         \begin{itemize}[nosep,endpenalty=10000]
             \item $0^n\in A_m^v$ für alle $v\sqsupseteq w_s$ und $M_a(F_r(0^n))$ lehnt relativ zu $w_s$ definitiv ab.
             \item $0^n\in B_m^v$ für alle $v\sqsupseteq w_s$ und $M_b(F_r(0^n))$ lehnt relativ zu $w_s$ definitiv ab.
@@ -174,13 +216,13 @@ Es gibt nun fünf Fälle, je nach dem welche Form der bearbeitete Task $\tau$ ha
 
         (Bedeutung: erweitere zu $w_s$, sodass $F_r$ nicht die Reduktion $(A_m, B_m)\not\leq_\mathrm{m}^\mathrm{pp} (L(N_a), L(N_b))$ realisiert.) 
 
-    \item[Task $\tau^3_{a}$:] Setze $t'\defeq t_{s-1}\cup\{\tau^3_{a,b}\mapsto 0\}$. Existiert ein $t'$-valides Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$. Entferne außerdem alle Tasks der Form $\tau^3_{a,b,r}$ von $T$.
+    \item[Task $\tau^3_{a}$:] Setze $t'\defeq t_{s-1}\cup\{\tau^3_{a,b}\mapsto 0\}$. Existiert ein $t'$-gültiges Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$. Entferne außerdem alle Tasks der Form $\tau^3_{a,b,r}$ von $T$.
 
-        Ansonsten wähle ein hinreichend großes $m\not\in \img(t_s)$ sodass $w_s$ kein Wort der Länge $\min H_m$ definiert. Setze $t_s\defeq t_{s-1}\cup \{ \tau^3_{a,b}\mapsto m \}$; damit ist $w_{s-1}$ auch $t_s$-valide. Setze $w_s\defeq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-valide ist. Das ist möglich nach Behauptung~\ref{claim:myoracle-up-extension}.
+        Ansonsten wähle ein hinreichend großes $m\not\in \img(t_s)$ sodass $w_s$ kein Wort der Länge $\min H_m$ definiert. Setze $t_s\defeq t_{s-1}\cup \{ \tau^3_{a,b}\mapsto m \}$; damit ist $w_{s-1}$ auch $t_s$-gültig. Setze $w_s\defeq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-gültig ist. Das ist möglich nach Behauptung~\ref{claim:myoracle-up-extension}.
 
         (Bedeutung: wenn das Orakel $w_s$ so eingerichtet werden kann, dass $N_a$ auf mehr als einem Rechenweg akzeptiert, dann erweitere genau so, vgl. V6. Ansonsten, falls das nicht möglich ist, wähle ein geeignetes frisches $m$ und setze ab dieser Stufe voraus, dass $(C_m)\in \UP$.) 
 
-    \item[Task $\tau^3_{a,r}$:] Wir wissen dass $t_{s-1}(\tau^3_{a})=m>0$. Setze $t_s\defeq t_{s-1}$ und wähle ein $t_s$-valides Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
+    \item[Task $\tau^3_{a,r}$:] Wir wissen dass $t_{s-1}(\tau^3_{a})=m>0$. Setze $t_s\defeq t_{s-1}$ und wähle ein $t_s$-gültiges Orakel $w_s\sqsupsetneq w_{s-1}$ sodass bezüglich einem $n\in\mathbb N$ eine der folgenden Aussagen gilt:
         \begin{itemize}[nosep,endpenalty=10000]
             \item $0^n\in C_m^v$ für alle $v\sqsupseteq w_s$ und $M_a(F_r(0^n))$ lehnt relativ zu $w_s$ definitiv ab.
             \item $0^n\not\in C_m^v$ für alle $v\sqsupseteq w_s$ und $M_a(F_r(0^n))$ akzeptiert relativ zu $w_s$ definitiv.
@@ -190,9 +232,9 @@ Es gibt nun fünf Fälle, je nach dem welche Form der bearbeitete Task $\tau$ ha
 \end{description}
 
 Beobachte, dass $t_s$ immer als Element von $\mathcal T$ definiert ist.
-Beachte auch den „Existenzquantor“ in Task $\tau^1_j$ (bzw. ähnlich bei $\tau^2_{a,b}, \tau^3_a$), welcher in der Konstruktion „testet“, ob eine valide Erweiterung des Orakels existiert, welche die Totalität der NPTM $N_j$ definitiv ausschließt. 
+Beachte auch den „Existenzquantor“ in Task $\tau^1_j$ (bzw. ähnlich bei $\tau^2_{a,b}, \tau^3_a$), welcher in der Konstruktion „testet“, ob eine gültige Erweiterung des Orakels existiert, welche die Totalität der NPTM $N_j$ definitiv ausschließt. 
 Hierzu zwei Bemerkungen: Erstens handelt es sich hierbei insbesondere um ein nicht-konstruktives Argument. Falls eine solche Erweiterung existieren sollte, dann können wir diese auch auswählen (z.B. indem die lexikographisch kleinste gewält wird), ohne dass diese in expliziter Weise angegeben wird.
-Zweitens, falls eine solche valide Erweiterung nicht existiert, dann ist die NPTM $N_j$ sogar „besonders total“, in dem Sinn dass $N_j$ sogar unter \emph{jeder} gülitgen Erweiterung total ist. 
+Zweitens, falls eine solche gültige Erweiterung nicht existiert, dann ist die NPTM $N_j$ sogar „besonders total“, in dem Sinn dass $N_j$ sogar unter \emph{jeder} gülitgen Erweiterung total ist. 
 Diese Konstruktionstaktik ist die dritte Zutat des Verfahrens von \citeauthor{dose_np-completeness_2019}.
 
 Mit den oben genannten Tasks ist die die Definition der Stufe $s$ abgeschlossen, und somit die beiden Folgen $\{w_s\}_{s<\omega}$ $\{t_s\}_{s<\omega}$.
@@ -202,33 +244,33 @@ Wir müssen nun zwei Aussagen zeigen: erstens, dass diese Konstruktion tatsächl
 Zweitens müssen wir zeigen, dass die Konstruktion das leistet was wir uns wünschen, also dass $O$ die behaupteten Eigenschaften des Satzes~\ref{thm:myoracle} erfüllen.
 Beides werden wir nun im folgenden Abschnitt beweisen.
 
-\section{Korrektheit}
+\section{Korrektheit}\label{sec:oracle-correctness}
 
 \subsection*{Existenz}
 
 Wir zeigen im Folgenden zunächst, dass die oben definierte induktive Definition tatsächlich wohldefiniert ist, in dem Sinne dass jeder Task umgesetzt werden kann und die induktive Definition nicht „abbricht“.
 
-Zunächst beweisen wir, dass sich ein $t$-valides Orakel $w$ immer um ein Bit verlängern lassen kann, ohne Validität zu verletzen.
+Zunächst beweisen wir, dass sich ein $t$-gültiges Orakel $w$ immer um ein Bit verlängern lassen kann, ohne Gültigkeit zu verletzen.
 
 \begin{lemma}\label{claim:myoracle-up-extension}
-    Sei $t\in\mathcal T$ und $w$ ein $t$-valides Orakel, und sei $z=|w|$. 
+    Sei $t\in\mathcal T$ und $w$ ein $t$-gültiges Orakel, und sei $z=|w|$. 
     (Denke $z$ als das nächste Wort, für welche wir die Zuordnung zum Orakel festlegen wollen, d.h. wahlweise $z\not\in w0$ oder $z\in w1$.)
-    Dann existiert ein $b\in\{0,1\}$ sodass $wb$ auch $t$-valide ist.
+    Dann existiert ein $b\in\{0,1\}$ sodass $wb$ auch $t$-gültig ist.
     Insbesondere gilt
     \begin{enumerate}
-        \item Falls $|z|\not\in\img(e)$, dann ist $w0$ $t$-valide wenn $z\in C$, und $w1$ $t$-valide wenn $z\not\in C$.
-        \item Ansonsten, falls ein $i$ existiert mit $|z|=e(i)$, dann ist $w0$ $t$-valide.
+        \item Falls $|z|\not\in\img(e)$, dann ist $w0$ $t$-gültig wenn $z\in C$, und $w1$ $t$-gültig wenn $z\not\in C$.
+        \item Ansonsten, falls ein $i$ existiert mit $|z|=e(i)$, dann ist $w0$ $t$-gültig.
     \end{enumerate}
 \end{lemma}
 \begin{proof}
     Sei $z=|w|$. Beachte, dass wir mit $b$ kontrollieren, ob $z\in wb$ gilt.
-    Angenommen, $wb$ ist nicht $t$-valide, dann muss eine der Bedingungen V1--V7 verletzt sein.
+    Angenommen, $wb$ ist nicht $t$-gültig, dann muss eine der Bedingungen V1--V7 verletzt sein.
 
-    Angenommen V3 ist verletzt, weil $N_j^{wb}(x)$ nicht definit ablehnt und gleichzeitig $t(\tau_j^1)=0$. Da nach Voraussetzung $w$ aber $t$-valide ist, wird $N_j^{w}(x)$ definitiv ablehnen.
+    Angenommen V3 ist verletzt, weil $N_j^{wb}(x)$ nicht definit ablehnt und gleichzeitig $t(\tau_j^1)=0$. Da nach Voraussetzung $w$ aber $t$-gültig ist, wird $N_j^{w}(x)$ definitiv ablehnen.
     Nach Beobachtung~\ref{obs:partialoracles}(3) wissen wir aber, dass dann auch $N_j^{wb}(x)$ definitiv ablehnen wird. Widerspruch.
     Also kann V3 nicht verletzt sein. Mit analoger Argumentation sehen wir auch, dass V4 und V6 nicht verletzt sein können.
 
-    Angenommen V1 ist verletzt, weil für $x<|wb|$, $|x|\not\in\img(e)$ die Äquivalenz von V1 nicht gilt, heißt $x\in wb \not\leftrightarrow x\in C$. Dann kann $x$ nicht $<|w|$ sein, denn V1 gilt hier nach $t$-Validität von $w$. Also muss $x=z$.
+    Angenommen V1 ist verletzt, weil für $x<|wb|$, $|x|\not\in\img(e)$ die Äquivalenz von V1 nicht gilt, heißt $x\in wb \not\leftrightarrow x\in C$. Dann kann $x$ nicht $<|w|$ sein, denn V1 gilt hier nach $t$-Gültigkeit von $w$. Also muss $x=z$.
     Damit auch $|z|\not\in\img(e)$ und wir haben für Fall (2) schon einen Widerspruch zur Voraussetzung.
     Wir sind also in Fall (1) und können voraussetzen, dass $b=1$ genau dann wenn $z\in C$.
     Dann gilt aber genau $x\in wb\leftrightarrow x\in C$ und wir haben einen Widerspruch.
@@ -238,30 +280,30 @@ Zunächst beweisen wir, dass sich ein $t$-valides Orakel $w$ immer um ein Bit ve
     Nach Definition wissen wir, dass $wb$ und $w$ auf allen Wörtern $\neq z$ übereinstimmen.
     Wir unterscheiden nun zwei Fälle: $z\not\in\Sigma^n$ und $z\in\Sigma^n$.
     Für den ersten Fall sei angenommen $z\not\in\Sigma^n$. Dann stimmen $wb$ und $w$ sogar auf den Wörtern $\Sigma^n$ überein. Das bedeutet dass auch $|w\cap\Sigma^n|>1$.
-    Das widerspricht der $t$-Validität von $w$.
+    Das widerspricht der $t$-Gültigkeit von $w$.
 
     Für den zweiten Fall nehmen wir nun $z\in\Sigma^n$ an.
     Damit müssen wir auch nur Fall (2) prüfen, da Voraussetzung von Fall (1) nicht erfüllt sind.
     Hier gilt nun $b=0$ und
     \[ |wb\cap\Sigma^n|=|w0\cap\Sigma^n|=|w\cap\Sigma^n|>1, \]
-    haben also wieder einen Widerspruch zur $t$-Validität von $w$.
+    haben also wieder einen Widerspruch zur $t$-Gültigkeit von $w$.
 
     Die Bedingung V5 kann also nicht verletzt sein.
     Auf analoge Weise wie eben bei V5 lässt sich auch zeigen, dass V2 und V7 nicht verletzt sein können.
-    Insgesamt kann also keine Bedingung V1--V7 verletzt sein; $wb$ ist $t$-valide wie gewünscht.
+    Insgesamt kann also keine Bedingung V1--V7 verletzt sein; $wb$ ist $t$-gültig wie gewünscht.
 \end{proof}
 
 Damit haben wir die ersten beiden Tasks aus der Definition schon gesichert. Nun zeigen wir, dass die Bearbeitung von $\tau^2_{a,b,r}$ möglich ist.
 
 \begin{lemma}\label{lemma:myoracle-disjnp}
-    Die Bearbeitung eines Tasks $\tau^2_{a,b,r}$ ist möglich: gilt $t_s=t_{s-1}, t_{s}(\tau^2_{a,b})=m>0$, dann lässt sich $w_{s}$ so zu $t_{s}$-validem $w\sqsupsetneq w_{s}$ erweitern, sodass eine der folgenden Aussagen gilt:
+    Die Bearbeitung eines Tasks $\tau^2_{a,b,r}$ ist möglich: gilt $t_s=t_{s-1}, t_{s}(\tau^2_{a,b})=m>0$, dann lässt sich $w_{s}$ so zu $t_{s}$-gültigem $w\sqsupsetneq w_{s}$ erweitern, sodass eine der folgenden Aussagen gilt:
     \begin{enumerate}[nosep,endpenalty=10000]
         \item $0^n\in A_m^v$ für alle $v\sqsupseteq w$ und $M_a(F_r(0^n))$ lehnt relativ zu $w$ definitiv ab.
         \item $0^n\in B_m^v$ für alle $v\sqsupseteq w$ und $M_b(F_r(0^n))$ lehnt relativ zu $w$ definitiv ab.
     \end{enumerate}
 \end{lemma}
 \begin{proof}[Skizze.]
-    Widerspruchsbeweis. Erweitere $w_{s-1}$ so weit zu $u$, dass genau alle Wörter der Länge $<n=e(i)\in H_m$ definiert sind, wobei das $i$ hinreichend groß gewählt wird. Sei für jedes $X\subseteq \Sigma^n$ das Orakel $u(X)\sqsupsetneq w_{s-1}$ jenes Orakel was entsteht, wenn die Ebene $e(i)$ mit genau den Wörtern aus $X$ gefüllt wird, heißt $u(X)$ und $X$ stimmen auf $\Sigma^n$ überein. Beob. dass $u(X), |X|\leq 1$ auch $t_{s}$-valide ist.
+    Widerspruchsbeweis. Erweitere $w_{s-1}$ so weit zu $u$, dass genau alle Wörter der Länge $<n=e(i)\in H_m$ definiert sind, wobei das $i$ hinreichend groß gewählt wird. Sei für jedes $X\subseteq \Sigma^n$ das Orakel $u(X)\sqsupsetneq w_{s-1}$ jenes Orakel was entsteht, wenn die Ebene $e(i)$ mit genau den Wörtern aus $X$ gefüllt wird, heißt $u(X)$ und $X$ stimmen auf $\Sigma^n$ überein. Beob. dass $u(X), |X|\leq 1$ auch $t_{s}$-gültig ist.
 
     Nach Annahme gilt
     \begin{itemize}[nosep]
@@ -279,8 +321,8 @@ Eine solche Stufe existiert, da andernfalls $t_{s}(\tau^2_{a,b})$ undefiniert w�
 Wir haben $m = t_{\hat{s}}(\tau^2_{a,b}) = t_{s}tau^2_{a,b})$; fixiere auch $m$ für den Rest des Beweises.
 
 Wir nehmen an, dass für alle $t_{s}$-gültigen $w\sqsupsetneq w_{s-1}$ weder (1) noch (2) zutrifft.
-Daraus werden wir einen Widerspruch ableiten, indem wir ein geeignetes Orakel $u'\sqsupsetneq w_{\hat{s}-1}$ konstruieren, das bezüglich $t' \defeq  t_{\hat{s}-1}\cup \{\tau^2_{a,b}\mapsto 0\}$ valide ist. (Gemeint ist: relativ zu $u'$ wird $M_a$ und $M_b$ eine Eingabe definitiv akzeptieren.)
-Dann folgt nach Definition, dass $u'$ eine mögliche $t'$-valide Erweiterung von $w_{\hat{s}-1}$ in Stufe $\hat{s}$ ist, daher hätte die Bearbeitung von $\tau^2_{a,b}$ eben $t_{\hat{s}}=t'$ gesetzt, damit auch $t_{s}tau^2_{a,b})=t'(\tau^2_{a,b})=0$, was der Voraussetzung widerspricht.
+Daraus werden wir einen Widerspruch ableiten, indem wir ein geeignetes Orakel $u'\sqsupsetneq w_{\hat{s}-1}$ konstruieren, das bezüglich $t' \defeq  t_{\hat{s}-1}\cup \{\tau^2_{a,b}\mapsto 0\}$ gültig ist. (Gemeint ist: relativ zu $u'$ wird $M_a$ und $M_b$ eine Eingabe definitiv akzeptieren.)
+Dann folgt nach Definition, dass $u'$ eine mögliche $t'$-gültige Erweiterung von $w_{\hat{s}-1}$ in Stufe $\hat{s}$ ist, daher hätte die Bearbeitung von $\tau^2_{a,b}$ eben $t_{\hat{s}}=t'$ gesetzt, damit auch $t_{s}tau^2_{a,b})=t'(\tau^2_{a,b})=0$, was der Voraussetzung widerspricht.
 
 Sei
 \begin{equation*} \gamma(n) \defeq  \max(p_a(p_r(n))+p_r(n), p_b(p_r(n))+p_r(n)) \end{equation*}
@@ -309,28 +351,28 @@ Für $X \subseteq \Sigma^n, |X|\leq 2$ definieren wir ein partielles Orakel $u(X
 das für alle Wörter bis zur Länge $\leq\gamma(n)$ definiert ist, und so dass $u(X) \cap \Sigma^n = X$, das heißt, $u(X)$ und $X$ stimmen in $\Sigma^n$ überein.
 
 Im Wesentlichen entsteht also $u(X)$ aus $u$, indem die Ebene $n$ mit $X$ gefüllt wird, und dann in den höheren Ebenen mit dem PSPACE-Orakel $C$ weitergemacht wird.
-Es ist leicht zu sehen, dass für $|X|\leq 1$ das Orakel $u(X)$ sogar $t_{s}$-valide ist, indem iterativ $u$ erweitert wird.
+Es ist leicht zu sehen, dass für $|X|\leq 1$ das Orakel $u(X)$ sogar $t_{s}$-gültig ist, indem iterativ $u$ erweitert wird.
 
 \begin{claim}\label{claim:myoracle-validty-leq1}
-    Sei $|X|\leq 1$. Dann ist $u(X)$ ein $t_{s}$-valides Orakel.
+    Sei $|X|\leq 1$. Dann ist $u(X)$ ein $t_{s}$-gültiges Orakel.
 \end{claim}
 \begin{proof}
     Angenommen, es ist kein $t_{s}$-valies Orakel. Dann ist eine der Bedingungen V1--V7 verletzt. Wir zeigen, dass diese Annahme zu einem Widerspruch führt.
     Klar ist, dass V3, V4, V6 nicht verletzt sein können, denn jede definite Berechnung relativ zu $u$ ist auch eine definite Berechnung relativ zu $u(X)$ nach Beobachtung~\ref{obs:partialoracles}(1).
 
     Angeommen, V1 ist verletzt. Dann muss ein $x$ mit $|x|\leq \gamma(n), |x|\neq e(\cdot)$ existieren, sodass $x\in u(X) \not\leftrightarrow x\in C$.
-    Klar ist, dass $|x|\geq n$ sein muss, da ansonsten schon $u$ nicht $t_{s}$-valide wäre; das wäre ein Widerspruch zur Konstruktion von $u$.
+    Klar ist, dass $|x|\geq n$ sein muss, da ansonsten schon $u$ nicht $t_{s}$-gültig wäre; das wäre ein Widerspruch zur Konstruktion von $u$.
     Also $n<|x|\leq \gamma(n)$. Dann wissen wir aber nach Definition von $u(X)$ dass $x\in u(X) \leftrightarrow x\in C$; Widerspruch zur Wahl von $x$.
 
-    Angenommen, V5 ist verletzt. Dann existiert ein $\tau'$ mit $t_{s}(\tau')=m'>0$ und $n'\in H_{m'}$ und $|\Sigma^{n'}\cap u(X)|>1$. Wieder klar ist, dass $n\leq n'\leq\gamma(n)<2^n$ sein muss, ansonsten wäre schon $u$ nicht mehr $t_{s}$-valide.
+    Angenommen, V5 ist verletzt. Dann existiert ein $\tau'$ mit $t_{s}(\tau')=m'>0$ und $n'\in H_{m'}$ und $|\Sigma^{n'}\cap u(X)|>1$. Wieder klar ist, dass $n\leq n'\leq\gamma(n)<2^n$ sein muss, ansonsten wäre schon $u$ nicht mehr $t_{s}$-gültig.
     Dann aber muss auch $n=n'$, denn ansonsten wäre $n'\not\in H_{m'}$, nach Beobachtung~\ref{obs:leveldefinitions}.
     Jetzt haben wir aber $|\Sigma^{n'}\cap u(X)|=|\Sigma^n\cap u(X)| = |X|\leq 1$; das ist ein Widerspruch zur Annahme $|\Sigma^{n'}\cap u(X)|>1$. Also kann V5 nicht verletzt sein. 
 
     Auf analoge Weise ist ersichtlich, dass auch V2 und V7 nicht verletzt sein können.
-    Damit ist keine Bedingung verletzt, $u(X)$ muss also $t_s$-valide sein.
+    Damit ist keine Bedingung verletzt, $u(X)$ muss also $t_s$-gültig sein.
 \end{proof}
 
-Wir haben angenommen, dass für $t_{s}$-valide Orakel nicht (1) oder (2) gilt. Angewendet auf $u(X), |X|\leq 1$ bedeutet das
+Wir haben angenommen, dass für $t_{s}$-gültige Orakel nicht (1) oder (2) gilt. Angewendet auf $u(X), |X|\leq 1$ bedeutet das
 \begin{itemize}[nosep]
     \item Für $\alpha\in \Sigma^{n-1}0$ gilt $0^n\in A_m^{u(\{\alpha\})}$ und daher akzeptiert $M_a(F_r(0^n))$ definitiv relativ zu $u(\{\alpha\})$ auf einem Rechenweg mit Orakelmenge $Q_\alpha$.
     \item Für $\beta\in \Sigma^{n-1}1$ gilt $0^n\in B_m^{u(\{\alpha\})}$ und daher akzeptiert $M_b(F_r(0^n))$ definitiv relativ zu $u(\{\beta\})$ auf einem Rechenweg mit Orakelmenge $Q_\beta$.
@@ -357,19 +399,19 @@ Nach \eqref{eq:myoracle1-expbound} wissen wir nun, dass $|A|, |B|>2\Delta$. Mitt
 In anderen Worten, es gilt $\alpha\not\in Q_\beta$ und $\beta\not\in Q_\alpha$.
 
 Betrachte nun $u'\defeq u(\{\alpha, \beta\})$. Wir zeigen nun zwei Dinge: erstens, dass $M_a(F_r(0^n))$ und $M_b(F_r(0^n))$ definitiv relativ zu $u(\{\alpha, \beta\})$ akzeptieren.
-Zweitens anschließend, dass $u(\{\alpha,\beta\})$ auch $t'$-valide ist.
+Zweitens anschließend, dass $u(\{\alpha,\beta\})$ auch $t'$-gültig ist.
 
 Für die erste Aussage beobachten wir, dass $u(\{\alpha\})$ und $u(\{\alpha, \beta\})$ auf $Q_\alpha$ übereinstimmen. Angenommen sie stimmen nicht überein, dann müssen sie nach Konstruktion auf $\beta$ nicht übereinstimmen. Dann wäre aber $\beta\in Q_\alpha$, was ein Widerspruch zur Wahl von $\beta$ ist.
 Symmetrisch sehen wir, dass $u(\{\beta\})$ und $u(\{\alpha, \beta\})$ auf $Q_\beta$ ist.
 Also akzeptieren $M_a(F_r(0^n))$ und $M_b(F_r(0^n))$ definitiv relativ zu $u(\{\alpha, \beta\})$.
 
-Nun zur zweiten Aussage. Zunächst zeigen wir $t_{\hat{s}-1}$-Validität.
+Nun zur zweiten Aussage. Zunächst zeigen wir $t_{\hat{s}-1}$-Gültigkeit.
 \begin{claim}\label{claim:myoracle-validty-eq2}
-    Das Orakel $u'=u(\{\alpha, \beta\})$ ist $t_{\hat{s}-1}$-valide.
+    Das Orakel $u'=u(\{\alpha, \beta\})$ ist $t_{\hat{s}-1}$-gültig.
 \end{claim}
 \begin{proof}
     Angenommen, es ist kein $t_{\hat{s}-1}$-valies Orakel. Dann ist eine der Bedingungen V1--V7 verletzt. Wir zeigen, dass diese Annahme zu einem Widerspruch führt.
-    Wieder klar ist, dass V3, V4, V6 nicht verletzt sein können, denn jede definite Berechnung relativ zu $t_{\hat{s}-1}$-validem $u$ ist auch eine definite Berechnung relativ zu $u'$ nach Beobachtung~\ref{obs:partialoracles}(1).
+    Wieder klar ist, dass V3, V4, V6 nicht verletzt sein können, denn jede definite Berechnung relativ zu $t_{\hat{s}-1}$-gültigem $u$ ist auch eine definite Berechnung relativ zu $u'$ nach Beobachtung~\ref{obs:partialoracles}(1).
     Auch V1 kann nicht verletzt sein; das folgt aus dem gleichen Argument wie im Beweis von Behauptung~\ref{claim:myoracle-validty-leq1}.
 
     Angenommen, V5 ist verletzt. Dann existiert ein $\tau'$ mit $t_{\hat{s}-1}(\tau')=m'>0$ und $n'\in H_{m'}$ und $|\Sigma^{n'}\cap u(X)|>1$. 
@@ -384,21 +426,21 @@ Nun zur zweiten Aussage. Zunächst zeigen wir $t_{\hat{s}-1}$-Validität.
     Wieder folgt $n=n'$.
     Jetzt haben wir aber $|\Sigma^{n'}\cap u'|=|\Sigma^n\cap u(\{\alpha, \beta\})| = |\{\alpha,\beta\}|=2$; das ist ein Widerspruch zur Annahme $|\Sigma^{n'}\cap u'|>2$. Also kann V2 nicht verletzt sein. 
 
-    Damit ist keine Bedingung verletzt, $u'$ muss also $t_{\hat{s}-1}$-valide sein.
+    Damit ist keine Bedingung verletzt, $u'$ muss also $t_{\hat{s}-1}$-gültig sein.
 \end{proof}
 Wir erinnern uns daran dass $t'=t_{\hat{s}-1}\cup \{\tau^2_{a,b}\mapsto 0\}$.
-Nun ist es leicht zu sehen, dass $u'\defeq u(\{\alpha,\beta\})$ auch $t'$-valide ist. Das Orakel $u'$ ist nach voriger Behauptung $t_{\hat{s}-1}$-valide, und bei der Erweiterung von $t_{\hat{s}-1}$ zu $t'$ kommt nur $\tau^2_{a,b}\mapsto 0$ hinzu. Das bedeutet, dass wir nur noch die Bedingung V4 bezüglich $a,b$ verifizieren müssen.
+Nun ist es leicht zu sehen, dass $u'\defeq u(\{\alpha,\beta\})$ auch $t'$-gültig ist. Das Orakel $u'$ ist nach voriger Behauptung $t_{\hat{s}-1}$-gültig, und bei der Erweiterung von $t_{\hat{s}-1}$ zu $t'$ kommt nur $\tau^2_{a,b}\mapsto 0$ hinzu. Das bedeutet, dass wir nur noch die Bedingung V4 bezüglich $a,b$ verifizieren müssen.
 Sei nun $y=F_r(0^n)$ relativ zu $u'$.
 Nach voriger Aussage oben wissen wir aber, dass $M_a(y)$ und $M_b(y)$ relativ zu $u'$ beide definitiv akzeptieren, wie von V4 verlangt.
 
-Da nun also $u'\sqsupsetneq u \sqsupsetneq w_{\hat{s}-1}$ auch $t'$-valide ist, sind wir fertig und erreichen einen Widerspruch, wie anfangs argumentiert: während der Bearbeitung von Task $\tau^2_{a,b}$ in Stufe $\hat{s}$ war das Orakel $u'$ eine mögliche $t'$-valide Erweiterung von $w_{\hat{s}-1}$, denn es ist $t'$-valide und $u'\sqsupsetneq w_{\hat{s}-1}$. Also wäre nach Definition des Tasks $\tau^2_{a,b}$ dann $t_{\hat{s}}=t'$ gesetzt worden.
+Da nun also $u'\sqsupsetneq u \sqsupsetneq w_{\hat{s}-1}$ auch $t'$-gültig ist, sind wir fertig und erreichen einen Widerspruch, wie anfangs argumentiert: während der Bearbeitung von Task $\tau^2_{a,b}$ in Stufe $\hat{s}$ war das Orakel $u'$ eine mögliche $t'$-gültig Erweiterung von $w_{\hat{s}-1}$, denn es ist $t'$-gültig und $u'\sqsupsetneq w_{\hat{s}-1}$. Also wäre nach Definition des Tasks $\tau^2_{a,b}$ dann $t_{\hat{s}}=t'$ gesetzt worden.
 Damit wäre dann auch $t_{s}(\tau^2_{a,b})=t'(\tau^2_{a,b})=0$, was der Voraussetzung dieses Lemma~\ref{lemma:myoracle-disjnp} widerspricht.
 \end{proof}
 
 Ohne größeren Veränderungen lässt sich auf fast gleiche Weise auch zeigen, dass die Tasks $\tau^3_{a,r}$ bearbeitet werden können.
 
 \begin{lemma}\label{lemma:myoracle-up}
-    Die Bearbeitung eines Tasks $\tau^3_{a,r}$ ist möglich: gilt $t_s=t_{s-1}, t_{s}(\tau^3_{a})=m>0$, dann lässt sich $w_{s}$ so zu $t_{s}$-validem $w\sqsupsetneq w_{s-1}$ erweitern, dass eine der folgenden Fälle eintritt:
+    Die Bearbeitung eines Tasks $\tau^3_{a,r}$ ist möglich: gilt $t_s=t_{s-1}, t_{s}(\tau^3_{a})=m>0$, dann lässt sich $w_{s}$ so zu $t_{s}$-gültigem $w\sqsupsetneq w_{s-1}$ erweitern, dass eine der folgenden Fälle eintritt:
         \begin{itemize}[nosep,endpenalty=10000]
             \item $0^n\in C_m^v$ für alle $v\sqsupseteq w$ und $M_a(F_r(0^n))$ lehnt relativ zu $w$ definitiv ab.
             \item $0^n\not\in C_m^v$ für alle $v\sqsupseteq w$ und $M_a(F_r(0^n))$ akzeptiert relativ zu $w$ definitiv.
@@ -408,7 +450,7 @@ Ohne größeren Veränderungen lässt sich auf fast gleiche Weise auch zeigen, d
 Wir verfahren wie im Beweis von Lemma~\ref{lemma:myoracle-disjnp}.
 Um wieder einen Widerspruch abzuleiten, nehmen wir an, dass für alle $t_{s}$-gültigen $w\sqsupsetneq w_{s-1}$ weder (1) noch (2) zutrifft.
 Definiere wieder identisch $u$ und $u(X)$.
-Wieder gilt nach Behauptung~\ref{claim:myoracle-validty-leq1} dass $u(X)$ immer $t_{s}$-valide ist wenn $|X|\leq 1$.
+Wieder gilt nach Behauptung~\ref{claim:myoracle-validty-leq1} dass $u(X)$ immer $t_{s}$-gültig ist wenn $|X|\leq 1$.
 Wir haben also:
 \begin{itemize}[nosep]
     \item Die Berechnung $M_a(F_r(0^n))$ lehnt relativ zu $u(\emptyset)$ definitiv ab.
@@ -429,10 +471,10 @@ einerseits gilt aus obiger Feststellung dass $\alpha\in Q_\alpha$, aber nach Wah
 
 
 Wie im Beweis von Lemma~\ref{lemma:myoracle-disjnp} können wir jetzt $t'\defeq t_{\hat{s}-1}\cup\{\tau^3_{a} \mapsto 0\}$ setzen.
-Wieder gilt nach Behauptung~\ref{claim:myoracle-validty-eq2} dass $u'\defeq u(\{\alpha, \beta\})$ auch $t_{\hat{s}-1}$-valide ist.
-Dann lässt sich auch leicht sehen, dass $u'$ auch $t'$-valide ist. Es kommt V6 bezüglich $a$ hinzu, aber wir haben ja eben gesehen, dass $M_a$ auf zwei unterschiedlichen Rechenwegen definitiv akzeptiert.
+Wieder gilt nach Behauptung~\ref{claim:myoracle-validty-eq2} dass $u'\defeq u(\{\alpha, \beta\})$ auch $t_{\hat{s}-1}$-gültig ist.
+Dann lässt sich auch leicht sehen, dass $u'$ auch $t'$-gültig ist. Es kommt V6 bezüglich $a$ hinzu, aber wir haben ja eben gesehen, dass $M_a$ auf zwei unterschiedlichen Rechenwegen definitiv akzeptiert.
 
-Da nun also $u'\sqsupsetneq u \sqsupsetneq w_{\hat{s}-1}$ auch $t'$-valide ist, sind wir fertig und erreichen einen Widerspruch: während der Bearbeitung von Task $\tau^2_{a,b}$ in Stufe $\hat{s}$ war das Orakel $u'$ eine mögliche $t'$-valide Erweiterung von $w_{\hat{s}-1}$. Also wäre nach Definition des Tasks $\tau^2_{a,b}$ dann $t_{\hat{s}}=t'$ gesetzt worden.
+Da nun also $u'\sqsupsetneq u \sqsupsetneq w_{\hat{s}-1}$ auch $t'$-gültig ist, sind wir fertig und erreichen einen Widerspruch: während der Bearbeitung von Task $\tau^2_{a,b}$ in Stufe $\hat{s}$ war das Orakel $u'$ eine mögliche $t'$-gültige Erweiterung von $w_{\hat{s}-1}$. Also wäre nach Definition des Tasks $\tau^2_{a,b}$ dann $t_{\hat{s}}=t'$ gesetzt worden.
 Damit wäre dann auch $t_{s}(\tau^2_{a,b})=t'(\tau^2_{a,b})=0$, was der Voraussetzung dieses Lemma~\ref{lemma:myoracle-up} widerspricht.
 \end{proof}
 
@@ -445,7 +487,7 @@ Beachte außerdem, dass $|w_0|<|w_1|< |w_2|< \ldots$ eine nach oben unbeschränk
 \subsection*{Eigenschaften des konstruierten Orakels}
 
 Nun müssen wir noch verifizieren, dass $O$ tatsächlich alle gewünschten Eigenschaften erfüllt, die in Satz~\ref{thm:myoracle} behauptet wurden.
-Wir starten mit einer Beobachtung über den groben Aufbau von $O$, der sich sofort aus der Ebenen-Konstruktion und unserem Validitätsbegriff ergibt.
+Wir starten mit einer Beobachtung über den groben Aufbau von $O$, der sich sofort aus der Ebenen-Konstruktion und unserem Gültigkeitsbegriff ergibt.
 
 \begin{claim}\label{claim:myoracle-structure}
     \begin{enumerate}[midpenalty=0,beginpenalty=0,endpenalty=0]
@@ -458,7 +500,7 @@ Wir starten mit einer Beobachtung über den groben Aufbau von $O$, der sich sofo
 \end{claim}
 \begin{proof}
     \begin{prooflist}
-    \item Zu (1): Wir zeigen zunächst Übereinstimmung. Sei $x$ ein Wort mit $|x|\neq e(\cdot)$. Wir zeigen dass $x\in C$ genau dann wenn $x\in O$. Wähle ein $s$ sodass $x<|w_s|$, heißt $w_s$ wird von $x$ definiert. Nun ist $w_s$ auch $t_s$-valide, und mit V1 gilt insbesondere $x\in w_s \iff x\in C$.
+    \item Zu (1): Wir zeigen zunächst Übereinstimmung. Sei $x$ ein Wort mit $|x|\neq e(\cdot)$. Wir zeigen dass $x\in C$ genau dann wenn $x\in O$. Wähle ein $s$ sodass $x<|w_s|$, heißt $w_s$ wird von $x$ definiert. Nun ist $w_s$ auch $t_s$-gültig, und mit V1 gilt insbesondere $x\in w_s \iff x\in C$.
         Da nun $w_s\sqsubsetneq O$, gilt auch $x\in O \iff x\in w_s \iff x\in C$ und wir sind fertig.
 
         Für die Inklusion $C\subseteq O$ sei $y\in C$ gegeben. Nach unserer Wahl von $C$ war $C\cap\Sigma^{e(i)}=\emptyset$ für alle $i$, heißt $y$ kann nicht die Länge $e(\cdot)$ haben.
@@ -466,11 +508,11 @@ Wir starten mit einer Beobachtung über den groben Aufbau von $O$, der sich sofo
         
     \item Zu (2): Beweis läuft analog wie bei (1), unter Berufung auf V2.
 
-    \item Zu (3): Nach Voraussetzung muss es ein $s$ geben, für das $t_s(\tau^1_j)=0$. Insbesondere ist $w_s$ auch $t_s$-valide, und mit V3 existiert ein $z$ sodass $N_j^{w_s}(z)$ definitiv ablehnt.
+    \item Zu (3): Nach Voraussetzung muss es ein $s$ geben, für das $t_s(\tau^1_j)=0$. Insbesondere ist $w_s$ auch $t_s$-gültig, und mit V3 existiert ein $z$ sodass $N_j^{w_s}(z)$ definitiv ablehnt.
         Da $w_s\sqsubseteq O$, folgt mit Beobachtung~\ref{obs:partialoracles}(1), dass $N_j^O(z)$ auch definitiv ablehnen wird.
 
     \item Zu (4): Angenommen, es existiert ein $n\in H_m$ für das $|O\cap\Sigma^n|>1$.
-        Wähle ein $s$ sodass $w_s$ alle Wörter der Länge $\leq n$ definiert. Dieses $w_s$ ist insbesondere $t_s$-valide.
+        Wähle ein $s$ sodass $w_s$ alle Wörter der Länge $\leq n$ definiert. Dieses $w_s$ ist insbesondere $t_s$-gültig.
 
         Nun gilt $t_s(\tau^2_{a,b})=t_\omega(\tau^2_{a,b})=m>0$, und mit V5 gilt insbesondere $|w_s\cap\Sigma^n|\leq 1$.
         Da nun $w_s$ und $O$ auf $\Sigma^{n}$ übereinstimmen, haben wir auch $|O\cap\Sigma^n|\leq 1$. Das widerspricht der Annahme.
@@ -495,7 +537,7 @@ Wir starten mit einer Beobachtung über den groben Aufbau von $O$, der sich sofo
     Angenommen es existiert ein solches $\leqmpp$-hartes Paar $(U_1, U_2)\in\DisjNP^O$.
     Dann existieren über die Wahl der Standardenumeration auch zwei NPTM sodass $L(M_a^O)=U_1$, $L(M_b^O)=U_2$.
     Betrachte den Task $\tau^2_{a,b}$; dieser wurde in der Konstruktion von $O$ in Stufe $\hat{s}$ bearbeitet.
-    Wir erinnern uns, dass $w_{\hat{s}}\sqsubsetneq O$ ein $t_{\hat{s}}$-valides Orakel ist.
+    Wir erinnern uns, dass $w_{\hat{s}}\sqsubsetneq O$ ein $t_{\hat{s}}$-gültiges Orakel ist.
 
     Wenn $t_{\hat{s}}(\tau^2_{a,b})=0$ ist, dann besagt V4, dass eine Eingabe $x\in\Sigma^*$ existiert für die sowohl $M_a(x)$ als auch $M_b(x)$ definitiv relativ zu $w_{\hat{s}}$ akzeptieren. Da $w_{\hat{s}}\sqsubseteq O$ ist, akzeptieren $M_a(x)$ und $M_b(x)$ relativ zu $O$, nach Beobachtung~\ref{obs:partialoracles}(1).
     Das bedeutet aber $x\in U\cap U'$; Widerspruch zur Wahl von $U, U'$ als disjunkt.
@@ -531,15 +573,15 @@ Folgende Behauptung sagt aus, dass totale NPTM $N_j$ relativ zu $O$ „besonders
     Außerdem ist klar, dass $v\sqsupsetneq w_s \sqsupsetneq w_{s-1}$.
 
     Sei $t'=t_{s-1}\cup \{\tau^1_j\mapsto 0\}$
-    Wir zeigen unten, dass $v$ auch $t_{s-1}$-valide ist. Damit ist dann klar,
-    dass $v$ auch $t'$-valide ist: es kommt nur V3 bezüglich $N_j$ hinzu, aber wir haben ja bereits gesehen dass $N_j^v(z)$ definitiv ablehnt.
+    Wir zeigen unten, dass $v$ auch $t_{s-1}$-gültig ist. Damit ist dann klar,
+    dass $v$ auch $t'$-gültig ist: es kommt nur V3 bezüglich $N_j$ hinzu, aber wir haben ja bereits gesehen dass $N_j^v(z)$ definitiv ablehnt.
 
     %Damit wäre $v$ eine geeignete Erweiterung in Stufe $s$ und wir hätten $t_s=t'$. 
-    Insbesondere ist dann während der Bearbeitung von Task $\tau^1_{j}$ in Stufe $s$ das Orakel $v$ eine mögliche $t'$-valide Erweiterung von $w_{s-1}$, denn es ist $t'$-valide und $v\sqsupsetneq w_{s-1}$. Also wäre nach Definition des Tasks $\tau^1_{j}$ dann $t_{s}=t'$ gesetzt worden,
+    Insbesondere ist dann während der Bearbeitung von Task $\tau^1_{j}$ in Stufe $s$ das Orakel $v$ eine mögliche $t'$-gültige Erweiterung von $w_{s-1}$, denn es ist $t'$-gültig und $v\sqsupsetneq w_{s-1}$. Also wäre nach Definition des Tasks $\tau^1_{j}$ dann $t_{s}=t'$ gesetzt worden,
     und wir hätten $t_s(\tau^1_j)=0$.
     Dann wäre aber auch $t_\omega(\tau^1_j)=0$, und nach voriger Behauptung~\ref{claim:myoracle-structure}(3) damit $L(N_j^O)\neq\Sigma^*$. Widerspruch zur Wahl von $N_j$.
 
-    Es bleibt zu zeigen dass $v$ auch $t_{s-1}$-valide ist. Angenommen, $v$ ist nicht $t_{s-1}$-valide, dann muss eine Bedingung V1--V7 verletzt sein. Zur Erinnerung: $v\sqsupsetneq w_{s-1}$ und $w_{s-1}$ ist $t_{s-1}$-valide.
+    Es bleibt zu zeigen dass $v$ auch $t_{s-1}$-gültig ist. Angenommen, $v$ ist nicht $t_{s-1}$-gültig, dann muss eine Bedingung V1--V7 verletzt sein. Zur Erinnerung: $v\sqsupsetneq w_{s-1}$ und $w_{s-1}$ ist $t_{s-1}$-gültig.
     Wieder klar ist, dass V3, V4, V6 nicht verletzt sein können, denn jede definite Berechnung relativ zu $w_{s-1}$ ist auch eine definite Berechnung relativ zu $v$ nach Beobachtung~\ref{obs:partialoracles}(1).
 
     Angenommen V1 ist verletzt. Dann existiert ein $x<|v|$ und $|x|\neq e(\cdot)$ und $x\in v \not\leftrightarrow x\in C$.
@@ -555,7 +597,7 @@ Folgende Behauptung sagt aus, dass totale NPTM $N_j$ relativ zu $O$ „besonders
     wobei die erste Ungleichung aus $T\subseteq O$ folgt, und die zweite Ungleichung aus voriger Behauptung~\ref{claim:myoracle-structure}(4) bzw. (5) folgt.
     Das widerspricht der Annahme $|\Sigma^{n'}\cap v|>1$, also kann V5 nicht verletzt sein. Auf analoge Weise lässt sich zeigen, dass V2 und V7 nicht verletzt sein können.
 
-    Damit ist keine Bedingung verletzt, $v$ muss also $t_{s-1}$-valide sein.
+    Damit ist keine Bedingung verletzt, $v$ muss also $t_{s-1}$-gültig sein.
 \end{proof}
 
 Nun können wir für die Hypothese $\hQ$ argumentieren.

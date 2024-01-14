@@ -2,5 +2,7 @@
 \chapter{Diskussion und Fazit}\label{chap:conclusion}
 
 
-%\note{Abschließend erweitern wir noch unsere Notation, die uns insbesondere bei der Orakelkonstruktion helfen wird. Diese folgt Überlegungen von \textcite{dose_np-completeness_2019}. Anstelle von Orakeln als Menge zu verstehen, können wir äquivalent Orakel auch als unendlich lange Wörter $u\in\Sigma^\omega$ formulieren, die wir als das Orakel $\{ i\mid w[i]=1 \}\subseteq \mathbb N$ interpretieren. Mit der obigen Identifikation von Wörtern und natürlichen Zahlen beschreibt nun $u$ sowohl ein Orakel über $\mathbb N$ als auch über $\Sigma^*$; wir können also z.B. von der relativen Berechnung $M^w(x)$ sprechen. Analog fassen wir endlich lange Wörter $w\in\Sigma^*$ als \emph{partielles} Orakel $\{ i\mid w[i]=1 \}$, welches die Zugehörigkeit der Wörter $x<|w|$ festlegt, aber die Zugehörigkeit aller Wörter $y\geq|w|$ noch nicht endgültig festlegt.
-%Auf dieser Idee der endgültigen bzw. noch nicht endgültigen Zugehörigkeit aufbauend können wir auch von \emph{definiten} Berechnungen sprechen: Eine Rechnung $M^w(x)$ ist \emph{definit} wenn auf allen Rechenwegen von $M^w(x)$ nur Orakelfragen gestellt werden, welche eine Länge $<|w|$ haben. }
+\begin{corollary}
+    Sei $\mathsf A \in \{\hDisjNP, \hUP, \mathsf{CON^{N}}, \hTAUT, \hDisjCoNP, \hTFNP, \hSAT\}$.
+    Für jede Wahl von $\mathsf A$, jede Wahl von $\mathsf A' \in\{\mathsf A, \neg\mathsf A\}$, jede Wal von $\mathsf B\in \{\hQ, \neg\hQ\}$ existiert ein Orakel relativ zu diesem $\mathsf A'\land \mathsf B$ gilt, außer für die Fälle $\hDisjCoNP\land\hQ$, $\hTFNP\land\hQ$, $\hSAT\land\hQ$ (da das einer relativierenden Implikation wiederspricht).
+\end{corollary}
