@@ -32,6 +32,12 @@
 \fi
 \usepackage{mdframed}
 \usepackage[pdfusetitle,pdfencoding=auto,psdextra,bookmarksopen]{hyperref}
+\hypersetup{
+  colorlinks   = true, %Colours links instead of ugly boxes
+  urlcolor     = red!70!black, %Colour for external hyperlinks
+  linkcolor    = red!70!black, %Colour of internal links
+  citecolor   = red!70!black %Colour of citations
+}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{ragged2e}
 \usepackage{enumitem}
@@ -251,7 +257,7 @@
 \counterwithout{\@mpfn}{chapter}
 \makeatother
 
-\usepackage[style=myauthoryear,backend=biber,mergedate=false,maxbibnames=99,dashed=false]{biblatex}
+\usepackage[style=myauthoryear,backend=biber,mergedate=minimum,maxbibnames=99,dashed=false]{biblatex}
 \addbibresource{zoterolib.bib}
 \makeatletter
 \newcommand{\printallnames}{\AtNextCite{\numdef\blx@maxcitenames{99}}}
@@ -306,6 +312,7 @@
 \def\NE{\ensuremath{\mathrm{NE}}}
 \def\NEE{\ensuremath{\mathrm{NEE}}}
 \def\FP{\ensuremath{\mathrm{FP}}}
+\def\PSPACE{\ensuremath{\mathrm{PSPACE}}}
 \def\UP{\ensuremath{\mathrm{UP}}}
 \def\DisjNP{\ensuremath{\mathrm{DisjNP}}}
 \def\DisjCoNP{\ensuremath{\mathrm{DisjCoNP}}}
@@ -361,14 +368,14 @@
 \begin{document}
 
 
-%\input{frontmatter}
-%\input{intro}
-%\input{prelim}
-%\input{searchproblems}
+\input{frontmatter}
+\input{intro}
+\input{prelim}
+\input{searchproblems}
 \input{pudlak}
 \input{oracles}
 \input{conclusion}
-%\input{backmatter}
+\input{backmatter}
 
 
 
