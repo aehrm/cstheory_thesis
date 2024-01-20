@@ -1,6 +1,42 @@
 %! TEX root = ./thesis.tex
 \chapter{Fazit}\label{chap:conclusion}
 
+Zum Abschluss werden hier noch einmal die Ergebnisse dieser Arbeit zusammengefasst, sowie noch einmal offenen Fragen gesammelt, welche sich im Verlauf der Arbeit ergeben haben.
+Bezüglich der Ergebnisse können wir uns an den vier Forschungsdesiderata orientieren, die in der Einleitung genannt wurden.
+
+\subsection*{Suchprobleme vs Entscheidungsprobleme}
+
+Erstens, wurde in Kapitel~\ref{chap:searchproblems} die Beziehung zwischen NP-Suchproblemen und den ensprechendne NP-Entscheidungsproblen erarbeitet.
+Hierfür orientierte sich die Arbeit an vorhandenen Definitionen von Suchproblemen, die intuitiv neben dem Berechnungsproblem „Gilt $x\in L$?“ auch nach einem „Beweis“ oder „Zerifikat“ für $x\in L$ fragen. %, einem Reduktions- und einem Vollständigkeitsbegriff (Levin-Reduktion).
+Auf dieser Basis wurde gezeigt, dass die übliche Argumentation, das Suchproblem auf das Entscheidungsproblem reduzieren zu können (\emph{search reduces to decision}) im Allgemeinen nicht immer zutrifft. Es wurde nachgewiesen, dass diese Argumentation auf alle NP-vollständigen Probleme zutrifft, gleichzeitig zeigen Ergebnisse aus der Literatur, dass dies unter geeigneten Bedingungen nicht für die NP-Intermediates (also jene Probleme die nicht NP-vollständig sind, aber auch nicht in $\P$ liegen) zutrifft.
+Im Kontext der \emph{Selbstreduzierbarkeit}, also der Lösung des Suchproblems gegeben einem Orakel für „kleinere“ Instanzen, liegen dagegen nur wenige Ergebnisse vor. In der Arbeit wurde insbesondere aufErgebnisse von \textcite{harsha_downward_2023} hingewiesen, welche Anzeichen geben, dass das Suchproblem der Faktorisierung nicht selbtreduzierbar ist. 
+
+Wie die Suchprobleme lassen sich auch die Entscheidungsprobleme mittels Reduktionen untereinander nach ihrer Schwierigkeit verlgeichen. In dieser Arbeit wurde insbesondere die Levin-Reduktion als Reduktion auf den NP-Suchproblemen produktiv gemacht. Dieser Reduktionsbegriff kann als natürliche Generalisierung der Many-one- bzw. Karp-Reduktion auf den Entscheidungsproblemen verstanden werden, und verhält sich im Wesentlichen auch analog, z.B. im Bezug auf natürliche Abschlusseigenschaften und Vollständigkeit. Hieran anschließend wurde auf die Beziehung zwischen Levin-Vollständigkeit der Suchprobleme und der Karp-Vollständigkeit der entsprechenden Entscheidungsprobleme hingewiesen. Einerseits verstärkt Levin-Vollständigkeit die Karp-Vollständigkeit, andererseits sehen wir, empirisch gesprochen, dass für alle \emph{natürlichen} Probleme diese beiden Vollständigkeitsbegriffe zusammenfallen. 
+%Dennoch ist unklar, ob für \emph{jedes} Karp-vollständiges Entscheidungsproblem $L$ ein entsprechendes Levin-vollständiges Suchproblem bzw. „Zertifikatsschema“ für $L$ existiert. 
+Dennoch bleibt folgendes unklar: gegeben ein beliebiges NP-Suchproblem $R$, für welches das entsprechende Entscheidungsproblem Karp-vollständig ist, ist dann auch $R$ Levin-vollständig?
+\todo{Das ist der wohl wichtiges Beitrag!}
+Die Formulierung dieser Frage ist der zentrale Beitrag dieser Arbeit.
+Sie stellt zwei umfassende Reduktionsbegriffe der Komplexitätstheorie gegenüber, und trotz der einfachen Formulierung beschäftigt sich nur wenig Forschung mit dieser Frage.
+Es gibt keine Hinweise, welche auf eine positive oder negative Beantwortung dieser Frage hinweisen; im Kontext dieser Arbeit wurde die negative Beantwortung als Hypothese $\mathsf{KvL}$ formuliert.
+
+
+Aufbauend auf der oben genannten empirischen Beobachtung, dass die natürlichen Suchprobleme alle Levin-vollständig sind, wurde in einem weiteren Survey noch auf Verstärkungen dieser Interreduzierbarkeit inerhalb der Literatur hingewiesen, welche im Wesentlichen (analog zur $\P$-Isomorphie der natürlichen NP-vollständigen Mengen) tiefergehende strukturelle Ähnlichkeiten der (Levin-)vollständigen Suchprobleme herausarbeiten.
+
+\subsection*{NP-Suchprobleme im Pudlákschen Programm}
+
+Zweitens, wurde die Hypothese $\hQ$ (erstmal formuliert von \cite{fenner_inverting_1996}) in den Blick genommen, welche als Aussage „alle totalen NP-Suchprobleme sind effizient lösbar“ unmittelbar in direkter Beziehung zu den NP-Suchproblemen steht.
+Die vorliegende Arbeit zeigt nun insbesondere auch folgende Charakterisierungen von $\hQ$:
+\begin{itemize}
+    \item Es gilt $\hQ$ genau dann wenn jede Karp-Reduktion zwischen Entscheidungsvarianten von zwei NP-Suchproblemen zu einer Levin-Reduktion zwischen eben jenen Suchproblemen verstärkt werden kann. Damit ist $\neg\hQ$ auch eine notwendige Bedingung für $\mathsf{KvL}$.
+    \item Es gilt $\hQ$ genau dann wenn das Standardbeweissystem eines beliebigen Levin-vollständigen \emph{und Levin-paddable} NP-Suchproblems $\P$-optimal ist. Das generalisiert damit ein Padding-Argument von \textcite{messner_simulation_2001}, welcher so die Äquivalenz zwischen $\hQ$ und der $\P$-Optimalität des Standardbeweissystems $\mathit{sat}$ gezeigt hat. Über diese Charakterisierung wird auch deutlich, dass $\neg\hQ$ auch eine notwendige Bedingung für die Pudláksche Hypothese $\hSAT$ ist.
+\end{itemize}
+Im Kontext des dritten Forschungsdesiderat wurde das Pudláksche Programm um weitere Hypothesen verfeinert. Insbesondere über die zweite Charakterisierung von $\hQ$ lässt sich die Hypothese $\neg\hQ$ in das Pudláksche Programm einordnen. Für die Hypothese $\mathsf{KvL}$ war dagegen eine Einordnung schwieriger, und es konnte nur gezeigt werden, dass $\mathsf{SAT^{eff}}$, eine Verstärkung von $\hSAT$, hinreichend für $\mathsf{KvL}$ ist.
+Parallel hierzu trägt diese Arbeit in einem welteren Survey die bekannten Implikationen unter den Hypothesen des (verallgemeinerten) Pudlákschen Programms zusammen, und erarbeitet einen Überblick über die relativierenden Trennungen von Hypothesen mittels existierenden Orakelkonstruktionen. 
+
+Viertens, 
+
+
+
 
 \begin{corollary}
     Sei $\mathsf A \in \{\hDisjNP, \hUP, \mathsf{CON^{N}}, \hTAUT, \hDisjCoNP, \hTFNP, \hSAT\}$.

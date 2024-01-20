@@ -88,6 +88,7 @@
 \AtBeginDocument{\setlength{\abovedisplayskip}{5pt plus 5pt}\setlength{\abovedisplayshortskip}{3pt plus 4pt}%
 \setlength{\belowdisplayskip}{5pt plus 5pt}\setlength{\belowdisplayshortskip}{3pt plus 4pt}}
 \fi
+\AtBeginDocument{\frenchspacing}
 
 \makeatletter
 \setlength{\@fptop}{0pt}
@@ -257,7 +258,7 @@
 \counterwithout{\@mpfn}{chapter}
 \makeatother
 
-\usepackage[style=myauthoryear,backend=biber,mergedate=minimum,maxbibnames=99,dashed=false]{biblatex}
+\usepackage[style=myauthoryear,backend=biber,mergedate=minimum,maxcitenames=5,maxbibnames=99,dashed=false]{biblatex}
 \addbibresource{zoterolib.bib}
 \makeatletter
 \newcommand{\printallnames}{\AtNextCite{\numdef\blx@maxcitenames{99}}}
