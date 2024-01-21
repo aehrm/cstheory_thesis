@@ -6,7 +6,7 @@
 \usepackage[bottom=4cm,top=3cm,foot=.8cm,inner=1.5cm,outer=6cm,a4paper]{geometry}
 \setlength{\marginparwidth}{4.5cm}
 \else
-\documentclass[10pt,a4paper]{report}
+\documentclass[a4paper]{report}
 \usepackage[bottom=3cm,top=2cm,foot=.8cm,left=1.5cm,right=4cm,a4paper]{geometry}
 \setlength{\marginparwidth}{3.5cm}
 \fi
@@ -68,6 +68,7 @@
 \def\footnotetext{\sidenotetext}
 \def\marginfigure{\figure}
 \def\endmarginfigure{\endfigure}
+\newcommand\setfloatalignment[1]{}
 
 %\def\@oldfigure\figure
 %\def\@oldendfigure\endfigure
@@ -89,6 +90,7 @@
 \setlength{\belowdisplayskip}{5pt plus 5pt}\setlength{\belowdisplayshortskip}{3pt plus 4pt}}
 \fi
 \AtBeginDocument{\frenchspacing}
+\directlua{require('hyphenateall')}
 
 \makeatletter
 \setlength{\@fptop}{0pt}
@@ -102,7 +104,7 @@
 %	header formatting
 \ifbook
 \titlespacing*{\part}{.2\linewidth}{.3\textheight}{0pt}
-\titlespacing*{\chapter}{0pt}{-10pt}{25pt}
+\titlespacing*{\chapter}{0pt}{15pt}{25pt}
 
 \titleformat{\chapter}
     {\thispagestyle{numbers}\itshape\huge}

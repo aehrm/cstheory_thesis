@@ -333,7 +333,7 @@ Zunächst beweisen wir, dass sich ein $t$-gültiges Orakel $w$ immer um ein Bit 
 \end{lemma}
 \begin{proof}
     Sei $z=|w|$. 
-    Angenommen, $w0$ ist nicht $t$-gültig, dann muss eine der Bedingungen V1--V7 verletzt sein.
+    Angenommen, $w0$ ist nicht $t$-gültig, dann muss eine der Bedingungen V1–V7 verletzt sein.
 
     Angenommen V3 ist verletzt, weil $N_j^{w0}(x)$ nicht definit ablehnt und gleichzeitig $t(\tau_j^1)=0$. Da nach Voraussetzung $w$ aber $t$-gültig ist, wird $N_j^{w}(x)$ definitiv ablehnen.
     Nach Beobachtung~\ref{obs:partialoracles}(3) wissen wir aber, dass dann auch $N_j^{w0}(x)$ definitiv ablehnen wird. Widerspruch.
@@ -350,7 +350,7 @@ Zunächst beweisen wir, dass sich ein $t$-gültiges Orakel $w$ immer um ein Bit 
     Die Bedingung V5 kann also nicht verletzt sein.
     Auf analoge Weise wie lässt sich auch zeigen, dass V2 und V7 nicht verletzt sein können.
 
-    Insgesamt kann also keine Bedingung V1--V7 verletzt sein; $w0$ ist $t$-gültig wie gewünscht.
+    Insgesamt kann also keine Bedingung V1–V7 verletzt sein; $w0$ ist $t$-gültig wie gewünscht.
 \end{proof}
 
 Damit haben wir die ersten beiden Tasks aus der Definition schon gesichert. Nun zeigen wir, dass die Bearbeitung von $\tau^2_{a,b,r}$ möglich ist.
@@ -418,7 +418,7 @@ Es ist leicht zu sehen, dass für $|X|\leq 1$ das Orakel $u(X)$ sogar $t_{s}$-g�
     Sei $|X|\leq 1$. Dann ist $u(X)$ ein $t_{s}$-gültiges Orakel.
 \end{claim}
 \begin{proof}
-    Angenommen, es ist kein $t_{s}$-valies Orakel. Dann ist eine der Bedingungen V1--V7 verletzt. Wir zeigen, dass diese Annahme zu einem Widerspruch führt.
+    Angenommen, es ist kein $t_{s}$-valies Orakel. Dann ist eine der Bedingungen V1–V7 verletzt. Wir zeigen, dass diese Annahme zu einem Widerspruch führt.
     Klar ist, dass V3, V4, V6 nicht verletzt sein können, denn jede definite Berechnung relativ zu $u$ ist auch eine definite Berechnung relativ zu $u(X)$ nach Beobachtung~\ref{obs:partialoracles}(1).
 
     Angeommen, V1 ist verletzt. Dann muss ein $x$ mit $|x|\leq \gamma(n), |x|\neq e(\cdot)$ existieren, sodass $x\in u(X)$.
@@ -471,7 +471,7 @@ Nun zur zweiten Aussage. Zunächst zeigen wir $t_{\hat{s}-1}$-Gültigkeit.
     Das Orakel $u'=u(\{\alpha, \beta\})$ ist $t_{\hat{s}-1}$-gültig.
 \end{claim}
 \begin{proof}
-    Angenommen, es ist kein $t_{\hat{s}-1}$-valies Orakel. Dann ist eine der Bedingungen V1--V7 verletzt. Wir zeigen, dass diese Annahme zu einem Widerspruch führt.
+    Angenommen, es ist kein $t_{\hat{s}-1}$-valies Orakel. Dann ist eine der Bedingungen V1–V7 verletzt. Wir zeigen, dass diese Annahme zu einem Widerspruch führt.
     Wieder klar ist, dass V3, V4, V6 nicht verletzt sein können, denn jede definite Berechnung relativ zu $t_{\hat{s}-1}$-gültigem $u$ ist auch eine definite Berechnung relativ zu $u'$ nach Beobachtung~\ref{obs:partialoracles}(1).
     Auch V1 kann nicht verletzt sein; das folgt aus dem gleichen Argument wie im Beweis von Behauptung~\ref{claim:myoracle-validty-leq1}.
 
@@ -639,7 +639,7 @@ Folgende Behauptung sagt aus, dass totale NPTM $N_j$ relativ zu $E$ „besonders
     und wir hätten $t_s(\tau^1_j)=0$.
     Dann wäre aber auch $t_\omega(\tau^1_j)=0$, und nach voriger Behauptung~\ref{claim:myoracle-structure}(3) damit $L(N_j^E)\neq\Sigma^*$. Widerspruch zur Wahl von $N_j$.
 
-    Es bleibt zu zeigen dass $v$ auch $t_{s-1}$-gültig ist. Angenommen, $v$ ist nicht $t_{s-1}$-gültig, dann muss eine Bedingung V1--V7 verletzt sein. Zur Erinnerung: $v\sqsupsetneq w_{s-1}$ und $w_{s-1}$ ist $t_{s-1}$-gültig.
+    Es bleibt zu zeigen dass $v$ auch $t_{s-1}$-gültig ist. Angenommen, $v$ ist nicht $t_{s-1}$-gültig, dann muss eine Bedingung V1–V7 verletzt sein. Zur Erinnerung: $v\sqsupsetneq w_{s-1}$ und $w_{s-1}$ ist $t_{s-1}$-gültig.
     Wieder klar ist, dass V3, V4, V6 nicht verletzt sein können, denn jede definite Berechnung relativ zu $w_{s-1}$ ist auch eine definite Berechnung relativ zu $v$ nach Beobachtung~\ref{obs:partialoracles}(1).
 
     Angenommen V1 ist verletzt. Dann existiert ein $x<|v|$ und $|x|\neq e(\cdot)$ und $x\in v$.
@@ -780,7 +780,7 @@ Folgende Aussagen bleiben noch offen:
 \item Zu (4): Angenommen $\UP\subseteq\coNP$, dann wäre $\UP\subseteq \UP\cap\coNP=\P$, was ein Widerspruch zu (1) ist.
 \item Zu (6): Ist nach \textcite[Thm.~4]{fenner_inverting_2003} äquivalent zu (15).
 \item Zu (7): Ist nach \textcite[Thm.~14]{fenner_inverting_2003} äquivalent zu (6).
-\item Zu (9)--(10): Aus (8) folgt insbesondere $\NPMVt\subseteqc \FP_\mathrm{t}$ und $\FP_\mathrm{t}\subseteq \NPSVt, \TFNP$.
+\item Zu (9)–(10): Aus (8) folgt insbesondere $\NPMVt\subseteqc \FP_\mathrm{t}$ und $\FP_\mathrm{t}\subseteq \NPSVt, \TFNP$.
 \item Zu (11): Es ist leicht zu sehen, dass (relativ zu jedem Orakel) eine kanonische $\leqmp$-vollständige Multifunktion $f$ für $\NPMV$ existiert. Angenommen $\mathrm{NPMV} \subseteq_{\mathrm{c}} \NPSV$, dann wäre auch $f\inc \NPSV$ und die Verfeinerung insbesondere auch $\leqmp$-vollständig für $\NPSV$.
     Das widerspricht (20). 
 \item Zu (12): Angenommen $\NPMVt\subseteq \TFNP$, dann gilt mit Beobachtung~\ref{obs:npmvt-properin-tfnp} auch $\P=\NP$; das widerspricht (1).
