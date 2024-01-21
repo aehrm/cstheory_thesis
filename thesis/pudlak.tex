@@ -165,10 +165,10 @@ Mit dieser Charakterisierung folgt auch unmittelbar, dass $\hQ$ hinreichend für
 Was sind natürlich notwendige Bedingungen für die Hypothese $\mathsf{KvL}$? Diese Frage erscheint tatsächlich wesentlich schwieriger als gedacht. Insbesondere scheint es unklar, ob aus irgend einer von Pudláks Hypothesen die Aussage $\mathsf{KvL}$ folgt.
 
 Besonders interessant erscheint aber die Beziehung zur Hypothese $\neg\hQ$, also genau die Umkehrung von Satz~\ref{thm:kvl-implies-q}.
-Zumindest in der obigen Charakterisierung von Satz \label{thm:q-as-levin} scheint $\neg\hQ$ schwächer, denn mit Satz \label{thm:q-as-levin} würde das bedeuten, dass ein \emph{beliebiges} Paar $A,B$ von NP-Relationen existiert mit $\Proj(A)\leqmp \Proj(B)$, aber $A \not\leq_\mathrm L^\mathrm p B$. Weder $A$ noch $B$ müssen eine $\leqmp$-vollständige Projektion haben, was $\mathsf{KvL}$ ja verlangt.
+Zumindest in der obigen Charakterisierung durch Satz \ref{thm:q-as-levin} scheint $\neg\hQ$ schwächer, denn die Negation von Satz \ref{thm:q-as-levin}(2) würde aussagen, dass ein \emph{beliebiges} Paar $A,B$ von NP-Relationen existiert mit $\Proj(A)\leqmp \Proj(B)$, aber $A \not\leq_\mathrm L^\mathrm p B$. Weder $A$ noch $B$ müssen eine $\leqmp$-vollständige Projektion haben, was $\mathsf{KvL}$ ja verlangt.
 
 %, ist ja die Aussage (2) vom Satz~\ref{thm:q-as-levin} \emph{fast} in der Form „Karp-Vollständigkeit = Levin-Vollständigkeit“ ist.
-Paradoxerweise scheint die Charakterisierung von $\neg\hQ$ durch \citeauthor{fenner_inverting_2003} in Satz~\ref{thm:q-fenner-messner}(2) dienlicher:
+Stattdessen scheint die Charakterisierung von $\neg\hQ$ durch \citeauthor{fenner_inverting_2003} in Satz~\ref{thm:q-fenner-messner}(2) dienlicher:
 Betrachten wir hierbei exemplarisch den Fall Relationen für $\mathtt{SAT}$. Ich vermute, dass $\neg\hQ\Rightarrow \mathsf{KvL}$; um das zu plausibilisieren möchte ich zeigen, dass $\neg\hQ\land\neg\mathsf{KvL}$ unwahrscheinlich ist.
 
 Starten wir mit $\neg\hQ$, dann gilt mit Satz~\ref{thm:q-fenner-messner} für alle Funktionen $h\in\FP$
@@ -581,7 +581,7 @@ Das sind nach \textcite{goldreich_computational_2008} unrelativierten Fall u.a. 
     \end{align*}
     und damit ist $\mathit{pad}_R$ wie gewünscht ehrlich bzgl. $n$ (mit Polynom $q\circ q$).
 
-    Es verbleibt noch die Funktion $\mathit{padsol}_R$. Nehme hierfür an dass wir ein $y'$ haben mit $(\mathit{pad}_R(x, 1^n), y')\in R$.
+    Es verbleibt noch die Funktion $\mathit{padsol}_R$ anzugeben. Nehme hierfür an, dass wir ein $y'$ gegeben haben mit $(\mathit{pad}_R(x, 1^n), y')\in R$.
     Wir können über $g, g'$ das Zertifikat $y'$ zu Zertifikat $y$ mit $(x, y)\in R$ zurück übersetzen:
     Sei $p\defeq \mathit{pad}_\mathtt{rKAN}(f'(x), 1^n)$, dann gilt
     \[ (f(p), y')\in R \implies (p, \underbrace{g(p, y')}_z)\in \mathtt{rKAN}. \]
@@ -854,49 +854,62 @@ Der verbleibende Beweis ist eine Generalisierung von \textcite{dingel_separation
     Wenn $\NP=\coNP$ dann existiert eine $\leqmp$-vollständige Multifunktion $f$ für $\NPMV_t$.
 \end{theorem}
 \begin{proof}
-    Nach Voraussetzung können wir in $\NP$ testen, ob ein Wort $x$ im Urbild einer beliebigen $\NPMV$-Multifunktion liegt.
-    Es gilt $\mathtt{KAN}\in\NP$ und damit $\mathtt{KAN}\in\coNP$. Insbesondere ist dann die Menge
-    \[ U \defeq  \{ (T, x, 1^n) \mid \text{$T$ ist ein NPTM-Transduktur und akz. $x$ auf keinem Rechenweg der Länge $\leq n$} \} \in\NP,  \]
-    und wird von der NPTM $N_u$ in Laufzeit $q(|(T, x, 1^n)|)$ entschieden.
+    %Nach Voraussetzung können wir in $\NP$ testen, ob ein Wort $x$ im Urbild einer beliebigen $\NPMV$-Multifunktion liegt.
+    %Es gilt $\mathtt{KAN}\in\NP$ und damit $\mathtt{KAN}\in\coNP$. Insbesondere ist dann die Menge
+    Betrachte die Menge
+\[ \begin{split} U \defeq  \{ (T, x, 1^n) \mid \,&\text{$T$ ist NTM-Transduktor} \\ &\text{und für jeden Rechenweg $\alpha$ von $T(x)$ der Länge $\leq n$ gilt:} \\& \text{$\alpha$ ist nicht terminierend oder $\alpha$ terminiert ablehnend} \}. \end{split}  \]
+    Nach Definition ist klar, dass $U\in\coNP$: $(T, x, 1^n)\not\in U$ wenn ein Rechenweg $\alpha$ der Länge $\leq n$ existiert sodass $T(x)$ auf $\alpha$ akzeptiert. Nach Voraussetzung gilt also $U\in\NP$ und es existiert eine NPTM $N_u$ welche $U$ entscheidet, und zwar in Laufzeit $q(|(T, x, 1^n)|)$ für geeignetes Polynom $q$.
 
-    Betrachte nun die Multifunktion $f$, die durch folgenden nichtdeterministischen Transduktor $T'(T, x, 1^n)$ berechnet wird:\\
+    Für eine NPTM $T$ und einer Berechnung $T(x)$ nennen wir einen Rechenweg $\alpha$ mit $n$ Schritten \emph{verlängerbar auf $m$ Schritte}, $m>n$ wenn $\alpha$ um weitere Rechenschritte zu Rechenweg $\alpha'$ ergänzt werden kann, sodass $\alpha'$ aus $m$ Schritten besteht.
+
+    Betrachte nun die Multifunktion $f$, die durch folgenden nichtdeterministischen Transduktor $T'(T, x, 1^n)$ berechnet wird:\par
     \begin{algorithm}[H]
-        \lIf{$T$ kein Transduktor ist}{Gebe $\epsilon$ aus}
+        \If{$T$ kein NTM-Transduktor ist}{Gebe $\epsilon$ aus}
         Rate nichtdeterministisch einen Rechenweg $\alpha$ von $T$ der Länge $\leq n$\;
         Rate nichtdeterministisch einen Rechenweg $\beta$ von $N_u$ der Länge $\leq q(|(T, x, 1^n)|)$\;
-        \lIf{$T(x)$ auf $\alpha$ nicht terminiert, heißt ein weiterer Rechenschritt ist möglich}
-        { Gebe $\epsilon$ aus }
-        \uElseIf{$T(x)$ mit $\alpha$ akzeptiert}
+    \end{algorithm}
+
+    \begin{algorithm}[H]\setcounter{AlgoLine}{4}
+        %\If{$\alpha$ die Länge $<n$ hat, und verlängerbar ist}
+        %{
+            %Lehne ab\;
+        %}
+        %\tcc{Ab hier ist $\alpha$ immer terminierend oder hat Länge $n$}
+        \uIf{$\alpha$ auf $n+1$ Schritte verlängerbar ist}
+        {
+            Gebe $\epsilon$ aus\;
+        }
+        \uElseIf{$T(x)$ mit $\alpha$ akzeptierend terminiert}
         {
             $y\gets $ Ausgabe von $T(x)$ auf $\alpha$\;
             Gebe $y$ aus\;
         }
-        \lElseIf{$N_u(i, x, 1^n)$ mit $\beta$ akzeptiert}
+        \uElseIf{$N_u(i, x, 1^n)$ mit $\beta$ akzeptiert}
         {
-            Gebe $\epsilon$ aus
+            Gebe $\epsilon$ aus\;
         }
-        \lElse
+        \Else
         {
-            Lehne ab
+            Lehne ab\;
         }
     \end{algorithm}
     Es ist leicht zu sehen dass $T'$ in Polynomialzeit arbeitet. 
     %Wir zeigen nun, dass $T'$ jede Eingabe $(T, x, 1^n)$ akzeptiert.
-    Wir charakterisieren nun die Outputs von $T'$  in Abhängigkeit der Eingabe $(T, x, 1^n)$.
+    Wir bestimmen nun die Outputs von $T'$  in Abhängigkeit der Eingabe $(T, x, 1^n)$.
     %Sei hierfür $p$ ein Polynom, welches die Laufzeit vom NPTM-Transduktor $T$ beschränkt.
     %Sei hierfür $m$ die Anzahl an Rechenschritten, die alle $T(x)$ 
-    Es gilt nun:
-    \begin{itemize}[nosep]
-        \item Falls ein Rechenweg von $T(x)$ mit $>n$ Schritten existiert, dann terminiert $T$ auf mindestens einem Rechenweg in in Z.~6 und wir haben $\fset{f}(T, x, 1^n)\subseteq\{\epsilon\}$.
-        \item Falls $\fset{T}(x)\neq\emptyset$ und die Laufzeit von $T(x)$ auf $n$ Schritte beschränkt ist, dann existiert für jedes $y\in \fset{T}(x)$ ein akzeptierender Rechenweg $\alpha$ der Länge $\leq n$ auf $T$ der $y$ ausgibt. Damit wird auch $f$ dieses $y$ in Z.~9 ausgeben.
-            Gleichzeitig ist damit $(T, x, 1^n)\not\in U$ und Z.~11 niemals erreicht.
-            Ebenso ist jeder geratene Rechenweg $\alpha$ ein terminierender Rechenweg auf $T(x)$, alsowird auch Z.~6 niemals erreicht.
+    Wir untersuchen hierfür drei Fälle:
+    \begin{enumerate}[label=\arabic*.]
+        \item Es existiert ein Rechenweg von $T(x)$ mit $>n$ Schritten. In diesem Fall existiert dann auch Rechenweg $\alpha$ mit genau $n$ Schritten, welcher auf $n+1$ Schritte verlängerbar ist. Damit terminiert $T$ auf mindestens einem Rechenweg in Z.~6 und wir haben $\fset{f}(T, x, 1^n)\supseteq\{\epsilon\}$.
+        \item Jeder Rechenweg von $T(x)$ hat nur $\leq n$ viele Schritte, und $\fset{T}(x)\neq\emptyset$. Dann existiert für jedes $y\in \fset{T}(x)$ ein akzeptierender Rechenweg $\alpha$ mit $\leq n$ Schritten, welcher auf $T(x)$ den Output $y$ macht. Dieser ist insbeondere nicht verlängerbar. Damit wird auch $f$ dieses $y$ in Z.~9 ausgeben.
+            Gleichzeitig ist auch $(T, x, 1^n)\not\in U$ und Z.~11 wird daher niemals erreicht.
+            Ebenso wird kein anderer geratener Rechenweg $\alpha'$ auf $n+1$ viele Schritte verlängerbar sein, heißt auch Z.~6 wird niemals erreicht.
             Es gilt also $\fset{f}(T, x, 1^n)=\fset{T}(x)$.
-        \item Oder es gilt $\fset{T}(x)=\emptyset$.
-            Dann wird jeder Rechenweg der Länge $\leq n$ von $T(x)$ terminieren und ablehnen, und $f$ definitiv nicht in Z.~6 oder Z.~8 akzeptieren.
-            Andererseits gilt dann $(T, x, 1^n)\in U$ und Z.~11 wird auf mindestens einem Rechenweg von $f$ erreicht.
-            Es gilt also $\fset{f}(T, x, 1^n)=\{\epsilon\}$.
-    \end{itemize}
+    \item Jeder Rechenweg von $T(x)$ hat nur $\leq n$ viele Schritte, und $\fset{T}(x)=\emptyset$. 
+        Dann wird kein Rechenweg der Länge $\leq n$ von $T(x)$ akzeptierend terminieren, heißt $T'$ wird definitiv nicht in Z.~9 eine Ausgabe tätigen.
+        Gleichzeitig gilt $(T, x, 1^n)\in U$, heißt $T'$ wird auf mindestens einem Rechenweg in Z.~11 mit Ausgabe $\epsilon$ akzeptieren.
+        Es gilt also $\fset{f}(T, x, 1^n)=\{\epsilon\}$.
+    \end{enumerate}
 
     Damit ist klar, dass $f\in\NPMV_t$.
     Wir zeigen nun, dass $f$ auch $\NPMV_t$-vollständig ist.

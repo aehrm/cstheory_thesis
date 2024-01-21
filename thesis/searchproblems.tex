@@ -75,7 +75,7 @@ Im Folgenden werden eine Beispiele von natürlichen NP-Relationen angegeben. Um 
 \item $\mathtt{rPERFECTMATCHING} \defeq \{ (G, M) \mid \text{$G$ ist ein Graph, $M$ ein größtes Matching auf $G$} \}$. Das korrespondiert zu Suchproblem (3) aus der Einleitung.
 \item $\mathtt{rSAT} \defeq \{ (\phi, w) \mid \text{$\phi$ ist eine aussagenlogische Formel, $w$ erfüllende Belegung für $\phi$} \}$. Das korrespondiert zu Suchproblem (7) aus der Einleitung.
 \item $\mathtt{rVC} \defeq \{ ((G, k), C) \mid \text{$G$ ist ein Graph, $C$ eine Knotenüberdeckung, und $|C|\leq k$} \}$.
-\item $\mathtt{rHAMCYCLE} \defeq \{ (G, P) \mid \text{$G$ ist ein Graph, $P$ ein Zyklus der jeden Knoten genau einmal berührt} \}$.
+\item $\mathtt{rHAMCYCLE} \defeq \{ (G, P) \mid G$ ist ein Graph, $P$ ein Zyklus der jeden Knoten genau einmal berührt $\}$.
 \item $\mathtt{rANOTHERHAMCYCLE} \defeq \{ ((G, P), P') \mid $ $G$ ist ein Graph, $P, P'$ je ein Zyklus der jeden Knoten genau einmal berührt, $P\neq P' \}$.
 \item $\mathtt{rFACTORIZATION} \defeq \{ (n, (p_1,p_2,\dots, p_k)) \mid n\in\mathbb N, n>1$, alle $p_i$ Primzahlen ungleich $2$ oder $n$, und $n\defeq p_1\cdots p_k \}$. Das korrespondiert zu Suchproblem (1) aus der Einleitung.
 \item $\mathtt{rFACTOR} \defeq \{ (n, p) \mid n\in\mathbb N$ , $n>1$ ist nicht prim, und $p$ ist ein nichttrivialer Faktor von $n\}$.
@@ -264,7 +264,7 @@ Im allgemeinen Fall: für jede NP-Relation $R$ mit Laufzeitschranke $q$ gilt
 und 
 \[ R \inc \FP^{L'_R} \text{ wobei } L'_R = \{ (x, z) \mid \exists y\in\Sigma^{\leq q(|x|)} \mid (x, y) \in R, y\leq z \} \]
 Konkret ist das zum Beispiel der Fall bei der NP-Relation $\mathtt{rSMALLFACTOR}$. Zur Erinnerung, wir haben
-\[ \Proj(\mathtt{rSMALLFACTOR}) = \{ (n,a)\mid \text{$n>1$ nicht prim, ex. nichttrivialer Faktor $p$ von $n$ mit $p\leq a$} \}. \]
+\[ \Proj(\mathtt{rSMALLFACTOR}) = \{ (n,a)\mid \text{$n>1$ nicht prim, ex. Faktor $p>1$ von $n$ mit $p\leq a$} \}. \]
 Durch Orakelfragen an $\Proj(\mathtt{rSMALLFACTOR})$ kann dann mit binärer Suche ein solcher Faktor auch gefunden werden.
 In anderen Worten, $\mathtt{rSMALLFACTOR} \inc \FP^{\Proj(\mathtt{rSMALLFACTOR})}$.
 
@@ -717,7 +717,7 @@ Abschließend können universelle NP-Relationen als vollständige Relationen bez
     \end{enumerate}
     Diese Äquivalenz gilt nur im unrelativierten Fall.
 \end{theorem}
-\textcite{agrawal_universal_1992} haben explizit verifiziert, dass auch $\mathtt{r3CNFSAT}$, $\mathtt{rHAMCYCLE}$, $\mathtt{rINDSET}$, $\mathtt{rKNAPSACK}$ und eine Variante $\mathtt{rMAXCUT}'$ vom maximalen Schnitt (wird später definiert) alle universell sind.
+\textcite{agrawal_universal_1992} haben explizit verifiziert, dass auch $\mathtt{r3CNFSAT}$, $\mathtt{rHAMCYCLE}$, $\mathtt{rINDSET}$, $\mathtt{rKNAPSACK}$ und eine Variante $\mathtt{rMAXCUT}'$ vom maximalen Schnitt (wird später def-\linebreak{}iniert) alle universell sind.
 
 Da aus projektiver Levin-Reduktion auch Levin-Reduktion folgt, sehen wir dass Universalität eine Verstärkung von $\leqlp$-Vollständigkeit ist.
 \begin{corollary}
@@ -842,7 +842,7 @@ Definiere nun
 \end{proof}
 
 \textcite{leven_np_1983} zeigen, dass die Menge $\Proj(\mathtt{r4CHROMINDEX})$ $\leqmp$-vollständig ist. 
-Mit den Konstruktionen aus deren Beweis ist es leicht zu sehen, dass die NP-Relation $\mathtt{r4CHROMINDEX}$ auch $\leqlp$-vollständig ist. (Die wesentlichen Ideen werden unten kurz skizziert.)
+Mit den Konstruktionen aus deren Beweis ist es leicht zu sehen, dass die NP-Relation \texttt{r4CHROM"-IN"-DEX} auch $\leqlp$-vollständig ist. (Die wesentlichen Ideen werden unten kurz skizziert.)
 Es ist auch leicht zu sehen, dass $\Proj(\mathtt{r4CHROMINDEX})$ paddable ist, also  auch $\P$-isomorph zu $\mathtt{SAT}$.
 Wir kommen zum Resultat:
 \begin{observation}
@@ -871,8 +871,8 @@ Aufbauend darauf lassen sich dann größere Gadgets konstruieren, welche Variabl
 \begin{minipage}{.3\textwidth}
     \centering\includegraphics[page=5]{figures.pdf}\\\smallskip
     (c)
-    \end{minipage}
-\end{minipage}
+    \end{minipage}\par
+\end{minipage}\par
 \caption[]{Die von \textcite{holyer_np-completeness_1981} verwendeten Gadgets um die NP-Vollständigkeit der 3-Kantenfärbbarkeit in 3-regulären Graphen zu zeigen.\par
         (a) Das Gadget zum Invertieren. Beachte dass in einer gültigen Färbung die Kanten $a$ und $b$ die gleiche Farbe haben („wahr“) genau dann wenn $c$ und $d$ ungleiche Farben haben („falsch“). Außerdem haben entweder $a,b,e$ oder $c,d,e$ alle drei unterschiedliche Farben. Das Symbol rechts ist die schematische Darstellung dieses Gadgets in den Abbildungen (b) und (c).\par
         (b) Gadget für je eine Variable. Beachte dass in einer gültigen Färbung alle Outputs entweder „wahr“ oder „falsch“ sind.\par
@@ -902,7 +902,7 @@ Eine entsprechende Codierung des Zertifikats wäre z.B. von der Form $h(c_1)h(c_
 \begin{figure}[t]
     \begin{minipage}[t][7.9cm][t]{\textwidth}
     \centering\includegraphics[page=6]{figures.pdf}
-\end{minipage}
+\end{minipage}\par
     \caption{Reduktion der 3CNFSAT-Instanz $\phi=(u\lor \overline{v} \lor \overline{w}) \land (v\lor x\lor y)$. 
         Eine Dreifärbung dieses Graphen entspricht einer erfüllenden Belegung von $\phi$ und umgekehrt.
     Beachte dass zu jeder Variable genau ein Knoten zu einem entsprechendem Literal (positiv bzw. negativ) die gleiche Farbe wie $v_{\text{true}}$ hat, und der Knoten zum anderen Literal die gleiche Farbe wie $v_{\text{false}}$ hat. Es ist leicht zu sehen, dass jedes Klausel-Gadget genau dann dreifärbbar ist, wenn mindestens eine der drei angeschlossenen Literale die gleiche Farbe wie $v_{\text{true}}$ hat.}\label{fig:3col}

@@ -104,7 +104,7 @@
 %	header formatting
 \ifbook
 \titlespacing*{\part}{.2\linewidth}{.3\textheight}{0pt}
-\titlespacing*{\chapter}{0pt}{15pt}{25pt}
+\titlespacing*{\chapter}{0pt}{00pt}{25pt}
 
 \titleformat{\chapter}
     {\thispagestyle{numbers}\itshape\huge}
@@ -128,32 +128,20 @@
     {\itshape}[~~$\cdot$]
 %\newcommand{\subsectionbreak}{\vfil}
 
-\contentsmargin[1cm]{0cm}
-\titlecontents*{part}[0em]
-    {\large\scshape}
-    {\scshape\thecontentslabel}
-    {\vskip 4pt\large\scshape\lowercase}
-    {}[\vskip 0pt]
-\titlecontents{chapter}[0em]
-    {\large\vspace{12pt}}
-    {\makebox[-1em][r]{\thecontentslabel}\large\hspace{1em}}
-    {\large}
-    {~~~~{\contentspage}}[\vskip 2pt]
-\titlecontents*{section}[0em]
-    {\small}
-    {\thecontentslabel~~}
-    {\small}
-    {~~{\contentspage}}
-    [\\]
+\contentsmargin[1cm]{.7cm}
+\titlecontents{chapter}[7pt]
+    {\addvspace{12pt}}
+    {\contentsmargin{0pt}\makebox[8pt][r]{\Large\thecontentslabel\enspace}\Large}%\hspace{.5em}}
+    {\contentsmargin{0pt}\Large}
+    {\contentspage}
+    [\addvspace{2pt}]
+\titlecontents{section}[17pt]
+    {}
+    {\contentsmargin{0pt}\thecontentslabel\hspace{1em}}
+    {\contentsmargin{0pt}}
+    {\contentspage}
+    [\addvspace{1pt}]
 
-%	toc offset
-%\let\oldtoc\tableofcontents
-%\renewcommand{\tableofcontents}{%
-    %\begin{quote}\setstretch{1.0}
-    %\oldtoc
-    %\end{quote}
-%}
-%	toc depth
 \AtBeginDocument{\setcounter{tocdepth}{1}}
 
 \newpagestyle{main}{
@@ -290,6 +278,7 @@
 \DontPrintSemicolon
 \SetArgSty{}
 \SetCommentSty{itshape}
+\SetNlSty{sf}{}{}
 \SetKwComment{tcc}{(}{)}
 \SetKwComment{tcp}{(}{)}
 \SetKw{KwOr}{\thesis@algorithmor}
@@ -307,6 +296,8 @@
 
 \newcommand{\todo}[1]{\textcolor{red}{{\sffamily TODO: #1}}}
 \newcommand{\note}[1]{\textcolor{green!30!black}{{\sffamily #1}}}
+
+\hyphenation{Kom-ple-xi-tät-s-the-o-rie}
 
 
 
@@ -369,7 +360,6 @@
 \author{Anton Ehrmanntraut}
 
 \begin{document}
-
 
 \input{frontmatter}
 \input{intro}

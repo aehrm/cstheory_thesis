@@ -113,23 +113,25 @@ Eine PTM bzw. NPTM $M$ nennen wir \emph{total} falls $L(M)=\Sigma^*$, heißt $M(
 \section{Komplexitätsklassen}\label{sec:prelim-klassen}
 
 Auf Basis der Turing-Maschinen als Berechnungsmodell können die üblichen Komplexitätsklassen der Entscheidungsprobleme bzw. Sprachen $\P, \NP, \coNP$ usw. definiert werden:
+\bgroup\setlength{\mathindent}{5pt}
 \begin{align*}
-    \P &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. PTM $M$ die $L$ entscheidet} \},\\
-    \NP &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. NPTM $M$ die $L$ entscheidet} \},\\
-\begin{split} \UP &\defeq \{ L\subseteq\Sigma^* \mid  \text{ex. NPTM $M$ die $L$ entscheidet,}\\ &\qquad\qquad\qquad\text{und $M(x)$ akz. auf höchstens einem Rechenweg} \},\end{split}\\
+    \P &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. PTM $M$ mit $L=L(M)$} \},\\
+    \NP &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. NPTM $M$ mit $L=L(M)$} \},\\
+\begin{split} \UP &\defeq \{ L\subseteq\Sigma^* \mid  \text{ex. NPTM $M$ mit $L=L(M)$,}\\ &\qquad\qquad\qquad\text{und $M(x)$ akz. auf höchstens einem Rechenweg} \},\end{split}\\
     \coNP &\defeq \{ L\subseteq\Sigma^* \mid \overline{L}\in\NP \}.
 \intertext{Die Einfach- und Doppelt-Exponentialzeitklassen definieren wir wie folgt:}
-    \mathrm{E} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ die $L$ entscheidet, und ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{c|x|}$ für alle $x$} \},\\
-    \mathrm{EE} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ die $L$ entscheidet, und ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{2^{c|x|}}$ für alle $x$} \}.
-\end{align*}
+    \mathrm{E} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ mit $L=L(M)$, und ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{c|x|}$ für alle $x$} \},\\
+    \mathrm{EE} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ mit $L=L(M)$, und ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{2^{c|x|}}$ für alle $x$} \}.
+\end{align*}\egroup
 Die nichtdeterministischen Varianten $\mathrm{NE}, \mathrm{NEE}$ und Komplementklassen $\mathrm{coNE}, \mathrm{coNEE}$ sind analog definiert.
 
 Die Funktionenklassen $\FP, \mathrm{NPMV}, \mathrm{NPSV}$ ist analog definiert \parencite{selman_taxonomy_1994}:
+\bgroup\setlength{\mathindent}{0pt}
 \begin{align*}
-    \FP &\defeq \{ f: \Sigma^*\to\Sigma^* \mid \text{$f$ ist Funktion und ex. PTM-Transduktor $M$ der $f$ berechnet} \},\\
-    \NPSV &\defeq \{ f:\Sigma^*\to\Sigma^* \mid \text{$f$ ist Funktion und ex. NPTM-Transduktor $M$ der $f$ berechnet} \},\\
-    \NPMV &\defeq \{ f\subseteq \Sigma^*\times\Sigma^* \mid \text{$f$ ist Multifunktion und ex. NPTM-Transduktor $M$ der $f$ berechnet} \}.
-\end{align*}
+    \FP &\defeq \{ f\subseteq \Sigma^*\times\Sigma^* \mid \text{$f$ ist funktional, ex. PTM-Transduktor $M$, der $f$ berechnet} \},\\
+    \NPSV &\defeq \{ f\subseteq \Sigma^*\times\Sigma^* \mid \text{$f$ ist funktional, ex. NPTM-Transduktor $M$, der $f$ berechnet} \},\\
+    \NPMV &\defeq \{ f\subseteq \Sigma^*\times\Sigma^* \mid \text{ex. NPTM-Transduktor, $M$ der $f$ berechnet} \}.
+\end{align*}\egroup
 \begin{marginfigure}
     \centering\includegraphics[page=9]{figures.pdf}
     \caption{Inklusionen zwischen den in dieser Arbeit definierten Funktionenklassen. Eine Pfeil von $\mathcal F$ nach $\mathcal G$ sagt aus dass $\mathcal{G}\subseteq \mathcal F$.}\label{fig:functionclasses}
@@ -327,7 +329,7 @@ Jedes Beweissystem mit kurzen Beweisen ist auch optimal.
     wobei $p$ das Polyom ist, welches die Laufzeit von $g$ beschränkt.
 \end{proof}
 
-Im Zusammenhang mit dem Cook–Reckhow-Programm weisen \textcite{krajicek_propositional_1989} darauf hin, dass die Existenz eines optimalen Beweissystems für $\mathtt{TAUT}$ wahrscheinlich schwächer ist, als die Existenz eines Beweissystems mit kurzen Beweisen, denn Ersteres folgt schon aus $\mathrm{NE}=\mathrm{coNE}$. (\citeauthor{kobler_optimal_2003}, \citeyear{kobler_optimal_2003}, schwächen die Voraussetzung auf $\mathrm{NEE=coNEE}$ ab.)
+Im Zusammenhang mit dem Cook–Reckhow-Programm weisen \textcite{krajicek_propositional_1989} darauf hin, dass die Existenz eines optimalen Beweissystems für $\mathtt{TAUT}$ wahrscheinlich schwächer ist, als die Existenz eines Beweissystems mit kurzen Beweisen, denn Ersteres folgt schon aus $\mathrm{NE}=\mathrm{coNE}$. (\citeauthor{kobler_optimal_2003}, \citeyear{kobler_optimal_2003}, schwächen diese Voraussetzung auf $\mathrm{NEE=coNEE}$ ab.)
 
 Für die Mengen aus $\P$ bzw. $\NP$ existieren $\P$-optimale bzw. optimale Beweissysteme:
 \begin{observation}\label{obs:np-short-ps}
