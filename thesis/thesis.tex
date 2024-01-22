@@ -177,7 +177,12 @@
 \usepackage{xparse}
 \usepackage{amsthm}
 \usepackage{thmtools}
-%\usepackage{thm-restate}
+
+\setlength{\topsep}{7pt plus 5pt minus 3pt}
+\setlength{\partopsep}{0pt plus 0pt minus 0pt}
+\newtheoremstyle{mytheoremstyle}{\topsep}{\topsep}{\itshape}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{mytheoremstyle}
+
 \newtheorem{theorem}{Satz}[chapter]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -204,28 +209,29 @@
 %\theoremstyle{definition}
 %\newtheorem{definition}[theorem]{Definition}
 \declaretheorem[style=definition,qed={$\triangleleft$},sibling=theorem]{definition}
-%\makeatletter
-%\renewenvironment{proof}[1][\proofname]{\par
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
   %\begin{mdframed}[backgroundcolor=lightgray!30!white,leftmargin=-5pt,rightmargin=-5pt,innerleftmargin=5pt,innerrightmargin=5pt,linewidth=0pt,skipabove=0pt,skipbelow=10pt]
-  %\pushQED{\qed}%
-  %%\ifbook\else
-    %%\normalfont\footnotesize%
-  %%\fi
-  %\topsep6\p@\@plus6\p@\relax
-  %\list{}{\leftmargin=0em
-          %\rightmargin=\leftmargin
-          %\settowidth{\itemindent}{\itshape#1}%
-          %\labelwidth=\itemindent
-          %% the following line is not needed with amsart, but might be with other classes
-          %\parsep=0pt \listparindent=\parindent 
-  %}
-  %\item[\hskip\labelsep
-        %\itshape
-    %#1\@addpunct{.}]\ignorespaces
-%}{%
-    %\popQED\endlist\@endpefalse\end{mdframed}
-%}
-%\makeatother
+  \pushQED{\qed}%
+  %\ifbook\else
+    %\normalfont\footnotesize%
+  %\fi
+  %\topsep-2\p@\@plus0\p@\relax
+  \list{}{\leftmargin=0em
+          \rightmargin=\leftmargin
+          \settowidth{\itemindent}{\itshape#1}%
+          \labelwidth=\itemindent
+          % the following line is not needed with amsart, but might be with other classes
+          \parsep=0pt \listparindent=\parindent 
+  }
+  \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+    \popQED\endlist\@endpefalse
+    %\end{mdframed}
+}
+\makeatother
 
 
 
