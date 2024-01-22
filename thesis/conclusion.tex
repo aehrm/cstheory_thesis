@@ -6,12 +6,12 @@ Bezüglich der Ergebnisse können wir uns an den vier Forschungsdesiderata orien
 
 \subsection*{Suchprobleme vs. Entscheidungsprobleme}
 
-Erstens, wurde in Kapitel~\ref{chap:searchproblems} die Beziehung zwischen NP-Suchproblemen und den ensprechendne NP-Entscheidungsproblen erarbeitet.
-Hierfür orientierte sich die Arbeit an vorhandenen Definitionen von Suchproblemen, die intuitiv neben dem Berechnungsproblem „Gilt $x\in L$?“ auch nach einem „Beweis“ oder „Zerifikat“ für $x\in L$ fragen. %, einem Reduktions- und einem Vollständigkeitsbegriff (Levin-Reduktion).
+Erstens, wurde in Kapitel~\ref{chap:searchproblems} die Beziehung zwischen NP-Suchproblemen und den entsprechenden NP-Entscheidungsproblemen erarbeitet.
+Hierfür orientierte sich die Arbeit an vorhandenen Definitionen von Suchproblemen, die intuitiv neben dem Berechnungsproblem „Gilt $x\in L$?“ auch nach einem „Beweis“ oder „Zertifikat“ für $x\in L$ fragen. %, einem Reduktions- und einem Vollständigkeitsbegriff (Levin-Reduktion).
 Auf dieser Basis wurde gezeigt, dass die übliche Argumentation, das Suchproblem auf das Entscheidungsproblem reduzieren zu können (\emph{search reduces to decision}) im Allgemeinen nicht immer zutrifft. Ergebnisse aus der Literatur zeigen, dass dies unter geeigneten Bedingungen nicht für die NP-Intermediates (also jene Probleme die nicht NP-vollständig sind, aber auch nicht in $\P$ liegen) zutrifft.
-Im Kontext der \emph{Selbstreduzierbarkeit}, also der Lösung des Suchproblems gegeben einem Orakel für „kleinere“ Instanzen, liegen dagegen nur wenige Ergebnisse vor. In der Arbeit wurde insbesondere auf Ergebnisse von \textcite{harsha_downward_2023} hingewiesen, welche Anzeichen geben, dass das Suchproblem der Faktorisierung nicht selbtreduzierbar ist.
+Im Kontext der \emph{Selbstreduzierbarkeit}, also der Lösung des Suchproblems gegeben einem Orakel für „kleinere“ Instanzen, liegen dagegen nur wenige Ergebnisse vor. In der Arbeit wurde insbesondere auf Ergebnisse von \textcite{harsha_downward_2023} hingewiesen, welche Anzeichen geben, dass das Suchproblem der Faktorisierung nicht selbstreduzierbar ist.
 
-Wie die Suchprobleme lassen sich auch die Entscheidungsprobleme mittels Reduktionen untereinander nach ihrer Schwierigkeit verlgeichen. In dieser Arbeit wurde insbesondere die Levin-Reduktion als Reduktion auf den NP-Suchproblemen produktiv gemacht. Dieser Reduktionsbegriff kann als natürliche Generalisierung der Many-one- bzw. Karp-Reduktion auf den Entscheidungsproblemen verstanden werden. Hieran anschließend wurde auf die Beziehung zwischen Levin-Vollständigkeit der Suchprobleme und der Karp-Vollständigkeit der entsprechenden Entscheidungsprobleme hingewiesen. Erstens verstärkt Levin-Vollständigkeit die Karp-Vollständigkeit. Zweitens sehen wir, empirisch gesprochen, dass für alle \emph{natürlichen} Probleme diese beiden Vollständigkeitsbegriffe zusammenfallen. 
+Wie die Suchprobleme lassen sich auch die Entscheidungsprobleme mittels Reduktionen untereinander nach ihrer Schwierigkeit vergleichen. In dieser Arbeit wurde insbesondere die Levin-Reduktion als Reduktion auf den NP-Suchproblemen produktiv gemacht. Dieser Reduktionsbegriff kann als natürliche Generalisierung der Many-one- bzw. Karp-Reduktion auf den Entscheidungsproblemen verstanden werden. Hieran anschließend wurde auf die Beziehung zwischen Levin-Vollständigkeit der Suchprobleme und der Karp-Vollständigkeit der entsprechenden Entscheidungsprobleme hingewiesen. Erstens verstärkt Levin-Vollständigkeit die Karp-Vollständigkeit. Zweitens sehen wir, empirisch gesprochen, dass für alle \emph{natürlichen} Probleme diese beiden Vollständigkeitsbegriffe zusammenfallen. 
 %Dennoch ist unklar, ob für \emph{jedes} Karp-vollständiges Entscheidungsproblem $L$ ein entsprechendes Levin-vollständiges Suchproblem bzw. „Zertifikatsschema“ für $L$ existiert. 
 Dennoch bleibt folgendes unklar: \emph{Gegeben ein beliebiges NP-Suchproblem $R$, für welches das entsprechende Entscheidungsproblem $\Proj(R)$ Karp-vollständig ist, ist dann auch $R$ Levin-vollständig?}
 
@@ -24,7 +24,7 @@ Es gibt keine Hinweise, welche auf eine positive oder negative Beantwortung dies
 
 \subsection*{NP-Suchprobleme im Pudlákschen Programm}
 
-Zweitens, wurde die Hypothese $\hQ$ (erstmal formuliert von \cite{fenner_inverting_1996}) in den Blick genommen, welche als Aussage „alle totalen NP-Suchprobleme sind effizient lösbar“ unmittelbar in direkter Beziehung zu den NP-Suchproblemen steht.
+Zweitens, wurde die Hypothese $\hQ$ (erstmals formuliert von \cite{fenner_inverting_1996}) in den Blick genommen, welche als Aussage „alle totalen NP-Suchprobleme sind effizient lösbar“ unmittelbar in direkter Beziehung zu den NP-Suchproblemen steht.
 Die vorliegende Arbeit zeigt nun insbesondere auch folgende Charakterisierungen von $\hQ$:
 \begin{itemize}[midpenalty=0]
     \item Es gilt $\hQ$ genau dann wenn jede Karp-Reduktion zwischen Entscheidungsvarianten von zwei NP-Suchproblemen zu einer Levin-Reduktion zwischen eben jenen Suchproblemen verstärkt werden kann. Damit ist $\neg\hQ$ auch eine notwendige Bedingung für $\mathsf{KvL}$.
@@ -46,7 +46,7 @@ Für die Hypothese $\hQ$ ergibt sich ferner unter relativierbaren Beweisen eine 
 
 Zum Schluss sind hier noch die offenen Fragen aufgelistet, welche sich im Verlauf dieser Arbeit ergeben haben, und welche den Startpunkt für zukünftige Forschung bilden könnte:
 \begin{enumerate}[label=\arabic*.,midpenalty=0]
-    \item Die zentrale offene Frage dieser Arbeit ist jene zwischen Karp- und Levin-Vollständigkeit, bzw. der Hypothese $\mathsf{KvL}$ (vgl. Frage~\ref{question:kvl}). Um mehr Evidenz für die Gültigkeit von $\mathsf{KvL}$ zu sammenln, wären weitere hinreichende natürlichen Annahmen, z.B. kryptographischer Art, wünschenswert.
+    \item Die zentrale offene Frage dieser Arbeit ist jene zwischen Karp- und Levin-Vollständigkeit, bzw. der Hypothese $\mathsf{KvL}$ (vgl. Frage~\ref{question:kvl}). Um mehr Evidenz für die Gültigkeit von $\mathsf{KvL}$ zu sammeln, wären weitere hinreichende natürlichen Annahmen, z.B. kryptographischer Art, wünschenswert.
         Das betrifft u.a. auch die Hypothese $\hQ$. Lässt sich die Äquivalenz $\mathsf{KvL}\Leftrightarrow \neg\hQ$ zeigen, wie in Abschnitt~\ref{sec:karp-vs-levin} vermutet?
         Allgemein gesprochen wäre hierzu auch besseres Verständnis der Zusammenhänge und Beziehungen zwischen den Hypothesen $\mathsf{KvL}$, $\hQ$, $\hSAT$ und $\mathsf{SAT^{eff}}$ erstrebenswert, sowie angrenzend nähere Untersuchungen zum Begriff der effektiven $\P$-Simulation; die vorliegende Arbeit hat hierzu nur den ersten Anfang gemacht.
 

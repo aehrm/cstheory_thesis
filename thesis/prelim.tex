@@ -166,7 +166,7 @@ Für die Funktionenklassen hat sich folgender sehr starke Begriff von Many-one-R
 \begin{itemize}
     \item $g\leqmp h$ wenn eine Funktion $f\in\FP$ existiert mit $\fset{}g(x)=\fset{}h(f(x))$.
 \end{itemize}
-Auf den Paaren aus $\DisjNP$ und $\DisjCoNP$ hat sich folgender Begriff von Reduzierbarkeit herausgebildet.\footnote{Vgl. insb. \textcites{glaser_disjoint_2004}{glaser_reductions_2005} für eine ausführlichen Vergleich und Diskussion Reduktions- und Vollständigkeits-Begriffen. Insgesamt zeigen die Arbeiten,  dass dieser schwache Begriff von Reduktion geeignet gewählt ist, denn er ist insbesondere äquivalent zu alternativen stärker wirkenden Reduktionsbegriffen ist.}
+Auf den Paaren aus $\DisjNP$ und $\DisjCoNP$ hat sich folgender Begriff von Reduzierbarkeit herausgebildet.\footnote{Vgl. insb. \textcites{glaser_disjoint_2004}{glaser_reductions_2005} für einen ausführlichen Vergleich und Diskussion der Reduktions- und Vollständigkeitsbegriffe. Insgesamt zeigen die Arbeiten,  dass dieser schwache Begriff von Reduktion geeignet gewählt ist, denn er ist insbesondere äquivalent zu alternativen stärker wirkenden Reduktionsbegriffen ist.}
 Seien $(A,B), (C,D)$ zwei disjunkte NP-Paare (bzw. zwei disjunkte coNP-Paare):
 \begin{itemize}
     \item $(A,B)\leqmpp(C,D)$ wenn eine Funktion $f\in\FP$ existiert mit $f(A)\subseteq B$ und $f(B)\subseteq C$.
@@ -329,7 +329,7 @@ Jedes Beweissystem mit kurzen Beweisen ist auch optimal.
     heißt $g$-Beweise können in $f$-Beweise umgeschrieben werden.
     Außerdem ist $\pi$ polynomiell längenbeschränkt: es gilt
     \[ |\pi(w)|=|\mu(g(w))| \leq q(|g(w)|) \leq q(p(|w|)), \]
-    wobei $p$ das Polyom ist, welches die Laufzeit von $g$ beschränkt.
+    wobei $p$ das Polynom ist, welches die Laufzeit von $g$ beschränkt.
 \end{proof}
 
 Im Zusammenhang mit dem Cook–Reckhow-Programm weisen \textcite{krajicek_propositional_1989} darauf hin, dass die Existenz eines optimalen Beweissystems für $\mathtt{TAUT}$ wahrscheinlich schwächer ist, als die Existenz eines Beweissystems mit kurzen Beweisen, denn Ersteres folgt schon aus $\mathrm{NE}=\mathrm{coNE}$. (\citeauthor{kobler_optimal_2003}, \citeyear{kobler_optimal_2003}, schwächen diese Voraussetzung auf $\mathrm{NEE=coNEE}$ ab.)
