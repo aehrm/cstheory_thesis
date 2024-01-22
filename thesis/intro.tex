@@ -46,7 +46,7 @@ Anstelle nach einer Lösung zu suchen, wird sich darauf beschränkt zu entscheid
     \item[10$'$.] Gegeben eine Turing-Maschine $M$ und eine Eingabe $x$, entscheide ob $M$ auf Eingabe $x$ nach endlich vielen Rechenschritten terminiert.
 \end{enumerate}
 Beachte dass zu Suchproblemen (1), (3) und (5) keine unmittelbare Variante als Entscheidungsproblem existiert: es existiert immer eine Primfaktorzerlegung von $n$, analog existiert immer ein größtes Matching bzw. eine größte Clique in einem Graphen.
-Zusätzlich führen wir auch noch das Entscheidungsproblem 10$'$ ein, für das analog keine sinnvolle Variante als Suchproblem angegeben werden kann.
+Zusätzlich führen wir\marginpar{\todo{„wir“ checken}} auch noch das Entscheidungsproblem 10$'$ ein, für das analog keine sinnvolle Variante als Suchproblem angegeben werden kann.
 
 Auf dem ersten Blick erscheint dieser Schwerpunkt unnatürlich. In der Praxis sind wir interessiert, effizient Lösungen zu finden, um z.B. eine Karte einzufärben (Suchproblem 4), oder um einen Sourcecode zu parsen (Suchproblem 2). Die Feststellung „Karte ist dreifärbbar“, „Sourcecode ist wohlgeformt“ der Entscheidungsalgorithmen erscheint auf dem ersten Blick wenig hilfreich.
 
@@ -97,7 +97,7 @@ Das trifft zum Beispiel für das Suchproblem (1) der Faktorisierung zu. Dieses t
 %\AtNextCite{\defcounter{maxnames}{99}}
 \printallnames%
 \textcite{fenner_inverting_2003} können die Vermutung „alle totalen NP-Suchprobleme sind effizient lösbar“ in verschiedensten äquivalenten Formulierungen charakterisieren, so zum Beispiel als Invertierbarkeit von surjektiven Funktionen, oder als das effiziente Lösen vom Suchproblem (7) unter Angabe einer nichtdeterministische Turing-Maschine, welche die Menge $\mathtt{SAT}$ der erfüllbaren aussagenlogischen Formeln erkennt.
-\citeauthor{fenner_inverting_2003} fassen diese jeweils äquivalenten Charakterisierungen unter der Hypothese $\hQ$ zusammen. Für diese Arbeit werden wir hier folgende Formulierung von  $\hQ$ anwenden, die über nichtdeterministische Turing-Maschinen spricht, welche jede Eingabe akzeptieren:
+\citeauthor{fenner_inverting_2003} fassen diese jeweils äquivalenten Charakterisierungen unter der Hypothese $\hQ$ zusammen. Für diese Arbeit wird hier folgende Formulierung von  $\hQ$ angewendet, die über nichtdeterministische Turing-Maschinen spricht, welche jede Eingabe akzeptieren:
 \begin{conjecture}[$\hQ$, \cite{fenner_inverting_2003}]\label{conj:q}
     Für jede nichtdeterministische Turing-Maschine $N$ mit polynomieller Laufzeitbeschränkung, und $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierender Rechenweg von $N(x)$ ist. 
 \end{conjecture}
@@ -167,7 +167,7 @@ Seien an dieser Stelle auch schon die folgenden zwei wichtigen natürlichen Meng
     &\mathtt{SAT} &&= \{ \phi \mid \text{$\phi$ ist eine erfüllbare aussagenlogische Formel} \},\\
     &\mathtt{TAUT} &&= \{ \phi \mid \text{$\phi$ ist eine gültige aussagenlogische Formel} \}.
 \end{alignat*}
-Zur Notation: natürliche Mengen wie $\mathtt{TAUT}$ werden wir Schreibmaschinenschrift notieren, während Hypothesen in serifenloser Schrift notiert werden.
+Zur Notation: natürliche Mengen wie $\mathtt{TAUT}$ werden in Schreibmaschinenschrift notiert, während Hypothesen in serifenloser Schrift notiert werden.
 
 Es muss hervorgehoben werden, dass Pudlák die Hypothese $\hTAUT$ nicht in dieser Form formuliert hat, sondern als Aussage über die Nicht-Existenz eines $\P$-optimalen Beweissystems speziell für $\mathtt{TAUT}$, genau wie anfangs des Abschnitts gefragt wurde. (In seiner Notation die Hypothese $\mathsf{CON}$.) Die beiden Charakterisierungen sind aber äquivalent; Gesagtes gilt analog auch für $\hSAT$ (vgl. Abschnitt~\ref{sec:prelim-ps}).
 
@@ -178,7 +178,7 @@ Auf der Seite der Komplexitätstheorie fragt Pudlák im Sepziellen nach natürli
 Dieses allgemeine Forschungsdesiderat fasse ich für diese Arbeit lose als \emph{Pudláksches Programm} zusammen.
 
 Die vorliegende Arbeit will drittens an genau diesem Pudlákschen Programm beitragen, indem im Wesentlichen die Übersicht in Abbildung~\ref{fig:pudlak-small} verfeinert wird, und dabei stärkere (und schwächere) Hypothesen eingeordnet werden. Hierbei fokussiere ich mich insbesondere auf jene Hypothesen, die mit NP-Suchproblemen im Zusammenhang stehen, wie z.B. $\hQ$.
-Im Folgenden gehen wir noch auf den „Orakel“-Teil des Pudlákschen Programms ein.
+Im Folgenden sei noch noch auf den „Orakel“-Teil des Pudlákschen Programms eingegangen.
 
 
 \subsection*{Orakel und Relativierungen}
@@ -214,7 +214,7 @@ Zum anderen werden Arbeiten vorgestellt und eingeordnet, welche gemeinsame Eigen
 
 In Kapitel~\ref{chap:pudlak} werden wir Hypothesen zu NP-Suchproblemen und die Aussage $\hQ$ in das Pudláksche Programm einordnen. Erstens untersuchen wir, ob die (Levin-)Vollständigkeit eines NP-Suchproblems  mit der (Karp-)Vollständigkeit des entsprechenden NP-Suchproblems übereinstimmt. Insbesondere wird plausibilisiert, dass diese Übereinstimmung nicht gilt.
 Zweitens werden wir (nicht-relativierbare) Charakterisierungen von $\hQ$ durch \textcite{fenner_inverting_2003} und \textcite{messner_simulation_2001} verallgemeinern und relativieren, womit wir als Nebeneffekt auch präzise zu (relativierbaren) Implikationen zwischen $\hQ$ und den Pudlákschen Hypothesen kommen.
-Drittens zum Abschluss des Kapitels, wieder in einer Form eines Surveys, wird das Pudláksche Programm durch Hinzufügen weiterer Hypothesen erweitert und verfeinert, die in der Literatur diskutiert werden. Hinzu erarbeiten wir eine Übersicht über die Implikationen zwischen diesen Hypothesen, bzw. Orakeln welche diese Implikationen unter relativierbaren Beweisen trennen. Im Wesentlichen vergrößern wir Abbildung~\ref{fig:pudlak-small} zu Abbildung~\ref{fig:figure-implications} und~\ref{fig:oracles} (S.~\pageref{fig:figure-implications}, \pageref{fig:oracles}).
+Drittens zum Abschluss des Kapitels, wieder in einer Form eines Surveys, wird das Pudláksche Programm durch Hinzufügen weiterer Hypothesen erweitert und verfeinert, die in der Literatur diskutiert werden. Hinzu erarbeiten wir eine Übersicht über die Implikationen zwischen diesen Hypothesen, bzw. Orakeln welche diese Implikationen unter relativierbaren Beweisen trennen. Im Wesentlichen wird Abbildung~\ref{fig:pudlak-small} zu Abbildung~\ref{fig:figure-implications} und~\ref{fig:oracles} (S.~\pageref{fig:figure-implications}, \pageref{fig:oracles}) vergrößert.
 
 Im Sinne dieser Trennung unter relativierbaren Beweise wird in Kapitel~\ref{chap:orakel} ein Orakel konstruiert, relativ zu diesem $\hDisjNP$ und $\hUP$ und $\hQ$ gilt. Damit gibt es also keinen relativierbaren Beweis für $\neg\hQ$, selbst wenn man beider Pudlákschen Hypothesen $\hDisjNP$ und $\hUP$ annimmt. Insbesondere wird damit der erste Schritt unternommen, die relative Stärke der Hypothese $\hQ$ gegenüber den anderen der Pudlákschen Hypothesen unter relativieraren Beweismethoden abzugrenzen. 
 

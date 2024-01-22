@@ -185,7 +185,8 @@ Ebenso ist die Teilmenge $\FP$ der Multifunktionen auf $\leqmp$ nach unten abges
 Sei $\mathcal C$ eine Komplexitätsklasse und $\preceq$ eine der obigen Reduktionsordnungen.
 Wie üblich nennen wir nun eine Sprache $A$ \emph{$\preceq$-hart für $\mathcal C$} wenn $A$ eine obere Schranke für $\mathcal C$ geordnet über $\preceq$  ist (d.h. $B\preceq A$ für alle $B\in\mathcal C$).
 Wir nennen $A$ \emph{$\preceq$-vollständig für $\mathcal C$} wenn $A\in\mathcal C$ ein größtes Element von $\mathcal C$ geordnet über $\preceq$ ist (d.h. $B\preceq A$ für alle $B\in\mathcal C$ und $A\in\mathcal C$). 
-Üblicherweise betrachten wir die Reduktionsordnung $\leqmp$, und nennen daher eine Sprache $A$ \emph{$\mathcal C$-vollständig} wenn $A$ $\leqmp$-vollständig für $\mathcal C$ ist.
+Geht die Klasse $\mathcal C$ aus dem Kontext hervor, lassen wir manchmal auch die Angabe „\emph{für $\mathcal C$}“ weg.
+Auf Mengen betrachten wir üblicherweise die Reduktionsordnung $\leqmp$, und nennen daher manchmal eine Sprache $A$ \emph{$\mathcal C$-vollständig} wenn $A$ $\leqmp$-vollständig für $\mathcal C$ ist.
 Auf Grundlage der Existenz universeller effizienter Turing-Maschinen können für die Klassen $\P$ und $\NP$ jeweils eine kanonische $\leqmp$-vollständige Menge angegeben werden. Für $\NP$ ist diese
 \begin{definition}
 \[ \mathtt{KAN} \defeq \{ (N, x, 1^n) \mid \text{$N$ ist eine NTM und akz. $x$ auf einem RW mit $\leq n$ vielen Schritten} \}.\qedhere \]
@@ -400,7 +401,7 @@ Für die andere Richtung, wenn für \emph{eine} coNP-vollständige Menge ein $\P
 %generalisieren wir hier und fragen, ob jede Menge in $\coNP$ ein p-optimales aussagenlogisches Beweissystem hat
 
 Die hier gewählte Charakterisierung hat vor allem den Vorteil, dass $\hSAT, \hTAUT, \mathsf{TAUT^N}$ auf natürliche Weise relativieren.
-So relativiert beispielsweise $\hSAT$ auf Orakel $O$ zur Aussage „kein $\leq_\mathrm{m}^{\mathrm p,O}$-vollständiges $L\in\NP^O$ hat ein p${}^O$-optimales Beweissystem $f\in\FP^O$“.
+So relativiert beispielsweise $\hSAT$ auf Orakel $O$ zur Aussage „kein $\leq_\mathrm{m}^{\mathrm p,O}$-vollständiges $L\in\NP^O$ für $\NP^O$ hat ein p${}^O$-optimales Beweissystem $f\in\FP^O$“.
 Das entspricht genau der Form von Relativierung, welche als erstes von \textcite{dose_oracle_2020} vorgeschlagen wurde.
 
 

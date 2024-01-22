@@ -18,7 +18,7 @@ Präzise werden wir folgenden Satz beweisen:
 Die Orakelkonstruktion bedient sich zwei zentralen Ideen. 
 Die erste Idee betrifft vor allem die Konstruktion. 
 Wir wenden hierbei ein Verfahren von \textcite{dose_np-completeness_2019} an, welche sich als ein starkes Framework erwiesen hat, schrittweise Orakel zu konstruieren, die simultan mehrere Eigenschaften erfüllen. Dieses Framework baut maßgeblich auf drei Zutaten auf: erstens, partiell definierten Orakeln, zweitens, ein Begriff von Gültigkeit, und drittens, eine stufenweise nicht-konstruktive Definitionsvorschrift des Orakels.
-Das werden wir später beim Einsatz in der Konstruktion näher erläutern.
+Das wird später beim Einsatz in der Konstruktion näher erläutert.
 
 Die zweite Idee besteht intuitiv darin, von einem PSPACE-vollständigem Orakel $D$ auszugen und dieses zu modifizeren, um die gewünschten Eigenschaften zu erhalten. Durch geschicktes Rückgreifen auf $D$ lassen sich dann gewisse nichttriviale Berechnungen effizient umsetzen. Diese Idee geht auf \textcite{baker_relativizations_1975} zurück, welche ein Orakel konstruiert haben relativ zu diesem $\P=\NP\cap\coNP\neq\NP$. Hierbei wird das PSPACE-vollständige Orakel $D$ mit einem zweiten, speziell konstruierten Orakel $B$ kombiniert; in der Originalfassung zu $D\cup B$. Das Orakel $B$ sorgt für die Trennung zwischen $\P$ und $\NP$, ist aber gleichzeitig so einach zu entscheiden, dass ein komplementär akzeptierendes Maschinenpaar einer Sprache $L\in\NP\cap\coNP$ eine relevante Portion von $B$ entscheiden kann, und dan mittels dem PSPACE-vollständigem $D$ dann abfragen kann, ob die entsprechende Eingabe akzeptiert wird.
 
@@ -37,7 +37,7 @@ Die Konstruktion von $E$ ist dabei solcherart, dass diese Konstruktion auf ein z
 Intuitiv gemeint ist damit, dass wir der Aussage ein zweites Orakel hinzufügen können, ohne Gültigkeit zu verlieren. Hieraus ergibt sich insbesondere, dass für jedes Orakel $A$ folgende Implikation gilt:
 \[ \P^X=\mathrm{PSPACE}^X \stackrel{\text{\ref{thm:myoracle-work}, rel.}}{\implies} \text{ex. $E$ sodass $E\oplus X$ den Eig. von Satz~\ref{thm:myoracle} genügt.} \]
 Mit Wahl von $X$ als dem PSPACE-vollständigen $D$ erreichen wir dann wie gewünscht dass $O=E\oplus D$ den Eigenschaften von Satz~\ref{thm:myoracle} genügt.
-Wir werden Relativierungen von Orakelkonstruktionen im Verlauf dieses Kapitels noch formal präzise spezifizieren.
+Diese Relativierungen von Orakelkonstruktionen werden im Verlauf dieses Kapitels noch formal präzise spezifiziert.
 
 
 Die Hauptarbeit liegt also in der Konstruktion eines Orakels $E$ aus Satz~\ref{thm:myoracle-work}.
@@ -52,7 +52,7 @@ Hätten wir nun die Möglichkeit, effizient $E$ auszurechen, hätten wir auch $\
 Das ist zwar nicht möglich, aber für jede totale NPTM $N$ ist es zumindest möglich, eine relevante Portion von $E$ zu berechnen, sodass sich diese Portion in $N$ hineincodieren lässt. Wir erhalten dann eine äquivalente NPTM $N'$ welche keine Orakelfragen stellen muss. Unter Annahme $\P=\PSPACE$ lässt sich dann ein akzeptierender Rechenweg für $N'$ (bzw. $N$) finden.
 
 
-Im folgenden Abschnitt~\ref{sec:oracle-relativization} gehen wir detailiert auf Relativierungen von Orakelkonstruktionen ein.
+Im folgenden Abschnitt~\ref{sec:oracle-relativization} erarbeiten wir detailiert die Relativierungen von Orakelkonstruktionen.
 Anschließend spezifizieren wir in Abschnitt~\ref{sec:oracle-notation} noch einige spezielle Notationen, die wir zur Orakelkonstruktion benötigen.
 Aufbauend auf der obigen Skizzze können wir dann in Abschnitt~\ref{sec:oracle-definition} die konkrete Konstruktionsvorschrift des Orakels formulieren.
 In Abschnitt~\ref{sec:oracle-correctness} wird abschließend nachgewiesen, dass diese Konstruktionsvorschrift zum einen wohldefiniert ist, und zum anderen dass sich hieraus die gewünschten Eigenschaften wie in Satz~\ref{thm:myoracle} ergeben.
@@ -109,7 +109,7 @@ Zunächst seien $\{M_i\}_{i\in \mathbb N}$, $\{N_i\}_{i\in \mathbb N}$, $\{F_i\}
 Solche Standardaufzählungen existieren. Eine Möglichkeit, diese zu konstruieren ist beispielsweise, jede nichtdeterministische TM mit einem Timer auszustatten, die nach polynomieller Laufzeit die Berechnung abbricht. Konkret: gegeben $i$, sei zunächst $N$ die nichtdeterministische TM mit Codierung $i$. Die TM $N_i$ führt dann auf Eingabe $x$ parallel zur Rechnung $N(x)$ auf jedem Rechenweg einen Timer aus, der nach $>|x|^i+i$ Schritten den Rechenweg ablehnend abbricht.
 Damit ist die Laufzeit von $N_i$ polynomiell beschränkt auf $p_i$.
 
-Wie bereits angesprochen werden wir ein Konstruktionsverfahren von \citeauthor{dose_np-completeness_2019} anwenden. Die erste wesentliche Zutat dieses Framekworks ist der Begriff von „partiell definierten“ Orakeln, bei denen also für gewisse $x$ noch nicht endgültig festgelegt ist, ob $x\in O$ oder $x\not\in O$ gelten soll.
+Wie bereits angesprochen, werden wir ein Konstruktionsverfahren von \citeauthor{dose_np-completeness_2019} anwenden. Die erste wesentliche Zutat dieses Framekworks ist der Begriff von „partiell definierten“ Orakeln, bei denen also für gewisse $x$ noch nicht endgültig festgelegt ist, ob $x\in O$ oder $x\not\in O$ gelten soll.
 Diese werden mittels finiten Wörtern $w\in\Sigma^*$ formalisiert:
 ein finites Wort $w\in\Sigma^*$ können wir im Folgenden auch als die Menge $\{ i \mid i<|w|, w[i] = 1 \}$ verstehen (aber $|w|$ immer als die Länge von $w$).
 Die intendierte Interpretation ist, dass gegenüber der \emph{Menge} $w$ die Zugehörigkeit aller Zahlen (bzw. äquivalent Wörtern) $x$ mit $x<|w|$ final speizifiziert ist, nicht dagegen für $x\geq|w|$ (und nur ersatzweise $x\not\in w$ gilt).
@@ -585,7 +585,7 @@ Wir starten mit einer Beobachtung über den groben Aufbau von $E$, der sich sofo
 \begin{claim}\label{claim:myoracle-completness}
     \begin{enumerate}
         \item Kein Paar aus $\DisjNP^E$ ist $\leqmpp$-hart für $\DisjUP^E$.
-        \item Keine Menge aus $\UP^E$ ist $\leqmp$-vollständig.
+        \item Keine Menge aus $\UP^E$ ist $\leqmp$-vollständig für $\UP^E$.
     \end{enumerate}
 \end{claim}
 \begin{proof}
@@ -751,7 +751,7 @@ und sei $\mathrm{NP}k\mathrm{V}$diejenige Teilmenge der Multifunktionen $f\in\NP
         \item $\TFNP\subseteq_{\mathrm{c}} \FP$.
         \item Hypothese $\neg\hQ$.
         \item Hypothese $\neg\hQ'$.
-        \item Es existiert eine NP-Relation $R$ mit $\leqmp$-vollständigem $\Proj(R)\in\NP$ und $R$ ist nicht $\leqlp$-vollständig.
+        \item Es existiert eine NP-Relation $R$ mit $\leqmp$-vollständigem $\Proj(R)\in\NP$ und $R$ ist nicht $\leqlp$-vollständig für $\FNP$.
         \item $\NP\cap\coNP$ hat keine $\leqmp$-vollständige Menge.
         \item $\UP$ hat keine $\leqmp$-vollständige Menge.
         \item $\DisjNP$ hat kein $\leqmpp$-vollständiges Paar.
