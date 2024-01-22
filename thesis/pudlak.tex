@@ -923,8 +923,8 @@ Der verbleibende Beweis ist eine Generalisierung von \textcite{dingel_separation
 \end{proof}
 
 \begin{figure*}[p]
-    \includegraphics[page=7]{figures.pdf}
-    \vspace*{-5cm}
+    \hspace*{-.2cm}\includegraphics[page=7]{figures.pdf}
+    \vspace*{-5.8cm}
     \caption[]{
        Bekannte Orakel, welche (relativierende) Implikationen zwischen zwei Hypothesen ausschließen. Ein durchgezogener Pfeil von $\mathsf A$ nach $\mathsf B$ sagt aus, dass $\mathsf A$ die Aussage $\mathsf B$ relativierend impliziert (wie in Abb.~\ref{fig:figure-implications}). Ein durchgestrichener Pfeil von $\mathsf A$ nach $\mathsf B$ sagt aus, dass ein Orakel existiert, relativ zu diesem $\mathsf A\land\neg\mathsf B$ gilt. Das Orakel $O$ an den blauen durchgestrichenen Pfeilen entspricht dem Orakel aus Satz~\ref{thm:myoracle}.\par
     1.~nach \textcite[Thm.~5]{rackoff_relativized_1982}. 
@@ -964,7 +964,7 @@ In diesem Sinne können wir auch allgemein fragen, für welche Paare $\mathsf{A}
 Das sei im Folgenden nun abschließend noch zusammengefasst (vgl. Tabelle~\ref{table:orakel}.
 
 \begin{itemize}[parsep=0pt,listparindent=\parindent,itemsep=5pt plus 1pt minus 1pt,midpenalty=0]
-    \item Unter dem ursprünglichen Hypothesen des Pudlákschen Programms ($\hSAT, \hTAUT, \mathsf{CON^N}$, Vollständigkeit von $\DisjNP, \DisjCoNP, \UP, \NP\cap\coNP, \TFNP, \NPMVt$, Kollaps $\NP=\coNP$, $\NP\cap\coNP=\P$; die zusammengesetzte Hypothese $\hSAT\lor\hTAUT$ wird hier dagegen noch nicht diskutiert) kennen wir für fast alle Paare an Hypothesen eine relativierende Implikation oder ein entsprechendes Orakel, relativ zu diesem die Implikation nicht gilt. Offen bleiben nur diese neun Paare:
+    \item Unter dem ursprünglichen Hypothesen des Pudlákschen Programms ($\hSAT$, $ \hTAUT$, $ \mathsf{CON^N}$, Vollständigkeit von $\DisjNP$, $ \DisjCoNP$, $ \UP$, $ \NP\cap\coNP$, $ \TFNP$, $ \NPMVt$, Kollaps $\NP=\coNP$, $\NP\cap\coNP=\P$; die zusammengesetzte Hypothese $\hSAT\lor\hTAUT$ wird hier dagegen noch nicht diskutiert) kennen wir für fast alle Paare an Hypothesen eine relativierende Implikation oder ein entsprechendes Orakel, relativ zu diesem die Implikation nicht gilt. Offen bleiben nur diese neun Paare:
         \begin{enumerate}[noitemsep,midpenalty=0,label=(\roman*)]
             \item $\hTAUT\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{CON^N}$,
             \item $\hTAUT\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\NP\neq\coNP$,
@@ -978,7 +978,7 @@ Das sei im Folgenden nun abschließend noch zusammengefasst (vgl. Tabelle~\ref{t
         \end{enumerate}
         Ein Orakel für (ii) wäre insbesondere auch ein Orakel für (iii)–(vi); ein Orakel für (vi) oder (vii) wäre insbesondere auch ein Orakel für (viii).
         
-    \item Erweitern wir den Blick um $\hQ$ und verwandte Hypothesen $\hQ'$, „$\NPMVt\not\subseteqc \TFNP$“, so entstehen einige neue Paare $\mathsf{A,B}$, für die unbekannt ist ob ein Orakel diese trennt oder ob ein Beweis einer relativierbare Implikation existiert, z.B. $\hTFNP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\neg\hQ'$. Beachte aber, dass für jedes dieser offenen Paare $\mathsf{A,B}$ (mit $\mathsf A$ oder $\mathsf B$ in $\{\hQ, \hQ', „\NPMVt\not\subseteqc \TFNP“\}$) die Konstruktion eines Orakels $O$ mit $\mathsf{A\land \neg B}$ höchstwahrscheinlich sehr schwierig ist: für jedes offene Paar $\mathsf{A,B}$ lässt sich verifizieren, dass relativ zu einem trennenden Orakel $O$ auch $\hQ'\land \neg \hQ$ gilt. Damit trennt $O$ insbesondere $\hQ$ und $\hQ'$ unter relativierenden Beweisen, und würde eine seit 28 Jahren offene Frage von \citeauthor{fenner_inverting_2003} (\citeyear{fenner_inverting_2003}, vgl. auch \citeyear{fenner_inverting_1996}) beantworten. Das entspricht genau jenen offenen Orakelkonstruktionen, die in Tabelle~\ref{table:orakel} mit \dag{} markiert sind.
+\item Erweitern wir den Blick um $\hQ$ und verwandte Hypothesen $\hQ'$, „$\NPMVt\not\subseteqc \TFNP$“, so entstehen einige neue Paare $\mathsf{A}$, $\mathsf{B}$ von Hypothesen, für die unbekannt ist, ob ein Orakel diese trennt, oder ob ein Beweis einer relativierbare Implikation existiert, z.B. $\hTFNP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\neg\hQ'$. Beachte aber, dass für jedes dieser offenen Paare $\mathsf{A,B}$ (mit $\mathsf A$ oder $\mathsf B$ in $\{\hQ, \hQ', „\NPMVt\not\subseteqc \TFNP“\}$) die Konstruktion eines Orakels $O$ mit $\mathsf{A\land \neg B}$ höch"-st"-wahrscheinlich sehr schwierig ist: für jedes offene Paar $\mathsf{A,B}$ lässt sich verifizieren, dass relativ zu einem trennenden Orakel $O$ auch $\hQ'\land \neg \hQ$ gilt. Damit trennt $O$ insbesondere $\hQ$ und $\hQ'$ unter relativierenden Beweisen, und würde eine seit 28 Jahren offene Frage von \citeauthor{fenner_inverting_2003} (\citeyear{fenner_inverting_2003}, vgl. auch \citeyear{fenner_inverting_1996}) beantworten. Das entspricht genau jenen offenen Orakelkonstruktionen, die in Tabelle~\ref{table:orakel} mit \dag{} markiert sind.
 
     \item Ergänzen wir weiter mit dem Kollaps „$\UP=\P$“ und der $\P$-Separierbarkeit von $\DisjNP$-Paaren entstehen weiter neue offenen Paare $\mathsf{A,B}$ von Hypothesen, unter anderem
         \begin{enumerate}[noitemsep,resume,label=(\roman*)]
@@ -986,7 +986,7 @@ Das sei im Folgenden nun abschließend noch zusammengefasst (vgl. Tabelle~\ref{t
             \item $\mathsf{CON^N}\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}$ „$\DisjNP$ inseparierbar“,
             \item $\UP\neq\P\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow} \hTAUT$
         \end{enumerate}
-        Dies sind die drei „stärksten“ Implikationen bzw. diejenigen Paare an Hypothesen, deren Orakelkonstruktionen gegen diese Implikationen am „schwierigsten“ ist. Gemeint ist, dass sämtliche anderen offenen Paare $\mathsf{A,B}$ mit $\mathsf{A}$ oder $\mathsf{B}$ in $\{„\UP\neq\P“, „\DisjNP\text{ insep.}“\}$ dann auch durch eines dieser Orakel getrennt wird, die (ix), (x), und (xi) trennen.
+        Dies sind die drei „stärksten“ Implikationen bzw. diejenigen Paare an Hypothesen, deren Orakelkonstruktionen gegen diese Implikationen am „schwierigsten“ ist. Gemeint ist, dass sämtliche anderen offenen Paare $\mathsf{A,B}$ von Hypothesen, wobei $\mathsf{A}$ oder $\mathsf{B}$ in $\{„\UP\neq\P“, „\DisjNP\text{ insep.}“\}$, dann auch durch eines dieser Orakel getrennt wird, die (ix), (x), und (xi) trennen.
         %In Abschnitt~\ref{} wird vermutet, dass für die erste offene Implikation (1) ein Orakel gegen diese Implikation existiert.
 
     \item Ergänzen wir nun abschließend mit den hier neu definierten Hypothesen $\mathsf{KvL}$ und $\mathsf{SAT^{eff}}$ entstehen wieder neue Paare $\mathsf{A,B}$ für die offen ist, ob $\mathsf A$ die Hypothese $\mathsf B$ impliziert, oder ob ein Orakel gegen diese Implikation existiert. Das gilt für so gut wie alle möglichen Paare zwischen $\mathsf{KvL}$ bzw. $\mathsf{SAT^{eff}}$ und den übrigen betrachteten Hypothesen. 

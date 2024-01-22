@@ -73,7 +73,7 @@ Im Folgenden werden eine Beispiele von natürlichen NP-Relationen angegeben. Um 
 %\end{gather*}
 \begin{itemize}[midpenalty=0]
 \item $\mathtt{rPERFECTMATCHING} \defeq \{ (G, M) \mid \text{$G$ ist ein Graph, $M$ ein größtes Matching auf $G$} \}$. Das korrespondiert zu Suchproblem (3) aus der Einleitung.
-\item $\mathtt{rSAT} \defeq \{ (\phi, w) \mid \text{$\phi$ ist eine aussagenlogische Formel, $w$ erfüllende Belegung für $\phi$} \}$. Das korrespondiert zu Suchproblem (7) aus der Einleitung.
+\item $\mathtt{rSAT} \defeq \{ (\phi, w) \mid $ $\phi$ ist eine aussagenlogische Formel, $w$ erfüllende Belegung für $\phi$ $\}$. Das korrespondiert zu Suchproblem (7) aus der Einleitung.
 \item $\mathtt{rVC} \defeq \{ ((G, k), C) \mid \text{$G$ ist ein Graph, $C$ eine Knotenüberdeckung, und $|C|\leq k$} \}$.
 \item $\mathtt{rHAMCYCLE} \defeq \{ (G, P) \mid G$ ist ein Graph, $P$ ein Zyklus der jeden Knoten genau einmal berührt $\}$.
 \item $\mathtt{rANOTHERHAMCYCLE} \defeq \{ ((G, P), P') \mid $ $G$ ist ein Graph, $P, P'$ je ein Zyklus der jeden Knoten genau einmal berührt, $P\neq P' \}$.
@@ -355,7 +355,7 @@ Sie zeigen die Selbstreduzierbarkeit nach unten für folgendes TFNP-Problem „I
             (D.h. gesucht ist ein Knoten $S(v)$ welcher höheres Gewicht als sein Nachfolger hat. Dieser existiert immer, denn es existieren nur endlich viele Knoten, bzw. ist Gewicht nach oben beschränkt.)
     \end{description}
 \end{quote}
-Die Selbstreduktion macht dabei nur Orakelfragen mit kleineren Schaltkreisen $S'\colon\Sigma^{n-1}\to\Sigma^{n-1}$ (die auch eine kürzere Repräsentation haben) und Startknoten $\Sigma^{n-1}$.
+Die Selbstreduktion macht dabei nur Orakelfragen mit kleineren Schaltkreisen $S'\colon\allowbreak\Sigma^{n-1}\to\Sigma^{n-1}$ (die auch eine kürzere Repräsentation haben) und Startknoten $\Sigma^{n-1}$.
 
 Für natürliche  TFNP-Probleme ist offen, welche davon nach unten selbstreduzierbar sind. 
 \citeauthor{harsha_downward_2023} fragen explizit danach, ob z.B. die Suche nach einem maximalen Schnitt in der Flip-Umgebung auch nach unten abgeschlossen ist.
@@ -445,7 +445,7 @@ Genau so wie bei der Many-one-Reduktion auf den Suchproblemen können wir nach g
 Wie schon bei $\leqmp$-Reduktionen geschehen, lassen wir die Angabe der Klasse $\mathcal F$ gelegentlich auch weg, wenn $\mathcal F$ klar aus dem Kontext hervorgeht.
 
 Es existiert eine $\leqlp$-vollständige NP-Relation für $\FNP$. Diese ist im Wesentlichen die natürliche Erweiterung der kanonischen $\leqmp$-vollständigen Menge $\mathtt{KAN}$:
-\[ \mathtt{rKAN} \defeq \{ ((N,x,1^n), \alpha) \mid \text{$N$ ist NPTM, $\alpha$ ist ein akz. Rechenweg auf $N(x)$ mit $\leq n$ Schritten} \}. \]
+\[ \begin{split} \mathtt{rKAN} \defeq \{ ((N,x,1^n), \alpha) \mid\, &\text{$N$ ist NPTM,}\\ &\text{$\alpha$ ist ein akz. Rechenweg auf $N(x)$ mit $\leq n$ Schritten} \}.\end{split} \]
 Beachte dass $\Proj(\mathtt{rKAN})=\mathtt{KAN}$.
 \begin{theorem}
     Die kanonische NP-Relation $\mathtt{rKAN}$ 
@@ -713,12 +713,12 @@ Abschließend können universelle NP-Relationen als vollständige Relationen bez
     Sei $R$ eine strenge NP-Relation.
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
-        \item $R$ ist eine universelle Relation, i.e.  hat einen \emph{building block}, ist \emph{joinable} und ist \emph{couplable}.
+        \item $R$ ist eine universelle Relation (hat also einen \emph{building block}, ist \emph{joinable} und ist \emph{couplable}).
         \item Jede NP-Relation $Q$ lässt sich mittels einer projektiven Levin-Reduktion auf $R$ reduzieren.
     \end{enumerate}
     Diese Äquivalenz gilt nur im unrelativierten Fall.
 \end{theorem}
-\textcite{agrawal_universal_1992} haben explizit verifiziert, dass auch $\mathtt{r3CNFSAT}$, $\mathtt{rHAMCYCLE}$, $\mathtt{rINDSET}$, $\mathtt{rKNAPSACK}$ und eine Variante $\mathtt{rMAXCUT}'$ vom maximalen Schnitt (wird später def-\linebreak{}iniert) alle universell sind.
+\textcite{agrawal_universal_1992} haben explizit verifiziert, dass auch $\mathtt{r3CNFSAT}$, $\mathtt{rHAMCYCLE}$, $\mathtt{rINDSET}$, $\mathtt{rKNAPSACK}$ und eine Variante $\mathtt{rMAXCUT}'$ vom maximalen Schnitt (wird später definiert) alle universell sind.
 
 Da aus projektiver Levin-Reduktion auch Levin-Reduktion folgt, sehen wir dass Universalität eine Verstärkung von $\leqlp$-Vollständigkeit ist.
 \begin{corollary}
@@ -790,7 +790,7 @@ Damit erhalten wir den Widerspruch. Auf ähnliche Weise lässt sich zeigen, dass
 
 An dieser Stelle muss aber kritisch hervorgehoben werden, dass dieses Gegenbeispiel auf einem kontingenten „Hütchenspielertrick“ aufbaut: Die Schnitte $w$ und $\overline{w}$ werden als unterschiedliche Zertifikate gehandhabt, \emph{repräsentieren} doch aber die \emph{identische} Partitionierung des Graphen.
 Das Problem löst sich auf, wenn anstelle der naiven Formulierung von $\mathtt{rMAXCUT}$ folgende Verfeinerung gewählt wird:
-\[ \begin{split} \mathtt{rMAXCUT'} \defeq \{ ((G, r), w) \mid {}&\text{$G$ ist Graph mit Knotenmenge $\{0,1,\dots,n-1\}$,} \\ &\text{und $w\in\Sigma^n$ ist ein Schnitt mit Gewicht $\geq r$, und startet mit $0$.} \}.\end{split} \]
+\[ \begin{split} \mathtt{rMAXCUT'} \defeq \{ ((G, r), w) \mid {}&\text{$G$ ist Graph mit Knotenmenge $\{0,1,\dots,n-1\}$,} \\ &\text{$w\in\Sigma^n$ ist ein Schnitt mit Gewicht $\geq r$, und startet mit $0$.} \}.\end{split} \]
 In anderen Worten, ein Schnitt für eine $\mathtt{rMAXCUT'}$-Instanz hat immer den Knoten $0\in V_0$.
 Dann ist auch möglich, eine sparsame Reduktion von $\mathtt{rSAT}$ auf $\mathtt{rMAXCUT'}$ anzugeben, und auch möglich zu zeigen, dass $\mathtt{rMAXCUT'}$ universell ist.
 
@@ -895,7 +895,7 @@ Je ein Argument spricht für bzw. gegen eine positive Beantwortung von Frage~\re
 Einerseits das oben schon skizzierte Argument, dass sich Färbbarkeiten offenbar nicht gut mit der projektiven Levin-Reduzierbarkeit verträgt.  Es sei darauf hingewiesen, dass \textcite{agrawal_universal_1992} in ihrer Arbeit zwar exemplarisch die Universalität vieler Suchprobleme aus verschiedensten kombinatorischen Bereichen gezeigt haben, Färbungsprobleme wurden hierbei aber nicht betrachtet. 
 Auch offen ist, inwiefern sich Universalität generalisieren lässt, indem das projektive „Auslesen“ von Werten aus den Zertifikaten abgeschwächt wird, z.B. über eine Art polynomialzeit-berechenbares Schema.
 
-Andererseits ist es für Färbungsprobleme nicht \emph{prinzipiell} unmöglich, Universalität zu zeigen. Beispielsweise ist das Problem $\mathtt{r3COL}$ der 3-Färbbarkeit eines Graphen durchaus als universelle NP-Relation darstellbar, wenn wieder (wie schon bei $\mathtt{rMAXCUT}'$ oder \texttt{r4CHROM"-IN"-DEX}) nach der unter Permutationen der Farben lexikographisch kleinsten Färbung (sor-\linebreak{}tiert anhand der Knoten) gesucht wird.
+Andererseits ist es für Färbungsprobleme nicht \emph{prinzipiell} unmöglich, Universalität zu zeigen. Beispielsweise ist das Problem $\mathtt{r3COL}$ der 3-Färbbarkeit eines Graphen durchaus als universelle NP-Relation darstellbar, wenn wieder (wie schon bei $\mathtt{rMAXCUT}'$ oder \texttt{r4CHROM"-IN"-DEX}) nach der unter Permutationen der Farben lexikographisch kleinsten Färbung (sortiert anhand der Knoten) gesucht wird.
 Ein Lehrbuch-Beweis der $\leqmp$-Vollständigkeit von $\mathtt{3COL}$ über $\mathtt{3CNFSAT}\leqmp\mathtt{3COL}$ startet üblicherweise mit einem „Palette“-Gadget aus drei Knoten $v_{\text{false}}$, $ v_{\text{true}}$, $ v_{\text{base}}$, vgl. Abbildung~\ref{fig:3col}. In einer gültigen Färbung entspricht die Farbe von $v_{\text{true}}$ dann der Farbe „wahr“. Nummeriert man in einer $\mathtt{3COL}$-Instanz $G_\phi$ für $\mathtt{3CNFSAT}$-Instanz $\phi$ die Knoten  so  um, dass $v_{\text{false}}$, $ v_{\text{true}}$, $ v_{\text{base}}$ die ersten Knoten von $G_\phi$ sind, dann hat immer $v_{\text{false}}$ die Farbe $1$ und $v_{\text{true}}$ die Farbe $2$ (ansonsten existiert eine Permutation der Farben sodass die Färbung lexikographisch kleiner ist.)
 Eine projektive Levin-Reduktion kann also nun in einem Bit auslesen ob beliebiger Knoten $v$ die Farbe „wahr“ hat, denn diese ist immer $2$.
 Eine entsprechende Codierung des Zertifikats wäre z.B. von der Form $h(c_1)h(c_2)\cdots$ wobei $c_i\in\{1,2,3\}$ die Farbe des $i$-ten Knotens ist, und $h$ eine one-hot-Codierung umsetzt, d.h. $h(1)=100$, $h(2)=010$, $h(3)=001$. Es lässt sich dann leicht eine projektive Levin-Reduktion von $\mathtt{r3CNFSAT}$ auf $\mathtt{3COL}$ angeben, und nach Satz~\ref{thm:universal-relations} universell.

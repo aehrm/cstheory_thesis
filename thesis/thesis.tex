@@ -3,7 +3,7 @@
 \booktrue
 \ifbook
 \documentclass[11pt,a4paper,twoside,openright]{report}
-\usepackage[bottom=4.2cm,top=2.8cm,headsep=1.5cm,foot=.8cm,inner=1.5cm,outer=5.0cm,marginparwidth=3.8cm,a4paper]{geometry}
+\usepackage[bottom=4.2cm,top=2.8cm,headsep=1.5cm,foot=.8cm,inner=1.4cm,outer=5.5cm,marginparwidth=4.4cm,a4paper]{geometry}
 \else
 \documentclass[a4paper]{report}
 \usepackage[bottom=3cm,top=2cm,foot=.8cm,left=1.5cm,right=4cm,a4paper]{geometry}
@@ -146,13 +146,13 @@
 \AtBeginDocument{\setcounter{tocdepth}{1}}
 
 \newpagestyle{main}{
-\sethead[\hspace*{-4.0cm}\sffamily\thepage\quad\chaptertitle][][] % even
-{}{}{\sffamily\sectiontitle\quad\thepage\hspace*{-4.0cm}}} % odd
+\sethead[\hspace*{-4.5cm}\sffamily\thepage\quad\chaptertitle][][] % even
+{}{}{\sffamily\sectiontitle\quad\thepage\hspace*{-4.5cm}}} % odd
 \pagestyle{main}
 
 \newpagestyle{numbers}{
-\sethead[\hspace*{-4.0cm}\sffamily\thepage][][] % even
-{}{}{\sffamily\thepage\hspace*{-4.0cm}}} % odd
+\sethead[\hspace*{-4.5cm}\sffamily\thepage][][] % even
+{}{}{\sffamily\thepage\hspace*{-4.5cm}}} % odd
 
 \else
 

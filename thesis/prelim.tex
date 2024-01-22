@@ -22,7 +22,7 @@ Für zwei Mengen $A, B\subseteq\Sigma^*$ bezeichnet der \emph{Join} $A\oplus B$ 
 \subsection*{Relationen und Funktionen}
 
 Zweistellige bzw. binäre Relationen $R\subseteq A\times B$ können wir mit den üblichen Eigenschaften beschreiben: die Relation $R$ ist
-\begin{itemize}
+\begin{itemize}[midpenalty=0]
     \item \emph{(links-)total} wenn jedes Element aus $A$ mit mindestens einem Element aus $B$ reliert,
     \item \emph{rechtstotal} bzw. \emph{surjektiv} wenn jedes Element aus $B$ mit mindestens einem Element aus $A$ reliert,
     \item \emph{linkseindeutig} bzw. \emph{injektiv} wenn jedes Element aus $B$ mit höchstens einem Element aus $A$ reliert,
@@ -114,7 +114,7 @@ Eine PTM bzw. NPTM $M$ nennen wir \emph{total} falls $L(M)=\Sigma^*$, heißt $M(
 \section{Komplexitätsklassen}\label{sec:prelim-klassen}
 
 Auf Basis der Turing-Maschinen als Berechnungsmodell können die üblichen Komplexitätsklassen der Entscheidungsprobleme bzw. Sprachen $\P, \NP, \coNP$ usw. definiert werden:
-\bgroup\setlength{\mathindent}{5pt}
+\bgroup\setlength{\mathindent}{0pt}
 \begin{align*}
     \P &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. PTM $M$ mit $L=L(M)$} \},\\
     \NP &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. NPTM $M$ mit $L=L(M)$} \},\\

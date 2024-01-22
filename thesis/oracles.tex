@@ -267,7 +267,7 @@ Nun zur Definition von $w_s, t_s$: wir werden die einzelnen Stufen induktiv defi
 Für unsere induktive Klausel sei $s>0$. Die Definition für $w_s, t_s$ ergibt sich nun aus der bereits definierten Funktion $t_{s-1}\in\mathcal T$, und dem bereits definierten $t_{s-1}$-gültigen Orakel $w_{s-1}$, sowie dem zu bearbeitenden kleinsten verbleibenden Task $\tau$ in $T$.
 Zur Erinnerung: dieser wird unmittelbar nach der Bearbeitung aus $T$ entfernt. In der Bearbeitung wird das Orakel strikt verlängert.
 Es gibt nun fünf Fälle, je nach dem welche Form der bearbeitete Task $\tau$ hat.
-\begin{description}
+\begin{description}[leftmargin=\parindent]
     \item[Task $\tau^1_j$:] Setze $t'\defeq t_{s-1}\cup\{\tau^1_j\mapsto 0\}$. Existiert ein $t'$-gültiges Orakel $v\sqsupsetneq w_{s-1}$, dann setze $t_s\defeq t'$ und $w_s\defeq v$.
 
         Ansonsten setze $t_s\defeq t_{s-1}$ und setze $w_s\defeq w_{s-1}y$ für geeignetes $y\in\{0,1\}$ sodass $w_s$ auch $t_s$-gültig ist. Das ist möglich nach Behauptung~\ref{claim:myoracle-up-extension}.
