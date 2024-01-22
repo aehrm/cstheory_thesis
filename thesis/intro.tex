@@ -2,39 +2,31 @@
 \chapter{Einleitung}
 
 Diese Arbeit beschäftigt sich mit algorithmischen Suchproblemen. 
-Hierbei ist eine Eingabeinstanz gegeben für welche eine entsprechende Lösung gesucht wird.
+Hierbei ist eine Eingabeinstanz gegeben, für welche eine entsprechende Lösung gesucht wird.
 Beispiele für solche Suchprobleme sind:
 \begin{enumerate}[label=\arabic*.,beginpenalty=0,midpenalty=0]
     \item Gegeben eine positive Zahl $n$, berechne die Primfaktorzerlegung von $n$.
-    \item Sei $G$ eine kontextfreie Grammatik. Gegeben ein Wort $w$, berechne einen Ableitungsbaum von $w$ über $G$ an, oder gebe sonst „$w$ nicht von $G$ generiert“ aus.
+    \item Sei $G$ eine kontextfreie Grammatik. Gegeben ein Wort $w$, berechne einen Ableitungsbaum von $w$ über $G$, oder gebe sonst „$w$ nicht von $G$ generiert“ aus.
     \item Gegeben ein Graph, berechne das größte Matching in diesem Graphen.
     \item Gegeben ein Graph, berechne eine Knotenfärbung mit drei Farben, oder gebe sonst „nicht färbbar mit drei Farben“ aus.
     \item Gegeben ein Graph, berechne eine größte Clique in diesem Graphen.
     \item Gegeben ein Graph und eine positive Zahl $k$, berechne eine Clique mit $\geq k$ Knoten in diesem Graphen, oder gebe sonst „keine Clique mit $k$ Knoten möglich“ aus.
     \item Gegeben eine aussagenlogische Formel $\phi$, bestimme eine erfüllende Belegung für $\phi$, oder gebe sonst „unerfüllbar“ aus.
     \item Gegeben eine aussagenlogische Formel $\phi$, bestimme einen Beweis (unter einem geeigneten Beweissystem, z.B. Resolution) für die Gültigkeit von $\phi$, oder gebe sonst eine Belegung an, welche $\phi$ nicht erfüllt.
-    \item Gegeben eine prädikatenlogischen Satz $\phi$ in der Sprache der Arithmetik\footnote{Gemeint ist die prädikatenlogische Sprache mit einer Konstante $0$, einer unären Nachfolgerfunktion, je binären Funktionen $+$, $\times$, und binärer Relation $\leq$.}, bestimme einen Beweis (unter einem geeigneten vollständigem Kalkül, z.B. Sequenzenkalkül) für die Gültigkeit von $\phi$ ($\phi$ ist wahr in jeder Struktur), oder gebe sonst „$\phi$ ungültig“ aus.
+    \item Gegeben einen prädikatenlogischen Satz $\phi$ in der Sprache der Arithmetik\footnote{Gemeint ist die prädikatenlogische Sprache mit einer Konstante $0$, einer unären Nachfolgerfunktion, je binären Funktionen $+$, $\times$, und binärer Relation $\leq$.}, bestimme einen Beweis (unter einem geeigneten vollständigem Kalkül, z.B. Sequenzenkalkül) für die Gültigkeit von $\phi$ ($\phi$ ist wahr in jeder Struktur), oder gebe sonst „$\phi$ ungültig“ aus.
 \end{enumerate}
 Innerhalb des Forschungsbereichs der theoretischen Informatik beschäftigt sich die Berechenbarkeitstheorie mit der Frage, welche dieser Aufgaben überhaupt algorithmisch berechenbar sind. Das Beispiel (9) ist z.B. überhaupt nicht berechenbar, in dem Sinn dass kein Algorithmus existiert, welcher für jeden Satz $\phi$ nach endlicher Zeit mit der korrekten Lösung antwortet.
 Alle anderen Probleme (1)–(8) sind im Prinzip algorithmisch lösbar, indem alle möglichen Lösungsmöglichkeiten durchsucht werden.
 
-Der Unterbereich der algorithmischen Komplexitätstheorie ist weniger an den prinzipiellen Grenzen von Berechenbarkeit interessiert, sondern fokussiert sich unter den berechenbaren Aufgaben damit, welche Ressourcen (Rechenzeit, Speicherplatz, zugeführte Zufälligkeit) hierfür notwendig sind. Die Komplexitätstheorie interessiert sich also, welche dieser Aufgaben effizient durchgeführt werden können, und somit als umsetzbar für Computer angesehen werden können. 
+Der Unterbereich der algorithmischen Komplexitätstheorie ist weniger an den prinzipiellen Grenzen von Berechenbarkeit interessiert, sondern fokussiert sich unter den berechenbaren Aufgaben damit, welche Ressourcen (Rechenzeit, Speicherplatz, zugeführte Zufälligkeit) hierfür notwendig sind. Die Komplexitätstheorie interessiert sich also dafür, welche dieser Aufgaben effizient durchgeführt werden können, und somit als umsetzbar für Computer angesehen werden. 
 
-In der Disziplin hat sich für „Effizienz“ bzw. „Umsetzbarkeit“ insbesondere folgender Konsens durchgesetzt: ein Algorithmus ist „effizient“ wenn die Laufzeit des Algorithmus polynomiell mit der Eingabegröße wächst. In anderen Worten: wird die Eingabe, z.B. der Graph bei Beispiel (3), doppelt so groß, dann braucht dieser effiziente Algorithmus $c$-mal so lange.
+In der Disziplin hat sich für „Effizienz“ bzw. „Umsetzbarkeit“ insbesondere folgender Konsens durchgesetzt: ein Algorithmus ist „effizient“ wenn die Laufzeit des Algorithmus polynomiell mit der Eingabegröße wächst. Mit anderen Worten: wird die Eingabe, z.B. der Graph bei Beispiel (3), doppelt so groß, dann braucht dieser Algorithmus $c$-mal so lange. % TODO $c$-mal richtig klammern
 
 \pagebreak
 Unter den oben genannten Suchproblemen ist ein solcher Algorithmus mit polynomieller Laufzeit nur für Probleme (2) und (3) bekannt.
 Für die Suchprobleme (1), (4), (5), (6), (7), (8) lässt sich aber ein trivialer Suchalgorithmus mit exponentieller Laufzeit angeben. Für Suchproblem (4) bedeutet das z.B., alle möglichen exponentiell vielen Zuweisungen von Farben auszuprobieren.
 
-%\begin{figure}
-    %\centering
-    %\includegraphics[width=0.5\textwidth]{meme.jpg}
-%\caption{}\label{fig:meme}
-%\end{figure}
-
-%Obwohl die effiziente Berechnung von den obigen \emph{Such}problemen auch von praktischer Relevanz ist, hat sich 
 In der Komplexitätstheorie wurden solche \emph{Such}"-probleme wie (1)–(8) sehr früh in den Hintergrund verschoben, und stattdessen wurden die korrespondierenden \emph{Entscheidungs}"-probleme in den Blick genommen. 
-%Die gegenwärtige Beschäftigung mit Suchproblemen innerhalb der Komplexitätstheorie lässt sich überspitzt auch visuell wie in Abbildung~\ref{fig:meme} zusammenfassen.
 Anstelle nach einer Lösung zu suchen, wird sich darauf beschränkt zu entscheiden, \emph{ob} eine Lösung existiert. Der Algorithmus muss also nur die Antwort „ja“ oder „nein“ ausgeben. Zugehörige Entscheidungsprobleme zu den oben genannten Suchproblemen wären:
 \begin{enumerate}[beginpenalty=0,midpenalty=0]
     \item[2$'$.] Sei $G$ eine kontextfreie Grammatik. Gegeben ein Wort $w$, entscheide ob $w$ aus $G$ generiert werden kann.
@@ -42,7 +34,7 @@ Anstelle nach einer Lösung zu suchen, wird sich darauf beschränkt zu entscheid
     \item[6$'$.] Gegeben ein Graph und eine positive Zahl $k$, entscheide ob eine Clique mit $\geq k$ Knoten in diesem Graphen existiert.
     \item[7$'$.] Gegeben eine aussagenlogische Formel $\phi$, entscheide ob $\phi$ erfüllbar ist.
     \item[8$'$.] Gegeben eine aussagenlogische Formel $\phi$, entscheide ob $\phi$ gültig ist.
-    \item[9$'$.] Gegeben eine prädikatenlogischen Satz $\phi$ in der Sprache der Arithmetik, entscheide ob $\phi$ gültig ist.
+    \item[9$'$.] Gegeben einen prädikatenlogischen Satz $\phi$ in der Sprache der Arithmetik, entscheide ob $\phi$ gültig ist.
     \item[10$'$.] Gegeben eine Turing-Maschine $M$ und eine Eingabe $x$, entscheide ob $M$ auf Eingabe $x$ nach endlich vielen Rechenschritten terminiert.
 \end{enumerate}
 Beachte dass zu Suchproblemen (1), (3) und (5) keine unmittelbare Variante als Entscheidungsproblem existiert: es existiert immer eine Primfaktorzerlegung von $n$, analog existiert immer ein größtes Matching bzw. eine größte Clique in einem Graphen.
@@ -55,15 +47,14 @@ Das Argument lässt sich auch auf die potentiell effizient lösbaren Entscheidun
 
 \pagebreak[3]
 Für die Fokussierung auf Entscheidungsprobleme innerhalb der der Komplexitätstheorie gibt es zweitens auch fachgeschichtliche Gründe: zunächst war die Trennung \emph{Entscheidungsproblem vs. Suchproblem} innerhalb der Berechenbarkeitstheorie meist nicht strikt notwendig, da „Berechenbarkeit“ zwischen den beiden Varianten meist äquivalent war. So ist die Berechenbarkeit des Hilbertschen Entscheidungsproblems (9$'$) tatsächlich sogar äquivalent zur Berechenbarkeit des Suchproblems (9). (Falls der Entscheidungsalgorithmus „$\phi$ ist gültig“ ausgibt, dann enumeriere so lange alle Sequenzbeweise, bis einer $\phi$ beweist. Das terminiert nach Vollständigkeit des Sequenzkalüls.)
-Dann stand die Komplexitätstheorie der späten 1950er nah an der Automatentheorie und der Theorie der formalen Sprachen, als da diese einen ersten Vorschlag zur Unterteilung 
- der berechenbaren Aufgaben in „einfach“ und „schwer“ machten \parencite[vgl.][]{koucky_automata_2023}. Eine zentrale Unterteilung in „Schwierigkeit“ bzw. Komplexität war z.B. die Hierarchie der formalen Sprachen von Chomsky (die Regulären als sehr einfach, die Kontextfreien als etwas komplexer, die Kontextsensitiven als noch komplexer). %, sich der „Polyomialzeit-Konsens“ herausgearbeitet hat.
+Dann stand die Komplexitätstheorie der späten 1950er nah an der Automatentheorie und der Theorie der formalen Sprachen, als diese einen ersten Vorschlag zur Unterteilung 
+ der berechenbaren Aufgaben in „einfach“ und „schwer“ machten \parencite[vgl.][]{koucky_automata_2023}. Eine zentrale Unterteilung in „Schwierigkeit“ bzw. Komplexität war z.B. die Hierarchie der formalen Sprachen von Chomsky (die Regulären als sehr einfach, die Kontextfreien als etwas komplexer, die Kontextsensitiven als noch komplexer). 
 Die einzig relevanten Suchprobleme – Parsing wie in (2) – haben sich dann aber auch relativ schnell geklärt (z.B. CYK-Parsing für die Kontextfreien), womit die zentralen Untersuchungsfragen wohl eher waren, welche Sprachen durch welche Grammatiken (nicht) generiert werden können, bzw. welche Automaten welche Sprachen (nicht) erkennen können. Dafür ist die Beschränkung auf die Entscheidungsvariante („Generiert die Grammatik $G$ genau die Sprache $L$? Erkennt der Kellerautomat $A$ genau die Sprache $L$?“) ausreichend zur Etablierung unterer Schranken, und ist insbesondere auch dienlich im pragmatischen Sinn. Stellvertretend sei hier \citeauthor{kozen_automata_1997} zitiert: „We do this for mathematical simplicity and because the behavior we want to study is already present at this level“ \parencite*[7]{kozen_automata_1997}.
 
-%In den 1960ern hat sich dann der Resourcenverbrauch von Algorithmen als zentrale Indikator für „Schwierigkeit“ herausgebildet \parencite[vgl.][]{koucky_automata_2023}.
-Dieser Pragmatismus setzt sich in der ressourcenfokussierte Komplexitätstheorie fort, die seit den 1960ern den Ressourcenverbrauch von Algorithmen als zentrale Indikator für „Schwierigkeit“ versteht. Das betrifft insbesondere die Klassen P und NP; hierzu lassen sich die Aufgaben (1)–(8) und (2$'$)–(8$'$) zählen.
+Dieser Pragmatismus setzt sich in der ressourcenfokussierten Komplexitätstheorie fort, die seit den 1960ern den Ressourcenverbrauch von Algorithmen als zentraler Indikator für „Schwierigkeit“ versteht. Das betrifft insbesondere die Klassen P und NP; hierzu lassen sich die Aufgaben (1)–(8) und (2$'$)–(8$'$) zählen.
 Wieder reicht es in den meisten Fällen aus, sich auf die Entscheidungsprobleme zu beschränken.
 Das ist durchaus fundiert:
-Einerseits, weil die zentralen algorithmischen Herausforderungen schon bei der Entscheidungsvariante auftreten („behavior we want to study is already present at this level“). So kann zum Beispiel die P-NP-Frage äquivalent als Frage über Entscheidungsprobleme als auch als Frage über Suchprobleme formuliert werden. Andererseits lässt sich zeigen, dass für viele relevante Aufgaben das Suchproblem nicht schwerer ist als das Entscheidungsproblem (unter polynomieller Unschärfe). Dieses Argument wird üblicherweise als \emph{search reduces to decision} formuliert: gegeben ein effizienter Algorithmus welcher das Entscheidungsproblem löst, kann auch ein effizienter Algorithmus angegeben werden, welcher das Suchproblem löst. Mit diesem Argument kann z.B. die Aussage „Suchproblem (7) ist effizient lösbar“ äquivalent zu „Entscheidungsproblem (7$'$) effizient lösbar“ gesetzt werden. Die Konzentration auf Suchprobleme kommt dann unter anderem auch mit dem Vorteil, dass viele theoretische Konzepte einfacher zu fassen sind und kompakter zu formulieren sind („mathematical simplicity“). Wir können uns zum Beispiel auf (laufzeitbeschränkte) Algorithmen ohne Ausgabe konzentrieren, die Eingaben nur akzeptieren und ablehnen müssen. 
+Einerseits, weil die zentralen algorithmischen Herausforderungen schon bei der Entscheidungsvariante auftreten („behavior we want to study is already present at this level“). So kann zum Beispiel die P-NP-Frage äquivalent als Frage über Entscheidungsprobleme als auch als Frage über Suchprobleme formuliert werden. Andererseits lässt sich zeigen, dass für viele relevante Aufgaben das Suchproblem nicht schwerer ist als das Entscheidungsproblem (unter polynomieller Unschärfe). Dieses Argument wird üblicherweise als \emph{search reduces to decision} formuliert: gegeben ein effizienter Algorithmus welcher das Entscheidungsproblem löst, kann auch ein effizienter Algorithmus angegeben werden, welcher das Suchproblem löst. Mit diesem Argument kann z.B. die Aussage „Suchproblem (7) ist effizient lösbar“ äquivalent zu „Entscheidungsproblem (7$'$) effizient lösbar“ gesetzt werden. Die Konzentration auf Entscheidungsprobleme kommt dann unter anderem auch mit dem Vorteil, dass viele theoretische Konzepte einfacher zu fassen sind und kompakter zu formulieren sind („mathematical simplicity“). Wir können uns zum Beispiel auf (laufzeitbeschränkte) Algorithmen ohne Ausgabe konzentrieren, die Eingaben nur akzeptieren und ablehnen müssen. 
 
 \vspace{0pt plus 2ex}
 \subsection*{NP-Suchprobleme als Forschungsgegenstand}
@@ -125,7 +116,7 @@ Diese Definition erfasst damit genau die oben genannten intuitiven Eigenschaften
 \begin{itemize}[noitemsep]
     \item Die Relation \emph{„$w$ ist ein Beweis für $\phi$“} ist in Polynomialzeit entscheidbar.
     \item Das Beweissystem ist korrekt: $f$ beweist nur Tautologien.
-    \item Das Beweissystem ist vollständig: zu jeder Tautologie $\phi$ existiert ein Beweis $w$, i.e. $f(w)=\phi$.
+    \item Das Beweissystem ist vollständig: zu jeder Tautologie $\phi$ existiert ein Beweis $w$, d.h. $f(w)=\phi$.
 \end{itemize}
 Für das Resolutionskalkül könnte ein solches aussagenlogisches Beweissystem in dieser Form so aufgeschrieben werden:
 \[ h(\phi, w) \defeq \begin{cases} \phi & \text{ $w$ ist Resolutionsbeweis für die Gültigkeit von $\phi$},\\ \bot & \text{sonst}. \end{cases} \]

@@ -172,7 +172,7 @@ Seien $(A,B), (C,D)$ zwei disjunkte NP-Paare (bzw. zwei disjunkte coNP-Paare):
     \item $(A,B)\leqmpp(C,D)$ wenn eine Funktion $f\in\FP$ existiert mit $f(A)\subseteq B$ und $f(B)\subseteq C$.
 \end{itemize}
 
-Jede dieser Ordnungsrelationen ist eine Quasiordnung, i.e. reflexiv und transitiv.
+Jede dieser Ordnungsrelationen ist reflexiv und transitiv, also eine Quasiordnung.
 Beachte, dass (auf Mengen) $\leq_\mathrm{1,i}^\mathrm{p}$ feiner als $\leq_1^\mathrm{p}$ ist, und diese feiner als $\leqmp$, und diese feiner als $\leq_\mathrm{T}^\mathrm p$ ist.
 Beachte auch, dass $\P$ und $\NP$ auf $\leqmp$ (und $\leq_\mathrm T^\mathrm p$) nach unten abgeschlossen sind.
 Ebenso ist die Teilmenge $\FP$ der Multifunktionen auf $\leqmp$ nach unten abgeschlossen, und die $\P$-separierbaren Paare auf $\leqmpp$ nach unten abgeschlossen:
@@ -366,7 +366,7 @@ Die Existenz eines ($\P$-)optimalen Beweissystems für eine Menge $L$ ist eine E
     Hat $A$ ein ($\P$-)optimales Beweissystem und $B\leqmp A$, dann hat auch $B$ ein ($\P$-)optimales Beweissystem.
 \end{lemma}
 \begin{proof}
-    \strut\marginnote{\todo{Skizze}} Sei $f$ die Reduktionsfunktion, die $B\leqmp A$ realisiert, und 
+    Sei $f$ die Reduktionsfunktion, die $B\leqmp A$ realisiert, und 
     sei $h$ ein $\P$-optimales Beweissystem für $A$. Definiere
     \[ h'(x,w) \defeq \begin{cases} x & \text{wenn $h(w)=f(x)$, also $w$ ein $h$-Beweis für $f(x)$ ist},\\ \bot & \text{sonst.} \end{cases} \]
     Es ist leicht zu sehen dass $h'$ ein Beweissystem für $B$ ist.

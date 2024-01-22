@@ -9,6 +9,7 @@ In diesem Kapitel werden wir diese Beziehungen näher erarbeiten. Zur Erinnerung
     Für jede totale NPTM $N$ (d.h. $L(N)=\Sigma^*$) existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ ein akzeptierender Rechenweg von $N(x)$ ist. 
 \end{reptheorem}
 
+
 Im Kapitel werden wir uns grob folgenden drei Desiderata widmen: 
 erstens, nähern wir uns in Abschnitt~\ref{sec:karp-vs-levin} erneut der Frage zwischen Levin- und Karp-Vollständigkeit bzw. der Hypothese $\mathsf{KvL}$ aus vorigem Kapitel. Insbesondere analysieren wir die Beziehungen von $\mathsf{KvL}$ zu $\hQ$ und versuchen, $\mathsf{KvL}$ in das Pudláksche Programm einzuordnen.
 
@@ -25,7 +26,7 @@ Damit einher wird abschließend ein Überblick über Orakel angegeben, welche Hy
 
 
 Für alle dieser drei Desiderata ist es zunächst notwendig, auf die Hypothese $\hQ$ einzugehen.
-\textcite{fenner_inverting_2003} beobachten, dass das Invertieren von surjektiven ehrlichen FP-Funktionen eine erstaunlich robuste Aussage ist, die eine Vielzahl von äquivalenten „fundamentalen“ \parencite{fenner_inverting_2003} Charakterisierungen aus der Komplexitätstheorie zulässt, so zum Beispiel die effiziente Lösbarkeit von TFNP-Suchproblemen, oder das effiziente Ausrechnen akzeptierender Rechenwege einer totalen NPTM. Wir können jetzt schon festhalten, dass die aktuelle Forschung diese Hypothese als sehr stark einschätzt, und eher die negative Beantwortung (i.e. $\neg\hQ$) vermutet.
+\textcite{fenner_inverting_2003} beobachten, dass das Invertieren von surjektiven ehrlichen FP-Funktionen eine erstaunlich robuste Aussage ist, die eine Vielzahl von äquivalenten „fundamentalen“ \parencite{fenner_inverting_2003} Charakterisierungen aus der Komplexitätstheorie zulässt, so zum Beispiel die effiziente Lösbarkeit von TFNP-Suchproblemen, oder das effiziente Ausrechnen akzeptierender Rechenwege einer totalen NPTM. Wir können jetzt schon festhalten, dass die aktuelle Forschung diese Hypothese als sehr stark einschätzt, und eher die negative Beantwortung $\neg\hQ$ vermutet.
 
 
 \begin{theorem}[Äquivalente Formulierungen der Hypothese $\hQ$; \cite{fenner_inverting_2003}]\label{thm:q-orig}
@@ -55,6 +56,12 @@ Für alle dieser drei Desiderata ist es zunächst notwendig, auf die Hypothese $
     \end{enumerate}
     Dieser Satz relativiert nicht.
 \end{restatable}
+
+\begin{figure*}[p]
+    \includegraphics[page=1]{figures.pdf}
+    \caption{Bekannte (relativierenden) Implikationen zwischen den betrachteten Hypothesen und weiteren Aussagen. Satz~\ref{thm:figure-implications} gibt Belegstellen für jede dieser Implikationen an.}\label{fig:figure-implications}
+    \forcerectofloat
+\end{figure*}
 
 In anderen Worten sagt Aussage (2) aus, dass es modulo Umcodieren nur einen einzigen SAT-Solver gibt, und insbesondere alle SAT-Solver äquivalent zum trivialen Solver ist, welcher nur alle möglichen Belegungen ausprobiert.
 Die Aussage (3) macht eine analoge Aussage über Beweissysteme: egal wie komplex ein Beweissystem $h$ für $\mathtt{SAT}$ ist, wir können immer einen $h$-Beweis für $\phi$ in eine erfüllende Belegung für $\phi$ (quasi ein trivialer Beweis für $\phi\in\mathtt{SAT}$) transformieren. Damit ist auch leicht zu sehen, dass $\hQ\Rightarrow \neg\hSAT$, zumindest im unrelativierten Fall.
@@ -87,12 +94,6 @@ Bevor wir nun mit einer Diskussion zwischen Karp-Vollständigkeit und Levin-Voll
     %\[ |w| \leq 2|x|+ 2q(|x|) + 4 \leq q'(|x|) = q'(|\mathit{std}_R(w)|). \]
     %für ein geeignetes Polynom $q'$, wie gewünscht.
 %\end{proof}
-
-\begin{figure*}
-    \includegraphics[page=1]{figures.pdf}
-    \caption{Bekannte (relativierenden) Implikationen zwischen den betrachteten Hypothesen und weiteren Aussagen. Satz~\ref{thm:figure-implications} gibt Belegstellen für jede dieser Implikationen an.}\label{fig:figure-implications}
-    \forcerectofloat
-\end{figure*}
 
 \section{Karp-Vollständigkeit vs. Levin-Vollständigkeit}\label{sec:karp-vs-levin}
 
@@ -434,7 +435,7 @@ Im originalen Beweis wurde erneut eine sekundäre stärkere Eigenschaft von $\ma
     \end{enumerate}
 \end{definition}
 Beachte dass wir im Gegensatz zur Berman–Hartmanis-Paddability keine Invertierbarkeit der Padding-Funktion verlangen.
-Später werden wir sehen, welche NP-Relationen alle diese Eigenschaft der Levin-Paddability erfüllen. Festhalten können wir aber, dass $\mathtt{rSAT}$ Levin-paddable ist. Das ist einfach zu sehen: padde Formeln $\phi$ auf, indem z.B. Disjunktionen neue Variablen hinzugefügt werden, i.e. 
+Später werden wir sehen, welche NP-Relationen alle diese Eigenschaft der Levin-Paddability erfüllen. Festhalten können wir aber, dass $\mathtt{rSAT}$ Levin-paddable ist. Das ist einfach zu sehen: padde Formeln $\phi$ auf, indem z.B. Disjunktionen neue Variablen hinzugefügt werden, also z.B. 
 \[ \phi' = \mathit{pad}(\phi, 1^n) = \phi \lor x_k \lor x_{k+1} \lor \cdots \lor x_{k+n}, \]
 wobei $k$ hinreichend groß sein soll, dass $x_k, x_{k+1}, \dots$ nicht als Variable in $\phi$ vorkommt.
 %Unter jeder vernünftigen Codierung gilt $|\mathit{pad}(x, 1^n)|\geq n$.
@@ -656,7 +657,7 @@ Betrachte nun, analog zur Encrypted Complete Set Conjecture, die NP-Relation
 Es ist leicht zu sehen dass $\mathtt{rSAT}\leqlp Q$ und damit ist $Q$ auch $\leqlp$-vollständig.
 Gleichzeitig kann dann $Q$ nicht Levin-paddable sein.
 Denn angenommen, $Q$ ist Levin-paddable, dann lässt sich $f$ mit einem funktionalen Orakel-Query \emph{zumindest auf den Werten $f(\mathtt{SAT})$} $\P$-invertieren: gegeben $w\in f(\mathtt{SAT})$, berechne erst eine zweite Instanz $w'=\mathit{pad}(w, 1^n)\in\Proj(Q)$ mit hinreichend langem $n$ sodass $w'\neq w$. Frage dann an das Orakel und erhalte $(x',z')\in \fset{}Q(w')$.
-Dann gilt $(x,z) = \mathit{padsol}(w, 1^n, (x',z'))$ mit $f(x)=w$, i.e. $x$ ist das gesuchte Urbild von $w$.
+Dann gilt $(x,z) = \mathit{padsol}(w, 1^n, (x',z'))$ mit $f(x)=w$; damit ist $x$ das gesuchte Urbild von $w$.
 Wir können also auf der Bildmenge  $f(\mathtt{SAT})$ die Einwegfunktion $f$ invertieren.
 Diese Menge ist tatsächlich nicht dünn: unabhängig der gewählten Codierung von $\mathtt{SAT}$ folgt aus der Existenz der Einwegfunktion $f$ schon $\P\neq\NP$, und damit ist insbesondere die $\leqmp$-vollständige Menge $f(\mathtt{SAT})$ eine nicht-dünne Menge nach dem Satz von \textcite{mahaney_sparse_1982}.
 Das widerspräche nun den Eigenschaften von $f$, also ist $Q$ nicht Levin-paddable.
@@ -1014,13 +1015,13 @@ Das sei im Folgenden nun abschließend noch zusammengefasst (vgl. Tabelle~\ref{t
 
 Hiermit wollen wir die Diskussion über die Beziehungen der Hypothesen des erweiterten Pudláksche Programms abschließen. Im folgenden Kapitel werden wir nun noch das angekündigte Orakel $O$ konstruieren.
 
-\begin{table}[!b]\centering\scriptsize
+\begin{table}[!b]\
 \newcommand\rot[1]{\rotatebox{90}{#1\enspace}}
-\setlength{\tabcolsep}{3pt}
-\def\arraystretch{1.2}
+\setlength{\tabcolsep}{3.3pt}
+\def\arraystretch{1.21}
 \begin{tabular}{|r|ccccccccccc|ccc|cc|cc|c|}
 \hline
-Antezedenz $\mathsf A$\quad\llap{\rotatebox{90}{\smash{\strut\quad{}Konsequent} $\mathsf B$}}\strut & \rot{$\hTAUT$} & \rot{$\mathsf{CON^N}$} & \rot{$\hDisjNP$} & \rot{$\hUP$} & \rot{$\hSAT$} & \rot{$\NPMVt$ unvollst.} & \rot{$\hTFNP$} & \rot{$\hDisjCoNP$} & \rot{$\NPcoNP$} & \rot{$\NP\neq\coNP$} & \rot{$\NP\cap\coNP\neq\P$} & \rot{$\neg\hQ$} & \rot{$\neg\hQ'$} & \rot{$\NPMVt\not\subseteq_{\mathrm{t}}\TFNP$} & \rot{$\UP\neq\P$} & \rot{$\DisjNP$ unsep.} & \rot{$\mathsf{KvL}$} & \rot{$\mathsf{SAT^{eff}}$} & \rot{$\hTAUT\lor\hSAT$}\\
+Antezedens $\mathsf A$\quad\llap{\rotatebox{90}{\smash{\strut\quad{}Konsequent} $\mathsf B$}}\strut & \rot{$\hTAUT$} & \rot{$\mathsf{CON^N}$} & \rot{$\hDisjNP$} & \rot{$\hUP$} & \rot{$\hSAT$} & \rot{$\NPMVt$ unvollst.} & \rot{$\hTFNP$} & \rot{$\hDisjCoNP$} & \rot{$\NPcoNP$} & \rot{$\NP\neq\coNP$} & \rot{$\NP\cap\coNP\neq\P$} & \rot{$\neg\hQ$} & \rot{$\neg\hQ'$} & \rot{$\NPMVt\not\subseteq_{\mathrm{t}}\TFNP$} & \rot{$\UP\neq\P$} & \rot{$\DisjNP$ unsep.} & \rot{$\mathsf{KvL}$} & \rot{$\mathsf{SAT^{eff}}$} & \rot{$\hTAUT\lor\hSAT$}\\
  \hline
 $\hTAUT$ &   & \textcolor{red}{\textbf{?}} & 13 & 4 & O & O & O & O & O & \textcolor{red}{\textbf{?}} & O & O & O & O & 4 & 13 & O & O &   \\
 $\mathsf{CON^N}$ &   &   & 13 & 4 & O & O & O & O & O &   & O & O & O & O & 4 & \textbf{\itshape 13} & O & O &   \\
@@ -1047,13 +1048,14 @@ $\mathsf{SAT^{eff}}$ & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}}
 $\hTAUT\lor\hSAT$ & 6 & 6 & 6 & 4 & O & O & O & O & O & 12 & O & O & O & O & 4 & 13 & O & O &   \\
  \hline
 \end{tabular}
-\caption[]{Überblick über Orakel, welche Implikationen $\mathsf{A\Rightarrow B}$ zwischen den betrachteten Hypothesen unter relativierbaren Beweisen trennen, in dem Sinn dass ein Orakel existiert relativ zu diesem $\mathsf{A\land\neg B}$ gilt. Jede Zelle entspricht hierbei einer solchen Implikation. Die Hypothese $\mathsf A$ links ist hierbei der Antezedenz, die Hypothese $\mathsf B$ oben der Konsequent.\par
+\caption[]{Überblick über Orakel, welche Implikationen $\mathsf{A\Rightarrow B}$ zwischen den betrachteten Hypothesen unter relativierbaren Beweisen trennen, in dem Sinn dass ein Orakel existiert relativ zu diesem $\mathsf{A\land\neg B}$ gilt. Jede Zelle entspricht hierbei einer solchen Implikation. Die Hypothese $\mathsf A$ links ist hierbei der Antezedens, die Hypothese $\mathsf B$ oben der Konsequent.\par
     Leere Zellen bedeuten, dass kein Orakel mit $\mathsf{A\land\neg B}$ existiert, denn es existiert nein relativierender Beweis für $\mathsf{A \Rightarrow B}$.\par
 Eine Zahl (bzw. $O$) in der Zelle bedeutet, dass relativ zu einem Orakel $\mathsf{A\land\neg B}$ gilt, also ein Orakel gegen die Implikation $\mathsf{A\Rightarrow B}$.
 Die Zahl  gibt hierbei an, um welches Orakel es sich aus Abb.~\ref{fig:oracles} handelt, das Label $O$, dass es sich um das konstruierte Orakel aus Kapitel~\ref{chap:orakel} handelt.
 Ist die Zahl (bzw. $O$) fett gedruckt, dann entspricht das Orakel genau dem Eingezeichneten, ansonsten folgt die behauptete Eigenschaft aus relativierbaren Implikationen zwischen den Hypothesen.\par
 Ein rotes ? bedeutet, dass unbekannt ist, ob ein solches Orakel existiert.\par
 Ein rotes \dag{} bedeutet, dass auch unbekannt ist, ob ein solches Orakel $D$ existiert. Hierbei ist aber die Konstruktion besonders schwierig: wenn nämlich ein solches Orakel existiert, also $\mathsf{A\land\neg B}$ relativ zu $D$ gilt, dann muss auch $\hQ'\land\neg\hQ$ relativ zu $D$ gelten.}\label{table:orakel}
-\setfloatalignment{b}
+%\setfloatalignment{b}
+\vspace*{1.5cm}
 \end{table}
 
