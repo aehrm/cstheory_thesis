@@ -3,8 +3,8 @@
 \booktrue
 \ifbook
 \documentclass[11pt,a4paper,twoside,openright]{report}
-\usepackage[bottom=4cm,top=3cm,foot=.8cm,inner=1.7cm,outer=4.8cm,a4paper]{geometry}
-\setlength{\marginparwidth}{4.1cm}
+\usepackage[bottom=4.2cm,top=2.8cm,headsep=1.5cm,foot=.8cm,inner=1.5cm,outer=5.0cm,a4paper]{geometry}
+\setlength{\marginparwidth}{3.8cm}
 \else
 \documentclass[a4paper]{report}
 \usepackage[bottom=3cm,top=2cm,foot=.8cm,left=1.5cm,right=4cm,a4paper]{geometry}
@@ -147,13 +147,13 @@
 \AtBeginDocument{\setcounter{tocdepth}{1}}
 
 \newpagestyle{main}{
-\sethead[\hspace*{-4.9cm}\sffamily\thepage\quad\chaptertitle][][] % even
-{}{}{\sffamily\sectiontitle\quad\thepage\hspace*{-4.9cm}}} % odd
+\sethead[\hspace*{-4.0cm}\sffamily\thepage\quad\chaptertitle][][] % even
+{}{}{\sffamily\sectiontitle\quad\thepage\hspace*{-4.0cm}}} % odd
 \pagestyle{main}
 
 \newpagestyle{numbers}{
-\sethead[\hspace*{-4.9cm}\sffamily\thepage][][] % even
-{}{}{\sffamily\thepage\hspace*{-4.9cm}}} % odd
+\sethead[\hspace*{-4.0cm}\sffamily\thepage][][] % even
+{}{}{\sffamily\thepage\hspace*{-4.0cm}}} % odd
 
 \else
 
@@ -229,7 +229,7 @@
 
 
 
-\setlist[enumerate]{label=(\arabic*), itemsep=0pt plus 3pt, topsep=5pt plus 4pt minus 1pt}
+\setlist[enumerate]{label=(\arabic*), itemsep=0pt plus 1pt minus 3pt, topsep=5pt plus 4pt minus 1pt}
 \setlist[enumerate,2]{label=(\arabic{enumi}.\arabic*), itemsep=0pt}
 \setlist[itemize]{itemsep=0pt plus 3pt, topsep=7pt plus 4pt minus 1pt}
 \setlist{beginpenalty=10000, midpenalty=10000}
