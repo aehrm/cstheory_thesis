@@ -2,9 +2,9 @@
 \newif\ifbook
 \booktrue
 \ifbook
-\documentclass[10pt,a4paper,twoside,openright]{report}
-\usepackage[bottom=4cm,top=3cm,foot=.8cm,inner=1.5cm,outer=6cm,a4paper]{geometry}
-\setlength{\marginparwidth}{4.5cm}
+\documentclass[11pt,a4paper,twoside,openright]{report}
+\usepackage[bottom=4cm,top=3cm,foot=.8cm,inner=1.7cm,outer=4.8cm,a4paper]{geometry}
+\setlength{\marginparwidth}{4.1cm}
 \else
 \documentclass[a4paper]{report}
 \usepackage[bottom=3cm,top=2cm,foot=.8cm,left=1.5cm,right=4cm,a4paper]{geometry}
@@ -25,6 +25,7 @@
 \setmonofont[Scale=MatchUppercase]{Latin Modern Mono}
 \setlength{\baselineskip}{12pt}
 \newcommand\cyrfont[1]{#1}
+\renewcommand{\footnotesize}{\fontsize{9pt}{9.5pt}\selectfont}
 \else
 \setsansfont[Scale=MatchLowercase]{Noto Sans}
 \setmonofont[Scale=MatchUppercase]{Latin Modern Mono}
@@ -91,6 +92,7 @@
 \fi
 \AtBeginDocument{\frenchspacing}
 \directlua{require('hyphenateall')}
+\hbadness=2000
 
 \makeatletter
 \setlength{\@fptop}{0pt}
@@ -227,9 +229,9 @@
 
 
 
-\setlist[enumerate]{label=(\arabic*), itemsep=0pt}
+\setlist[enumerate]{label=(\arabic*), itemsep=0pt plus 3pt, topsep=5pt plus 4pt minus 1pt}
 \setlist[enumerate,2]{label=(\arabic{enumi}.\arabic*), itemsep=0pt}
-\setlist[itemize]{itemsep=0pt}
+\setlist[itemize]{itemsep=0pt plus 3pt, topsep=7pt plus 4pt minus 1pt}
 \setlist{beginpenalty=10000, midpenalty=10000}
 \newlist{Prooflist}{enumerate}{1}
 \setlist[Prooflist]{wide,labelwidth=!,leftmargin=0pt,itemindent=!,labelindent=0pt,label={},labelsep=0pt,itemsep=.4em plus .2em minus .1em,parsep=0pt}
@@ -298,6 +300,7 @@
 \newcommand{\note}[1]{\textcolor{green!30!black}{{\sffamily #1}}}
 
 \hyphenation{Kom-ple-xi-tät-s-the-o-rie}
+\hyphenation{Re-chen-weg}
 
 
 

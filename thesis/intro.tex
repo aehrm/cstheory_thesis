@@ -22,6 +22,7 @@ Der Unterbereich der algorithmischen Komplexitätstheorie ist weniger an den pri
 
 In der Disziplin hat sich für „Effizienz“ bzw. „Umsetzbarkeit“ insbesondere folgender Konsens durchgesetzt: ein Algorithmus ist „effizient“ wenn die Laufzeit des Algorithmus polynomiell mit der Eingabegröße wächst. In anderen Worten: wird die Eingabe, z.B. der Graph bei Beispiel (3), doppelt so groß, dann braucht dieser effiziente Algorithmus $c$-mal so lange.
 
+\pagebreak
 Unter den oben genannten Suchproblemen ist ein solcher Algorithmus mit polynomieller Laufzeit nur für Probleme (2) und (3) bekannt.
 Für die Suchprobleme (1), (4), (5), (6), (7), (8) lässt sich aber ein trivialer Suchalgorithmus mit exponentieller Laufzeit angeben. Für Suchproblem (4) bedeutet das z.B., alle möglichen exponentiell vielen Zuweisungen von Farben auszuprobieren.
 
@@ -32,7 +33,7 @@ Für die Suchprobleme (1), (4), (5), (6), (7), (8) lässt sich aber ein triviale
 %\end{figure}
 
 %Obwohl die effiziente Berechnung von den obigen \emph{Such}problemen auch von praktischer Relevanz ist, hat sich 
-In der Komplexitätstheorie wurden solche \emph{Such}probleme wie (1)–(8) sehr früh in den Hintergrund verschoben, und stattdessen wurden die korrespondierenden \emph{Entscheidungs}probleme in den Blick genommen. 
+In der Komplexitätstheorie wurden solche \emph{Such}"-probleme wie (1)–(8) sehr früh in den Hintergrund verschoben, und stattdessen wurden die korrespondierenden \emph{Entscheidungs}"-probleme in den Blick genommen. 
 %Die gegenwärtige Beschäftigung mit Suchproblemen innerhalb der Komplexitätstheorie lässt sich überspitzt auch visuell wie in Abbildung~\ref{fig:meme} zusammenfassen.
 Anstelle nach einer Lösung zu suchen, wird sich darauf beschränkt zu entscheiden, \emph{ob} eine Lösung existiert. Der Algorithmus muss also nur die Antwort „ja“ oder „nein“ ausgeben. Zugehörige Entscheidungsprobleme zu den oben genannten Suchproblemen wären:
 \begin{enumerate}[beginpenalty=0,midpenalty=0]
@@ -52,6 +53,7 @@ Auf dem ersten Blick erscheint dieser Schwerpunkt unnatürlich. In der Praxis si
 Für diese Fokussierung auf Entscheidungsprobleme gibt es durchaus Gründe. Zum einen ist klar, dass das Suchproblem nicht einfacher sein kann, als das zugehörige Entscheidungsproblem. Die Unberechenbarkeit eines Entscheidungsproblems schließt also auch die Berechenbarkeit des Suchproblems aus. Das entspricht genau der historischen Forschungsentwicklung zum „\emph{Hilbertschen Entscheidungsproblem}“ (9$'$), worauf Turing das \emph{Halteproblem} (10$'$) reduziert hat. Mit der Unentscheidbarkeit des  Halteproblems folgt die Unentscheidbarkeit des Entscheidungsproblems (9$'$), und damit der Unentscheidbarkeit des entsprechenden Suchproblems (9). 
 Das Argument lässt sich auch auf die potentiell effizient lösbaren Entscheidungsprobleme übertragen. Die Komplexitätstheorie gibt Indizien, dass die Entscheidungsprobleme (4$'$), (6$'$)–(8$'$) wahrscheinlich nicht in Polynomialzeit lösbar sind, womit unmittelbar folgt, dass auch die Suchprobleme (4)–(8) nicht in Polynomialzeit lösbar sind.
 
+\pagebreak[3]
 Für die Fokussierung auf Entscheidungsprobleme innerhalb der der Komplexitätstheorie gibt es zweitens auch fachgeschichtliche Gründe: zunächst war die Trennung \emph{Entscheidungsproblem vs. Suchproblem} innerhalb der Berechenbarkeitstheorie meist nicht strikt notwendig, da „Berechenbarkeit“ zwischen den beiden Varianten meist äquivalent war. So ist die Berechenbarkeit des Hilbertschen Entscheidungsproblems (9$'$) tatsächlich sogar äquivalent zur Berechenbarkeit des Suchproblems (9). (Falls der Entscheidungsalgorithmus „$\phi$ ist gültig“ ausgibt, dann enumeriere so lange alle Sequenzbeweise, bis einer $\phi$ beweist. Das terminiert nach Vollständigkeit des Sequenzkalüls.)
 Dann stand die Komplexitätstheorie der späten 1950er nah an der Automatentheorie und der Theorie der formalen Sprachen, als da diese einen ersten Vorschlag zur Unterteilung 
  der berechenbaren Aufgaben in „einfach“ und „schwer“ machten \parencite[vgl.][]{koucky_automata_2023}. Eine zentrale Unterteilung in „Schwierigkeit“ bzw. Komplexität war z.B. die Hierarchie der formalen Sprachen von Chomsky (die Regulären als sehr einfach, die Kontextfreien als etwas komplexer, die Kontextsensitiven als noch komplexer). %, sich der „Polyomialzeit-Konsens“ herausgearbeitet hat.
@@ -63,6 +65,7 @@ Wieder reicht es in den meisten Fällen aus, sich auf die Entscheidungsprobleme 
 Das ist durchaus fundiert:
 Einerseits, weil die zentralen algorithmischen Herausforderungen schon bei der Entscheidungsvariante auftreten („behavior we want to study is already present at this level“). So kann zum Beispiel die P-NP-Frage äquivalent als Frage über Entscheidungsprobleme als auch als Frage über Suchprobleme formuliert werden. Andererseits lässt sich zeigen, dass für viele relevante Aufgaben das Suchproblem nicht schwerer ist als das Entscheidungsproblem (unter polynomieller Unschärfe). Dieses Argument wird üblicherweise als \emph{search reduces to decision} formuliert: gegeben ein effizienter Algorithmus welcher das Entscheidungsproblem löst, kann auch ein effizienter Algorithmus angegeben werden, welcher das Suchproblem löst. Mit diesem Argument kann z.B. die Aussage „Suchproblem (7) ist effizient lösbar“ äquivalent zu „Entscheidungsproblem (7$'$) effizient lösbar“ gesetzt werden. Die Konzentration auf Suchprobleme kommt dann unter anderem auch mit dem Vorteil, dass viele theoretische Konzepte einfacher zu fassen sind und kompakter zu formulieren sind („mathematical simplicity“). Wir können uns zum Beispiel auf (laufzeitbeschränkte) Algorithmen ohne Ausgabe konzentrieren, die Eingaben nur akzeptieren und ablehnen müssen. 
 
+\vspace{0pt plus 2ex}
 \subsection*{NP-Suchprobleme als Forschungsgegenstand}
 
 Diese Arbeit setzt genau an dieser Festhaltung an Entscheidungsproblemen an, und will sich in vier Forschungsdesiderata den \emph{NP-Suchproblemen} im Gegensatz zu den sonst üblichen NP-Entscheidungsproblemen nähern.
@@ -103,7 +106,7 @@ In dieser Formulierung wird auch die Schwierigkeit dieser Vermutung klar: wir be
 %Die Hypthese $\hQ$ lässt sich ferner in Beziehung zu vollständigen NP-Suchproblemen und sogenannten Beweissystemen setzen.
 Obwohl $\hQ$ zunächst nur über totale Suchprobleme spricht, hat die Hypothese 
  $\hQ$ große Nähe und Verwandtschaft zu analogen Aussagen, die NP-Suchprobleme einerseits und die sogenannten Beweissysteme andererseits betreffen.
-Als zweites Desiderat will daher diese Arbeit an den Charakterisierungen von $\hQ$ weiter arbeiten, sowie die Beziehung zwischen $\hQ$ und NP-Suchproblemen, den Beweissystemen \parencite[nach][]{cook_relative_1979} bzw. dem \emph{Pudlákschen Programm} \parencite*{pudlak_incompleteness_2017} näher untersuchen.\clearpage
+Als zweites Desiderat will daher diese Arbeit an den Charakterisierungen von $\hQ$ weiter arbeiten, sowie die Beziehung zwischen $\hQ$ und NP-Suchproblemen, den Beweissystemen \parencite[nach][]{cook_relative_1979} bzw. dem \emph{Pudlákschen Programm} \parencite*{pudlak_incompleteness_2017} näher untersuchen.
 
 
 \subsection*{Beweissysteme und das Pudláksche Programm}
@@ -136,7 +139,7 @@ Aufbauend auf dieser Verbindung wurden zunehmend auch untere und obere Schranken
 
 Die Existenz von optimalen Beweissystemen bzw. $\P$-optimalen (d.i. optimal in de Sinn dass sogar die Beweise zwischen den Beweissystemen effizient übersetzt werden können) Beweissystemen  wurde von \textcite{krajicek_propositional_1989} in Beziehung gesetzt mit endlicher Konsistenz von mathematischen Theorien. Darauf aufbauend zeigt \textcites[Kap.~6]{pudlak_logical_2013}{pudlak_incompleteness_2017} ferner Verbindungen zwischen $\P$-optimalen bzw. optimalen Beweissystemen, Arithmetik mit exponentiell beschränkten Quantoren („\emph{bounded arithmetic}“) und der Existenz von vollständigen Elementen sogenannter \emph{Promise-Klassen}. Promise-Klassen sind solche Komplexitätsklassen, die durch speziell operierende Turing-Maschinen mit speziellen Eigenschaften erkannt werden können, wobei diese Eigenschaften üblicherweise über (Nicht)determinismus und polynomiell Laufzeit hinaus gehen. Für die Klasse $\UP\subseteq\NP$ bedeutet das z.B., dass die Sprache (wie bei NP) von einer nichtdeterministischen Polynomialzeit-Turing-Maschine erkannt werden muss, die aber – das ist der Promise – auch nur auf höchstens einem nichtdeterministischne Rechenweg akzeptieren darf.
 
-\textcite{razborov_provably_1994} zeigt hierbei als erstes eine Verbindung zwischen der Promise-Klasse $\DisjNP$ und der Existenz von optimalen aussagenlogischen Beweissystemen (für $\mathtt{TAUT}$). Viele weitere Beziehungen zur Existenz vollständiger Elemente der Promise-Klassen $\UP, \NP\cap\coNP, \DisjCoNP$ wurden ausgemacht \parencites(vgl. auch)(){messner_simulation_2001}{kobler_optimal_2003}{beyersdorff_there_2011}.
+\textcite{razborov_provably_1994} zeigt hierbei als erstes eine Verbindung zwischen der Promise-Klasse $\DisjNP$ und der Existenz von optimalen aussagenlogischen Beweissystemen (für $\mathtt{TAUT}$). Viele weitere Beziehungen zur Existenz vollständiger Elemente der Promise-Klassen $\UP$, $ \NP\cap\coNP$, $ \DisjCoNP$ wurden ausgemacht \parencites(vgl. auch)(){messner_simulation_2001}{kobler_optimal_2003}{beyersdorff_there_2011}.
 \textcite{beyersdorff_nondeterministic_2009} und \textcite{pudlak_incompleteness_2017} zeigen ferner analoge Verbindungen zu den Funktionenklassen $\NPMVt$ und $\TFNP$.
 %Diese Vielzahl der Querverbindungen zwischen Beweissystemen und mathematischer Logik auf der einen Seite, sowie Promise-Klassen und deren Vollständigkeit auf der anderen Seite der Komplexitätstheorie motiviert die allgemeine Frage „\emph{Welche 
 %Damit können wir uns der $\NP$-$\coNP$-Frage nähern, indem wir immer stärkere aussagenlogische Beweissysteme unteruschen. 

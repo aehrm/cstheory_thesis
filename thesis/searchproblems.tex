@@ -500,7 +500,7 @@ Die Aussage „$\mathtt{rSAT}$ ist $\leqlp$-vollständig“ entspricht dem übli
     Es ist leicht zu sehen dass $f$ injektiv ist, denn wenn die Schaltkreise $f(x), f(x')$ identisch sind, dann muss auch $x=x'$. Genauso ist klar, dass aus $f(x)=C_{M,n,x}$ einfach das „hineincodierte“ $x$ wieder ausgelesen werden kann, und damit ist $f$ auch $\P$-invertierbar.
 \end{proof}
 
-Die \emph{}bekannten NP-Relationen $R$ mit $\leqmp$-vollständiger Projektion $\Proj(R)$ sind auch Levin-vollständig. Typische Präsentationen von $\leqmp$-Vollständigkeit, z.B. $\mathtt{SAT}\leqmp \mathtt{VC}$ geben uns nicht nur eine $\leqmp$-Reduktionsfunktion $f$ von Instanzen $x$ der einen Menge (i.e. $\mathtt{SAT})$ zu Instanzen $f(x)$ der anderen Menge (i.e. $\mathtt{VC}$), sondern beinhalten meist im Beweis eine (implizit mitgedachte) effiziente Übersetzung von Zertifikaten von $x$ nach $f(x)$ und umgekehrt. Die Reduktionsfunktion $f$ mit der Rückübersetzung der  Zertifikate für $f(x)$ nach Zertifikaten für $x$ reichen dann aus, um eine $\leqlp$-Reduktion zu realisieren, und damit Levin-Vollständigkeit zu zeigen.
+Die bekannten NP-Relationen $R$ mit $\leqmp$-vollständiger Projektion $\Proj(R)$ sind auch Levin-vollständig. Typische Präsentationen von $\leqmp$-Vollständigkeit, z.B. $\mathtt{SAT}\leqmp \mathtt{VC}$ geben uns nicht nur eine $\leqmp$-Reduktionsfunktion $f$ von Instanzen $x$ der einen Menge (i.e. $\mathtt{SAT})$ zu Instanzen $f(x)$ der anderen Menge (i.e. $\mathtt{VC}$), sondern beinhalten meist im Beweis eine (implizit mitgedachte) effiziente Übersetzung von Zertifikaten von $x$ nach $f(x)$ und umgekehrt. Die Reduktionsfunktion $f$ mit der Rückübersetzung der  Zertifikate für $f(x)$ nach Zertifikaten für $x$ reichen dann aus, um eine $\leqlp$-Reduktion zu realisieren, und damit Levin-Vollständigkeit zu zeigen.
 
 Nach \textcite[104]{goldreich_computational_2008} sind die folgenden NP-Relationen jedenfalls definitiv $\leq_\mathrm{L,1,i}^\mathrm p$-vollständig: $\mathtt{rSAT}$, $\mathtt{rSETCOVER}$, $\mathtt{rVC}$, $\mathtt{rCLIQUE}$, $\mathtt{r3COLORABILITY}$.
 Die von \textcite[193-198]{papadimitriou_computational_1994} angegebene Reduktion $\mathtt{SAT}\leqmp\mathtt{HAMCYCLE}$ lässt sich leicht zu $\mathtt{rSAT}\leqlp\mathtt{rHAMCYCLE}$ erweitern, womit $\mathtt{rHAMCYCLE}$ auch $\leqlp$-vollständig ist.
@@ -541,7 +541,7 @@ Diese abgeschwächte Frage lässt sich positiv beantworten, falls man die Berman
     Damit gilt zum einen für $f'$
     \[ x\in \Proj(Q) \iff f(x) \in \mathtt{SAT} \iff h(\underbrace{h^{-1}(f(x))}_{f'(x)}) \in \mathtt{SAT} \iff f'(x) \in \Proj(R_L), \]
     und zum anderen gilt
-    \[ (f'(x), w) \in R_L \implies (h(h^{-1}(f(x))), w)\in \mathtt{rSAT} \implies (f(x), w)\in \mathtt{rSAT} \implies (x, g(x, w))\in Q.  \]
+    \begin{gather*} (f'(x), w) \in R_L \implies (h(h^{-1}(f(x))), w)\in \mathtt{rSAT} \\\implies (f(x), w)\in \mathtt{rSAT} \implies (x, g(x, w))\in Q.  \end{gather*}
     Damit erfüllen also $f'$ und $g$ die Voraussetzungen an eine Reduktions- bzw. Translationsfunktion und $Q\leqlp R_L$, wie gewünscht.
 \end{proof}
 (Es ist leicht zu sehen, dass diese Aussage relativiert, wenn anstelle $\mathtt{rSAT}$ eine andere beliebige $\leqlp$-vollständige Relation $R$ gewählt wird.)
@@ -846,7 +846,7 @@ Mit den Konstruktionen aus deren Beweis ist es leicht zu sehen, dass die NP-Rela
 Es ist auch leicht zu sehen, dass $\Proj(\mathtt{r4CHROMINDEX})$ paddable ist, also  auch $\P$-isomorph zu $\mathtt{SAT}$.
 Wir kommen zum Resultat:
 \begin{observation}
-    Die NP-Relation $\mathtt{r4CHROMINDEX}$ ist $\leqlp$-vollständig, und $\Proj(\mathtt{r4CHROMINDEX})$ ist $\P$-isomorph zu $\mathtt{SAT}$.
+    Die NP-Relation $\mathtt{r4CHROMINDEX}$ ist $\leqlp$-vollständig, und die zugehörige Projektion  $\Proj(\mathtt{r4CHROMINDEX})\in\NP$ ist $\leqmp$-vollständig, und $\P$-isomorph zu $\mathtt{SAT}$.
     Sie ist insbesondere nicht $\leq_\mathrm{pars}^\mathrm p$-vollständig außer $\P=\NP$.
 \end{observation}
 
@@ -894,10 +894,10 @@ Je ein Argument spricht für bzw. gegen eine positive Beantwortung von Frage~\re
 Einerseits das oben schon skizzierte Argument, dass sich Färbbarkeiten offenbar nicht gut mit der projektiven Levin-Reduzierbarkeit verträgt.  Es sei darauf hingewiesen, dass \textcite{agrawal_universal_1992} in ihrer Arbeit zwar exemplarisch die Universalität vieler Suchprobleme aus verschiedensten kombinatorischen Bereichen gezeigt haben, Färbungsprobleme wurden hierbei aber nicht betrachtet. 
 Auch offen ist, inwiefern sich Universalität generalisieren lässt, indem das projektive „Auslesen“ von Werten aus den Zertifikaten abgeschwächt wird, z.B. über eine Art polynomialzeit-berechenbares Schema.
 
-Andererseits ist es für Färbungsprobleme nicht \emph{prinzipiell} unmöglich, Universalität zu zeigen. Beispielsweise ist das Problem $\mathtt{r3COL}$ der 3-Färbbarkeit eines Graphen durchaus als universelle NP-Relation darstellbar, wenn wieder (wie schon bei $\mathtt{rMAXCUT}'$ oder $\mathtt{r4CHROMINDEX}$) nach der unter Permutationen der Farben lexikographisch kleinsten Färbung (sortiert anhand der Knoten) gesucht wird.
-Ein Lehrbuch-Beweis der $\leqmp$-Vollständigkeit über $\mathtt{3CNFSAT}\leqmp\mathtt{3COL}$ startet üblicherweise mit einem „Palette“-Gadget aus drei Knoten $v_{\text{false}}, v_{\text{true}} v_{\text{base}}$, vgl. Abbildung~\ref{fig:3col}. In einer gültigen Färbung entspricht die Farbe von $v_{\text{true}}$ dann der Farbe „wahr“. Nummeriert man in einer $\mathtt{3COL}$-Instanz $G_\phi$ für $\mathtt{3CNFSAT}$-Instanz $\phi$ die Knoten  so  um, dass $v_{\text{false}}, v_{\text{true}} v_{\text{base}}$ die ersten Knoten von $G_\phi$ sind, dann hat immer $v_{\text{false}}$ die Farbe $1$ und $v_{\text{true}}$ die Farbe $2$ (ansonsten existiert eine Permutation der Farben sodass die Färbung lexikographisch kleiner ist.)
+Andererseits ist es für Färbungsprobleme nicht \emph{prinzipiell} unmöglich, Universalität zu zeigen. Beispielsweise ist das Problem $\mathtt{r3COL}$ der 3-Färbbarkeit eines Graphen durchaus als universelle NP-Relation darstellbar, wenn wieder (wie schon bei $\mathtt{rMAXCUT}'$ oder \texttt{r4CHROM"-IN"-DEX}) nach der unter Permutationen der Farben lexikographisch kleinsten Färbung (sor-\linebreak{}tiert anhand der Knoten) gesucht wird.
+Ein Lehrbuch-Beweis der $\leqmp$-Vollständigkeit über $\mathtt{3CNFSAT}\leqmp\mathtt{3COL}$ startet üblicherweise mit einem „Palette“-Gadget aus drei Knoten $v_{\text{false}}$, $ v_{\text{true}}$, $ v_{\text{base}}$, vgl. Abbildung~\ref{fig:3col}. In einer gültigen Färbung entspricht die Farbe von $v_{\text{true}}$ dann der Farbe „wahr“. Nummeriert man in einer $\mathtt{3COL}$-Instanz $G_\phi$ für $\mathtt{3CNFSAT}$-Instanz $\phi$ die Knoten  so  um, dass $v_{\text{false}}$, $ v_{\text{true}}$, $ v_{\text{base}}$ die ersten Knoten von $G_\phi$ sind, dann hat immer $v_{\text{false}}$ die Farbe $1$ und $v_{\text{true}}$ die Farbe $2$ (ansonsten existiert eine Permutation der Farben sodass die Färbung lexikographisch kleiner ist.)
 Eine projektive Levin-Reduktion kann also nun in einem Bit auslesen ob beliebiger Knoten $v$ die Farbe „wahr“ hat, denn diese ist immer $2$.
-Eine entsprechende Codierung des Zertifikats wäre z.B. von der Form $h(c_1)h(c_2)\cdots$ wobei $c_i\in\{1,2,3\}$ die Farbe des $i$-ten Knotens ist, und $h$ eine one-hot-Codierung umsetzt, i.e. $h(1)=100, h(2)=010, h(3)=001$. Es lässt sich dann leicht eine projektive Levin-Reduktion von $\mathtt{r3CNFSAT}$ auf $\mathtt{3COL}$ angeben, und nach Satz~\ref{thm:universal-relations} universell.
+Eine entsprechende Codierung des Zertifikats wäre z.B. von der Form $h(c_1)h(c_2)\cdots$ wobei $c_i\in\{1,2,3\}$ die Farbe des $i$-ten Knotens ist, und $h$ eine one-hot-Codierung umsetzt, d.h. $h(1)=100$, $h(2)=010$, $h(3)=001$. Es lässt sich dann leicht eine projektive Levin-Reduktion von $\mathtt{r3CNFSAT}$ auf $\mathtt{3COL}$ angeben, und nach Satz~\ref{thm:universal-relations} universell.
 
 \begin{figure}[t]
     \begin{minipage}[t][7.9cm][t]{\textwidth}
