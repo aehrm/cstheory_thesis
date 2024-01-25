@@ -1,7 +1,7 @@
 %! TEX root = ./thesis.tex
 \chapter{Orakel mit $\hDisjNP$, $\hUP$ und $\hQ$}\label{chap:orakel}
 
-Ziel dieses Kapitels ist die Konstruktion eines Orakels $O$, relativ zu dem einerseits die Hypothesen $\hDisjNP$ und $\hUP$ gilt, andererseits auch die Hypothese $\hQ$ gilt.
+Ziel dieses Kapitels ist die Konstruktion eines Orakels $O$, relativ zu dem einerseits die Hypothesen $\hDisjNP$ und $\hUP$ gelten, andererseits auch die Hypothese $\hQ$ gilt.
 Damit wird ausgeschlossen, dass $\neg\hQ$ nicht mit relativierenden Mitteln beweisen werden kann, selbst unter Annahme der starken, aber wahrscheinlichen Annahme $\hDisjNP\land\hUP$.
 Dies verbessert auch ein Ergebnis von \textcite[Cor.~3.3]{dose_oracle_2020}, welcher ein ähnliches Orakel konstruiert, relativ zu diesem $\hDisjNP\land\hUP\land\neg\hSAT$ gilt.
 Präzise werden wir folgenden Satz beweisen:
@@ -20,7 +20,7 @@ Die erste Idee betrifft vor allem die Konstruktion.
 Wir wenden hierbei ein Verfahren von \textcite{dose_np-completeness_2019} an, welche sich als ein starkes Framework erwiesen hat, schrittweise Orakel zu konstruieren, die simultan mehrere Eigenschaften erfüllen. Dieses Framework baut maßgeblich auf drei Zutaten auf: erstens, partiell definierten Orakeln, zweitens, ein Begriff von Gültigkeit, und drittens, eine stufenweise nicht-konstruktive Definitionsvorschrift des Orakels.
 Das wird später beim Einsatz in der Konstruktion näher erläutert.
 
-Die zweite Idee besteht intuitiv darin, von einem PSPACE-vollständigem Orakel $D$ auszugehen und dieses zu modifizieren, um die gewünschten Eigenschaften zu erhalten. Durch geschicktes Rückgreifen auf $D$ lassen sich dann gewisse nichttriviale Berechnungen effizient umsetzen. Diese Idee geht auf \textcite{baker_relativizations_1975} zurück, welche ein Orakel konstruiert haben relativ zu diesem $\P=\NP\cap\coNP\neq\NP$. Hierbei wird das PSPACE-vollständige Orakel $D$ mit einem zweiten, speziell konstruierten Orakel $B$ kombiniert; in der Originalfassung zu $D\cup B$. Das Orakel $B$ sorgt für die Trennung zwischen $\P$ und $\NP$, ist aber gleichzeitig so einfach zu entscheiden, dass ein komplementär akzeptierendes Maschinenpaar einer Sprache $L\in\NP\cap\coNP$ eine relevante Portion von $B$ entscheiden kann, und dann mittels dem PSPACE-vollständigem $D$ dann abfragen kann, ob die entsprechende Eingabe akzeptiert wird.
+Die zweite Idee besteht intuitiv darin, von einem PSPACE-vollständigem Orakel $D$ auszugehen und dieses zu modifizieren, um die gewünschten Eigenschaften zu erhalten. Durch geschicktes Rückgreifen auf $D$ lassen sich dann gewisse nichttriviale Berechnungen effizient umsetzen. Diese Idee geht auf \textcite{baker_relativizations_1975} zurück, die ein Orakel konstruiert haben, relativ zu diesem $\P=\NP\cap\coNP\neq\NP$. Hierbei wird das PSPACE-vollständige Orakel $D$ mit einem zweiten, speziell konstruierten Orakel $B$ kombiniert; in der Originalfassung zu $D\cup B$. Das Orakel $B$ sorgt für die Trennung zwischen $\P$ und $\NP$, ist aber gleichzeitig so einfach zu entscheiden, dass ein komplementär akzeptierendes Maschinenpaar einer Sprache $L\in\NP\cap\coNP$ eine relevante Portion von $B$ entscheiden kann, und dann mittels dem PSPACE-vollständige Orakel $D$ dann abfragen kann, ob die entsprechende Eingabe akzeptiert wird.
 
 Wir werden im Folgenden etwas Ähnliches mittels \emph{Relativierungen} von Orakelkonstruktionen umsetzen.
 In der Literatur hat es sich als dienlich gezeigt, anstelle mit einem konkreten PSPACE-vollständigem Orakel zu starten und zu ergänzen, stattdessen mit der \emph{Annahme} $\P=\mathrm{PSPACE}$ zu starten. (Dieses Vorgehen findet sich zum Beispiel bei \cites{blum_generic_1987}{fortnow_separability_2002}{fenner_oracle_2003}.) 
@@ -36,7 +36,7 @@ Wir können dann (mit üblichen Methoden) ein Orakel $E$ konstruieren, relativ z
 Die Konstruktion von $E$ ist dabei solcherart, dass diese Konstruktion auf ein zweites Orakel relativiert. 
 Intuitiv gemeint ist damit, dass wir der Aussage ein zweites Orakel hinzufügen können, ohne Gültigkeit zu verlieren. Hieraus ergibt sich insbesondere, dass für jedes Orakel $A$ folgende Implikation gilt:
 \[ \P^X=\mathrm{PSPACE}^X \stackrel{\text{\ref{thm:myoracle-work}, rel.}}{\implies} \text{ex. $E$ sodass $E\oplus X$ den Eig. von Satz~\ref{thm:myoracle} genügt.} \]
-Mit Wahl von $X$ als dem PSPACE-vollständigen $D$ erreichen wir dann wie gewünscht dass $O=E\oplus D$ den Eigenschaften von Satz~\ref{thm:myoracle} genügt.
+Mit Wahl von $X$ als dem PSPACE-vollständigen $D$ erreichen wir dann wie gewünscht, dass $O=E\oplus D$ den Eigenschaften von Satz~\ref{thm:myoracle} genügt.
 Diese Relativierungen von Orakelkonstruktionen werden im Verlauf dieses Kapitels noch formal präzise spezifiziert.
 
 
@@ -55,7 +55,7 @@ Das ist zwar nicht möglich, aber für jede totale NPTM $N$ ist es zumindest mö
 Im folgenden Abschnitt~\ref{sec:oracle-relativization} erarbeiten wir detailliert die Relativierungen von Orakelkonstruktionen.
 Anschließend spezifizieren wir in Abschnitt~\ref{sec:oracle-notation} noch einige spezielle Notationen, die wir zur Orakelkonstruktion benötigen.
 Aufbauend auf der obigen Skizze können wir dann in Abschnitt~\ref{sec:oracle-definition} die konkrete Konstruktionsvorschrift des Orakels formulieren.
-In Abschnitt~\ref{sec:oracle-correctness} wird abschließend nachgewiesen, dass diese Konstruktionsvorschrift zum einen wohldefiniert ist, und zum anderen dass sich hieraus die gewünschten Eigenschaften wie in Satz~\ref{thm:myoracle} ergeben.
+In Abschnitt~\ref{sec:oracle-correctness} wird abschließend nachgewiesen, dass diese Konstruktionsvorschrift zum einen wohldefiniert ist, und zum anderen, dass sich hieraus die gewünschten Eigenschaften wie in Satz~\ref{thm:myoracle} ergeben.
 
 
 \section{Relativierende Orakelkonstruktionen}\label{sec:oracle-relativization}
@@ -95,17 +95,16 @@ Setzen wir also $O=E\oplus D$ sind wir fertig und haben Satz~\ref{thm:myoracle} 
 
 Nun definieren wir noch einige Notationen, die wir bei der Orakelkonstruktion, und insbesondere für den Beweis von Satz~\ref{thm:myoracle-work} benötigen.
 
-Zunächst seien $\{M_i\}_{i\in \mathbb N}$, $\{N_i\}_{i\in \mathbb N}$, $\{F_i\}_{i\in\mathbb N}$ sogenannte \emph{Standardaufzählungen} der Orakel-PTMs, Orakel-NPTMs, bzw. Orakel-PTM-Tranduktoren, welche folgende Eigenschaften hat:
+Zunächst seien $\{M_i\}_{i\in \mathbb N}$, $\{N_i\}_{i\in \mathbb N}$, $\{F_i\}_{i\in\mathbb N}$ sogenannte \emph{Standardaufzählungen} der Orakel-PTMs, Orakel-NPTMs, bzw. Orakel-PTM-Tranduktoren, welche folgende Eigenschaften haben
 \begin{enumerate}[label=\arabic*.,nosep]
     \item Die Mengen $\{M_i \mid i\in\mathbb N\}$, $\{N_i \mid i\in\mathbb N\}$, $\{F_i \mid i\in\mathbb N\}$ sind in Polynomialzeit entscheidbar, heißt es ist effizient entscheidbar, ob der gegebene Maschinencode einer TM der Standardaufzählung entspricht.
-    \item Für jedes Orakel $D$ terminiert $M_i^D(x)$ nach höchstens $p_i(|x|)\defeq |x|^i+i$ Schritten; analog für $N_i$ und $T_i$.
+    \item Für jedes Orakel $D$ terminiert $M_i^D(x)$ nach höchstens $p_i(|x|)\defeq |x|^i+i$ Schritten; analog für $N_i$ und $F_i$.
     \item Für jede Orakel-PTM $M$ existiert ein $i$ sodass $L(M^D_i)=L(M^D)$, 
         für jede Orakel-NPTM $N$ existiert ein $i$ sodass $L(N^D_i)=L(N^D)$, und
-        für jeden Orakel-PTM-Transduktor $T$ existiert ein $i$ sodass $T^D(x)=T_i^D(x)$.
+        für jeden Orakel-PTM-Transduktor $T$ existiert ein $i$ sodass $T^D(x)=F_i^D(x)$.
 
-        Insbesondere kann jeder akzeptierender Rechenweg $\alpha$ Berechnung $N_i(x)$ in einen akzeptierenden Rechenweg $\alpha'$ der Berechnung $N(x)$ effizient übersetzt werden.
+        Insbesondere kann jeder akzeptierender Rechenweg $\alpha$ der Berechnung $N_i(x)$ in einen akzeptierenden Rechenweg $\alpha'$ der Berechnung $N(x)$ effizient übersetzt werden.
 \end{enumerate}
-%Analoge Eigenschaften gelten für die Aufzählung $\{M_i\}$ der PTMs und $\{T_i\}$ der PTM-Transduktoren.
 Solche Standardaufzählungen existieren. Eine Möglichkeit, diese zu konstruieren ist beispielsweise, jede nichtdeterministische TM mit einem Timer auszustatten, die nach polynomieller Laufzeit die Berechnung abbricht. Konkret: gegeben $i$, sei zunächst $N$ die nichtdeterministische TM mit Codierung $i$. Die TM $N_i$ führt dann auf Eingabe $x$ parallel zur Rechnung $N(x)$ auf jedem Rechenweg einen Timer aus, der nach $>|x|^i+i$ Schritten den Rechenweg ablehnend abbricht.
 Damit ist die Laufzeit von $N_i$ polynomiell beschränkt auf $p_i$.
 
@@ -117,8 +116,8 @@ Die intendierte Interpretation ist, dass gegenüber der \emph{Menge} $w$ die Zug
 Diese Interpretation von finiten Wörtern $w$ als Orakel macht es einfacher, unsere Orakelkonstruktionen präzise und knapp zu beschreiben. Üblicherweise werden wir $w$ so erweitern, dass die Zugehörigkeit des kleinsten $x\in\mathbb N$ spezifiziert wird, welche noch nicht final spezifiziert ist. Dieses $x$ ist genau $|w|$ und wir legen die Zugehörigkeit final fest, indem wir an $w$ entweder $0$ anhängen (und $x$ ist final nicht im Orakel $w0$) oder $1$ anhängen (und $x$ ist final im Orakel $w1$).
 
 
-Wir können relativ partiell definierten Orakeln auch rechnen. Für $w\in\Sigma^*$ definieren $M^w(x)$ wir entsprechend als $M^{\{i\mid w(i)=1\}}(x)$ (heißt, Orakel-Anfragen, für die $w$ nicht definiert ist, werden negativ beantwortet).
-Dies ermöglicht es uns auch, folgenden Begriff zu definieren: Wir sagen, dass NPTM $M^w(x)$ \emph{definit} ist, wenn alle Anfragen auf allen Rechenwegen $<|w|$ sind (oder äquivalent: $w[q]$ ist für alle Anfragen $q$ auf allen Rechenwegen definiert); wir sagen, dass $M^w(x)$ \emph{definitiv akzeptiert} (bzw. \emph{definitiv ablehnt}), wenn $M^w(x)$ definit ist und akzeptiert (bzw. ablehnt). Intuitiv beschreibt der Begriff „definit“ Berechnungen, die sich nicht ändern, wenn das jeweilige partiell definierte Orakel erweitert wird, denn die Anfragen sind zu kurz.
+Wir können relativ partiell definierten Orakeln auch rechnen. Für $w\in\Sigma^*$ definieren wir $M^w(x)$ entsprechend als $M^{\{i\mid w(i)=1\}}(x)$ (heißt, Orakel-Anfragen, für die $w$ nicht definiert ist, werden negativ beantwortet).
+Dies ermöglicht es uns auch, folgenden Begriff zu definieren: Wir sagen, dass NPTM $M^w(x)$ \emph{definit} ist, wenn alle Anfragen auf allen Rechenwegen $<|w|$ sind (oder äquivalent: $w[q]$ ist für alle Anfragen $q$ auf allen Rechenwegen definiert); wir sagen, dass $M^w(x)$ \emph{definitiv akzeptiert} (bzw. \emph{definitiv ablehnt}), wenn $M^w(x)$ definit ist und akzeptiert (bzw. ablehnt). Intuitiv beschreibt der Begriff „definit“ Berechnungen, die sich nicht ändern, wenn das jeweilige partiell definierte Orakel erweitert wird, weil die Anfragen zu kurz sind.
 \begin{observation}\label{obs:partialoracles}
     \begin{enumerate}
         \item Wenn $M^w(x)$ eine definite Berechnung ist und $v\sqsupseteq w$ ist, dann ist $M^v(x)$ definit. Die Berechnung $M^v(x)$ akzeptiert genau dann, wenn $M^w(x)$ akzeptiert.
@@ -141,7 +140,7 @@ Vor der Konstruktion machen wir nun noch folgende bekannte kombinatorische Aussa
 \end{lemma}
 \begin{proof}
     Sei $n=\min\{|A|,|B|\}>2\Delta$.
-    Entfernen Knoten aus $A$ und $B$, bis beide Knotenmengen jeweils genau $n$ Knoten haben, um einen gerichteten bipartiten Graphen $G'$ mit den Knotenmengen $A'$ und $B'$ zu bilden.
+    Entferne Knoten aus $A$ und $B$, bis beide Knotenmengen jeweils genau $n$ Knoten haben, um einen gerichteten bipartiten Graphen $G'$ mit den Knotenmengen $A'$ und $B'$ zu bilden.
     Sei $G''$ der zugrunde liegende ungerichtete Graph von $G'$.
     In $G'$ gibt es $\leq |A'|\cdot \Delta + |B'|\cdot\Delta<n^2$ viele ungerichtete Kanten,
     aber $n^2$ viele ungerichtete Kanten im vollständigen bipartiten ungerichteten Graphen $K_{n,n}$.

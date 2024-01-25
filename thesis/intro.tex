@@ -20,7 +20,7 @@ Alle anderen Probleme (1)–(8) sind im Prinzip algorithmisch lösbar, indem all
 
 Der Unterbereich der algorithmischen Komplexitätstheorie ist weniger an den prinzipiellen Grenzen von Berechenbarkeit interessiert, sondern fokussiert sich unter den berechenbaren Aufgaben damit, welche Ressourcen (Rechenzeit, Speicherplatz, zugeführte Zufälligkeit) hierfür notwendig sind. Die Komplexitätstheorie interessiert sich also dafür, welche dieser Aufgaben effizient durchgeführt werden können, und somit als umsetzbar für Computer angesehen werden. 
 
-In der Disziplin hat sich für „Effizienz“ bzw. „Umsetzbarkeit“ insbesondere folgender Konsens durchgesetzt: ein Algorithmus ist „effizient“ wenn die Laufzeit des Algorithmus polynomiell mit der Eingabegröße wächst. Mit anderen Worten: wird die Eingabe, z.B. der Graph bei Beispiel (3), doppelt so groß, dann braucht dieser Algorithmus $c$-mal so lange. % TODO $c$-mal richtig klammern
+In der Disziplin hat sich für „Effizienz“ bzw. „Umsetzbarkeit“ insbesondere folgender Konsens durchgesetzt: ein Algorithmus ist „effizient“ wenn die Laufzeit des Algorithmus polynomiell mit der Eingabegröße wächst. Ein Algorithmus, bspw. für das Suchproblem (3), muss also der Art sein, dass eine Konstante $c>0$ existiert, sodass bei der Verarbeitung eines doppelt so großen Graphen dieser Algorithmus nur $c$-mal so lang rechnet.
 
 \pagebreak
 Unter den oben genannten Suchproblemen ist ein solcher Algorithmus mit polynomieller Laufzeit nur für Probleme (2) und (3) bekannt.
@@ -59,7 +59,7 @@ Einerseits, weil die zentralen algorithmischen Herausforderungen schon bei der E
 \vspace{0pt plus 2ex}
 \subsection*{NP-Suchprobleme als Forschungsgegenstand}
 
-Diese Arbeit setzt genau an dieser Festhaltung an Entscheidungsproblemen an, und will sich in vier Forschungsdesiderata den \emph{NP-Suchproblemen} im Gegensatz zu den sonst üblichen NP-Entscheidungsproblemen nähern.
+Diese Arbeit setzt genau an dieser Festhaltung an Entscheidungsproblemen an. Die zentrale Motivation dieser Arbeit besteht darin, diese identifizierte Leerstelle auf Seite der Suchprobleme zu adressieren.  Vor diesem Hintergrund wird sich diese Arbeit in vier Forschungsdesiderata den \emph{NP-Suchproblemen} im Gegensatz zu den sonst üblichen NP-Entscheidungsproblemen nähern.
 Diese können als die Suchprobleme verstanden werden, die zu NP-Sprachen korrespondieren. Als Suchprobleme lässt sich eine einfache Charakterisierung formulieren: NP-Suchprobleme sind solche Suchprobleme, bei der 
 \begin{itemize}
     \item die Lösung – falls sie existieren sollte – höchstens polynomiell länger als die Eingabe ist, und 
