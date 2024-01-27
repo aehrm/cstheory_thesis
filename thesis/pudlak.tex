@@ -13,7 +13,7 @@ In diesem Kapitel werden wir diese Beziehungen näher erarbeiten. Zur Erinnerung
 Im Kapitel werden wir uns grob folgenden drei Desiderata widmen: 
 erstens, nähern wir uns in Abschnitt~\ref{sec:karp-vs-levin} erneut der Frage zwischen Levin- und Karp-Vollständigkeit bzw. der Hypothese $\mathsf{KvL}$ aus vorigem Kapitel. Insbesondere analysieren wir die Beziehungen von $\mathsf{KvL}$ zu $\hQ$ und versuchen, $\mathsf{KvL}$ in das Pudláksche Programm einzuordnen.
 
-Zweitens, in Abschnitt~\ref{sec:q-vs-search}, verallgemeinern wir Charakterisierungen $\hQ$, die sich insbesondere auf Suchprobleme und deren assoziierte Beweissysteme beziehen.
+Zweitens, in Abschnitt~\ref{sec:q-vs-search}, verallgemeinern wir Charakterisierungen von $\hQ$, die sich insbesondere auf Suchprobleme und deren assoziierte Beweissysteme beziehen.
 Insbesondere zeigen wir für eine große Klasse von vollständigen NP-Suchproblemen $R$ (nämlich jene die Levin-paddable sind) dass das zu $R$ assoziierte \emph{Standardbeweissystem} ($(x,y)$ mit $R(x,y)$ ist ein Beweis für $x$) $\P$-optimal ist, genau dann wenn $\hQ$. Damit wird die $\P$-Optimalität des entsprechenden Standardbeweissystems zu einer Invariante, die entweder für \emph{alle} Levin-paddable NP-Suchprobleme zutrifft, oder für \emph{keins}.
 
 %erstens werden wir weitere Hypothesenzu Suchproblemen, welche sich im Verlauf dieser Arbeit ergeben, in das Pudláksche Programm einordnen, insbesondere $\hQ$ und $\mathsf{KvL}$ bzw. die Frage nach Levin- vs. Karp-Vollständigkeit.
@@ -177,7 +177,7 @@ Starten wir mit $\neg\hQ$, dann gilt mit Satz~\ref{thm:q-fenner-messner} für al
 In anderen Worten: es existiert zwar eine NPTM $N$ welche $\mathtt{SAT}$ entscheidet, aber aus den akzeptierenden Rechenwegen $w$ von $N(x)$ auf $x\in \mathtt{SAT}$ kann nicht effizient eine akzeptierende Belegung für $x$ abgeleitet werden.
 
 Wir können $N$ äquivalent als NP-Relation $R_N$ repräsentieren, mit $(\phi, w) \in R_N$ genau dann wenn $N(x)$ mit Rechenweg $w$ akzeptiert.
-Damit kann Gleichung~\ref{eq:weak-irreducibility} so verstanden werden, dass $\mathtt{rSAT} \not\leqlp R_N$ \emph{falls die Reduktionsfunktion $f$ die Identitätsfunktion ist}.
+Damit kann Gleichung~\ref{eq:weak-irreducibility} so verstanden werden, dass $\mathtt{rSAT} \not\leq_{\mathrm L}^{\mathrm p} R_N$ \emph{falls die Reduktionsfunktion $f$ die Identitätsfunktion ist}.
 
 Unter der Annahme $\neg\mathsf{KvL}$ existiert nun eine Levin-Reduktion $\mathtt{rSAT}\leqlp R_N$ mit Reduktions- bzw. Translationsfunktion $f,g$. Das ist zunächst kein Widerspruch, denn es könnte ja $f\neq\mathrm{id}$.
 %
@@ -552,17 +552,17 @@ Folgende Beobachtung hilft uns, natürliche NP-Relationen zu identifizieren, wel
     %Jede $\leq_\mathrm{L,inv}^\mathrm{p}$-vollständige NP-Relation $R$ ist auch Levin-paddable.
     \begin{enumerate}
         \item Gilt $\mathtt{rKAN}\leq_\mathrm{L}^\mathrm{p} R$, und ist die zugehörige Reduktionsfunktion $f$ ehrlich, dann ist $R$ Levin-paddable (und $\leqlp$-vollständig für $\FNP$).
-        \item Jede $\leq_\mathrm{L,1,inv}^\mathrm{p}$-vollständige NP-Relation $R$ ist auch Levin-paddable.
+        \item Jede $\leq_\mathrm{L,1,i}^\mathrm{p}$-vollständige NP-Relation $R$ ist auch Levin-paddable.
     \end{enumerate}
 \end{observation}
 Damit können wir schon als Ergebnis festhalten, dass 
-jede $\leq_\mathrm{L,1,inv}^\mathrm{p}$-vollständige Relation $R$ die in 
+jede $\leq_\mathrm{L,1,i}^\mathrm{p}$-vollständige Relation $R$ die in 
 Lemma~\ref{lemma:stdps-q} und~\ref{lemma:q-generalized} genannten Voraussetzungen an die NP-Relation $R$ erfüllt.
 Das sind nach \textcite{goldreich_computational_2008} unrelativierten Fall u.a. $\mathtt{rSAT}$, $\mathtt{rSETCOVER}$, $\mathtt{rVERTEXCOVER}$, $\mathtt{rCLIQUE}$, $\mathtt{r3COLORABILITY}$.
 
 \medskip
 \begin{proof}[Beweis zu Beobachtung~\ref{obs:invcomplete-sind-levinpaddable}]
-    Aussage (2) folgt unmittelbar aus (1): Wir haben $\mathtt{rKAN}\leq_\mathrm{L,1,inv}^\mathrm{p} R$ und damit ist die entsprechende Reduktionsfunktion $f$ $\P$-invertierbar, und damit ehrlich.
+    Aussage (2) folgt unmittelbar aus (1): Wir haben $\mathtt{rKAN}\leq_\mathrm{L,1,i}^\mathrm{p} R$ und damit ist die entsprechende Reduktionsfunktion $f$ $\P$-invertierbar, und damit ehrlich.
 
     Für (1) nutzen wir die Levin-Paddability von $\mathtt{rKAN}$ aus: übersetze Instanz $x$ von $R$ nach $\mathtt{rKAN}$, padde dort hoch, und übersetze zu $R$-Instanz $x'$ zurück. Ist dann $y'$ ein Zertifikat für $x'$, dann lässt sich dies auf ähnlichem Weg wieder zu einem Zertifikat für $x$ zurückrechnen.
 
@@ -691,7 +691,7 @@ Die Äquivalenz zu Aussage (8) ist hierbei eine einfache relativierbare Generali
         \item Für jedes Beweissystem $h$ gilt: $h$ ist optimal $\iff$ $h$ ist $\P$-optimal. 
         \item Es existiert eine $\leqlp$-vollständige Levin-paddable NP-Relation $R$ sodass für alle NPTM $N$ mit $L(N)=\Proj(R)$ auch $\mathit{std}_N\leqmp \mathit{std}_R$ gilt.
         \item Es existiert eine $\leqlp$-vollständige Levin-paddable NP-Relation $R$ für welche das Standardbeweissystem $\mathit{std}_R$ $\P$-optimal ist.
-        %\item Es existiert eine $\leq_\mathrm{L,1,inv}^\mathrm p$-vollständige NP-Relation $R$ sodass für jede Menge $S\in \P$ mit $S\subseteq \Proj(R)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
+        %\item Es existiert eine $\leq_\mathrm{L,1,i}^\mathrm p$-vollständige NP-Relation $R$ sodass für jede Menge $S\in \P$ mit $S\subseteq \Proj(R)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
             %\[ x\in S \implies (x, g(x))\in R. \]
     \end{enumerate}
 \end{theorem}
@@ -705,13 +705,13 @@ Die Äquivalenz zu Aussage (8) ist hierbei eine einfache relativierbare Generali
 
 \item (1)$\iff$(9)$\iff$(10): nach Lemma~\ref{lemma:q-generalized} und~\ref{lemma:stdps-q}.
 
-%\item (5)$\implies$(10): Wir zeigen eine stärkere Variante von (10), welche sich über \emph{alle} NP-Relationen $R$ erstreckt (und damit auch über $\leq_\mathrm{L,1,inv}^\mathrm p$-vollständige $\mathtt{rKAN}$, wie von (10) gefordert). Sei $R$ eine beliebige  NP-Relation, wobei Polynom $q$ die Zertifikatsgröße beschränkt. Sei nun $S\subseteq \Proj(R)$ mit $S\in \P$. Definiere die NPTM $N$, welche auf Eingabe $x$ folgendes leistet: teste zuerst ob $x\in S$; falls nicht, lehne sofort ab. Rate dann ein $y\in\Sigma^{\leq q(|x|)}$ und akzeptiere genau dann wenn $(x,y)\in R$. 
+%\item (5)$\implies$(10): Wir zeigen eine stärkere Variante von (10), welche sich über \emph{alle} NP-Relationen $R$ erstreckt (und damit auch über $\leq_\mathrm{L,1,i}^\mathrm p$-vollständige $\mathtt{rKAN}$, wie von (10) gefordert). Sei $R$ eine beliebige  NP-Relation, wobei Polynom $q$ die Zertifikatsgröße beschränkt. Sei nun $S\subseteq \Proj(R)$ mit $S\in \P$. Definiere die NPTM $N$, welche auf Eingabe $x$ folgendes leistet: teste zuerst ob $x\in S$; falls nicht, lehne sofort ab. Rate dann ein $y\in\Sigma^{\leq q(|x|)}$ und akzeptiere genau dann wenn $(x,y)\in R$. 
 
     %Klar ist, dass $L(N)=S$. Nach (5) existiert nun eine Funktion $h\in \FP$, die für $x\in S$ einen akzeptierenden Rechenweg $h(x)$ von $N(x)$ ausgibt. Wir können sogar aus $h(x)$ das geratene Zertifikat $y$ extrahieren. Es ist daher leicht eine Funktion $g\in \FP$ anzugeben für die $(x,g(x))\in R$ für alle $x\in S$.
 
 %\item (10)$\implies$(5): Sei $L\in \P$ und sei $N$ eine NPTM mit $L(N)=L$, wobei das Polynom $q$ die Laufzeit beschränkt. Wir wollen eine Funktion $h\in\FP$ definieren sodass $h(x)$ ein akzeptierender Rechenweg von $N(x)$ für $x\in L$ ist. Definiere die NP-Relation
     %\[ Q = \{ (x, y) \mid \text{$N(x)$ akzeptiert mit Rechenweg $y\in\Sigma^{\leq q(|x|)}$} \}. \]
-    %Nachdem (10) gilt, haben wir eine $\leq_\mathrm{L,1,inv}^\mathrm p$-vollständige NP-Relation $R$. Damit gilt $Q\leqlp R$ mittels Reduktions- bzw. Translationsfunktion $f, k\in FP$. Insbesondere existiert eine Inverse $f^{-1}\in\FP$ zu $f$.
+    %Nachdem (10) gilt, haben wir eine $\leq_\mathrm{L,1,i}^\mathrm p$-vollständige NP-Relation $R$. Damit gilt $Q\leqlp R$ mittels Reduktions- bzw. Translationsfunktion $f, k\in FP$. Insbesondere existiert eine Inverse $f^{-1}\in\FP$ zu $f$.
 
     %Sei $S=f(L)$ die Bildmenge der Elemente aus $L$, also 
     %\[ S= \{f(x) \mid x\in L\}. \]
@@ -749,12 +749,12 @@ Wir können daher $\hQ$ über universell quantifizierte Varianten von (9) und (1
         \item[(1)] $\hQ$.
         \item[(9)] Für alle $\leqlp$-vollständigen Levin-paddable NP-Relationen $R$, alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt $\mathit{std}_N\leqmp\mathit{std}_R$.
         \item[(10)] Für alle $\leqlp$-vollständigen Levin-paddable NP-Relationen $R$ ist das Standardbeweissystem $\mathit{std}_R$ $\P$-optimal.
-        %\item Für alle $\leq_\mathrm{L,1,inv}^\mathrm p$-vollständigen NP-Relationen $R$, für alle Mengen $S\in \P$ mit $S\subseteq \Proj(R)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
+        %\item Für alle $\leq_\mathrm{L,1,i}^\mathrm p$-vollständigen NP-Relationen $R$, für alle Mengen $S\in \P$ mit $S\subseteq \Proj(R)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
             %\[ x\in S \implies (x, g(x))\in R. \]
         \item[(1$\,'$)] $\neg\hQ$.
         \item[(9$\,'$)] Es existiert keine $\leqlp$-vollständige Levin-paddable NP-Relation $R$, sodass für alle NPTM $N$ mit $L(N)=\Proj(R)$ auch $\mathit{std}_N\leqmp \mathit{std}_R$ gilt.
         \item[(10$\,'$)] Es existiert keine $\leqlp$-vollständige Levin-paddable NP-Relation $R$ ist das Standardbeweissystem $\mathit{std}_R$ $\P$-optimal.
-        %\item[(4$'$)] Es existiert keine $\leq_\mathrm{L,1,inv}^\mathrm p$-vollständige NP-Relation $R$, sodass für alle Mengen $S\in \P$ mit $S\subseteq \Proj(R)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
+        %\item[(4$'$)] Es existiert keine $\leq_\mathrm{L,1,i}^\mathrm p$-vollständige NP-Relation $R$, sodass für alle Mengen $S\in \P$ mit $S\subseteq \Proj(R)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
             %\[ x\in S \implies (x, g(x))\in R. \]
     \end{enumerate}
     Beachte dass (9$\,'$) nicht die negierte Version von (9) ist, für (10) gilt dies analog.
@@ -774,7 +774,7 @@ Wir können daher $\hQ$ über universell quantifizierte Varianten von (9) und (1
 %\begin{proof}
 %\begin{prooflist}
 %\item (8$'$)$\implies$(1), (9$'$)$\implies$(1), (10$'$)$\implies$(1):
-    %Die NP-Relation $\mathtt{rKAN}$ ist $\leq_\mathrm{L,1,inv}^\mathrm p$-vollständig (und damit auch Levin-paddable).
+    %Die NP-Relation $\mathtt{rKAN}$ ist $\leq_\mathrm{L,1,i}^\mathrm p$-vollständig (und damit auch Levin-paddable).
     %Gilt also (8$'$), dann auch die existentielle Variante (8) von vorigem Satz~\ref{thm:q}, und damit (1).
     %Beweise der anderen Implikationen sind analog.
 

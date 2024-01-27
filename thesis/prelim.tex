@@ -37,7 +37,7 @@ Für eine binäre Relation $R\subseteq\Sigma^* \times \Sigma^*$ schreiben wir $\
 Für ein Wort $x\in\Sigma^*$ schreiben wir $\fset{}R(x)=\{ y\mid (x,y)\in R \}$ für die Bildmenge von $x$ auf $R$
 Manchmal werden wir binäre Relationen auch über die Spezifikation der jeweiligen Bildmengen definieren, also z.B. $\fset{}Q(n) \defeq \{ 0, 1, \dots, n\}$ schreiben um die Relation $Q=\{ (a,b)\mid b\leq a \}$ zu definieren.
 %Für ein Wort $x\in\Sigma^*$ schreiben wir $R(x)= \{ y\mid (x,y)\in R \}$ für die Bildmenge von $x$ auf $R$. 
-Falls $f$ eine Funktion bzw. funktional ist, meinen wir mit $f(x)$ wie üblich das \emph{Bildelement} der Funktion $f$ meinen, und nicht die \emph{Bildmenge}. 
+Falls $f$ eine Funktion bzw. funktional ist, meinen wir mit $f(x)$ wie üblich das \emph{Bildelement} der Funktion $f$, und nicht die \emph{Bildmenge}. 
 %Es gilt also in diesem Fall $\fset{}f(x)=\{f(x)\}$.
 
 
@@ -267,7 +267,7 @@ Diese Relativierung überträgt sich auch auf unsere weiteren Definitionen, wie 
 Die kanonische $\NP$-vollständige Menge $\mathtt{KAN}$ kann ebenso zu $\mathtt{KAN}^O$ relativiert werden. Zur Vollständigkeit
 \[ \begin{split} \mathtt{KAN}^O \defeq \{ (N, x, 1^n) \mid {}&\text{$N$ ist eine NOTM und akz. $x$ relativ zu $O$}\\&\text{auf einem RW mit $\leq n$ vielen Schritten} \}. \end{split} \]
 Die Vollständigkeit relativiert insbesondere, heißt wir haben $A\leq_\mathrm{m}^{\mathrm{p},O}\mathtt{KAN}^O$ für alle Orakel $O$ und Menge $A\in\NP^O$.
-Für \emph{natürliche} Mengen wie $\mathtt{SAT}$ usw. werden wir in dieser Arbeit dagegen keine relativierte Variante definieren. In diesem Sinne ist $\mathtt{SAT}$ im Allgemeinen \emph{nicht} $\leq_\mathrm{m}^{\mathrm{p},O}$-vollständig, in dem Sinne dass ein Orakel $O$ existiert und eine Menge $A\in\NP^O$ sodass $A\not\leq_\mathrm{m}^{\mathrm{p},O} \mathtt{SAT}$.\footnote{Es ist durchaus möglich, $\mathtt{SAT}$ so zu verallgemeinern dass eine entsprechende Variante auch relativiert vollständig bleibt. Um das zu erreichen, ergänzt man üblicherweise die $\mathtt{SAT}$-Formeln durch $n$-stellige Prädikate $X_n(x_1, x_2, \dot, x_n)$ und interpretiert diesen Term als wahr genau dann wenn $x_1x_2\cdots x_n$ im Orakel liegt. So zum Beispiel bei \textcite{dingel_separation_2022}.}
+Für \emph{natürliche} Mengen wie $\mathtt{SAT}$ usw. werden wir in dieser Arbeit dagegen keine relativierte Variante definieren. In diesem Sinne ist $\mathtt{SAT}$ im Allgemeinen \emph{nicht} $\leq_\mathrm{m}^{\mathrm{p},O}$-vollständig, in dem Sinne dass ein Orakel $O$ existiert und eine Menge $A\in\NP^O$ sodass $A\not\leq_\mathrm{m}^{\mathrm{p},O} \mathtt{SAT}$.\footnote{Es ist durchaus möglich, $\mathtt{SAT}$ so zu verallgemeinern dass eine entsprechende Variante auch relativiert vollständig bleibt. Um das zu erreichen, ergänzt man üblicherweise die $\mathtt{SAT}$-Formeln durch $n$-stellige Prädikate $X_n(x_1, x_2, \dots, x_n)$ und interpretiert diesen Term als wahr genau dann wenn $x_1x_2\cdots x_n$ im Orakel liegt. So zum Beispiel bei \textcite{dingel_separation_2022}.}
 
 In allgemeineren Beweisen, die nicht konkrete natürliche Mengen betreffen, lassen sich üblicherweise alle beteiligten TM mit OTM auswechseln, ohne die Gültigkeit der Aussage zu verändern.
 Aussagen bzw. Beweise, die in solchen relativierten Umgebungen relativ zu jedem beliebigen Orakel $O$ gelten, nennen wir \emph{relativierende} Aussagen bzw. Beweise.
