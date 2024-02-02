@@ -31,7 +31,7 @@ Für alle dieser drei Desiderata ist es zunächst notwendig, auf die Hypothese $
 
 \begin{theorem}[Äquivalente Formulierungen der Hypothese $\hQ$; \cite{fenner_inverting_2003}]\label{thm:q-orig}
     Folgende Aussagen sind äquivalent:
-    \begin{enumerate}[midpenalty=0]
+    \begin{enumerate}
         \item Hypothese $\hQ$.
         \item $\mathrm{NPMV}_t\subseteqc \mathrm{FP}$.
         \item $\TFNP\subseteqc \mathrm{FP}$.
@@ -165,134 +165,45 @@ Mit dieser Charakterisierung folgt auch unmittelbar, dass $\hQ$ hinreichend für
 
 Was sind natürlich notwendige Bedingungen für die Hypothese $\mathsf{KvL}$? Diese Frage erscheint tatsächlich wesentlich schwieriger als gedacht. Insbesondere scheint es unklar, ob aus irgend einer von Pudláks Hypothesen die Aussage $\mathsf{KvL}$ folgt.
 
-Besonders interessant erscheint aber die Beziehung zur Hypothese $\neg\hQ$, also genau die Umkehrung von Satz~\ref{thm:kvl-implies-q}.
-Zumindest in der obigen Charakterisierung durch Satz \ref{thm:q-as-levin} scheint $\neg\hQ$ schwächer, denn die Negation von Satz \ref{thm:q-as-levin}(2) würde aussagen, dass ein \emph{beliebiges} Paar $A,B$ von NP-Relationen existiert mit $\Proj(A)\leqmp \Proj(B)$, aber $A \not\leq_\mathrm L^\mathrm p B$. Weder $A$ noch $B$ müssen eine $\leqmp$-vollständige Projektion haben, was $\mathsf{KvL}$ ja verlangt.
+Um uns dieser Frage dennoch zu nähern, beginnen wir zunächst, die Hypothese $\mathsf{KvL}$ auf weitere Weisen zu charakterisieren. Es ist intuitiv klar, dass für eine feste Sprache $L$ die NP-Relationen für $L$, die optimalen Beweissysteme für $L$, und die NPTMs welche $L$ entscheiden, alle im breitesten „Zertifikatsschemata“ sind, und alle diese Berechnungsmodelle untereinander umgeschrieben werden können.
 
-%, ist ja die Aussage (2) vom Satz~\ref{thm:q-as-levin} \emph{fast} in der Form „Karp-Vollständigkeit = Levin-Vollständigkeit“ ist.
-Stattdessen scheint die Charakterisierung von $\neg\hQ$ durch \citeauthor{fenner_inverting_2003} in Satz~\ref{thm:q-fenner-messner}(2) dienlicher:
-Betrachten wir hierbei exemplarisch den Fall Relationen für $\mathtt{SAT}$. Ich vermute, dass $\neg\hQ\Rightarrow \mathsf{KvL}$; um das zu plausibilisieren möchte ich zeigen, dass $\neg\hQ\land\neg\mathsf{KvL}$ unwahrscheinlich ist.
-
-Starten wir mit $\neg\hQ$, dann gilt mit Satz~\ref{thm:q-fenner-messner} für alle Funktionen $h\in\FP$
-\begin{equation} N(\psi) \text{ akz. mit Rechenweg $w$} \rlap{\hspace*{2pt}\raisebox{2.3pt}{$\quad\not$}}\implies  (\psi, h(\psi, w))\in\mathtt{rSAT}.\label{eq:weak-irreducibility} \end{equation}
-In anderen Worten: es existiert zwar eine NPTM $N$ welche $\mathtt{SAT}$ entscheidet, aber aus den akzeptierenden Rechenwegen $w$ von $N(x)$ auf $x\in \mathtt{SAT}$ kann nicht effizient eine akzeptierende Belegung für $x$ abgeleitet werden.
-
-Wir können $N$ äquivalent als NP-Relation $R_N$ repräsentieren, mit $(\phi, w) \in R_N$ genau dann wenn $N(x)$ mit Rechenweg $w$ akzeptiert.
-Damit kann Gleichung~\ref{eq:weak-irreducibility} so verstanden werden, dass $\mathtt{rSAT} \not\leq_{\mathrm L}^{\mathrm p} R_N$ \emph{falls die Reduktionsfunktion $f$ die Identitätsfunktion ist}.
-
-Unter der Annahme $\neg\mathsf{KvL}$ existiert nun eine Levin-Reduktion $\mathtt{rSAT}\leqlp R_N$ mit Reduktions- bzw. Translationsfunktion $f,g$. Das ist zunächst kein Widerspruch, denn es könnte ja $f\neq\mathrm{id}$.
-%
-%An dieser Stelle muss erneut hervorgehoben werden, dass im Allgemeinen $\mathtt{rSAT} \leqlp R_N$ mit Funktionen $f,g$ gelten kann, notwendig hierfür ist aber dass $f\neq\mathrm{id}$.
-%
-Gleichzeitig wäre die Existenz einer solchen Reduktion überraschend. Wir hätten nach Definition
-\begin{equation}\label{eq:effective-simulation} N(f(\phi)) \text{ akz. mit Rechenweg $w$} \implies \phi \text{ wird von Belegung $g(\phi, w)$ erfüllt}. \end{equation}
-Einerseits ist es also nicht möglich, aus dem Rechenweg $w$ effizient eine akzeptierende Belegung für $f(\phi)$ zu bestimmen, obwohl $w$ bezeugt dass $f(\phi)$ erfüllbar ist. (Ersetze in \eqref{eq:weak-irreducibility} $\psi$ mit $f(\phi)$.)
-Andererseits reicht der „Beweis“ $w$ aber aus, um (zusammen mit der Information $\phi$) effizient wieder eine erfüllende Belegung für $\phi$ zu berechnen. 
-Das \emph{plausibilisiert} zwar einen Widerspruch, bzw. dass $\neg\hQ\land\neg\mathsf{KvL}$ wahrscheinlich falsch ist, ist aber natürlich kein solcher. Die Umkehrung von Satz~\ref{thm:kvl-implies-q} bleibt offen.
-
-Dennoch vermute ich, dass solche Funktionen $f,g$ nicht jeweils für alle NPTM $N$ mit $L(N)=\mathtt{SAT}$ existieren können.
-Tatsächlich können wir die eben formulierte Vermutung auch in der Theorie der Beweissystemen formulieren: hierfür können wir die beiden Aussagen aus Gleichung~\ref{eq:effective-simulation} je als Aussagen über „Beweissysteme“ verstehen. Links ist der Rechenweg $w$ der „Beweis“ für $f(\phi)\in \mathtt{SAT}$ über den Verifikator $N$, und rechts ist $g(\phi, w)$ die erfüllende Belegung für $\phi$, also ein $\mathit{sat}$-Beweis für $\phi\in\mathtt{SAT}$.
-
-Um diese Idee nun zu formalisieren, definieren wir zunächst eine abgeschwächte Variante der $\P$-Simulation.
+Wir wollen nun die existierende $\leqlp$-Ordnung auf den NP-Relationen nehmen, und diese auf die optimalen Beweissysteme übertragen. Wir definieren hierfür eine abgeschwächte Variante der $\P$-Simulation, welche der $\leqlp$-Reduktion nachempfunden ist.
 \begin{definition}
     Seien $h,h'$ Beweissysteme für $L$. Das Beweissystem $h$ \emph{$\P$-simuliert effektiv} $h'$ falls Funktionen $f,g\in\FP$ existieren sodass
     \begin{enumerate}
         \item $x\in L \iff f(x)\in L$,
         \item $ h'(w)=f(x) \implies h(g(x, w)) = x. $
     \end{enumerate}
-    Wir schreiben in diesem Fall auch $h'\leq^\mathrm p_\mathrm{eff} h$. %\marginnote{\note{Nicht vergessen: es ist offenbar unklar, wie das Symbol $\leq$ bzgl. Simulation gebraucht wird. Dose/Glaßer würden in der Def. das Ordnungszeichen spiegeln, Krajíček/Pudlák dagegen genau so wie hier, Krajíček im Sammelband dagegen wieder gespiegelt.}}
+    Kann das Beweissystem $h$ jedes Beweissystem $h'$ für $L$ effektiv $\P$-simulieren, dann ist $h$ \emph{effektiv $\P$-optimal}.
 \end{definition}
-In anderen Worten, falls $h'\leq^p_\mathrm{eff} h$, dann kann $h$ zwar nicht \emph{jeden} $h'$-Beweis $w$ für $x\in L$ in einen $h$-Beweis für (das gleiche) $x$ effizient umrechnen, es kann aber zumindest alle \emph{relevanten} $h'$-Beweise effizient umrechnen, nämlich für jedes $x\in L$ die $h'$-Beweise für $f(x)$ in $h$-Beweise für $x$.
+In anderen Worten, falls $h$ das Beweissystem $h'$ effektiv $\P$-simuiert, dann kann $h$ zwar nicht \emph{jeden} $h'$-Beweis $w$ für $x\in L$ in einen $h$-Beweis für (das gleiche) $x$ effizient umrechnen, es kann aber zumindest alle \emph{relevanten} $h'$-Beweise effizient umrechnen, nämlich für jedes $x\in L$ die $h'$-Beweise für $f(x)$ in $h$-Beweise für $x$.
 Anstelle „$h$ $\P$-simuliert effektiv $h'$“ ließe sich äquivalent auch $h^{-1}\leqlp h'^{-1}$ schreiben. Beachte, dass die Relation $h^{-1}$ nur Lösungen mit ihren Beweisen reliert.
-Klar ist: $\P$-Simulation impliziert effektive $\P$-Simulation impliziert Simulation unter Beweissystemen.
+Klar ist: $\P$-Simulation impliziert effektive $\P$-Simulation impliziert Simulation.
 
-Die obige Intuition lässt sich also folgendermaßen formulieren: ich vermute, zumindest unter der Annahme $\neg\hQ$, dass das Standardbeweissystem $\mathit{sat}$ nicht jedes Beweissystem effektiv $\P$-simulieren kann, insbesondere nicht jenes was von der oben genannten NPTM $N$ induziert wird.
-Wir können diese Vermutung auch allgemeiner ohne Bezugnahme auf $\mathtt{SAT}$ bzw. $\mathit{sat}$ formulieren:
 
-\begin{conjecture}[$\mathsf{KvL}$ formuliert unter Beweissystemen]\label{conj:kvl-ps}
-    Es existiert eine NP-Relation $Q$ mit $\leqmp$-vollständigem $\Proj(Q)$ für $\NP$, wobei $\mathit{std}_Q$ nicht alle anderen optimalen Beweissysteme für $\Proj(Q)$ effektiv $\P$-simulieren kann.
-
-    %In anderen Worten, es existiert ein optimales Beweissystem $h$ für $\Proj(R)$ sodass $h\not\leq^\mathrm p_\mathrm{eff}  \mathit{std}_R$.
-    %Das Standardbeweissystem $\mathit{sat}$ für $\mathtt{SAT}$ kann nicht alle anderen optimalen Beweissysteme für $\mathtt{SAT}$ effektiv p-simulieren.
-
-    %In anderen Worten, es existiert optimales Beweissystem $h$ sodass $h\not\leq^\mathrm p_\mathrm{eff} \mathit{std}$.
-\end{conjecture}
-%Beachte, dass in der obigen Formulierung $\mathit{std}_R$ \emph{nicht} „effektiv p-optimal“ ist in dem Sinn, dass \emph{jedes} Beweissystem effektiv p-simuliert werden kann, sondern eben nur die optimalen Beweissysteme bzw. genau jene mit kurzen Beweisen.
-Dass die Formulierung der Vermutungen \ref{conj:kvl} und \ref{conj:kvl-ps} äquivalent sind, zeigt folgende Beobachtung:
-\begin{observation}\label{obs:kvl-equiv}
-    %Sei $R$ eine NP-Relation mit $\leqmp$-optimalem $\Proj(R)$.
-    %Sei $L$ eine $\leqmp$-vollständige Menge für $\NP$.
+Die intuitive Aussage von $\neg\mathsf{KvL}$ „Alle NP-Relationen für NP-vollständiges $L$ sind im Wesentlichen gleich“ überträgt sich nun auch auf optimale Beweissysteme:
+\begin{theorem}
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
-        \item Für jede NP-Relation $R$ mit $\leqmp$-vollständigem $\Proj(R)$ für $\NP$ ist $R$ $\leqlp$-vollständig für $\FNP$. (Das ist die Aussage $\neg\mathsf{KvL}$.)
-        \item Für jede NP-Relation $Q$ mit $\leqmp$-vollständigem $\Proj(Q)$ für $\NP$ kann $\mathit{std}_Q$ jedes optimale Beweissystem $h$ für $\Proj(Q)$ effektiv $\P$-simulieren. (Das ist die Negation von der Vermutung~\ref{conj:kvl-ps}.)
-        %\item Ist $\Proj(R)=L$, dann ist auch $R$ $\leqlp$-vollständig.
-        %\item Ist $\Proj(R)=L$, dann gilt für alle optimalen Beweissysteme $h$ für $L$ auch $h\leq^\mathrm p_\mathrm{eff} \mathit{std}_R$.
+        \item Aussage $\neg\mathsf{KvL}$.
+        \item Für alle NP-Relationen $R$ mit $\Proj(R)$ $\leqmp$-vollständig, alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt
+            \[ R \leqlp \{ (x, w) \mid  \text{$N(x)$ akz. auf Rechenweg $w$}\}. \]
+        \item Für alle NP-Relationen $R$ mit $\Proj(R)$ $\leqmp$-vollständig, alle optimalen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
+            \[ R \leqlp \{ (x, w) \mid  \text{$h(w)=x$, $|w|\leq q(|x|)$}\}, \]
+            wobei $q$ ein geeignetes Polynom ist.
+        \item Für alle NP-Relationen $R$ mit $\Proj(R)$ $\leqmp$-vollständig, alle optimalen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
+    \[  \text{$\mathit{std}_R$ $\P$-simuliert effektiv $h$}. \]
+        \item Für alle NP-Relationen $R$ mit $\Proj(R)$ $\leqmp$-vollständig ist $\mathit{std}_R$ effektiv $\P$-optimal. 
     \end{enumerate}
-\end{observation}
+\end{theorem}
 \begin{proof}
-    \begin{prooflist}
-    \item (1)$\Rightarrow$(2): 
-        Sei $R$ eine NP-Relation mit $\leqmp$-vollständigem $\Proj(R)$.
-    Wir zeigen, dass $\mathit{std}_{R}$ jedes andere optimale Beweissystem $h$ effektiv $\P$-simulieren kann.
-    Nachdem $h$ optimal ist, hat es auch kurze Beweise (Beob.~\ref{obs:ps-for-np-optimal}): für jedes $x\in\Proj(R)$ existiert ein $h$-Beweis $w$ mit $|w|\leq q(|x|)$ für geeignetes Polynom $q$.  Definiere
-    \[ R_h \defeq \{ (x, w) \mid |w|\leq q(|x|), h(w) = x\}. \]
-    Diese Relation ist offenbar eine NP-Relation und $\Proj(R_h) = \Proj(R)$ und damit ist $\Proj(R_h)$ auch $\leqmp$-vollständig. 
-
-    Nach Voraussetzung (1) ist also  $R_h$ auch $\leqlp$-vollständig.
-    Insbesondere gilt also  auch $R \leqlp R_h$. Damit existieren also Funktionen $f,g\in\FP$ sodass
-    $x\in \Proj(R) \leftrightarrow f(x)\in\Proj(R)$ und
-    \[ (f(x), w) \in R_h \implies (x, g(x, w))\in R. \]
-    Nach Definition gilt also 
-    \[ h(w)=f(x) \implies \mathit{std}_R(g(x, w)) = x, \]
-    und damit ist $h\leq^\mathrm p_\mathrm{eff} \mathit{std}_R$.
-
-\item (2)$\Rightarrow$(1): 
-    Sei $R$ eine NP-Relation wobei $\Proj(R)$ $\leqmp$-vollständig ist. Wir zeigen nun, dass $R$ auch $\leqlp$-vollständig ist.
-    Sei hierfür $Q$ eine beliebige NP-Relation; wir wollen $Q\leqlp R$ zeigen.
-
-    Aus der $\leqmp$-Vollständigkeit folgt unmittelbar die Existenz einer Reduktionsfunktion $f$ mit 
-    \[ x\in \Proj(Q) \iff f(x) \in \Proj(R). \]
-    Definiere
-    \[ h(w) \defeq \begin{cases} x & \text{falls $w=(x,y)$ und $(f(x),y)\in R$} \\ \bot & \text{sonst.} \end{cases} \]
-    Wir zeigen, dass $h$ ein Beweissystem für $\Proj(Q)$ ist. Es ist offenbar dass $h\in\FP$. Die Funktion $h$ ist korrekt: wenn $h(x,y)=x$ dann ist $f(x)\in\Proj(R)$ und nach Eigenschaft von $f$ auch $x\in\Proj(Q)$.
-    Die Funktion $h$ ist vollständig: Sei $x\in\Proj(Q)$. Dann ist schon $f(x)\in\Proj(R)$ und es gibt ein $y$ mit $(f(x),y)\in R$. Also ist $(x,y)$ ein $h$-Beweis für $x$.
-
-    Außerdem ist klar, dass $h$ kurze Beweise hat, damit ist $h$ auch optimal (Beob.~\ref{obs:ps-for-np-optimal}). % ist.\todo{warum?}
-    Damit gilt nach (2) nun, dass $h\leq^\mathrm p_\mathrm{eff} \mathit{std}_Q$. Also existieren Funktionen $f',g'\in\FP$ sodass
-    \[ x\in \Proj(Q)\iff f'(x)\in\Proj(Q),\quad h(w)=f'(x) \implies \mathit{std}_Q(g'(x,w))=x. \]%\implies (x,g(x,w))\in Q. \]
-    Das reicht aus, $Q\leqlp R$ zu zeigen: wähle $f''(x)\defeq f(f'(x))$ als Reduktionsfunktion, dann gilt
-    \begin{gather*}
-        (f''(x), y)\in R \implies (f(f'(x)), y)\in R \implies h(\underbrace{f'(x),y}_{w})=f'(x) \\
-    \implies \mathit{std}_Q(g'(x,w))=x \implies (x,g'(x,w))\in Q. \end{gather*}
-    Die Translationsfunktion $g''$, welche $(x,y)$ zu $g'(x,w)$ übersetzt, lässt sich leicht angeben.
-\end{prooflist}
+\todo{}
 \end{proof}
 
-Mit der Definition der effektiven $\P$-Simulation und der eben bewiesenen äquivalenten Formulierung der Karp-vs-Levin-Vermutung lässt sich nun zumindest die Hypothese $\hSAT$ so verstärken, dass diese hinreichend für $\mathsf{KvL}$ ist.
-
-
+Mittels unserem Begriff der effektiven $\P$-Simulation können wir nun auch die Hypothese $\hSAT$ auf natürliche Weise verstärken:
 \begin{conjecture}[$\mathsf{SAT^{eff}}$]
     Keine $\leqmp$-vollständige Menge $L$ für $\NP$ hat ein optimales Beweissystem $h$, welches alle anderen optimalen Beweissysteme für $L$ effektiv $\P$-simulieren kann. 
-    %Es existiert eine Menge $L\in\NP$, und kein optimales Beweissystem für $L$ kann kann alle anderen optimalen Beweissysteme für $L$ effektiv p-simulieren.
-    %In anderen Worten, für jedes optimales Beweissystem $h$ für $L$ existiert ein  optimales Beweissysteme $h'$ für $L$ sodass $h'\not\leq^\mathrm p_\mathrm{eff} h$.
 \end{conjecture}
-
-%Ähnlich wie bei $\hSAT$ können wir $\mathsf{SAT^{eff}}$ als „existenziell“ charakterisieren.
-%\begin{lemma}
-%    Folgende Aussagen sind äquivalent:
-%    \begin{enumerate}
-%        \item Es existiert eine $\leqmp$-vollständige Menge $A$ für $\NP$ sowie ein optimales Beweissystem $h$ für $A$, sodass $h$ jedes andere optimale Beweissystem für $A$ effektiv p-simulieren kann. (Das ist die Aussage $\neg\mathsf{SAT^{eff}}$.)
-%        \item Für jede Menge $B\in\NP$ existiert ein optimales Beweissystem $g$ für $B$, welches jedes andere optimale Beweissystem für $B$ effektiv p-simulieren kann.
-%    \end{enumerate}
-%\end{lemma}
-%\begin{proof}
-%\begin{prooflist}[label={}]
-%\item (2)$\Rightarrow$(1): Klar.
-%
-%\item (1)$\Rightarrow$(2): 
-%\end{prooflist}
-%\end{proof}
-
 Wir sehen nun, dass $\mathsf{SAT^{eff}}$ eine Verstärkung von sowohl $\hSAT$ als auch $\mathsf{KvL}$ ist:
 \begin{theorem}\label{thm:sateff-generalizes-sat}
     \begin{enumerate}
@@ -308,17 +219,38 @@ Wir sehen nun, dass $\mathsf{SAT^{eff}}$ eine Verstärkung von sowohl $\hSAT$ al
 \end{prooflist}
 \end{proof}
 
-Wir haben also je eine notwendige ($\neg\hQ$) und eine hinreichende Hypothese ($\mathsf{SAT^{eff}}$) für $\mathsf{KvL}$. 
-Nichtsdestotrotz bleiben noch viele Fragen offen, die wir hier aus Platzgründen nicht weiter verfolgen werden. 
+Wir haben damit also je eine notwendige ($\neg\hQ$) und eine hinreichende Hypothese ($\mathsf{SAT^{eff}}$) für $\mathsf{KvL}$. Durch die Charakterisierung von $\neg\mathsf{KvL}$ durch Satz~\ref{} über Beweissysteme ergibt sich eine interessante Ähnlichkeit zur Hypothese $\hQ$. Wir wollen diese beiden Hypothesen im Folgenden kurz gegenüberstellen.
+Zur Anschaulichkeit beziehe ich mich hierbei auf die NP-Relation $\mathtt{rSAT}$. (Durch Ergebnisse im nächsten Abschnitt wird klar, dass sich dieses Argument auch auf $\mathtt{rKAN}$ überträgt.)
+
+Wir haben
+\begin{itemize}[nosep]
+    \item $\hQ$ genau dann wenn $\mathit{sat}$ $\P$-optimal ist,
+    \item $\neg\mathsf{KvL}$ genau dann wenn $\mathit{sat}$ effektiv $\P$-optimal ist.
+\end{itemize}
+Insbesonere vermute ich, dass möglicherweise sogar $\hQ\Leftrightarrow\neg\mathsf{KvL}$ gelten könnte. Die Richtung von links nach rechts haben wir bereits in Satz~\ref{} gesehen. Für die Richtung von rechts nach links möchte ich nun plausibilisieren, dass $\neg\mathsf{KvL}\land\neg\hQ$ zu einem Widerspruch führt.
+
+Unter Annahme von $\neg\hQ$ folgt nach Satz~\ref{}, dass das Standardbeweissystem $\mathit{sat}$ von $\mathtt{rSAT}$ nicht $\P$-optimal ist.
+Insbesondere existiert ein optimales Beweissystem $h$, sodass $\mathit{sat}$ nicht $h$ $\P$-simulieren kann.
+Wir haben also für alle Funktionen $f\in\FP$ 
+\begin{equation} h(w)=\psi \rlap{\hspace*{2pt}\raisebox{2.3pt}{$\quad\not$}}\implies  \text{$f(w)$ erfüllt $\psi$}.\label{eq:weak-irreducibility} \end{equation}
+In anderen Worten: obwohl wir einen $h$-Beweis $w$ für die Erfüllbarkeit der Formel $\phi$ haben, können wir nicht effizient eine erfüllende Belegung aus $w$ berechnenen.
+
+Nun gilt aber nach Annahme auch $\neg\mathsf{KvL}$. Über Satz~\ref{}(?) gilt, dass $\mathit{sat}$ das optimale Beweissystem $h$ effektiv $\P$-simulieren kann. Wir haben also zwei Funktionen $f', g'\in\FP$ sodass
+\begin{equation}\label{eq:effective-simulation} h(w)=f'(\phi) \implies \text{$g'(\phi, w)$ erfüllt $\phi$}. \end{equation}
+Beachte, dass die Funktion $f'$ notwendigerweise ungleich $\mathrm{id}$ ist. Wir können $f'$ so verstehen, dass diese $\phi$ gewissermaßen in eine einfachere Form bringt, für welche $h$-Beweise effizient verarbeitet werden können.
+
+Es ist also einerseits nicht möglich, aus dem $h$-Beweis $w$ effizient eine akzeptierende Belegung für $f(\phi)$ zu bestimmen, obwohl $w$ bezeugt dass $f(\phi)$ erfüllbar ist. (Ersetze in \eqref{eq:weak-irreducibility} $\psi$ mit $f(\phi)$.)
+Andererseits reicht der $h$-Beweis $w$ aber aus, um (zusammen mit der Information $\phi$) effizient wieder eine erfüllende Belegung für $\phi$ zu berechnen. 
+Diese Argumentation \emph{plausibilisiert} zwar einen Widerspruch, bzw. dass $\neg\hQ\land\neg\mathsf{KvL}$ wahrscheinlich falsch ist, ist aber natürlich kein solcher. Die Umkehrung von Satz~\ref{thm:kvl-implies-q} bleibt offen.
+
+Es bleiben auch noch weitere Fragen offen, die wir hier aus Platzgründen nicht weiter verfolgen werden. 
 Zum einen zur Charakterisierung von $\mathsf{KvL}$:
-Wir konnten zwar $\mathsf{KvL}$ als Aussage über Beweissysteme formulieren, aber sind auch andere äquivalente Aussagen möglich, z.B. ähnlich wie bei $\hQ$?
+Wir konnten zwar $\mathsf{KvL}$ u.a. als Aussage über Beweissysteme formulieren, aber sind auch noch weitere äquivalente Charakterisierungen möglich, z.B. ähnlich wie bei $\hQ$?
 
 Zum anderen die Beziehungen zwischen $\mathsf{KvL}$ und anderen Hypothesen bzw. Annahmen.
 Gibt es natürliche (z.B. kryptographische) Annahmen die hinreichend für $\mathsf{KvL}$ sind? Wie ist die Beziehung zu den anderen Pudlákschen Hypothesen? Wie verhält sich insbesondere $\hSAT$ zu $\mathsf{SAT^{eff}}$? 
 Diese Fragen werden wir zum Teil in Kapitel~\ref{chap:orakel} klären; dort wird ein Orakel konstruiert, welches zeigt, dass selbst unter der Annahme von $\hDisjNP$ und $\hUP$ es nicht möglich ist, mit relativierenden Beweismethoden auf $\mathsf{KvL}$ zu schließen.
 Wir kommen hierauf am Ende dieses Kapitels noch einmal zurück.
-
-%Kann in Beobachtung~\ref{obs:kvl-equiv}(2) so verstärkt werden, dass $\mathit{std}_Q$ jedes (nicht nur die optimalen) Beweissystem effektiv p-simulieren kann, also gewissermaßen $\mathit{std}_Q$ „effektiv p-optimal“ ist?
 
 Insgesamt ist durch die vorherigen Überlegungen aber ein erster Schritt getan, die Beziehung zwischen Levin- und Many-one-Vollständigkeit über die Vermutung $\mathsf{KvL}$ im Kontext des Pudlákschen Programms einzuordnen.
 Weitere Forschung in diese Richtung erscheint vielversprechend.
@@ -558,7 +490,7 @@ Folgende Beobachtung hilft uns, natürliche NP-Relationen zu identifizieren, wel
 Damit können wir schon als Ergebnis festhalten, dass 
 jede $\leq_\mathrm{L,1,i}^\mathrm{p}$-vollständige Relation $R$ die in 
 Lemma~\ref{lemma:stdps-q} und~\ref{lemma:q-generalized} genannten Voraussetzungen an die NP-Relation $R$ erfüllt.
-Das sind nach \textcite{goldreich_computational_2008} unrelativierten Fall u.a. $\mathtt{rSAT}$, $\mathtt{rSETCOVER}$, $\mathtt{rVERTEXCOVER}$, $\mathtt{rCLIQUE}$, $\mathtt{r3COLORABILITY}$.
+Das sind nach \textcite{goldreich_computational_2008} im unrelativierten Fall u.a. $\mathtt{rSAT}$, $\mathtt{rSETCOVER}$, $\mathtt{rVC}$, $\mathtt{rCLIQUE}$, $\mathtt{r3COLORABILITY}$.
 
 \medskip
 \begin{proof}[Beweis zu Beobachtung~\ref{obs:invcomplete-sind-levinpaddable}]
@@ -596,56 +528,11 @@ Das sind nach \textcite{goldreich_computational_2008} unrelativierten Fall u.a. 
     Es ist leicht zu sehen, dass sich eine Funktion $\mathit{padsol}_R\in\FP$ angeben kann, die aus $x, 1^n, y'$ dieses entsprechende $y$ berechnen kann.
 \end{proof}
 
-Anstelle der Betrachtung, wie die \emph{Reduktionen} zwischen den einzelnen NP-Relationen aufgebaut sind, können wir auch strukturelle Eigenschaften von NP-Relationen ausnutzen, um Paddability zu zeigen. Hierbei macht die Definition von \emph{Universalität} durch \textcite{agrawal_universal_1992} aus dem Abschnitt~\ref{sec:gemeinsame-struktur} einen produktiven Beitrag. Ist eine NP-Relation \emph{joinable}, dann können wir auch zu einer Instanz beliebig viele Dummy-Instanzen anhängen. Aufgrund der speziellen Eigenschaften der $\mathit{join}$-Funktion können wir auch den relevanten Teil aus Zertifikaten für die verlängerten Instanz zielgenau auslesen. 
+Im Kontext der Frage, welche natürlichen NP-Relationen Levin-vollständig und Levin-paddable sind, sei auch noch auf den Begriff der \emph{Universalität} hingewiesen \textcite{agrawal_universal_1992}, welcher schon kurz in Abschnitt~\ref{sec:levin} angesprochen wurde. Es ist leicht nachzuweisen, dass uiverselle Relationen sowohl Levin-vollständig und Levin-paddable sind.
+Das sind nach \textcite{agrawal_universal_1992} im unrelativierten Fall u.a. $\mathtt{rSAT}, \mathtt{rHAMCYCLE}, \mathtt{rINDSET}, \mathtt{rKNAPSACK}, \mathtt{rMAXCUT}$.
 
-\begin{observation}\label{obs:joinable-sind-levinpaddable}
-    %Jede universelle Relation ist Levin-paddable. Dieses Resultat gilt nur im unrelativierten Fall.
-    Jede strenge NP-Relation $R\neq\emptyset$ die \emph{joinable} ist, ist auch Levin-paddable. 
-\end{observation}
-Vor dem Beweis können wir mit dieser Aussage festhalten, dass jede universelle Relation $R$ die in 
-Lemma~\ref{lemma:stdps-q} und~\ref{lemma:q-generalized} genannten Voraussetzungen an die NP-Relation $R$ erfüllt.
-Das sind nach \textcite{agrawal_universal_1992} u.a. $\mathtt{rSAT}, \mathtt{rHAM}, \mathtt{rINDSET}, \mathtt{rKNAPSACK}, \mathtt{rMAXCUT}$.
 
-\medskip
-\begin{proof}[Beweis zu Beobachtung~\ref{obs:joinable-sind-levinpaddable}]
-    Sei $R$ eine NP-Relation, mit zugehörigem Polynom $q$, welches die Zertifikatsgröße spezifiziert. Zur Erinnerung, nachdem $R$ streng ist, gilt $(x,y)\in R \Rightarrow |y|=q(|x|)>0$.
-    Ferner haben wir eine Instanz $z\in\Proj(R)$. Damit existiert also auch ein $w$ mit $(z,w)\in R$ und $q(|z|)=|w|>0$.
-
-    Wir zeigen zunächst, wie wir für beliebige Instanz $x$ und $n\in\mathbb N$ auf eine Instanz $x'$ hochpadden, in dem Sinne dass $q(|x'|) \geq n$.
-    Nach Voraussetzungen  ist die Relation $R$ auch \emph{joinable}, das heißt wir haben eine Funktion $\mathit{join}\in\FP$. Sei 
-    \[ (x',\delta)\defeq \mathit{join}(x, \underbrace{z, z, \ldots, z}_{\text{$n$ mal}}).\]
-    %Wir werden nun über die Länge $|\delta|$ auf die Länge von Zertifikaten zu $x'$ schließen, und damit $|x'|$ beschränken.
-    Intuitiv muss nun $\delta$ (und damit $x'$) lang sein, da nun aus all den $n$ vielen Instanzen $z$ wieder das jeweilige Zertifikat aus jedem Zertifikat für $x'$ extrahiert werden muss.
-    Nach Definition~\ref{def:universal} gilt
-    \[ q(|x'|) \geq |\delta|=q(|x|) + \underbrace{q(|z|) + \cdots + q(|z|)}_{\text{$n$ mal}} \geq  n\cdot q(|z|) \geq n. \]
-    %Beob. dass unter Definition ?? alle Zertifikate $y'$ für $x'$ die feste Länge $q(|x'|)$ haben. 
-    %Zur Erinnerung: wir haben
-    %\begin{align}\label{eq:levinpad-join} &\{ y'[\delta] \mid y'\in\fset{}R(x') \} = \{ yy_1y_2\cdots y_{n} \mid y\in\Sigma^{q(|x|)}, y_1,y_2, \ldots \in \Sigma^*, y\in\fset{}R(x), y_1,y_2,\dots,y_n\in\fset{}R(z) \} \end{align}
-    %Die Sequenz $\delta$ besteht nach Definition aus paarweise verschiedenen Indizes, daher können wir argumentieren, dass auch alle Zertifikate $y'$ (mit vorgegebener Länge $q(|x'|)$) mindestens die Länge $|\delta|$ haben.
-    %Damit gilt
-    %\[ q(|x'|) \geq |\delta| \geq n \]
-    %wie gewünscht.
-
-    Sei nun $\mathit{pad}$ genau jene polynomialzeit-berechenbare Funktion, die aus $x$ und $1^n$ die Instanz $x'$ konstruiert:
-    \[ \mathit{pad}(x, 1^n) \defeq  x' \quad\text{ wobei }
-    (x',\delta)=\mathit{join}(x, \underbrace{z,z,\ldots, z}_{\text{$n$ mal}}).\]
-    Dann gilt schon sofort, dass $q(|\mathit{pad}(x, 1^n)|)=q(|x'|)\geq n$ wie gewünscht.
-
-    Wir zeigen jetzt, dass die Zugehörigkeit zu $\Proj(R)$ erhalten bleibt.
-    Zur Erinnerung, wir haben nach Eigenschaften der $\mathit{join}$-Funktion
-    \begin{align}\label{eq:levinpad-join} &\{ y'[\delta] \mid y'\in\fset{}R(x') \} = \{ yy_1y_2\cdots y_{n} \mid  y\in\fset{}R(x), y_1,y_2,\dots,y_n\in\fset{}R(z) \}. \end{align}
-    Gilt $x\not\in\Proj(R)$, dann ist die rechte Menge in \eqref{eq:levinpad-join} leer, also auch die linke Menge und damit $x'=\mathit{pad}(x, 1^n)\not\in \Proj(R)$.
-    Falls anders herum $x\in\Proj(R)$, dann ist die rechte Menge nicht leer, existiert ja ein Zertifikat $y$ für $x$ und je ein $y_i=w$ für jedes $z$. Also ist auch die linke Menge nicht leer, damit $\mathit{pad}(x, 1^n)\in \Proj(R)$.
-
-    Die noch verbleibende Funktion $\mathit{padsol}$ ist durch die bitweise Projektion durch $\delta$ leicht möglich:
-    \[
-    \mathit{padsol}(x, 1^n, y') \defeq  y'[\delta][0, 1, \ldots, q(|x|)-1] \enspace\text{ wobei } (\cdot, \delta) = \mathit{join}(x, \underbrace{z,z,\ldots, z}_{\text{$n$ mal}}).\]
-    Wir verifizieren: Sei $(\mathit{pad}(x, 1^n), y')\in R$, dann ist nach \eqref{eq:levinpad-join} $y'[\delta]=yy_1y_2\cdots$ wobei $(x,y)\in R$. Nachdem $R$ streng ist, gilt insbesondere $y\in\Sigma^{q(|x|)}$ und wir haben
-\[ \mathit{padsol}(x, 1^n, y') = y'[\delta][0, 1, \ldots, q(|x|)-1] = (yy_1y_2\cdots)[0,1,\ldots,q(|x|)-1] = y \]
-    und damit $(x, \mathit{padsol}(x, 1^n, y')) = (x, y)\in R$, wie gewünscht.
-\end{proof}
-
-Es bleibt die Frage offen, ob Levin-Paddability für \emph{alle} vollständigen NP-Relationen zutrifft. Unter Annahmen einer geeigneten Einwegfunktion ist dies nicht der Fall.
+Es bleibt trotzdem die Frage offen, ob Levin-Paddability für \emph{alle} vollständigen NP-Relationen zutrifft. Unter Annahmen einer geeigneten Einwegfunktion ist dies nicht der Fall.
 Die Argumentation verläuft hier ähnlich zur \emph{Encrypted Complete Set Conjecture}.
 Wir setzen hier eine stärkere \emph{secure one-way function} \parencite{grollmann_complexity_1988} $f$ voraus, die selbst mithilfe funktionaler Orakel-Queries nur auf einer dünnen Menge $\P$-invertierbar ist.
 Präzise meinen wir damit folgendes: sei $A$ ein beliebiger Polynomialzeit-Algorithms, der auf Eingabe $w$ versucht, das Urbild $f^{-1}(w)$ zu berechnen. Zusätzlich darf $A$ das Urbild $f^{-1}(w')$ von einem Wort $w'\neq w$ erfragen. Selbst dann wird $A$ nur auf einer dünnen Menge $W\subseteq\Sigma^*$ das korrekte Urbild aller $w\in W$ bestimmen können.
@@ -1015,7 +902,7 @@ Das sei im Folgenden nun abschließend noch zusammengefasst (vgl. Tabelle~\ref{t
 
 Hiermit wollen wir die Diskussion über die Beziehungen der Hypothesen des erweiterten Pudláksche Programms abschließen. Im folgenden Kapitel werden wir nun noch das angekündigte Orakel $O$ konstruieren.
 
-\begin{table}[!b]\
+\begin{table}[!b]\small
 \newcommand\rot[1]{\rotatebox{90}{#1\enspace}}
 \setlength{\tabcolsep}{3.3pt}
 \def\arraystretch{1.21}

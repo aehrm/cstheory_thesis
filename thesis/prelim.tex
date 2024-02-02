@@ -69,15 +69,24 @@ Daher werden wir die obige implizit mitgedachte Codierung auch auf andere Objekt
 \vspace{0pt plus 2ex}
 \section{Maschinenmodell}\label{sec:prelim-machines}
 
-Diese Arbeit baut auf dem Berechnungsmodell der Turing-Maschine (TM) auf. Wir betrachten hierbei sowohl die deterministische als auch die nichtdeterministische Variante. In dieser Arbeit haben TM sowohl ausgezeichnete Zustände zum Akzeptieren, ein Eingabeband, ein Arbeitsband, und ein Ausgabeband. Im Folgenden betrachten wir nur TM die immer terminieren, also nach endlich vielen Zustandsübergängen kein weiterer legaler Zustandsübergang mehr möglich ist. (Es ist einer TM im Allgemeinen nicht ansehbar, ob diese immer terminiert. Im Verlauf dieser Arbeit werden die TM aber so beschaffen sein, dass diese offensichtlich immer terminieren.) 
+Diese Arbeit baut auf dem Berechnungsmodell der Turing-Maschine (TM) auf. Wir betrachten hierbei sowohl die deterministische als auch die nichtdeterministische Variante. In dieser Arbeit haben TM sowohl ein Eingabeband, ein Arbeitsband, und ein Ausgabeband. Jede TM besitzt einen ausgezeichneten Zustand zum Akzeptieren. In jedem Rechenschritt einer TM geht die TM von einer Konfiguration in eine nächste Konfiguration über (wobei diese in der nichtdeterministischen Variante nicht eindeutig sein muss). Mit Konfiguration meinen wir hier eine Beschreibung der Bandinhalte, der Kopfpositionen und dem Zustand.
 
-Wir betrachten zunächst deterministische TM.
-%Eine Berechnung $M(x)$ einer deterministischen TM $M$ auf Eingabe $x$ induziert einen Rechenweg $\alpha$, der in einem ausgezeichnetem Zustand $q$ terminiert.
-Sei $M$ eine deterministische TM, und $x$ eine Eingabe. Dann induziert eine Berechnung $M(x)$ einen Rechenweg $\alpha$, der mit einem ausgezeichnetem Zustand $q$ terminiert. 
-Wir sagen dann auch, dass \emph{$\alpha$ der Rechenweg von Berechnung $M(x)$} ist.
-Wenn der terminierende Zustand $q$ dieses Rechenwegs $\alpha$ ein akzeptierender Zustand ist,
-dann sagen wir auch, dass \emph{$M(x)$ mit Ausgabe $y$ akzeptiert} oder kurz \emph{$M(x)$ akzeptiert} wobei $y$ jenes Wort ist, welches auf dem Ausgabeband steht.
-Wenn ansonsten der terminierende Zustand $q$ kein akzeptierender Zustand ist, dann sagen wir, dass \emph{$M(x)$ (ohne Ausgabe) ablehnt}.
+Für (nichtdeterministische oder deterministische) TM $M$ und Eingabe $x\in\Sigma^*$ sagen wir, dass $\alpha$ \emph{ein Rechenweg der Berechnung $M(x)$} ist, wenn $\alpha$ eine Sequenz $C_0, C_1, \dots$ von Konfigurationen ist, diese mit der initialen $C_0$ Konfiguration startet, und in der die Konfiguration $C_{i+1}$ aus $C_i$ über einen (bzgl. $M$) legalen Rechenschritt hervorgeht.
+
+Wir sagen, dass ein Rechenweg $\alpha=(C_0,\dots,C_m)$ \emph{terminierend} ist, wenn kein weiterer legaler Rechenschritt (bzgl. $M$) mehr nach $C_m$ möglich ist.
+Ein Rechenweg ist \emph{akzeptierend} wenn dieser terminierend ist, und der Zustand der letzten Konfiguration $C_m$ der akzeptierende Zustand  ist.
+Entsprechend sagen wir auch, dass \emph{$M(x)$ bezüglich $\alpha$ mit Ausgabe $y$ akzeptiert} wenn $\alpha$ ein akzeptierender Rechenweg ist, und $y$ auf dem Ausgabeband steht.
+
+%Analog sagen wir, dass ein Rechenweg \emph{ablehnend} ist, wenn dieser terminierend ist und der Zustand der letzten Konfiguration $C_m$ nicht der akzeptierende Zustand ist.
+%Entsprechend sagen wir auch, dass \emph{$M(x)$ bezüglich $\alpha$ ablehnt}.
+
+
+
+
+Wir betrachten nun konkret deterministische TM.
+Nachdem höchstens ein terminierender Rechenweg $\alpha$ einer Berechnung $M(x)$ einer deterministiscne TM $M$ auf Eingabe $x$ existiert, können wir verkürzend auch sagen, dass 
+\emph{$M(x)$ mit Ausgabe $y$ akzeptiert} oder kurz \emph{$M(x)$ akzeptiert}, wenn $M(x)$ bezüglich $\alpha$ mit Ausgabe $y$ akzeptiert.
+Sollte $\alpha$ dagegen ablehnend sein, oder überhaupt nicht existieren, dann sagen wir, dass \emph{$M(x)$ ablehnt}.\sidenote{Ein solcher Rechenweg $\alpha$ existiert genau dann nicht, wenn $M(x)$ nicht hält. Im Verlauf dieser Arbeit müssen wir aber solche unbeschränkt lang rechnenden TM nicht berücksichtigen, un identifizieren daher „Ablehnen“ als Negation von „Akzeptieren“ also mit „ablehnend terminieren oder nicht terminieren“.}
 
 Eine solche deterministische TM $M$ setzt nun gleichzeitig zwei unterschiedliche Berechnungsweisen um. Einerseits die eines Akzeptors einer Menge, und andererseits die einer Funktion:
 \begin{itemize}
@@ -89,10 +98,9 @@ Wenn wir $M$ im Kontext der zweiten Berechnungsweise verstehen, dann sprechen wi
 Wir kürzen dann auch „die von $M$ berechnete Funktion“ durch „die Funktion $M$“ ab und verstehen den Turing-Transduktor $M$ als genuine Funktion, und schreiben dann z.B. $M(x)=y$ anstelle $f_M(x)=y$.
 
 Diese zwei Arten von Berechnungsweisen einer TM erweitern wir nun auf nichtdeterministische TM. 
-Sei  $N$ eine nichtdeterministische TM, und $x$ eine Eingabe. Dann induziert analog eine Berechnung $N(x)$ nicht nur eine, sondern ggf. mehrere terminierende Rechenwege, die wir ebenso die Rechenwege von Berechnung $N(x)$ nennen. Terminiert ein solcher Rechenweg von $N(x)$ in einem akzeptierenden Zustand, nennen wir diesen Rechenweg auch einen \emph{akzeptierenden Rechenweg}.
-Ähnlich wie im deterministischen Fall sagen wir, dass \emph{$N(x)$ auf Rechenweg $\alpha$ (mit Ausgabe $y$) akzeptiert}  wenn $\alpha$ ein akzeptierender Rechenweg von $N(x)$ ist (und $y$ auf dem Eingabeband steht).
-Beachte, dass die Angabe eines Rechenwegs zwingend notwendig ist, da zu einer Berechnung $N(x)$ ja mehrere Rechenwege mit je unterschiedlichen Akzeptierverhalten und Ausgaben existieren.
+Sei  $N$ eine nichtdeterministische TM, und $x$ eine Eingabe. Dann existieren bezüglich Berechnung $N(x)$ nicht nur eine, sondern ggf. mehrere terminierende Rechenwege. 
 Im Sinne eines existentiellen Akzeptierverhaltens sagen wir dass \emph{$N(x)$ akzeptiert} wenn \emph{mindestens} ein akzeptierender Rechenweg $\alpha$ auf $N(x)$ existiert.
+Ansonsten sagen wir, dass \emph{$N(x)$ ablehnt}.
 
 
 Analog ergeben sich nun wieder zwei Berechnungsweisen, einerseits als Akzeptor, andererseits als Multifunktion:
@@ -121,8 +129,8 @@ Auf Basis der Turing-Maschinen als Berechnungsmodell können die üblichen Kompl
 \begin{split} \UP &\defeq \{ L\subseteq\Sigma^* \mid  \text{ex. NPTM $M$ mit $L=L(M)$,}\\ &\qquad\qquad\qquad\text{und $M(x)$ akz. auf höchstens einem Rechenweg} \},\end{split}\\
     \coNP &\defeq \{ L\subseteq\Sigma^* \mid \overline{L}\in\NP \}.
 \intertext{Die Einfach- und Doppelt-Exponentialzeitklassen definieren wir wie folgt:}
-    \mathrm{E} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ mit $L=L(M)$, und ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{c|x|}$ für alle $x$} \},\\
-    \mathrm{EE} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ mit $L=L(M)$, und ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{2^{c|x|}}$ für alle $x$} \}.
+    \mathrm{E} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ mit $L=L(M)$, ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{c|x|}$ für alle $x$} \},\\
+    \mathrm{EE} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ mit $L=L(M)$, ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{2^{c|x|}}$ für alle $x$} \}.
 \end{align*}\egroup
 Die nichtdeterministischen Varianten $\mathrm{NE}, \mathrm{NEE}$ und Komplementklassen $\mathrm{coNE}, \mathrm{coNEE}$ sind analog definiert.
 
@@ -166,6 +174,10 @@ Für die Funktionenklassen hat sich folgender sehr starke Begriff von Many-one-R
 \begin{itemize}
     \item $g\leqmp h$ wenn eine Funktion $f\in\FP$ existiert mit $\fset{}g(x)=\fset{}h(f(x))$.
 \end{itemize}
+Insbesondere für zwei Funktionen $g,h\in\FP$ gilt
+\begin{itemize}
+    \item $g\leqmp h$ wenn eine Funktion $f\in\FP$ existiert mit $g(x)=h(f(x))$.
+\end{itemize}
 Auf den Paaren aus $\DisjNP$ und $\DisjCoNP$ hat sich folgender Begriff von Reduzierbarkeit herausgebildet.\footnote{Vgl. insb. \textcites{glaser_disjoint_2004}{glaser_reductions_2005} für einen ausführlichen Vergleich und Diskussion der Reduktions- und Vollständigkeitsbegriffe. Insgesamt zeigen die Arbeiten,  dass dieser schwache Begriff von Reduktion geeignet gewählt ist, denn er ist insbesondere äquivalent zu alternativen stärker wirkenden Reduktionsbegriffen ist.}
 Seien $(A,B), (C,D)$ zwei disjunkte NP-Paare (bzw. zwei disjunkte coNP-Paare):
 \begin{itemize}
@@ -189,7 +201,7 @@ Geht die Klasse $\mathcal C$ aus dem Kontext hervor, lassen wir manchmal auch di
 Auf Mengen betrachten wir üblicherweise die Reduktionsordnung $\leqmp$, und nennen daher manchmal eine Sprache $A$ \emph{$\mathcal C$-vollständig} wenn $A$ $\leqmp$-vollständig für $\mathcal C$ ist.
 Auf Grundlage der Existenz universeller effizienter Turing-Maschinen können für die Klassen $\P$ und $\NP$ jeweils eine kanonische $\leqmp$-vollständige Menge angegeben werden. Für $\NP$ ist diese
 \begin{definition}
-\[ \mathtt{KAN} \defeq \{ (N, x, 1^n) \mid \text{$N$ ist eine NTM und akz. $x$ auf einem RW mit $\leq n$ vielen Schritten} \}.\qedhere \]
+    \[ \begin{split} \mathtt{KAN} \defeq \{ (N, x, 1^n) \mid \,&\text{$N$ ist eine NTM und ex. Rechenweg $\alpha$ auf $N(x)$}\\ &\text{mit $\leq n$ vielen Schritten} \}. \end{split} \qedhere \]
 \end{definition}
 \begin{lemma}
     Die Menge $\mathtt{KAN}$ ist $\leq_\mathrm{1,i}^\mathrm{p}$-vollständig.

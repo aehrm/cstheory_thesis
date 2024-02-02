@@ -3,7 +3,7 @@
 \booktrue
 \ifbook
 \documentclass[11pt,a4paper,twoside,openright]{report}
-\usepackage[bottom=4.2cm,top=2.8cm,headsep=1.5cm,foot=.8cm,inner=1.4cm,outer=5.5cm,marginparwidth=4.4cm,a4paper]{geometry}
+\usepackage[bottom=4.2cm,top=2.8cm,headsep=1.5cm,foot=.8cm,inner=1.8cm,outer=5.5cm,marginparwidth=4.4cm,a4paper]{geometry}
 \else
 \documentclass[a4paper]{report}
 \usepackage[bottom=3cm,top=2cm,foot=.8cm,left=1.5cm,right=4cm,a4paper]{geometry}
@@ -21,7 +21,7 @@
 \setmathfont[range=it]{Gentium Plus Italic}
 \setmathfont[range=cal]{TeX Gyre Chorus}
 \setsansfont[Scale=MatchLowercase]{Noto Sans}
-\setmonofont[Scale=MatchUppercase]{Latin Modern Mono}
+\setmonofont[Scale=MatchUppercase,HyphenChar={-}]{Latin Modern Mono}
 \setlength{\baselineskip}{12pt}
 \newcommand\cyrfont[1]{#1}
 \renewcommand{\footnotesize}{\fontsize{9pt}{9.5pt}\selectfont}
@@ -33,10 +33,11 @@
 \usepackage{mdframed}
 \usepackage[pdfusetitle,pdfencoding=auto,psdextra,bookmarksopen]{hyperref}
 \hypersetup{
-  colorlinks   = true, %Colours links instead of ugly boxes
-  urlcolor     = red!70!black, %Colour for external hyperlinks
-  linkcolor    = red!70!black, %Colour of internal links
-  citecolor   = red!70!black %Colour of citations
+  hidelinks
+  %colorlinks   = true, %Colours links instead of ugly boxes
+  %urlcolor     = red!70!black, %Colour for external hyperlinks
+  %linkcolor    = red!70!black, %Colour of internal links
+  %citecolor   = red!70!black %Colour of citations
 }
 \usepackage[dvipsnames]{xcolor}
 \usepackage{ragged2e}
@@ -97,7 +98,7 @@
 \setlength{\@fptop}{0pt}
 \makeatother
 
-\usepackage{titlesec}		% header customization
+\usepackage[explicit]{titlesec}		% header customization
 \usepackage{titletoc}		% toc customization
 \usepackage{titleps}		% toc customization
 \usepackage[titles]{tocloft}% lof lot lol customizatios
@@ -111,23 +112,17 @@
     {\thispagestyle{numbers}\itshape\huge}
     {\normalfont\bfseries\huge\thechapter}
     {1em}
-    {\setstretch{0.9}\raggedright\huge\itshape}
+    {\setstretch{0.9}\raggedright\huge\itshape #1}
 \titleformat{\section}
     {\itshape\Large}
     {\normalfont\thesection}
     {1em}
-    {\setstretch{0.9}\raggedright\itshape}
+    {\setstretch{0.9}\raggedright\itshape #1}
 \titleformat{\subsection}
-    {\itshape\large}
+    {\scshape}
     {\raggedright\normalfont\thesubsection}
     {1em}
-    {\setstretch{0.9}\itshape}
-\titleformat{\subsubsection}[runin]
-    {}
-    {\itshape\thesubsubsection}
-    {1ex}
-    {\itshape}[~~$\cdot$]
-%\newcommand{\subsectionbreak}{\vfil}
+    {\setstretch{0.9}\raggedright\MakeLowercase{#1}}
 
 \contentsmargin[1cm]{.7cm}
 \titlecontents{chapter}[7pt]
@@ -179,6 +174,7 @@
 
 \setlength{\topsep}{7pt plus 5pt minus 3pt}
 \setlength{\partopsep}{0pt plus 0pt minus 0pt}
+\setlength{\jot}{0pt}
 \newtheoremstyle{mytheoremstyle}{\topsep}{\topsep}{\itshape}{}{\bfseries}{.}{.5em}{}
 \theoremstyle{mytheoremstyle}
 
@@ -239,7 +235,7 @@
 \setlist[itemize]{itemsep=0pt plus 3pt, topsep=7pt plus 4pt minus 1pt}
 \setlist{beginpenalty=10000, midpenalty=10000}
 \newlist{Prooflist}{enumerate}{1}
-\setlist[Prooflist]{wide,labelwidth=!,leftmargin=0pt,itemindent=!,labelindent=0pt,label={},labelsep=0pt,itemsep=.4em plus .2em minus .1em,parsep=0pt}
+\setlist[Prooflist]{wide,labelwidth=!,leftmargin=0pt,itemindent=!,labelindent=0pt,label={},labelsep=0pt,itemsep=.4em plus .2em minus .1em,parsep=0pt,listparindent=1em}
 \newenvironment{prooflist}[1][]{%
     \begin{Prooflist}[#1]%
 }{%
@@ -280,6 +276,10 @@
 
 \usepackage{url}
 \urlstyle{same}
+%\usepackage{xurl}
+\setcounter{biburllcpenalty}{100}
+\setcounter{biburlucpenalty}{200}
+\setcounter{biburlnumpenalty}{100}
 
 \usepackage[vlined,linesnumbered,nofillcomment,german,onelanguage]{algorithm2e}
 \DontPrintSemicolon
@@ -305,6 +305,7 @@
 \newcommand{\note}[1]{\textcolor{green!30!black}{{\sffamily #1}}}
 
 \hyphenation{Kom-ple-xi-tät-s-the-o-rie}
+\hyphenation{r4CHROM-IN-DEX}
 \hyphenation{Re-chen-weg}
 
 

@@ -7,8 +7,7 @@ In Abschnitt~\ref{sec:searchproblems-def} werden wir eine formal präzise Defini
 In Abschnitt~\ref{sec:search-vs-decision} gehen wir auf die Beziehung zwischen NP-Suchproblemen und den entsprechenden NP-Entscheidungsproblemen ein; insbesondere zeigen wir, in welchen Situationen das Entscheidungsproblem „gleich schwer“ wie das Suchproblem ist (das ist das Argument \emph{search reduces to decision}), und in welchen nicht.
 
 Um die Schwierigkeit der unterschiedlichen NP-Suchproblemen zu vergleichen, werden wir – analog wie auf den Entscheidungsproblemen – ein Begriff der Levin-Reduzierbarkeit definieren. In Abschnitt~\ref{sec:levin} definieren wir diesen Reduzierbarkeits-Begriff präzise und betrachten Eigenschaften des entsprechenden Vollständigkeitsbegriff.
-
-Abschließend wird in Abschnitt~\ref{sec:gemeinsame-struktur} noch der Forschungsstand zur gemeinsamen Struktur von vollständigen NP-Suchproblemen erläutert: die üblichen vollständigen NP-Suchprobleme teilen sich neben dieser Interreduzierbarkeit noch weitere Eigenschaften (z.B. Gleichmächtigkeit der Lösungsmengen, bekannt unter dem Begriff \emph{parsimonious}), die hier erläutert und verglichen werden. 
+In diesem Zusammenhang betrachten wir auch die bekannteren verwandten sparsamen („parsimonious“) Reduktionen.
 
 \section{Definition von Suchproblemen}\label{sec:searchproblems-def}
 
@@ -173,7 +172,7 @@ Zum einen wird die eben genannte Reduzierbarkeit und das \emph{search-reduces-to
 Zunächst sei auf die Beziehungen zwischen NP-Relationen und NP-Sprachen hingewiesen.
 Tatsächlich haben wir bereits gesehen, dass wir über die Projektion jedem NP-Suchproblem bzw. NP-Relation ein korrespondierendes Entscheidungsproblem aus $\NP$ zuordnen konnten. Tatsächlich lässt sich diese Zuordnung auch umkehren: zu jeder Sprache bzw. Entscheidungsproblem $L\in \NP$ existiert (mind.) eine NP-Relation $R$ mit $L=\Proj(R)$, und zu jeder NP-Relation bzw. NP-Suchproblem $R$ ist $\Proj(R)\in\NP$. Das ist die übliche „Zertifikats-Charakterisierung“ von $\NP$ aus den Lehrbüchern.
 \begin{observation}[Zertifikats-Definition von NP]\label{obs:np-certificate-def}
-    $\NP = \{ \Proj(R) \mid \text{$R$ ist eine NP-Relation} \}.$
+\[ \NP = \{ \Proj(R) \mid \text{$R$ ist eine NP-Relation} \}.\]
 \end{observation}
 \begin{proof}
     Wir müssen nur noch die Inklusion von links nach rechts zeigen. Sei hierfür $L\in\NP$ eine Sprache und $N$ eine NPTM die $L$ entscheidet, wobei die Laufzeit durch das Polynom $p$ beschränkt ist. Definiere nun die Relation
@@ -320,7 +319,6 @@ Es ist klar, dass mit einem solchen Transduktor relativ zu $R$ auch das Suchprob
 Falls selbst unter dieser Einschränkung der Fragen das Suchproblem durch einen solchen Transduktor relativ zu $R$ gelöst werden kann, sagen wir, dass $R$ \emph{nach unten selbstreduzierbar ist}.
 
 Zum Verständnis erinnern wir uns an die TFNP-Relation $\mathtt{rFACTOR}'$, welche nach einem nichttrivialem Faktor für $n$ sucht, oder „$n$ ist prim“ ausgibt. Wäre nun $\mathtt{rFACTOR}'$  nach unten selbstreduzierbar, dann würde das bedeuten dass ein Faktor von $n$ effizient gefunden werden kann, wenn wir nach Faktoren von Zahlen $\leq n/2$ fragen dürfen.
-%\marginnote{\todo{Hier wäre schön ein Beispiel eines Problems (muss in PLS liegen) zu haben, das nach unten selbstreduzierbar ist}}
 Welche TFNP-Probleme nach unten selbstreduzierbar sind, ist erstaunlich wenig untersucht, und eine Beforschung in dieser präzisen Formulierung wurde wohl erst durch \textcite{harsha_downward_2023} angetreten.
 Sie zeigen die Selbstreduzierbarkeit nach unten für folgendes TFNP-Problem „Iterate with source“, welches als ein kanonischer Repräsentant für die Unterklasse $\mathrm{PLS}$ (zur Erinnerung: \emph{polynomial local search}) gilt.
 \begin{quote}
@@ -408,7 +406,8 @@ Formal ausgedrückt ist $\FP$ nach unten abgeschlossen unter der $\leqlp$-Ordnun
     \[ q(x) \defeq \begin{cases} g(x, r(f(x))) & \text{falls $r(f(x))\neq \bot$} \\ \bot & \text{sonst}.\end{cases} \]
     Offenbar ist $q\in\FP$. Wir zeigen nun dass $q$ eine Verfeinerung von $Q$ ist.
     Zum einen gilt $\dom(q)=\Proj(Q)$:
-    \[ x\in\Proj(Q) \iff f(x)\in\Proj(R) \iff f(x)\in\dom(r) \iff q(x)\neq\bot \iff x\in\dom(q). \]
+    \begin{gather*} x\in\Proj(Q) \iff f(x)\in\Proj(R) \iff f(x)\in\dom(r) \\
+    \iff q(x)\neq\bot \iff x\in\dom(q). \end{gather*}
     Hierbei folgt die erste Äquivalenz nach Definition~\ref{def:levin-reduction}(1).
     Zum anderen haben wir
     \begin{gather*}
@@ -508,9 +507,6 @@ In Abschnitt~\ref{sec:karp-vs-levin} werden wir diese Hypothese und dessen Bezie
 Die oben genannte Frage lässt sich auf natürliche Weise abschwächen, indem man von der konkreten NP-Relation abstrahiert: Wenn $L$ eine $\leqmp$-vollständige Menge für $\NP$ ist, existiert dann zumindest \emph{eine} NP-Relation $R_L$ für $L$ (d.h. $\Proj(R_L)=L$) sodass $R_L$ $\leqlp$-vollständig ist? In anderen Worten, existiert ein hinreichend ausdrucksstarkes „Zertifikatssystem“ $R$ für $L$ sodass $R$ $\leqlp$-vollständig ist?
 Diese abgeschwächte Frage lässt sich positiv beantworten, falls man die Berman–Hartmanis-Vermutung $\mathsf{IC}$ annimmt:
 \begin{observation}[\cite{buhrman_functions_1998}]\label{obs:isomorphs-sind-leqlp-vollst}
-    %Sei $L$ eine beliebige Menge und sei $R$ eine $\leqlp$-vollständige NP-Relation.
-    %Gilt $L \leq_\mathrm{1,i}^\mathrm p\Proj(R)$, dann existiert eine $\leqlp$-vollständige NP-Relation $R$ mit $\Proj(R)=L$.
-    %\todo{Das kann zu universellem $R$ verstärkt werden, vgl. Agrawal und Biswas}
     Für jede Menge $L\in \NP$ die $\P$-isomorph zu $\mathtt{SAT}$ ist, existiert eine NP-Relation $R_L$ sodass $\Proj(R_L)=L$ und $R_L$ auch $\leqlp$-vollständig für $\FNP$ ist.
 \end{observation}
 \begin{proof}
@@ -544,27 +540,30 @@ Andererseits kann gefragt werden, ob TFNP-Relationen existieren die $\leqlp$-vol
 \end{conjecture}
 Auch hier ist ein Beweis für diese Vermutung mindestens so schwer wie ein Beweis für $\NP\neq\coNP$. Die Beziehung dieser Vermutung mit weiteren Vermutungen betreffend Promise-Probelemen wird in Kapitel~\ref{chap:pudlak} erarbeitet.
 
-\section{Zur gemeinsamen Struktur von vollständigen Suchproblemen}\label{sec:gemeinsame-struktur}
+\subsection*{Sparsame Reduktionen}
 
-\subsection*{Feinere Reduktionsbegriffe}
+Wir wollen hier noch auf den Begriff der \emph{sparsamen („parsimonious“)} Reduktionen eingehen. Diese ist einerseits verwandt mit der oben betrachteten Levin-Reduktion, andererseits aber wesentlich breiter bekannt und untersucht, insbesondere aufgrund der Relevanz von sparsamen Reduktion in der Komplexitätstheorie des Zählens.
 
-Aus den Erfahrungen in den Entdeckungen von NP-vollständigen Mengen bzw. der Entwicklung der hierfür notwendigen Reduktionen wurde intuitiv deutlich, dass die NP-vollständigen Mengen sich viele nicht-offensichtliche Eigenschaften teilen, die über „Equi-Lösbarkeit“ ($A\in \P$ genau dann wenn $B\in \P$ für $\leq_\mathrm T^\mathrm p$-vollständige Mengen $A,B$) hinaus geht.
-%
-Das beginnt schon bei der üblichen Many-one-Reduktion, die eine Verstärkung der Turing-Reduktion darstellt. Hier wird auf die fundamental ähnliche Struktur von zwei $\leqmp$-äquivalenten Mengen $A, B$ hingewiesen: eine Instanz $x$ von $A$ kann als ein „äquivalenter“ Fall $f(x)$ von $B$ repräsentiert werden.
+%Kurz zur Entwicklung: aus den Erfahrungen in den Entdeckungen von NP-vollständigen Mengen bzw. der Entwicklung der hierfür notwendigen Reduktionen unter NP-Entscheidungsproblemen wurde intuitiv deutlich, dass die NP-vollständigen Mengen sich viele nicht-offensichtliche Eigenschaften teilen, die über „Equi-Lösbarkeit“ ($A\in \P$ genau dann wenn $B\in \P$ für $\leq_\mathrm T^\mathrm p$-vollständige Mengen $A,B$) hinaus geht.
+%Das beginnt schon bei der üblichen Many-one-Reduktion. Hier wird auf die fundamental ähnliche Struktur von zwei $\leqmp$-äquivalenten Mengen $A, B$ hingewiesen: eine Instanz $x$ von $A$ kann als ein „äquivalenter“ Fall $f(x)$ von $B$ repräsentiert werden.
 
-Hinzu kommt die Beobachtung, dass unter den Mengen $L\in\NP$ bisher jeder Beweise der $\leqmp$-Vollständigkeit von $L$ zu Beweisen der $\leq_\mathrm{1,i}$-Vollständigkeit verstärkt werden konnte.
-Dies führte schlussendlich zur (Berman–Hartmanis-\nolinebreak)\linebreak[1]Isomorphievermutung $\mathsf{IC}$, in der postuliert wird, dass es im Wesentlichen nur \emph{eine} NP-vollständige Menge gibt, und die verschiedenen Ausprägungen unterschiedlicher NP-vollständiger Mengen nur triviale Umcodierungen des selben Problems sind.
-Obwohl die Forschung zu NP-Suchproblemen im Vergleich zu den entsprechenden Entscheidungsproblemen im Hintergrund blieb, wurde in der Forschung aufgrund der oben genannten Erfahrungen und Intuitionen die Beobachtung gemacht, dass viele der entsprechenden Suchprobleme eine inhärente strukturelle Ähnlichkeit untereinander haben \parencite[vgl. auch die Diskussion von][]{hemaspaandra_take-home_1998}.
-Im Folgenden werden einige dieser Arbeiten kurz skizziert.
+%Hinzu kommt die Beobachtung, dass unter den Mengen $L\in\NP$ bisher jeder Beweise der $\leqmp$-Vollständigkeit von $L$ zu Beweisen der $\leq_\mathrm{1,i}$-Vollständigkeit verstärkt werden konnte.
+%Dies führte schlussendlich zur (Berman–Hartmanis-\nolinebreak)\linebreak[1]Isomorphievermutung $\mathsf{IC}$, in der postuliert wird, dass es im Wesentlichen nur \emph{eine} NP-vollständige Menge gibt, und die verschiedenen Ausprägungen unterschiedlicher NP-vollständiger Mengen nur triviale Umcodierungen des selben Problems sind.
 
+%Obwohl die Forschung zu NP-Suchproblemen im Vergleich zu den entsprechenden Entscheidungsproblemen im Hintergrund blieb, wurde in der Forschung aufgrund der oben genannten Erfahrungen und Intuitionen die Beobachtung gemacht, dass viele der entsprechenden Suchprobleme eine inhärente strukturelle Ähnlichkeit untereinander haben \parencite[vgl. auch die Diskussion von][]{hemaspaandra_take-home_1998}.
+
+Aus den Erfahrungen in der Entwicklung der NP-Vollständigkeit von Entscheidungsproblmen wurde schnell deutlich, dass die NP-vollständigen Mengen sich viele nicht-offensichtliche Eigenschaften teilen. 
+In stärkster Ausprägung ist das z.B. die (Berman–Hartmanis-\nolinebreak)\linebreak[1]Isomorphievermutung $\mathsf{IC}$, in der postuliert wird, dass es im Wesentlichen nur \emph{eine} NP-vollständige Menge gibt, und die verschiedenen Ausprägungen unterschiedlicher NP-vollständiger Mengen nur triviale Umcodierungen des selben Problems sind.
+Diese Forschung betrachtete aber insbesondere primär die NP-Entscheidungsprobleme, und nicht NP-Suchprobleme.
+Nichtsdestotrotz wurde intuitiv aber die Beobachtung gemacht, dass auch viele der entsprechenden \emph{Suchprobleme} eine inhärente strukturelle Ähnlichkeit untereinander haben, auch wenn diese oft nicht explizit mitgedacht wurden \parencite[vgl. auch die Diskussion von][]{hemaspaandra_take-home_1998}.
+
+Hieraus entwickelte sich u.a. der Begriff der sparsamen Reduktionen.
 \textcite[83]{simon_central_1975} machte beispielsweise die Beobachtung, dass die ihm bekannten Reduktionsfunktionen $f\colon A\to B$ in den Beweisen zur NP-Vollständigkeit so gebaut sind, dass die Instanz $x$ genau $k$ „Lösungen“ bezüglich $A$ hat genau dann wenn $f(x)$ genau $k$ „Lösungen“ bezüglich $B$ hat. „Lösung“ hier in Anführungszeichen weil auf Mengen überhaupt kein Begriff von Lösungen bzw. Zertifikaten existiert; \citeauthor{simon_central_1975} dachte in seinen Überlegungen die zugrunde liegende kombinatorischen (Such-)Probleme zu $A$ und $B$ nur unausgesprochen mit.
 
 Auf NP-Relationen lässt sich sein Reduktionsbegriff aber formal präzise formulieren:
 \begin{definition}[Sparsame  Reduktionen]
-    Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{sparsam} (\emph{„parsimonious“}) reduzieren lässt, bzw. $Q\leq_\mathrm{pars}^\mathrm p R$ wenn eine Funktion $f\in\FP$ existiert mit%\sidenote{vgl. \textcite{rothe_komplexitatstheorie_2008}.}
+    Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{sparsam} (\emph{„parsimonious“}) reduzieren lässt, bzw. $Q\leq_\mathrm{pars}^\mathrm p R$ wenn eine Funktion $f\in\FP$ existiert mit
     \[ |\fset{}Q(x)|=|\fset{}R(f(x))|. \qedhere \]
-    %In anderen Worte, $f$ realisiert eine Many-one-Reduktion von $Q$ auf $R$, und haben sowohl die originale $Q$-Instanz $x$ als auch die reduzierte $R$-Instanz $f(x)$ die gleiche Anzahl an Lösungen.
-    %Definiere $Q\leq_\mathrm{pars}^\mathrm p$-Vollständigkeit entsprechend.
 \end{definition}
 
 Beachte, dass sparsame Reduktionen immer eine Many-one-Reduktion realisieren: wir haben 
@@ -572,179 +571,22 @@ Beachte, dass sparsame Reduktionen immer eine Many-one-Reduktion realisieren: wi
 Sparsame Reduktionen wurden insbesondere in der Komplexitätstheorie des Zählens aufgegriffen \parencites{simon_central_1975}{valiant_complexity_1979}. Typische algorithmische Probleme sind z.B. „\emph{wie viele Belegungen $w$ erfüllen die aussagenlogische Formel $\phi$}“ oder, kanonischer, „\emph{Auf wie vielen Rechenwegen akzeptiert die Berechnung $N(x)$ der NPTM $N$?}“. Es ist einfach zu sehen, dass sich sparsame Reduktionen $\mathtt{rSAT}\leq_\mathrm{pars}^\mathrm p \mathtt{rKAN}$ und $\mathtt{rKAN}\leq_\mathrm{pars}^\mathrm p \mathtt{rSAT}$ angeben lassen können. Damit kann das Zählproblem zur $\mathtt{rSAT}$-Instanz $x$ als $\mathtt{rKAN}$-Instanz $f(x)$ repräsentiert werden und umgekehrt – die beiden Zählprobleme sind relativ zum jeweils anderem gleich schwer. Auf eine weitere Präsentation der Komplexitätstheorie des Zählens muss hier verzichtet werden \parencites(siehe)()[Kap.~7]{wechsung_vorlesungen_2000}[Chap.~17]{arora_computational_2009}.
 
 Beachte, dass sparsame Reduktionen nicht mit Levin-Reduktionen vergleichbar sind. Levin-Reduktionen erhalten im Allgemeinen nicht die Anzahl an Zertifikaten, während umgekehrt sparsame Reduktionen keine effektive Übersetzung zwischen den Zertifikaten für $f(x)$ auf Zertifikate für $x$ zulassen.
-%
-%\begin{definition}[Strukturerhaltende Reduktion; \cite{lynch_structure_1978}]
-    %Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{strukturerhaltend reduzieren lässt}, bzw. $Q\leq_\mathrm{st}^\mathrm p R$, zwei Funktionen $f, g\in\FP$ existieren, und
-    %\begin{enumerate}
-        %\item $(x,y)\in Q \implies (f(x), g(x,y))\in R$ (Vorwärts-Translation von Zertifikaten),
-        %\item $(f(x),z)\in R \implies \exists y.\, (x,y)\in R\land g(x,y)=z$ ($g$ ist quasi “surjektiv”),
-        %\item Falls $y_1,y_2\in \fset{}Q(x)$ und $y_1\neq y_2$, dann ist auch $g(x,y_1)\neq g(x,y_2)$ ($g$ ist quasi “injektiv”). \qedhere
-    %\end{enumerate}
-%\end{definition}
 
-\textcite{lynch_structure_1978} verstärkt den Reduktionsbegriff der sparsamen Reduktionen und setzt voraus, dass Zertifikate für $x$ in Zertifikate für $f(x)$ effizient umgerechnet werden können. Beachte aber, dass diese „Vorwärts-Übersetzung“ nicht hinreichend ist um Levin-Reduzierbarkeit zu zeigen (die ja umgekehrt Zertifikate für $f(x)$ in Zertifikate für $x$ umrechnet).
+An dieser Stelle sei noch auf zwei weitere verwandte Arbeiten verwiesen, die hier nur kurz skizziert werden sollen: zum einen gehen \textcite{wiedermann_witness-isomorphic_1995} noch einen Schritt über sparsame Reduktionen hinaus, und erforschen \emph{„witness-isomorphic reductions“} zwischen NP-Relationen. Hier erhält die Reduktionsfunktion $A\to B$ auf den Instanzen nicht nur die \emph{Anzahl} der Zertifikate, sondern es werden zusätzlich die Zertifikate für $x\in A$ mit den Zertifikaten für $f(x)\in B$ in eine effiziente in Polynomialzeit berechenbare und invertierbare Eins-zu-Eins-Korrespondenz gesetzt. Damit sind sind \emph{witness-isomorphic reductions} insbesondere eine Verstärkung von Levin-Reduktionen und sparsamen Reduktionen.
 
-\textcite{wiedermann_witness-isomorphic_1995} gingen noch einen Schritt weiter und definieren \emph{zertifikats-isomorphe} Reduktionen („witness-isomorphic reduction“) zwischen zwei NP-Relationen. Hier erhält die Reduktionsfunktion $A\to B$ auf den Instanzen nicht nur die \emph{Anzahl} der Zertifikate, sondern es werden zusätzlich die Zertifikate für $x\in A$ mit den Zertifikaten für $f(x)\in B$ in eine effiziente in Polynomialzeit berechenbare Eins-zu-Eins-Korrespondenz gesetzt. Dieses Vorgehen ist intendiert als eine Generalisierung der $\P$-Isomorphie nicht nur auf Instanzen sondern auch auf Zertifikaten.
-%Obwohl dies nicht explizit angegeben ist, kann ihre Definition so umformuliert werden, dass sie der Definition von strukturerhaltenden Reduktionen nach Lynch und Lipton entspricht, wobei zusätzlich die p-Invertierbarkeit der Funktionen $f$ und $g$ gefordert wird, welche die Reduktion realisieren.
+Zum anderen geben \textcite{agrawal_universal_1992} strukturelle Kriterien an, die zur $\leqlp$-Vollständigkeit von NP-Relationen $R$ ausreichen. Diese Kritieren lauten intuitiv, dass sich bezogen auf das Suchproblem $R$ gewisse „Gadgets“ mit geeigneten Eigenschaften konstruieren lassen können, wie wir sie auch aus einigen NP-Vollständigkeitsbeweisen kennnen. \citeauthor{agrawal_universal_1992} nennen dann $R$ \emph{universell}. 
+Rein aus diesen \emph{strukturellen} Eigenschaften lässt sich dann nachweisen, dass Universalität von $R$ hinreichend für $\leqlp$-Vollständigkeit von $R$ ist. 
+\textcite{agrawal_universal_1992} überprüfen insbesondere die Universalität den ihnen bekannten vollständigen Entscheidungsproblemen, und können so in einer uniformen Weise die $\leqlp$-Vollständigkeit vieler natürlicher NP-Suchbrobleme ableiten.
 
-\begin{definition}[Zertifikats-Isomorphie; \cite{wiedermann_witness-isomorphic_1995}]\label{def:wi-reduction}
-    Seien $Q, R$ NP-Relationen. Wir sagen dass sich $Q$ auf $R$ (in Polynomialzeit) \emph{zertifikats-isomorph reduzieren lässt}, bzw. $Q\leq_\mathrm{wi}^\mathrm p R$, wenn injektive Funktion $f:\Sigma^*\to\Sigma^*, f, f^{-1}\in \FP$ und injektive Funktion $g:\Sigma^*\times\Sigma^*\to\Sigma^*\times\Sigma^*, g, g^{-1}\in\FP$, und
-    \begin{enumerate}
-        \item $(x,y)\in Q \implies \exists z.\,g(x,y) = (f(x), z) \land (f(x), z)\in R$ (Vorwärts-Translation von Zertifikaten),
-        \item $(f(x),z)\in R \implies \exists y.\, (x,y)\in Q\land g(x,y)=(f(x), z)$ ($g$ ist quasi “surjektiv”). \qedhere
-        %\item falls $y_1,y_2\in \fset{}Q(x)$ und $y_1\neq y_2$, dann ist auch $g(x,y_1)\neq g(x,y_2)$ ($g$ ist quasi “injektiv”). \qedhere
-    \end{enumerate}
-\end{definition}
-(Der oben skizzierte Reduktionsbegriff von \textcite{lynch_structure_1978} geht aus der Zertifikats-Isomorphie hervor, wenn „$\P$-invertierbar“ in der Definition gestrichen wird.)
+Nun wollen wir abschließend noch die einzelnen Vollständigkeitsbegriffe in Beziehung setzen.
+Zusammen mit Beobachtung~\ref{obs:isomorphs-sind-leqlp-vollst} sehen wir bereits die eingezeichneten Implikationen aus Abbildung~\ref{fig:reduktionsbegriffe}.
 
-%Die Zertifikats-Isomorphie kann alternativ auch folgendermaßen äquivalent definiert werden: wieder $f,g\in\FP$ und jeweils p-invertierbar, und
-Die Punkte (1)–(2) in der Definition der Zertifikats-Isomorphie können alternativ auch folgendermaßen äquivalent formuliert werden:  für jedes $x$ gilt
-\begin{equation}\label{eq:pars-wi} g(Q\cap(\{x\}\times\Sigma^*))  = R \cap (\{f(x)\}\times\Sigma^*).  \end{equation}
-Damit ist auch leicht zu sehen, dass für alle $x\in\Proj(Q)$ die Funktion $g_x(y)= g(x,y)$ eine totale bijektive Abbildung zwischen den Zertifikaten für $x$ und den Zertifikaten für $f(x)$ ist. 
-Damit gilt insbesondere
-\[ |\fset{}Q(x)|=|Q\cap(\{x\}\times\Sigma^*)|=|g(Q\cap(\{x\}\times\Sigma^*))|=|R \cap (\{f(x)\}\times\Sigma^*)|=|\fset{}R(f(x))| \]
-und wir sehen dass $f$ eine sparsame Reduktion realisiert (und damit auch eine Many-one-Reduktion).
-
-Um die Analogie zur $\P$-Isomorphie abzuschließen: \citeauthor{wiedermann_witness-isomorphic_1995} definieren einen \emph{witness-isomorphic isomorphism} zwischen zwei NP-Relationen $Q, R$ wenn $Q\leq_\mathrm{wi}^\mathrm p R$ via $f,g$ und $R\leq_\mathrm{wi}^\mathrm p Q$ via $f^{-1}, g^{-1}$. Wieder analog zur Berman–Hartmanis ist für einen \emph{witness-isomorphic isomorphism} ausreichend, wenn $Q\leq_\mathrm{wi}^\mathrm p R$ und $R\leq_\mathrm{wi}^\mathrm p Q$ jeweils über verlängernde Funktionen, \emph{à la Schröder–Bernstein}.
-
-Dieser Reduktionsbegriff stellt eine Verstärkung der Levin-Reduktion und sparsamen Reduktion dar:
-\begin{lemma}\label{lemma:wi-reduction}
-    Seien $Q, R$ zwei NP-Relationen. Falls $Q\leq_\mathrm{wi}^\mathrm p R$, dann ist $Q\leq_\mathrm{pars}^\mathrm p R$ und $Q\leqlp R$ und $Q\leqmp R$.
-\end{lemma}
-\begin{proof}
-    Seien $f,g\in \FP$ die zwei Funktionen, welche $Q\leq_\mathrm{wi}^\mathrm p R$ realisieren.
-    Wir haben in der vorhergehenden Diskussion über Gleichung~\ref{eq:pars-wi} schon gesehen, dass $f$ eine sparsame (Many-one-)Reduktion darstellt.
-
-    Wir müssen für Levin-Reduzierbarkeit nur noch zeigen, dass wir Zertifikate $z$ für $f(x)$ wieder zu Zertifikaten für $x$ rückübersetzen können. Das ist wegen der $\P$-Invertierbarkeit von $g$ möglich:
-    %Falls $(f(x), z) \in R$, dann gilt mit Definition~\ref{def:wi-reduction}(2) dass ein $y$ existiert mit $(x,y)\in R$ und $g(x,y)=z$. Damit ist also auch $g^{-1}(
-    Mit Definition~\ref{def:wi-reduction}(2) gilt
-    \[ (f(x), z) \in R \implies g^{-1}(z)=(x,y) \text{ und } (x,y)\in R. \]
-    Nachdem $g^{-1}\in\FP$, lässt sich leicht eine entsprechende Translationsfunktion für die Levin-Reduktion angeben.
-\end{proof}
-
-Wir werden später zeigen, dass natürliche $\leqlp$-vollständige NP-Relationen existieren, welche  mutmaßlich nicht $\leq_\mathrm{pars}^\mathrm p$-vollständig sind, und damit auch nicht zertifikats-isomorph zu $\mathtt{rSAT}$ sein können.
-
-\subsection*{Universelle Relationen}
-
-Einen anderen Weg gehen \textcite{agrawal_universal_1992}. Sie sind daran interessiert, wie die natürlichen NP-Vollständigen Mengen/Relationen konkret strukturiert sind, bzw. welche Strukturen sie sich teilen. 
-Die Intuition ist am verständlichsten, wenn wir uns in Erinnerung rufen, wie übliche Beweise der NP-Vollständigkeit auf Mengen funktionieren.
-Zum Beispiel beinhaltet ein Beweis der NP-Vollständigkeit von $\mathtt{VC}$ eine Many-one-Reduktion von $\mathtt{3CNFSAT}$ auf $\mathtt{VC}$. 
-Eine übliche Strategie für diese Reduktion ist es nun, „Gadgets“ auf $\mathtt{VC}$ (hier: Teilgraphen) zu definieren, welche Klausen und Variablen simulieren. Diese werden dann zu einer Instanz $f(\phi)$ zusammengesetzt, um ganze SAT-Formeln $\phi$ zu simulieren; damit kann dann die Reduktion von Formeln auf $\mathtt{VC}$ realisiert werden.
-
-\citeauthor{agrawal_universal_1992} formalisieren diese Eigenschaft nun, und nennen NP-Relationen \emph{universell}, wenn diese die Konstruktion eines \emph{building blocks} (ungefähr eine Klausel) zulässt, und die \emph{joinable} (entspricht ungefähr Disjunktion) und die \emph{couplable} (entspricht ungefähr Konjunktion) sind. Damit lässt sich die NP-Vollständigkeit vieler Probleme bzw. Relationen in einer uniformen und allgemeinen Weise aus rein strukturellen Eigenschaften ableiten. 
-Die Eigenschaft \emph{universell} stellt eine Verstärkung der Levin-Vollständigkeit da, und ist eine der stärksten strukturellen Eigenschaften, die \citeauthor{agrawal_universal_1992} bei allen natürlichen Levin-vollständigen NP-Relationen (modulo einer trivialen Umcodierung der Zertifikate) vermuten. Daher wird deren Arbeit hier auch extensiver ausgeführt.
-
-Eine zentrale Methode von \citeauthor{agrawal_universal_1992} ist, oft relevante Informationen direkt aus dem „String“ der Zertifikate auslesen. Daher beschränken wir uns auf folgende Teilmenge der NP-Relationen, bei der die Zertifikatsstring möglichst uniform sind: 
-\begin{definition}[Strenge NP-Relation]
-    Sei $R$ eine NP-Relation mit Zertifikatsschranke $q$. 
-    Wir nennen $R$ \emph{streng} wenn für $R$ gilt, dass $(x,y)\in R\implies |y|=q(|x|)>0$. In anderen Worten, jedes Zertifikat $y$ für $x$ ist nicht $\epsilon$ und hat genau die Länge $q(|x|)$.
-\end{definition}
-Dies sollte keine Einschränkung darstellen: zu jeder natürlichen NP-Relation $R$ kann eine strenge NP-Relation $R'$ angegeben werden, welche nur die Zertifikate mit Leerzeichen padded. Damit gilt $\Proj(R)=\Proj(R')$ und $R\equiv_\mathrm L^\mathrm p R'$.
-
-Nun können wir, wie oben schon angedeutet, \emph{joinable}, \emph{couplable} und \emph{building block} definieren.
-\begin{definition}[Universelle Relation; \cite{agrawal_universal_1992}]\label{def:universal}
-    Sei $R$ eine strenge NP-Relation mit Zertifikatsschranke $q$.
-    %Wir definieren nun bezüglich einer solchen Relation $R$:
-    Die Relation $R$ ist \emph{universell} wenn alle drei folgenden Eigenschaften erfüllt sind:
-    \begin{enumerate}
-        \item Die Relation $R$ hat einen \emph{building block}:  es gibt ein Element $\mathit{block}\in\Proj(R)$, sowie $b_1,b_2,b_3\in\mathbb N$ sodass
-            \[\{ y[b_1,b_2,b_3] \mid y\in \fset{}R(\mathit{block}) \} = \Sigma^3 - \{000\} \]
-        \item Die Relation $R$ ist \emph{joinable}: es gibt eine Funktion $\mathit{join}\in \FP$ sodass
-           $ \mathit{join}(x_1, \dots, x_n) = (z, \alpha)$, wobei $x_1, \ldots, x_n, z\in \Sigma^*$, $\sum_{k=1}^n q(|x_k|)=|\alpha|\leq q(|z|)$, und
-            wobei $\alpha\in \mathbb N^*$ eine Sequenz von Indizes $<q(|z|)$ ist, und
-            \begin{equation*} \{ y'[\alpha] \mid y' \in \fset{}R(z)\} = \{ y_1\circ y_2 \circ \cdots \circ y_n \mid (\forall k\leq n).\, y_k \in \fset{}R(x_k) \}. \end{equation*}
-        \item Die Relation $R$ ist \emph{couplable}: es gibt eine Funktion $\mathit{cpl}\in \FP$ sodass
-            \[  \mathit{cpl}(x, (i_1, \ldots, i_n), (j_1, \ldots, j_n)) = (z, \alpha) \]
-        wobei $x\in\Sigma^*$, $i_1, \ldots, i_n, j_1,\ldots, j_n \leq q(|x|)-1$ und $|\alpha|=q(|x|)$, und
-            wobei wieder $\alpha\in \mathbb N^*$ eine Sequenz von Indizes $<q(|z|)$ ist, und
-            \begin{equation*} \{ y'[\alpha] \mid y'\in \fset{}R(z) \} = \{ y \mid y\in \fset{}R(x) \text{ und } (\forall k\leq n)(y[i_k]\neq y[j_k]) \}. \qedhere \end{equation*}
-    \end{enumerate}
-\end{definition}
-Wir illustrieren diese Definition anhand von $\mathtt{rSAT}$. 
-Wir nehmen dafür an, dass $\mathtt{rSAT}$ als strenge NP-Relation gegeben ist. Die Formeln $\phi$ seien so codiert, dass in $\phi$ nur die Variablen $x_0, \dots, x_{|\phi|-1}$ vorkommen.
-Zertifikate für $\phi$ sind dann Strings $w$ der Form $\Sigma^{|\phi|}$ sodass 
-\begin{enumerate}[nosep]
-    \item $\phi$ durch die Variablenbelegung $x_0=w[0], x_1=w[1], \dots$ erfüllt wird, und
-    \item $w[j]=0$ wenn $x_j$ nicht in $\phi$ vorkommt.
-\end{enumerate}
-%Beachte, dass wenn $x_j$ nicht in $\phi$ vorkommt, dass dann $(\phi, w)\in\mathtt{rSAT})$ genau dann wenn $(\phi, w')\in\mathtt{rSAT}$, wobei $w$ und $w'$ sich nur in der $j$-ten Stelle unterscheidet.
-
-Der \emph{building block} ist im Wesentlichen dazu da, frische Klauseln einzuführen. Definiere zum Beispiel $\mathit{block}$ als $x_0\lor x_1\lor x_2$. Wir haben dann z.B. $y=001000\cdots\in\fset{}\mathtt{rSAT}(\mathit{block})$, welches der Variablenbelegung $x_0=0,x_1=0,x_2=1,x_3=0,\ldots$ entspricht. Mit der Projektion über $b_1=0,b_2=1,b_3=2$ erhalten wir dann die Menge $\{ y[b_1,b_2,b_3] \mid y\in\fset\mathtt{rSAT}(\mathit{block})\} = \Sigma^3-\{000\}$. Das Wort $000$ fehlt, denn (erweitert auf ein Zertifikat) erfüllt diese Belegung nicht $\mathit{block}$.
-
-Die Funktion $\mathit{join}(\phi_1, \phi_2, \dots)\defeq(\psi,\alpha)$ definieren wir als die Konjunktion $\psi=\phi_1\land\phi_2\land\cdots$ zusammen mit der Sequenz $\alpha$. Hierbei nummerieren wir dabei aber die Variablen davor um sodass die Variablen in $\phi_i$ und $\phi_j$ disjunkt sind. Die Sequenz $\alpha$ reflektiert diese Umbenennung, sodass aus einem Zertifikat $y$ für $\psi$ die entsprechenden erfüllende Belegungen für jedes $\phi_i$ zusammensetzt.
-
-Die Funktion $\mathit{cpl}(\phi, (i), (j))$ sorgt dafür, dass zwei Variablen $x_i$, $x_j$ „gekoppelt“ werden in dem Sinn, dass, unter allen erfüllenden Belegungen, $x_i\neq x_j$ gilt. Wir können das umsetzen indem wir $\mathit{cpl}(\phi, (i), (j))\defeq(\psi, \beta)$ setzen mit $\psi=\phi\land (x_i\lor x_j) \land (\neg x_i\lor \neg x_j)$. Die Sequenz $\beta=(0,\dots,|\phi|-1)$ muss dann nur die $|\phi|$ ersten Bits eines Zertifikats auslesen; der Suffix ist redundant und entsteht nur weil $\psi$ (und damit die Zertifikate für $\psi$) länger als $\phi$ ist. Es lässt sich leicht $\mathit{cpl}$ auf längere Eingabesequenzen erweitern.
-
-Wir haben also gezeigt, dass $\mathtt{rSAT}$ eine universelle Relation ist.
-Mit dem \emph{building block}, der Funktion \emph{join} und der Funktion \emph{cpl} ist es nun möglich, beliebige 3CNFSAT-Formeln zusammenzubauen.
-Das gilt nicht nur für die hier gewählten Definition konkret für $\mathtt{rSAT}$, sondern sogar für alle universellen NP-Relationen.
-Ferner ist es sogar möglich, aus den Zertifikaten wieder eine erfüllende Belegung für die 3CNFSAT-Formel projektiv „herauszulesen“.
-Intuitiv wird damit ersichtlich, dass die universellen NP-Relationen auch $\leqlp$-vollständig sind.
-Die spezielle starke Form der Reduzierbarkeit, welche das einfache „Auslesen“ aus den Zertifikaten zulässt, formalisieren \citeauthor{agrawal_universal_1992} wie folgt:
-\begin{definition}[Projektive Levin-Reduktion]\label{def:projective-reduction}
-    Seien $Q$ und $R$ zwei strenge NP-Relationen.
-    Die NP-Relation $Q$ lässt sich über eine \emph{projektive Levin-Reduktion} auf $R$ reduzieren, wenn eine Funktion $f\in\FP$ existiert, welche die folgenden Bedingungen erfüllen:
-    \begin{enumerate}
-        \item $f(x)=(z,\alpha)$ wobei $x,z\in\Sigma^*$ und $\alpha\in\mathbb N_{>0}^{q(|x|)}$ ist eine Sequenz von Indizes der Länge $q(|x|)$.
-        \item $\{ y[\alpha] \mid y\in \fset{}R(z) \} = \fset{}Q(x)$. \qedhere
-    \end{enumerate}
-\end{definition}
-Es ist leicht zu sehen, dass projektive Levin-Reduktionen eine reflexive und transitive Ordnung auf den NP-Relationen bilden, und aus einer projektiven Levin-Reduktion von $Q$ auf $R$ auch $Q\leqlp R$ folgt. 
-
-Abschließend können universelle NP-Relationen als vollständige Relationen bezüglich projektiver Levin-Reduktion charakterisiert werden:
-\begin{theorem}[\cite{agrawal_universal_1992}]\label{thm:universal-relations}
-    Sei $R$ eine strenge NP-Relation.
-    Folgende Aussagen sind äquivalent:
-    \begin{enumerate}
-        \item $R$ ist eine universelle Relation (hat also einen \emph{building block}, ist \emph{joinable} und ist \emph{couplable}).
-        \item Jede NP-Relation $Q$ lässt sich mittels einer projektiven Levin-Reduktion auf $R$ reduzieren.
-    \end{enumerate}
-    Diese Äquivalenz gilt nur im unrelativierten Fall.
-\end{theorem}
-\textcite{agrawal_universal_1992} haben explizit verifiziert, dass auch $\mathtt{r3CNFSAT}$, $\mathtt{rHAMCYCLE}$, $\mathtt{rINDSET}$, $\mathtt{rKNAPSACK}$ und eine Variante $\mathtt{rMAXCUT}'$ vom maximalen Schnitt (wird später definiert) alle universell sind.
-
-Da aus projektiver Levin-Reduktion auch Levin-Reduktion folgt, sehen wir dass Universalität eine Verstärkung von $\leqlp$-Vollständigkeit ist.
-\begin{corollary}
-    Wenn $R$ eine universelle NP-Relation ist, dann ist $R$ $\leqlp$-vollständig für $\FNP$.
-    Diese Aussage gilt nur im unrelativierten Fall.
-\end{corollary}
-
-%\todo{Erkläre warum die Reduktion/join/cpl mit Projektionen arbeitet.}
-An dieser Stelle sei auch noch einmal darauf hingewiesen, dass \textcite{agrawal_universal_1992} das Ziel verfolgten, eine gemeinsame Struktur aller natürlichen NP-vollständigen Probleme zu erfassen. Im Speziellen vermuten sie, dass tatsächlich für alle natürlichen NP-vollständigen Entscheidungsprobleme $L$ auch mindestens eine NP-Relation $R$ für $L$ existiert, die „hinreichend“ natürlich ist. Sie machen das an zwei Gründen fest: zum einen die intuitive Einsicht, dass \emph{joinability} und \emph{coupability} sehr natürlich wirkende strukturelle Eigenschaften sind. Zum anderen anhand empirischer Belege: 
- In ihrer Arbeit präsentierten sie fünf konkrete Beispiele aus verschiedenen Problembereichen, darunter Logik (Erfüllbarkeit), Zahlentheorie (Knapsack) und Graphentheorie (Hamiltonkreis, Unabhängige Menge, Größter Schnitt). Den Autoren zufolge deuten diese Beispiele darauf hin, dass das Konzept universeller Beziehungen nicht auf bestimmte Kategorien von NP-vollständigen Problemen beschränkt ist. 
- Konkret wurde aber nicht exhaustiv untersucht, welche der natürlichen NP-Relationen universell sind und welche nicht, und \textcite{agrawal_universal_1992} lassen das als Frage offen. Unten werden wir sehen, dass Färbungsprobleme möglicherweise keine natürliche NP-Relationen zulassen. %Die oben genannte Argumentation wollen wir aber im Folgenden zumindest so deuten, dass selbst die Existenz einer natürlichen $\leqlp$-vollständigen NP-Relation, die nicht universell ist, sehr unwahrscheinlich ist.
-
-Die Abbildung~\ref{fig:reduktionsbegriffe} fasst noch einmal die relative Stärke der Vollständigkeitsbegriffe zusammen. Die eingezeichneten Trennungen werden im nächsten Abschnitt erläutert.
-
-\begin{figure}
+\begin{figure}[tb]
     \centering\includegraphics[page=2]{figures.pdf}
     \caption{Implikationen zwischen den  Vollständigkeitsbegriffen, wobei $R$ eine beliebige aber feste NP-Relation ist. Ein unterbrochener Pfeile von $\mathsf{A}$ nach $\mathsf{B}$ sagt aus, dass ein Gegenbeispiel $Q$ für die Implikation $\mathsf{A\Rightarrow B}$ existiert, also eine NP-Relation $Q$ die $\mathsf{A}$ erfüllt und gleichzeitig $\neg\mathsf{B}$ erfüllt.}\label{fig:reduktionsbegriffe}
-    \forceversofloat
 \end{figure}
 
-
-
-\begin{lemma}
-    Es gelten die in Abbildung~\ref{fig:reduktionsbegriffe} eingezeichneten Inklusionen.
-\end{lemma}
-\begin{proof}
-    Mit Lemma~\ref{lemma:wi-reduction} bleiben nur noch drei nichttriviale Implikationen offen:
-    \begin{prooflist}[label={\arabic*.},labelsep=3pt]
-        \item Falls $R$ universell ist und die beteiligten Funktionen $\mathit{join}$ und $\mathit{clp}$ injektiv und $\P$-invertierbar sind, dann ist schon aus Satz~\ref{thm:universal-relations} klar, dass $R$ auch projektiv Levin-vollständig ist.
-            Es existiert also für NP-Relation $Q$ eine Funktion $f\in\FP$, und es gilt für eine $Q$-Instanz $x$ dass $f(x)=(z,\alpha)$. Hier ist $z$ die $R$-Instanz, auf die reduziert wird.
-            Aus dem Beweis des Satzes von \textcite{agrawal_universal_1992} geht hervor, dass sich dieses $z$ aus der kombinierten Anwendung von $\mathit{join}$ und $\mathit{cpl}$ entsteht, also lässt sich auch aus $z$ wieder aufgrund $\P$-Invertierbarkeit die Instanz $x$ zurückgewinnen.
-            Es lässt sich leicht sehen, dass sich so eine $\leq_\mathrm{L,1,i}^\mathrm p$-Reduktion von $Q$ nach $R$ konstruieren lassen kann.
-        \item  Falls $R$ universell ist und die beteiligte Funktion $\mathit{join}$ injektiv und $\P$-invertierbar ist, dann ist $\Proj(R)$ auch paddable, und damit $\P$-isomorph zu $\mathtt{SAT}$ \parencite[Thm.~8.2]{agrawal_universal_1992}. Das lässt sich leicht nachvollziehen: durch  durch an-$\mathit{join}$-en von Dummy-Instanzen an Instanz $x$ lassen sich beliebige Werte in $x$ hineincodieren, und durch die $\P$-Invertierbarkeit wieder extrahieren.
-            Konkret, sei $z_0\not\in\Proj(R)$ und $z_1\in\Proj(R)$, dann definiere
-            \[ h(x,y)\defeq \mathit{join}(x, z_{y[0]}, z_{y[1]}, \ldots, z_{y[|y|-1]}). \]
-            Mit der $\P$-Invertierbarkeit von $\mathit{join}$ ist leicht zu sehen, dass $h$ eine Padding-Funktion für $\Proj(R)$ ist.
-    \item Sei $L$ eine Menge, die $\P$-isomorph zu $\mathtt{SAT}$ ist. Dann existiert auch eine NP-Relation $R'$ sodass $\Proj(R')=L$ und $R'$ ist universell. Diese Aussage ist eine einfache Generalisierung von Beobachtung~\ref{obs:isomorphs-sind-leqlp-vollst} \parencite[vgl.][Prop.~8.5]{agrawal_universal_1992}.
-    \end{prooflist}
-\end{proof}
-
-\subsection*{Trennungen}
-
-Zunächst halten \textcite{agrawal_universal_1992} fest, dass die Universalität eine Eigenschaft ist, die sogar bezüglich Problemen gilt, die mutmaßlich nicht $\P$-isomorph sind.
+Nun zu den eingezeichneten Trennungen: zunächst halten wir erstens fest, dass die $\leqlp$-Vollständigkeit eine Eigenschaft ist, welche sogar bezüglich Problemen gilt, die mutmaßlich nicht $\P$-isomorph sind.
 Angenommen, es existiert eine Einwegfunktion $f\in\FP$, das heißt $f$ ist injektiv, aber $f$ ist nicht $\P$-invertierbar.
 Unter der \emph{Encrypted Complete Set Conjecture} ($\mathsf{ECSC}$) wird die Vermutung genannt, nach der die Menge
 \[ f(\mathtt{SAT}) \defeq \{ f(\phi) \mid \phi\in\mathtt{SAT} \}\in\NP \]
@@ -753,43 +595,36 @@ Gleichzeitig ist $\mathtt{SAT}\leqmp f(\mathtt{SAT})$ über Reduktionsfunktion $
 Damit ist $f(\mathtt{SAT})$, zu verstehen als eine „verschlüsselte“ Variante zu $\mathtt{SAT}$; ein vermutetes Gegenbeispiel für die Berman–Hartmanis-Isomorphievermutung $\mathsf{IC}$.
 Gleichzeitig ist leicht zu sehen, dass eine entsprechende natürliche NP-Relation
 \[ \mathtt{rSAT}_f \defeq \{ (z, (\phi, w)) \mid \text{$z=f(\phi)$, und $w$ ist erfüllende Belegung für $\phi$} \} \]
-sogar universell ist.
-Wir haben also %\marginnote{\todo{Was mit der JYC / k-kreative Mengen?}}
-\begin{observation}
-    Angenommen $\mathsf{ECSC}$ dann existiert eine NP-Relation $R$ die universell ist, aber $\Proj(R)$ ist nicht $\P$-isomorph zu $\mathtt{SAT}$.
-\end{observation}
+$\leqlp$-vollständig ist. Wir haben $\mathtt{rSAT}\leqlp\mathtt{rSAT}_f$ über Reduktionsfunktion $f$ und über Translationsfunktion $g(\phi, (\phi, w))= w$.
 
 
-Nun werden wir uns auf die sparsamen Reduktionen konzentrieren.
+
+
+Nun werden wir uns auf die sparsamen Reduktionen konzentrieren. Die Suche nach einem maximalen Schnitt ist ein triviales Beispiel einer $\leqlp$-vollständigen NP-Relation, welche nicht unter sparsamen Reduktionen vollständig ist.
+
 Zu einem Graphen $G$ mit Knotenmenge $\{0,1,\dots, n-1\}$ können wir einen \emph{Schnitt} als einen String $w\in\Sigma^n$ schreiben, wobei $V_0 \defeq \{ i \mid i<n, w[i]=0\}$ und $V_1 \defeq \{ i \mid i<n, w[i]=0\}$ den Graphen in zwei Teile partitioniert. Einem Schnitt $w$ können wir dann ein Gewicht zuordnen: die Anzahl an Kanten in $G$ die zwischen $V_0$ und $V_1$ laufen.
 Sei nun
 \[ \begin{split} \mathtt{rMAXCUT} \defeq \{ ((G, r), w) \mid {}&\text{$G$ ist Graph mit Knotenmenge $\{0,1,\dots,n-1\}$,} \\ &\text{und $w\in\Sigma^n$ ist ein Schnitt mit Gewicht $\geq r$} \}.\end{split} \]
-Diese natürliche NP-Relation ist ein Beispiel für eine Relation, die $\leqlp$-vollständig für $\FNP$ ist, die aber nicht $\leq_\mathrm{pars}^\mathrm p$-vollständig für $\FNP$ ist. Die $\leqlp$-Vollständigkeit von lässt sich leicht aus den üblichen $\leqmp$-Reduktionen verstärken.
-
+ Die $\leqlp$-Vollständigkeit von lässt sich leicht aus den üblichen $\leqmp$-Reduktionen verstärken.
 Wir behaupten nun dass $\mathtt{rSAT} \not\leq_\mathrm{pars}^\mathrm p \mathtt{rMAXCUT}$. Angenommen es existiert eine solche sparsame Reduktion $f$. Beachte dass die SAT-Instanz $\phi={}$„$x_1$“ genau eine erfüllende Belegung hat. Dann wäre
 \[ 1=|\fset{}\mathtt{rSAT}(\phi)|=|\fset{}\mathtt{rMAXCUT}(f(\phi))|. \]
 Es lässt sich aber leicht sehen, dass $|\fset{}\mathtt{rMAXCUT}(x)|$ für jede $\mathtt{rMAXCUT}$-Instanz gerade sein muss: ist $w$ Schnitt mit Gewicht $\geq r$, dann ist auch der komplementäre String $\overline{w}$ auch ein Schnitt mit Gewicht $\geq r$; die Mengen $V_0$ und $V_1$ werden einfach vertauscht.
-Damit erhalten wir den Widerspruch. Auf ähnliche Weise lässt sich zeigen, dass $\mathtt{rMAXCUT}$ auch nicht universell sein kann.
+Damit erhalten wir den Widerspruch.
 
 An dieser Stelle muss aber kritisch hervorgehoben werden, dass dieses Gegenbeispiel auf einem kontingenten „Hütchenspielertrick“ aufbaut: Die Schnitte $w$ und $\overline{w}$ werden als unterschiedliche Zertifikate gehandhabt, \emph{repräsentieren} doch aber die \emph{identische} Partitionierung des Graphen.
 Das Problem löst sich auf, wenn anstelle der naiven Formulierung von $\mathtt{rMAXCUT}$ folgende Verfeinerung gewählt wird:
 \[ \begin{split} \mathtt{rMAXCUT'} \defeq \{ ((G, r), w) \mid {}&\text{$G$ ist Graph mit Knotenmenge $\{0,1,\dots,n-1\}$,} \\ &\text{$w\in\Sigma^n$ ist ein Schnitt mit Gewicht $\geq r$, und startet mit $0$.} \}.\end{split} \]
 In anderen Worten, ein Schnitt für eine $\mathtt{rMAXCUT'}$-Instanz hat immer den Knoten $0\in V_0$.
-Dann ist auch möglich, eine sparsame Reduktion von $\mathtt{rSAT}$ auf $\mathtt{rMAXCUT'}$ anzugeben, und auch möglich zu zeigen, dass $\mathtt{rMAXCUT'}$ universell ist.
+Dann ist auch möglich, eine sparsame Reduktion von $\mathtt{rSAT}$ auf $\mathtt{rMAXCUT'}$ anzugeben.
 
 Ein filigraneres Beispiel ist Kantenfärbung:  Wir werden zeigen dass das Problem der 4-Kantenfärbung nicht vollständig unter sparsamen Reduktionen ist, außer $\P=\NP$.
 
-%\[ \begin{split} \mathtt{rCHROMINDEX} = \{ ((G, k), c) \mid &{} \text{$G$ ist ein Graph mit Kantenmenge $E$,} \\ &\text{und $c\colon E\to\{1,2,\dots,k\}$ ist eine gültige Kantenfärbung für $G$}  \}. \end{split} \]
-%Beachte, dass wir an dieser Stelle keine konkrete Codierung von $c$ definieren; diese ist für die folgende Überlegung irrelevant.
-%
-%
-%Wir zeigen dass $\mathtt{rCHROMINDEX}$ nicht $\leq_\mathrm{pars}^\mathrm p$-vollständig ist, indem wir zeigen, dass $\mathtt{rSAT}
 Zu einem Graphen $G$ mit Kantenmenge $\{0,1,\dots, m-1\}$ können wir eine $k$-\emph{Kantenfärbung} als String $w$ der Länge $m$ über dem Alphabet $\{1,2,\dots k\}$ darstellen, wobei Kante $j$ die Farbe $w[j]$ erhält.
 Wir wollen im Folgenden die Anzahl der möglichen Kantenfärbungen \emph{als Partitionierung} zählen, und sind dabei insbesondere nicht an redundanten Lösungen interessiert, die aus reiner Permutation der Farben entsteht. Ähnlich zu $\mathtt{rMAXCUT}'$ setzen wir für eine \emph{gültige} Färbung $w$ daher voraus, dass $w$ die unter Permutationen lexikographisch kleinste Färbung ist, in dem Sinne dass keine Permutation $\pi$ auf $\{1,2,\dots,k\}$ existiert sodass $\pi(w)$ lexikographisch kleiner ist als $w$. (Beachte: wir suchen \emph{nicht} nach einer „global“ lexikographisch kleinsten Färbung von $G$.)
 Definiere nun
 \[ \begin{split} \mathtt{r4CHROMINDEX} \defeq \{ ((G, k), w) \mid {}&\text{$G$ ist Graph mit Kantenmenge $\{0,1,\dots,m-1\}$} \\& \text{$G$ hat maximalem Grad 4,} \\ &\text{und $w\in\{1,2, 3,4\}^m$ ist gültige Färbung mit 4 Farben} \}.\end{split} \]
 \begin{theorem}[{\cite{cai_complexity_2020} nach Edward und Welsh\protect\footnotemark}]\ifbook\def\a{\footnotetext}\expandafter\a\else\expandafter\footnotetext\fi{Dieses Beispiel geht auf ein unpubliziertes Preprint von Edward und Welsh mit dem Titel „On the Complexity of Uniqueness Problems“ welches offenbar in den 1980ern zirkuliert ist; viele der Arbeiten aus diesem Abschnitt nehmen auf genau dieses Preprint Bezug. Tatsächlich ist überliefert, dass dieses Preprint über die Kantenfärbbarkeit sogar ein „Gegenbeispiel“ zur Berman–Hartmanis-Isomorphievermutung gefunden hätte. Hierbei gingen Edward und Welsh aber von einer wesentlichen stärkeren abweichenden Interpretation der Isomorphievermutung aus: neben der Isomorphie zwischen allen NP-vollständigen Entscheidungsproblemen würde diese Interpretation der Isomorphievermutung auch eine Isomorphie auf den jeweiligen Zertifikatsmengen umfassen. Das würde (mindestens) eine sparsame Interreduzierbarkeit zwischen allen NP-vollständigen Suchproblemen implizieren. Diese Aussage ist nun aber so stark, dass diese durch eben das Beispiel der Kantenfärbbarkeit widerlegt werden kann. Vgl. \textcites{hemaspaandra_take-home_1998}{wiedermann_witness-isomorphic_1995}{cai_complexity_2020}[118]{welsh_complexity_1993}.}
-    Die NP-Relation $\mathtt{r4CHROMINDEX}$ ist nicht $\leq_\mathrm{pars}^\mathrm p$-vollständig, außer $\P=\NP$.
+    Die NP-Relation {\normalfont\texttt{r4CHROMINDEX}} ist nicht $\leq_\mathrm{pars}^\mathrm p$-vollständig, außer $\P=\NP$.
 \end{theorem}
 \begin{proof}[Skizze.]
     Sei $\chi'(G)$ die minimale Anzahl an Farben, die zur Kantenfärbung eines Graphen $G$ benötigt werden.
@@ -813,7 +648,7 @@ Definiere nun
     Insgesamt ergibt sich also, dass in Linearzeit überprüft werden, ob ein gegebener Graph $G$ eine eindeutige 4-Kantenfärbung zulässt. Sei $A\in \P$ diese Menge der eindeutig färbbaren Graphen.
 
     Mit diesem Fakt zeigen wir nun die Aussage.
-    Angenommen, $\mathtt{r4CHROMINDEX}$ ist $\leq_\mathrm{pars}^\mathrm p$-vollständig, dann existiert auch eine sparsame Reduktion $f$ von $\mathtt{rSAT}$ auf $\mathtt{r4CHROMINDEX}$.
+    Angenommen, \texttt{r4CHROMINDEX} ist $\leq_\mathrm{pars}^\mathrm p$-vollständig, dann existiert auch eine sparsame Reduktion $f$ von $\mathtt{rSAT}$ auf \texttt{r4CHROMINDEX}.
     Sei $\phi$ eine beliebige SAT-Formel, in der nur die Variablen $x_1, \dots, x_n$ vorkommen.
     Wir werden nun in Polynomialzeit entscheiden ob $\phi\in \mathtt{SAT}$. 
     Definiere eine zweite SAT-Formel
@@ -826,74 +661,11 @@ Definiere nun
 \end{proof}
 
 \textcite{leven_np_1983} zeigen, dass die Menge $\Proj(\mathtt{r4CHROMINDEX})\in\NP$ $\leqmp$-vollständig ist. 
-Mit den Konstruktionen aus deren Beweis ist es leicht zu sehen, dass die NP-Relation \texttt{r4CHROM"-IN"-DEX} auch $\leqlp$-vollständig ist. (Die wesentlichen Ideen werden unten kurz skizziert.)
-Es ist auch leicht zu sehen, dass $\Proj(\mathtt{r4CHROMINDEX})$ paddable ist, also  auch $\P$-isomorph zu $\mathtt{SAT}$.
+Mit den Konstruktionen aus deren Beweis ist es leicht zu sehen, dass die NP-Relation \texttt{r4CHROMINDEX} auch $\leqlp$-vollständig ist. 
+Es ist auch leicht zu sehen, dass $\Proj(\mathtt{r4CHROMINDEX})$ paddable ist, also  auch $\P$-isomorph zu $\mathtt{SAT}$ ist.
 Wir kommen zum Resultat:
 \begin{observation}
     Die NP-Relation $\mathtt{r4CHROMINDEX}$ ist $\leqlp$-vollständig für $\FNP$, und die zugehörige Projektion  $\Proj(\mathtt{r4CHROMINDEX})$ ist $\leqmp$-vollständig für $\NP$, und $\P$-isomorph zu $\mathtt{SAT}$.
     Diese NP-Relation ist insbesondere nicht $\leq_\mathrm{pars}^\mathrm p$-vollständig für $\FNP$, außer $\P=\NP$.
 \end{observation}
-
-Gleichzeitig ist nicht klar, ob sich dieses Ergebnis zur Universalität von $\mathtt{r4CHROMINDEX}$ verstärken kann. (Das würde Universalität von $\leq_\mathrm{pars}^\mathrm p$-Vollständigkeit trennen.) Weder ist ist klar, wie sich ein \emph{building block} angeben kann, noch wie (für Aussage (2) von Satz~\ref{thm:universal-relations}) sich eine projektive Levin-Reduktion von $\mathtt{rSAT}$ auf $\mathtt{r4CHROMINDEX}$ angeben kann. Die wesentliche Schwierigkeit liegt darin, die \emph{projektive} Natur der projektiven Levin-Reduktion umzusetzen: aus den Färbungen bzw. Zertifikaten kann nicht Bit für Bit eine Lösung herausgelesen werden, wie sie die Definition~\ref{def:universal} (bzw. äquivalent Definition~\ref{def:projective-reduction}) verlangt.
-
-\begin{figure}[t]
-    \begin{minipage}[t][8cm][t]{\textwidth}
-    \centering\includegraphics[page=3]{figures.pdf}\\\smallskip
-    (a)\bigskip
-
-    \noindent
-\begin{minipage}{.3\textwidth}
-    \centering\includegraphics[page=4]{figures.pdf}\\\smallskip
-    (b)
-    \end{minipage}
-\begin{minipage}{.3\textwidth}
-    \centering\includegraphics[page=5]{figures.pdf}\\\smallskip
-    (c)
-    \end{minipage}\par
-\end{minipage}\par
-\caption[]{Die von \textcite{holyer_np-completeness_1981} verwendeten Gadgets um die NP-Vollständigkeit der 3-Kantenfärbbarkeit in 3-regulären Graphen zu zeigen.\par
-        (a) Das Gadget zum Invertieren. Beachte dass in einer gültigen Färbung die Kanten $a$ und $b$ die gleiche Farbe haben („wahr“) genau dann wenn $c$ und $d$ ungleiche Farben haben („falsch“). Außerdem haben entweder $a,b,e$ oder $c,d,e$ alle drei unterschiedliche Farben. Das Symbol rechts ist die schematische Darstellung dieses Gadgets in den Abbildungen (b) und (c).\par
-        (b) Gadget für je eine Variable. Beachte dass in einer gültigen Färbung alle Outputs entweder „wahr“ oder „falsch“ sind.\par
-        (c) Gadget für eine Klausel. In einer gültigen Färbung ist mindestens einer der drei Inputs „wahr“.
-    }\label{fig:chromindex}
-\end{figure}
-
-Dies sei im Folgenden am etwas einfacherem Fall der 3-Kantenfärbbarkeit (die auch NP-vollständig ist) illustriert; die wesentliche Idee überträgt sich auch auf $k$-Kantenfärbbarkeit, $k\geq 3$.
-\textcite{holyer_np-completeness_1981} zeigt die $\leqmp$-Vollständigkeit der 3-Kantenfärbbarkeit, indem von 3SAT in CNF darauf reduziert wird. Das ist, gegeben eine 3CNFSAT-Formel $\phi$ in konjunktiver Normalform wird ein 3-regulärer Graph $G$ konstruiert der 3-färbbar ist genau dann wenn $\phi$ erfüllbar ist. Wie üblich ist $G$ aus einzelnen Gadgets zusammengesetzt welche spezielle (aussagenlogische) Aufgaben übernehmen 
-Die „Verdrahtung“ der einzelnen Gadgets erfolgt hierbei je über ein \emph{Paar von zwei Kanten}. In einer 3-Kantenfärbung repräsentiert diese Paar den Wert „wahr“ wenn die zwei Kanten die gleiche Farbe haben, und „falsch“ wenn die zwei Kanten unterschiedliche Farben haben.
-Ein Gadget zum Invertieren eines Bits konstruiert \citeauthor{holyer_np-completeness_1981} z.B. wie in Abbildung~\ref{fig:chromindex}(a), wobei die Paare $(a,b)$ und $(c,d)$ die Bits übertragen.
-Aufbauend darauf lassen sich dann größere Gadgets konstruieren, welche Variablen bzw. Klauseln darstellen. Abbildung~\ref{fig:chromindex}(b) zeigt z.B. ein Gadget für die Variablenbelegung, bei der jeder Output den gleichen Wahrheitswert (entweder alle „falsch“ oder alle „wahr“) hat.
-
-
-Das zentrale Problem ist nun, dass sich selbst unter einer geeigneten Codierung der Färbungen in den Zertifikaten $w$ nicht mit einem Bit aus dem Zertifikat $w$ der von der Färbung „zugewiesene“ Wahrheitswert einer Variable ausgelesen werden kann. Mit einer flexibleren allgemeinen Levin-Reduktion lässt sich dies aber umsetzen (lese an zwei Stellen in $w$ die zugewiesene Farbe von zwei Kanten aus und vergleiche die Farben). Ob $\mathtt{r4CHROMINDEX}$ universell im Sinne von Definition~\ref{def:universal} ist, bzw. äquivalent vollständig bezüglich projektiven Levin-Reduktionen ist, sei hier offen gelassen und als Frage formuliert:
-\begin{question}\label{question:chromindex}
-    Ist $\mathtt{r4CHROMINDEX}$ (bzw. eine geeignete natürliche Variante) universell?
-\end{question}
-Die Frage lässt sich – im Hinblick auf die Separationen der Vollständigkeitsbegriffe – auch  folgendermaßen verallgemeinern:
-\begin{question}
-    Angenommen $\P\neq\NP$.
-    Existiert dann eine natürliche NP-Relation $R$ die universell ist, aber nicht $\leq_\mathrm{pars}^\mathrm p$-vollständig ist?
-\end{question}
-
-Je ein Argument spricht für bzw. gegen eine positive Beantwortung von Frage~\ref{question:chromindex}.
-Einerseits das oben schon skizzierte Argument, dass sich Färbbarkeiten offenbar nicht gut mit der projektiven Levin-Reduzierbarkeit verträgt.  Es sei darauf hingewiesen, dass \textcite{agrawal_universal_1992} in ihrer Arbeit zwar exemplarisch die Universalität vieler Suchprobleme aus verschiedensten kombinatorischen Bereichen gezeigt haben, Färbungsprobleme wurden hierbei aber nicht betrachtet. 
-Auch offen ist, inwiefern sich Universalität generalisieren lässt, indem das projektive „Auslesen“ von Werten aus den Zertifikaten abgeschwächt wird, z.B. über eine Art polynomialzeit-berechenbares Schema.
-
-\begin{figure}[t]
-    \begin{minipage}[t][7.9cm][t]{\textwidth}
-    \centering\includegraphics[page=6]{figures.pdf}
-\end{minipage}\par
-    \caption{Reduktion der 3CNFSAT-Instanz $\phi=(u\lor \overline{v} \lor \overline{w}) \land (v\lor x\lor y)$. 
-        Eine Dreifärbung dieses Graphen entspricht einer erfüllenden Belegung von $\phi$ und umgekehrt.
-    Beachte dass zu jeder Variable genau ein Knoten zu einem entsprechendem Literal (positiv bzw. negativ) die gleiche Farbe wie $v_{\text{true}}$ hat, und der Knoten zum anderen Literal die gleiche Farbe wie $v_{\text{false}}$ hat. Es ist leicht zu sehen, dass jedes Klausel-Gadget genau dann dreifärbbar ist, wenn mindestens eine der drei angeschlossenen Literale die gleiche Farbe wie $v_{\text{true}}$ hat.}\label{fig:3col}
-\end{figure}
-
-Andererseits ist es für Färbungsprobleme nicht \emph{prinzipiell} unmöglich, Universalität zu zeigen. Beispielsweise ist das Problem $\mathtt{r3COL}$ der 3-Färbbarkeit eines Graphen durchaus als universelle NP-Relation darstellbar, wenn wieder (wie schon bei $\mathtt{rMAXCUT}'$ oder \texttt{r4CHROM"-IN"-DEX}) nach der unter Permutationen der Farben lexikographisch kleinsten Färbung (sortiert anhand der Knoten) gesucht wird.
-Ein Lehrbuch-Beweis der $\leqmp$-Vollständigkeit von $\mathtt{3COL}$ über $\mathtt{3CNFSAT}\leqmp\mathtt{3COL}$ startet üblicherweise mit einem „Palette“-Gadget aus drei Knoten $v_{\text{false}}$, $ v_{\text{true}}$, $ v_{\text{base}}$, vgl. Abbildung~\ref{fig:3col}. In einer gültigen Färbung entspricht die Farbe von $v_{\text{true}}$ dann der Farbe „wahr“. Nummeriert man in einer $\mathtt{3COL}$-Instanz $G_\phi$ für $\mathtt{3CNFSAT}$-Instanz $\phi$ die Knoten  so  um, dass $v_{\text{false}}$, $ v_{\text{true}}$, $ v_{\text{base}}$ die ersten Knoten von $G_\phi$ sind, dann hat immer $v_{\text{false}}$ die Farbe $1$ und $v_{\text{true}}$ die Farbe $2$ (ansonsten existiert eine Permutation der Farben sodass die Färbung lexikographisch kleiner ist.)
-Eine projektive Levin-Reduktion kann also nun in einem Bit auslesen ob beliebiger Knoten $v$ die Farbe „wahr“ hat, denn diese ist immer $2$.
-Eine entsprechende Codierung des Zertifikats wäre z.B. von der Form $h(c_1)h(c_2)\cdots$ wobei $c_i\in\{1,2,3\}$ die Farbe des $i$-ten Knotens ist, und $h$ eine one-hot-Codierung umsetzt, d.h. $h(1)=100$, $h(2)=010$, $h(3)=001$. Es lässt sich dann leicht eine projektive Levin-Reduktion von $\mathtt{r3CNFSAT}$ auf $\mathtt{3COL}$ angeben, und nach Satz~\ref{thm:universal-relations} universell.
-
-Mit dieser letzten Beobachtung wollen wir dieses Kapitel über die NP-Suchprobleme, deren Beziehung zu Entscheidungsproblemen, und die zuletzt präsentierte Übersicht über die gemeinsamen Strukturen der vollständigen NP-Suchprobleme abschließen. 
-
-
 
