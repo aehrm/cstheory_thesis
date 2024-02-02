@@ -141,9 +141,9 @@ Wie in der Einleitung angesprochen kann sich die Aussage „alle Suchprobleme in
 \end{observation}
 \begin{proof}
 \begin{prooflist}
-\item (1)$\Rightarrow$(2): Sei $R\in\TFNP$ mit Zertifikatsschranke $p$. Definiere die NPTM $N$ die auf Eingabe $x$ erst ein Zertifikat $y\in\Sigma^{\leq p(|x|)}$ rät, und genau dann akzeptiert wenn $(x,y)\in R$. Es ist klar, dass $L(N)=\Proj(R)=\Sigma^*$. Nach (1) existiert also $g\in\FP$ sodass $g(x)$ ein akzeptierender Rechenweg von $N(x)$ ist. Aus diesem Rechenweg lässt sich nun effizient das geratene Zertifikat extrahieren: sei $g'(x)$ definiert als der geratene Zeuge $y$. Dann ist $(x,g'(x))\in R$ und damit $g'$ eine Verfeinerung von $R$. Da $g'\in\FP$ ist $R\inc\FP$.
+\item (1)$\implies$(2): Sei $R\in\TFNP$ mit Zertifikatsschranke $p$. Definiere die NPTM $N$ die auf Eingabe $x$ erst ein Zertifikat $y\in\Sigma^{\leq p(|x|)}$ rät, und genau dann akzeptiert wenn $(x,y)\in R$. Es ist klar, dass $L(N)=\Proj(R)=\Sigma^*$. Nach (1) existiert also $g\in\FP$ sodass $g(x)$ ein akzeptierender Rechenweg von $N(x)$ ist. Aus diesem Rechenweg lässt sich nun effizient das geratene Zertifikat extrahieren: sei $g'(x)$ definiert als der geratene Zeuge $y$. Dann ist $(x,g'(x))\in R$ und damit $g'$ eine Verfeinerung von $R$. Da $g'\in\FP$ ist $R\inc\FP$.
 
-\item (2)$\Rightarrow$(1): Sei $N$ eine NPTM mit $L(N)=\Sigma^*$. Klar ist, dass die Relation $R\defeq \{ (x,\alpha) \mid N(x)$ akz. auf Rechenweg $\alpha\}$ eine totale NP-Relation ist.
+\item (2)$\implies$(1): Sei $N$ eine NPTM mit $L(N)=\Sigma^*$. Klar ist, dass die Relation $R\defeq \{ (x,\alpha) \mid N(x)$ akz. auf Rechenweg $\alpha\}$ eine totale NP-Relation ist.
     Mit (2) existiert also eine Verfeinerung $g\in\FP$ von $R$. Für $x\in\Sigma^*$ ist also $(x, g(x))\in R$ und nach Definition akzeptiert also $N(x)$ auf Rechenweg $g(x)$, wie gewünscht.
 \end{prooflist}
 \end{proof}
