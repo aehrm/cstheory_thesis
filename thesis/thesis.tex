@@ -20,7 +20,7 @@
 \setmathfont{TeX Gyre Pagella Math}
 \setmathfont[range=it]{Gentium Plus Italic}
 \setmathfont[range=cal]{TeX Gyre Chorus}
-\setsansfont[Scale=MatchLowercase]{Noto Sans}
+\setsansfont[Scale=MatchUppercase, BoldFont={Jost Medium}]{Jost}
 \setmonofont[Scale=MatchUppercase,HyphenChar={-}]{Latin Modern Mono}
 \setlength{\baselineskip}{12pt}
 \newcommand\cyrfont[1]{#1}
@@ -106,36 +106,36 @@
 %	header formatting
 \ifbook
 \titlespacing*{\part}{.2\linewidth}{.3\textheight}{0pt}
-\titlespacing*{\chapter}{0pt}{00pt}{25pt}
+\titlespacing*{\chapter}{0pt}{20pt}{25pt}
 
 \titleformat{\chapter}
-    {\thispagestyle{numbers}\itshape\huge}
-    {\normalfont\bfseries\huge\thechapter}
+    {\thispagestyle{numbers}\sffamily\huge}
+    {\normalfont\sffamily\huge\thechapter}
     {1em}
-    {\setstretch{0.9}\raggedright\huge\itshape #1}
+    {\setstretch{0.9}\raggedright\sffamily\huge #1}
 \titleformat{\section}
-    {\itshape\Large}
-    {\normalfont\thesection}
+    {\sffamily\Large}
+    {\normalfont\sffamily\thesection}
     {1em}
-    {\setstretch{0.9}\raggedright\itshape #1}
+    {\setstretch{0.9}\raggedright #1}
 \titleformat{\subsection}
-    {\scshape}
+    {\sffamily}
     {\raggedright\normalfont\thesubsection}
     {1em}
-    {\setstretch{0.9}\raggedright\MakeLowercase{#1}}
+    {\setstretch{0.9}\raggedright{#1}}
 
 \contentsmargin[1cm]{.7cm}
 \titlecontents{chapter}[20pt]
-    {}
-{\contentsmargin{0pt}\hspace{-18pt}\makebox[18pt][r]{\Large\thecontentslabel\hspace*{12pt}}\Large}
-    {\contentsmargin{0pt}\Large}
-    {\contentspage}
+    {\addvspace{12pt}}
+    {\contentsmargin{0pt}\hspace{-18pt}\makebox[18pt][r]{\Large\sffamily\thecontentslabel\hspace*{12pt}}\Large\sffamily}
+    {\contentsmargin{0pt}\Large\sffamily}
+    {\sffamily\contentspage}
     [\addvspace{2pt}]
 \titlecontents{section}[30pt]
     {}
-    {\contentsmargin{0pt}\thecontentslabel\hspace{1em}}
-    {\contentsmargin{0pt}}
-    {\contentspage}
+    {\contentsmargin{0pt}\sffamily\thecontentslabel\hspace{1em}}
+    {\contentsmargin{0pt}\sffamily}
+    {\sffamily\contentspage}
     [\addvspace{1pt}]
 
 \AtBeginDocument{\setcounter{tocdepth}{1}}

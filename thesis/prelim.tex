@@ -146,7 +146,7 @@ Die Funktionenklassen $\FP, \mathrm{NPMV}, \mathrm{NPSV}$ ist analog definiert \
     \caption{Inklusionen zwischen den in dieser Arbeit definierten Funktionenklassen. Eine Pfeil von $\mathcal F$ nach $\mathcal G$ sagt aus dass $\mathcal{G}\subseteq \mathcal F$.}\label{fig:functionclasses}
 \end{marginfigure}
 Wir definieren $\NPMVt$ als die Teilmenge von $\NPMV$ der Multifunktionen, die linkstotal sind. Analog $\NPSVt$. Die Inklusionen zwischen den einzelnen Funktionenklassen ist in Abbildung~\ref{fig:functionclasses} skizziert.
-Ist für eine Funktion $f\in\FP$ auch $f^{-1}\inc \FP$, also eine (funktionale) Verfeinerung $g$ von $f^{-1}$ in $\FP$, dann sagen wir auch, dass $f$ \emph{$\P$-invertierbar} ist. Beachte, dass die Ehrlichkeit von $f$ eine notwendige Bedingung für die $\P$-Invertierbarkeit von $f$ ist.
+Ist für eine Funktion $f\in\FP$ auch $f^{-1}\inc \FP$, also eine (funktionale) Verfeinerung $g$ von $f^{-1}$ in $\FP$, dann sagen wir auch, dass $f$ \emph{$\P$-invertierbar} ist. Falls $f$ injektiv ist, dass ist die Ehrlichkeit von $f$ eine notwendige Bedingung für die $\P$-Invertierbarkeit von $f$ ist.
 
 \textcite{grollmann_complexity_1988} erarbeiten in ihrer Untersuchung zu Public-Key-Kryptosystemen den Begriff von \emph{disjunkten NP-Paaren} heraus.
 
@@ -316,6 +316,13 @@ Um nun die relative Stärke unterschiedlicher Beweissysteme zu vergleichen, füh
 \end{definition}
 Wenn klar ist, dass $f$ und $g$ Beweissysteme für die gleiche Menge sind, können wir abkürzend alternativ auch äquivalent $g\leqmp f$ schreiben, um zu sagen, dass $f$ das Beweissystem $g$ $\P$-simuliert
 
+Die Beweissysteme mit kurzen Beweisen sind unter Simulation abgeschlossen, und die $\P$-Invertierbarkeit von Beweissystemen sind unter $\P$-Simulation abgeschlossen:
+\begin{observation}
+    Seien $h, h'$ zwei Beweissysteme für $L$. \begin{enumerate}
+        \item Wenn $h$ kurze Beweise hat, und $h'$ das Beweissystem $h$ simulieren kann, dann hat auch $h'$ kurze Beweise.
+        \item Wenn $h$ $\P$-invertierbar ist, und $h'$ das Beweissystem $h$ $\P$-simulieren kann, dann ist auch $h'$ $\P$-invertierbar.
+    \end{enumerate}
+\end{observation}
 
 Die Relation der ($\P$-)Simulation generiert wieder eine Quasiordnung, die nach der Existenz von größten  Elementen untersucht werden kann. 
 Hieraus ergibt sich der Begriff der ($\P$-)Optimalität.

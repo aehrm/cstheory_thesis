@@ -277,7 +277,7 @@
 \newcommand{\@tufte@margin@par}{%
   \setlength{\RaggedRightParindent}{0.5pc}%
   \setlength{\JustifyingParindent}{0.5pc}%
-  \setlength{\parindent}{0.5pc}%
+  \setlength{\parindent}{0pc}%
   \setlength{\parskip}{0pt}%
 }
 
@@ -420,7 +420,11 @@
 
 % Override footmisc's definition to set the sidenote marks (numbers) inside the
 % sidenote's text block.
-\long\def\@makefntext#1{\@textsuperscript{\@tufte@sidenote@font\tiny\@thefnmark}\,\footnotelayout#1}
+\long\def\@makefntext#1{%
+\footnotelayout%
+\setlength{\parindent}{0pt}%
+\setlength{\parskip}{4pt}%
+\@thefnmark. #1}
 
 % Set the in-text footnote mark in the same typeface as the body text itself.
 \def\@makefnmark{\hbox{\@textsuperscript{\normalfont\footnotesize\@thefnmark}}}
@@ -459,11 +463,11 @@
     \protected@edef\@currentlabel{%
        \csname p@footnote\endcsname\@thefnmark%
     }%
-    \color@begingroup%
+    %\color@begingroup%
        \@makefntext{%
          \ignorespaces#2%
        }%
-    \color@endgroup%
+    %\color@endgroup%
   }%
 }%
 
@@ -846,6 +850,8 @@
       \@setminipage%
     \fi%
     \@tufte@caption@font\@tufte@caption@justification%
+\setlength{\parindent}{0pt}%
+\setlength{\parskip}{4pt}%
     \noindent{\bfseries\csname fnum@#1\endcsname:} \ignorespaces#3\par%
     %\@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
   \endgroup}

@@ -164,45 +164,92 @@ Mit dieser Charakterisierung folgt auch unmittelbar, dass $\hQ$ hinreichend für
 
 Was sind natürlich notwendige Bedingungen für die Hypothese $\mathsf{KvL}$? Diese Frage erscheint tatsächlich wesentlich schwieriger als gedacht. Insbesondere scheint es unklar, ob aus irgend einer von Pudláks Hypothesen die Aussage $\mathsf{KvL}$ folgt.
 
-Um uns dieser Frage dennoch zu nähern, beginnen wir zunächst, die Hypothese $\mathsf{KvL}$ auf weitere Weisen zu charakterisieren. Es ist intuitiv klar, dass für eine feste Sprache $L$ die NP-Relationen für $L$, die optimalen Beweissysteme für $L$, und die NPTMs welche $L$ entscheiden, alle im breitesten „Zertifikatsschemata“ sind, und alle diese Berechnungsmodelle untereinander umgeschrieben werden können.
+Um uns dieser Frage dennoch zu nähern, beginnen wir zunächst, die Hypothese $\mathsf{KvL}$ auf weitere Weisen zu charakterisieren. Es ist intuitiv klar, dass für eine feste Sprache $L$ die NP-Relationen für $L$, die ehrlichen Beweissysteme für $L$, und die NPTMs, welche $L$ entscheiden, alle im breitesten Sinn „Zertifikatsschemata“ sind, und alle diese Berechnungsmodelle untereinander umgeschrieben werden können.
 
-Wir wollen nun die existierende $\leqlp$-Ordnung auf den NP-Relationen nehmen, und diese auf die optimalen Beweissysteme übertragen. Wir definieren hierfür eine abgeschwächte Variante der $\P$-Simulation, welche der $\leqlp$-Reduktion nachempfunden ist.
+Wir wollen nun die existierende $\leqlp$-Ordnung auf den NP-Relationen nehmen, und diese auf die ehrlichen Beweissysteme übertragen. Wir definieren hierfür eine abgeschwächte Variante der $\P$-Simulation, welche der $\leqlp$-Reduktion nachempfunden ist.
 \begin{definition}
     Seien $h,h'$ Beweissysteme für $L$. Das Beweissystem $h$ \emph{$\P$-simuliert effektiv} $h'$ falls Funktionen $f,g\in\FP$ existieren sodass
     \begin{enumerate}
         \item $x\in L \iff f(x)\in L$,
         \item $ h'(w)=f(x) \implies h(g(x, w)) = x. $
     \end{enumerate}
-    Kann das Beweissystem $h$ jedes Beweissystem $h'$ für $L$ effektiv $\P$-simulieren, dann ist $h$ \emph{effektiv $\P$-optimal}.
+    %Kann das Beweissystem $h$ jedes Beweissystem $h'$ für $L$ effektiv $\P$-simulieren, dann ist $h$ \emph{effektiv $\P$-optimal}.
 \end{definition}
 In anderen Worten, falls $h$ das Beweissystem $h'$ effektiv $\P$-simuiert, dann kann $h$ zwar nicht \emph{jeden} $h'$-Beweis $w$ für $x\in L$ in einen $h$-Beweis für (das gleiche) $x$ effizient umrechnen, es kann aber zumindest alle \emph{relevanten} $h'$-Beweise effizient umrechnen, nämlich für jedes $x\in L$ die $h'$-Beweise für $f(x)$ in $h$-Beweise für $x$.
-Anstelle „$h$ $\P$-simuliert effektiv $h'$“ ließe sich äquivalent auch $h^{-1}\leqlp h'^{-1}$ schreiben. Beachte, dass die Relation $h^{-1}$ nur Lösungen mit ihren Beweisen reliert.
+%Anstelle „$h$ $\P$-simuliert effektiv $h'$“ ließe sich äquivalent auch $h^{-1}\leqlp h'^{-1}$ schreiben. Beachte, dass die Relation $h^{-1}$ nur Lösungen mit ihren Beweisen reliert.
 Klar ist: $\P$-Simulation impliziert effektive $\P$-Simulation impliziert Simulation.
+Ferner ist diese Art von Simulation eine \emph{effektive} Simulation, in dem Sinn dass die $\P$-invertierbaren Beweissysteme selbst unter effektiver $\P$-Simulation abgeschlossen sind.
 
 
-Die intuitive Aussage von $\neg\mathsf{KvL}$ „Alle NP-Relationen für NP-vollständiges $L$ sind im Wesentlichen gleich“ überträgt sich nun auch auf optimale Beweissysteme:
+Die intuitive Aussage von $\neg\mathsf{KvL}$ „Alle NP-Relationen für NP-vollständige Sprache $L\in\NP$ sind im Wesentlichen gleich“ überträgt sich nun auch auf \emph{ehrliche} Beweissysteme:
 \begin{theorem}\label{thm:kvl-ps}
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
         \item Aussage $\neg\mathsf{KvL}$.
         \item Für alle NP-Relationen $R$ mit $\Proj(R)$ $\leqmp$-vollständig, alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt
-            \[ R \leqlp \{ (x, w) \mid  \text{$N(x)$ akz. auf Rechenweg $w$}\}. \]
-        \item Für alle NP-Relationen $R$ mit $\Proj(R)$ $\leqmp$-vollständig, alle optimalen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
-            \[ R \leqlp \{ (x, w) \mid  \text{$h(w)=x$, $|w|\leq q(|x|)$}\}, \]
-            wobei $q$ ein geeignetes Polynom ist.
-        \item Für alle NP-Relationen $R$ mit $\Proj(R)$ $\leqmp$-vollständig, alle optimalen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
+            \[ R \leqlp \defeq R_N = \{ (x, w) \mid  \text{$N(x)$ akz. auf Rechenweg $w$}\}. \]
+        \item Für alle NP-Relationen $R$ mit $\Proj(R)$ $\leqmp$-vollständig, alle ehrlichen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
+\[ R \leqlp \defeq R_{h} = \{ (x, w) \mid  \text{$h(w)=x$}\}, \]
+        \item Für alle NP-Relationen $R$ mit $\Proj(R)$ $\leqmp$-vollständig, alle ehrlichen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
     \[  \text{$\mathit{std}_R$ $\P$-simuliert effektiv $h$}. \]
-        \item Für alle NP-Relationen $R$ mit $\Proj(R)$ $\leqmp$-vollständig ist $\mathit{std}_R$ effektiv $\P$-optimal. 
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-\todo{}
+    \begin{prooflist}
+    \item (1)$\implies$(2): Klar, denn die Relation $R_N$ ist eine NP-Relation und es gilt $\Proj(R_N)=L(N)=\Proj(R)$ und damit die Projektion von $R$ $\leqmp$-vollständig. Nach Aussage (1) gilt also nun, dass $R\leqlp R_N$, wie gewünscht.
+    \item (2)$\implies$(3): Sei $h$ ein solches erhliches Beweissystem, und $q$ so gewählt, dass $q(|f(w)|)\geq |w|$. Betrachte nun die NPTM $N$, welche auf Eingabe $x$ einen Beweis $w$ der Länge $\leq q(|x|)$ rät, und genau dann akzeptiert wenn $f(w)=x$.
+        Es ist klar, dass $L(N)=\Proj(R)$, und nach (2) haben wir $R \leqlp  R_N$.
+        Seien $f, g\in\FP$ die Reduktions- bzw. Translationsfunktion, welche die obige $\leqlp$-Reduktion realisieren.
+
+        Aus Ehrlichkeit von $h$ lässt sich leicht sehen, dass $R_h$ tatsächlich eine NP-Relation (mit Zertifikatsschranke $q$) ist.
+        Wir haben nun
+        \begin{gather*}
+            (f(x),w)\in R_{h} \implies h(w)=f(x)\\
+            \implies N(f(x)) \text{ akz. auf Rechenweg $\alpha_w$}
+        \intertext{wobei $\alpha_w$ derjenige Rechenweg sein soll, welcher den Beweis $w$, $|w|\leq q(|f(w)|)=q(|x|)$ rät,}
+            \implies (f(x), \alpha_w) \in R_N\\
+            \implies (x, \underbrace{g(x, \alpha_w)}_{g'(x, w)})\in R.
+        \end{gather*}
+        Damit sehen wir, dass mittels $f$ und $g'$, $g'(x,w)=g(x, \alpha_w)$ die Reduktion $R\leqlp R_{h}$ realisiert wird, wie gewünscht
+    \item (3)$\implies$(4): 
+        Sei $h$ ein solches ehrliches Beweissystem, und $q$ so gewählt, dass $q(|f(w)|)\geq |w|$. Nach (3) gilt $R\leqlp R_{h}$.
+        Seien $f, g\in\FP$ die Reduktions- bzw. Translationsfunktion, welche diese $\leqlp$-Reduktion realisieren.
+
+        Nun gilt $x\in \Proj(R) \iff f(x)\in \Proj(R)$, und wir haben
+        \[ h(w)=f(x) \implies (f(x),w)\in R_h \implies (x, g(x,w))\in R \implies \mathit{std}_R(\underbrace{x, g(x,w)}_{g'(x, w)})=x. \]
+        Damit realisieren $f$ und $g'$, $g'(x,w)=(x, g(x,w))$ die effektive $\P$-Simulation von $h$ durch $\mathit{std}_R$.
+
+    \item (4)$\implies$(1): Sei $R$ eine NP-Relation, wobei $\Proj(R)$ $\leqmp$-vollständig ist. Wir werden zeigen, dass $\mathtt{rKAN}\leqlp R$, wobei dann auch $R$ $\leqlp$-vollständig ist (Beob.~\ref{lemma:fnp-completeness}), wie gewünscht.
+
+        Sei zunächst $f\in\FP$ die Funktion, welche die Reduktion $x\in\mathtt{KAN}\leftrightarrow f(x)\in\Proj(R)$ realisiert.
+        Nun konstruieren wir folgendes ehrliche Beweissystem $h$ für $\mathtt{KAN}$:
+        \[ h(z,y) = \begin{cases} z & \text{falls $(f(z), y)\in R$}\\ \bot & \text{sonst}. \end{cases}\]
+        Es lässt sich leicht zeigen, dass $h$ ein Beweissystem ist.
+        Wir zeigen nun, dass $h$ auch ehrlich ist. Sei hierfür $p$ die Laufzeitschranke von $f$, und $q$ die Zertifikatsschranke von $R$.
+        Seien hierfür $z, y$ gegeben sodass $h(z,y)=z$. Damit gilt $(f(z), y)\in R$, also
+        \[ |(z,y)| = 2+2|z|+2|y| \leq 2+2|z|+2q(|f(z)|) \leq 2+ 2|z|+ 2q(p(|z|)), \]
+        und damit die Ausgabe $z$ nicht superpolynomiell kürzer als die Eingabe $(z,y)$.
+
+        Nach (4) kann nun $\mathit{std}_\mathtt{rKAN}$ das Beweissystem $h$ effektiv $\P$-simulieren.
+        Seien $f', g'\in\FP$ diejenigen Funktion, welche dies realisieren.
+        Wir zeigen nun $\mathtt{rKAN}\leqlp R$. Die zugehörige Reduktionsfunktion ist hierbei $f''= f\circ f'$. 
+        Wir haben
+        \[ (f(f'(z)), y)\in R \implies h(f'(z),y)=f'(z) \implies \mathit{std}_\mathtt{rKAN}(g'(f'(z), y))=z, \]
+        und wir können insbesondere können wir $g'(f'(z), y)$ als $(z, w)$ schreiben. Dann gilt $(z,w)\in \mathtt{rKAN}$.
+        Die Rückübersetzung $g''(z,y)=(z,w)$ ist dabei effizient möglich.
+
+        Damit realisieren $f'', g''$ die Reduktion $\mathtt{rKAN}\leqlp R$, wie gewünscht.
+    \end{prooflist}
 \end{proof}
 
 Mittels unserem Begriff der effektiven $\P$-Simulation können wir nun auch die Hypothese $\hSAT$ auf natürliche Weise verstärken:
 \begin{conjecture}[$\mathsf{SAT^{eff}}$]
-    Keine $\leqmp$-vollständige Menge $L$ für $\NP$ hat ein optimales Beweissystem $h$, welches alle anderen optimalen Beweissysteme für $L$ effektiv $\P$-simulieren kann. 
+    Keine $\leqmp$-vollständige Menge $L$ für $\NP$ hat ein Beweissystem $h$, welches alle anderen ehrlichen Beweissysteme für $L$ effektiv $\P$-simulieren kann. 
 \end{conjecture}
+Diese Verstärkung ist am sichtbarsten, wenn wir uns überlegen, wie die Negation $\neg\hSAT$ zu $\neg\mathsf{SAT^{eff}}$ in zwei Dimensionen abgeschwächt wird.
+Erstens der Umfang: es wird nicht mehr verlangt, dass ein Beweissystem $h$ existiert, welche \emph{alle} Beweissysteme $\P$-simulieren kann, sondern nur noch alle \emph{ehrlichen} Beweissysteme.
+Zweitens die Beziehung: es wird nicht mehr $\P$-Simulation, sondern nur noch \emph{effektive} $\P$-Simulation vorausgesetzt.
+
 Wir sehen nun, dass $\mathsf{SAT^{eff}}$ eine Verstärkung von sowohl $\hSAT$ als auch $\mathsf{KvL}$ ist:
 \begin{corollary}\label{cor:sateff-generalizes-sat}
     \begin{enumerate}
@@ -212,9 +259,9 @@ Wir sehen nun, dass $\mathsf{SAT^{eff}}$ eine Verstärkung von sowohl $\hSAT$ al
 \end{corollary}
 \begin{proof}
 \begin{prooflist}
-\item Zu (1): Klar aus Kontraposition. Wenn $\neg\hSAT$, dann existiert für eine $\leqmp$-vollständige Menge $L\in\NP$ ein $\P$-optimales Beweissystem $h$ für $L$ existiert, dann kann dieses (optimale) $h$ auch alle anderen Beweissysteme $\P$-simulieren, und damit insbesondere auch alle optimalen Beweissysteme $h'$ effektiv $\P$-simulieren.
+\item Zu (1): Klar aus Kontraposition. Wenn $\neg\hSAT$, dann existiert für eine $\leqmp$-vollständige Menge $L\in\NP$ ein $\P$-optimales Beweissystem $h$ für $L$ existiert, dann kann dieses $h$ auch alle anderen Beweissysteme $\P$-simulieren, und damit insbesondere auch alle ehrlichen Beweissysteme $h'$ effektiv $\P$-simulieren.
 
-\item Zu (2): Wieder klar aus Kontraposition. Unter $\neg\mathsf{KvL}$ folgt mit der Formulierung aus Satz~\ref{thm:kvl-ps}(5), dass für jede NP-Relation $Q$, $\Proj(Q)$ vollständig, das (optimale) Standardbeweissystem $\mathit{std}_Q$ alle optimalen Beweissysteme für $\Proj(Q)$ effektiv $\P$-simulieren kann. Das gilt dann insbesondere auch für die $\leqlp$-vollständige NP-Relation $\mathtt{rKAN}$, also hat die $\leqmp$-vollständige Menge $\mathtt{KAN}$ \emph{ein} Beweissystem, welches alle optimalen Beweissysteme effektiv $\P$-simulieren kann.
+\item Zu (2): Wieder klar aus Kontraposition. Unter $\neg\mathsf{KvL}$ folgt mit der Formulierung aus Satz~\ref{thm:kvl-ps}(4), dass für jede NP-Relation $R$ mit $\Proj(R)$ $\leqmp$-vollständig, das Standardbeweissystem $\mathit{std}_R$ alle ehrlichen Beweissysteme für $\Proj(R)$ effektiv $\P$-simulieren kann. Das gilt dann insbesondere auch für die $\leqlp$-vollständige NP-Relation $\mathtt{rKAN}$, also hat die $\leqmp$-vollständige Menge $\mathtt{KAN}$ \emph{ein} Beweissystem, welches alle ehrlichen Beweissysteme effektiv $\P$-simulieren kann.
 \end{prooflist}
 \end{proof}
 
@@ -224,17 +271,17 @@ Zur Anschaulichkeit beziehe ich mich hierbei auf die NP-Relation $\mathtt{rSAT}$
 Wir haben
 \begin{itemize}[nosep]
     \item $\hQ$ genau dann wenn $\mathit{sat}$ $\P$-optimal ist (Satz~\ref{thm:q-messner}),
-    \item $\neg\mathsf{KvL}$ genau dann wenn $\mathit{sat}$ effektiv $\P$-optimal ist (Satz~\ref{thm:kvl-ps}).
+    \item $\neg\mathsf{KvL}$ genau dann wenn $\mathit{sat}$ jedes ehrliche Beweissystem effektiv $\P$-simulieren kann (Satz~\ref{thm:kvl-ps}).
 \end{itemize}
 Insbesonere vermute ich, dass möglicherweise sogar $\hQ\Leftrightarrow\neg\mathsf{KvL}$ gelten könnte. Die Richtung von links nach rechts haben wir bereits in Korollar~\ref{cor:kvl-implies-q} gesehen. Für die Richtung von rechts nach links möchte ich nun plausibilisieren, dass $\neg\mathsf{KvL}\land\neg\hQ$ zu einem Widerspruch führt.
 
 Unter Annahme von $\neg\hQ$ folgt nach Satz~\ref{thm:q-messner}, dass das Standardbeweissystem $\mathit{sat}$ von $\mathtt{rSAT}$ nicht $\P$-optimal ist.
-Insbesondere existiert ein optimales Beweissystem $h$, sodass $\mathit{sat}$ nicht $h$ $\P$-simulieren kann.
+Ohne Beschränkung existiert dann ein ehrliches Beweissystem $h$, sodass $\mathit{sat}$ nicht $h$ $\P$-simulieren kann.\sidenote{Die Ehrlichkeit dieses Beweissystems kann im Fall von $\mathtt{rSAT}$ über ein einfaches Padding-Argument gezeigt werden. Alternativ induziert die NPTM $N$ aus Satz~\ref{thm:q-fenner} ein ehrliches Beweissystem, das nicht von $\mathit{sat}$ $\P$-simuliert werden kann.}
 Wir haben also für alle Funktionen $f\in\FP$ 
 \begin{equation} h(w)=\psi \rlap{\hspace*{2pt}\raisebox{2.3pt}{$\quad\not$}}\implies  \text{$f(w)$ erfüllt $\psi$}.\label{eq:weak-irreducibility} \end{equation}
 In anderen Worten: obwohl wir einen $h$-Beweis $w$ für die Erfüllbarkeit der Formel $\phi$ haben, können wir nicht effizient eine erfüllende Belegung aus $w$ berechnenen.
 
-Nun gilt aber nach Annahme auch $\neg\mathsf{KvL}$. Über Satz~\ref{thm:kvl-ps}(5) gilt, dass $\mathit{sat}$ das optimale Beweissystem $h$ effektiv $\P$-simulieren kann. Wir haben also zwei Funktionen $f', g'\in\FP$ sodass
+Nun gilt aber nach Annahme auch $\neg\mathsf{KvL}$. Über Satz~\ref{thm:kvl-ps}(4) gilt, dass $\mathit{sat}$ das ehrliche Beweissystem $h$ effektiv $\P$-simulieren kann. Wir haben also zwei Funktionen $f', g'\in\FP$ sodass
 \begin{equation}\label{eq:effective-simulation} h(w)=f'(\phi) \implies \text{$g'(\phi, w)$ erfüllt $\phi$}. \end{equation}
 Beachte, dass die Funktion $f'$ notwendigerweise ungleich $\mathrm{id}$ ist. Wir können $f'$ so verstehen, dass diese $\phi$ gewissermaßen in eine einfachere Form bringt, für welche $h$-Beweise effizient verarbeitet werden können.
 
