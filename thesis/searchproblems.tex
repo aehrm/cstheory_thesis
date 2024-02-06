@@ -237,11 +237,14 @@ Wie beim Suchalgorithmus aus obigem Beweis ist aber klar, dass Suchprobleme imme
 Im allgemeinen Fall: für jede NP-Relation $R$ mit Laufzeitschranke $q$ gilt
 \[ R \inc \FP^{L_R} \text{ wobei } L_R = \{ (x, z) \mid \exists y\in\Sigma^{\leq q(|x|)} \mid (x, y)\in R, z\sqsubseteq y \} \]
 und 
-\[ R \inc \FP^{L'_R} \text{ wobei } L'_R = \{ (x, z) \mid \exists y\in\Sigma^{\leq q(|x|)} \mid (x, y) \in R, y\leq z \} \]
+\[ R \inc \FP^{L'_R} \text{ wobei } L'_R = \{ (x, z) \mid \exists y\in\Sigma^{\leq q(|x|)} \mid (x, y) \in R, y\leq z \}, \]
+jeweils mit einer polynomiellen Anzahl an Orakelfragen.
+
+
 Konkret ist das zum Beispiel der Fall bei der NP-Relation $\mathtt{rSMALLFACTOR}$. Zur Erinnerung, wir haben
 \[ \Proj(\mathtt{rSMALLFACTOR}) = \{ (n,a)\mid \text{$n>1$ nicht prim, ex. Faktor $p>1$ von $n$ mit $p\leq a$} \}. \]
-Durch Orakelfragen an $\Proj(\mathtt{rSMALLFACTOR})$ kann dann mit binärer Suche ein solcher Faktor auch gefunden werden.
-In anderen Worten, $\mathtt{rSMALLFACTOR} \inc \FP^{\Proj(\mathtt{rSMALLFACTOR})}$.
+Durch polynomiell viele Orakelfragen an $\Proj(\mathtt{rSMALLFACTOR})$ kann dann mit binärer Suche ein solcher Faktor auch gefunden werden.
+In anderen Worten, es gilt $\mathtt{rSMALLFACTOR} \inc \FP^{\Proj(\mathtt{rSMALLFACTOR})}$.
 
 Es lässt sich im Übrigen zeigen, dass $\Proj(\mathtt{rSMALLFACTOR})\in\UP\cap\coUP$.
 Die Projektion ist einerseits in $\UP$: gegeben $(n, a)$, $n$ nicht prim, rate zunächst eine Primfaktorzerlegung von $n$ mit aufsteigenden Primfaktoren. Akzeptiere genau dann wenn ein Faktor $p\leq a$ in dieser Zerlegung erhalten ist. Der Fundamentalsatz der Arithmetik sichert, dass die (aufsteigend geordnete) Primfaktorzerlegung eindeutig ist, heißt der oben skizzierte nichtdeterministische Polynomialzeit-Algorithmus akzeptiert auf höchstens einem Rechenweg.
