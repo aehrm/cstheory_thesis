@@ -186,14 +186,15 @@ Ferner ist diese Art von Simulation eine \emph{effektive} Simulation, in dem Sin
 
 Die intuitive Aussage von $\neg\mathsf{KvL}$ „Alle NP-Relationen für NP-vollständige Sprache $L\in\NP$ sind im Wesentlichen gleich“ überträgt sich nun auch auf \emph{ehrliche} Beweissysteme:
 \begin{theorem}\label{thm:kvl-ps}
+    Sei $R$ eine NP-Relation, sodass $\Proj(R)$ $\leqmp$-vollständig ist.
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
         \item Aussage $\neg\mathsf{KvL}$.
-        \item Für alle NP-Relationen $R$ mit $\Proj(R)$ $\leqmp$-vollständig, alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt
+        \item Für alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt
             \[ R \leqlp \defeq R_N = \{ (x, w) \mid  \text{$N(x)$ akz. auf Rechenweg $w$}\}. \]
-        \item Für alle NP-Relationen $R$ mit $\Proj(R)$ $\leqmp$-vollständig, alle ehrlichen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
+        \item Für alle ehrlichen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
 \[ R \leqlp \defeq R_{h} = \{ (x, w) \mid  \text{$h(w)=x$}\}, \]
-        \item Für alle NP-Relationen $R$ mit $\Proj(R)$ $\leqmp$-vollständig, alle ehrlichen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
+        \item Für alle ehrlichen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
     \[  \text{$\mathit{std}_R$ $\P$-simuliert effektiv $h$}. \]
     \end{enumerate}
 \end{theorem}
@@ -222,26 +223,26 @@ Die intuitive Aussage von $\neg\mathsf{KvL}$ „Alle NP-Relationen für NP-volls
         \[ h(w)=f(x) \implies (f(x),w)\in R_h \implies (x, g(x,w))\in R \implies \mathit{std}_R(\underbrace{x, g(x,w)}_{g'(x, w)})=x. \]
         Damit realisieren $f$ und $g'$, $g'(x,w)=(x, g(x,w))$ die effektive $\P$-Simulation von $h$ durch $\mathit{std}_R$.
 
-    \item (4)$\implies$(1): Sei $R$ eine NP-Relation, wobei $\Proj(R)$ $\leqmp$-vollständig ist. Wir werden zeigen, dass $\mathtt{rKAN}\leqlp R$, wobei dann auch $R$ $\leqlp$-vollständig ist (Beob.~\ref{lemma:fnp-completeness}), wie gewünscht.
+    \item (4)$\implies$(1): Sei $Q$ eine NP-Relation, wobei $\Proj(Q)$ $\leqmp$-vollständig ist. Wir werden zeigen, dass $R\leqlp Q$, wobei dann auch $Q$ $\leqlp$-vollständig ist (Beob.~\ref{lemma:fnp-completeness}), wie gewünscht.
 
-        Sei zunächst $f\in\FP$ die Funktion, welche die Reduktion $x\in\mathtt{KAN}\leftrightarrow f(x)\in\Proj(R)$ realisiert.
-        Nun konstruieren wir folgendes ehrliche Beweissystem $h$ für $\mathtt{KAN}$:
-        \[ h(x,y) = \begin{cases} x & \text{falls $(f(x), y)\in R$}\\ \bot & \text{sonst}. \end{cases}\]
+        Sei zunächst $f\in\FP$ die Funktion, welche die Reduktion $x\in \Proj(R)\leftrightarrow f(x)\in\Proj(Q)$ realisiert.
+        Nun konstruieren wir folgendes ehrliche Beweissystem $h$ für $R$:
+        \[ h(x,y) = \begin{cases} x & \text{falls $(f(x), y)\in Q$}\\ \bot & \text{sonst}. \end{cases}\]
         Es lässt sich leicht zeigen, dass $h$ ein Beweissystem ist.
-        Wir zeigen nun, dass $h$ auch ehrlich ist. Sei hierfür $p$ die Laufzeitschranke von $f$, und $q$ die Zertifikatsschranke von $R$.
-        Seien hierfür $x, y$ gegeben sodass $h(x,y)=x$. Damit gilt $(f(x), y)\in R$, also
+        Wir zeigen nun, dass $h$ auch ehrlich ist. Sei hierfür $p$ die Laufzeitschranke von $f$, und $q$ die Zertifikatsschranke von $Q$.
+        Seien hierfür $x, y$ gegeben sodass $h(x,y)=x$. Damit gilt $(f(x), y)\in Q$, also
         \[ |(x,y)| = 2+2|x|+2|y| \leq 2+2|x|+2q(|f(x)|) \leq 2+ 2|x|+ 2q(p(|x|)), \]
         und damit die Ausgabe $x$ nicht superpolynomiell kürzer als die Eingabe $(x,y)$.
 
-        Nach (4) kann nun $\mathit{std}_\mathtt{rKAN}$ das Beweissystem $h$ effektiv $\P$-simulieren.
+        Nach (4) kann nun $\mathit{std}_R$ das Beweissystem $h$ effektiv $\P$-simulieren.
         Seien $f', g'\in\FP$ diejenigen Funktion, welche dies realisieren.
-        Wir zeigen nun $\mathtt{rKAN}\leqlp R$. Die zugehörige Reduktionsfunktion ist hierbei $f''= f\circ f'$. 
+        Wir zeigen nun $R\leqlp Q$. Die zugehörige Reduktionsfunktion ist hierbei $f''= f\circ f'$. 
         Wir haben
-        \[ (f(f'(x)), y)\in R \implies h(f'(x),y)=f'(x) \implies \mathit{std}_\mathtt{rKAN}(g'(f'(x), y))=x, \]
-        und wir können insbesondere $g'(f'(x), y)$ als $(x, w)$ schreiben. Dann gilt $(x,w)\in \mathtt{rKAN}$.
-        Die Rückübersetzung $g''(x,y)=(x,w)$ ist dabei effizient möglich.
+        \[ (f(f'(x)), y)\in Q \implies h(f'(x),y)=f'(x) \implies \mathit{std}_R(\underbrace{g'(f'(x), y)}_{g''(x,y)})=x, \]
+        und wir können insbesondere $g'(f'(x), y)$ als $(x, w)$ schreiben. Dann gilt $(x,w)\in R$.
+        Die Rückübersetzung $g''(x,y)=g'(f'(x), y)=(x,w)$ ist dabei effizient möglich.
 
-        Damit realisieren $f'', g''$ die Reduktion $\mathtt{rKAN}\leqlp R$, wie gewünscht.
+        Damit realisieren $f'', g''$ die Reduktion $Q\leqlp R$, wie gewünscht.
     \end{prooflist}
 \end{proof}
 
