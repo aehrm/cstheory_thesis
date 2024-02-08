@@ -19,7 +19,9 @@
 \setmainfont{Gentium Plus}
 \setmathfont{TeX Gyre Pagella Math}
 \setmathfont[range=it]{Gentium Plus Italic}
+\setmathfont[range=up/{num}]{Gentium Plus Italic}
 \setmathfont[range=cal]{TeX Gyre Chorus}
+\setmathfontface\mathsf{Noto Sans}[Scale=MatchUppercase]
 \setsansfont[Scale=MatchUppercase, BoldFont={Jost Medium}]{Jost}
 \setmonofont[Scale=MatchUppercase,HyphenChar={-}]{Latin Modern Mono}
 \setlength{\baselineskip}{12pt}
@@ -106,7 +108,9 @@
 %	header formatting
 \ifbook
 \titlespacing*{\part}{.2\linewidth}{.3\textheight}{0pt}
-\titlespacing*{\chapter}{0pt}{20pt}{25pt}
+\titlespacing*{\chapter}{0pt}{50pt}{25pt}
+%\titlespacing{\section}{0pt}{*4}{*1.5}
+%\titlespacing{\subsection}{0pt}{*3}{*1.5}
 
 \titleformat{\chapter}
     {\thispagestyle{numbers}\sffamily\huge}
@@ -265,7 +269,7 @@
         }
       }
 }
-\setlength{\bibitemsep}{3pt}
+\setlength{\bibitemsep}{3pt plus 2pt}
 \renewcommand*{\nameyeardelim}{\addcomma\space}
 \DeclareCiteCommand{\citeyear}
     {\usebibmacro{prenote}}

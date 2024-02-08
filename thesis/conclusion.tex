@@ -7,7 +7,7 @@ Bezüglich der Ergebnisse können wir uns an den vier Forschungsdesiderata orien
 \subsection*{Suchprobleme vs. Entscheidungsprobleme}
 
 Erstens, wurde in Kapitel~\ref{chap:searchproblems} die Beziehung zwischen NP-Suchproblemen und den entsprechenden NP-Entscheidungsproblemen erarbeitet.
-Hierfür orientierte sich die Arbeit an vorhandenen Definitionen von Suchproblemen, die intuitiv neben dem Berechnungsproblem „Gilt $x\in L$?“ auch nach einem „Beweis“ oder „Zertifikat“ für $x\in L$ fragen. 
+Hierfür orientiert sich die Arbeit an vorhandenen Definitionen von Suchproblemen, die intuitiv neben dem Berechnungsproblem „Gilt $x\in L$?“ auch nach einem „Beweis“ oder „Zertifikat“ für die Aussage „$x\in L$“ fragen. 
 Auf dieser Basis wurde gezeigt, dass die übliche Argumentation, das Suchproblem auf das Entscheidungsproblem reduzieren zu können (\emph{search reduces to decision}) im Allgemeinen nicht immer zutrifft. Ergebnisse aus der Literatur zeigen, dass dies unter geeigneten Bedingungen nicht für die NP-Intermediates (also jene Probleme, die nicht NP-vollständig sind, aber auch nicht in $\P$ liegen) zutrifft.
 Im Kontext der \emph{Selbstreduzierbarkeit}, also der Lösung des Suchproblems gegeben einem Orakel für „kleinere“ Instanzen, liegen dagegen nur wenige Ergebnisse vor. In der Arbeit wurde insbesondere auf Ergebnisse von \textcite{harsha_downward_2023} hingewiesen, welche Anzeichen geben, dass das Suchproblem der Faktorisierung nicht selbstreduzierbar ist.
 
@@ -23,35 +23,38 @@ Es gibt keine Hinweise, welche auf eine positive oder negative Beantwortung dies
 
 \subsection*{NP-Suchprobleme im Pudlákschen Programm}
 
-Zweitens, wurde die Hypothese $\hQ$ (erstmals formuliert von \cite{fenner_inverting_1996}) in den Blick genommen, welche als Aussage 
+Zweitens, wurde die Hypothese $\hQ$ (erstmals formuliert von \cite{fortnow_separability_1993}) in den Blick genommen, welche als Aussage 
 „alle totalen NP-Suchprobleme sind effizient lösbar“ unmittelbar in direkter Beziehung zu den NP-Suchproblemen steht.
 Die vorliegende Arbeit zeigt nun insbesondere auch folgende Charakterisierungen von $\hQ$:
 \begin{itemize}[midpenalty=0]
     \item Es gilt $\hQ$ genau dann wenn jede Karp-Reduktion zwischen Entscheidungsvarianten von zwei NP-Suchproblemen zu einer Levin-Reduktion zwischen eben jenen Suchproblemen verstärkt werden kann. Damit ist $\neg\hQ$ auch eine notwendige Bedingung für $\mathsf{KvL}$.
-    \item Es gilt $\hQ$ genau dann wenn das Standardbeweissystem eines beliebigen Levin-vollständigen NP-Suchproblems $\P$-optimal ist. Das generalisiert damit ein Argument von \textcite{messner_simulation_2001}, welcher so die Äquivalenz zwischen $\hQ$ und der $\P$-Optimalität des Standardbeweissystems $\mathit{sat}$ gezeigt hat. Über diese Charakterisierung wird auch deutlich, dass $\neg\hQ$ auch eine notwendige Bedingung für die Pudláksche Hypothese $\hSAT$ ist.
+    \item Es gilt $\hQ$ genau dann wenn das Standardbeweissystem eines beliebigen Levin-vollständigen NP-Suchproblems $\P$-optimal ist. Das eliminiert damit ein Padding-Argument von \textcite{messner_simulation_2001} und verallgemeinert sein Ergebnis, dass $\hQ$ äqivalent zir $\P$-Optimalität des Standardbeweissystems $\mathit{sat}$ ist. Über diese Charakterisierung wird auch deutlich, dass $\neg\hQ$ auch eine notwendige Bedingung für die Pudláksche Hypothese $\hSAT$ ist.
 \end{itemize}
-Im Kontext des dritten Forschungsdesiderat wurde das Pudláksche Programm um weitere Hypothesen verfeinert. Insbesondere über die zweite Charakterisierung von $\hQ$ lässt sich die Hypothese $\neg\hQ$ in das Pudláksche Programm einordnen. Für die Hypothese $\mathsf{KvL}$ war dagegen eine Einordnung schwieriger, und es konnte nur gezeigt werden, dass $\mathsf{SAT^{eff}}$, eine Verstärkung von $\hSAT$, hinreichend für $\mathsf{KvL}$ ist.
+Im Kontext des dritten Forschungsdesiderat wurde das Pudláksche Programm um weitere Hypothesen verfeinert. Insbesondere über die zweite Charakterisierung von $\hQ$ lässt sich die Hypothese $\neg\hQ$ in das Pudláksche Programm einordnen. Für die Hypothese $\mathsf{KvL}$ war dagegen eine Einordnung schwieriger, und es konnte nur gezeigt werden, dass $\mathsf{SAT^{eff}}$, eine natürliche Verstärkung von $\hSAT$, hinreichend für $\mathsf{KvL}$ ist.
 %Parallel hierzu trägt diese Arbeit in einem welteren Survey die bekannten Implikationen unter den Hypothesen des (verallgemeinerten) Pudlákschen Programms zusammen, und erarbeitet einen Überblick über die relativierenden Trennungen von Hypothesen mittels existierenden Orakelkonstruktionen. 
 
-Viertens, wurde abschließend ein Orakel konstruiert, relativ zu diesem die relativierten Hypothesen $\hDisjNP$, $\hUP$ und $\hQ$ gelten.
+Viertens, wurde abschließend ein Orakel konstruiert, relativ zu diesem die (relativierten) Hypothesen $\hDisjNP$, $\hUP$ und $\hQ$ gelten.
 Damit wurde insbesondere $\hQ$ und $\mathsf{KvL}$ von einigen der Pudlákschen Hypothesen getrennt. Insbesondere erhalten wir damit das Resultat, dass selbst unter Annahme von $\hDisjNP\land\hUP$ es nicht mit relativierenden Beweisen möglich ist, auf $\hQ$ (und auch nicht auf $\mathsf{KvL}$) zu schließen.
 Für die Hypothese $\hQ$ ergibt sich ferner unter relativierbaren Beweisen eine paarweise Unabhängigkeit zu den originalen Pudlákschen Hypothesen, außer für jene Fälle, bei der eine relativierende Implikation bekannt ist:
 
 \begin{corollary}
-    Sei $\mathsf A \in \{\hDisjNP, \hUP, \mathsf{CON^{N}}, \hTAUT, \hDisjCoNP, \hTFNP, \hSAT\}$.
+    Sei $\mathsf A \in \{\hDisjNP, \hUP, \mathsf{TAUT^{N}}, \hTAUT, \hDisjCoNP, \hTFNP, \hSAT\}$.
     Für jede Wahl von $\mathsf A$ existiert je ein Orakel, relativ zu diesem $\mathsf A\land \hQ$, $\mathsf A\land \neg\hQ$, $\neg\mathsf A\land \hQ$, bzw. $\neg\mathsf A\land\neg\hQ$ gilt, außer für die Fälle $\hDisjCoNP\land\hQ$, $\hTFNP\land\hQ$, $\hSAT\land\hQ$.
 \end{corollary}
 
 \subsection*{Offene Fragen}
 
-Zum Schluss sind hier noch die offenen Fragen aufgelistet, welche sich im Verlauf dieser Arbeit ergeben haben, und welche den Startpunkt für zukünftige Forschung bilden könnten:
+Zum Schluss sind hier noch die offenen Fragen aufgelistet, welche sich im Verlauf dieser Arbeit ergeben haben, und welche eine Basis für zukünftige Forschung bilden könnten:
 \begin{enumerate}[label=\arabic*.,midpenalty=0]
     \item Die zentrale offene Frage dieser Arbeit ist jene zwischen Karp- und Levin-Vollständigkeit, bzw. der Hypothese $\mathsf{KvL}$ (vgl. Frage~\ref{question:kvl}). Um mehr Evidenz für die Gültigkeit von $\mathsf{KvL}$ zu sammeln, wären weitere hinreichende natürliche Annahmen, z.B. kryptographischer Art, wünschenswert.
         Das betrifft u.a. auch die Hypothese $\hQ$. Lässt sich die Äquivalenz $\mathsf{KvL}\Leftrightarrow \neg\hQ$ zeigen, wie in Abschnitt~\ref{sec:karp-vs-levin} vermutet?
         Allgemein gesprochen wäre hierzu auch ein besseres Verständnis der Zusammenhänge und Beziehungen zwischen den Hypothesen $\mathsf{KvL}$, $\hQ$, $\hSAT$ und $\mathsf{SAT^{eff}}$ erstrebenswert, sowie angrenzend nähere Untersuchungen zum Begriff der effektiven $\P$-Simulation; die vorliegende Arbeit hat hierzu nur den ersten Anfang gemacht.
 
     \item Konkret auch auf das Pudláksche Programm bezogen, wären weitere Orakelkonstruktionen dienlich, die $\mathsf{KvL}$ von den anderen Hypothesen trennen, um so $\mathsf{KvL}$ besser situieren zu können. Folgende Trennungen wurden in Abschnitt~\ref{sec:pudlak-overview} als besonders interessant erachtet: konstruiere je ein Orakel, sodass relativ zu diesem $\mathsf{KvL}\land\neg\mathsf{SAT^{eff}}$, $\mathsf{KvL}\land\neg\hSAT$ bzw. $\neg\hQ\land\neg\mathsf{KvL}$ gilt.
+        Schon allein ein Orakel $O$ mit $\mathsf{KvL}^O$ wäre erstrebenswert, denn damit könne man relativierende Beweise für $\neg\mathsf{KvL}$ ausschließen.
+
+
     \item Konkret in Bezug auf die Hypothese $\hQ$ könnte der Begriff der Levin-Paddability intensiver betrachtet werden, wie er z.B. in der Charakterisierung der Hypothese $\hQ$ eingesetzt wird (Definition~\ref{def:levin-paddable}). Besonders interessant wäre, ob sich diese zusätzliche Bedingung in der Charakterisierung durch Satz~\ref{thm:q}(9) streichen lässt. In anderen Worten: gilt $\hQ$ genau dann wenn für eine $\leqlp$-vollständige NP-Relation $R$ das Standardbeweissystem $\mathit{std}_R$ für jede $N$ mit $L(N)=\Proj(R)$ das Beweissystem $\mathit{std}_N$ $\P$-simulieren kann?
         Zeige hierfür beispielsweise, dass (nicht) jede $\leqlp$-vollständige NP-Relation auch Levin-paddable ist (vgl. Frage~\ref{question:levin-paddable}).
-    \item Angrenzend an die Karp-vs-Levin-Frage bzw. Suche-vs-Entscheiden-Frage wäre ein besseres Verständnis zur Selbstreduzierbarkeit unter den Suchproblemen erstrebenswert. Wie schon in Abschnitt~\ref{sec:search-vs-decision} beschrieben, ist die Forschungslage hierzu noch sehr dünn, insbesondere auf den nicht-totalen NP-Suchproblemen. Lassen sich die Erkenntnisse der Selbstreduzierbarkeit von \emph{Entscheidungsproblemen} hierzu produktiv machen? Hierzu auch angrenzend wäre die Betrachtung schwächerer Reduzierbarkeitsbegriffe auf NP-Relationen (z.B. ähnich zu Turing- oder Truth-Table-Reduktionen), und damit verbunden eine Abschwächung der Hypothese $\mathsf{KvL}$, vielversprechend.
+    \item Angrenzend an die Karp-vs-Levin-Frage bzw. Suche-vs-Entscheiden-Frage wäre ein besseres Verständnis zur Selbstreduzierbarkeit unter den Suchproblemen erstrebenswert. Wie schon in Abschnitt~\ref{sec:search-vs-decision} beschrieben, ist die Forschungslage hierzu noch sehr dünn, insbesondere auf den nicht-totalen NP-Suchproblemen. Lassen sich die Erkenntnisse der Selbstreduzierbarkeit von \emph{Entscheidungsproblemen} hierzu produktiv machen? Hierzu auch angrenzend wäre die Betrachtung schwächerer Reduzierbarkeits-Begriffe auf NP-Relationen (z.B. ähnlich zu Turing- oder Truth-Table-Reduktionen), und damit verbunden eine Abschwächung der Hypothese $\mathsf{KvL}$, vielversprechend.
 \end{enumerate}

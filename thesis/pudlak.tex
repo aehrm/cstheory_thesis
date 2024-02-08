@@ -5,7 +5,7 @@
 In der Einleitung dieser Arbeit wurde bereits angedeutet, dass die Hypothese $\hQ$ von \citeauthor{fenner_inverting_2003} große Nähe und Verwandtschaft zu Hypothesen hat, die Suchprobleme im Allgemeinen und Beweissystemen im Speziellen betreffen. Damit ergeben sich Beziehungen zu Hypothesen aus dem Pudlákschen Programm, insbesondere $\neg\hSAT$ (also dass eine NP-vollständige Mengen mit $\P$-optimalem Beweissystem für diese Menge existiert).
 In diesem Kapitel werden wir diese Beziehungen näher erarbeiten. Zur Erinnerung:
 
-\begin{reptheorem}{Vermutung}{conj:q}[$\hQ$, \cite{fenner_inverting_2003}]
+\begin{reptheorem}{Vermutung}{conj:q}[$\hQ$]
     Für jede totale NPTM $N$ (d.h. $L(N)=\Sigma^*$) existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ ein akzeptierender Rechenweg von $N(x)$ ist. 
 \end{reptheorem}
 
@@ -14,7 +14,7 @@ Im Kapitel werden wir uns grob folgenden drei Desiderata widmen:
 erstens, nähern wir uns in Abschnitt~\ref{sec:karp-vs-levin} erneut der Frage zwischen Levin- und Karp-Vollständigkeit bzw. der Hypothese $\mathsf{KvL}$ aus vorigem Kapitel. Insbesondere analysieren wir die Beziehungen von $\mathsf{KvL}$ zu $\hQ$ und versuchen, $\mathsf{KvL}$ in das Pudláksche Programm einzuordnen.
 
 Zweitens, in Abschnitt~\ref{sec:q-vs-search}, verallgemeinern wir Charakterisierungen von $\hQ$, die sich insbesondere auf Suchprobleme und deren assoziierte Beweissysteme beziehen.
-Insbesondere zeigen wir für die vollständigen NP-Suchprobleme $R$ dass das zu $R$ assoziierte \emph{Standardbeweissystem} ($(x,y)$ mit $R(x,y)$ ist ein Standardbeweis für $x$) $\P$-optimal ist, genau dann wenn $\hQ$. Damit wird die $\P$-Optimalität des entsprechenden Standardbeweissystems zu einer Invariante, die entweder für \emph{alle} vollständigen NP-Suchprobleme zutrifft, oder für \emph{keins}.
+Insbesondere zeigen wir für die vollständigen NP-Suchprobleme $R$ dass das zu $R$ assoziierte \emph{Standardbeweissystem} ($(x,y)$ mit $(x,y)\in R$ ist ein Standardbeweis für $x\in\Proj(R)$) $\P$-optimal ist, genau dann wenn $\hQ$ gilt. Damit wird die $\P$-Optimalität des entsprechenden Standardbeweissystems zu einer Invariante, die entweder für \emph{alle} vollständigen NP-Suchprobleme zutrifft, oder für \emph{keins}.
 
 %erstens werden wir weitere Hypothesenzu Suchproblemen, welche sich im Verlauf dieser Arbeit ergeben, in das Pudláksche Programm einordnen, insbesondere $\hQ$ und $\mathsf{KvL}$ bzw. die Frage nach Levin- vs. Karp-Vollständigkeit.
 %Im Speziellen ergänzen wir das Abbildung~\ref{fig:pudlak} der Beziehungen zwischen den Pudlákschen Hypothesen aus der Einleitung um weitere Hypothesen, und erreichen Abbildung~\ref{}. Die Beweise 
@@ -22,12 +22,12 @@ Insbesondere zeigen wir für die vollständigen NP-Suchprobleme $R$ dass das zu 
 %Zweitens eine Verallgemeinerung der Charakterisierung $\hQ$, die sich insbesondere auf Suchprobleme und deren Beweissysteme bzw. „Zertifikatsschemata“ beziehen.
 
 \looseness=1
-Drittens ergänzen wir im gesamten Verlauf dieses Kapitels das Pudláksche Programm um weitere Hypothesen ($\mathsf{KvL}, \hQ, \dots$), sodass Abbildung~\ref{fig:pudlak-small} der Beziehungen zwischen den Pudlákschen Hypothesen vergrößert wird. Damit erreichen wir den Stand, der in Abbildung~\ref{fig:figure-implications} dargestellt wird.
-Damit einher wird abschließend ein Überblick über Orakel angegeben, welche Hypothesen des Pudlákschen Programms (ergänzt um $\hQ, \mathsf{KvL}, \dots$) trennen.
+Drittens ergänzen wir im gesamten Verlauf dieses Kapitels das Pudláksche Programm um weitere Hypothesen ($\mathsf{KvL}, \hQ, \dots$), sodass Abbildung~\ref{fig:pudlak-small} der Beziehungen zwischen den Pudlákschen Hypothesen vergrößert und verfeinert wird. Wir erreichen damit den Stand, der in Abbildung~\ref{fig:figure-implications} dargestellt wird.
+Damit einher wird abschließend ein Überblick über existierende Orakelkonstruktionen angegeben, welche Hypothesen des Pudlákschen Programms (ergänzt um $\hQ, \mathsf{KvL}, \dots$) trennen.
 
 
 Für alle dieser drei Desiderata ist es zunächst notwendig, auf die Hypothese $\hQ$ einzugehen.
-\textcite{fenner_inverting_2003} beobachten, dass das Invertieren von surjektiven ehrlichen FP-Funktionen eine erstaunlich robuste Aussage ist, die eine Vielzahl von äquivalenten „fundamentalen“ \parencite{fenner_inverting_2003} Charakterisierungen aus der Komplexitätstheorie zulässt, so zum Beispiel die effiziente Lösbarkeit von TFNP-Suchproblemen, oder das effiziente Ausrechnen akzeptierender Rechenwege einer totalen NPTM. Wir können jetzt schon festhalten, dass die aktuelle Forschung diese Hypothese als sehr stark einschätzt, und eher die negative Beantwortung $\neg\hQ$ vermutet.
+\textcite{fenner_inverting_2003} beobachten, dass das Invertieren von surjektiven ehrlichen FP-Funktionen eine erstaunlich robuste Aussage ist, die eine Vielzahl von äquivalenten „fundamentalen“ \parencite[91]{fenner_inverting_2003} Charakterisierungen aus der Komplexitätstheorie zulässt, so zum Beispiel die effiziente Lösbarkeit von TFNP-Suchproblemen, oder die $\P$-Invertierbarkeit von surjektiven $\FP$-Funktionen. Wir können jetzt schon festhalten, dass die aktuelle Forschung diese Hypothese als sehr stark einschätzt, und eher die negative Beantwortung $\neg\hQ$ vermutet.
 
 
 \begin{theorem}[Äquivalente Formulierungen der Hypothese $\hQ$; \cite{fenner_inverting_2003}]\label{thm:q-orig}
@@ -53,7 +53,7 @@ Dieser Satz relativiert insbesondere.
 \begin{theorem}[\cite{kobler_is_2000}]\label{thm:q-messner}
     Es gilt $\hQ$ genau dann wenn das Standardbeweissystem $\mathit{sat}$
             \[ \mathit{sat}(\phi, w) = \begin{cases} \phi & \text{wenn $w$ eine erfüllende Belegung für $\phi$ ist} \\ \bot & \text{sonst.} \end{cases}\]
-            für $\mathtt{rSAT}$ $\P$-optimal ist.
+            für $\mathtt{SAT}$ $\P$-optimal ist.
 \end{theorem}
 Diese zwei Sätze relativieren nicht.
 
@@ -75,24 +75,14 @@ Mit dieser Verallgemeinerung ist es dann auch für uns möglich, $\hQ$ formal in
     \bot & \text{sonst}.\end{cases} \qedhere \] 
 \end{definition}
 Damit ist, wie durch die Formulierung oben suggeriert, $\mathit{sat}=\mathit{std}_{\mathtt{rSAT}}$.
-Bevor wir nun mit einer Diskussion zwischen Karp-Vollständigkeit und Levin-Vollständigkeit fortsetzen, schließen wir diesen Einstieg mit folgender einfachen Beobachtung ab:
-\begin{observation}\label{obs:spps-honest}
-    Für jede NP-Relation $R$ ist das Standardbeweissystem $\mathit{std}_R$ für $\Proj(R)$ ehrlich, optimal, und hat kurze Beweise.
-\end{observation}
-\begin{proof}
-    Nachdem $R$ polynomiell längenbeschränkt ist, folgt sofort dass $\mathit{std}_R$ kurze Beweise hat. 
-    Nach Beobachtung \ref{obs:super-ps-sind-opt} damit auch optimal.
-    Insbesondere hat $\mathit{std}_R$ \emph{nur} polynomiell längere Beweise, also ist $\mathit{std}_R$ ehrlich.
-\end{proof}
+%Bevor wir nun mit einer Diskussion zwischen Karp-Vollständigkeit und Levin-Vollständigkeit fortsetzen, schließen wir diesen Einstieg mit folgender einfachen Beobachtung ab:
+%\begin{observation}\label{obs:spps-honest}
+    %Für jede NP-Relation $R$ ist das Standardbeweissystem $\mathit{std}_R$ für $\Proj(R)$ ehrlich, optimal, und hat kurze Beweise.
+%\end{observation}
 %\begin{proof}
-    %Sei $q$ die Zertifikatsschranke von $R$, und sei $w=(x,y)$ gegeben sodass $\mathit{std}_R(x,y) = x$.
-    %An dieser Stelle müssen wir auf die konkrete Codierung von Beweisen $w=(x,y)$ eingehen.
-    %Wie in \ref{sec:notation} beschrieben, codieren wir Tupel in einer solchen Weise sodass
-    %\[ |w| = |(x,y)| = 2(|x|+|y|+2) = 2|x|+ 2|y| + 4. \]
-    %Da $(x,y)\in R$ gilt für $y$ auch $|y|\leq q(|x|)$.
-    %Damit also
-    %\[ |w| \leq 2|x|+ 2q(|x|) + 4 \leq q'(|x|) = q'(|\mathit{std}_R(w)|). \]
-    %für ein geeignetes Polynom $q'$, wie gewünscht.
+    %Nachdem $R$ polynomiell längenbeschränkt ist, folgt sofort dass $\mathit{std}_R$ kurze Beweise hat. 
+    %Nach Beobachtung \ref{obs:super-ps-sind-opt} damit auch optimal.
+    %Insbesondere hat $\mathit{std}_R$ \emph{nur} polynomiell längere Beweise, also ist $\mathit{std}_R$ ehrlich.
 %\end{proof}
 
 \section{Karp-Vollständigkeit vs. Levin-Vollständigkeit}\label{sec:karp-vs-levin}
@@ -100,6 +90,7 @@ Bevor wir nun mit einer Diskussion zwischen Karp-Vollständigkeit und Levin-Voll
 Wir wiederholen hier erneut die zentrale offene Frage und Vermutung aus Abschnitt~\ref{sec:levin}:
 
 \begin{reptheorem}{Frage}{question:kvl}
+    Sei $R$ eine NP-Relation.
 Wenn $\Proj(R)$ eine $\leqmp$-vollständige Menge für $\NP$ ist, ist dann auch $R$ eine $\leqlp$-vollständige NP-Relation für $\FNP$?
 \end{reptheorem}
 
@@ -107,7 +98,8 @@ Wenn $\Proj(R)$ eine $\leqmp$-vollständige Menge für $\NP$ ist, ist dann auch 
     Es existiert eine NP-Relation $R$ sodass $\Proj(R)$ $\leqmp$-vollständig für $\NP$ ist, aber $R$ ist nicht $\leqlp$-vollständig für $\FNP$.
 \end{reptheorem}
 
-Zunächst sei hier noch einmal hervorgehoben, dass eine Beantwortung der Frage~\ref{question:kvl} schwer ist. Zum einen haben wir bereits gesehen, dass ein Beweis $\mathsf{KvL}$ auch sofort $\P\neq\NP$ beweisen würde. Insbesondere ist ein relativierender Beweis von $\mathsf{KvL}$ ausgeschlossen, denn existiert ein Orakel, relativ zu diesem $\neg\mathsf{KvL}$ (z.B. ein PSPACE-vollständiges Orakel, welches $\NP$ auf $\P$ kollabiert).
+Zunächst sei hier noch einmal hervorgehoben, dass eine negative Beantwortung der Frage~\ref{question:kvl} schwer ist. Zum einen haben wir bereits gesehen, dass ein Beweis $\mathsf{KvL}$ auch sofort $\P\neq\NP$ beweisen würde. Insbesondere ist ein relativierender Beweis von $\mathsf{KvL}$ ausgeschlossen, denn existiert ein Orakel, relativ zu diesem $\neg\mathsf{KvL}$ (z.B. ein PSPACE-vollständiges Orakel, welches $\NP$ auf $\P$ kollabiert).
+Auch für eine positive Beantwortung der Frage (also ein Beweis für $\neg\mathsf{KvL}$) fehlen uns konkrete Indizien.
 
 Wir werden uns daher im Folgenden insbesondere auf Beziehungen zwischen $\mathsf{KvL}$ und gewissen anderen Hypothesen konzentrieren.
 In diesem Sinne möchte ich argumentieren, dass die obige Frage bzw. Vermutung eng mit der Hypothese $\hQ$ zusammenhängt.
@@ -150,18 +142,18 @@ Im Speziellen werden wir sehen, dass die Hypothese $\hQ$ so charakterisiert werd
 
 Beachte, dass in Aussage (2) die Implikation von rechts nach links ohnehin immer gilt. 
 Damit lässt sich Aussage (2) auch so formulieren, dass jede Karp-Reduktion zu einer Levin-Reduktion verstärkt werden kann, indem zur Reduktionsfunktion $f$ eine geeignete Translationsfunktion $g$ hinzugefügt wird.
-Mit dieser Charakterisierung folgt auch unmittelbar, dass $\hQ$ hinreichend für $\neg\mathsf{KvL}$ ist.
+Mit dieser Charakterisierung folgt auch unmittelbar, dass $\hQ$ hinreichend für $\neg\mathsf{KvL}$ ist: ist $\Proj(A)$ $\leqmp$-vollständig, dann lässt sich jede Reduktion $\Proj(B)\leqmp \Proj(A)$ zu einer $\leqlp$-Reduktion $B\leqlp A$ verstärken; also ist $A$ $\leqlp$-vollständig.
 
 
 \begin{corollary}\label{cor:kvl-implies-q}
-    $\mathsf{KvL} \implies \neg\hQ$.
+    $\hQ\implies \neg\mathsf{KvL}$.
 \end{corollary}
-\begin{proof}
-    Wir zeigen die Kontraposition, und starten mit der Voraussetzung $\hQ$.
-    Wir wollen nun $\neg\mathsf{KvL}$ zeigen. Sei hierfür $R$ eine beliebige NP-Relation sodass $\Proj(R)$ $\leqmp$-vollständig für $\NP$ ist.
-    Damit gilt also schon für alle weiteren NP-Relationen $A$, dass $\Proj(A)\leqmp\Proj(R)$.
-    Nach Satz~\ref{thm:q} gilt also auch die Aussage \ref{thm:q}(6), und damit $A\leqlp R$. Also ist $R$ auch $\leqlp$-vollständig für $\FNP$, wie gewünscht und wir haben $\neg\mathsf{KvL}$ gezeigt.
-\end{proof}
+%\begin{proof}
+    %Wir starten mit der Voraussetzung $\hQ$.
+    %Wir wollen nun $\neg\mathsf{KvL}$ zeigen. Sei hierfür $R$ eine beliebige NP-Relation sodass $\Proj(R)$ $\leqmp$-vollständig für $\NP$ ist.
+    %Damit gilt also schon für alle weiteren NP-Relationen $A$, dass $\Proj(A)\leqmp\Proj(R)$.
+    %Nach Satz~\ref{thm:q-as-levin} gilt nun $A\leqlp R$. Also ist $R$ auch $\leqlp$-vollständig für $\FNP$, wie gewünscht und wir haben $\neg\mathsf{KvL}$ gezeigt.
+%\end{proof}
 
 \subsection*{Effektive P-Simulation}
 
@@ -174,11 +166,11 @@ Wir wollen nun die existierende $\leqlp$-Ordnung auf den NP-Relationen nehmen, u
     Seien $h,h'$ Beweissysteme für $L$. Das Beweissystem $h$ \emph{$\P$-simuliert effektiv} $h'$ falls Funktionen $f,g\in\FP$ existieren sodass
     \begin{enumerate}
         \item $x\in L \iff f(x)\in L$,
-        \item $ h'(w)=f(x) \implies h(g(x, w)) = x. $
+        \item $ h'(w)=f(x) \implies h(g(x, w)) = x. $\qedhere
     \end{enumerate}
     %Kann das Beweissystem $h$ jedes Beweissystem $h'$ für $L$ effektiv $\P$-simulieren, dann ist $h$ \emph{effektiv $\P$-optimal}.
 \end{definition}
-In anderen Worten, falls $h$ das Beweissystem $h'$ effektiv $\P$-simuiert, dann kann $h$ zwar nicht \emph{jeden} $h'$-Beweis $w$ für $x\in L$ in einen $h$-Beweis für (das gleiche) $x$ effizient umrechnen, es kann aber zumindest alle \emph{relevanten} $h'$-Beweise effizient umrechnen, nämlich für jedes $x\in L$ die $h'$-Beweise für $f(x)$ in $h$-Beweise für $x$.
+In anderen Worten, falls $h$ das Beweissystem $h'$ effektiv $\P$-simuliert, dann kann $h$ zwar nicht \emph{jeden} $h'$-Beweis $w$ für $x\in L$ in einen $h$-Beweis für (das gleiche) $x$ effizient umrechnen, es kann aber zumindest alle \emph{relevanten} $h'$-Beweise effizient umrechnen, nämlich für jedes $x\in L$ die $h'$-Beweise für $f(x)$ in $h$-Beweise für $x$.
 %Anstelle „$h$ $\P$-simuliert effektiv $h'$“ ließe sich äquivalent auch $h^{-1}\leqlp h'^{-1}$ schreiben. Beachte, dass die Relation $h^{-1}$ nur Lösungen mit ihren Beweisen reliert.
 Klar ist: $\P$-Simulation impliziert effektive $\P$-Simulation impliziert Simulation.
 Ferner ist diese Art von Simulation eine \emph{effektive} Simulation, in dem Sinn dass die $\P$-invertierbaren Beweissysteme selbst unter effektiver $\P$-Simulation abgeschlossen sind.
@@ -250,7 +242,7 @@ Mittels unserem Begriff der effektiven $\P$-Simulation können wir nun auch die 
 \begin{conjecture}[$\mathsf{SAT^{eff}}$]
     Es existiert keine $\leqmp$-vollständige Menge $L$ für $\NP$ mit einem Beweissystem $h$, welches alle anderen ehrlichen Beweissysteme für $L$ effektiv $\P$-simulieren kann. 
 \end{conjecture}
-Diese Verstärkung ist am sichtbarsten, wenn wir uns überlegen, wie die Negation $\neg\hSAT$ zu $\neg\mathsf{SAT^{eff}}$ in zwei Dimensionen abgeschwächt wird.
+Diese Verstärkung ist am sichtbarsten, wenn wir uns überlegen, wie die Negation $\neg\hSAT$ zu $\neg\mathsf{SAT^{eff}}$ in zwei Aspekten abgeschwächt wird.
 Erstens der Umfang: es wird nicht mehr verlangt, dass ein Beweissystem $h$ existiert, welche \emph{alle} Beweissysteme $\P$-simulieren kann, sondern nur noch alle \emph{ehrlichen} Beweissysteme.
 Zweitens die Beziehung: es wird nicht mehr $\P$-Simulation, sondern nur noch \emph{effektive} $\P$-Simulation vorausgesetzt.
 
@@ -277,19 +269,19 @@ Wir haben
     \item $\neg\mathsf{KvL}$ genau dann wenn $\mathit{sat}$ jedes ehrliche Beweissystem effektiv $\P$-simulieren kann (Satz~\ref{thm:kvl-ps}).
 \end{itemize}
 
-Insbesonere vermute ich, dass möglicherweise sogar $\hQ\Leftrightarrow\neg\mathsf{KvL}$ gelten könnte. Die Richtung von links nach rechts haben wir bereits in Korollar~\ref{cor:kvl-implies-q} gesehen. Für die Richtung von rechts nach links möchte ich nun plausibilisieren, dass $\neg\mathsf{KvL}\land\neg\hQ$ zu einem Widerspruch führt.
+Insbesondere vermute ich, dass möglicherweise sogar $\hQ\Leftrightarrow\neg\mathsf{KvL}$ gelten könnte. Die Richtung von links nach rechts haben wir bereits in Korollar~\ref{cor:kvl-implies-q} gesehen. Für die Richtung von rechts nach links möchte ich nun plausibilisieren, dass $\neg\mathsf{KvL}\land\neg\hQ$ zu einem Widerspruch führt.
 
 Unter Annahme von $\neg\hQ$ folgt nach Satz~\ref{thm:q-fenner}, dass das Standardbeweissystem $\mathit{sat}$ von $\mathtt{rSAT}$ ein bestimmtes ehrliche Beweissystem $h$ nicht $\P$-simulieren kann.
 Wir haben also für alle Funktionen $f\in\FP$ 
 \begin{equation} h(w)=\psi \rlap{\hspace*{2pt}\raisebox{2.3pt}{$\quad\not$}}\implies  \text{$f(w)$ erfüllt $\psi$}.\label{eq:weak-irreducibility} \end{equation}
-In anderen Worten: obwohl wir einen $h$-Beweis $w$ für die Erfüllbarkeit der Formel $\phi$ haben, können wir nicht effizient eine erfüllende Belegung aus $w$ berechnenen.
+In anderen Worten: obwohl wir einen $h$-Beweis $w$ für die Erfüllbarkeit der Formel $\phi$ haben, können wir nicht effizient eine erfüllende Belegung aus $w$ berechnen.
 
 Nun gilt aber nach Annahme auch $\neg\mathsf{KvL}$. Über Satz~\ref{thm:kvl-ps}(4) gilt, dass $\mathit{sat}$ das ehrliche Beweissystem $h$ effektiv $\P$-simulieren kann. Wir haben also zwei Funktionen $f', g'\in\FP$ sodass
 \begin{equation}\label{eq:effective-simulation} h(w)=f'(\phi) \implies \text{$g'(\phi, w)$ erfüllt $\phi$}. \end{equation}
 Beachte, dass die Funktion $f'$ notwendigerweise ungleich $\mathrm{id}$ ist. Wir können $f'$ so verstehen, dass diese $\phi$ gewissermaßen in eine einfachere Form bringt, für welche $h$-Beweise effizient verarbeitet werden können.
 
 Es ist also einerseits nicht möglich, aus dem $h$-Beweis $w$ effizient eine akzeptierende Belegung für $f(\phi)$ zu bestimmen, obwohl $w$ bezeugt dass $f(\phi)$ erfüllbar ist. (Ersetze in \eqref{eq:weak-irreducibility} $\psi$ mit $f(\phi)$.)
-Andererseits reicht der $h$-Beweis $w$ aber aus, um (zusammen mit der Information $\phi$) effizient wieder eine erfüllende Belegung für $\phi$ zu berechnen. 
+Andererseits reicht der $h$-Beweis $w$ für $f(\phi)$ aber aus, um (zusammen mit der Information $\phi$) effizient wieder eine erfüllende Belegung für $\phi$ zu berechnen. 
 Diese Argumentation \emph{plausibilisiert} zwar einen Widerspruch, bzw. dass $\neg\hQ\land\neg\mathsf{KvL}$ wahrscheinlich falsch ist, ist aber natürlich kein solcher. Die Umkehrung von Korollar~\ref{cor:kvl-implies-q} bleibt offen.
 
 Es bleiben auch noch weitere Fragen offen, die wir hier aus Platzgründen nicht weiter verfolgen werden. 
@@ -297,8 +289,8 @@ Zum einen zur Charakterisierung von $\mathsf{KvL}$:
 Wir konnten zwar $\mathsf{KvL}$ u.a. als Aussage über Beweissysteme formulieren, aber sind auch noch weitere äquivalente Charakterisierungen möglich, z.B. ähnlich wie bei $\hQ$?
 
 Zum anderen die Beziehungen zwischen $\mathsf{KvL}$ und anderen Hypothesen bzw. Annahmen.
-Gibt es natürliche (z.B. kryptographische) Annahmen die hinreichend für $\mathsf{KvL}$ sind? Wie ist die Beziehung zu den anderen Pudlákschen Hypothesen? Wie verhält sich insbesondere $\hSAT$ zu $\mathsf{SAT^{eff}}$? 
-Diese Fragen werden wir zum Teil in Kapitel~\ref{chap:orakel} klären; dort wird ein Orakel konstruiert, welches zeigt, dass selbst unter der Annahme von $\hDisjNP$ und $\hUP$ es nicht möglich ist, mit relativierenden Beweismethoden auf $\mathsf{KvL}$ zu schließen.
+Gibt es natürliche (z.B. kryptographische) Annahmen, welche hinreichend für $\mathsf{KvL}$ sind? Wie ist die Beziehung zu den anderen Pudlákschen Hypothesen? Wie verhält sich insbesondere $\hSAT$ zu $\mathsf{SAT^{eff}}$? 
+Diese Fragen werden wir zum Teil in Kapitel~\ref{chap:orakel} klären; dort wird ein Orakel konstruiert, welches zeigt, dass selbst unter der Annahme von $\hDisjNP\land\hUP$ es nicht möglich ist, mit relativierenden Beweismethoden auf $\mathsf{KvL}$ zu schließen.
 Wir kommen hierauf am Ende dieses Kapitels noch einmal zurück.
 
 Insgesamt ist durch die vorherigen Überlegungen aber ein erster Schritt getan, die Beziehung zwischen Levin- und Many-one-Vollständigkeit über die Vermutung $\mathsf{KvL}$ im Kontext des Pudlákschen Programms einzuordnen.
@@ -310,11 +302,11 @@ Wie im Einstieg des Kapitels angesprochen, geben \textcite{fenner_inverting_2003
 Wir wiederholen hier noch einmal die Aussagen, aber mit einer etwas abstrakteren Notation.
 Ganz ähnlich wie NP-Relationen ein Standardbeweissystem induzieren, können wir auch das Standardbeweissystem bezüglich einer NPTM definieren:
 \begin{definition}[Standardbeweissystem von NPTM]
-    Sei $N$ eine NTM. Wir definieren bezüglich $N$ das das \emph{Standardbeweissystem} $\mathit{std}_N$ für $L(N)$ wie folgt:
+    Sei $N$ eine NPTM. Wir definieren bezüglich $N$ das das \emph{Standardbeweissystem} $\mathit{std}_N$ für $L(N)$ wie folgt:
     \[ \mathit{std}_N(w) \defeq \begin{cases} x & \text{wenn $w=(x,\alpha)$ und $N(x)$ akzeptiert auf RW $\alpha$,}\\
     \bot & \text{sonst}.\end{cases} \qedhere \] 
 \end{definition}
-Ähnlich wie bei Standardbeweissysteme für NP-Relationen ist $\mathit{std}_N$ für jede nichtdeterministische \emph{Polynomialzeit}-TM $N$ ehrlich, optimal, und hat kurze Beweise.
+%Ähnlich wie bei Standardbeweissysteme für NP-Relationen ist $\mathit{std}_N$ für jede NPTM $N$ ehrlich, optimal, und hat kurze Beweise.
 So können wir die anfangs genannten Charakterisierungen folgendermaßen notieren:
 \begin{reptheorem}{Satz}{thm:q-fenner}[\cite{fenner_inverting_2003}]
     Es gilt $\hQ$ genau dann wenn $\mathit{std}_N\leqmp\mathit{sat}$ für jede NPTM $N$ mit $L(N)=\mathtt{SAT}$.
@@ -323,7 +315,7 @@ So können wir die anfangs genannten Charakterisierungen folgendermaßen notiere
     Es gilt $\hQ$ genau dann wenn das Standardbeweissystem $\mathit{std}_\mathtt{rSAT}$ $\P$-optimal ist.
 \end{reptheorem}
 
-Diese beiden Charakterisierungen wollen wir im Folgenden verallgemeinern und auf beliebige $\leqlp$-vollständige NP-Relationen $R$ übertragen. 
+Diese beiden Charakterisierungen wollen wir im Folgenden verallgemeinern und von $\mathtt{rSAT}$ auf beliebige $\leqlp$-vollständige NP-Relationen $R$ übertragen. 
 Hieraus ergibt sich schon unmittelbar der technische Beitrag, dass dann diese Charakterisierungen auch in einer relativierten Umgebung angewendet werden können, um z.B. ein geeignetes Orakel zu konstruieren, was $\hQ$ von anderen Hypothesen trennt.
 
 Das ist für den zweiten Satz~\ref{thm:q-messner} ohne weitere zusätzliche Bedingungen möglich. Beachte, dass sich der hier präsentierte Beweis maßgeblich von dem ursprünglichen Beweis von \textcite[vgl.][Thm.~5.2]{messner_simulation_2001} unterscheidet, und insbesondere ohne sein (nichtrelativierendes) Padding-Argument auskommt.
@@ -469,13 +461,13 @@ Die stärkere Voraussetzung an die NP-Relation $R$, dass diese \emph{ehrlich} Le
         \item $r(|\mathit{pad}(x, 1^n)|)\geq n$. (Funktion $\mathit{pad}$ ist ehrlich bzgl. der zweiten Komponente.)\qedhere
     \end{enumerate}
 \end{definition}
-Beachte dass wir im Gegensatz zur Berman–Hartmanis-Paddability keine Invertierbarkeit der Padding-Funktion verlangen.
+Beachte dass wir im Gegensatz zur Berman–Hartmanis-Paddability keine Invertierbarkeit der Padding-Funktion verlangen. Wieder im Gegensatz zur Berman–Hartmanis-Paddability verlangen wir aber ein effizientes Rückrechnen der Zertifikate von gepaddeten Instanzen.
 
 Wir sehen einfach, dass $\mathtt{rSAT}$ Levin-paddable ist: padde Formeln $\phi$ auf, indem z.B. Disjunktionen neue Variablen hinzugefügt werden, also z.B. 
 \[ \phi' = \mathit{pad}(\phi, 1^n) = \phi \lor x_k \lor x_{k+1} \lor \cdots \lor x_{k+n}, \]
 wobei $k$ hinreichend groß sein soll, dass $x_k, x_{k+1}, \dots$ nicht als Variable in $\phi$ vorkommt.
 %Unter jeder vernünftigen Codierung gilt $|\mathit{pad}(x, 1^n)|\geq n$.
-Ist nun $w'$ eine erfüllende Belegung für $\phi'$, dann entferne alle Variablenbelegungen $x_{k}, x_{k+1}, \dots$ aus $w'$; es ergibt sich eine erfüllende Belegung $w$ für $\phi$.
+Ist nun $w'$ eine erfüllende Belegung für $\phi'$, dann entferne alle Variablenbelegungen $x_{k}, x_{k+1}, \dots$ aus $w'$ und es ergibt sich hieraus eine erfüllende Belegung $w$ für $\phi$.
 
 Diese Eigenschaft lässt sich auch leicht für die kanonische NP-Relation $\mathtt{rKAN}$ überprüfen, und gilt insbesondere auch im relativierten Fall.
 \begin{observation}\label{obs:rkan-paddable}
@@ -492,7 +484,7 @@ Folgendes Lemma zeigt zunächst, dass Levin-Paddability unter den vollständigen
     $R$ auch $\leq_\mathrm{L,h}^\mathrm p$-vollständig.
 \end{lemma}
 \begin{proof}
-    Sei $Q$ eine beliebige NP-Relation. Wir wolen zeigen, dass $Q\leq_\mathrm{L,h}^\mathrm p R$.
+    Sei $Q$ eine beliebige NP-Relation. Wir wollen zeigen, dass $Q\leq_\mathrm{L,h}^\mathrm p R$.
     Nachdem $R$ vollständig ist, gilt $Q\leqlp R$; sei $f,g\in\FP$ die Reduktions- bzw. Translationsfunktion welche diese Reduktion realisieren. Wir werden nun Funktionen $f', g'\in\FP$ angeben, welche die gleiche Reduktion realisieren, aber $f'$ ehrlich, wie gewünscht.
 
     Sei $\mathit{pad}, \mathit{padsol}$ die zu $R$ zugehörigen Padding-Funktionen. Definiere
@@ -551,7 +543,7 @@ Für die andere Richtung sehen wir, dass sich Levin-Paddability auf $\leq_\mathr
     Es ist leicht zu sehen, dass sich eine Funktion $\mathit{padsol}_R\in\FP$ angeben kann, die aus $x, 1^n, y'$ dieses entsprechende $y$ berechnen kann.
 \end{proof}
 
-Wir erhalten damit als Korrolar folgende Äquivalenz:
+Wir erhalten damit als Korollar folgende Äquivalenz:
 \begin{corollary}\label{cor:leqlhp-is-paddable}
     Sei $R$ eine $\leqlp$-vollständige NP-Relation. Folgende Aussagen sind äquivalent:
     \begin{enumerate}
@@ -560,7 +552,7 @@ Wir erhalten damit als Korrolar folgende Äquivalenz:
     \end{enumerate}
 \end{corollary}
 
-Für die üblichen natürlichen NP-Relationen (wie \texttt{rSETCOVER}, \texttt{rVC}, \texttt{rCLIQUE}, \texttt{r3COL"-OR"-AB"-ILI"-TY}, \texttt{rHAMCYCLE}, \texttt{rMAXCUT}) ist leicht zu sehen, dass diese alle Levin-paddable sind. 
+Für die üblichen $\leqlp$-vollständigen natürlichen NP-Relationen (wie \texttt{rSETCOVER}, \texttt{rCLIQUE}, \texttt{rCLIQUE}, \texttt{r3COL"-OR"-AB"-ILI"-TY}, \texttt{rHAMCYCLE}, \texttt{rMAXCUT}) ist leicht zu sehen, dass diese alle Levin-paddable sind, also auch $\leq_\mathrm{L,h}^\mathrm p$-vollständig sind.
 
 Hieraus ergibt sich die Frage, ob Levin-Paddability für \emph{alle} vollständigen NP-Relationen zutrifft. Unter Annahmen einer geeigneten Einwegfunktion ist dies nicht der Fall.
 Die Argumentation verläuft hier ähnlich zur \emph{Encrypted Complete Set Conjecture}.
@@ -572,15 +564,15 @@ Die Existenz einer solchen Einwegfunktion erscheint aus kryptographischer Perspe
 Betrachte nun, analog zur Encrypted Complete Set Conjecture, die NP-Relation
 \[ \mathtt{rSAT}_f = \{ (z, (\phi, w)) \mid \text{$z=f(\phi)$, und $w$ ist erfüllende Belegung für $\phi$} \} \]
 Es ist leicht zu sehen dass $\mathtt{rSAT}\leqlp \mathtt{rSAT}_f$ und damit ist $\mathtt{rSAT}_f$ auch $\leqlp$-vollständig.
-Gleichzeitig kann dann $\mathtt{rSAT}_f$ nicht Levin-paddable sein.
-Denn angenommen, $\mathtt{rSAT}_f$ ist Levin-paddable, dann lässt sich $f$ mit einem funktionalen Orakel-Query \emph{zumindest auf den Werten $f(\mathtt{SAT})$} $\P$-invertieren: gegeben $w\in f(\mathtt{SAT})$, berechne erst eine zweite Instanz $w'=\mathit{pad}(w, 1^n)\in\Proj(\mathtt{rSAT}_f)$ mit hinreichend langem $n$ sodass $w'\neq w$. Frage dann an das Orakel und erhalte $(x',z')\in \fset{}\mathtt{rSAT}_f(w')$.
-Dann gilt $(x,z) = \mathit{padsol}(w, 1^n, (x',z'))$ mit $f(x)=w$; damit ist $x$ das gesuchte Urbild von $w$.
+Wir werden sehen, dass $\mathtt{rSAT}_f$ dann nicht Levin-paddable sein kann.
+Denn angenommen, $\mathtt{rSAT}_f$ ist Levin-paddable, dann lässt sich $f$ mit einem funktionalen Orakel-Query \emph{zumindest auf den Werten $f(\mathtt{SAT})$} $\P$-invertieren: gegeben $z\in f(\mathtt{SAT})$, berechne erst eine zweite Instanz $z'=\mathit{pad}(z, 1^n)\in\Proj(\mathtt{rSAT}_f)$ mit hinreichend langem $n$ sodass $z'\neq z$. Frage dann das Orakel und erhalte $(\phi', w')\in \fset{}\mathtt{rSAT}_f(z')$.
+Dann gilt $(\phi,w) = \mathit{padsol}(z, 1^n, (\phi',w'))$ mit $f(\phi)=w$; damit ist $\phi$ das gesuchte Urbild von $z$.
 Wir können also auf der Bildmenge  $f(\mathtt{SAT})$ die Einwegfunktion $f$ invertieren.
 Diese Menge ist tatsächlich nicht dünn: unabhängig der gewählten Codierung von $\mathtt{SAT}$ folgt aus der Existenz der Einwegfunktion $f$ schon $\P\neq\NP$, und damit ist insbesondere die $\leqmp$-vollständige Menge $f(\mathtt{SAT})$ eine nicht-dünne Menge nach dem Satz von \textcite{mahaney_sparse_1982}.
-Das widerspräche nun den Eigenschaften von $f$, also ist $\mathtt{rSAT}_f$ nicht Levin-paddable.
-(Diese Argumentation relativiert, wenn anstelle $\mathtt{rSAT}$ eine relativierbare vollständige Menge gewählt wird, die z.B $\mathtt{rKAN}$.)
 
+Das widerspräche nun den Eigenschaften von $f$, also ist $\mathtt{rSAT}_f$ nicht Levin-paddable.
 Im Zusammenhang mit Korollar~\ref{cor:leqlhp-is-paddable} ergibt sich ferner, dass $\mathtt{rSAT}_f$ auch nicht $\leq_\mathrm{L,h}^\mathrm p$-vollständig sein kann. Damit ergäbe sich aus der Existenz einer solchen Funktion $f$, dass die Reduktion $\leq_\mathrm{L,1,i}^\mathrm p$ eine nichttriviale Verfeinerung von $\leqmp$ ist.
+(Diese Argumentation relativiert, wenn anstelle $\mathtt{rSAT}$ eine relativierbare vollständige Menge gewählt wird, die z.B $\mathtt{rKAN}$.)
 
 Dennoch bleibt die allgemeine Frage zwischen $\leqlp$-Vollständigkeit und Levin-Paddability offen, die wir im Folgenden nicht weiter bearbeiten werden:
 \begin{question}\label{question:levin-paddable}
@@ -664,21 +656,22 @@ Wir können daher $\hQ$ über universell quantifizierte Varianten von (9) und (1
 
 Im letzten Abschnitt dieses Kapitels werden wir nun die in Abbildung \ref{fig:figure-implications} abgebildeten Implikationen und Äquivalenzen nachweisen.
 Damit werden insbesondere auch die Hypothesen $\hQ$ und $\mathsf{KvL}$ in das Pudláksche Programm eingeordnet.
-Zum Schluss wird noch angegeben, welche der Hypothesen im (vergrößertem) Pudlákschen Programm durch ein Orakel separiert sind, und welche Separierungen noch offen sind.
+Zum Schluss wird noch angegeben, welche der Hypothesen im (vergrößertem) Pudlákschen Programm durch ein Orakel separiert sind, und welche Separationen noch offen sind.
 
-Zunächst führen wir noch eine abgeschwächte Variante von $\hQ$ ein, die von \textcite{fenner_inverting_2003} vorgeschlagen wurde.
+Zunächst führen wir noch eine abgeschwächte Variante von $\hQ$ ein, die von \textcite{fenner_inverting_2003} in ihrer Untersuchung zur Hypothese $\hQ$ vorgeschlagen wurde.
 
 \begin{conjecture}[$\hQ'$, \cite{fenner_inverting_2003}]
     Für jede totale NPTM $N$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)\in\{0,1\}$ das erste Bit eines akzeptierenden Rechenwegs von $N(x)$ ist. 
 \end{conjecture}
+Die Hypothese $\hQ'$ lässt eine einfache komplexitätstheoretische Charakterisierung zu: es gilt $\hQ'$ genau dann wenn alle disjunkten $\coNP$-Paare $\P$-separierbar sind.
 
-Jetzt können wir auch die in Abbildung \ref{fig:figure-implications} abgebildeten Implikationen und Äquivalenzen nachweisen.
+Nun können wir die in Abbildung \ref{fig:figure-implications} abgebildeten Implikationen und Äquivalenzen nachweisen.
 \begin{theorem}\label{thm:figure-implications}
     Es gelten die in Abbildung \ref{fig:figure-implications} abgebildeten Implikationen und Äquivalenzen.
 \end{theorem}
 \begin{proof}
     Es gelten die notierten Äquivalenzen:
-    \begin{Prooflist}[nosep,midpenalty=0,label={\arabic*.},labelsep=3pt]
+    \begin{Prooflist}[noitemsep, midpenalty=0,label={\arabic*.},labelsep=3pt]
     \item $\neg\hQ \Leftrightarrow \exists$ optimales Beweissystem was nicht $\P$-optimal ist $\Leftrightarrow \TFNP\not\subseteq_\mathrm{c} \FP$, nach Satz~\ref{thm:q}.
 %\item $\NP\neq\coNP \Leftrightarrow$ existiert keine NP-harte Funktion in $\TFNP$, nach Satz~\ref{thm:tfnp-vs-npconp}.
     \item $\neg\hQ' \Leftrightarrow\exists$ P-inseparierbares $\DisjCoNP$-Paar, nach \textcite[Lemma~2.12, vgl. Appendix]{fortnow_separability_1993}.
@@ -690,21 +683,20 @@ Jetzt können wir auch die in Abbildung \ref{fig:figure-implications} abgebildet
     \end{Prooflist}
 
     Es gelten die eingezeichneten Implikationen:
-    \begin{Prooflist}[nosep,midpenalty=0, label={\arabic*.},labelsep=3pt]
+    \begin{Prooflist}[noitemsep,midpenalty=0, label={\arabic*.},labelsep=3pt]
 \item $\hDisjNP \Rightarrow \mathsf{TAUT^N}$ nach \textcite[Cor.~6.1]{kobler_optimal_2003}.
 \item $\hUP \Rightarrow \hTAUT$ nach \textcite[Cor.~4.1]{kobler_optimal_2003}. % relativiert offenbar nach Dose
-\item $\mathsf{TAUT^N}\Rightarrow \mathrm{NEE\neq coNEE}$ nach \textcite[Cor.~7.1]{kobler_optimal_2003}.
+\item $\mathsf{TAUT}\Rightarrow \mathrm{EE\neq NEE}$, $\mathsf{TAUT^N}\Rightarrow \mathrm{NEE\neq coNEE}$ nach \textcite[Cor.~7.1]{kobler_optimal_2003}.
 \item $\NP\cap\coNP\neq \P \Rightarrow \neg\hQ' \Rightarrow \NPMVt \not\subseteqc \TFNP \Rightarrow \neg\hQ$ nach \textcite[Prop.~9, Thm. 6]{fenner_inverting_2003}.
 %\item $\mathrm{E\neq NE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{bellare_complexity_1994}.
 \item $\mathrm{E\neq NE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{impagliazzo_1991}.
 \item $\UP\neq\P \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar, nach \textcite[Thm.~5]{grollmann_complexity_1988}.
-\item $\hNPcoNP\Rightarrow \hTAUT\lor\hSAT$ nach \textcite[Cor.~5.1]{kobler_optimal_2003}. % relativiert offenbar nach Dose
+\item $\hNPcoNP\Rightarrow \hTAUT\lor\hSAT$ nach \textcite[Cor.~5.1]{kobler_optimal_2003}.\pagebreak % relativiert offenbar nach Dose
 \item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \hSAT$ nach \textcite[Thm.~25]{beyersdorff_nondeterministic_2009}. Es ist leicht zu sehen, dass der Beweis auch auf unsere relativierte Variante von $\hSAT$ generalisiert.
 \item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \NP\neq\coNP$ nach Satz~\ref{thm:npmvt-vs-npconp}.
 \item $\mathsf{SAT^{eff}} \Rightarrow \hSAT, \mathsf{SAT^{eff}}\Rightarrow \mathsf{KvL}$, nach Korollar~\ref{cor:sateff-generalizes-sat}.
 \item $\mathsf{KvL}\Rightarrow\neg\hQ$, nach Korollar~\ref{cor:kvl-implies-q}.
-\item $\neg\hQ\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, denn unter $\neg\hQ$ gilt mit Satz~\ref{thm:q} auch die Negation von \ref{thm:q}(1), also eine NPTM $N$ mit $L(N)=\Sigma^*$ wobei keine Funktion $g\in\FP$ existiert, welche für alle $x$ durch $g(x)$ einen akzeptierenden Rechenweg von $N(x)$ bestimmt.
-    Definiere die NP-Relation $R_N$ mit $(x,\alpha)\in R_N$ genau dann wenn $N(x)$ mit Rechenweg $\alpha$ existiert. Nun gilt nach Vorigem auch $R\not\inc \FP=\FP^{\Sigma^*} = \FP^{L(R)}$.
+\item $\neg\hQ\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, denn wenn $\neg\hQ$, dann gilt mit Satz~\ref{thm:q} auch $\TFNP\not\subset_\mathrm{c} \FP$, heißt es existiert NP-Relation $R\in\TFNP$ und $R\not\in_\mathrm{c} \FP = \FP^{\Proj(R)}$.
 \item $\hDisjCoNP \Rightarrow \hTFNP \Rightarrow \NPMVt$ hat keine vollständig Funktion, nach \textcite[Prop.~5.6, 5.10]{pudlak_incompleteness_2017}.
 \item $\NP\cap\coNP\neq \P \Rightarrow\exists$ P-inseparierbares $\DisjNP$-Paar, denn wenn alle $\DisjNP$-Paare $\P$-separierbar, dann ist auch für jede Menge $L\in\NP\cap\coNP$ jeweils das $\DisjNP$-Paar $(L,\overline{L})$ $\P$-separierbar und damit $L\in\P$.
 \item $\hDisjNP \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar; ist klar, denn wenn alle $\DisjNP$-Paare $\P$-separierbar wären, dann wären auch alle Paare trivialerweise $\leqmpp$-vollständig.
@@ -739,9 +731,6 @@ Der verbleibende Beweis ist eine Generalisierung von \textcite{dingel_separation
         \If{$T$ kein NTM-Transduktor ist}{Gebe $\epsilon$ aus}
         Rate nichtdeterministisch einen Rechenweg $\alpha$ von $T$ der Länge $\leq n$\;
         Rate nichtdeterministisch einen Rechenweg $\beta$ von $N_u$ der Länge $\leq q(|(T, x, 1^n)|)$\;
-    \end{algorithm}
-
-    \begin{algorithm}[H]\setcounter{AlgoLine}{4}
         %\If{$\alpha$ die Länge $<n$ hat, und verlängerbar ist}
         %{
             %Lehne ab\;
@@ -793,6 +782,19 @@ Der verbleibende Beweis ist eine Generalisierung von \textcite{dingel_separation
     und $h(x)=(T_g, x, 1^{p(|x|)})$ realisiert die Reduktion von $g$ auf $f$, wie gewünscht.
 \end{proof}
 
+
+Abbildung~\ref{fig:oracles} zeigt, welche Hypothesen unter relativierbaren Beweisen durch ein Orakel getrennt sind.
+Beachte, dass im Gegensatz zur Abbildung~\ref{fig:figure-implications} aus Übersichtlichkeit einige Hypothesen ausgelassen wurden, nämlich jene der Exponentialzeitklassen, und jene der Reduzierbarkeit von Such- auf Entscheidungsprobleme.
+Das blau hervorgehobene Orakel $O$ wird im folgenden Kapitel~\ref{chap:orakel} konstruiert, vgl. Satz~\ref{thm:myoracle}.
+
+%Im Folgenden sei abschließend noch zusammengefasst, welche relativierenden Implikationen bzw. Orakelkonstruktionen zur Trennung von jeweils zwei Hypothesen offen sind.
+Für viele Paare von Hypothesen $\mathsf{A}$, $\mathsf{B}$ haben wir damit entweder eine relativierende Implikation $\mathsf{A}\Rightarrow\mathsf{B}$ oder es existiert ein Orakel welches $\mathsf{A}$ und $\mathsf{B}$ trennt,  also ein Orakel relativ zu diesem $\mathsf{A}\land \neg\mathsf{B}$ gilt, und damit einen relativierenden Beweis für diese Implikation ausschließt. 
+
+Die Stellung von $\hQ$ sei hier hervorgehoben: mittels Orakelkonstruktionen erkennen wir eine weitestgehende Unabhängigkeit zwischen der Hypothese $\neg\hQ$ auf der einen Seite und Hypothesen des Pudlákschen Programms auf der anderen Seite. Zum einen wissen wir über ein Orakel von \textcite[Thm.~12.3, Nr.~8 in der Abb.]{fenner_inverting_2003}, dass die Annahme von $\UP\neq\P\land \NP\neq\coNP$ unter relativierenden Beweisen nicht ausreicht, um $\neg\hQ$ zu zeigen, also diese Annahme auch nicht ausreicht um $\mathsf{KvL}$ zu zeigen.
+Auf ähnliche Weise ergibt sich aus dem in Kapitel~\ref{chap:orakel} konstruierten Orakel ($O$ in der Abb.), dass auch die Annahme $\hDisjNP\land\hUP$ nicht ausreicht, um $\neg\hQ$ zu zeigen.
+Symmetrisch sehen wir über zwei Orakel von Dose (\cite*[Cor.~3.3]{dose_oracle_2020}, \cite*[Thm.~3.2]{dose_further_2020}, siehe Nr.~5 u. 6 in der Abb.) dass die Annahme $\neg\hQ$ (bzw. sogar die stärkere Annahme $\neg\hQ'$) nicht ausreicht, um $\hTAUT$ bzw. $\hSAT$ zu zeigen, also auch nicht um die stärkeren ursprünglichen Pudlákschen Hypothesen ($\hDisjNP, \hUP, \hDisjCoNP$, usw.) zu beweisen.
+
+
 \begin{figure*}[p]
     \hspace*{-.2cm}\includegraphics[page=7]{figures.pdf}
     \vspace*{-5.8cm}
@@ -815,31 +817,19 @@ Der verbleibende Beweis ist eine Generalisierung von \textcite{dingel_separation
     \forcerectofloat
 \end{figure*}
 
-
-Abbildung~\ref{fig:oracles} zeigt, welche Hypothesen unter relativierbaren Beweisen durch ein Orakel voneinander getrennt sind.
-Beachte, dass im Gegensatz zur Abbildung~\ref{fig:figure-implications} aus Übersichtlichkeit einige Hypothesen ausgelassen wurden, nämlich jene der Exponentialzeitklassen, und jene der Reduzierbarkeit von Such- auf Entscheidungsprobleme.
-Das blau hervorgehobene Orakel $O$ wird im folgenden Kapitel~\ref{chap:orakel} konstruiert, vgl. Satz~\ref{thm:myoracle}.
-
-%Im Folgenden sei abschließend noch zusammengefasst, welche relativierenden Implikationen bzw. Orakelkonstruktionen zur Trennung von jeweils zwei Hypothesen offen sind.
-Für viele Paare von Hypothesen $\mathsf{A}$, $\mathsf{B}$ haben wir damit entweder eine relativierende Implikation $\mathsf{A}\Rightarrow\mathsf{B}$ oder es existiert ein Orakel welches $\mathsf{A}$ und $\mathsf{B}$ trennt,  also ein Orakel relativ zu diesem $\mathsf{A}\land \neg\mathsf{B}$ gilt, und damit einen relativierenden Beweis für diese Implikation ausschließen. 
-
-Die Stellung von $\hQ$ sei hier hervorgehoben: mittels Orakelkonstruktionen erkennen wir eine weitestgehende Unabhängigkeit zwischen der Hypothese $\neg\hQ$ auf der einen Seite und den anderen Hypothesen des Pudlákschen Programms. Zum einen wissen wir über ein Orakel von \textcite[Thm.~12.3, Nr.~8 in der Abb.]{fenner_inverting_2003}, dass die Annahme von $\UP\neq\P\land \NP\neq\coNP$ unter relativierenden Beweisen nicht ausreicht, um $\neg\hQ$ zu zeigen, also diese Annahme auch nicht ausreicht um $\mathsf{KvL}$ zu zeigen.
-Auf ähnliche Weise ergibt sich aus dem in Kapitel~\ref{chap:orakel} konstruierten Orakel ($O$ in der Abb.), dass auch die Annahme $\hDisjNP\land\hUP$ nicht ausreicht, um $\neg\hQ$ zu zeigen.
-Symmetrisch sehen wir über zwei Orakel von Dose (\cite*[Cor.~3.3]{dose_oracle_2020}, \cite*[Thm.~3.2]{dose_further_2020}, siehe Nr.~5 u. 6 in der Abb.) dass die Annahme $\neg\hQ$ (bzw. sogar die stärkere Annahme $\neg\hQ'$) nicht ausreicht, um $\hTAUT$ bzw. $\hSAT$ zu zeigen, also auch nicht um die stärkeren ursprünglichen Pudlákschen Hypothesen ($\hDisjNP, \hUP, \hDisjCoNP$, usw.) zu beweisen.
-
 Teile dieser Beobachtung übertragen sich entsprechend auch auf die Verstärkung $\mathsf{KvL}$ von $\neg\hQ$. Weder $\UP\neq\P\land \NP\neq\coNP$ noch $\hDisjNP\land\hUP$ reicht als Annahme aus, um relativierend $\mathsf{KvL}$ zu beweisen.
-Damit wissen wir zumindest schon, dass $\mathsf{KvL}$ (wieder unter relativierenden Beweisen) nicht äquivalent zu einer der Aussagen „$\UP\neq \P$“, $\NP\neq\coNP$“, $\hDisjNP$, $\hUP$ ist.
-Andererseits wären einige weitere Orakel wünschenswert, um $\mathsf{KvL}$ besser zu situieren. Existiert ein Orakel relativ zu diesem $\mathsf{KvL}$ (also relativierende Beweise für $\neg\mathsf{KvL}$ ausschließt)? Existiert ein Orakel relativ zu diesem $\mathsf{KvL}\land \hQ$ (und damit $\mathsf{KvL}$ von $\hQ$ trennt)? 
+Damit wissen wir zumindest schon, dass $\mathsf{KvL}$ (wieder unter relativierenden Beweisen) nicht äquivalent zu einer der Aussagen „$\UP\neq \P$“, $\NP\neq\coNP$“, $\hDisjNP$, $\hUP$ sein kann. 
+Dennoch wären einige weitere Orakel wünschenswert, um $\mathsf{KvL}$ besser zu situieren, z.B. ein Orakel, relativ zu diesem $\mathsf{KvL}\land \hQ$ (und damit $\mathsf{KvL}$ von $\hQ$ trennt)? 
 
 In diesem Sinne können wir auch allgemein fragen, für welche Paare $\mathsf{A}$, $\mathsf{B}$ von Hypothesen sowohl unbekannt ist, ob $A\Rightarrow B$ über einen relativierbaren Beweis, noch ob ein Orakel existiert relativ zu diesem $\mathsf{A\land \neg B}$.
 Das sei im Folgenden nun abschließend noch zusammengefasst (vgl. Tabelle~\ref{table:orakel}.
 
 \begin{itemize}[parsep=0pt,listparindent=\parindent,itemsep=5pt plus 1pt minus 1pt,midpenalty=0]
-    \item Unter dem ursprünglichen Hypothesen des Pudlákschen Programms ($\hSAT$, $ \hTAUT$, $ \mathsf{CON^N}$, Vollständigkeit von $\DisjNP$, $ \DisjCoNP$, $ \UP$, $ \NP\cap\coNP$, $ \TFNP$, $ \NPMVt$, Kollaps $\NP=\coNP$, $\NP\cap\coNP=\P$; die zusammengesetzte Hypothese $\hSAT\lor\hTAUT$ wird hier dagegen noch nicht diskutiert) kennen wir für fast alle Paare an Hypothesen eine relativierende Implikation oder ein entsprechendes Orakel, relativ zu diesem die Implikation nicht gilt. Offen bleiben nur diese neun Paare:
+    \item Unter dem ursprünglichen Hypothesen des Pudlákschen Programms ($\hSAT$, $ \hTAUT$, $ \mathsf{TAUT^N}$, Vollständigkeit von $\DisjNP$, $ \DisjCoNP$, $ \UP$, $ \NP\cap\coNP$, $ \TFNP$, $ \NPMVt$, Kollaps $\NP=\coNP$, $\NP\cap\coNP=\P$; die zusammengesetzte Hypothese $\hSAT\lor\hTAUT$ wird hier dagegen noch nicht diskutiert) kennen wir für fast alle Paare an Hypothesen eine relativierende Implikation oder ein entsprechendes Orakel, relativ zu diesem die Implikation nicht gilt. Offen bleiben nur diese neun Paare:
         \begin{enumerate}[noitemsep,midpenalty=0,label=(\roman*)]
-            \item $\hTAUT\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{CON^N}$,
+            \item $\hTAUT\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{TAUT^N}$,
             \item $\hTAUT\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\NP\neq\coNP$,
-            \item $\hUP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{CON^N}$,
+            \item $\hUP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{TAUT^N}$,
             \item $\hUP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\hDisjNP$,
             \item $\hUP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\NP\neq\coNP$,
             \item „$\NPMVt$ hat keine vollst. Fkt.“ $\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow} \hTFNP$,
@@ -854,10 +844,10 @@ Das sei im Folgenden nun abschließend noch zusammengefasst (vgl. Tabelle~\ref{t
     \item Ergänzen wir weiter mit dem Kollaps „$\UP=\P$“ und der $\P$-Separierbarkeit von $\DisjNP$-Paaren entstehen weiter neue offenen Paare $\mathsf{A,B}$ von Hypothesen, unter anderem
         \begin{enumerate}[noitemsep,resume,label=(\roman*)]
             \item $\hDisjCoNP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}$ „$\DisjNP$ inseparierbar“,
-            \item $\mathsf{CON^N}\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}$ „$\DisjNP$ inseparierbar“,
+            \item $\mathsf{TAUT^N}\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}$ „$\DisjNP$ inseparierbar“,
             \item $\UP\neq\P\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow} \hTAUT$
         \end{enumerate}
-        Dies sind die drei „stärksten“ Implikationen bzw. diejenigen Paare an Hypothesen, deren Orakelkonstruktionen gegen diese Implikationen am „schwierigsten“ ist. Gemeint ist, dass sämtliche anderen offenen Paare $\mathsf{A,B}$ von Hypothesen, wobei $\mathsf{A}$ oder $\mathsf{B}$ in $\{„\UP\neq\P“, „\DisjNP\text{ insep.}“\}$, dann auch durch eines dieser Orakel getrennt wird, die (ix), (x), und (xi) trennen.
+        Dies sind die drei „stärksten“ Implikationen bzw. diejenigen Paare an Hypothesen, deren Orakelkonstruktionen gegen diese Implikationen am „schwierigsten“ sind. Gemeint ist, dass sämtliche anderen offenen Paare $\mathsf{A,B}$ von Hypothesen, wobei $\mathsf{A}$ oder $\mathsf{B}$ in $\{„\UP\neq\P“, „\DisjNP\text{ insep.}“\}$, dann auch durch eines dieser Orakel getrennt wird, die (ix), (x), und (xi) trennen.
         %In Abschnitt~\ref{} wird vermutet, dass für die erste offene Implikation (1) ein Orakel gegen diese Implikation existiert.
 
     \item Ergänzen wir nun abschließend mit den hier neu definierten Hypothesen $\mathsf{KvL}$ und $\mathsf{SAT^{eff}}$ entstehen wieder neue Paare $\mathsf{A,B}$ für die offen ist, ob $\mathsf A$ die Hypothese $\mathsf B$ impliziert, oder ob ein Orakel gegen diese Implikation existiert. Das gilt für so gut wie alle möglichen Paare zwischen $\mathsf{KvL}$ bzw. $\mathsf{SAT^{eff}}$ und den übrigen betrachteten Hypothesen. 
@@ -872,10 +862,10 @@ Das sei im Folgenden nun abschließend noch zusammengefasst (vgl. Tabelle~\ref{t
     \item Schließlich gehen wir noch auf die zusammengesetzte Hypothese $\hTAUT\lor\hSAT$ ein. Zur Erinnerung: diese Hypothese besagt (in Verbindung mit Korollar~\ref{cor:con-characterization}), dass eine Menge $L\in\NP\cup\coNP$ existiert für die kein $\P$-optimales Beweissystem existiert.
         Trotz der zusammengesetzten Natur dieser Hypothese lässt sich zeigen, dass $\hTAUT\lor\hSAT$ äquivalent zu weiteren natürlichen Hypothesen ist.
         Zum einen zeigt \textcite[Thm.~3.2]{khaniki_new_2022} die Äquivalenz zur Hypothese $\mathsf{RFN_1}$ betreffend der Beweisbarkeit endlicher Widerspruchsfreiheit \parencites(vgl.){pudlak_incompleteness_2017}.
-        Zum anderen geben \textcite{egidy_upward_2023} eine Verbesserung der ersten genannten Charakterisierung an, hierbei bezogen auf die Mengen der Booleschen Hierarchie ($\mathrm{BH}$, \cites(vgl.)(){cai_boolean_1986}{cai_boolean_1988}{cai_boolean_1989}). Aufbauend auf Ergebnissen von \textcite{kobler_optimal_2003} ergibt sich, dass $\hTAUT\lor\hSAT$ genau dann gilt wenn sogar eine Menge $L \in \mathrm{BH}\supseteq \NP\cup\coNP$ existiert für die es kein $\P$-optimales Beweissystem gibt.
+        Zum anderen geben \textcite{egidy_upward_2023} eine Verbesserung der ersten genannten Charakterisierung an, hierbei bezogen auf die Mengen der Booleschen Hierarchie ($\mathrm{BH}$, \cites(vgl.)(){cai_boolean_1986}{cai_boolean_1988}{cai_boolean_1989}). Aufbauend auf Ergebnissen von \textcite{kobler_optimal_2003} ergibt sich, dass $\hTAUT\lor\hSAT$ genau dann gilt, wenn sogar eine Menge $L \in \mathrm{BH}\supseteq \NP\cup\coNP$ ohne $\P$-optimales Beweissystem existiert.
 
         Auf diese beiden Charakterisierungen soll hier aber nicht weiter eingegangen werden.
-        Trotzdem sei hier noch knapp die Beziehung der Hypothese  zu den anderen (unter relativierbaren Beweisen) erläutert.
+        Trotzdem sei hier noch knapp die Beziehung der Hypothese $\hTAUT\lor\hSAT$ zu den anderen (unter relativierbaren Beweisen) erläutert.
         Einerseits existieren Orakel, sodass $(\hTAUT\lor\hSAT)\land \neg\mathsf{A}$ für alle bisher genannten Hypothesen $\mathsf A$ (außer $\P\neq\NP$, was trivialerweise eine notwendige Bedingung ist) . Andererseits bleibt für viele Hypothesen noch offen, ob diese hinreichend für $\hTAUT\lor\hSAT$ sein könnten. Insbesondere sind folgende Paare noch offen:
         \begin{enumerate}[noitemsep,resume,label=(\roman*)]
             \item $\UP\cap\coUP\neq \P\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\hTAUT\lor\hSAT$,
@@ -891,10 +881,10 @@ Hiermit wollen wir die Diskussion über die Beziehungen der Hypothesen des erwei
 \def\arraystretch{1.21}
 \begin{tabular}{|r|ccccccccccc|ccc|cc|cc|c|}
 \hline
-Antezedens $\mathsf A$\quad\llap{\rotatebox{90}{\smash{\strut\quad{}Konsequent} $\mathsf B$}}\strut & \rot{$\hTAUT$} & \rot{$\mathsf{CON^N}$} & \rot{$\hDisjNP$} & \rot{$\hUP$} & \rot{$\hSAT$} & \rot{$\NPMVt$ unvollst.} & \rot{$\hTFNP$} & \rot{$\hDisjCoNP$} & \rot{$\NPcoNP$} & \rot{$\NP\neq\coNP$} & \rot{$\NP\cap\coNP\neq\P$} & \rot{$\neg\hQ$} & \rot{$\neg\hQ'$} & \rot{$\NPMVt\not\subseteq_{\mathrm{t}}\TFNP$} & \rot{$\UP\neq\P$} & \rot{$\DisjNP$ unsep.} & \rot{$\mathsf{KvL}$} & \rot{$\mathsf{SAT^{eff}}$} & \rot{$\hTAUT\lor\hSAT$}\\
+Antezedens $\mathsf A$\quad\llap{\rotatebox{90}{\smash{\strut\quad{}Konsequent} $\mathsf B$}}\strut & \rot{$\hTAUT$} & \rot{$\mathsf{TAUT^N}$} & \rot{$\hDisjNP$} & \rot{$\hUP$} & \rot{$\hSAT$} & \rot{$\NPMVt$ unvollst.} & \rot{$\hTFNP$} & \rot{$\hDisjCoNP$} & \rot{$\NPcoNP$} & \rot{$\NP\neq\coNP$} & \rot{$\NP\cap\coNP\neq\P$} & \rot{$\neg\hQ$} & \rot{$\neg\hQ'$} & \rot{$\NPMVt\not\subseteq_{\mathrm{t}}\TFNP$} & \rot{$\UP\neq\P$} & \rot{$\DisjNP$ unsep.} & \rot{$\mathsf{KvL}$} & \rot{$\mathsf{SAT^{eff}}$} & \rot{$\hTAUT\lor\hSAT$}\\
  \hline
 $\hTAUT$ &   & \textcolor{red}{\textbf{?}} & 13 & 4 & O & O & O & O & O & \textcolor{red}{\textbf{?}} & O & O & O & O & 4 & 13 & O & O &   \\
-$\mathsf{CON^N}$ &   &   & 13 & 4 & O & O & O & O & O &   & O & O & O & O & 4 & \textbf{\itshape 13} & O & O &   \\
+$\mathsf{TAUT^N}$ &   &   & 13 & 4 & O & O & O & O & O &   & O & O & O & O & 4 & \textbf{\itshape 13} & O & O &   \\
 $\hDisjNP$ &   &   &   & 4 & O & O & O & O & O &   & O & \textbf{\itshape O} & O & O & \textbf{\itshape 4} &   & O & O &   \\
 $\hUP$ &   & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   & O & O & O & O & O & \textcolor{red}{\textbf{?}} & O & \textbf{\itshape O} & O & O &   &   & O & O &   \\
 $\hSAT$ & 10 & 10 & 10 & 10 &   & 12 & 12 & 12 & 3 & \textbf{\itshape 12} & 3 &   & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   \\
@@ -918,8 +908,8 @@ $\mathsf{SAT^{eff}}$ & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}}
 $\hTAUT\lor\hSAT$ & 6 & 6 & 6 & 4 & O & O & O & O & O & 12 & O & O & O & O & 4 & 13 & O & O &   \\
  \hline
 \end{tabular}
-\caption[]{Überblick über Orakel, welche Implikationen $\mathsf{A\Rightarrow B}$ zwischen den betrachteten Hypothesen unter relativierbaren Beweisen trennen, in dem Sinn dass ein Orakel existiert relativ zu diesem $\mathsf{A\land\neg B}$ gilt. Jede Zelle entspricht hierbei einer solchen Implikation. Die Hypothese $\mathsf A$ links ist hierbei der Antezedens, die Hypothese $\mathsf B$ oben der Konsequent.\par
-    Leere Zellen bedeuten, dass kein Orakel mit $\mathsf{A\land\neg B}$ existiert, denn es existiert nein relativierender Beweis für $\mathsf{A \Rightarrow B}$.\par
+\caption[]{Überblick über Orakel, welche Implikationen $\mathsf{A\Rightarrow B}$ zwischen ausgewählten Hypothesen unter relativierbaren Beweisen trennen, in dem Sinn dass ein Orakel existiert relativ zu diesem $\mathsf{A\land\neg B}$ gilt. Jede Zelle entspricht hierbei einer solchen Implikation. Die Hypothese $\mathsf A$ links ist hierbei der Antezedens, die Hypothese $\mathsf B$ oben der Konsequent.\par
+    Leere Zellen bedeuten, dass kein Orakel mit $\mathsf{A\land\neg B}$ existiert, denn es existiert ein relativierender Beweis für $\mathsf{A \Rightarrow B}$.\par
 Eine Zahl (bzw. $O$) in der Zelle bedeutet, dass relativ zu einem Orakel $\mathsf{A\land\neg B}$ gilt, also ein Orakel gegen die Implikation $\mathsf{A\Rightarrow B}$.
 Die Zahl  gibt hierbei an, um welches Orakel es sich aus Abb.~\ref{fig:oracles} handelt, das Label $O$, dass es sich um das konstruierte Orakel aus Kapitel~\ref{chap:orakel} handelt.
 Ist die Zahl (bzw. $O$) fett gedruckt, dann entspricht das Orakel genau dem Eingezeichneten, ansonsten folgt die behauptete Eigenschaft aus relativierbaren Implikationen zwischen den Hypothesen.\par

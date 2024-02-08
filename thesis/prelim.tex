@@ -1,13 +1,13 @@
 %! TEX root = ./thesis.tex
 \chapter{Grundlagen}\label{chap:prelim}
 
-Dieses Kapitel legt die definitorischen Grundlagen für die folgenden Kapitel fest. Abschnitt~\ref{sec:notation} erläutert mathematische Notationen für diese Arbeit. Abschnitt~\ref{sec:prelim-machines} spezifiziert das Maschinenmodell.  Abschnitt~\ref{sec:prelim-klassen} wiederholt einige Standarddefinitionen aus der Komplexitätstheorie. Abschnitt~\ref{sec:prelim-orakel} setzt das hier verwendete Verständnis von Relativierungen fest. Abschließend geht Abschnitt~\ref{sec:prelim-ps} kurz auf Beweissysteme im Sinne von \textcite{cook_relative_1979} ein.
+Dieses Kapitel legt die Grundlagen für die folgenden Kapitel fest. Abschnitt~\ref{sec:notation} erläutert mathematische Notationen für diese Arbeit. Abschnitt~\ref{sec:prelim-machines} spezifiziert das Maschinenmodell.  Abschnitt~\ref{sec:prelim-klassen} wiederholt einige Standarddefinitionen aus der Komplexitätstheorie. Abschnitt~\ref{sec:prelim-orakel} setzt das hier verwendete Verständnis von Relativierungen fest. Abschließend geht Abschnitt~\ref{sec:prelim-ps} kurz auf Beweissysteme im Sinne von \textcite{cook_relative_1979} ein.
 
 \section{Notation}\label{sec:notation}
 
-Sei $\Sigma$ das standardmäßige Alphabet mit $\Sigma=\{0,1\}$. Elemente von $\Sigma^*$ nennen wir (endliche) \emph{Wörter}, sind also endliche Sequenzen von Zeichen aus $\Sigma$. Die Menge $\Sigma^\omega$ entspricht der Menge der $\omega$-unendlichen Wörter. Teilmengen von $\Sigma^*$ nennen wir auch Sprachen. Wir bezeichnen die Länge eines Wortes $w\in\Sigma^*$ mit $|w|$. Das leere Wort bezeichnen wir mit $\epsilon$. Das $i$-te Zeichen eines Wortes $w\in\Sigma^*\cup\Sigma^\omega$ für $0\leq i< |w|$ identifizieren wir mit $w[i]$. Diese Notation erweitern wir auf Sequenzen von Indizes: für $0\leq i_1, i_2, \dots, i_k< |w|$ und $\alpha=(i_1, i_2, \dots, i_k)$ sei $w[\alpha] \defeq w[i_1]w[i_2]\cdots w[i_k]$. Insbesondere ist damit $w[0,1,2,\dots, |w|-1]= w$ für $w\in\Sigma^*$.
+Sei $\Sigma$ das standardmäßige Alphabet mit $\Sigma=\{0,1\}$. Elemente von $\Sigma^*$ nennen wir (endliche) \emph{Wörter}, sind also endliche Sequenzen von Zeichen aus $\Sigma$. Die Menge $\Sigma^\omega$ entspricht der Menge der $\omega$-unendlichen Wörter. Teilmengen von $\Sigma^*$ nennen wir auch Sprachen. Wir bezeichnen die Länge eines Wortes $w\in\Sigma^*$ mit $|w|$. Das leere Wort bezeichnen wir mit $\epsilon$. Das $i$-te Zeichen eines Wortes $w\in\Sigma^*\cup\Sigma^\omega$ für $0\leq i< |w|$ identifizieren wir mit $w[i]$. 
 Falls $w$ ein (echter) Präfix von $v$ ist dann schreiben wir $w \sqsubseteq v$ (bzw. $w\sqsubsetneq v$).
-In manchen Fällen identifizieren wir Mengen $A\subseteq\mathbb N$ mit ihrem charakteristischem $\omega$-Wort aus $\Sigma^\omega$, wobei $A=a_0a_1a_2\cdots$ und $a_i=1$ wenn $i\in A$, sonst $a_i=0$.
+In manchen Fällen identifizieren wir Mengen $A\subseteq\mathbb N$ mit ihrem charakteristischem $\omega$-Wort aus $\Sigma^\omega$, wobei $A=a_0a_1a_2\cdots$, alle $a_i\in\Sigma$ und $i\in A$ genau dann wenn $a_i=1$.
 Heißt, es gilt $A[i] = 1$ genau dann wenn $i\in A$.
 
 Die Menge aller natürlichen (nicht-negativen) Zahlen wird mit $\mathbb N$ bezeichnet. Die leere Menge notieren wir wie üblich als $\emptyset$. Die Kardinalität einer Menge $A$ notieren wir wie üblich als $|A|$. Für eine Menge $A\subseteq\Sigma^*$ und $n\in \mathbb N$ definieren wir $A^{\leq n} \defeq \{ w\in A \mid |w|\leq n\}$. 
@@ -30,8 +30,8 @@ Zweistellige bzw. binäre Relationen $R\subseteq A\times B$ können wir mit den 
     \item \emph{bijektiv} wenn jedes Element aus $B$ mit genau einem Element aus $A$ reliert, also genau dann wenn $R$ surjektiv und injektiv ist.
 \end{itemize}
 Binäre Relationen nennen wir eine (partielle) \emph{Funktion} wenn diese Relation funktional ist. Eine Funktion sei im Folgenden also im Allgemeinen nicht total. Sollte (Links-)Totalität explizit gefordert sein, sprechen wir von \emph{totalen Funktionen}.
-Beachte, dass eine totale bijektive Funktion $A\to B$ einen Mengenisomorphismus zwischen $A$ und $B$ bildet.
-Binäre Relationen über Wörtern aus $\Sigma^*$, welche nicht unbedingt Funktionen sind, verstehen wir manchmal auch aus historischen Gründen als (partielle) Multifunktionen, dem Begriff der „\emph{partial multivalued function}“ nachempfunden.
+%Beachte, dass eine totale bijektive Funktion $A\to B$ einen Mengenisomorphismus zwischen $A$ und $B$ bildet.
+Binäre Relationen über Wörtern aus $\Sigma^*$, welche nicht unbedingt Funktionen sein müssen, verstehen wir manchmal auch aus historischen Gründen als (partielle) Multifunktionen, dem Begriff der „\emph{partial multivalued function}“ nachempfunden.
 
 Für eine binäre Relation $R\subseteq\Sigma^* \times \Sigma^*$ schreiben wir $\Proj(R)$ für die Menge $\{ x\mid (x,y)\in R \}$. 
 Für ein Wort $x\in\Sigma^*$ schreiben wir $\fset{}R(x)=\{ y\mid (x,y)\in R \}$ für die Bildmenge von $x$ auf $R$
@@ -45,8 +45,8 @@ Falls $f$ eine Funktion bzw. funktional ist, meinen wir mit $f(x)$ wie üblich d
 Für eine Funktion $f$ bezeichnen wir die Urbild- bzw. Bildmenge (\emph{domain} und \emph{image}) mit $\dom(f)$ und $\img(f)$. (Beachte dass $\Proj(f)=\dom(f)$. Wir führen diese Unterscheidung nur wegen den Gewohnheiten dieser zwei Notationen ein.) Ist $f$ eine Funktion, dann bezeichnen wir mit $f^{-1}$ dessen binäre Umkehrrelation. Beobachte dass $f^{-1}$ funktional ist, wenn $f$ injektiv ist. Ist $f$ zusätzlich surjektiv, dann ist die Umkehrfunktion $f^{-1}$ eine totale Funktion.
 
 Eine Funktion $f\colon\Sigma^*\to\Sigma^*$ nennen wir \emph{verlängernd} wenn $|f(x)|\geq |x|$ für alle $x\in\dom(f)$.
-Die Funktion $f$ nennen wir \emph{polynomiell längenbeschräkt} wenn ein Polynom $p$ existiert sodass $|f(x)|\leq p(|x|)$ für alle $x\in\dom(f)$.
-Die Funktion $f$ nennen wir \emph{ehrlich} wenn ein Polynom $q$ existiert sodass $q(|f(x)|)\geq |x|$ für alle $x\in\dom(f)$.
+Wir nennen $f$ \emph{polynomiell längenbeschränkt} wenn ein Polynom $p$ existiert sodass $|f(x)|\leq p(|x|)$ für alle $x\in\dom(f)$.
+Wir nennen $f$ \emph{ehrlich} wenn ein Polynom $q$ existiert sodass $q(|f(x)|)\geq |x|$ für alle $x\in\dom(f)$.
 Manchmal übertragen wir diese Begrifflichkeiten auf allgemeine binäre Relationen, und sprechen z.B. von polynomiell längenbeschränkten Relationen $R$ wenn $|y|\leq p(|x|)$ für alle $(x,y)\in R$.
 
 Beachte dass Funktionen nur spezielle binäre Relationen sind. Wenn also $f$ eine Funktion ist, meinen wir mit „$f\in\P$“ dass \emph{der Graph} von $f$ in Polynomialzeit entschieden werden kann („Gegeben Tupel $(x, y)$, gilt $f(x)=y$?“). Das ist eine schwächere Aussage als „$f\in\FP$“ die wie in üblicher Interpretation besagen soll, dass aus $x$ das Bild $f(x)$ in Polynomialzeit berechnet werden kann.
@@ -84,9 +84,9 @@ Entsprechend sagen wir auch, dass \emph{$M(x)$ bezüglich $\alpha$ mit Ausgabe $
 
 
 Wir betrachten nun konkret deterministische TM.
-Nachdem höchstens ein terminierender Rechenweg $\alpha$ einer Berechnung $M(x)$ einer deterministiscne TM $M$ auf Eingabe $x$ existiert, können wir verkürzend auch sagen, dass 
+Nachdem höchstens ein terminierender Rechenweg $\alpha$ einer Berechnung $M(x)$ einer deterministischen TM $M$ auf Eingabe $x$ existiert, können wir verkürzend auch sagen, dass 
 \emph{$M(x)$ mit Ausgabe $y$ akzeptiert} oder kurz \emph{$M(x)$ akzeptiert}, wenn $M(x)$ bezüglich $\alpha$ mit Ausgabe $y$ akzeptiert.
-Sollte $\alpha$ dagegen ablehnend sein, oder überhaupt nicht existieren, dann sagen wir, dass \emph{$M(x)$ ablehnt}.\sidenote{Ein solcher Rechenweg $\alpha$ existiert genau dann nicht, wenn $M(x)$ nicht hält. Im Verlauf dieser Arbeit müssen wir aber solche unbeschränkt lang rechnenden TM nicht berücksichtigen, un identifizieren daher „Ablehnen“ als Negation von „Akzeptieren“ also mit „ablehnend terminieren oder nicht terminieren“.}
+Sollte $\alpha$ dagegen ablehnend sein, oder die Berechnung $M(x)$ nicht terminieren, dann sagen wir, dass \emph{$M(x)$ ablehnt}.\sidenote{Im Verlauf dieser Arbeit müssen wir unbeschränkt lang rechnenden TM nicht berücksichtigen, und identifizieren daher „Ablehnen“ als Negation von „Akzeptieren“ also mit „ablehnend terminieren oder nicht terminieren“.}
 
 Eine solche deterministische TM $M$ setzt nun gleichzeitig zwei unterschiedliche Berechnungsweisen um. Einerseits die eines Akzeptors einer Menge, und andererseits die einer Funktion:
 \begin{itemize}
@@ -139,24 +139,26 @@ Die Funktionenklassen $\FP, \mathrm{NPMV}, \mathrm{NPSV}$ ist analog definiert \
 \begin{align*}
     \FP &\defeq \{ f\subseteq \Sigma^*\times\Sigma^* \mid \text{$f$ ist funktional, ex. PTM-Transduktor $M$, der $f$ berechnet} \},\\
     \NPSV &\defeq \{ f\subseteq \Sigma^*\times\Sigma^* \mid \text{$f$ ist funktional, ex. NPTM-Transduktor $M$, der $f$ berechnet} \},\\
-    \NPMV &\defeq \{ f\subseteq \Sigma^*\times\Sigma^* \mid \text{ex. NPTM-Transduktor, $M$ der $f$ berechnet} \}.
+    \NPMV &\defeq \{ f\subseteq \Sigma^*\times\Sigma^* \mid \text{ex. NPTM-Transduktor $N$, der $f$ berechnet} \}.
 \end{align*}\egroup
 \begin{marginfigure}
     \centering\includegraphics[page=9]{figures.pdf}
     \caption{Inklusionen zwischen den in dieser Arbeit definierten Funktionenklassen. Eine Pfeil von $\mathcal F$ nach $\mathcal G$ sagt aus dass $\mathcal{G}\subseteq \mathcal F$.}\label{fig:functionclasses}
 \end{marginfigure}
-Wir definieren $\NPMVt$ als die Teilmenge von $\NPMV$ der Multifunktionen, die linkstotal sind. Analog $\NPSVt$. Die Inklusionen zwischen den einzelnen Funktionenklassen ist in Abbildung~\ref{fig:functionclasses} skizziert.
+Gegeben eine Funktionenklasse $\mathcal F$ definieren wir $\mathcal F_\mathrm t$ als diejenige Teilmenge von $\mathcal F$ der Multifunktionen $f\in\mathcal F$, die linkstotal sind. 
+Analog sei $\mathcal F_\mathrm g$ die Teilmenge der Multifunktionen $f\in\mathcal F$, für die (der Graph) $f$ in $\P$ liegt, also für die in Polynomialzeit überprüft werden kann, ob für $(x,y)$ auch $f(x)=y$ gilt.
+
 Ist für eine Funktion $f\in\FP$ auch $f^{-1}\inc \FP$, also eine (funktionale) Verfeinerung $g$ von $f^{-1}$ in $\FP$, dann sagen wir auch, dass $f$ \emph{$\P$-invertierbar} ist. Falls $f$ injektiv ist, dass ist die Ehrlichkeit von $f$ eine notwendige Bedingung für die $\P$-Invertierbarkeit von $f$ ist.
 
 \textcite{grollmann_complexity_1988} erarbeiten in ihrer Untersuchung zu Public-Key-Kryptosystemen den Begriff von \emph{disjunkten NP-Paaren} heraus.
 
 \begin{definition}[$\DisjNP, \DisjCoNP$]
     Zwei Mengen $A,B\in\Sigma^*$ bilden ein \emph{disjunktes NP-Paar} $(A,B)$ falls $A,B\in\NP$ und $A\cap B = \emptyset$.
-    Die Klasse aller disjunkten NP-Paare schreiben wir mit $\DisjNP$.
+    Die Klasse aller disjunkten NP-Paare schreiben wir als $\DisjNP$.
     
     Analog können wir die Klasse $\DisjCoNP$ aller disjunkten coNP-Paare definieren.
 \end{definition}
-Intuitiv mit dieser Definition verknüpft ist das folgende „Promise-Problem“: gegeben eine Instanz $x\in A\cup B$, entscheide ob $x\in A$ oder $x\in B$. Das Versprechen bzw. Promise ist hierbei, dass $x$ sicher in $A$ oder $B$ enthalten ist; ein entsprechender Entscheidungsalgorithmus kann sich beliebig verhalten für Eingaben $x'\not\in A\cup B$.
+Intuitiv mit dieser Definition verknüpft ist folgendes „Promise-Problem“: gegeben eine Instanz $x\in A\cup B$, entscheide ob $x\in A$ oder $x\in B$. Das Versprechen bzw. Promise ist hierbei, dass $x$ sicher in $A$ oder $B$ enthalten ist; ein entsprechender Entscheidungsalgorithmus kann sich für Eingaben $x'\not\in A\cup B$ beliebig verhalten.
 
 Entsprechend diesem Promise-Problem ergibt sich formal folgende Definition von „Lösbarkeit“:
 Wir nennen ein disjunktes NP-Paar $(A,B)$ \emph{$\P$-separierbar} wenn ein Separator $S\in\P$ existiert sodass $A\subseteq S$ und $B\subseteq\overline{S}$.
@@ -206,22 +208,22 @@ Auf Grundlage der Existenz universeller effizienter Turing-Maschinen können fü
 \begin{lemma}
     Die Menge $\mathtt{KAN}$ ist $\leq_\mathrm{1,i}^\mathrm{p}$-vollständig.
 \end{lemma}
-\begin{proof}
-    Die Zugehörigkeit $\mathtt{KAN}\in\NP$ folgt unmittelbar aus der Existenz universeller nichtdeterministischer Turing-Maschinen mit polynomiellen Overhead.
-
-    Wir zeigen nun, dass $\mathtt{KAN}$ auch $\leq_\mathrm{1,i}^\mathrm{p}$-hart für $\NP$ ist.
-    Sei hierfür $A\in\NP$. Wir wollen zeigen dass $A \leq_\mathrm{1,i}^\mathrm{p} \mathtt{KAN}$. Sei nun $N$ eine NPTM welche $A$ entscheidet. Es gibt also auch ein Polynom $p$ welches die Laufzeit von $N$ beschränkt.
-    Definiere nun die Funktion $f(x) \defeq (N, x, 1^{p(|x|)})$. Es gilt nun
-    \begin{gather*}
-        x\in A \iff N(x)\text{ akz. auf RW mit $\leq p(|x|)$ Schritten}\\
-        \iff (N, x, 1^{p(|x|)}) \in \mathtt{KAN} \iff f(x) \in \mathtt{KAN}.
-    \end{gather*}
-    Ferner ist leicht zu sehen, dass $f\in \FP$, dass $f$ injektiv und auch $\P$-invertierbar ist.
-\end{proof}
+% \begin{proof}
+%     Die Zugehörigkeit $\mathtt{KAN}\in\NP$ folgt unmittelbar aus der Existenz universeller nichtdeterministischer Turing-Maschinen mit polynomiellen Overhead.
+% 
+%     Wir zeigen nun, dass $\mathtt{KAN}$ auch $\leq_\mathrm{1,i}^\mathrm{p}$-hart für $\NP$ ist.
+%     Sei hierfür $A\in\NP$. Wir wollen zeigen dass $A \leq_\mathrm{1,i}^\mathrm{p} \mathtt{KAN}$. Sei nun $N$ eine NPTM welche $A$ entscheidet. Es gibt also auch ein Polynom $p$ welches die Laufzeit von $N$ beschränkt.
+%     Definiere nun die Funktion $f(x) \defeq (N, x, 1^{p(|x|)})$. Es gilt nun
+%     \begin{gather*}
+%         x\in A \iff N(x)\text{ akz. auf RW mit $\leq p(|x|)$ Schritten}\\
+%         \iff (N, x, 1^{p(|x|)}) \in \mathtt{KAN} \iff f(x) \in \mathtt{KAN}.
+%     \end{gather*}
+%     Ferner ist leicht zu sehen, dass $f\in \FP$, dass $f$ injektiv und auch $\P$-invertierbar ist.
+% \end{proof}
 
 
 \subsection*{Polynomialzeit-Isomorphie}
-Auf Mengen erzeugen die obigen Reduktionsordungen je eine kanonische Äquivalenzordung („Duplikatrelation“):
+Auf Mengen erzeugen die obigen Reduktionsordnungen je eine kanonische Äquivalenzordung („Duplikatrelation“):
 \begin{itemize}
 \item $A\equiv_\mathrm{m}^\mathrm{p} B \stackrel{\text{df}}{\iff} A\leqmp B$ und $B\leqmp A$.
 \item $A\equiv_\mathrm{1}^\mathrm{p} B \stackrel{\text{df}}{\iff} A\leq_1^\mathrm{p} B$ und $B\leq_1^\mathrm{p} A$.
@@ -240,28 +242,27 @@ Im Folgenden werden noch die wichtigsten bekannten Aussagen bezüglich $\P$-Isom
 \end{theorem}
 Um die Voraussetzungen vom vorigen Satz \ref{thm:bh-iso} zu vereinfachen, führen sie den Begriff der \emph{paddability} ein.
 \begin{definition}
-    Eine Sprache $A\neq\emptyset$ heißt (Berman–Hartmanis-)\emph{paddable} genau dann wenn eine injektive und $\P$-invertierbare Funktion $g\in \FP$ existiert sodass für alle $x,y\in\Sigma^*$ gilt:
+    Eine Sprache $A$ heißt (Berman–Hartmanis-)\emph{paddable} genau dann wenn eine injektive und $\P$-invertierbare Funktion $g\in \FP$ existiert sodass für alle $x,y\in\Sigma^*$ gilt:
     \[ x\in A \iff g(x,y)\in A. \]
     Das heißt, $g$ fügt einen beliebigen String $y$ zur „Probleminstanz“ $x$ hinzu, sodass die Mitgliedschaft zu $A$ unverändert bleibt, und die beiden originalen Strings $x$ und $y$ wieder rekonstruiert werden können. 
 \end{definition}
 Es gilt:
 \begin{theorem}[{\cite[Thm.~5,~7]{berman_isomorphisms_1977}}]
     \begin{enumerate}
-        \item Ist $A$ paddable so gibt es für jedes $B$ mit $B\leqmp A$ eine injektive $\P$-invertierbare verlängernde Funktion die $B\leq_\mathrm{1,i}^\mathrm{p}$ realisiert.
+        \item Ist $A$ paddable so gibt es für jedes $B$ mit $B\leqmp A$ eine injektive $\P$-invertierbare verlängernde Funktion $f\in\FP$, welche $B\leq_\mathrm{1,i}^\mathrm{p}$ realisiert.
         \item Sind $A, B$ paddable, so folgt aus $A\equiv_\mathrm{m}^\mathrm{p}$ stets $A\equiv^\mathrm{p}$.
     \end{enumerate}
 \end{theorem}
-Alle bekannten $\leqmp$-vollständigen Mengen für $\NP$ sind paarweise $\P$-isomorph. 
-Berman und Hartmanis vermuteten, dass das für \emph{alle} $\leqmp$-vollständigen Mengen gilt:
+Mit obigem Begriff von Paddability lässt sich die $\equiv^\mathrm{p}$-Äquivalenzklasse von $\mathtt{KAN}$ folgendermaßen charakterisieren:
+\begin{theorem}
+    Eine Menge $A\in\NP$ ist genau dann $\P$-isomorph zu $\mathtt{KAN}$ wenn $A$ $\leqmp$-vollständig und paddable ist.
+\end{theorem}
+Alle bekannten $\leqmp$-vollständigen Mengen für $\NP$ sind paddable, also paarweise $\P$-isomorph. 
+Aufbauend auf dieser empirischen Beobachtung vermuteten Berman und Hartmanis, dass das für \emph{alle} $\leqmp$-vollständigen Mengen gilt:
 \begin{conjecture}[$\mathsf{IC}$]
     Alle $\leqmp$-vollständigen Mengen für $\NP$ sind $\P$-isomorph.
     In anderen Worten: die $\leqmp$-Äquivalenzklasse der vollständigen Mengen ist gleich der  $\equiv^\mathrm{p}$-Äquivalenzklasse von $\mathtt{KAN}$.
 \end{conjecture}
-Mit obigem Begriff von Paddability lässt sich die $\equiv^\mathrm{p}$-Äquivalenzklasse von $\mathtt{KAN}$ folgendermaßen charakterisieren:
-\begin{theorem}
-    Eine Menge $A\in\NP$ ist genau dann $\P$-isomorph zu $\mathtt{KAN}$ wenn $A$ $\leqmp$-vollständig und und paddable ist.
-\end{theorem}
-Als Konsequenz ergibt sich hieraus, dass die \emph{bekannten} $\leqmp$-vollständigen Mengen alle paddable sind. (Das ist die eigentliche empirische Beobachtung von Berman und Hartmanis, auf welcher diese $\mathsf{IC}$ vermuteten.)
 
 \section{Orakel und Relativierungen}\label{sec:prelim-orakel}
 
@@ -272,19 +273,20 @@ Diese Idee wird im Berechnungsmodell der Orakel-Turing-Maschine (OTM) formalisie
 
 Gegeben ein Orakel $A\subseteq\Sigma^*$ können OTM nun Fragen der Form $x\stackrel{\smash ?}{\in} A$ an das Orakel stellen, indem sie ein Wort $x$ auf das Frageband schreiben, und in den Zustand $q_?$ übergeht. Im unmittelbar nächsten deterministischen Schritt der Berechnung wird der Zustand $q_\text{yes}$ eingenommen falls $x\in A$, sonst der Zustand $q_\text{no}$.
 
-Aus dieser Beschreibung wird klar, dass eine Berechnung einer OTM sowohl von der Eingabe $x$ abhängig ist, als auch vom Orakel $A$, \emph{relativ} zu diesem $M(x)$ rechnet. Wir schreiben dann auch kurz $M^A$ wenn wir die OTM $M$ mit festem Orakel $A$ meinen, und $M^A(x)$ die Berechnung der OTM $M$ auf Eingabe $x$ mit Orakel $A$. Entsprechend können wir auch die Laufzeit $\mathrm{time}_M^A(x)$ definieren, und von (deterministischen bzw. nichtdeterministischen) Polynomialzeit-Orakel-Turing-Maschinen (POTM, NPOTM) sprechen, wenn die Laufzeit auf allen Eingaben und für alle Orakeln polynomiell durch die Eingabelänge beschränkt ist.
+Aus dieser Beschreibung wird klar, dass eine Berechnung einer OTM sowohl von der Eingabe $x$ abhängig ist, als auch vom Orakel $A$, \emph{relativ} zu diesem $M(x)$ rechnet. Wir schreiben dann auch kurz $M^A$ wenn wir die OTM $M$ mit festem Orakel $A$ meinen, und $M^A(x)$ die Berechnung der OTM $M$ auf Eingabe $x$ mit Orakel $A$. Entsprechend können wir auch die Laufzeit $\mathrm{time}_M^A(x)$ definieren, und von (deterministischen bzw. nichtdeterministischen) Polynomialzeit-Orakel-Turing-Maschinen (POTM, NPOTM) sprechen, wenn die Laufzeit auf allen Eingaben und für alle Orakel polynomiell durch die Eingabelänge beschränkt ist.
 
-Wir können nun die relativierten Komplexitätsklassen $\P^O, \NP^O, \FP^O, \NPMV^O, \dots$ relativ zu einem gegebenen Orakel $O$ definieren, wobei in der jeweiligen Definition die TM durch OTM ersetzt werden, die Zugriff auf das Orakel $O$ haben.
+Wir können nun die relativierten Komplexitätsklassen $\P^O, \NP^O, \FP^O, \NPMV^O, \dots$ relativ zu einem gegebenen Orakel $O$ definieren, wobei in der jeweiligen Definition die TM durch OTM ersetzt werden, welche Zugriff auf das Orakel $O$ haben.
 Diese Relativierung überträgt sich auch auf unsere weiteren Definitionen, wie z.B. Reduktion und Vollständigkeit. Wir schreiben z.B. $A\leq_\mathrm{m}^{\mathrm{p},O} B$ wenn eine Funktion $f\in\FP^O$ existiert mit $x\in A \leftrightarrow f(x)\in B$.
 Die kanonische $\NP$-vollständige Menge $\mathtt{KAN}$ kann ebenso zu $\mathtt{KAN}^O$ relativiert werden. Zur Vollständigkeit
 \[ \begin{split} \mathtt{KAN}^O \defeq \{ (N, x, 1^n) \mid {}&\text{$N$ ist eine NOTM und akz. $x$ relativ zu $O$}\\&\text{auf einem RW mit $\leq n$ vielen Schritten} \}. \end{split} \]
-Die Vollständigkeit relativiert insbesondere, heißt wir haben $A\leq_\mathrm{m}^{\mathrm{p},O}\mathtt{KAN}^O$ für alle Orakel $O$ und Menge $A\in\NP^O$.
+Die Vollständigkeit relativiert insbesondere, heißt wir haben $A\leq_\mathrm{m}^{\mathrm{p},O}\mathtt{KAN}^O$ für alle Orakel $O$ und Mengen $A\in\NP^O$.
 Für \emph{natürliche} Mengen wie $\mathtt{SAT}$ usw. werden wir in dieser Arbeit dagegen keine relativierte Variante definieren. In diesem Sinne ist $\mathtt{SAT}$ im Allgemeinen \emph{nicht} $\leq_\mathrm{m}^{\mathrm{p},O}$-vollständig, in dem Sinne dass ein Orakel $O$ existiert und eine Menge $A\in\NP^O$ sodass $A\not\leq_\mathrm{m}^{\mathrm{p},O} \mathtt{SAT}$.\footnote{Es ist durchaus möglich, $\mathtt{SAT}$ so zu verallgemeinern dass eine entsprechende Variante auch relativiert vollständig bleibt. Um das zu erreichen, ergänzt man üblicherweise die $\mathtt{SAT}$-Formeln durch $n$-stellige Prädikate $X_n(x_1, x_2, \dots, x_n)$ und interpretiert diesen Term als wahr genau dann wenn $x_1x_2\cdots x_n$ im Orakel liegt. So zum Beispiel bei \textcite{dingel_separation_2022}.}
 
 In allgemeineren Beweisen, die nicht konkrete natürliche Mengen betreffen, lassen sich üblicherweise alle beteiligten TM mit OTM auswechseln, ohne die Gültigkeit der Aussage zu verändern.
 Aussagen bzw. Beweise, die in solchen relativierten Umgebungen relativ zu jedem beliebigen Orakel $O$ gelten, nennen wir \emph{relativierende} Aussagen bzw. Beweise.
-Das Diagonalargument in einem typischen Beweis des Hierarchiesatzes $\P\subsetneq\mathrm{E}$ relativiert beispielsweise. Das lässt sich intuitiv so erklären, dass bei diesem Argument Polynomialzeit-Turing-Maschinen durch eine Exponentialzeit-Turing-Maschine simuliert werden. Es ist aber klar, dass eine solche Simulation auch analog mit Orakeln funktioniert: Orakel-Polynomialzeit-Turing-Maschinen relativ zu $O$ lassen sich auch durch eine Exponentialzeit-Turing-Maschine relativ zu $O$ simulieren. Damit sehen wir, dass auch auch $\P^O\subsetneq\mathrm{E}^O$ für jedes beliebige Orakel $O$ gilt. 
-Auf ähnliche Weise relativiert die Aussage „$\mathtt{KAN}\in\NP$ ist $\leqmp$-vollständig“ (zu „$\mathtt{KAN}^O\in\NP^O$ ist $\leq_\mathrm{m}^{\mathrm{p},O}$-vollständig“).
+Das haben wir z.B. schon bei der relativierenden $\leqmp$-Vollständigkeit von $\mathtt{KAN}$ gesehen.
+Auch das Diagonalargument in einem typischen Beweis des Hierarchiesatzes $\P\subsetneq\mathrm{E}$ relativiert beispielsweise. Das lässt sich intuitiv so erklären, dass bei diesem Argument Polynomialzeit-Turing-Maschinen durch eine Exponentialzeit-Turing-Maschine simuliert werden. Es ist aber klar, dass eine solche Simulation auch analog mit Orakeln funktioniert: NPOTMs relativ zu $O$ lassen sich auch durch eine Exponentialzeit-Turing-Maschine relativ zu $O$ simulieren. Damit sehen wir, dass auch auch $\P^O\subsetneq\mathrm{E}^O$ für jedes beliebige Orakel $O$ gilt. 
+%Auf ähnliche Weise relativiert die Aussage „$\mathtt{KAN}\in\NP$ ist $\leqmp$-vollständig“ (zu „$\mathtt{KAN}^O\in\NP^O$ ist $\leq_\mathrm{m}^{\mathrm{p},O}$-vollständig“).
 
 Im Folgenden soll jede Aussage als relativierbar verstanden werden, es sei denn es wird auf die Nichtrelativierbarkeit hingewiesen, oder von konkreten natürlichen Mengen gesprochen, welche ohnehin nicht relativieren.
 
@@ -294,18 +296,19 @@ Im Folgenden soll jede Aussage als relativierbar verstanden werden, es sei denn 
 Beweissysteme wurden in der Einleitung schon kurz definiert. In diesem Abschnitt wird die präzise Definition von \textcite{cook_relative_1979} wiedergegeben.
 \begin{definition}
 Eine Funktion $f\in \FP$ ist ein \emph{Beweissystem für $L$} wenn $\img(f)=L$.
-Ist $f(w)=x$ schreiben wir auch, dass $w$ ein \emph{$f$-Beweis} für $x$ ist.
+Gilt $f(w)=x$, sagen wir auch, dass $w$ ein \emph{$f$-Beweis} für $x$ ist.
 
 Existiert zudem ein Polynom $q$ sodass für jedes $x\in L$ ein $f$-Beweis $w$ der Länge $\leq q(|x|)$ existiert, sagen wir dass $f$ \emph{kurzen Beweise} hat.
 \end{definition}
-Hieraus stellt sich die erste Frage, welche Mengen Beweissysteme mit kurzen Beweisen haben.
+Beachte dass „$f$ hat kurze Beweise“ nicht bedeutet, dass $f$ \emph{nur} kurze Beweise hat: im Allgemeinen ist $f$ nicht ehrlich.
 
-Ein einfaches Beweissystem für die Menge $\mathtt{SAT}\in\NP$ wäre z.B. das \emph{Standardbeweissystem} $\mathit{sat}$ für $\mathtt{SAT}$:
+Cook und Reckhow stellen die Frage, welche Mengen Beweissysteme mit kurzen Beweisen haben.
+Ein einfaches Beweissystem für die Menge $\mathtt{SAT}\in\NP$ wäre das \emph{Standardbeweissystem} $\mathit{sat}$ für $\mathtt{SAT}$:
 \[ \mathit{sat}(\phi, w) \defeq \begin{cases} \phi & \text{wenn $w$ eine erfüllende Belegung für $\phi$ ist,} \\ \bot & \text{sonst.} \end{cases} \]
 Dieses Beweissystem hat kurze Beweise.
 
 Cook und Reckhow machen dagegen die Beobachtung, dass im Fall von der Menge $\mathtt{TAUT}$ der aussagenlogischen Tautologien die Beobachtung, dass $\mathtt{TAUT}$ genau dann ein Beweissystem mit kurzen Beweisen hat, wenn $\NP=\coNP$.
-Diese Einsicht motivierte das sogenannte \emph{Cook–Reckhow-Programm}: man nähert sich der Frage  $\NP\neq \coNP$ mittels Untersuchung immer stärkerer Beweissysteme.
+Diese Einsicht motivierte das sogenannte \emph{Cook–Reckhow-Programm} \parencite[vgl.][]{buss_lectures_1996}: man nähert sich der Frage  $\NP\neq \coNP$ mittels Untersuchung immer stärkerer Beweissysteme.
 Um nun die relative Stärke unterschiedlicher Beweissysteme zu vergleichen, führen Cook und Reckhow den Begriff der Simulation ein.
 \begin{definition}
     Seien $f,g$ zwei Beweissysteme für $L$. Wir sagen dass $f$ das Beweissystem $g$ \emph{simuliert} wenn eine (nicht notwendigerweise effizient oder berechenbare) polynomiell längenbeschränkte Funktion $\pi$  existiert sodass 
