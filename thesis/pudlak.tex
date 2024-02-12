@@ -75,6 +75,61 @@ Mit dieser Verallgemeinerung ist es dann auch für uns möglich, $\hQ$ formal in
     \bot & \text{sonst}.\end{cases} \qedhere \] 
 \end{definition}
 Damit ist, wie durch die Formulierung oben suggeriert, $\mathit{sat}=\mathit{std}_{\mathtt{rSAT}}$.
+Insbesondere ist für jede NP-Relation $R$ das Standardbeweissystem $\mathit{std}_R$ für $\Proj(R)$ ehrlich, optimal, und hat kurze Beweise.
+Beachte, dass sich aufgrund der speziellen Form der Beweise von Standardbeweissystemen die $\P$-Simulation kanpper formulieren lässt:
+\begin{observation}\label{obs:simulation-of-spps}
+    Sei $R$ eine NP-Relation, und $h$ ein Beweissystem für $\Proj(R)$. Folgende Aussagen sind äquivalent:
+    \begin{itemize}
+        \item $\mathit{std}_R$ $\P$-simuliert $h$.
+        \item Es existiert eine polynomiell längenbeschränkte Funktion $g\in\FP$, sodass
+            \[ h(w)=x \implies \mathit{std}_R(x, g(w))=x \quad\text{(bzw. äquivalent $(x, g(w))\in R$)} \]
+            gilt.
+    \end{itemize}
+\end{observation}
+\begin{proof}
+    \begin{prooflist}
+    (1)$\implies$(2): Wenn $\mathit{std}_R$ das Beweissystem $h$ $\P$-simuliert, dann existiert eine Funktion $\pi\in\FP$ sodass $h(w)=x\rightarrow \mathit{std}_R(w)=x$ gilt.
+    Haben wir also einen $h$-Beweis $w$ für $x$ gegeben, dann muss $\pi(w)$ von der Form $(x, z)$ mit $z\in\Sigma^*$ sein. Insbesondere können wir dann eine Funktion $g\in\FP$ angeben, sodass $g(w)$ die zweite Komponente von $\pi(w)$ ausgibt. Dann gilt $\mathit{std}_R(x, g(w))=x$.
+
+    (2)$\implies$(1): Haben wir eine solche Funktion $g\in\FP$ gegeben, dann realisiert $\pi(w)=(h(w), g(w))$ die $\P$-Simulation bzw. Reduktion $h\leqmp \mathit{std}_R$.
+    \end{prooflist}
+\end{proof}
+
+Bevor wir nun mit einer Diskussion zwischen Karp-Vollständigkeit und Levin-Vollständigkeit fortsetzen, machen wir folgende Beobachtung über $\hQ$ und der Ordnung der Simulation vs. $\P$-Simulation. Diese Beobachtung machen schon \textcite{kobler_is_2000}, aber deren Beweis (vgl. \cite[Thm.~5.2]{messner_simulation_2001}) relativiert insbesondere nicht. Wir zeigen die Aussage hier über eine nichttriviale Verallgemeinerung, welche insbesondere relativiert.
+\begin{theorem}\label{thm:q-simulation}
+    Folgende Aussagen sind äquivalent:
+    \begin{enumerate}
+        \item $\hQ$.
+        \item Sei $L$ eine Menge und $g$, $h$ je Beweissysteme für $L$. Es gilt
+            \[ \text{$g$ simuliert $h$} \iff \text{$g$ $\P$-simuliert $h$}. \]
+        \item Für jedes Beweissystem $g$ gilt: $g$ ist optimal $\iff$ $g$ ist $\P$-optimal.
+        \item Jedes ehrliche Beweissystem $g$ ist $\P$-optimal.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    \begin{prooflist}
+    \item (1)$\implies$(2): Die Richtung von rechts nach links ist klar. Wir zeigen die andere Richtung. Nach Voraussetzung kann $h$ das Beweissystem $g$ simulieren, das heißt es existiert eine (nicht notwendigerweise effiziente) Funktion $\pi$ sodass $g(w)=h(\pi(w))$, und gleichzeitig ist $|\pi(w)|\leq q(|w|)$ für ein geeignetes Polynom $q$.
+
+Betrachte folgende Multifunktion $f$:
+\[ \fset{}f(w) \defeq  \{ y \mid \exists y\in\Sigma^{\leq q(|w|)}, g(w)=h(y) \}. \]
+Es lässt sich leicht zeigen, dass $f\in\NPMV$, über einen geeigneten NPTM-Transduktor. 
+Es ist sogar $f\in\NPMV_t$, denn für jedes $w$ mindestens $\pi(w)\in \fset{}f(w)$.
+
+Mit $\hQ$ gilt nach Satz~\ref{thm:q-orig} also $f\in\NPMV_t\subseteqc \FP$, also existiert eine Funktion $f'\in\FP$ welche eine Verfeinerung von $f$ ist. Diese Funktion übersetzt $g$-Beweise $w$ für $x$ effizient in $h$-Beweise für $x$: 
+Sei $g(w)=x$, dann gilt
+\[ f'(w) = y \quad\text{mit } y\in\fset{}f(w), \text{ also gilt } y\in\Sigma^{\leq q(|w|)}, x=g(w)=h(y). \]
+Damit ist $h(f'(w))=x$ bzw. $f'(w)$ ein $h$-Beweis für $x$, wie gewünscht.
+
+\item (2)$\implies$(3): Klar.
+
+\item (3)$\implies$(4): Klar, denn wenn $g$ ehrlich ist, dann hat es insbesondere auch kurze Beweise. Also ist $g$ auch optimal (Beobachtung~\ref{obs:super-ps-sind-opt}), und nach (3) dann auch $\P$-optimal.
+
+\item (4)$\implies$(1): Wir zeigen, dass mit Voraussetzung (4) auch $\TFNP\subseteqc \FP$ gilt, was nach Satz~\ref{thm:q-orig} äquivalent zu $\hQ$ ist. Sei hierfür $R\in\TFNP$ gegeben.
+
+    Das Standardbeweissystem $\mathit{std}_R$ für $\Sigma^*$ ist ehrlich, also nach (4) auch ein $\P$-optimales Beweissystem für $\Sigma^*$. Beachte, dass auch $\mathrm{id}$ ein Beweissystem für $\Sigma^*$ ist. Also kann $\mathit{std}_R$ das Beweissystem $\mathrm{id}$ $\P$-simulieren. Es existiert also eine Funktion $f\in\FP$ sodass $x=\mathrm{id}(x)=\mathit{std}_R(f(x))$. Heißt, gegeben $x\in\Sigma^*$ ist $f(x)=(x,y)$ mit geeignetem $y\in\Sigma^*$, und es gilt $(x,y)\in R$. Dann kann leicht eine Funktion $f'\in\FP$ angegeben werden, welche eine Verfeinerung von $R$ ist. Damit ist $R\inc \FP$.
+    \end{prooflist}
+\end{proof}
+
 %Bevor wir nun mit einer Diskussion zwischen Karp-Vollständigkeit und Levin-Vollständigkeit fortsetzen, schließen wir diesen Einstieg mit folgender einfachen Beobachtung ab:
 %\begin{observation}\label{obs:spps-honest}
     %Für jede NP-Relation $R$ ist das Standardbeweissystem $\mathit{std}_R$ für $\Proj(R)$ ehrlich, optimal, und hat kurze Beweise.
@@ -108,7 +163,7 @@ Im Speziellen werden wir sehen, dass die Hypothese $\hQ$ so charakterisiert werd
 \begin{theorem}\label{thm:q-as-levin}
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
-        \item Hypothese $\hQ$, bzw. $\TFNP\subseteqc\FP$. 
+        \item Hypothese $\hQ$.
         \item Für jedes Paar von NP-Relationen $A, B$ gilt:
             \[ \Proj(A) \leqmp \Proj(B) \iff A \leqlp B. \]
     \end{enumerate}
@@ -118,25 +173,25 @@ Im Speziellen werden wir sehen, dass die Hypothese $\hQ$ so charakterisiert werd
 \item (1)$\implies$(2): Die Richtung von rechts nach links ist klar. Für die andere Richtung sei $\Proj(A) \leqmp \Proj(B)$ mit $A,B$ NP-Relationen. Sei $q$ hierbei das Polynom was die Zertifikatslänge in $A$ begrenzt.
     Wir wollen nun eine Levin-Reduktion von $A$ auf $B$ angeben. Sei $f\in \FP$ die Funktion, welche die Reduktion $\Proj(A) \leqmp \Proj(B)$ realisiert.
 
-    Definiere folgende Relation $R$ mit
-    \[ \fset{}R(w) = \begin{cases} \{ y\mid y\in\Sigma^{\leq q(|x|)}, (x,y)\in A \} & \text{falls $w=(x,y')$, $(f(x), y')\in B$} \\  \{\epsilon\} & \text{sonst}. \end{cases} \]
-    Es ist leicht zu sehen, dass $R$ eine totale NP-Relation ist. Nach (1) existiert nun eine (totale) Verfeinerung $g\in \FP$ von $R$.
-
-    Damit lässt die Levin-Reduktion von $A$ auf $B$ angeben: wähle $f$ als Reduktionsfunktion, und sei die Funktion $g$ von oben die Translationsfunktion. Dann gilt
+    Definiere folgendes Beweissystem
+    \[ h(w) = \begin{cases} x & \text{falls $w=0\langle x, y\rangle$ und $(x,y)\in A$} \\ x & \text{falls $w=1\langle x, z\rangle$ und $(f(x), z)\in B$} \\ \bot & \text{sonst}. \end{cases}\]
+    Es ist leicht zu sehen, dass $h$ ein ehrliches Beweissystem für $\Proj(A)$ ist.
+    Unter Annahme von (1) kann $\mathit{std}_R$ das Beweissystem $h$ $\P$-simulieren. Mit Beobachtung~\ref{obs:simulation-of-spps} folgt, dass eine Funktion $g$ existiert mit
+    \[ h(w)=x\implies (x, g(w))\in A. \]
+    Wir zeigen nun, dass $A\leqlp B$. Sei hierfür $f$ von oben die entsprechende Reduktionsfunktion.
+    Es gilt
     \begin{gather*}
-        (f(x), y') \in B \implies (x, y')\in\Proj(R) \\
-        \implies ((x, y'), g(x, y'))\in R\\
-        \implies (x, g(x, y')) \in A \text{ nach Def. von $R$}
+        (f(x), z)\in B \implies h(1\langle x, z\rangle)=x \implies (x, \underbrace{g(1\langle x, z\rangle)}_{g'(x, z)})\in A,
     \end{gather*}
-    wie gewünscht. Wir haben $A\leqlp$ via $f, g$.
-\item (2)$\implies$(1): Sei $A$ eine totale NP-Relation
+    heißt mit der Translationsfunktion $g'\in\FP, g'(x,z)=g(1\langle x,z\rangle)$ können wir $B$-Zertifikate für $f(x)$ in $A$-Zertifikate für $x$ umrechnen, wie gewünscht.
+
+\item (2)$\implies$(1): Wir zeigen $\TFNP\subseteqc \FP$; das ist nach Satz~\ref{thm:q-orig} äquivalent zu (1). Sei nun $A$ eine totale NP-Relation
     Definiere nun die NP-Relation
     \[ B \defeq \{ (x, \epsilon) \mid x\in\Sigma^* \}. \]
     Es ist leicht zu sehen das $\Proj(A)=\Sigma^*=\Proj(B)$ und dass $\Proj(A)\leqmp\Proj(B)$ über die Identitätsfunktion.
     Nach Annahme (2) lässt sich nun diese Reduktion zu einer Levin-Reduktion $A\leqlp B$ verstärken, mit Reduktionsfunktion $f\in\FP$ und  Translationsfunktion $g\in\FP$.
-    Für alle $x$ gilt nun $(f(x),\epsilon)\in B$ nach Definition,
-    nach Levin-Reduktion also auch $(x, g(x, \epsilon))\in A$.
-    Definieren wir nun $h(x)\defeq g(x,\epsilon)$, dann ist $(x, h(x))\in A$ für alle $x$, also $h\in\FP$ eine Verfeinerung von $A$, also $A\inc \FP$, wie gewünscht.
+
+    Sei nun ein Wort $x\in\Sigma^*$ gegeben. Hieraus können wir effizient ein $A$-Zertifikat berechnen: es gilt $(f(x),\epsilon)\in B$, also auch $(x, g(x, \epsilon))\in A$. Heißt, $g(x, \epsilon)$ ist unser gesuchtes Zertifikat, welches wir auch effizient berechnen können.
 \end{prooflist}
 \end{proof}
 
@@ -155,25 +210,25 @@ Mit dieser Charakterisierung folgt auch unmittelbar, dass $\hQ$ hinreichend für
     %Nach Satz~\ref{thm:q-as-levin} gilt nun $A\leqlp R$. Also ist $R$ auch $\leqlp$-vollständig für $\FNP$, wie gewünscht und wir haben $\neg\mathsf{KvL}$ gezeigt.
 %\end{proof}
 
-\subsection*{Effektive P-Simulation}
+\subsection*{P-Quasi-Simulation}
 
 Was sind natürlich notwendige Bedingungen für die Hypothese $\mathsf{KvL}$? Diese Frage erscheint tatsächlich wesentlich schwieriger als gedacht. Insbesondere scheint es unklar, ob aus irgend einer von Pudláks Hypothesen die Aussage $\mathsf{KvL}$ folgt.
 
-Um uns dieser Frage dennoch zu nähern, beginnen wir zunächst, die Hypothese $\mathsf{KvL}$ auf weitere Weisen zu charakterisieren. Es ist intuitiv klar, dass für eine feste Sprache $L$ die NP-Relationen für $L$, die ehrlichen Beweissysteme für $L$, und die NPTMs, welche $L$ entscheiden, alle im breitesten Sinn „Zertifikatsschemata“ sind, und alle diese Berechnungsmodelle untereinander umgeschrieben werden können.
+Um uns dieser Frage dennoch zu nähern, beginnen wir zunächst, die Hypothese $\mathsf{KvL}$ auf weitere Weisen zu charakterisieren. Es ist intuitiv ersichtlich, dass für eine feste Sprache $L$ die NP-Relationen für $L$, die ehrlichen Beweissysteme für $L$, und die NPTMs, welche $L$ entscheiden, alle im breitesten Sinn „Zertifikatsschemata“ sind, und alle diese Berechnungsmodelle untereinander umgeschrieben werden können: jede NP-Relation $R$ induziert ein ehrliches Beweissystem ($(x,y)\in R$ ist ein Beweis für $x$), jedes ehrliche Beweissystem $h$ induziert eine NPTM $N$ mit $L(N)=L$ (rate einen $h$-Beweis polynomieller Länge), und jede NPTM $N$ mit $L(N)=L$ induziert eine NP-Relation für $L$ ($w$ ist eine Lösung für $x$ wenn $w$ ein akzeptierender Rechenweg auf $N(x)$).
 
 Wir wollen nun die existierende $\leqlp$-Ordnung auf den NP-Relationen nehmen, und diese auf die ehrlichen Beweissysteme übertragen. Wir definieren hierfür eine abgeschwächte Variante der $\P$-Simulation, welche der $\leqlp$-Reduktion nachempfunden ist.
 \begin{definition}
-    Seien $h,h'$ Beweissysteme für $L$. Das Beweissystem $h$ \emph{$\P$-simuliert effektiv} $h'$ falls Funktionen $f,g\in\FP$ existieren sodass
+    Seien $h,h'$ Beweissysteme für $L$. Das Beweissystem $h$ \emph{$\P$-quasi-simuliert} $h'$ falls Funktionen $f,g\in\FP$ existieren sodass
     \begin{enumerate}
         \item $x\in L \iff f(x)\in L$,
         \item $ h'(w)=f(x) \implies h(g(x, w)) = x. $\qedhere
     \end{enumerate}
     %Kann das Beweissystem $h$ jedes Beweissystem $h'$ für $L$ effektiv $\P$-simulieren, dann ist $h$ \emph{effektiv $\P$-optimal}.
 \end{definition}
-In anderen Worten, falls $h$ das Beweissystem $h'$ effektiv $\P$-simuliert, dann kann $h$ zwar nicht \emph{jeden} $h'$-Beweis $w$ für $x\in L$ in einen $h$-Beweis für (das gleiche) $x$ effizient umrechnen, es kann aber zumindest alle \emph{relevanten} $h'$-Beweise effizient umrechnen, nämlich für jedes $x\in L$ die $h'$-Beweise für $f(x)$ in $h$-Beweise für $x$.
+In anderen Worten, falls $h$ das Beweissystem $h'$ $\P$-quasi-simuliert, dann kann $h$ zwar nicht \emph{jeden} $h'$-Beweis $w$ für $x\in L$ in einen $h$-Beweis für (das gleiche) $x$ effizient umrechnen, es kann aber zumindest alle \emph{relevanten} $h'$-Beweise effizient umrechnen, nämlich für jedes $x\in L$ die $h'$-Beweise für $f(x)$ in $h$-Beweise für $x$.
 %Anstelle „$h$ $\P$-simuliert effektiv $h'$“ ließe sich äquivalent auch $h^{-1}\leqlp h'^{-1}$ schreiben. Beachte, dass die Relation $h^{-1}$ nur Lösungen mit ihren Beweisen reliert.
-Klar ist: $\P$-Simulation impliziert effektive $\P$-Simulation impliziert Simulation.
-Ferner ist diese Art von Simulation eine \emph{effektive} Simulation, in dem Sinn dass die $\P$-invertierbaren Beweissysteme selbst unter effektiver $\P$-Simulation abgeschlossen sind.
+Klar ist: $\P$-Simulation impliziert $\P$-Quasi-Simulation impliziert Simulation.
+Ferner ist diese Art von Simulation eine \emph{effektive} Simulation, in dem Sinn dass die $\P$-invertierbaren Beweissysteme selbst unter $\P$-Quasi-Simulation abgeschlossen sind.
 
 
 Die intuitive Aussage von $\neg\mathsf{KvL}$ „Alle NP-Relationen für NP-vollständige Sprache $L\in\NP$ sind im Wesentlichen gleich“ überträgt sich nun auch auf \emph{ehrliche} Beweissysteme:
@@ -182,101 +237,105 @@ Die intuitive Aussage von $\neg\mathsf{KvL}$ „Alle NP-Relationen für NP-volls
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
         \item Aussage $\neg\mathsf{KvL}$.
+        \item Für alle ehrlichen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
+\[ R \leqlp R_{h}\defeq  \{ (x, w) \mid  \text{$h(w)=x$}\}, \]
         \item Für alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt
-            \[ R \leqlp \defeq R_N = \{ (x, w) \mid  \text{$N(x)$ akz. auf Rechenweg $w$}\}. \]
+            \[ R \leqlp R_N \defeq  \{ (x, w) \mid  \text{$N(x)$ akz. auf Rechenweg $\alpha$}\}. \]
         \item Für alle ehrlichen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
-\[ R \leqlp \defeq R_{h} = \{ (x, w) \mid  \text{$h(w)=x$}\}, \]
-        \item Für alle ehrlichen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
-    \[  \text{$\mathit{std}_R$ $\P$-simuliert effektiv $h$}. \]
+    \[  \text{$\mathit{std}_R$ $\P$-quasi-simuliert $h$}. \]
     \end{enumerate}
 \end{theorem}
 \begin{proof}
     \begin{prooflist}
-    \item (1)$\implies$(2): Klar, denn die Relation $R_N$ ist eine NP-Relation und es gilt $\Proj(R_N)=L(N)=\Proj(R)$ und damit die Projektion von $R_N$ $\leqmp$-vollständig. Nach Aussage (1) gilt also nun, dass $R\leqlp R_N$, wie gewünscht.
-    \item (2)$\implies$(3): Sei $h$ ein solches ehrliches Beweissystem, und $q$ so gewählt, dass $q(|h(w)|)\geq |w|$. Betrachte nun die NPTM $N$, welche auf Eingabe $x$ einen Beweis $w$ der Länge $\leq q(|x|)$ rät, und genau dann akzeptiert wenn $h(w)=x$.
-        Es ist klar, dass $L(N)=\Proj(R)$, und nach (2) haben wir $R \leqlp  R_N$.
-        Seien $f, g\in\FP$ die Reduktions- bzw. Translationsfunktion, welche die obige $\leqlp$-Reduktion realisieren.
+    \item (1)$\implies$(2): Klar, denn die Relation $R_h$ ist eine NP-Relation und es gilt $\Proj(R_h)=\Proj(R)$ und damit die Projektion von $R_h$ $\leqmp$-vollständig. Nach Aussage (1) gilt also nun, dass $R\leqlp R_N$, wie gewünscht.
 
-        Aus Ehrlichkeit von $h$ lässt sich leicht sehen, dass $R_h$ tatsächlich eine NP-Relation (mit Zertifikatsschranke $q$) ist.
-        Wir haben nun
+    \item (2)$\implies$(1): Sei $Q$ eine NP-Relation, wobei $\Proj(Q)$ $\leqmp$-vollständig ist. Wir werden zeigen, dass $R\leqlp Q$, wobei dann auch $Q$ $\leqlp$-vollständig ist (Beob.~\ref{lemma:fnp-completeness}), wie gewünscht.
+        Die Argumentation verläuft hierbei ähnlich wie bei Satz~\ref{thm:q-as-levin}. Sei $f\in\FP$ die Funktion, welche $\Proj(R)\leqmp \Proj(Q)$ realsiert.
+        Nun konstruieren wir folgendes ehrliche Beweissystem $h$:
+        \[ h(w) = \begin{cases} x & \text{falls $w=0\langle x, y\rangle$ und $(x,y)\in R$} \\ x & \text{falls $w=1\langle x, z\rangle$ und $(f(x), z)\in Q$} \\ \bot & \text{sonst}. \end{cases}\]
+Es lässt sich leicht zeigen, dass $h$ ein ehrliches Beweissystem für $\Proj(R)$ ist.
+
+        Nach (2) gilt nun $R \leqlp R_h$. Ebenso gilt $R_h\leqlp Q$, denn wir haben
+        \[ (f(x), z)\in Q \implies h(1\langle x,z\rangle )=x \implies (x, \underbrace{(x,z)}_{g(x,z)})\in R_h, \]
+        also realisiert $f$ als Reduktionsfunktion und $g(x,z)=(1\langle x,z\rangle )$ als Translationsfunktion die Levin-Reduktion $R_h\leqlp Q$. Damit gilt $R\leqlp R_h\leqlp Q$ wie gewünscht.
+
+    \item (2)$\iff$(3): Klar, denn jede NPTM $N$ induziert ein ehrliches Beweissystem $h_N$ (Rechenweg von $N(x)$ ist $h_N$-Beweis für $x$), und jedes ehrliche Beweissystem induziert eine NPTM $N_h$ (rate Beweis, und akzeptiere falls korrekter $h$-Beweis). Es ist leicht zu sehen, dass $R_{N_h}\leqlp R_h$ und $R_h\leqlp R_{N_h}$.
+
+    \item (2)$\iff$(4): Sei $h$ ein ehrliches Beweissystem. 
+        Es gelten folgende Äquivalenzen
         \begin{gather*}
-            (f(x),w)\in R_{h} \implies h(w)=f(x)\\
-            \implies N(f(x)) \text{ akz. auf Rechenweg $\alpha_w$}
-        \intertext{wobei $\alpha_w$ derjenige Rechenweg sein soll, welcher den Beweis $w$, $|w|\leq q(|h(w)|)=q(|x|)$ rät,}
-            \implies (f(x), \alpha_w) \in R_N\\
-            \implies (x, \underbrace{g(x, \alpha_w)}_{g'(x, w)})\in R.
+            R\leqlp R_h \iff \exists f,g\in\FP\, \left[ (f(x), z)\in R_h \rightarrow (x, g(x,z))\in R\right]\\
+            \iff \exists f,g\in\FP\, \left[ h(f(x), z)=f(x) \rightarrow \mathit{std}_R(x, g(x,z))=x \right]\\
+            \iff \exists f,g'\in\FP\, \left[ h(f(x), z)=f(x) \rightarrow \mathit{std}_R(g'(x,z))=x \right]\\
+            \iff \text{$\mathit{std}_R$ $\P$-quasi-simuliert $h$},
         \end{gather*}
-        Damit sehen wir, dass mittels $f$ und $g'$, $g'(x,w)=g(x, \alpha_w)$ die Reduktion $R\leqlp R_{h}$ realisiert wird, wie gewünscht
-    \item (3)$\implies$(4): 
-        Sei $h$ ein solches ehrliches Beweissystem, und $q$ so gewählt, dass $q(|h(w)|)\geq |w|$. Nach (3) gilt $R\leqlp R_{h}$.
-        Seien $f, g\in\FP$ die Reduktions- bzw. Translationsfunktion, welche diese $\leqlp$-Reduktion realisieren.
+        wobei hier die existentizell quantifizierte Variable $f$ nur über Reduktionsfunktionen von $\Proj(R)$ auf $\Proj(R)$ reichen soll.\qedhere
 
-        Nun gilt $x\in \Proj(R) \leftrightarrow f(x)\in \Proj(R)$, und wir haben
-        \[ h(w)=f(x) \implies (f(x),w)\in R_h \implies (x, g(x,w))\in R \implies \mathit{std}_R(\underbrace{x, g(x,w)}_{g'(x, w)})=x. \]
-        Damit realisieren $f$ und $g'$, $g'(x,w)=(x, g(x,w))$ die effektive $\P$-Simulation von $h$ durch $\mathit{std}_R$.
+    %\item (2)$\implies$(3): Sei $h$ ein solches ehrliches Beweissystem, und $q$ so gewählt, dass $q(|h(w)|)\geq |w|$. Betrachte nun die NPTM $N$, welche auf Eingabe $x$ einen Beweis $w$ der Länge $\leq q(|x|)$ rät, und genau dann akzeptiert wenn $h(w)=x$.
+        %Es ist klar, dass $L(N)=\Proj(R)$, und nach (2) haben wir $R \leqlp  R_N$.
+        %%Seien $f, g\in\FP$ die Reduktions- bzw. Translationsfunktion, welche die obige $\leqlp$-Reduktion realisieren.
 
-    \item (4)$\implies$(1): Sei $Q$ eine NP-Relation, wobei $\Proj(Q)$ $\leqmp$-vollständig ist. Wir werden zeigen, dass $R\leqlp Q$, wobei dann auch $Q$ $\leqlp$-vollständig ist (Beob.~\ref{lemma:fnp-completeness}), wie gewünscht.
+        %Aus Ehrlichkeit von $h$ lässt sich leicht sehen, dass $R_h$ tatsächlich eine NP-Relation (mit Zertifikatsschranke $q$) ist.
+        %Ferner lässt sich leicht die Reduktion $R_N \leqlp R_h$ angeben: wenn $(x,w)\in R_h$, dann auch $(x, \alpha_w)\in R_N$, wobei $\alpha_w$ jener Rechenweg ist, welcher den Beweis $w$ rät.
+        %Damit gilt $R\leqlp R_N \leqlp R_h$, wie gewünscht.
 
-        Sei zunächst $f\in\FP$ die Funktion, welche die Reduktion $x\in \Proj(R)\leftrightarrow f(x)\in\Proj(Q)$ realisiert.
-        Nun konstruieren wir folgendes ehrliche Beweissystem $h$ für $R$:
-        \[ h(x,y) = \begin{cases} x & \text{falls $(f(x), y)\in Q$}\\ \bot & \text{sonst}. \end{cases}\]
-        Es lässt sich leicht zeigen, dass $h$ ein Beweissystem ist.
-        Wir zeigen nun, dass $h$ auch ehrlich ist. Sei hierfür $p$ die Laufzeitschranke von $f$, und $q$ die Zertifikatsschranke von $Q$.
-        Seien hierfür $x, y$ gegeben sodass $h(x,y)=x$. Damit gilt $(f(x), y)\in Q$, also
-        \[ |(x,y)| = 2+2|x|+2|y| \leq 2+2|x|+2q(|f(x)|) \leq 2+ 2|x|+ 2q(p(|x|)), \]
-        und damit die Ausgabe $x$ nicht superpolynomiell kürzer als die Eingabe $(x,y)$.
+    %\item (3)$\implies$(2): Analog, denn eine NPTM $N$ induziert ein ehrliches Beweissystem $h$ sodass $R_h\leqlp R_N$.
 
-        Nach (4) kann nun $\mathit{std}_R$ das Beweissystem $h$ effektiv $\P$-simulieren.
-        Seien $f', g'\in\FP$ diejenigen Funktion, welche dies realisieren.
-        Wir zeigen nun $R\leqlp Q$. Die zugehörige Reduktionsfunktion ist hierbei $f''= f\circ f'$. 
-        Wir haben
-        \[ (f(f'(x)), y)\in Q \implies h(f'(x),y)=f'(x) \implies \mathit{std}_R(\underbrace{g'(f'(x), y)}_{g''(x,y)})=x, \]
-        und wir können insbesondere $g'(f'(x), y)$ als $(x, w)$ schreiben. Dann gilt $(x,w)\in R$.
-        Die Rückübersetzung $g''(x,y)=g'(f'(x), y)=(x,w)$ ist dabei effizient möglich.
+    %\item (3)$\implies$(4): Sei $h$ ein ehrliches Beweissystem. 
+        %Nach (3) gilt $R\leqlp R_h$, via $f,g\in\FP$. Ferner haben wir
+        %\[ (f(x), w)\in R_h \rightarrow (x,g(x,w))\in R, \]
+        %also 
+        %\[ h(w)=f(x) \rightarrow \mathit{std}_R(\underbrace{x,g(x,w)}_{g'(x,w)})=x, \]
+        %also realisiert $f$ und $g'(x,w)=(x,g(x,w))$ die $\P$-quasi-Simulation von $h$ durch $\mathit{std}_R$.
 
-        Damit realisieren $f'', g''$ die Reduktion $Q\leqlp R$, wie gewünscht.
+    %\item (4)$\implies$(3): Analog. Sei $h$ ein ehrliches Beweissystem. Das Beweissystem $\mathit{std}_R$ kann nach (4) das Beweissystem $h$ $\P$-quasi-simulieren, via $f,g\in\FP$. 
+        %Wir behaupten dass $R\leqlp R_h$, mit Reduktionsfunktion $f$. Hierfür zeigen wir, gegeben $w$ mit $(f(x),w)\in R_h$, wie wir $w$ effizient in eine $R$-Lösung für $x$ übersetzen können.
+        %Es gilt $h(w)=f(x)$ und nach Quasi-Simultation also $\mathit{std}_R(g(x,w))=x$. Dann können wir $g(x,w)$ schreiben als $(x, y)$ für ein $y\in\Sigma^*$. Insbesondere gilt dann $(x, y)\in R$, heißt $y$ ist eine gesuchte $R$-Lösung für $x$.
     \end{prooflist}
 \end{proof}
 
-Mittels unserem Begriff der effektiven $\P$-Simulation können wir nun auch die Hypothese $\hSAT$ auf natürliche Weise verstärken:
-\begin{conjecture}[$\mathsf{SAT^{eff}}$]
-    Es existiert keine $\leqmp$-vollständige Menge $L$ für $\NP$ mit einem Beweissystem $h$, welches alle anderen ehrlichen Beweissysteme für $L$ effektiv $\P$-simulieren kann. 
-\end{conjecture}
-Diese Verstärkung ist am sichtbarsten, wenn wir uns überlegen, wie die Negation $\neg\hSAT$ zu $\neg\mathsf{SAT^{eff}}$ in zwei Aspekten abgeschwächt wird.
-Erstens der Umfang: es wird nicht mehr verlangt, dass ein Beweissystem $h$ existiert, welche \emph{alle} Beweissysteme $\P$-simulieren kann, sondern nur noch alle \emph{ehrlichen} Beweissysteme.
-Zweitens die Beziehung: es wird nicht mehr $\P$-Simulation, sondern nur noch \emph{effektive} $\P$-Simulation vorausgesetzt.
+Unter dieser Charakterisierung erhalten wir einen zweiten trivialen Beweis von Korollar~\ref{cor:kvl-implies-q}: $\hQ$ ist hinreichend für $\neg\mathsf{KvL}$, denn unter Annahme von $\hQ$ ist jedes ehrliche Beweissystem $\P$-optimal, heißt auch das Standardbeweissystem $\mathit{std}_{\mathtt{rKAN}}$ für $\mathtt{KAN}$ ist $\P$-optimal, kann also insbesondere auch alle ehrlichen Beweissysteme $h$ $\P$-quasi-simulieren.
 
-Wir sehen nun, dass $\mathsf{SAT^{eff}}$ eine Verstärkung von sowohl $\hSAT$ als auch $\mathsf{KvL}$ ist:
+Mittels unserem Begriff der $\P$-Quasi-Simulation können wir nun auch die Hypothese $\hSAT$ auf natürliche Weise verstärken:
+\begin{conjecture}[$\mathsf{SAT^{q}}$]
+    Es existiert keine $\leqmp$-vollständige Menge $L$ für $\NP$ mit einem Beweissystem $h$, welches alle anderen ehrlichen Beweissysteme für $L$ $\P$-quasi-simulieren kann. 
+\end{conjecture}
+Diese Verstärkung ist am sichtbarsten, wenn wir uns überlegen, wie die Negation $\neg\hSAT$ zu $\neg\mathsf{SAT^{q}}$ in zwei Aspekten abgeschwächt wird.
+Erstens der Umfang: es wird nicht mehr verlangt, dass ein Beweissystem $h$ existiert, welche \emph{alle} Beweissysteme $\P$-simulieren kann, sondern nur noch alle \emph{ehrlichen} Beweissysteme.
+Zweitens die Beziehung: es wird nicht mehr $\P$-Simulation, sondern nur noch $\P$-\emph{Quasi}-Simulation vorausgesetzt.
+
+Wir sehen nun, dass $\mathsf{SAT^{q}}$ eine Verstärkung von sowohl $\hSAT$ als auch $\mathsf{KvL}$ ist:
 \begin{corollary}\label{cor:sateff-generalizes-sat}
     \begin{enumerate}
-        \item $\mathsf{SAT^{eff}}\implies \hSAT$
-        \item $\mathsf{SAT^{eff}}\implies \mathsf{KvL}$
+        \item $\mathsf{SAT^{q}}\implies \hSAT$
+        \item $\mathsf{SAT^{q}}\implies \mathsf{KvL}$
     \end{enumerate}
 \end{corollary}
 \begin{proof}
 \begin{prooflist}
-\item Zu (1): Klar aus Kontraposition. Wenn $\neg\hSAT$, dann existiert für eine $\leqmp$-vollständige Menge $L\in\NP$ ein $\P$-optimales Beweissystem $h$ für $L$ existiert. Also kann $h$ alle anderen Beweissysteme $\P$-simulieren, und damit insbesondere auch alle ehrlichen Beweissysteme $h'$ effektiv $\P$-simulieren.
+\item Zu (1): Klar aus Kontraposition. Wenn $\neg\hSAT$, dann existiert für eine $\leqmp$-vollständige Menge $L\in\NP$ ein $\P$-optimales Beweissystem $h$ für $L$ existiert. Also kann $h$ alle anderen Beweissysteme $\P$-simulieren, und damit insbesondere auch alle ehrlichen Beweissysteme $h'$ $\P$-quasi-simulieren.
 
-\item Zu (2): Wieder klar aus Kontraposition. Unter $\neg\mathsf{KvL}$ folgt mit der Formulierung aus Satz~\ref{thm:kvl-ps}(4), dass für jede NP-Relation $R$ mit $\Proj(R)$ $\leqmp$-vollständig, das Standardbeweissystem $\mathit{std}_R$ alle ehrlichen Beweissysteme für $\Proj(R)$ effektiv $\P$-simulieren kann. Das gilt dann insbesondere auch für die $\leqlp$-vollständige NP-Relation $\mathtt{rKAN}$, also hat die $\leqmp$-vollständige Menge $\mathtt{KAN}$ \emph{ein} Beweissystem, welches alle ehrlichen Beweissysteme effektiv $\P$-simulieren kann.
+\item Zu (2): Wieder klar aus Kontraposition. Unter $\neg\mathsf{KvL}$ folgt mit der Formulierung aus Satz~\ref{thm:kvl-ps}(4), dass für jede NP-Relation $R$ mit $\Proj(R)$ $\leqmp$-vollständig, das Standardbeweissystem $\mathit{std}_R$ alle ehrlichen Beweissysteme für $\Proj(R)$ $\P$-quasi-simulieren kann. Das gilt dann insbesondere auch für die $\leqlp$-vollständige NP-Relation $\mathtt{rKAN}$, also hat die $\leqmp$-vollständige Menge $\mathtt{KAN}$ \emph{ein} Beweissystem, welches alle ehrlichen Beweissysteme $\P$-quasi-simulieren kann.
 \end{prooflist}
 \end{proof}
 
-Wir haben damit also je eine notwendige ($\neg\hQ$) und eine hinreichende Hypothese ($\mathsf{SAT^{eff}}$) für $\mathsf{KvL}$. Durch die Charakterisierung von $\neg\mathsf{KvL}$ durch Satz~\ref{thm:kvl-ps} über Beweissysteme ergibt sich eine interessante Ähnlichkeit zur Hypothese $\hQ$. Wir wollen diese beiden Hypothesen im Folgenden kurz gegenüberstellen.
+Wir haben damit also je eine notwendige ($\neg\hQ$) und eine hinreichende Hypothese ($\mathsf{SAT^{q}}$) für $\mathsf{KvL}$. Durch die Charakterisierung von $\neg\mathsf{KvL}$ durch Satz~\ref{thm:kvl-ps} über Beweissysteme ergibt sich eine interessante Ähnlichkeit zur Hypothese $\hQ$. Wir wollen diese beiden Hypothesen im Folgenden kurz gegenüberstellen.
 Zur Anschaulichkeit beziehe ich mich hierbei auf die NP-Relation $\mathtt{rSAT}$. (Durch Ergebnisse im nächsten Abschnitt wird klar, dass sich dieses Argument auch auf $\mathtt{rKAN}$ relativierend überträgt.)
+
 Wir haben
-\begin{itemize}
+\begin{itemize}[midpenalty=10000]
     \item $\hQ$ genau dann wenn $\mathit{sat}$ jedes ehrliche Beweissystem $\P$-simulieren kann (Satz~\ref{thm:q-fenner}),\sidenote{Satz~\ref{thm:q-fenner} macht zwar nur Aussagen über NPTMs, aber es ist leicht zu sehen, dass diese mit den ehrlichen Beweissystemen identifiziert werden können. Vgl. auch Satz~\ref{thm:q-fenner-generalized}.}
-    \item $\neg\mathsf{KvL}$ genau dann wenn $\mathit{sat}$ jedes ehrliche Beweissystem effektiv $\P$-simulieren kann (Satz~\ref{thm:kvl-ps}).
+    \item $\neg\mathsf{KvL}$ genau dann wenn $\mathit{sat}$ jedes ehrliche Beweissystem $\P$-quasi-simulieren kann (Satz~\ref{thm:kvl-ps}).
 \end{itemize}
 
-Insbesondere vermute ich, dass möglicherweise sogar $\hQ\Leftrightarrow\neg\mathsf{KvL}$ gelten könnte. Die Richtung von links nach rechts haben wir bereits in Korollar~\ref{cor:kvl-implies-q} gesehen. Für die Richtung von rechts nach links möchte ich nun plausibilisieren, dass $\neg\mathsf{KvL}\land\neg\hQ$ zu einem Widerspruch führt.
+Insbesondere vermute ich, dass möglicherweise sogar $\hQ\Leftrightarrow\neg\mathsf{KvL}$ gelten könnte. Die Richtung von links nach rechts haben wir bereits in Korollar~\ref{cor:kvl-implies-q} gesehen, und ist ferner in der Charakterisierung hier trivial. Für die Richtung von rechts nach links möchte ich nun plausibilisieren, dass $\neg\mathsf{KvL}\land\neg\hQ$ zu einem Widerspruch führt.
 
 Unter Annahme von $\neg\hQ$ folgt nach Satz~\ref{thm:q-fenner}, dass das Standardbeweissystem $\mathit{sat}$ von $\mathtt{rSAT}$ ein bestimmtes ehrliche Beweissystem $h$ nicht $\P$-simulieren kann.
 Wir haben also für alle Funktionen $f\in\FP$ 
 \begin{equation} h(w)=\psi \rlap{\hspace*{2pt}\raisebox{2.3pt}{$\quad\not$}}\implies  \text{$f(w)$ erfüllt $\psi$}.\label{eq:weak-irreducibility} \end{equation}
 In anderen Worten: obwohl wir einen $h$-Beweis $w$ für die Erfüllbarkeit der Formel $\phi$ haben, können wir nicht effizient eine erfüllende Belegung aus $w$ berechnen.
 
-Nun gilt aber nach Annahme auch $\neg\mathsf{KvL}$. Über Satz~\ref{thm:kvl-ps}(4) gilt, dass $\mathit{sat}$ das ehrliche Beweissystem $h$ effektiv $\P$-simulieren kann. Wir haben also zwei Funktionen $f', g'\in\FP$ sodass
+Nun gilt aber nach Annahme auch $\neg\mathsf{KvL}$. Über Satz~\ref{thm:kvl-ps}(4) gilt, dass $\mathit{sat}$ das ehrliche Beweissystem $h$ $\P$-quasi-simulieren kann. Wir haben also zwei Funktionen $f', g'\in\FP$ sodass
 \begin{equation}\label{eq:effective-simulation} h(w)=f'(\phi) \implies \text{$g'(\phi, w)$ erfüllt $\phi$}. \end{equation}
 Beachte, dass die Funktion $f'$ notwendigerweise ungleich $\mathrm{id}$ ist. Wir können $f'$ so verstehen, dass diese $\phi$ gewissermaßen in eine einfachere Form bringt, für welche $h$-Beweise effizient verarbeitet werden können.
 
@@ -289,7 +348,7 @@ Zum einen zur Charakterisierung von $\mathsf{KvL}$:
 Wir konnten zwar $\mathsf{KvL}$ u.a. als Aussage über Beweissysteme formulieren, aber sind auch noch weitere äquivalente Charakterisierungen möglich, z.B. ähnlich wie bei $\hQ$?
 
 Zum anderen die Beziehungen zwischen $\mathsf{KvL}$ und anderen Hypothesen bzw. Annahmen.
-Gibt es natürliche (z.B. kryptographische) Annahmen, welche hinreichend für $\mathsf{KvL}$ sind? Wie ist die Beziehung zu den anderen Pudlákschen Hypothesen? Wie verhält sich insbesondere $\hSAT$ zu $\mathsf{SAT^{eff}}$? 
+Gibt es natürliche (z.B. kryptographische) Annahmen, welche hinreichend für $\mathsf{KvL}$ sind? Wie ist die Beziehung zu den anderen Pudlákschen Hypothesen? Wie verhält sich insbesondere $\hSAT$ zu $\mathsf{SAT^{q}}$? 
 Diese Fragen werden wir zum Teil in Kapitel~\ref{chap:orakel} klären; dort wird ein Orakel konstruiert, welches zeigt, dass selbst unter der Annahme von $\hDisjNP\land\hUP$ es nicht möglich ist, mit relativierenden Beweismethoden auf $\mathsf{KvL}$ zu schließen.
 Wir kommen hierauf am Ende dieses Kapitels noch einmal zurück.
 
@@ -300,17 +359,12 @@ Weitere Forschung in diese Richtung erscheint vielversprechend.
 
 Wie im Einstieg des Kapitels angesprochen, geben \textcite{fenner_inverting_2003} bzw. \textcite{kobler_is_2000} äquivalente Charakterisierungen der Hypothese $\hQ$ an, welche sich im Wesentlichen auf auf der $\leqlp$-Vollständigkeit von $\mathtt{rSAT}$ aufbauen (Satz~\ref{thm:q-fenner} und \ref{thm:q-messner}).
 Wir wiederholen hier noch einmal die Aussagen, aber mit einer etwas abstrakteren Notation.
-Ganz ähnlich wie NP-Relationen ein Standardbeweissystem induzieren, können wir auch das Standardbeweissystem bezüglich einer NPTM definieren:
-\begin{definition}[Standardbeweissystem von NPTM]
-    Sei $N$ eine NPTM. Wir definieren bezüglich $N$ das das \emph{Standardbeweissystem} $\mathit{std}_N$ für $L(N)$ wie folgt:
-    \[ \mathit{std}_N(w) \defeq \begin{cases} x & \text{wenn $w=(x,\alpha)$ und $N(x)$ akzeptiert auf RW $\alpha$,}\\
-    \bot & \text{sonst}.\end{cases} \qedhere \] 
-\end{definition}
-%Ähnlich wie bei Standardbeweissysteme für NP-Relationen ist $\mathit{std}_N$ für jede NPTM $N$ ehrlich, optimal, und hat kurze Beweise.
-So können wir die anfangs genannten Charakterisierungen folgendermaßen notieren:
+Wie schon angesprochen, können für eine feste Menge $L$ die ehrlichen Beweissysteme für $L$ mit den NPTMs identifiziert werden, welche $L$ entscheiden.
+So können wir die anfangs genannten Charakterisierung von \citeauthor{fenner_inverting_2003} stattdessen folgendermaßen notieren:
 \begin{reptheorem}{Satz}{thm:q-fenner}[\cite{fenner_inverting_2003}]
-    Es gilt $\hQ$ genau dann wenn $\mathit{std}_N\leqmp\mathit{sat}$ für jede NPTM $N$ mit $L(N)=\mathtt{SAT}$.
+    Es gilt $\hQ$ genau dann wenn $h\leqmp\mathit{sat}$ für jedes ehrliche Beweissystem $h$ für $\mathtt{SAT}$. 
 \end{reptheorem}
+Die Charakterisierung von \citeauthor{kobler_is_2000} können wir auf ähnliche Weise über Standardbeweissysteme von NP-Relationen schreiben.
 \begin{reptheorem}{Satz}{thm:q-messner}[\cite{kobler_is_2000}]
     Es gilt $\hQ$ genau dann wenn das Standardbeweissystem $\mathit{std}_\mathtt{rSAT}$ $\P$-optimal ist.
 \end{reptheorem}
@@ -330,47 +384,27 @@ Das ist für den zweiten Satz~\ref{thm:q-messner} ohne weitere zusätzliche Bedi
 \begin{proof}
     \begin{prooflist}
     \item (1)$\implies$(2): 
-        Sei $p$ die Zertifikatsschranke von $R$.
-        Nach Satz~\ref{thm:q-orig} können wir voraussetzen, dass $\TFNP\subseteqc\FP$.
-        Wir zeigen nun, dass $\mathit{std}_R$ $\P$-optimal ist. Sei dafür $h$ ein beliebiges Beweissystem für $\Proj(R)$.
-        Definiere nun die NP-Relation $Q$ mit
-        \[ \fset{Q}(x, w) = \begin{cases} \{y \mid y\in\Sigma^{\leq p(|x|)}.\, (x,y)\in R \} & \text{wenn $h(w)=x$} \\ \{\epsilon\} & \text{sonst.} \end{cases} \]
-        Es ist leicht zu sehen, dass $Q$ eine totale NP-Relation ist. Insbesondere im ersten Fall gilt $x\in \img(h)=\Proj(R)$, also existiert auch mindestens ein $y\in\fset{}R(x)$.
-        Nach Annahme gilt also $Q\inc\FP$, sei also $q\in\FP$ eine Verfeinerung von $Q$.
+        Das Standardbeweissystem $\mathit{std}_R$ ist ehrlich. Nach Satz~\ref{thm:q-simulation} ist $\mathit{std}_R$ damit $\P$-optimal.
 
-        Wir zeigen nun $h\leqmp \mathit{std}_R$. Sei hierfür ein $h$-Beweis $w$ für $x$ gegeben.
-        Es gilt nun
-        \begin{gather*}
-            h(w)=x\implies \fset{}Q(x,w) = \fset{}R(x)\\
-            \implies q(x,w) \in \fset{}Q(x, w)=\fset{}R(x)\\
-            \implies (x, q(x,w))\in R \implies \mathit{std}_R(x, q(x,w))=x.
-        \end{gather*}
-        Wir haben also den $h$-Beweis $w$ in den $\mathit{std}_R$-Beweis $q(x,w)$ umschreiben können. Es ist einfach zu sehen, dass dies, gegeben $w$, effizient in $\FP$ möglich ist.
-
-    \item (2)$\implies$(1): Wieder reicht es nach Satz~\ref{thm:q-orig} aus zu zeigen, dass $\TFNP\subseteqc \FP$. Sei daher $Q\in\TFNP$ beliebig.
-    Wir wollen eine Verfeinerung von $Q$ in $\FP$ angeben, bzw. in anderen Worten effizient Zertifikate für Instanzen finden.
+    \item (2)$\implies$(1): Wir zeigen die Aussage, dass $\TFNP\subseteqc\FP$.  Nach Satz~\ref{thm:q-orig} ist das äquivalent zu $\hQ$. Sei hierfür ein solches $Q\in\TFNP$ gegeben
 
     Nachdem $R$ $\leqlp$-vollständig ist, haben wir Funktionen $f,g\in\FP$ mit
-    \[ x\in \Proj(Q)=\Sigma^*\implies  f(x)\in\Proj(R), \quad (f(x), y')\in R\implies (x,g(x,y'))\in Q. \]
-    Definiere nun 
-    \[ h(w) = \begin{cases} x & \text{wenn $w=0\langle x, y\rangle$, $(x,y)\in R$}\\ x & \text{wenn $w=1\langle x, z\rangle$, $f(z)=x$} \\ \bot & \text{sonst} \end{cases}\]
-    Wir verifizieren, dass $h$ ein Beweissystem für $\Proj(R)$ ist.
-    Wenn im ersten Fall $(x,y)\in R$ gilt, dann offenbar auch $h(0\langle x,y\rangle)=x\in\Proj(R)$.
-    Wenn im zweiten Fall $f(z)=x$ gilt, dann insbesondere $f(z)\in\Proj(R)$ und wir haben $h(1\langle x,z\rangle)=x=f(z)\in \Proj(R)$.
-
-    Also ist $h$ ein Beweissystem für $\Proj(R)$. Nach (2) ist nun also auch $h\leq \mathit{std}_R$, heißt es existiert $r\in\FP$ sodass $h(w)=\mathit{std}_R(r(w))$.
-
-    Sei nun ein beliebiges $x\in\Sigma^*$ gegeben. Wir zeigen nun, wie wir effizient ein $y$ finden können sodass $(x,y)\in Q$. Es gilt nun
-    \[ h(\underbrace{1\langle f(x), x\rangle}_w)=f(x) \implies \mathit{std}_R(r(w))=f(x) \]
-    Nach Definition muss dabei $r(w)=(f(x), y')$ für geeignetes $y'$ gelten.
-    Wir haben also $\mathit{std}_R(f(x), y')=f(x)$ und es gilt $(f(x), y')\in R$. Nach Wahl von $g$ gilt dann $(x, g(x, y'))\in Q$, heißt $g(x, y')$ ist unser gesuchtes Zertifikat. 
-    \end{prooflist}
+    \[ x\in \Proj(Q)=\Sigma^*\implies  f(x)\in\Proj(R), \quad (f(x), z)\in R\implies (x,g(x,z))\in Q. \]
+    Definiere nun
+    \[ h(w) = \begin{cases} f(x) & \text{wenn $w=0x$}\\ x & \text{wenn $w=1\langle x, y\rangle$ und $(x,y)\in R$} \\  \bot & \text{sonst} \end{cases}.\]
+    Es ist leicht zu sehen, dass $h$ ein Beweissystem für $\Proj(R)$ ist.
+    Nach (2) gilt also $h\leqmp \mathit{std}_R$. Mit Beobachtung~\ref{obs:simulation-of-spps} haben wir eine Funktion $r\in\FP$, sodass
+    \[ h(w)=x \implies (x, r(w))\in R. \]
+    Damit gilt insbesondere
+    \[ h(0x)=f(x)\implies (f(x), r(0x))\in R \implies (x, \underbrace{g(r(0x))}_{q(x)})\in Q. \]
+    Damit ist $q(x) = g(r(0x))$, $q\in\FP$ eine Verfeinerung von $Q$, wie gewünscht.
+\end{prooflist}
 \end{proof}
 
 
 Die andere Charakterisierung von \citeauthor{fenner_inverting_2003} ist umfangreicher.
-Einerseits ist klar, dass „$\mathit{std}_N\leqmp\mathit{std}_R$“ schwächer ist als „$\mathit{std}_R$ ist $\P$-optimal“, was ja nach vorigem Satz äquivalent zu $\hQ$ ist.
-Andererseits gilt die Umkehrung scheinbar nicht für alle $\leqlp$-vollständigen NP-Relationen $R$. 
+Zunächst ist klar, dass „$h\leqmp\mathit{std}_R$ für alle ehrlichen Beweissysteme“ schwächer ist als „$h\leqmp\mathit{std}_R$ für alle Beweissysyteme“, was ja nach vorigem Satz äquivalent zu $\hQ$ ist.
+Tatsächlich gilt die Umkehrung scheinbar nicht für alle $\leqlp$-vollständigen NP-Relationen $R$. 
 Die Autoren zeigen diese Umkehrung für die NP-Relation $\mathtt{rSAT}$ aus, und nutzen hierbei die Eigenschaft aus, dass die entsprechenden Reduktionsfunktionen alle $\P$-invertierbar sind, bzw. in anderen Worten, die $\leq_\mathrm{L,1,i}^\mathrm p$-Vollständigkeit von $\mathtt{rSAT}$.
 
 Wir werden im Folgenden diese Voraussetzung abschwächen, und betrachten dabei folgende Verstärkung der $\leqmp$-Reduktion.
@@ -382,47 +416,33 @@ Wir werden im Folgenden diese Voraussetzung abschwächen, und betrachten dabei f
 Beachte, dass $\leq_\mathrm{L,h}^\mathrm p$ zwischen $\leqlp$ und $\leq_\mathrm{L,1,i}^\mathrm{p}$ (d.h. die Reduktionsfunktion ist $\P$-invertierbar) liegt.
 Damit impliziert $\leq_\mathrm{L,1,i}^\mathrm{p}$-Vollständigkeit eine  $\leq_\mathrm{L,h}^\mathrm p$-Vollständigkeit, und diese eine $\leqlp$-Vollständigkeit.
 
-Unter der Voraussetzung der $\leq_\mathrm{L,h}^\mathrm p$-Vollständigkeit können wir nun Satz~\ref{thm:q-fenner} generalisieren und relativieren:
+Mit dem Begriff der ehrlichen Reduzierarkeit können wir den vorigen Beweis von Satz~\ref{thm:q-messner-generalized} erweitern, womit wir Satz~\ref{thm:q-fenner} generalisieren und relativieren. 
 \begin{theorem}\label{thm:q-fenner-generalized}
     Sei $R$ eine beliebige $\leq_\mathrm{L,h}^\mathrm p$-vollständige NP-Relation.
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
         \item Aussage $\hQ$.
-        \item Für jedes ehrliche Beweissystem für $\Proj(R)$ gilt $h\leqmp \mathit{std}_R$.
-        \item Für jede NPTM $N$ mit $L(N)=\Proj(R)$ gilt $\mathit{std}_N\leqmp\mathit{std}_R$.
+        \item Das Standardbeweissystem $\mathit{std}_R$ ist $\P$-optimal.
+        \item Für jedes ehrliche Beweissystem $h$ für $\Proj(R)$ gilt $h\leqmp \mathit{std}_R$.
     \end{enumerate}
 \end{theorem}
 \begin{proof}
     \begin{prooflist}
-        \item (1)$\implies$(2): Klar, denn mit Satz~\ref{thm:q-messner-generalized} folgt aus $\hQ$, dass $\mathit{std}_R$ $\P$-optimal ist, heißt es gilt auch $h\leqmp \mathit{std}_R$.
+    \item (1)$\implies$(2): Klar, nach Satz~\ref{thm:q-simulation} ist mit (1) das Beweissystem $\mathit{std}_R$ $\P$-optimal.
 
-        \item (2)$\implies$(3): Klar, denn $\mathit{std}_N$ ist ein ehrliches Beweissystem.
+        \item (2)$\implies$(3): Klar.
 
-        \item (3)$\implies$(1): Sei zunächst $p$ die Zertifikatsschranke von $R$. Wir zeigen erneut $\TFNP\subseteqc\FP$ für $\hQ$.
-    Sei hierfür $Q\in\TFNP$ beliebig. 
-    Da $R$ ja vollständig ist, gilt $Q\leq_\mathrm{L,h}^\mathrm p R$ via $f,g\in\FP$ und die Reduktionsfunktion $f$ ist ehrlich; es existiert ein also Polynom $q$ sodass $q(|f(x)|)\geq |x|$.
-
-    Definiere nun die folgende NPTM $N(w)$:\\
-    \begin{algorithm}[H]
-        Rate nichtdeterministisch $x\in \Sigma^{\leq q(|w|)}$\;
-        \lIf{$f(x)=w$}{akzeptiere}
-        \tcc{Ab hier kann man $x$ wegwerfen}
-        Rate nichtdeterministisch $y\in \Sigma^{\leq p(|w|)}$\;
-        Akzeptiere genau dann wenn $(w,y)\in R$.
-    \end{algorithm}
-    Wir zeigen nun, dass $L(N)=\Proj(R)$. Wir müssen hierfür nur die Fälle betrachten, wenn $N(w)$ in Z.~2 akzeptiert.
-    In diesem Fall gilt $f(x)=w$, und wir haben
-    \[ x\in\Sigma^* \implies x\in\Proj(Q) \implies f(x)\in\Proj(R) \implies w\in\Proj(R), \]
-    wie gewünscht.
-
-    Nach (2) gilt nun $\mathit{std}_N\leqmp \mathit{std}_R$. Insbesondere haben wir eine Funktion $r\in\FP$ mit
-    $\mathit{std}_N(w, \alpha)=\mathit{std}_R(h(w,\alpha))$.
-    Sei nun ein beliebiges $x\in\Sigma^*$ gegeben. Wir zeigen nun, wie wir effizient ein $y$ finden können sodass $(x,y)\in Q$. 
-    Es lässt sich leicht ein akzeptierender Rechenweg $\alpha_x$ für $N(f(x))$ angeben, welcher in Z.~1 das Wort $x$ rät.
-    Es gilt nun
-    \[ \mathit{std}_N(f(x), \alpha_x)=f(x) \implies \mathit{std}_R(r(f(x), \alpha_x)=f(x). \]
-    Nach Definition muss dabei $r(f(x), \alpha_x)=(f(x), y')$ für geeignetes $y'$ gelten.
-    Wir haben also $\mathit{std}_R(f(x), y')=f(x)$ und es gilt $(f(x), y')\in R$. Nach Wahl von $g$ gilt dann $(x, g(x, y'))\in Q$, heißt $g(x, y')$ ist unser gesuchtes Zertifikat. 
+        \item (3)$\implies$(1): Analog wie bei Satz~\ref{thm:q-messner-generalized}.
+            Wir zeigen wieder die Aussage, dass $\TFNP\subseteqc\FP$. Sei hierfür ein solches $Q\in\TFNP$ gegeben.
+    Nachdem $R$ $\leqlp$-vollständig ist, haben wir Funktionen $f,g\in\FP$, welche $Q\leqlp R$ realisieren.
+    %\[ x\in \Proj(Q)=\Sigma^*\implies  f(x)\in\Proj(R), \quad (f(x), z)\in R\implies (x,g(x,z))\in Q. \]
+    Definiere nun
+    \[ h(w) = \begin{cases} f(x) & \text{wenn $w=0x$}\\ x & \text{wenn $w=1\langle x, y\rangle$ und $(x,y)\in R$} \\  \bot & \text{sonst} \end{cases}.\]
+    Es ist leicht zu sehen, dass $h$ ein Beweissystem für $\Proj(R)$ ist.
+    Insbesondere ist $h$ ehrlich, denn $f$ ist ehrlich.
+    Damit gilt mit (3), dass $h\leqmp \mathit{std}_R$; mit Beobachtung~\ref{obs:simulation-of-spps} existiert dann eine Funktion $r\in\FP$, sodass
+    $h(w)=x \rightarrow (x, r(w))\in R$.
+    Damit ist $q(x) = g(r(0x))$, $q\in\FP$ eine Verfeinerung von $Q$, wie gewünscht.
     \end{prooflist}
 \end{proof}
 
@@ -433,7 +453,7 @@ Wir haben nun folgendes Bild:
 \begin{tikzpicture}[node distance=2cm, every node/.style={inner xsep=10pt}]
     \node (A) {$\hQ$};
     \node (B) [right=of A] {$\mathit{std}_R$ ist $\P$-opt.};
-    \node (C) [right=of B, align=center] {$\mathit{std}_N \leqlp\mathit{std}_R$ für alle\\ NPTM $N$ die $\Proj(R)$ entsch.};
+    \node (C) [right=of B, align=center] {$h \leqlp\mathit{std}_R$ für alle\\ ehrl. Beweissyst. $h$ für $\Proj(R)$};
 
     \draw[implies-,double equal sign distance,bend left=30] ([yshift=5pt]A.east)  to node[above] {\it\small falls $R$ Levin-vollst.} ([yshift=5pt]B.west);
     \draw[implies-,double equal sign distance,bend left=30] ([yshift=5pt]B.east)  to node[above] {\it\small falls $R$ ehrlich Levin-vollst.} ([yshift=5pt]C.west);
@@ -448,7 +468,7 @@ Wir haben nun folgendes Bild:
 
 \subsection*{Levin-Paddability}
 
-Die stärkere Voraussetzung an die NP-Relation $R$, dass diese \emph{ehrlich} Levin-vollständig sein muss, wollen wir hier noch einmal kurz beleuchten. Ganz ähnlich zur Berman–Hartmanis-Paddability lässt sich auch die ehrliche Levin-Vollständigkeit von $R$ äquivalent als strukturelle Eigenschaft von $R$ formulieren. Hierbei machen wir einen sehr schwachen Begriff von Paddabilty auf Suchproblemen produktiv, welcher von \textcite{kobler_is_2000} konkret auf $\mathtt{rSAT}$ eingesetzt wurde.
+Die stärkere Voraussetzung an die NP-Relation $R$, dass diese \emph{ehrlich} Levin-vollständig sein muss, wollen wir hier noch einmal kurz beleuchten. Ganz ähnlich zur Berman–Hartmanis-Paddability lässt sich auch die ehrliche Levin-Vollständigkeit von $R$ äquivalent als strukturelle Eigenschaft von $R$ formulieren. Hierbei machen wir einen sehr schwachen Begriff von Paddabilty auf Suchproblemen produktiv, welcher von \textcite{messner_simulation_2001} konkret auf $\mathtt{rSAT}$ eingesetzt wurde.
 
 Ähnlich wie bei der Berman–Hartmanis-Paddability wollen wir beliebige Instanzen $x$ zu längeren Instanzen $x'$ vergrößern. Zusätzlich verlangen wir, dass wir auch auf Zertifikaten $y$ für $x'$ wieder Zertifikate $y$ für $x$ zurückrechnen können. In anderen Worten: wir codieren „redundante Teile“ in $x$ hinein, um $x'$ zu erhalten. Für Zertifikate $y'$ für $x'$ können wir dann den Teil des Zertifikats wegwerfen, welcher sich ohnehin nur auf das redundanten Padding bezieht, und erhalten wieder ein Zertifikat für $x$. 
 
@@ -469,15 +489,14 @@ wobei $k$ hinreichend groß sein soll, dass $x_k, x_{k+1}, \dots$ nicht als Vari
 %Unter jeder vernünftigen Codierung gilt $|\mathit{pad}(x, 1^n)|\geq n$.
 Ist nun $w'$ eine erfüllende Belegung für $\phi'$, dann entferne alle Variablenbelegungen $x_{k}, x_{k+1}, \dots$ aus $w'$ und es ergibt sich hieraus eine erfüllende Belegung $w$ für $\phi$.
 
-Diese Eigenschaft lässt sich auch leicht für die kanonische NP-Relation $\mathtt{rKAN}$ überprüfen, und gilt insbesondere auch im relativierten Fall.
+Diese Eigenschaft lässt sich auch leicht für die kanonische NP-Relation $\mathtt{rKAN}$ überprüfen, 
+indem z.B. der NPTM $N$ der Eingabeinstanz $x=(N, x, 1^n)$ Zustände hinzugefügt werden, welche über die Transitionsrelation von $N$ nicht erreichbar sind.
+Diese Beobachtung gilt insbesondere auch im relativierten Fall.
 \begin{observation}\label{obs:rkan-paddable}
     Die kanonische Levin-vollständige NP-Relation $\mathtt{rKAN}$ ist Levin-paddable.
 \end{observation}
-\begin{proof}[Skizze.]
-    Padde Instanzen $(N, x, 1^n)$ zu $(N', x, 1^n)$ auf, wobei die NTM $N'$ aus $N$ hervorgeht, indem Zustände hinzugefügt werden die über die Transitionsrelation von $N$ nicht erreichbar sind. Ein akzeptierender Rechenweg auf $N'(x)$ ist dann (modulo Umcodieren) genau ein akzeptierender Rechenweg auf $N(x)$.
-\end{proof}
 
-Folgendes Lemma zeigt zunächst, dass Levin-Paddability unter den vollständigen Relationen hinreichend für \emph{ehrliche} Vollständigkeit ist.
+Folgendes Lemma zeigt nun, dass Levin-Paddability unter den vollständigen Relationen hinreichend für \emph{ehrliche} Vollständigkeit ist.
 
 \begin{lemma}
     Sei $R$ eine $\leqlp$-vollständige NP-Relation. Wenn $R$ Levin-paddable ist, dann ist 
@@ -510,7 +529,7 @@ Für die andere Richtung sehen wir, dass sich Levin-Paddability auf $\leq_\mathr
         \item Jede $\leq_\mathrm{L,h}^\mathrm{p}$-vollständige NP-Relation $R$ ist auch Levin-paddable.
     \end{enumerate}
 \end{lemma}
-\begin{proof}[Beweis zu Beobachtung~\ref{obs:invcomplete-sind-levinpaddable}]
+\begin{proof}
     Aussage (2) folgt unmittelbar aus (1).
 
     Für (1) nutzen wir die Levin-Paddability von $\mathtt{rKAN}$ aus: übersetze Instanz $x$ von $R$ nach $\mathtt{rKAN}$, padde dort hoch, und übersetze zu $R$-Instanz $x'$ zurück. Ist dann $y'$ ein Zertifikat für $x'$, dann lässt sich dies auf ähnlichem Weg wieder zu einem Zertifikat für $x$ zurückrechnen.
@@ -584,7 +603,6 @@ Dennoch bleibt die allgemeine Frage zwischen $\leqlp$-Vollständigkeit und Levin
 
 Unabhängig von voriger Frage können wir nun aber abschließend die vorigen Ergebnisse in folgendem Satz zusammenfassen.
 Beachte dass diese Charakterisierungen relativieren.
-Die Äquivalenz zu Aussage (8) ist hierbei eine einfache relativierbare Generalisierung von zwei Beweisen von \textcite[Thm.~5.3]{messner_simulation_2001}.
 
 \begin{theorem}[Äquivalente Formulierungen der Hypothese $\hQ$]\label{thm:q}
     Folgende Aussagen sind äquivalent:
@@ -599,55 +617,42 @@ Die Äquivalenz zu Aussage (8) ist hierbei eine einfache relativierbare Generali
         \item Für jedes Paar von NP-Relationen $A, B$ gilt:
             \[ \Proj(A) \leqmp \Proj(B) \iff A \leqlp B. \]
         \item Für jedes Beweissystem $h$ gilt: $h$ ist optimal $\iff$ $h$ ist $\P$-optimal. 
-        \item Es existiert eine $\leq_\mathrm{L,h}^\mathrm p$-vollständige NP-Relation $R$ sodass für alle NPTM $N$ mit $L(N)=\Proj(R)$ auch $\mathit{std}_N\leqmp \mathit{std}_R$ gilt.
+        \item Jedes ehrliche Beweissystem $h$ ist $\P$-optimal. 
+        \item Es existiert eine $\leq_\mathrm{L,h}^\mathrm p$-vollständige NP-Relation $R$ sodass für alle ehrlichen Beweissysteme $h$ für $\Proj(R)$ auch $h\leqmp \mathit{std}_R$ gilt.
         \item Es existiert eine $\leqlp$-vollständige NP-Relation $R$ für welche das Standardbeweissystem $\mathit{std}_R$ $\P$-optimal ist.
         %\item Es existiert eine $\leq_\mathrm{L,1,i}^\mathrm p$-vollständige NP-Relation $R$ sodass für jede Menge $S\in \P$ mit $S\subseteq \Proj(R)$ gilt: es existiert eine Funktion $g\in\mathrm{FP}$ sodass
             %\[ x\in S \implies (x, g(x))\in R. \]
     \end{enumerate}
 \end{theorem}
 \begin{proof}
-\begin{prooflist}[label={\arabic*.},labelsep=3pt]
+\begin{prooflist}[nosep,label={\arabic*.},labelsep=3pt]
 \item (1)$\iff$(2)$\iff$(4)$\iff$(5)$\iff$(6): nach \textcite[Thm.~2]{fenner_inverting_2003}. 
 
 \item (1)$\iff$(3): nach Beobachtung~\ref{obs:tfnp-q}.
 
-\item (1)$\iff$(7): nach Lemma~\ref{thm:q-as-levin}.
+\item (1)$\iff$(7): nach Satz~\ref{thm:q-as-levin}.
 
-\item (1)$\iff$(9): nach Satz~\ref{thm:q-fenner-generalized} und der $\leq_\mathrm{L,h}$-Vollständigkeit von $\mathtt{rKAN}$.
+\item (1)$\iff$(8)$\iff$(9): nach Satz~\ref{thm:q-simulation}.
 
-\item (1)$\iff$(10): nach Satz~\ref{thm:q-messner-generalized} und der $\leqlp$-Vollständigkeit von $\mathtt{rKAN}$.
+\item (1)$\iff$(10): nach Satz~\ref{thm:q-fenner-generalized} und der $\leq_\mathrm{L,h}^\mathrm p$-Vollständigkeit von $\mathtt{rKAN}$.
 
-\item (2)$\implies$(8): Die Richtung von rechts nach links ist klar. Sei für die andere Richtung $h$ ein optimales Beweissystem für eine Menge $L$. Wir wollen zeigen, dass $h$ auch $\P$-optimal ist. Sei dafür $g$ ein weiteres Beweissystem für $L$. Nach Voraussetzung kann $h$ das Beweissystem $g$ simulieren, das heißt es existiert eine (nicht notwendigerweise effiziente) Funktion $\pi$ sodass $g(w)=h(\pi(w))$, und gleichzeitig ist $|\pi(w)|\leq q(|w|)$ für ein geeignetes Polynom $q$.
-
-Betrachte folgende Multifunktion $f'$:
-%\[ f'(w) = \{ y \mid y\in\Sigma^{\leq q(|w|)}, g(w)=h(y) \}. \]
-\[ \fset{}f'(w) \defeq  \{ y \mid \exists y\in\Sigma^{\leq q(|w|)}, g(w)=h(y) \}. \]
-Es lässt sich leicht zeigen, dass $f'\in\NPMV$, über einen geeigneten NPTM-Transduktor. 
-Es ist sogar $f'\in\NPMV_t$, denn für jedes $w$ mindestens $\pi(w)\in \fset{}f'(w)$.
-
-Nach (2) gilt also $f'\in\NPMV_t\subseteqc \FP$, also existiert eine Funktion $f''\in\FP$ welche eine Verfeinerung von $f'$ ist. Diese Funktion übersetzt $g$-Beweise $w$ für $x$ effizient in $h$-Beweise für $x$: 
-Sei $g(w)=x$, dann gilt
-\[ f''(w) = y \quad\text{mit } y\in\fset{}f'(w), \text{ also gilt } y\in\Sigma^{\leq q(|w|)}, x=g(w)=h(y). \]
-Damit ist $h(f''(w))=x$ bzw. $f''(w)$ ein $h$-Beweis für $x$, wie gewünscht.
-
-
-\item (8)$\implies$(10): klar, denn $\mathtt{rKAN}$ ist $\leqlp$-vollständig und das Standardbeweissystem $\mathit{std}_\mathtt{rKAN}$ ist (wie jedes Standardbeweissystem einer NP-Relation) optimal. Zusammen mit (7) ist es also auch $\P$-optimal.
+\item (1)$\iff$(11): nach Satz~\ref{thm:q-messner-generalized} und der $\leqlp$-Vollständigkeit von $\mathtt{rKAN}$.
 \end{prooflist}
 \end{proof}
 
-Analysiert man die Beweise bezüglicher der Äquvalenz von Aussage $\hQ$ zu (9) und (10) können wir sogar feststellen, dass die Wahl der Relation $R$ beliebig ist. 
-Wir können daher $\hQ$ über universell quantifizierte Varianten von (9) und (10) charakterisieren. 
+Analysiert man die Beweise bezüglicher der Äquvalenz von Aussage $\hQ$ zu (10) und (11) können wir sogar feststellen, dass die Wahl der Relation $R$ beliebig ist. 
+Wir können daher $\hQ$ über universell quantifizierte Varianten von (10) und (11) charakterisieren. 
 \begin{theorem}
-    Entweder gelten die Aussagen (1), (9), (10) oder die Aussagen (1'), (9'),  (10'):
+    Entweder gelten die Aussagen (1), (10), (11) oder die Aussagen (1'), (10'),  (11'):
     \begin{enumerate}
         \item[(1)] $\hQ$.
-        \item[(9)] Für alle $\leq_\mathrm{L,h}^\mathrm p$-vollständigen NP-Relationen $R$, alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt $\mathit{std}_N\leqmp\mathit{std}_R$.
-        \item[(10)] Für alle $\leqlp$-vollständigen NP-Relationen $R$ ist das Standardbeweissystem $\mathit{std}_R$ $\P$-optimal.
+        \item[(10)] Für alle $\leq_\mathrm{L,h}^\mathrm p$-vollständigen NP-Relationen $R$, alle ehrlichen Beweissysteme $h$ für $\Proj(R)$ auch $h\leqmp\mathit{std}_R$ gilt.
+        \item[(11)] Für alle $\leqlp$-vollständigen NP-Relationen $R$ ist das Standardbeweissystem $\mathit{std}_R$ $\P$-optimal.
         \item[(1$\,'$)] $\neg\hQ$.
-        \item[(9$\,'$)] Es existiert keine $\leq_\mathrm{L,h}^\mathrm p$-vollständige NP-Relation $R$, sodass für alle NPTM $N$ mit $L(N)=\Proj(R)$ auch $\mathit{std}_N\leqmp \mathit{std}_R$ gilt.
-        \item[(10$\,'$)] Es existiert keine $\leqlp$-vollständige NP-Relation $R$ ist das Standardbeweissystem $\mathit{std}_R$ $\P$-optimal.
+        \item[(10$\,'$)] Es existiert keine $\leq_\mathrm{L,h}^\mathrm p$-vollständige NP-Relation $R$, sodass für alle ehrlichen Beweissysteme $h$ für $\Proj(R)$ auch $h\leqmp \mathit{std}_R$ gilt.
+        \item[(11$\,'$)] Es existiert keine $\leqlp$-vollständige NP-Relation $R$, sodass das Standardbeweissystem $\mathit{std}_R$ $\P$-optimal ist.
     \end{enumerate}
-    Beachte dass (9$\,'$) nicht die negierte Version von (9) ist, für (10) gilt dies analog.
+    Beachte dass (10$\,'$) bzw. (11$\,'$) nicht die negierte Version von (10) bzw. (11) ist.
 \end{theorem}
 
 
@@ -691,10 +696,10 @@ Nun können wir die in Abbildung \ref{fig:figure-implications} abgebildeten Impl
 %\item $\mathrm{E\neq NE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{bellare_complexity_1994}.
 \item $\mathrm{E\neq NE}\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, nach \textcite{impagliazzo_1991}.
 \item $\UP\neq\P \Rightarrow \exists$ P-inseparierbares $\DisjNP$-Paar, nach \textcite[Thm.~5]{grollmann_complexity_1988}.
-\item $\hNPcoNP\Rightarrow \hTAUT\lor\hSAT$ nach \textcite[Cor.~5.1]{kobler_optimal_2003}.\pagebreak % relativiert offenbar nach Dose
+\item $\hNPcoNP\Rightarrow \hTAUT\lor\hSAT$ nach \textcite[Cor.~5.1]{kobler_optimal_2003}. % relativiert offenbar nach Dose
 \item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \hSAT$ nach \textcite[Thm.~25]{beyersdorff_nondeterministic_2009}. Es ist leicht zu sehen, dass der Beweis auch auf unsere relativierte Variante von $\hSAT$ generalisiert.
 \item $\NPMVt$ hat keine vollständige Funktion $\Rightarrow \NP\neq\coNP$ nach Satz~\ref{thm:npmvt-vs-npconp}.
-\item $\mathsf{SAT^{eff}} \Rightarrow \hSAT, \mathsf{SAT^{eff}}\Rightarrow \mathsf{KvL}$, nach Korollar~\ref{cor:sateff-generalizes-sat}.
+\item $\mathsf{SAT^{q}} \Rightarrow \hSAT, \mathsf{SAT^{q}}\Rightarrow \mathsf{KvL}$, nach Korollar~\ref{cor:sateff-generalizes-sat}.
 \item $\mathsf{KvL}\Rightarrow\neg\hQ$, nach Korollar~\ref{cor:kvl-implies-q}.
 \item $\neg\hQ\Rightarrow \exists$ NP-Relation die nicht auf Entscheidung reduzierbar ist, denn wenn $\neg\hQ$, dann gilt mit Satz~\ref{thm:q} auch $\TFNP\not\subset_\mathrm{c} \FP$, heißt es existiert NP-Relation $R\in\TFNP$ und $R\not\in_\mathrm{c} \FP = \FP^{\Proj(R)}$.
 \item $\hDisjCoNP \Rightarrow \hTFNP \Rightarrow \NPMVt$ hat keine vollständig Funktion, nach \textcite[Prop.~5.6, 5.10]{pudlak_incompleteness_2017}.
@@ -729,6 +734,8 @@ Der verbleibende Beweis ist eine Generalisierung von \textcite{dingel_separation
     Betrachte nun die Multifunktion $f$, die durch folgenden nichtdeterministischen Transduktor $T'(T, x, 1^n)$ berechnet wird:\par
     \begin{algorithm}[H]
         \If{$T$ kein NTM-Transduktor ist}{Gebe $\epsilon$ aus}
+    %\end{algorithm}
+    %\begin{algorithm}[H]\setcounter{AlgoLine}{2}
         Rate nichtdeterministisch einen Rechenweg $\alpha$ von $T$ der Länge $\leq n$\;
         Rate nichtdeterministisch einen Rechenweg $\beta$ von $N_u$ der Länge $\leq q(|(T, x, 1^n)|)$\;
         %\If{$\alpha$ die Länge $<n$ hat, und verlängerbar ist}
@@ -795,6 +802,14 @@ Auf ähnliche Weise ergibt sich aus dem in Kapitel~\ref{chap:orakel} konstruiert
 Symmetrisch sehen wir über zwei Orakel von Dose (\cite*[Cor.~3.3]{dose_oracle_2020}, \cite*[Thm.~3.2]{dose_further_2020}, siehe Nr.~5 u. 6 in der Abb.) dass die Annahme $\neg\hQ$ (bzw. sogar die stärkere Annahme $\neg\hQ'$) nicht ausreicht, um $\hTAUT$ bzw. $\hSAT$ zu zeigen, also auch nicht um die stärkeren ursprünglichen Pudlákschen Hypothesen ($\hDisjNP, \hUP, \hDisjCoNP$, usw.) zu beweisen.
 
 
+
+Teile dieser Beobachtung übertragen sich entsprechend auch auf die Verstärkung $\mathsf{KvL}$ von $\neg\hQ$. Weder $\UP\neq\P\land \NP\neq\coNP$ noch $\hDisjNP\land\hUP$ reicht als Annahme aus, um relativierend $\mathsf{KvL}$ zu beweisen.
+Damit wissen wir zumindest schon, dass $\mathsf{KvL}$ (wieder unter relativierenden Beweisen) nicht äquivalent zu einer der Aussagen „$\UP\neq \P$“, $\NP\neq\coNP$“, $\hDisjNP$, $\hUP$ sein kann. 
+Dennoch wären einige weitere Orakel wünschenswert, um $\mathsf{KvL}$ besser zu situieren, z.B. ein Orakel, relativ zu diesem $\mathsf{KvL}\land \hQ$ (und damit $\mathsf{KvL}$ von $\hQ$ trennt)? 
+
+In diesem Sinne können wir auch allgemein fragen, für welche Paare $\mathsf{A}$, $\mathsf{B}$ von Hypothesen sowohl unbekannt ist, ob $A\Rightarrow B$ über einen relativierbaren Beweis, noch ob ein Orakel existiert relativ zu diesem $\mathsf{A\land \neg B}$.
+Das sei im Folgenden nun abschließend noch zusammengefasst (vgl. Tabelle~\ref{table:orakel}).
+
 \begin{figure*}[p]
     \hspace*{-.2cm}\includegraphics[page=7]{figures.pdf}
     \vspace*{-5.8cm}
@@ -816,13 +831,6 @@ Symmetrisch sehen wir über zwei Orakel von Dose (\cite*[Cor.~3.3]{dose_oracle_2
 }\label{fig:oracles}
     \forcerectofloat
 \end{figure*}
-
-Teile dieser Beobachtung übertragen sich entsprechend auch auf die Verstärkung $\mathsf{KvL}$ von $\neg\hQ$. Weder $\UP\neq\P\land \NP\neq\coNP$ noch $\hDisjNP\land\hUP$ reicht als Annahme aus, um relativierend $\mathsf{KvL}$ zu beweisen.
-Damit wissen wir zumindest schon, dass $\mathsf{KvL}$ (wieder unter relativierenden Beweisen) nicht äquivalent zu einer der Aussagen „$\UP\neq \P$“, $\NP\neq\coNP$“, $\hDisjNP$, $\hUP$ sein kann. 
-Dennoch wären einige weitere Orakel wünschenswert, um $\mathsf{KvL}$ besser zu situieren, z.B. ein Orakel, relativ zu diesem $\mathsf{KvL}\land \hQ$ (und damit $\mathsf{KvL}$ von $\hQ$ trennt)? 
-
-In diesem Sinne können wir auch allgemein fragen, für welche Paare $\mathsf{A}$, $\mathsf{B}$ von Hypothesen sowohl unbekannt ist, ob $A\Rightarrow B$ über einen relativierbaren Beweis, noch ob ein Orakel existiert relativ zu diesem $\mathsf{A\land \neg B}$.
-Das sei im Folgenden nun abschließend noch zusammengefasst (vgl. Tabelle~\ref{table:orakel}.
 
 \begin{itemize}[parsep=0pt,listparindent=\parindent,itemsep=5pt plus 1pt minus 1pt,midpenalty=0]
     \item Unter dem ursprünglichen Hypothesen des Pudlákschen Programms ($\hSAT$, $ \hTAUT$, $ \mathsf{TAUT^N}$, Vollständigkeit von $\DisjNP$, $ \DisjCoNP$, $ \UP$, $ \NP\cap\coNP$, $ \TFNP$, $ \NPMVt$, Kollaps $\NP=\coNP$, $\NP\cap\coNP=\P$; die zusammengesetzte Hypothese $\hSAT\lor\hTAUT$ wird hier dagegen noch nicht diskutiert) kennen wir für fast alle Paare an Hypothesen eine relativierende Implikation oder ein entsprechendes Orakel, relativ zu diesem die Implikation nicht gilt. Offen bleiben nur diese neun Paare:
@@ -850,10 +858,10 @@ Das sei im Folgenden nun abschließend noch zusammengefasst (vgl. Tabelle~\ref{t
         Dies sind die drei „stärksten“ Implikationen bzw. diejenigen Paare an Hypothesen, deren Orakelkonstruktionen gegen diese Implikationen am „schwierigsten“ sind. Gemeint ist, dass sämtliche anderen offenen Paare $\mathsf{A,B}$ von Hypothesen, wobei $\mathsf{A}$ oder $\mathsf{B}$ in $\{„\UP\neq\P“, „\DisjNP\text{ insep.}“\}$, dann auch durch eines dieser Orakel getrennt wird, die (ix), (x), und (xi) trennen.
         %In Abschnitt~\ref{} wird vermutet, dass für die erste offene Implikation (1) ein Orakel gegen diese Implikation existiert.
 
-    \item Ergänzen wir nun abschließend mit den hier neu definierten Hypothesen $\mathsf{KvL}$ und $\mathsf{SAT^{eff}}$ entstehen wieder neue Paare $\mathsf{A,B}$ für die offen ist, ob $\mathsf A$ die Hypothese $\mathsf B$ impliziert, oder ob ein Orakel gegen diese Implikation existiert. Das gilt für so gut wie alle möglichen Paare zwischen $\mathsf{KvL}$ bzw. $\mathsf{SAT^{eff}}$ und den übrigen betrachteten Hypothesen. 
+    \item Ergänzen wir nun abschließend mit den hier neu definierten Hypothesen $\mathsf{KvL}$ und $\mathsf{SAT^{q}}$ entstehen wieder neue Paare $\mathsf{A,B}$ für die offen ist, ob $\mathsf A$ die Hypothese $\mathsf B$ impliziert, oder ob ein Orakel gegen diese Implikation existiert. Das gilt für so gut wie alle möglichen Paare zwischen $\mathsf{KvL}$ bzw. $\mathsf{SAT^{q}}$ und den übrigen betrachteten Hypothesen. 
         Besonders im Hinblick auf den Schwerpunkt dieser Arbeit auf Suchprobleme und auf die Hypothese $\mathsf{KvL}$ sind die folgenden Paare interessant:
         \begin{enumerate}[noitemsep,resume,label=(\roman*)]
-            \item $\mathsf{KvL}\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{SAT^{eff}}$,
+            \item $\mathsf{KvL}\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{SAT^{q}}$,
             \item $\mathsf{KvL}\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\hSAT$ (oder stärker $\hSAT\lor\hTAUT$),
             \item $\hDisjCoNP\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{KvL}$ (oder schwächer $\neg\hQ\stackrel{\smash{\text{\raisebox{-1pt}{\tiny ?}}}}{\Rightarrow}\mathsf{KvL}$).
         \end{enumerate}
@@ -881,7 +889,7 @@ Hiermit wollen wir die Diskussion über die Beziehungen der Hypothesen des erwei
 \def\arraystretch{1.21}
 \begin{tabular}{|r|ccccccccccc|ccc|cc|cc|c|}
 \hline
-Antezedens $\mathsf A$\quad\llap{\rotatebox{90}{\smash{\strut\quad{}Konsequent} $\mathsf B$}}\strut & \rot{$\hTAUT$} & \rot{$\mathsf{TAUT^N}$} & \rot{$\hDisjNP$} & \rot{$\hUP$} & \rot{$\hSAT$} & \rot{$\NPMVt$ unvollst.} & \rot{$\hTFNP$} & \rot{$\hDisjCoNP$} & \rot{$\NPcoNP$} & \rot{$\NP\neq\coNP$} & \rot{$\NP\cap\coNP\neq\P$} & \rot{$\neg\hQ$} & \rot{$\neg\hQ'$} & \rot{$\NPMVt\not\subseteq_{\mathrm{t}}\TFNP$} & \rot{$\UP\neq\P$} & \rot{$\DisjNP$ unsep.} & \rot{$\mathsf{KvL}$} & \rot{$\mathsf{SAT^{eff}}$} & \rot{$\hTAUT\lor\hSAT$}\\
+Antezedens $\mathsf A$\quad\llap{\rotatebox{90}{\smash{\strut\quad{}Konsequent} $\mathsf B$}}\strut & \rot{$\hTAUT$} & \rot{$\mathsf{TAUT^N}$} & \rot{$\hDisjNP$} & \rot{$\hUP$} & \rot{$\hSAT$} & \rot{$\NPMVt$ unvollst.} & \rot{$\hTFNP$} & \rot{$\hDisjCoNP$} & \rot{$\NPcoNP$} & \rot{$\NP\neq\coNP$} & \rot{$\NP\cap\coNP\neq\P$} & \rot{$\neg\hQ$} & \rot{$\neg\hQ'$} & \rot{$\NPMVt\not\subseteq_{\mathrm{t}}\TFNP$} & \rot{$\UP\neq\P$} & \rot{$\DisjNP$ unsep.} & \rot{$\mathsf{KvL}$} & \rot{$\mathsf{SAT^{q}}$} & \rot{$\hTAUT\lor\hSAT$}\\
  \hline
 $\hTAUT$ &   & \textcolor{red}{\textbf{?}} & 13 & 4 & O & O & O & O & O & \textcolor{red}{\textbf{?}} & O & O & O & O & 4 & 13 & O & O &   \\
 $\mathsf{TAUT^N}$ &   &   & 13 & 4 & O & O & O & O & O &   & O & O & O & O & 4 & \textbf{\itshape 13} & O & O &   \\
@@ -903,7 +911,7 @@ $\UP\neq\P$ & \textcolor{red}{\textbf{?}} & 1 & 1 & \textcolor{red}{\textbf{?}} 
 $\DisjNP$ unsep. & 6 & 1 & 1 & 4 & O & O & O & O & O & 1 & O & O & O & O & 4 &   & O & O & \textcolor{red}{\textbf{?}} \\
 \hline
 $\mathsf{KvL}$ & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} \\
-$\mathsf{SAT^{eff}}$ & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   &   &   \\
+$\mathsf{SAT^{q}}$ & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{\dag}} & \textcolor{red}{\textbf{?}} & \textcolor{red}{\textbf{?}} &   &   &   \\
 \hline
 $\hTAUT\lor\hSAT$ & 6 & 6 & 6 & 4 & O & O & O & O & O & 12 & O & O & O & O & 4 & 13 & O & O &   \\
  \hline
@@ -916,6 +924,7 @@ Ist die Zahl (bzw. $O$) fett gedruckt, dann entspricht das Orakel genau dem Eing
 Ein rotes ? bedeutet, dass unbekannt ist, ob ein solches Orakel existiert.\par
 Ein rotes \dag{} bedeutet, dass auch unbekannt ist, ob ein solches Orakel $D$ existiert. Hierbei ist aber die Konstruktion besonders schwierig: wenn nämlich ein solches Orakel existiert, also $\mathsf{A\land\neg B}$ relativ zu $D$ gilt, dann muss auch $\hQ'\land\neg\hQ$ relativ zu $D$ gelten.}\label{table:orakel}
 %\setfloatalignment{b}
+\forcerectofloat
 \vspace*{1.5cm}
 \end{table}
 

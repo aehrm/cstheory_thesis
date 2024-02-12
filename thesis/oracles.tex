@@ -228,20 +228,20 @@ Die intendierte Interpretation ist nun wie folgt: wenn $t$ so gewählt ist dass 
 
 Wir setzen nun für diese Konstruktion folgenden Begriff von Gültigkeit fest.
 Ein Orakel $w\in\Sigma^*$ ist $t$-gültig wenn $t\in\mathcal T$ und Folgendes gilt:
-\begin{enumerate}[label={V\arabic*}]
-    \item Wenn $x<|w|$ und $|x|\not\in \img(e)$, dann gilt $x\not\in w$.\\
+\begin{enumerate}[label={V\arabic*},midpenalty=0]
+    \item Wenn $x<|w|$ und $|x|\not\in \img(e)$, dann gilt $x\not\in w$.\par
         (Bedeutung: Orakel $w$ enthält keine Wörter der Länge $\neq e(\cdot)$.)
-    \item Für alle $i$ gilt $|w\cap \Sigma^{e(i)}|\leq 2$.\\
+    \item Für alle $i$ gilt $|w\cap \Sigma^{e(i)}|\leq 2$.\par
         (Bedeutung: Orakel $w$ ist dünn auf den Ebenen der Länge $e(\cdot)$.)
-    \item Wenn $t(\tau^1_j)=0$, dann existiert ein $z$ sodass $N_j^w(z)$ definitiv ablehnt.\\
+    \item Wenn $t(\tau^1_j)=0$, dann existiert ein $z$ sodass $N_j^w(z)$ definitiv ablehnt.\par
         ($L(N_j)\neq \Sigma^*$ relativ zum finalen Orakel.)
-    \item Wenn $t(\tau^2_{a,b})=0$, dann existiert ein $z$ sodass $M_a^w(z)$ und $M_b^w(z)$ definitiv akzeptieren.\\
+    \item Wenn $t(\tau^2_{a,b})=0$, dann existiert ein $z$ sodass $M_a^w(z)$ und $M_b^w(z)$ definitiv akzeptieren.\par
         (Bedeutung: wenn $t(\tau^2_{a,b})=0$, dann $L(M_a)\cap L(M_b)\neq \emptyset$ relativ zum finalen Orakel.)
-    \item Wenn $0<t(\tau^2_{a,b})=m$, dann gilt für alle $n\in H_m$ dass $|\Sigma^{n}\cap w|\leq 1$.\\
+    \item Wenn $0<t(\tau^2_{a,b})=m$, dann gilt für alle $n\in H_m$ dass $|\Sigma^{n}\cap w|\leq 1$.\par
         (Bedeutung: wenn $0<t(\tau^2_{a,b})=m$, dann $(A_m,B_m)\in\DisjNP$ relativ zum finalen Orakel.)
-    \item Wenn $t(\tau^3_{a})=0$, dann existiert ein $z$ sodass $M_a^w(z)$ definitiv auf zwei Rechenwegen akzeptiert.\\
+    \item Wenn $t(\tau^3_{a})=0$, dann existiert ein $z$ sodass $M_a^w(z)$ definitiv auf zwei Rechenwegen akzeptiert.\par
         (Bedeutung: wenn $t(\tau^3_{a})=0$, dann $L(M_a)\not\in \UP$ relativ zum finalen Orakel.)
-    \item Wenn $0<t(\tau^3_{a})=m$, dann gilt für alle $n\in H_m$ dass $|\Sigma^n\cap w|\leq 1$.\\
+    \item Wenn $0<t(\tau^3_{a})=m$, dann gilt für alle $n\in H_m$ dass $|\Sigma^n\cap w|\leq 1$.\par
         (Bedeutung: wenn $0<t(\tau^3_{a})=m$, dann $C_m\in\UP$ relativ zum finalen Orakel.)
 \end{enumerate}
 
