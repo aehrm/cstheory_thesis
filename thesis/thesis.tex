@@ -25,6 +25,7 @@
 \setsansfont[Scale=MatchUppercase, BoldFont={Jost Medium}]{Jost}
 \setmonofont[Scale=MatchUppercase,HyphenChar={-}]{Latin Modern Mono}
 \setlength{\baselineskip}{12pt}
+\lineskiplimit=-2pt
 \newcommand\cyrfont[1]{#1}
 \renewcommand{\footnotesize}{\fontsize{9pt}{9.5pt}\selectfont}
 \else
@@ -94,6 +95,8 @@
 \fi
 \AtBeginDocument{\frenchspacing}
 \directlua{require('hyphenateall')}
+\directlua{require('checklineheight')}
+%\directlua{require('fixlineheight')}
 \hbadness=2000
 
 \makeatletter
