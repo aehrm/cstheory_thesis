@@ -100,8 +100,8 @@ Der aktuelle Stand zur Lösbarkeit der oben genannten natürlichen Suchprobleme 
 \begin{itemize}\raggedright
     \item $\mathtt{rPERFECTMATCHING}\inc\FP$.
     \item $\NP=\P \iff \mathtt{rSAT}\inc\FP \iff \mathtt{rCLIQUE}\inc\FP \iff \mathtt{rHAMCYCLE}\inc\FP \iff \mathtt{rANOTHERHAMCYCLE}\inc\FP$.
-    \item Unklar, ob $\mathtt{rSMALLFACTOR}, \mathtt{rFACTOR}, \mathtt{rFACTORIZATION}\stackrel{?}{\inc}\FP$. Wir haben aber $\UP\cap\coUP=\P \implies \mathtt{rSMALLFACTOR}\inc \FP \iff \mathtt{rFACTOR}\inc\FP \iff \mathtt{rFACTORIZATION}\inc\FP$.
-    \item Unklar, ob $\mathtt{rGI}\stackrel{?}{\inc}{\FP}$.
+    \item Unklar, ob $\mathtt{rSMALLFACTOR}, \mathtt{rFACTOR}, \mathtt{rFACTORIZATION}\stackrel{\smash{?}}{\inc}\FP$. Wir haben aber $\UP\cap\coUP=\P \implies \mathtt{rSMALLFACTOR}\inc \FP \iff \mathtt{rFACTOR}\inc\FP \iff \mathtt{rFACTORIZATION}\inc\FP$.
+    \item Unklar, ob $\mathtt{rGI}\stackrel{\smash{?}}{\inc}{\FP}$.
 \end{itemize}
 
 Bevor nun im nächsten Abschnitt die Suchprobleme den Entscheidungsproblemen näher gegenübergestellt werden, schließen wir diesen Abschnitt noch mit einer kurzen Diskussion zu \emph{totalen} Suchproblemen ab.
@@ -530,7 +530,7 @@ Die Reduktionsfunktion $f$ mit der Rückübersetzung der  Zertifikate für $f(x)
 
 \begin{marginfigure}[-4cm]
     \centering\includegraphics[page=12]{figures.pdf}
-    \caption{Schema der Reduktion von $\mathtt{SAT}$ auf $\mathtt{CLIQUE}$, hier für die CNF-Formel $\phi=(a\lor b\lor c) \land (\overline{a} \lor\overline{b}\lor c) \land (b\lor\overline{c} \lor d)$. Diese wird auf eine $\mathtt{CLIQUE}$-Instanz $f(\phi)=(G, 3)$ reduziert. Die Knoten von $G$ entsprechen hierbei den Literalen der Klauseln, und genau dann inzident wenn diese in unterschiedlichen Klauseln sind, außer $x$ und $\overline{x}$. Damit hat $G$ eine Clique $C$ der Größe 3 genau dann wenn $\phi$ erfüllbar ist. Aus der Konstruktion wird klar, dass sich aus jeder solchen Clique $C$ auch eine erfüllende Belegung für $\phi$ bestimmen lassen kann, je nach dem welche Knoten bzw. Klauseln in $C$ enthalten sind.}\label{fig:sat-to-clique}
+\caption{Schema der Reduktion von $\mathtt{SAT}$ auf $\mathtt{CLIQUE}$, hier für die CNF-Formel $\smash{\phi=(a\lor b\lor c) \land (\overline{a} \lor\overline{b}\lor c)} \land \smash{(b\lor\overline{c} \lor d)}$. Diese wird auf eine $\mathtt{CLIQUE}$-Instanz $f(\phi)=(G, 3)$ reduziert. Die Knoten von $G$ entsprechen hierbei den Literalen der Klauseln, und genau dann inzident wenn diese in unterschiedlichen Klauseln sind, außer $x$ und $\overline{x}$. Damit hat $G$ eine Clique $C$ der Größe 3 genau dann wenn $\phi$ erfüllbar ist. Aus der Konstruktion wird klar, dass sich aus jeder solchen Clique $C$ auch eine erfüllende Belegung für $\phi$ bestimmen lassen kann, je nach dem welche Knoten bzw. Klauseln in $C$ enthalten sind.}\label{fig:sat-to-clique}
 \end{marginfigure}
 
 Im Lehrbuch-Beweis von $\mathtt{SAT}\leqmp \mathtt{CLIQUE}$ (siehe Abbildung~\ref{fig:sat-to-clique}) wäre das beispielsweise, dass einerseits jede erfüllende Belegung $w$ der (CNF-)Formel $\phi$ einer Clique $C$ im Graph der Instanz $f(\phi)$ entspricht, und umgekehrt lässt sich an jeder Clique $C$ eine erfüllende Belegung $w$ für $\phi$ trivial ablesen. Damit lässt sich leicht eine entsprechende Translationsfunktion $g$ angeben, sodass $f,g$ die Levin-Reduktion $\mathtt{rSAT}\leqlp\mathtt{rCLIQUE}$ auf den entsprechenden NP-Relationen realisieren. 
