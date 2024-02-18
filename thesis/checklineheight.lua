@@ -34,7 +34,8 @@ local WHAT = node.id("whatsit")
 
 function lineparse(line)
     if lastline and lastline.id ~= WHAT then
-        if (tex.baselineskip.width-line.height-lastline.depth) < 0 then
+        diff = tex.baselineskip.width-line.height-lastline.depth
+        if diff < 0 then
             local lw = lastline.width
             local ld = lastline.depth
             local lh = lastline.height
@@ -42,15 +43,18 @@ function lineparse(line)
             local lhd = ((ld/65536)*(72/72.27))
             local lhh = ((lh/65536)*(72/72.27))
             local ltot=lhd+lhh
+            local ddiff = ((diff/65536)*(72/72.27))
             local pdfn=node.new(WHAT, "pdf_literal")
-            if tex.baselineskip.width-line.height-lastline.depth < tex.lineskiplimit then
-                pdfn.data=" 0.1 w 0 -"..lhd.." "..lhw.. " "..ltot.." re q 1 .5 .5 rg f  Q"
-            else
-                pdfn.data=" 0.1 w 0 -"..lhd.." "..lhw.. " "..ltot.." re q .7 1 .7 rg f  Q"
-            end
             pdfn.mode=0
-            pdfn.next=lastline.head
-            lastline.head=pdfn
+            if diff < tex.lineskiplimit then
+                pdfn.data=" 2 w 0 0 m 0 "..(line.height/64436*72/72.27 + lhd).." l q 1 .3 .3 RG s  Q"
+                pdfn.next=line.head
+                line.head=pdfn
+            else
+                pdfn.data=" 0.1 w  0 -"..lhd.." "..lhw.. " "..(-ddiff).." re q 1 .3 .3 rg f  Q"
+                pdfn.next=lastline.head
+                lastline.head=pdfn
+            end
         end
     end
 

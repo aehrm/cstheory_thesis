@@ -16,11 +16,13 @@
 \usepackage{unicode-math}
 \usepackage{setspace}
 \ifbook
+\directlua{require('fixmathfont')}
 \setmainfont{Gentium Plus}
 \setmathfont{TeX Gyre Pagella Math}
-\setmathfont[range=it]{Gentium Plus Italic}
+\setmathfont[range=it, RawFeature={\DeclareTopAccent `\s=430\relax}]{Gentium Plus Italic}
 \setmathfont[range=up/{num}]{Gentium Plus}
 \setmathfont[range=cal]{TeX Gyre Chorus}
+\setmathfont{TeX Gyre Pagella Math}[range={}]
 \setmathfontface\mathsf{Noto Sans}[Scale=MatchUppercase]
 \setsansfont[Scale=MatchUppercase, BoldFont={Jost Medium}]{Jost}
 \setmonofont[Scale=MatchUppercase,HyphenChar={-}]{Latin Modern Mono}
@@ -95,7 +97,7 @@
 \fi
 \AtBeginDocument{\frenchspacing}
 \directlua{require('hyphenateall')}
-%\directlua{require('checklineheight')}
+\directlua{require('checklineheight')}
 %\directlua{require('fixlineheight')}
 \hbadness=2000
 
@@ -367,7 +369,7 @@
 \def\mhyphen{\text{-}}
 \def\fset{\ensuremath{\mathit{set}\mhyphen}}
 \def\inc{\ensuremath{\in_\mathrm{c}}}
-\def\defeq{\ensuremath{\stackrel{\text{\smash{\normalfont\tiny df}}}{=}}}
+\def\defeq{\ensuremath{\stackrel{\text{{\normalfont\tiny df}}}{=}}}
 \def\subseteqc{\ensuremath{\subseteq_\mathrm{c}}}
 \AtBeginDocument{\renewcommand{\phi}{\varphi}}
 \AtBeginDocument{\renewcommand{\epsilon}{\varepsilon}}
