@@ -18,6 +18,7 @@
 \ifbook
 \directlua{require('fixmathfont')}
 \setmainfont{Gentium Plus}
+\newcommand\cyrfont[1]{#1}
 \setmathfont{TeX Gyre Pagella Math}
 \setmathfont[range=it, RawFeature={\DeclareTopAccent `\s=430\relax}]{Gentium Plus Italic}
 \setmathfont[range=up/{num}]{Gentium Plus}
@@ -26,10 +27,16 @@
 \setmathfontface\mathsf{Noto Sans}[Scale=MatchUppercase]
 \setsansfont[Scale=MatchUppercase, BoldFont={Jost Medium}]{Jost}
 \setmonofont[Scale=MatchUppercase,HyphenChar={-}]{Latin Modern Mono}
+\makeatletter\ExplSyntaxOn\AtBeginDocument{%
+\cs_set:Nn \__um_nprimes_select:nn {\kern 1pt#1}%
+}\makeatother\ExplSyntaxOff
+
 \setlength{\baselineskip}{12pt}
 \lineskiplimit=-2pt
-\newcommand\cyrfont[1]{#1}
+
 \renewcommand{\footnotesize}{\fontsize{9pt}{9.5pt}\selectfont}
+
+
 \else
 \setsansfont[Scale=MatchLowercase]{Noto Sans}
 \setmonofont[Scale=MatchUppercase]{Latin Modern Mono}
@@ -376,6 +383,7 @@
 
 \title{Komplexität von Suchproblemen und Beweissystemen}
 \author{Anton Ehrmanntraut}
+
 
 \begin{document}
 

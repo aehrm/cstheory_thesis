@@ -7,10 +7,11 @@ Dieses Kapitel legt die Grundlagen für die folgenden Kapitel fest. Abschnitt~\r
 
 Sei $\Sigma$ das standardmäßige Alphabet mit $\Sigma=\{0,1\}$. Elemente von $\Sigma^*$ nennen wir (endliche) \emph{Wörter}, sind also endliche Sequenzen von Zeichen aus $\Sigma$. Die Menge $\Sigma^\omega$ entspricht der Menge der $\omega$-unendlichen Wörter. Teilmengen von $\Sigma^*$ nennen wir auch Sprachen. Wir bezeichnen die Länge eines Wortes $w\in\Sigma^*$ mit $|w|$. Das leere Wort bezeichnen wir mit $\epsilon$. Das $i$-te Zeichen eines Wortes $w\in\Sigma^*\cup\Sigma^\omega$ für $0\leq i< |w|$ identifizieren wir mit $w[i]$. 
 Falls $w$ ein (echter) Präfix von $v$ ist dann schreiben wir $w \sqsubseteq v$ (bzw. $w\sqsubsetneq v$).
+Gelegentlich schreiben wir auch $\Sigma^{\leq n}$ für die Menge $\{ w\in\Sigma^* \mid |w|\leq n\}$. 
 In manchen Fällen identifizieren wir Mengen $A\subseteq\mathbb N$ mit ihrem charakteristischem $\omega$-Wort aus $\Sigma^\omega$, wobei $A=a_0a_1a_2\cdots$, alle $a_i\in\Sigma$ und $i\in A$ genau dann wenn $a_i=1$.
 Heißt, es gilt $A[i] = 1$ genau dann wenn $i\in A$.
 
-Die Menge aller natürlichen (nicht-negativen) Zahlen wird mit $\mathbb N$ bezeichnet. Die leere Menge notieren wir wie üblich als $\emptyset$. Die Kardinalität einer Menge $A$ notieren wir wie üblich als $|A|$. Für eine Menge $A\subseteq\Sigma^*$ und $n\in \mathbb N$ definieren wir $A^{\leq n} \defeq \{ w\in A \mid |w|\leq n\}$. 
+Die Menge aller natürlichen (nicht-negativen) Zahlen wird mit $\mathbb N$ bezeichnet. Die leere Menge notieren wir wie üblich als $\emptyset$. Die Kardinalität einer Menge $A$ notieren wir wie üblich als $|A|$. 
 %Analog definieren wir $A^{<n}, A^{=n}$, usw. 
 Außerdem bezeichnet $\ell(A)\defeq\sum_{w\in A} |w|$. Für solche Teilmengen $A$ von $\Sigma^*$ verstehen wir das Komplement $\overline{A}$ als $\Sigma^*-A$.
 Wir sagen, dass zwei Mengen $A, B$ \emph{auf Menge $D$ übereinstimmen} wenn $x\in A$ genau dann wenn $x\in B$ für alle $x\in D$, bzw. äquivalent dazu $A\cap D= B\cap D$.
@@ -33,9 +34,9 @@ Binäre Relationen nennen wir eine (partielle) \emph{Funktion} wenn diese Relati
 %Beachte, dass eine totale bijektive Funktion $A\to B$ einen Mengenisomorphismus zwischen $A$ und $B$ bildet.
 Binäre Relationen über Wörtern aus $\Sigma^*$, welche nicht unbedingt Funktionen sein müssen, verstehen wir manchmal auch aus historischen Gründen als (partielle) Multifunktionen, dem Begriff der „\emph{partial multivalued function}“ nachempfunden.
 
-Für eine binäre Relation $R\subseteq\Sigma^* \times \Sigma^*$ schreiben wir $\Proj(R)$ für die Menge $\{ x\mid (x,y)\in R \}$. 
-Für ein Wort $x\in\Sigma^*$ schreiben wir $\fset{}R(x)=\{ y\mid (x,y)\in R \}$ für die Bildmenge von $x$ auf $R$
-Manchmal werden wir binäre Relationen auch über die Spezifikation der jeweiligen Bildmengen definieren, also z.B. $\fset{}Q(n) \defeq \{ 0, 1, \dots, n\}$ schreiben um die Relation $Q=\{ (a,b)\mid b\leq a \}$ zu definieren.
+Für eine binäre Relation $R\subseteq A \times B$ schreiben wir $\Proj(R)$ für die Menge $\{ x\mid (x,y)\in R \}$. 
+Für ein Element $x\in A$ schreiben wir $\fset{}R(x)=\{ y\mid (x,y)\in R \}$ für die Bildmenge von $x$ auf $R$
+Manchmal werden wir binäre Relationen auch über die Spezifikation der jeweiligen Bildmengen definieren, also z.B. $Q\subseteq\mathbb N\times\mathbb N$, $\fset{}Q(n) \defeq \{ 0, 1, \dots, n\}$ schreiben um die Relation $Q=\{ (a,b)\mid b\leq a \}$ zu definieren.
 %Für ein Wort $x\in\Sigma^*$ schreiben wir $R(x)= \{ y\mid (x,y)\in R \}$ für die Bildmenge von $x$ auf $R$. 
 Falls $f$ eine Funktion bzw. funktional ist, meinen wir mit $f(x)$ wie üblich das \emph{Bildelement} der Funktion $f$, und nicht die \emph{Bildmenge}. 
 %Es gilt also in diesem Fall $\fset{}f(x)=\{f(x)\}$.
@@ -49,8 +50,6 @@ Wir nennen $f$ \emph{polynomiell längenbeschränkt} wenn ein Polynom $p$ existi
 Wir nennen $f$ \emph{ehrlich} wenn ein Polynom $q$ existiert sodass $q(|f(x)|)\geq |x|$ für alle $x\in\dom(f)$.
 Manchmal übertragen wir diese Begrifflichkeiten auf allgemeine binäre Relationen, und sprechen z.B. von polynomiell längenbeschränkten Relationen $R$ wenn $|y|\leq p(|x|)$ für alle $(x,y)\in R$.
 
-Beachte dass Funktionen nur spezielle binäre Relationen sind. Wenn also $f$ eine Funktion ist, meinen wir mit „$f\in\P$“ dass \emph{der Graph} von $f$ in Polynomialzeit entschieden werden kann („Gegeben Tupel $(x, y)$, gilt $f(x)=y$?“). Das ist eine schwächere Aussage als „$f\in\FP$“ die wie in üblicher Interpretation besagen soll, dass aus $x$ das Bild $f(x)$ in Polynomialzeit berechnet werden kann.
-
 Im Folgenden definieren wir noch den Begriff der \emph{Verfeinerung} auf Multifunktionen. Seien $F, G$ zwei Multifunktionen. Wir nennen $G$ eine \emph{Verfeinerung} von $F$ wenn $\Proj(F)=\Proj(G)$ und $\fset{}G(x)\subseteq \fset{}F(x)$ für alle $x\in\Proj(F)$ (bzw. äquivalent $\in \Proj(G)$).
 Ist $F$ eine Multifunktion, und $\mathcal G$ eine Klasse von Multifunktion, schreiben wir $F\inc \mathcal G$ wenn $\mathcal G$ eine Verfeinerung $G\in\mathcal G$ von $F$ enthält.
 Für zwei Klassen $\mathcal F, \mathcal G$ von Multifunktionen schreiben wir $\mathcal F \subseteqc \mathcal G$ falls für jede Multifunktion $F\in\mathcal F$ auch $F\inc \mathcal G$ gilt.
@@ -63,6 +62,10 @@ Mit den Ausdrücken $0^n$ und $1^n$ meinen wir immer die Wörter $000\cdots$ und
 
 Wir definieren mit $\langle\cdots\rangle$ eine Paarungsfunktion von $\bigcup_{i\geq 0} (\Sigma^*)^i \to \Sigma^*$, welche injektiv und in Polynomialzeit sowohl berechenbar als auch invertierbar ist, und die im folgenden Sinne längeneffizient ist: $|\langle u_1, \dots, u_n\rangle| = 2(|u_1|+\cdots+|u_n|+n)$. Eine solche Paarungsfunktion kann beispielsweise über $\langle u_1, \dots, u_n\rangle\mapsto f(\#u_1\#\cdots\#u_n)$ realisiert werden, wobei $f$ eine Codierung vom Alphabet $\{0,1,\#\}$ auf $\Sigma^*$ mittels $\{0\mapsto 00, 1\mapsto 11, \#\mapsto 01\}$ ist.
 Diese Paarungsfunktion werden wir häufig verwenden, um Tupel an Wörtern zu codieren, z.B. damit eine Turing-Maschine ein Tupel an Wörtern als Eingabe entgegen nehmen kann. Auf die konkrete Angabe dieser Paarungsfunktion wird aber im Folgenden meist verzichtet und sie wird nur implizit mitgedacht. So meinen wir mit dem Tupel $(a,b)$ für $a,b\in\Sigma^*$ je nach Kontext entweder mathematisch präzise das Element aus dem Produkt $\Sigma^*\times\Sigma^*$, oder das Wort $\langle a,b\rangle\in\Sigma^*$. Ebenso verstehen wir je nach Kontext eine binäre Relation $R\subseteq\Sigma^*\times\Sigma^*$ auch als eine Sprache im Sinne einer Teilmenge von $\Sigma^*$, die bspw. von einer Turing-Maschine entschieden werden kann.
+
+Wenn also $f$ eine Funktion ist, meinen wir mit „$f\in\P$“ dass \emph{der Graph} von $f$, also die Menge $\{\langle x,y\rangle \mid f(x)=y\}$ in Polynomialzeit entschieden werden kann. Das ist eine schwächere Aussage als „$f\in\FP$“ die wie in üblicher Interpretation besagen soll, dass aus $x$ das Bild $f(x)$ in Polynomialzeit berechnet werden kann.
+
+
 Algorithmen und Turing-Maschinen verarbeiten nicht nur Wörter, sondern auch andere Objekte wie z.B. Graphen oder Turing-Maschinen.
 Daher werden wir die obige implizit mitgedachte Codierung auch auf andere Objekte ausweiten. Hierbei seien die jeweiligen Codierungen angemessen effizient, in dem Sinne dass die Codierungen kompakt sind und entsprechende Operationen auf den codierten Objekten in Polynomialzeit zulassen. Zum Beispiel lässt sich ein Graph mit Knotenmenge $V$ und Kantenmenge $E$ in polynomieller Länge abh. von $|V|$ und $|E|$ codieren, und auf der entsprechenden Codierung kann z.B. die Nachbarschaft eines ausgezeichneten Knotens ebenso in Polynomialzeit aufgezählt werden.
 
@@ -73,9 +76,10 @@ Diese Arbeit baut auf dem Berechnungsmodell der Turing-Maschine (TM) auf. Wir be
 
 Für (nichtdeterministische oder deterministische) TM $M$ und Eingabe $x\in\Sigma^*$ sagen wir, dass $\alpha$ \emph{ein Rechenweg der Berechnung $M(x)$} ist, wenn $\alpha$ eine Sequenz $C_0, C_1, \dots$ von Konfigurationen ist, diese mit der initialen $C_0$ Konfiguration startet, und in der die Konfiguration $C_{i+1}$ aus $C_i$ über einen (bzgl. $M$) legalen Rechenschritt hervorgeht.
 
-Wir sagen, dass ein Rechenweg $\alpha=(C_0,\dots,C_m)$ \emph{terminierend} ist, wenn kein weiterer legaler Rechenschritt (bzgl. $M$) mehr nach $C_m$ möglich ist.
+Wir sagen, dass ein Rechenweg $\alpha=(C_0,\dots,C_m)$ \emph{terminierend} ist, wenn kein weiterer legaler Rechenschritt (bzgl. $M$) mehr aus $C_m$ möglich ist.
 Ein Rechenweg ist \emph{akzeptierend} wenn dieser terminierend ist, und der Zustand der letzten Konfiguration $C_m$ der akzeptierende Zustand  ist.
 Entsprechend sagen wir auch, dass \emph{$M(x)$ bezüglich $\alpha$ mit Ausgabe $y$ akzeptiert} wenn $\alpha$ ein akzeptierender Rechenweg ist, und $y$ auf dem Ausgabeband steht.
+Analog sagen wir, dass ein Rechenweg \emph{ablehnt} wenn dieser terminiert, aber nicht akzeptiert.
 
 %Analog sagen wir, dass ein Rechenweg \emph{ablehnend} ist, wenn dieser terminierend ist und der Zustand der letzten Konfiguration $C_m$ nicht der akzeptierende Zustand ist.
 %Entsprechend sagen wir auch, dass \emph{$M(x)$ bezüglich $\alpha$ ablehnt}.
@@ -104,10 +108,12 @@ Ansonsten sagen wir, dass \emph{$N(x)$ ablehnt}.
 
 
 Analog ergeben sich nun wieder zwei Berechnungsweisen, einerseits als Akzeptor, andererseits als Multifunktion:
-\begin{itemize}
-    \item Die von $N$ \emph{entschiedene  Sprache} ist die Menge \[ L(N)\defeq\{ x\in\Sigma^* \mid N(x) \text{ akzeptiert } \} = \{ x\in\Sigma^* \mid \text{ ex. akz. Rechenweg auf $N(x)$} \}. \]
+\begin{itemize}\setlength{\mathindent}{8pt}
+    \item Die von $N$ \emph{entschiedene  Sprache} ist die Menge \begin{equation*}
+        L(N)\defeq\{ x\in\Sigma^* \mid N(x) \text{ akzeptiert } \} = \{ x\in\Sigma^* \mid \text{ ex. akz. Rechenweg auf $N(x)$} \}. \end{equation*}
     \item Die von $N$ \emph{berechnete Multifunktion} ist die Multifunktion $f_N\subseteq\Sigma^*\times\Sigma^*$ mit
-        \[ f_N(x) \defeq \{ y \mid \text{$N(x)$ akz. auf einem Rechenweg mit Ausgabe $y$} \}  \] 
+        \begin{equation*}
+        f_N(x) \defeq \{ y \mid \text{$N(x)$ akz. auf einem Rechenweg mit Ausgabe $y$} \}.  \end{equation*}
 \end{itemize}
 Die berechnete Multifunktion kann in anderen Worten auch so verstanden werden, dass $x$ den Ausgaben von $N(x)$ zugeordnet wird, wobei jeder akzeptierender Rechenweg eine Ausgabe macht, nämlich jenes Wort, was auf dem Ausgabeband steht.
 Wie im deterministischen Fall können wir von nichtdeterministischen Turing-Transduktoren sprechen, wenn wir die zweite Berechnungsweise betonen wollen. Ebenso können wir wieder abkürzend von „der Multifunktion $N$“ sprechen.
@@ -116,7 +122,7 @@ Sowohl im deterministischen als auch dem nichtdeterministischen Fall können wir
 \[ \mathrm{time}_M(x) \defeq \max \{ \text{Anz. Rechenschritte in $\alpha$} \mid \text{$\alpha$ ist ein Rechenweg von $M(x)$}  \}. \]
 Ist $\mathrm{time}_M(x)$ durch ein Polynom in Abhängigkeit von $|x|$ beschränkt, und $M$ eine deterministische (bzw. nichtdeterministische) TM, sagen wir auch dass $M$ eine \emph{deterministische (bzw. nichtdeterministische) Polynomialzeit-Turing-Maschine} (PTM bzw. NPTM) ist. 
 
-Eine PTM bzw. NPTM $M$ nennen wir \emph{total} falls $L(M)=\Sigma^*$, heißt $M(x)$ akzeptiert für jede Eingabe $x$.
+Eine TM bzw. NTM $M$ nennen wir \emph{total} falls $L(M)=\Sigma^*$, heißt $M(x)$ akzeptiert jede Eingabe $x$.
 
 
 \section{Komplexitätsklassen}\label{sec:prelim-klassen}
@@ -132,7 +138,7 @@ Auf Basis der Turing-Maschinen als Berechnungsmodell können die üblichen Kompl
     \mathrm{E} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ mit $L=L(M)$, ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{c|x|}$ für alle $x$} \},\\
     \mathrm{EE} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ mit $L=L(M)$, ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{2^{c|x|}}$ für alle $x$} \}.
 \end{align*}\egroup
-Die nichtdeterministischen Varianten $\mathrm{NE}, \mathrm{NEE}$ und Komplementklassen $\mathrm{coNE}, \mathrm{coNEE}$ sind analog definiert.
+Die nichtdeterministischen Varianten $\mathrm{NE}, \mathrm{NEE}$ und Komplementklassen $\mathrm{coNE}, \mathrm{coNEE}, \mathrm{coUP}$ sind analog definiert.
 
 Die Funktionenklassen $\FP, \mathrm{NPMV}, \mathrm{NPSV}$ ist analog definiert \parencite{selman_taxonomy_1994}:
 \bgroup\setlength{\mathindent}{0pt}
@@ -145,10 +151,10 @@ Die Funktionenklassen $\FP, \mathrm{NPMV}, \mathrm{NPSV}$ ist analog definiert \
     \centering\includegraphics[page=9]{figures.pdf}
     \caption{Inklusionen zwischen den in dieser Arbeit definierten Funktionenklassen. Eine Pfeil von $\mathcal F$ nach $\mathcal G$ sagt aus dass $\mathcal{G}\subseteq \mathcal F$.}\label{fig:functionclasses}
 \end{marginfigure}
-Gegeben eine Funktionenklasse $\mathcal F$ definieren wir $\mathcal F_\mathrm t$ als diejenige Teilmenge von $\mathcal F$ der Multifunktionen $f\in\mathcal F$, die linkstotal sind. 
+Gegeben eine Funktionenklasse $\mathcal F$ definieren wir $\mathcal F_\mathrm t$ als diejenige Teilmenge von $\mathcal F$ der Multifunktionen $f\in\mathcal F$, die total sind. 
 Analog sei $\mathcal F_\mathrm g$ die Teilmenge der Multifunktionen $f\in\mathcal F$, für die (der Graph) $f$ in $\P$ liegt, also für die in Polynomialzeit überprüft werden kann, ob für $(x,y)$ auch $f(x)=y$ gilt.
 
-Ist für eine Funktion $f\in\FP$ auch $f^{-1}\inc \FP$, also eine (funktionale) Verfeinerung $g$ von $f^{-1}$ in $\FP$, dann sagen wir auch, dass $f$ \emph{$\P$-invertierbar} ist. Falls $f$ injektiv ist, dass ist die Ehrlichkeit von $f$ eine notwendige Bedingung für die $\P$-Invertierbarkeit von $f$ ist.
+Ist für eine Funktion $f\in\FP$ auch $f^{-1}\inc \FP$, also eine (funktionale) Verfeinerung $g$ von $f^{-1}$ in $\FP$, dann sagen wir auch, dass $f$ \emph{$\P$-invertierbar} ist. Falls $f$ injektiv ist, dann ist insbesondere $f^{-1}$ funktional, und Ehrlichkeit von $f$ ist ferner eine notwendige Bedingung für die $\P$-Invertierbarkeit von $f$.
 
 \textcite{grollmann_complexity_1988} erarbeiten in ihrer Untersuchung zu Public-Key-Kryptosystemen den Begriff von \emph{disjunkten NP-Paaren} heraus.
 
@@ -200,10 +206,10 @@ Sei $\mathcal C$ eine Komplexitätsklasse und $\preceq$ eine der obigen Reduktio
 Wie üblich nennen wir nun eine Sprache $A$ \emph{$\preceq$-hart für $\mathcal C$} wenn $A$ eine obere Schranke für $\mathcal C$ geordnet über $\preceq$  ist (d.h. $B\preceq A$ für alle $B\in\mathcal C$).
 Wir nennen $A$ \emph{$\preceq$-vollständig für $\mathcal C$} wenn $A\in\mathcal C$ ein größtes Element von $\mathcal C$ geordnet über $\preceq$ ist (d.h. $B\preceq A$ für alle $B\in\mathcal C$ und $A\in\mathcal C$). 
 Geht die Klasse $\mathcal C$ aus dem Kontext hervor, lassen wir manchmal auch die Angabe „\emph{für $\mathcal C$}“ weg.
-Auf Mengen betrachten wir üblicherweise die Reduktionsordnung $\leqmp$, und nennen daher manchmal eine Sprache $A$ \emph{$\mathcal C$-vollständig} wenn $A$ $\leqmp$-vollständig für $\mathcal C$ ist.
+Auf Mengen betrachten wir üblicherweise die Reduktionsordnung $\leqmp$, und nennen daher manchmal eine Sprache $A$ kurz \emph{$\mathcal C$-vollständig} wenn $A$ $\leqmp$-vollständig für $\mathcal C$ ist.
 Auf Grundlage der Existenz universeller effizienter Turing-Maschinen können für die Klassen $\P$ und $\NP$ jeweils eine kanonische $\leqmp$-vollständige Menge angegeben werden. Für $\NP$ ist diese
 \begin{definition}
-    \[ \begin{split} \mathtt{KAN} \defeq \{ (N, x, 1^n) \mid \,&\text{$N$ ist eine NTM und ex. Rechenweg $\alpha$ auf $N(x)$}\\ &\text{mit $\leq n$ vielen Schritten} \}. \end{split} \qedhere \]
+    \begin{align*} \mathtt{KAN} \defeq \{ (N, x, 1^n) \mid \,&\text{$N$ ist eine NTM und ex. Rechenweg $\alpha$ auf $N(x)$}\\ &\text{mit $\leq n$ vielen Schritten} \}.\qedhere \end{align*}
 \end{definition}
 \begin{lemma}
     Die Menge $\mathtt{KAN}$ ist $\leq_\mathrm{1,i}^\mathrm{p}$-vollständig.
@@ -246,23 +252,24 @@ Um die Voraussetzungen vom vorigen Satz \ref{thm:bh-iso} zu vereinfachen, führe
     \[ x\in A \iff g(x,y)\in A. \]
     Das heißt, $g$ fügt einen beliebigen String $y$ zur „Probleminstanz“ $x$ hinzu, sodass die Mitgliedschaft zu $A$ unverändert bleibt, und die beiden originalen Strings $x$ und $y$ wieder rekonstruiert werden können. 
 \end{definition}
-Es gilt:
+Paddability erlaubt es, Many-one-Reduktionen zu verlängernden Reduktionen zu verstärken:
 \begin{theorem}[{\cite[Thm.~5,~7]{berman_isomorphisms_1977}}]
     \begin{enumerate}
         \item Ist $A$ paddable so gibt es für jedes $B$ mit $B\leqmp A$ eine injektive $\P$-invertierbare verlängernde Funktion $f\in\FP$, welche $B\leq_\mathrm{1,i}^\mathrm{p}$ realisiert.
         \item Sind $A, B$ paddable, so folgt aus $A\equiv_\mathrm{m}^\mathrm{p}$ stets $A\equiv^\mathrm{p}$.
     \end{enumerate}
 \end{theorem}
-Mit obigem Begriff von Paddability lässt sich die $\equiv^\mathrm{p}$-Äquivalenzklasse von $\mathtt{KAN}$ folgendermaßen charakterisieren:
+Mit obigem Begriff von Paddability lässt sich die $\equiv^\mathrm{p}$-Äquivalenzklasse von $\mathtt{KAN}$ insbesondere folgendermaßen charakterisieren:
 \begin{theorem}
     Eine Menge $A\in\NP$ ist genau dann $\P$-isomorph zu $\mathtt{KAN}$ wenn $A$ $\leqmp$-vollständig und paddable ist.
 \end{theorem}
-Alle bekannten $\leqmp$-vollständigen Mengen für $\NP$ sind paddable, also paarweise $\P$-isomorph. 
-Aufbauend auf dieser empirischen Beobachtung vermuteten Berman und Hartmanis, dass das für \emph{alle} $\leqmp$-vollständigen Mengen gilt:
+Berman und Hartmanis machen die empirische Beobachtung, dass die ihnen bekannten bekannten $\leqmp$-vollständigen Mengen für $\NP$ alle paddable sind, also auch paarweise $\P$-isomorph sind. 
+Aufbauend auf dieser Beobachtung vermuteten Berman und Hartmanis, dass das für \emph{alle} NP-vollständigen Mengen gilt.
 \begin{conjecture}[$\mathsf{IC}$]
     Alle $\leqmp$-vollständigen Mengen für $\NP$ sind $\P$-isomorph.
-    In anderen Worten: die $\leqmp$-Äquivalenzklasse der vollständigen Mengen ist gleich der  $\equiv^\mathrm{p}$-Äquivalenzklasse von $\mathtt{KAN}$.
+    In anderen Worten: die $\equiv_\mathrm{m}^\mathrm{p}$-Äquivalenzklasse der vollständigen Mengen ist gleich der  $\equiv^\mathrm{p}$-Äquivalenzklasse von $\mathtt{KAN}$.
 \end{conjecture}
+
 
 \section{Orakel und Relativierungen}\label{sec:prelim-orakel}
 
@@ -307,7 +314,7 @@ Ein einfaches Beweissystem für die Menge $\mathtt{SAT}\in\NP$ wäre das \emph{S
 \[ \mathit{sat}(\phi, w) \defeq \begin{cases} \phi & \text{wenn $w$ eine erfüllende Belegung für $\phi$ ist,} \\ \bot & \text{sonst.} \end{cases} \]
 Dieses Beweissystem hat kurze Beweise.
 
-Cook und Reckhow machen dagegen die Beobachtung, dass im Fall von der Menge $\mathtt{TAUT}$ der aussagenlogischen Tautologien die Beobachtung, dass $\mathtt{TAUT}$ genau dann ein Beweissystem mit kurzen Beweisen hat, wenn $\NP=\coNP$.
+Cook und Reckhow machen dagegen die Beobachtung, dass  $\mathtt{TAUT}$ genau dann ein Beweissystem mit kurzen Beweisen hat, wenn $\NP=\coNP$.
 Diese Einsicht motivierte das sogenannte \emph{Cook–Reckhow-Programm} \parencite[vgl.][]{buss_lectures_1996}: man nähert sich der Frage  $\NP\neq \coNP$ mittels Untersuchung immer stärkerer Beweissysteme.
 Um nun die relative Stärke unterschiedlicher Beweissysteme zu vergleichen, führen Cook und Reckhow den Begriff der Simulation ein.
 \begin{definition}
@@ -352,7 +359,7 @@ Jedes Beweissystem mit kurzen Beweisen ist auch optimal.
     wobei $p$ das Polynom ist, welches die Laufzeit von $g$ beschränkt.
 \end{proof}
 
-Im Zusammenhang mit dem Cook–Reckhow-Programm weisen \textcite{krajicek_propositional_1989} darauf hin, dass die Existenz eines optimalen Beweissystems für $\mathtt{TAUT}$ wahrscheinlich schwächer ist, als die Existenz eines Beweissystems mit kurzen Beweisen, denn Ersteres folgt schon aus $\mathrm{NE}=\mathrm{coNE}$. (\citeauthor{kobler_optimal_2003}, \citeyear{kobler_optimal_2003}, schwächen diese Voraussetzung auf $\mathrm{NEE=coNEE}$ ab.)
+Im Zusammenhang mit dem Cook–Reckhow-Programm weisen \textcite{krajicek_propositional_1989} darauf hin, dass die Existenz eines optimalen Beweissystems für $\mathtt{TAUT}$ wahrscheinlich schwächer ist, als die Existenz eines Beweissystems mit kurzen Beweisen, denn Ersteres folgt schon aus $\mathrm{NE}=\mathrm{coNE}$. \textcite{kobler_optimal_2003} schwächen diese Voraussetzung auf $\mathrm{NEE=coNEE}$ ab.
 
 Für die Mengen aus $\P$ bzw. $\NP$ existieren $\P$-optimale bzw. optimale Beweissysteme:
 \begin{observation}\label{obs:np-short-ps}
@@ -365,12 +372,12 @@ Für die Mengen aus $\P$ bzw. $\NP$ existieren $\P$-optimale bzw. optimale Bewei
 \begin{prooflist}
 \item Zu (1): Betrachte die Funktion
     \[ h(x) \defeq \begin{cases} x & \text{wenn $x\in A$} \\ \bot & \text{sonst} \end{cases}. \]
-    Diese Funktion ist definitiv ein Beweissystem für $A$. Sie ist in $\FP$, da der Test „$x\in A$“ in Polynomialzeit möglich. Klar ist auch dass $h$ kurze Beweise hat. Dieses Beweissystem ist $\P$-optimal, denn wenn $g$ ein weiteres Beweissystem für $A$ ist, und wenn $w$ ein $g$-Beweis für $x$ ist, dann ist $h(g(w))=h(x)=x$, also $g(w)$ ein $h$-Beweis für $x$, wie gewünscht. 
+    Diese Funktion ist definitiv ein Beweissystem in $\FP$ für $A$. Klar ist auch dass $h$ kurze Beweise hat. Dieses Beweissystem ist $\P$-optimal, denn wenn $g$ ein Beweissystem für $A$ ist, gilt $g(w)=h(g(w))$, also $g\leqmp h$.
 
-\item Zu (2): Kann durch die bekannte Zertifikats-Definition von $\NP$ gezeigt werden (was im späteren Teil der Arbeit auch geschieht), zur Vollständigkeit lässt sich an dieser Stelle aber auch ein Beweis über die NPTM-Definition von oben angeben. Sei $N$ eine NPTM, die $A$ mit polynomieller Laufzeit $p$ entscheidet.
+\item Zu (2): Kann durch die bekannte Zertifikats-Definition von $\NP$ gezeigt werden (was im späteren Teil der Arbeit auch geschieht), zur Vollständigkeit lässt sich an dieser Stelle aber auch ein Beweis über die NPTM-Definition von oben angeben. Sei $N$ eine NPTM, welche $A$ in polynomieller Laufzeit $p$ entscheidet.
     Definiere nun
     \[ h(x, \alpha) \defeq \begin{cases} x & \text{$N(x)$ akz. auf Rechenweg $\alpha$} \\ \bot & \text{sonst} \end{cases} \]
-    Nachdem $L(N)=A$ ist $h$ definitiv ein Beweissystem für $A$. Es ist leicht zu sehen dass $h\in\FP$, ist der Test „$\alpha$ ist ein gültiger Rechenweg und akzeptiert“ in Polynomialzeit möglich. Ferner existiert für jedes $x\in A$ auch ein akzeptierender Rechenweg $\alpha$ auf $N(x)$ der Länge polynomiell in $|x|$, womit der Beweis $(x, \alpha)$ auch nur polynomiell länger als $x$ ist. Da Beweissystem $h$ hat also kurze Beweise, und ist damit auch optimal.
+    Nachdem $L(N)=A$ ist $h$ definitiv ein Beweissystem für $A$. Es ist auch klar, dass $f\in\FP$. Nachdem akzeptierende Rechenwege höchstens polynomiell länger als $x$ sind, hat $h$ kurze Beweise. Also ist $h$ nach Beobachtung~\ref{obs:super-ps-sind-opt} auch optimal.
 \end{prooflist}
 \end{proof}
 Insbesondere mit dem letzten Punkt können die optimalen Beweissysteme der Mengen aus $\NP$ auch als Beweissysteme mit kurzen Beweisen charakterisiert werden:
@@ -385,23 +392,24 @@ Die Existenz eines ($\P$-)optimalen Beweissystems für eine Menge $L$ ist eine E
 \begin{lemma}[{\cite[Thm.~3.2]{messner_simulation_2001}}]\label{lemma:optimal-downward}
     Hat $A$ ein ($\P$-)optimales Beweissystem und $B\leqmp A$, dann hat auch $B$ ein ($\P$-)optimales Beweissystem.
 \end{lemma}
-\begin{proof}
-    Sei $f$ die Reduktionsfunktion, die $B\leqmp A$ realisiert, und 
-    sei $h$ ein $\P$-optimales Beweissystem für $A$. Definiere
-    \[ h'(x,w) \defeq \begin{cases} x & \text{wenn $h(w)=f(x)$, also $w$ ein $h$-Beweis für $f(x)$ ist},\\ \bot & \text{sonst.} \end{cases} \]
-    Es ist leicht zu sehen dass $h'$ ein Beweissystem für $B$ ist.
-
-    Wir zeigen nun dass $h'$ auch $\P$-optimal ist. Sei hierfür $g'$ ein Beweissystem für $B$. Wir definieren nun
-    \[ g(y) \defeq \begin{cases} f(g'(w)) & \text{wenn $y=1w$,}\\ h(w) & \text{wenn $y=0w$.} \end{cases}\]
-    Es ist leicht zu sehen dass $g$ ein Beweissystem für $A$ ist. Dann kann $h$ auch das Beweissystem $g$ via $\pi\in\FP$ $\P$-simulieren.
-    Beachte dass $1w$ ein $g$-Beweis für $f(g'(w))$ ist, und damit $\pi(1w)$ ein $h$-Beweis für $f(g'(w))$ ist.
-    Damit
-    \[ h'(\underbrace{g'(w), \pi(1w)}_{\pi'(w)}) = g'(w). \]
-    bzw. kann jeder $g'$-Beweis $w$ für $x$ in einen $h'$-Beweis $\pi'(w)$ übersetzt werden.
-
-    Der Beweis für die Aussage mit optimalen Beweissystemen läuft ähnlich.
-\end{proof}
-Beachte insbesondere, dass dieser Beweis relativiert.
+%\begin{proof}
+%    Sei $f$ die Reduktionsfunktion, die $B\leqmp A$ realisiert, und 
+%    sei $h$ ein $\P$-optimales Beweissystem für $A$. Definiere
+%    \[ h'(x,w) \defeq \begin{cases} x & \text{wenn $h(w)=f(x)$, also $w$ ein $h$-Beweis für $f(x)$ ist},\\ \bot & \text{sonst.} \end{cases} \]
+%    Es ist leicht zu sehen dass $h'$ ein Beweissystem für $B$ ist.
+%
+%    Wir zeigen nun dass $h'$ auch $\P$-optimal ist. Sei hierfür $g'$ ein Beweissystem für $B$. Wir definieren nun
+%    \[ g(y) \defeq \begin{cases} f(g'(w)) & \text{wenn $y=1w$,}\\ h(w) & \text{wenn $y=0w$.} \end{cases}\]
+%    Es ist leicht zu sehen dass $g$ ein Beweissystem für $A$ ist. Dann kann $h$ auch das Beweissystem $g$ via $\pi\in\FP$ $\P$-simulieren.
+%    Beachte dass $1w$ ein $g$-Beweis für $f(g'(w))$ ist, und damit $\pi(1w)$ ein $h$-Beweis für $f(g'(w))$ ist.
+%    Damit
+%    \[ h'(\underbrace{g'(w), \pi(1w)}_{\pi'(w)}) = g'(w). \]
+%    bzw. kann jeder $g'$-Beweis $w$ für $x$ in einen $h'$-Beweis $\pi'(w)$ übersetzt werden.
+%
+%    Der Beweis für die Aussage mit optimalen Beweissystemen läuft ähnlich.
+%\end{proof}
+%Beachte insbesondere, dass dieser Beweis relativiert.
+Der Beweis von \citeauthor{messner_simulation_2001} relativiert dabei insbesondere.
 In Kombination mit vollständigen Mengen erhalten wir hieraus folgendes Korollar:
 \begin{corollary}\label{cor:con-characterization}
     Folgende Aussagen sind äquivalent:
@@ -418,7 +426,7 @@ Denn wenn ein $\P$-optimales Beweissystem für $\mathtt{TAUT}$ existiert, dann a
 Für die andere Richtung, wenn für \emph{eine} coNP-vollständige Menge ein $\P$-optimales Beweissystem existiert, dann auch für alle Mengen in $\coNP$, also insbesondere auch für $\mathtt{TAUT}$.
 
 Die hier gewählte Charakterisierung hat vor allem den Vorteil, dass $\hSAT, \hTAUT, \mathsf{TAUT^N}$ auf natürliche Weise relativieren.
-So relativiert beispielsweise $\hSAT$ auf Orakel $O$ zur Aussage „kein $\leq_\mathrm{m}^{\mathrm p,O}$-vollständiges $L\in\NP^O$ für $\NP^O$ hat ein p${}^O$-optimales Beweissystem $f\in\FP^O$“.
+So relativiert beispielsweise $\hSAT$ auf Orakel $O$ zur Aussage „kein $\leq_\mathrm{m}^{\mathrm p,O}$-vollständiges $L\in\NP^O$ für $\NP^O$ hat ein $\P^O$-optimales Beweissystem $f\in\FP^O$“.
 Das entspricht genau der Form von Relativierung, welche als erstes von \textcite{dose_oracle_2020} vorgeschlagen wurde.
 
 

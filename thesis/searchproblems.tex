@@ -25,7 +25,7 @@ Wir können die beiden obigen Punkte noch einmal in eine formale Definition gie�
 \begin{definition}[NP-Relation, $\FNP$]\label{def:np-relation}
     Eine \emph{NP-Relation} ist eine binäre Relation $R\subseteq \Sigma^*\times\Sigma^*$, sodass diese
     \begin{enumerate}
-        \item in Polynomialzeit entscheidbar ist, d.h. $R\in\P$, bzw. genauer $\{\langle x, y\rangle \mid (x,y)\in R\}\in\P$ und
+        \item in Polynomialzeit entscheidbar ist, d.h. $R\in\P$, bzw. genauer $\{\langle x, y\rangle \mid (x,y)\in R\}\in\P$, und
         \item polynomiell längenbeschränkt ist, d.h. es existiert ein Polynom $q$, sodass
             \begin{equation}\label{eq:zertifikatsschranke}
                 (x,y)\in R \implies |y|\leq q(|x|) \quad\text{für alle $x,y\in\Sigma^*$}.
@@ -36,7 +36,8 @@ Wir können die beiden obigen Punkte noch einmal in eine formale Definition gie�
 
     Wir schreiben $\FNP$ für die Klasse aller NP-Relationen. \qedhere
 \end{definition}
-Das oben diskutierte Suchproblem zu einer NP-Relation $R$ kann jetzt wie folgt formal formuliert werden:
+
+Das oben diskutierte allgemeine Suchproblem zu einer NP-Relation $R$ kann jetzt wie folgt formal formuliert werden:
 \begin{quote}
     \textbf{Suchproblem zur NP-Relation $R$:}
     \begin{description}[nosep]
@@ -64,14 +65,14 @@ Festhalten können wir hier aber schon, dass das Suchproblem offenbar „schwier
 Im Folgenden werden eine Beispiele von natürlichen NP-Relationen angegeben. Um diese von den sonst üblicherweise verwendeten Labels für Mengen bzw. Suchprobleme abzugrenzen, sind im Verlauf dieser Arbeit NP-Relationen zu natürlichen Suchproblemen immer mit einem $\mathtt{r}$ am Anfang gekennzeichnet.
 \label{page:natural-searchproblems}
 \begin{itemize}[midpenalty=0]
-\item $\mathtt{rPERFECTMATCHING} \defeq \{ (G, M) \mid \text{$G$ ist ein Graph, $M$ ein größtes Matching auf $G$} \}$. Das korrespondiert zum Suchproblem (3) aus der Einleitung.
+\item $\mathtt{rLARGESTMATCHING} \defeq \{ (G, M) \mid \text{$G$ ist ein Graph, $M$ ein größtes Matching auf $G$} \}$. Das korrespondiert zum Suchproblem (3) aus der Einleitung.
 \item $\mathtt{rSAT} \defeq \{ (\phi, w) \mid $ $\phi$ ist eine aussagenlogische Formel, $w$ erfüllende Belegung für $\phi$$\}$. Das korrespondiert zum Suchproblem (7) aus der Einleitung.
 \item $\mathtt{rCLIQUE} \defeq \{ ((G, k), C) \mid $ $G$ ist ein Graph, $C$ eine Clique mit $\leq k$ Knoten$\}$. Das korrespondiert zu Suchproblem (6) aus der Einleitung.
 \item $\mathtt{rHAMCYCLE} \defeq \{ (G, P) \mid $ $G$ ist ein Graph, $P$ ein Zyklus, welcher jeden Knoten von $G$ genau einmal berührt$\}$.
 \item $\mathtt{rANOTHERHAMCYCLE} \defeq \{ ((G, P), P') \mid $ $G$ ist ein Graph, $P, P'$ je ein Zyklus der jeden Knoten genau einmal berührt, $P\neq P' \}$.
 \item $\mathtt{rFACTORIZATION} \defeq \{ (n, (p_1,p_2,\dots, p_k)) \mid n\in\mathbb N, n>1$, alle $p_i>1$ Primzahlen, und $n\defeq p_1\cdots p_k \}$. Das korrespondiert zum Suchproblem (1) aus der Einleitung.
-\item $\mathtt{rFACTOR} \defeq \{ (n, p) \mid n\in\mathbb N$ , $n>1$ ist nicht prim, und $p$ ist ein nichttrivialer Faktor von $n\}$.
-\item $\mathtt{rSMALLFACTOR} \defeq \{ ((n, a), p) \mid n\in\mathbb N$, $n>1$ ist nicht prim, und $p\leq a$ ist ein nichttrivialer Faktor von $n$$\}$.
+\item $\mathtt{rFACTOR} \defeq \{ (n, p) \mid n\in\mathbb N$ , $n>1$ ist nicht prim, und $p$ ist ein Primfaktor von $n\}$.
+\item $\mathtt{rSMALLFACTOR} \defeq \{ ((n, a), p) \mid n\in\mathbb N$, $n>1$ ist nicht prim, und $p\leq a$ ist ein Primfaktor von $n$$\}$.
 \item $\mathtt{rGI} \defeq \{ ((G, H), \sigma) \mid G, H$ sind Graphen mit gleicher Knotenmenge, und $\sigma$ ist ein Graphisomorphismus von $G$ nach $H\}$.
 \end{itemize}
 Jede dieser Relationen ist auch eine NP-Relation. Beachte, dass die Menge der Primzahlen in Polynomialzeit entscheidbar ist \parencite{agrawal_primes_2004}.
@@ -85,7 +86,7 @@ Es lässt sich leicht sehen, dass die hier definierte Klasse $\FNP$ identisch zu
 Mit dieser Perspektivierung lässt sich auch formal definieren, was mit „Suchproblem lösen“ gemeint ist. Wir machen hierbei Gebrauch von Verfeinerungen von Multifunktionen.
 Wir sagen, dass das Suchproblem zur NP-Relation $R$ \emph{in Polynomialzeit lösbar ist}, wenn $R\inc \mathrm{FP}$.
 Diese Aussage bedeutet ja, dass eine Verfeinerung $f$ von $R$ existiert, und $f$ ist dabei eine (partielle) in Polynomialzeit berechenbare Funktion. Es existiert also ein deterministischer Polynomialzeit-Transduktor $T$, welcher $f$ berechnet.
-Für eine Eingabeinstanz $x$ wird also entweder $T(x)$ einen Wert $y$ ausgeben für den $y=f(x)\in\fset{}R(x)$ gilt, bzw. in anderen Worten, eine Lösung $y$ für $x$ im Sinne der Definition~\ref{def:np-relation}.
+Für eine Eingabeinstanz $x$ wird also entweder $T(x)$ einen Wert $y$ ausgeben für den $y=f(x)\in\fset{}R(x)$ gilt, bzw. in anderen Worten, eine $R$-Lösung $y$ für $x$ im Sinne der Definition~\ref{def:np-relation}.
 Oder, falls $T(x)$ ablehnt, dann ist $x\not\in\dom(f)=\Proj(R)$, heißt „$f(x)$ lehnt ab“ bedeutet, dass $x$ keine Lösung hat.
 
 Unter dieser Definition von Lösrbarkeit ist klar, dass das NP-Suchproblem „schwieriger“ ist als das entsprechende NP-Entscheidungsproblem, in dem Sinne dass sich das NP-Entscheidungsproblem auf das NP-Suchproblem reduzieren lässt:
@@ -98,7 +99,7 @@ Unter dieser Definition von Lösrbarkeit ist klar, dass das NP-Suchproblem „sc
 
 Der aktuelle Stand zur Lösbarkeit der oben genannten natürlichen Suchprobleme ist:\label{page:lösbarkeit}
 \begin{itemize}\raggedright
-    \item $\mathtt{rPERFECTMATCHING}\inc\FP$.
+    \item $\mathtt{rLARGESTMATCHING}\inc\FP$.
     \item $\NP=\P \iff \mathtt{rSAT}\inc\FP \iff \mathtt{rCLIQUE}\inc\FP \iff \mathtt{rHAMCYCLE}\inc\FP \iff \mathtt{rANOTHERHAMCYCLE}\inc\FP$.
     \item Unklar, ob $\mathtt{rSMALLFACTOR}, \mathtt{rFACTOR}, \mathtt{rFACTORIZATION}\stackrel{\smash{?}}{\inc}\FP$. Wir haben aber $\UP\cap\coUP=\P \implies \mathtt{rSMALLFACTOR}\inc \FP \iff \mathtt{rFACTOR}\inc\FP \iff \mathtt{rFACTORIZATION}\inc\FP$.
     \item Unklar, ob $\mathtt{rGI}\stackrel{\smash{?}}{\inc}{\FP}$.
@@ -110,12 +111,12 @@ Bevor nun im nächsten Abschnitt die Suchprobleme den Entscheidungsproblemen nä
 
 Die oben formulierte Definition von $\FNP$ ist genau diejenige, die von \textcite{megiddo_total_1991} zuerst in dieser Form und Bezeichnung definiert wurde. Ihre Motivation war hierbei, insbesondere die \emph{totalen} NP-Suchprobleme in den Blick zu nehmen. Also solche NP-Suchprobleme, bei denen zu jeder Probleminstanz immer mindestens ein Zertifikat bzw. Lösung existiert. Die Faktorisierung ist beispielsweise ein solches totales Suchproblem, da sich ja jede natürliche Zahl faktorisieren lässt.
 
-Das sind – entsprechend dieser Definition von $\FNP$ bzw. Konzeptualisierung von Suchproblemen – genau jene NP-Relationen, welche (links-)total sind: für jedes $x\in\Sigma^*$ existiert ein $y\in\Sigma^*$ mit $(x,y)\in R$. 
-Die oben definierten NP-Relationen $\mathtt{rFACTORIZATION}$ und $\mathtt{rFACTOR}$ sind nicht total; nachdem die negativen Instanzen aber besonders „einfach“ sind, können für beide NP-Relationen effektiv äquivalente Relationen angegeben werden, die total sind:
+Das sind – entsprechend dieser Definition von $\FNP$ bzw. Konzeptualisierung von Suchproblemen – genau jene NP-Relationen, welche (links-)total sind: für jedes $x\in\Sigma^*$ existiert ein $y\in\Sigma^*$ mit $(x,y)\in R$. In anderen Worten, $\Proj(R)=\Sigma^*$.
+Die oben definierten NP-Relationen $\mathtt{rFACTORIZATION}$ und $\mathtt{rFACTOR}$ sind nicht total; nachdem die negativen Instanzen aber einfach zu entscheiden sind, können für beide NP-Relationen effektiv äquivalente Relationen angegeben werden, die total sind:
 \begin{itemize} \item $\mathtt{rFACTORIZATION}' \defeq \mathtt{rFACTORIZATION} \cup \{ (n, \text{\emph{„ungültig“}}) \mid n\leq 1 \}$.
     \item $\mathtt{rFACTOR}' \defeq \mathtt{rFACTOR} \cup \{ (n, \text{\emph{„ungültig“}}) \mid n\leq 1 \text{ oder $n$ ist prim} \}$.
 \end{itemize}
-Herbei soll „ungültig“ ein String sein, welcher eine Lösung darstellt.
+Herbei soll \emph{„ungültig“} ein String sein, welcher eine Lösung darstellt.
 \textcite{megiddo_total_1991} fassen diese totalen NP-Relationen zur Klasse $\mathrm{TFNP}$ zusammen:
 \begin{definition}[$\mathrm{TFNP}$]
     Die Klasse $\mathrm{TFNP}$ ist die Teilmenge von $\mathtt{FNP}$ derjenigen NP-Relationen $R$, welche linkstotal sind, heißt zu jedem $x\in\Sigma^*$ existiert ein $y\in\Sigma^*$ mit $(x,y)\in R$.
@@ -136,7 +137,7 @@ Beachte, dass $\mathrm{TFNP}$ sogar eine echte Teilmenge von $\NPMVt$ ist, auße
 % 
 %     Die Aussage relativiert, wenn anstelle $\mathtt{SAT}$ z.B. das kanonische vollständige Problem gewählt wird.
 % \end{proof}
-Wie in der Einleitung angesprochen, lässt sich die Aussage „alle Suchprobleme in $\TFNP$ sind effizient lösbar“ äquivalent als Hypothese $\hQ$ formulieren.
+Wie in der Einleitung angesprochen, lässt sich die Aussage „alle Suchprobleme in $\TFNP$ sind effizient lösbar“ auf einfache Weise äquivalent als Hypothese $\hQ$ formulieren.
 \begin{observation}[\cite{fenner_inverting_2003}]\label{obs:tfnp-q}
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
@@ -169,13 +170,14 @@ Auf die weitere Theorie der TFNP-Probleme wird in dieser Arbeit nicht weiter ein
 
 \section{Suchprobleme vs. Entscheidungsprobleme}\label{sec:search-vs-decision}
 
-Wie in der Einleitung schon ausgeführt, konzentriert sich die algorithmische Komplexitätstheorie primär auf die Entscheidungsprobleme und weniger auf die Suchprobleme. Das ist durchaus fundiert: es geht mit einer Vereinfachung der Konzepte, Definitionen und Theorien einher, und gleichzeitig lassen sich viele NP-Suchproblem auf das entsprechende Entscheidungsproblem „reduzieren“. Dieses Argument wird gerne als \emph{search reduces to decision} beschrieben. In diesen Fällen ist dann die Lösbarkeit der Entscheidungsvariante äquivalent zur Lösbarkeit der Suchvariante. 
+Wie in der Einleitung schon ausgeführt, konzentriert sich die algorithmische Komplexitätstheorie primär auf die Entscheidungsprobleme und weniger auf die Suchprobleme. Das ist durchaus fundiert: es geht mit einer Vereinfachung der Konzepte, Definitionen und Theorien einher, und gleichzeitig lassen sich viele NP-Suchproblem auf das entsprechende Entscheidungsproblem reduzieren. Gemeint ist damit: gegeben ein effizienter Algorithmus $A$, welcher das korrespondierende NP-Entscheidungsproblem löst, kann auch ein effizienter Algorithmus $A'$ angegeben werden, welcher das NP-Suchproblem löst.
+Dieses Argument wird als \emph{search reduces to decision} beschrieben. In diesen Fällen ist dann die Lösbarkeit der Entscheidungsvariante äquivalent zur Lösbarkeit der Suchvariante. 
 
 In diesem Abschnitt werden detailliert Suchprobleme und Entscheidungsprobleme gegenübergestellt und Forschungsergebnisse hierzu aus der Literatur präsentiert.
 Zum einen wird die eben genannte Reduzierbarkeit und das \emph{search-reduces-to-decision}-Argument ausgeführt, und zum anderen werden Ergebnisse vorgestellt, die darauf hinweisen dass genau dieses Argument nicht für alle Suchprobleme zutrifft.
 
 Zunächst sei auf die Beziehungen zwischen NP-Relationen und NP-Sprachen hingewiesen.
-Tatsächlich haben wir bereits gesehen, dass wir über die Projektion jedem NP-Suchproblem bzw. NP-Relation ein korrespondierendes Entscheidungsproblem aus $\NP$ zuordnen konnten. Tatsächlich lässt sich diese Zuordnung auch umkehren: zu jeder Sprache bzw. Entscheidungsproblem $L\in \NP$ existiert (mind.) eine NP-Relation $R$ mit $L=\Proj(R)$, und zu jeder NP-Relation bzw. NP-Suchproblem $R$ ist $\Proj(R)\in\NP$. Das ist die übliche „Zertifikats-Charakterisierung“ von $\NP$ aus den Lehrbüchern.
+Tatsächlich haben wir bereits gesehen, dass wir über die Projektion jedem NP-Suchproblem bzw. NP-Relation ein korrespondierendes Entscheidungsproblem aus $\NP$ zuordnen konnten. Tatsächlich lässt sich diese Zuordnung auch umkehren: zu jeder Sprache bzw. Entscheidungsproblem $L\in \NP$ existiert eine NPTM $N$, welche $L$ entscheidet. Diese induziert eine NP-Relation für $L$ (akz. Rechenweg auf $N(x)$ ist Lösung für $x$). Das ist die übliche „Zertifikats-Charakterisierung“ von $\NP$ aus den Lehrbüchern.
 \begin{observation}[Zertifikats-Definition von NP]\label{obs:np-certificate-def}
 \[ \NP = \{ \Proj(R) \mid \text{$R$ ist eine NP-Relation} \}.\]
 \end{observation}
@@ -185,7 +187,7 @@ Tatsächlich haben wir bereits gesehen, dass wir über die Projektion jedem NP-S
 %    Diese Relation ist eine NP-Relation. Der Test ist offenbar in Polynomialzeit möglich, und die Relation ist polynomiell längenbeschränkt, ist $|\alpha|\in O($\# Schritte von $\alpha)\in O(p(|x|))$.
 %    Aus Definition geht hervor dass $L(N) = \Proj(R_N)$.
 %\end{proof}
-Damit ist im Übrigen die obige Definition von NP-Relationen auch nicht „neu“ sondern schon immer mitgedacht. Die eben formulierte Charakterisierung findet sich in allen üblichen Einführungswerken zur Komplexitätstheorie. 
+Damit ist im Übrigen die obige Definition von NP-Relationen auch nicht neu sondern schon immer mitgedacht. Die eben formulierte Charakterisierung findet sich in allen üblichen Einführungswerken zur Komplexitätstheorie. 
 %Dagegen machen die unterschiedlichen Lehrbücher ihren Zugang manchmal stärker von der Perspektive der Suchprobleme abhängig, und manchmal stärker von der typischen Herangehensweise über Entscheidungsprobleme.
 %Vgl. z.B. \textcite{goldreich_computational_2008} welcher in seinem Lehrbuch die $\P$-vs.-$\NP$-Frage zunächst als die äquivalente Frage der Beziehung zwischen den „\emph{efficiently solvable search problems}“ und den „\emph{search problems with efficiently checkable solutions}“ (letzteres sind genau die NP-Relationen) formuliert. Erst später wird mittels \emph{search-reduces-to-decision}-Argumenten dafür argumentiert, NP-Entscheidungsprobleme als die zentralen Untersuchungsobjekte der Komplexitätstheorie anzusehen.
 
@@ -201,32 +203,32 @@ Zumindest für die $\P$-$\NP$-Frage ist es irrelevant, ob man sich auf Suchprobl
     $\FNP\subseteqc \FP \iff \P = \NP.$
 \end{lemma}
 \begin{proof}
-    Die Richtung von links nach rechts ist klar, folt ja aus der Lösbarkeit des Suchproblems die Lösbarkeit des Entscheidungsproblems (Beobachtung~\ref{obs:search-stronger-than-decision} mit Beobachtung \ref{obs:np-certificate-def}).
+    Die Richtung von links nach rechts ist klar, folgt ja aus der Lösbarkeit des Suchproblems die Lösbarkeit des Entscheidungsproblems (Beobachtung~\ref{obs:search-stronger-than-decision} mit Beobachtung \ref{obs:np-certificate-def}).
 
     Die Richtung von rechts nach links zeigen wir mittels Präfixsuche. Sei $R$ eine beliebige NP-Relation mit Zertifikatsschranke $q$. Wir zeigen dass $R\inc\FP$.
     Betrachte folgende Menge
-    \[ A \defeq \{ (x,z) \mid \exists y\in\Sigma^{\leq q(|x|)}, (x,y)\in R, z\sqsubseteq y \}. \]
-    Es ist leicht zu sehen dass $A\in\NP$. Also gilt nach Annahme auch $A\in\P$.
+    \[ A_R \defeq \{ (x,z) \mid \exists y\in\Sigma^{\leq q(|x|)}, (x,y)\in R, z\sqsubseteq y \}. \]
+    Es ist leicht zu sehen dass $A_R\in\NP$. Also gilt nach Annahme auch $A\in\P$.
     Gegeben eine Instanz $x$ kann nun iterativ ein Präfix eines Zertifikats verlängert werden:\\
     \begin{algorithm}[H]
         $z\gets\epsilon$\;
-        \While(\tcp*[h]{Invariante: wenn ein Zertifikat $y$ für $x$ ex., dann $z\sqsubseteq y$}){$|z|\leq q(|x|)$}
+        \While(\tcp*[h]{Invariante: wenn eine $R$-Lösung für $x$ ex., dann existiert eine $R$-Lösung $y$ mit $z\sqsubseteq y$}){$|z|\leq q(|x|)$}
         {
             \uIf{$(x,z)\in R$}{\AcceptWith{$z$}}
-            \uElseIf{$(x,z0)\in A$}{$z\gets z0$}
-            \uElseIf{$(x,z1)\in A$}{$z\gets z1$}
+            \uElseIf{$(x,z0)\in A_R$}{$z\gets z0$}
+            \uElseIf{$(x,z1)\in A_R$}{$z\gets z1$}
             \Else{\Reject}
         }
         \Reject
     \end{algorithm}
     \noindent
     Es ist klar, dass der obige Algorithmus eine Funktion definiert, welche eine Verfeinerung von $R$ ist.
-    Unter Annahme $A\in\P$ ist auch klar, dass diese Funktion von einem PTM-Transduktor berechnet werden kann. Damit $R\inc\FP$.
+    Unter Annahme $A_R\in\P$ ist auch klar, dass diese Funktion von einem PTM-Transduktor berechnet werden kann. Damit $R\inc\FP$.
 \end{proof}
 
 \subsection*{\emph{Search reduces to decision}}
 
-Es ist leicht zu sehen, dass der Suchalgorithmus von obigem Beweis so geändert werden kann, dass anstelle der Entscheidung von $A$ auch Orakelfragen an ein (externes) Orakel $A$ gestellt werden können, d.h. das Suchproblem von $R$ kann \emph{à la Cook} auf das Entscheidungsproblem von $A$ reduziert werden. In anderen Worten, $R\inc \FP^A$. Das generalisiert sogar, wenn statt $A$ ein beliebiges Orakel gewählt wird, welches $\leq_\mathrm{m}^\mathrm{T}$-vollständig für $\NP$ ist. Ist also $\Proj(R)$ $\leq_\mathrm{m}^\mathrm{T}$-vollständig für $\NP$, dann gilt trivialerweise der Spezialfall $R\inc \FP^{\Proj(R)}$. Das ist genau das \emph{search-reduces-to-decision}-Argument: ist das Entscheidungsproblem zu $R$ über ein Algorithmus $A$ effizient lösbar, dann kann dieser Algorithmus so eingesetzt werden, dass auch das Suchproblem zu $R$ effizient durch einen Algorithmus $A'$ gelöst werden kann.
+Es ist leicht zu sehen, dass der Suchalgorithmus von obigem Beweis so geändert werden kann, dass anstelle der Entscheidung von $A_R$ auch Orakelfragen an ein (externes) Orakel $A_R$ gestellt werden können, d.h. das Suchproblem von $R$ kann \emph{à la Cook} auf das Entscheidungsproblem von $A_R$ reduziert werden. In anderen Worten, $R\inc \FP^{A_R}$. Das generalisiert sogar, wenn statt $A_R$ ein beliebiges Orakel gewählt wird, welches $\leq_\mathrm{m}^\mathrm{T}$-vollständig für $\NP$ ist. Ist also $\Proj(R)$ $\leq_\mathrm{m}^\mathrm{T}$-vollständig für $\NP$, dann gilt trivialerweise der Spezialfall $R\inc \FP^{\Proj(R)}$. Das ist genau das \emph{search-reduces-to-decision}-Argument: ist das Entscheidungsproblem zu $R$ über ein Algorithmus $A$ effizient lösbar, dann kann dieser Algorithmus so eingesetzt werden, dass auch das Suchproblem zu $R$ effizient durch einen Algorithmus $A'$ gelöst werden kann.
 
 \begin{corollary}[\emph{Search reduces to decision} für die NP-Vollständigen]\label{cor:search-to-decision}
     Sei $R$ eine NP-Relation, für die $\Proj(R)$ auch $\leq_\mathrm{m}^\mathrm{T}$-vollständig für $\NP$ ist.
@@ -239,26 +241,27 @@ Es ist leicht zu sehen, dass der Suchalgorithmus von obigem Beweis so geändert 
 %    Da $R\in \FNP$, gilt also auch $R\inc \FP$ relativ zu $\Proj(R)$.
 %\end{proof}
 
-Damit bleibten insbesondere diejenigen Situationen offen, in denen $R$ eine NP-Relation ist, aber $\Proj(R)$ nicht $\leqmp$-vollständig ist, also $\Proj(R)$ ein NP-Intermediate ist.
+Damit bleibten insbesondere diejenigen Situationen offen, in denen $R$ eine NP-Relation ist, aber $\Proj(R)$ nicht $\leqmp$-vollständig für $\NP$ ist, also $\Proj(R)$ ein NP-Intermediate ist.
 
 %Für die NP-Intermediates, also Entscheidungsprobleme aus NP, die weder in P liegen, noch $\leqmp$-vollständig für $\NP$ sind, ist aber unklar, ob immer das Suchproblem auf das Entscheidungsproblem reduziert werden kann.
 
 Wie beim Suchalgorithmus aus obigem Beweis ist klar, dass Suchprobleme zumindest immer auf eine Präfix- bzw. Bisektion-Entscheidungsvariante reduziert werden können.
 Im allgemeinen Fall: für jede NP-Relation $R$ mit Laufzeitschranke $q$ gilt
-\[ R \inc \FP^{L_R} \text{ wobei } L_R = \{ (x, z) \mid \exists y\in\Sigma^{\leq q(|x|)} \mid (x, y)\in R, z\sqsubseteq y \} \]
+\[ R \inc \FP^{L_R} \text{ wobei } L_R = \{ (x, z) \mid \exists y\in\Sigma^{\leq q(|x|)} \mid (x, y)\in R, z\sqsubseteq y \}\in\NP \]
 und 
-\[ R \inc \FP^{L'_R} \text{ wobei } L'_R = \{ (x, z) \mid \exists y\in\Sigma^{\leq q(|x|)} \mid (x, y) \in R, y\leq z \}, \]
+\[ R \inc \FP^{L'_R} \text{ wobei } L'_R = \{ (x, z) \mid \exists y\in\Sigma^{\leq q(|x|)} \mid (x, y) \in R, y\leq z \}\in\NP, \]
 jeweils mit einer polynomiellen Anzahl an Orakelfragen.
 
 
 Konkret ist das zum Beispiel der Fall bei der NP-Relation $\mathtt{rSMALLFACTOR}$. Zur Erinnerung, wir haben
 \[ \Proj(\mathtt{rSMALLFACTOR}) = \{ (n,a)\mid \text{$n>1$ nicht prim, ex. Faktor $p>1$ von $n$ mit $p\leq a$} \}. \]
-Durch polynomiell viele Orakelfragen an $\Proj(\mathtt{rSMALLFACTOR})$ kann dann mit binärer Suche ein solcher Faktor auch gefunden werden.
+Wollen wir für gegebene $n, a$ einen Faktor $p\leq a$ finden, können wir diesen mit binärer Suche un polynomiell vielen Orakelfragen an $\Proj(\mathtt{rSMALLFACTOR})$ finden.
 In anderen Worten, es gilt $\mathtt{rSMALLFACTOR} \inc \FP^{\Proj(\mathtt{rSMALLFACTOR})}$.
 
-Es lässt sich im Übrigen zeigen, dass $\Proj(\mathtt{rSMALLFACTOR})\in\UP\cap\coUP$.
-Die Projektion ist einerseits in $\UP$: gegeben $(n, a)$, $n$ nicht prim, rate zunächst eine Primfaktorzerlegung von $n$ mit aufsteigenden Primfaktoren. Akzeptiere genau dann wenn ein Faktor $p\leq a$ in dieser Zerlegung erhalten ist. Der Fundamentalsatz der Arithmetik sichert, dass die (aufsteigend geordnete) Primfaktorzerlegung eindeutig ist, heißt der oben skizzierte nichtdeterministische Polynomialzeit-Algorithmus akzeptiert auf höchstens einem Rechenweg.
-Auf ähnliche Weise lässt sich zeigen dass die Projektion in $\coUP$ liegt.
+%Es lässt sich im Übrigen zeigen, dass $\Proj(\mathtt{rSMALLFACTOR})\in\UP\cap\coUP$.
+%Die Projektion ist einerseits in $\UP$: gegeben $(n, a)$, $n$ nicht prim, rate zunächst eine Primfaktorzerlegung von $n$ mit aufsteigenden Primfaktoren. Akzeptiere genau dann wenn ein Faktor $p\leq a$ in dieser Zerlegung erhalten ist. Der Fundamentalsatz der Arithmetik sichert, dass die (aufsteigend geordnete) Primfaktorzerlegung eindeutig ist, heißt der oben skizzierte nichtdeterministische Polynomialzeit-Algorithmus akzeptiert auf höchstens einem Rechenweg.
+%Auf ähnliche Weise lässt sich zeigen dass die Projektion in $\coUP$ liegt.
+Mittels der Eindeutigkeit der Primfaktorzerlegun lässt sich im Übrigen zeigen, dass $\Proj(\mathtt{rSMALLFACTOR})\in\UP\cap\coUP$.
 Damit ergibt sich auch der auf S.~\pageref{page:lösbarkeit} angegebene Stand, dass ein Kollaps von $\UP\cap\coUP$ mit $\P$ zur Folge hätte, dass $\mathtt{rSMALLFACTOR}\inc\FP$.
 
 %Beachte insbesondere dass $\Proj(\mathtt{rSMALLFACTOR})\in\
@@ -275,7 +278,7 @@ Damit ergibt sich auch der auf S.~\pageref{page:lösbarkeit} angegebene Stand, d
 
 Das \emph{search-reduces-to-decision}-Argument hat aber auch Grenzen:
 Diese Technik scheitert insbesondere, wenn wir wirklich immer die exakte Projektion als Entscheidungsproblem verstehen. Betrachte zum Beispiel die NP-Relation zur linearen Teilbarkeit:
-\[ \mathtt{rLINDIV} \defeq \{ ((a, b), k) \mid a,b,k\in\mathbb N, a\cdot k + 1\text{ teilt } b\} \in\NP. \]
+\[ \mathtt{rLINDIV} \defeq \{ ((a, b), k) \mid a,b,k\in\mathbb N, a\cdot k + 1\text{ teilt } b\}. \]
 Unter Annahme von $\NP\neq\coNP$ gilt  $\Proj(\mathtt{rLINDIV})\not\in \P$  \parencite{adleman_reducibility_1977}; ob $\Proj(\mathtt{rLINDIV})$ auch $\leqmp$-vollständig für $\NP$ ist, bleibt unklar.
 Bei dieser NP-Relation wäre nun nicht ersichtlich, wie das Suchproblem auf das Entscheidungsproblem reduziert werden könnte; eine triviale binäre Suche wie oben ist ja nicht möglich.
 
@@ -285,7 +288,7 @@ Für andere Suchprobleme existieren aber nichttriviale Möglichkeiten  das Suchp
 Ein weiteres nichttriviales Beispiel wäre die NP-Relation $\mathtt{rGI}$. Zur Erinnerung: dieses Suchproblem sucht nach einem Graphisomorphismus zwischen zwei gegebenen Graphen.
 Deren Projektion ist mutmaßlich nicht $\leqmp$-vollständig für $\NP$. 
 Gleichzeitig gilt $\mathtt{rGI}\inc \FP^{\Proj(\mathtt{rGI})}$: es lässt sich ein Graphisomorphismus zwischen $G$ und $H$ bestimmen, indem mehrmals mittels des Orakels bei (anderen) Paaren von  Graphen getestet wird, ob diese isomorph sind \parencite[vgl.][S. 65, 100]{goldreich_computational_2008}.
-Ob eine solche nichttriviale Reduktion für $\mathtt{rLINDIV}$ möglich ist, scheint in der Literatur nicht untersucht zu sein.
+Ob eine solche nichttriviale Reduktion von $\mathtt{rLINDIV}$ auf $\Proj(\mathrm{rLINDIV})$ möglich ist, scheint in der Literatur nicht untersucht zu sein.
 
 Abschließend wollen wir noch drei theoretische Resultate diskutieren. Das erste charakterisiert diejenigen Sprachen, für welche sich das Suchproblem auf das Entscheidungsproblem reduzieren lässst.
 Das zweite und drite Resultat gibt hinreiche plausible Bedingungen an, unter denen eine NP-Relation $R$ existiert, für welche sich das Suchproblem nicht auf das Entscheidungsproblem reduzieren lässt.
@@ -313,7 +316,7 @@ Folgendes Resultat charakterisiert diejenigen Sprachen $L\in\NP$, die zumindest 
 
 Andererseits existieren unter geeigneten Bedingungen eine NP-Relation $R$, für welche \emph{search reduces to decision} fehlschlägt.
 
-\begin{theorem}[{\cites{impagliazzo_1991}[Thm.~5]{borodin_comments_1976}}]
+\begin{theorem}[{\cites{impagliazzo_1991}[Thm.~5]{borodin_comments_1976}}]\label{thm:impagliazzo-search}
     Angenommen $\mathrm{E\neq NE}$ oder $\P\neq \NP\cap\coNP$. Dann existiert eine NP-Relation $R$ mit $\Proj(R)\in \NP-\P$, für die $R\not\in_\mathrm c\FP^{\Proj(R)}$ gilt.
 \end{theorem}
 
@@ -334,8 +337,9 @@ Beachte, dass für jede dieser Relationen $R$ aus den beiden vorigen Sätzen die
 Für \emph{totale} Suchprobleme, also genau jene aus $\TFNP$, kann nicht sinnvoll gefragt werden, ob hier das Suchproblem auf das Entscheidungsproblem reduziert werden kann, ist ja für $R\in\TFNP$ das entsprechende Entscheidungsproblem $\Proj(R)=\Sigma^*$ trivial.
 
 Stattdessen können wir uns aber fragen, ob das Suchproblem eines Zertifikats zu $x$ einfacher wird, wenn wir Lösungen zu „kleineren“ Instanzen $x'$ gratis abfragen dürfen.
-Hierzu können wir folgenden Begriff von Reduzierbarkeit definieren:
-Betrachte hierbei folgende Variante eine POTM-Transduktors relativ zu $R\in\TFNP$: Dieser Transduktor ist wie ein üblicher PTM-Transduktor, hat zusätzlich aber Zugriff auf ein \emph{funktionales} Orakel, in dem Sinn dass die PTM Orakelfragen der Form „\emph{gib mir ein Zertifikat $y$ für $x'$}“ stellen kann. Das Orakel antwortet dann mit einem solchen Zertifikat $y$ mit $(x', y)\in R$. Das existiert, ist ja $R$ total. 
+Hierzu schlagen \citeauthor{harsha_downward_2023} folgenden Begriff der Selbstreduzierbarkeit vor:
+
+Betrachte hierbei zunächst folgende Variante eine POTM-Transduktors relativ zu $R\in\TFNP$: Dieser Transduktor ist wie ein üblicher PTM-Transduktor, hat zusätzlich aber Zugriff auf ein \emph{funktionales} Orakel, in dem Sinn dass die PTM Orakelfragen der Form „\emph{gib mir ein Zertifikat $y$ für $x'$}“ stellen kann. Das Orakel antwortet dann mit einem solchen Zertifikat $y$ mit $(x', y)\in R$. Das existiert, ist ja $R$ total. 
 
 Es ist klar, dass mit einem solchen Transduktor relativ zu $R$ auch das Suchproblem zu $R$ lösbar ist. (Gegeben $x$, stelle einfach die Frage „gib mir Zertifikat für $x$“.) Deshalb nehmen wir folgende Einschränkung vor: der Transduktor darf bei Eingabe $x$ in den Orakelfragen nur nach Zertifikaten für $x'$ fragen, die kürzer sind als $x$.
 Falls selbst unter dieser Einschränkung der Fragen das Suchproblem durch einen solchen Transduktor relativ zu $R$ gelöst werden kann, sagen wir, dass $R$ \emph{nach unten selbstreduzierbar ist}.
@@ -374,8 +378,8 @@ Zumindest im Bezug auf die Faktorisierung zeigen \citeauthor{harsha_downward_202
 \begin{theorem}[{\cite{harsha_downward_2023}}]
     Die NP-Relation $\mathtt{rFACTOR}'\in\TFNP$ ist nicht nach unten selbstreduzierbar, außer $\mathtt{rFACTOR}'\in\mathrm{PLS}$.
 \end{theorem}
-Es ist offen ob $\mathtt{rFACTOR}'\stackrel{?}{\in}\mathrm{PLS}$ und zumindest unplausibel, weil unklar ist wie Faktorisierung als lokales Suchproblem repräsentiert werden kann.
-Tatsächlich zeigen die Autorinnen sogar die stärkere Konsequenz $\mathtt{rFACTOR}'\in\mathrm{UEOPL}$, was auch noch $\mathtt{rFACTOR}'\in\mathrm{PPAD}$ zur Folge hätte. Auch die Frage, ob $\mathtt{rFACTOR}'\stackrel{\smash ?}{\in}\mathrm{PPAD}$ gilt, ist offen und wurde breit untersucht. Eine positive Antwort wäre daher sehr überraschend (vgl. \cite[67:15]{harsha_downward_2023}; siehe ebd. auch für eine Def. von $\mathrm{UEOPL}$, $\mathrm{PPAD}$).\label{page:self-reducibility}
+Es ist offen ob $\mathtt{rFACTOR}'\stackrel{\smash{\text{\tiny ?}}}{\in}\mathrm{PLS}$ und zumindest unplausibel, weil unklar ist wie Faktorisierung als Suche nach einem lokalen Optimum repräsentiert werden kann.
+Tatsächlich zeigen die Autorinnen sogar die stärkere Konsequenz $\mathtt{rFACTOR}'\in\mathrm{UEOPL}$, was auch noch $\mathtt{rFACTOR}'\in\mathrm{PPAD}$ zur Folge hätte. Auch die Frage, ob $\mathtt{rFACTOR}'\stackrel{\smash{\text{\tiny ?}}}{\in}\mathrm{PPAD}$ gilt, ist offen und wurde breit untersucht. Eine positive Antwort wäre daher sehr überraschend (vgl. \cite[67:15]{harsha_downward_2023}; siehe ebd. auch für eine Def. von $\mathrm{UEOPL}$, $\mathrm{PPAD}$).\label{page:self-reducibility}
 Insgesamt ist die Forschung bezüglich Selbstreduzierbarkeit für Suchprobleme, sowohl TFNP-Probleme als auch FNP-Probleme, sehr klein. \citeauthor{harsha_downward_2023} stellen fest: „\foreignlanguage{english}{Almost all the study of downward self-reducibility, to date, has been focused in the decisional landscape}“ \parencite*{harsha_downward_2023}. 
 Es bedarf auf jeden Fall weiterer Untersuchungen, unter anderem auch im Richtung einer Konzeptualisierung von „kleinerer Instanz“, die robuster als „kürzerer String“ ist. Hier könnte eine Konzeptualisierung wie bei der \emph{disjunktiver Selbstreduzierbarkeit} auf Entscheidungsproblemen \parencites(vgl.)(){meyer_frequency_1979}{balcazar_self_1989}{selman_natural_1988}[Abschn. 9.5]{wechsung_vorlesungen_2000} produktiv gemacht werden, welche die Ordnungsrelation „kürzer“ über eine beliebige polynomiell wohlfundierte und längenbeschränkte Halbordnung auf den Wörtern verallgemeinert.
 
@@ -394,12 +398,12 @@ Es bedarf auf jeden Fall weiterer Untersuchungen, unter anderem auch im Richtung
         \item $(f(x), y)\in R \implies (x, g(x,y))\in Q$.
     \end{enumerate}
     Punkt (1) sagt also nur aus, dass $f$ eine Many-one-Polynomialzeit-Reduktion zwischen den entsprechenden Entscheidungsproblemen ist.
-    Punkt (2) sagt nun aus, dass wenn $y$ ein Zertifikat für die Instanz $f(x)$ aus $R$ ist, dann lässt sich aus $y$ wieder ein Zertifikat $g(x,y)$ für die originale Instanz $x$ berechnen.
+    Punkt (2) sagt nun aus, dass wenn $y$ ein $R$-Zertifikat für die Instanz $f(x)$ ist, dann lässt sich aus $y$ wieder ein $Q$-Zertifikat $g(x,y)$ für die originale Instanz $x$ berechnen.
 
     Die Funktion $f$ nennen wir \emph{Reduktionsfunktion}, die Funktion $g$ nennen wir \emph{Translationsfunktion}.
 
     Wir schreiben $Q\leq_\mathrm{L,1}^\mathrm p R$ falls $f$ zusätzlich injektiv ist. Wir schreiben $Q\leq_\mathrm{L,1,i}^\mathrm p R$ falls $f$ zusätzlich injektiv und $\P$-invertierbar ist. Klar ist:
-    \[ Q\leq_\mathrm{L,1,i}^\mathrm p R \implies Q \leq_\mathrm{L,1}^\mathrm p R \implies Q \leqlp R \implies \Proj(Q) \leqmp \Proj(R). \qedhere\]
+    \[ Q\leq_\mathrm{L,1,i}^\mathrm p R \implies Q \leq_\mathrm{L,1}^\mathrm p R \implies Q \leqlp R. \qedhere\]
 \end{definition}
 \footnotetext[-4cm]{Die Bezeichnung \emph{Levin}-Reduktion ist hier in Anlehnung an bisherige Verwendung gewählt, und bezieht sich darauf, dass in der Etablierung der NP-Vollständigkeit durch \textcite{karp_reducibility_1972}, \textcite{cook_complexity_1971} und \textcite{levin_universal_1973} gerade Levin die Suchprobleme in den Blick genommen hat, während Karp und Cook sich auf Entscheidungsprobleme konzentriert haben. Die Formalisierung von NP-Suchproblemen durch NP-Relationen (Definition~\ref{def:np-relation}) findet sich in Grundzügen schon in Levins Präsentation. Es sei aber darauf hingewiesen, dass sich die hier genannte Definition der Levin-Reduzierbarkeit (Definition~\ref{def:levin-reduction}) eine schwächere Form der Reduzierbarkeit ist als die eigentliche von Levin vorgeschlagene. Die hier genannte Definition ist jedoch hinreichend für alle relevanten Eigenschaften, sowie für die Aussagen aus Levins eigener Publikation.}
 
@@ -413,7 +417,7 @@ Beachte dass $\leqlp$-Reduktionen eine Verstärkung von $\leqmp$-Reduktionen auf
 Die Relationen $\leqlp$, $\leq_\mathrm{L,1}^\mathrm p$ und $\leq_\mathrm{L,1,i}^\mathrm p$ sind reflexiv und transitiv, bilden also eine Quasiordnung.
 %Intuitiv formt die Levin-Reduktion $\leqlp$ auf den Suchproblemen das Analog der Many-one-Reduktion $\leqmp$ auf den Entscheidungsproblemen.
 % 
-Genau so wie wir es bei der üblichen $\leqmp$-Reduktion auf den Suchproblemen gewohnt sind, ordnet $\leqlp$ die Suchprobleme der NP-Relationen nach ihrer „Schwierigkeit“: wenn $Q\leqlp R$ dann ist $Q$ höchstens so „schwer“ wie $R$: gegeben einen Lösungsalgorithmus für $R$ lässt sich auch $Q$ effizient lösen (und das sogar mit nur einer einzigen Anfrage an den Lösungsalgorithmus). Damit folgt: wenn das Suchproblem zu $R$ effizient gelöst werden kann, dann kann auch das Suchproblem zu $Q$ gelöst werden. 
+Genau so wie wir es bei der üblichen $\leqmp$-Reduktion auf den Suchproblemen gewohnt sind, ordnet $\leqlp$ die Suchprobleme der NP-Relationen nach ihrer „Schwierigkeit“: wenn $Q\leqlp R$ dann ist $Q$ höchstens so „schwer“ wie $R$; gegeben einen Lösungsalgorithmus für $R$ lässt sich auch $Q$ effizient lösen (und das sogar mit nur einer einzigen Anfrage an den Lösungsalgorithmus). Damit folgt: wenn das Suchproblem zu $R$ effizient gelöst werden kann, dann kann auch das Suchproblem zu $Q$ gelöst werden. 
 Formal ausgedrückt, ist $\FP$ nach unten abgeschlossen unter der $\leqlp$-Ordnung:
 
 \begin{lemma}
@@ -427,18 +431,18 @@ Formal ausgedrückt, ist $\FP$ nach unten abgeschlossen unter der $\leqlp$-Ordnu
     Offenbar ist $q\in\FP$. Wir zeigen nun dass $q$ eine Verfeinerung von $Q$ ist.
     Zum einen gilt $\dom(q)=\Proj(Q)$:
     \begin{gather*} x\in\Proj(Q) \iff f(x)\in\Proj(R) \iff f(x)\in\dom(r) \\
-    \iff q(x)\neq\bot \iff x\in\dom(q). \end{gather*}
+    \iff r(f(x))\neq\bot \iff \iff q(x)\neq\bot \iff x\in\dom(q). \end{gather*}
     Hierbei folgt die erste Äquivalenz nach Definition~\ref{def:levin-reduction}(1).
     Zum anderen haben wir
     \begin{gather*}
-        x\in\Proj(Q) \implies f(x)\in\Proj(R) \implies (f(x), r(f(x)))\in R\\ \implies (x, g(x, r(f(x))))\in Q \implies q(x)\in\fset{}Q(x) \text{ nach Definition~\ref{def:levin-reduction}(2)},
+        x\in\Proj(Q) \implies f(x)\in\Proj(R) \implies (f(x), r(f(x)))\in R\\ \implies (x, g(x, r(f(x))))\in Q \implies q(x)\in\fset{}Q(x),
     \end{gather*}
-    i.e, $q(x)$ ist ein Zertifikat für $x$, wie gewünscht.
+    wobei dritte Implikation nach Definition~\ref{def:levin-reduction}(2) folgt. Also ist $q(x)$ ein $R$-Zertifikat für $x$, wie gewünscht.
 \end{proof}
 
 \begin{marginfigure}
     \centering\includegraphics[page=10]{figures.pdf}\vspace*{2ex}
-    \caption{Skizze, wie eine Levin-Reduktion $Q\leqlp R$von NP-Relation $Q$ auf NP-Relation $R$ genutzt werden kann, einen Algorithmus für $Q$ mithilfe eines Algorithmus für $R$ anzugeben. Hierbei ist $f$ die Reduktions- und $g$ die Translationsfunktion.}
+    \caption{Skizze, wie eine Levin-Reduktion $Q\leqlp R$ von NP-Relation $Q$ auf NP-Relation $R$ genutzt werden kann, einen Algorithmus für $Q$ mithilfe eines Algorithmus für $R$ anzugeben. Hierbei ist $f$ die Reduktions- und $g$ die Translationsfunktion.}
 \end{marginfigure}
 
 Genau so wie bei der Many-one-Reduktion auf den Suchproblemen können wir nach größten Elementen auf der $\leqlp$-Ordnung fragen.
@@ -457,7 +461,7 @@ Es existiert eine $\leqlp$-vollständige NP-Relation für $\FNP$. Diese ist im W
 \[ \begin{split} \mathtt{rKAN} \defeq \{ ((N,x,1^n), \alpha) \mid\, &\text{$N$ ist NPTM,}\\ &\text{$\alpha$ ist ein akz. Rechenweg auf $N(x)$ mit $\leq n$ Schritten} \}.\qedhere\end{split} \]
 \end{definition}
 Beachte dass $\Proj(\mathtt{rKAN})=\mathtt{KAN}$.
-Über die Identifikation von NP-Relationen mit NPTM (Beobachtung~\ref{obs:np-certificate-def}) ist klar, dass $\mathtt{rKAN}$ vollständig ist.
+Über die Identifikation von NP-Relationen mit NPTMs (Beobachtung~\ref{obs:np-certificate-def}) ist klar, dass $\mathtt{rKAN}$ vollständig ist.
 \begin{theorem}
     Die kanonische NP-Relation $\mathtt{rKAN}$ 
     ist $\leq_\mathrm{L,1,i}^\mathrm p$-vollständig für $\FNP$.
@@ -518,14 +522,14 @@ Andererseits kann gefragt werden, ob TFNP-Relationen existieren, die $\leqlp$-vo
 \end{conjecture}
 Auch hier ist ein Beweis für diese Vermutung mindestens so schwer wie ein Beweis für $\NP\neq\coNP$. Die Beziehung dieser Vermutung mit weiteren Vermutungen betreffend Promise-Probelemen wird in Kapitel~\ref{chap:pudlak} erarbeitet.
 
-Bevor wir uns der Beziehung zwischen Karp- und Levin-Reduktion nähern, sei an dieser Stelle noch kurz hingeweisen, dass sich die Levin-Reduzierbarkeit auf natürliche Weise abschwächen lassen kann, so wie Many-one- auf Turing-Reduzierbarkeit. Intuitiv ist mit einer solchen Turing-Reduktion von \emph{NP-Suchproblem} $Q$ auf $R$ gemeint, dass sich $Q$ effizient lösen lassen kann, wenn ein effizienter Algorithmus für (eine Verfeinerung von) $R$ existiert. Das lässt sich zum Beispiel formal über die Idee der funktionalen Orakel umsetzen, ähnlich wie bei der Selbstreduzierbarkeit nach unten (S.~\pageref{page:self-reducibility}). Insbesondere dürfen hierbei mehrere Orakelfragen gestellt werden. (Eine Beschränkung auf höchstens eine Frage wäre äquivalent zur Levin-Reduzierbarkeit.) 
+Bevor wir uns der Beziehung zwischen Karp- und Levin-Reduktion nähern, sei an dieser Stelle noch kurz hingeweisen, dass sich die Levin-Reduzierbarkeit auf natürliche Weise abschwächen lassen kann, so wie Many-one- auf Turing-Reduzierbarkeit. Intuitiv ist mit einer solchen Turing-Reduktion von NP-Suchproblem $Q$ auf $R$ gemeint, dass sich $Q$ effizient lösen lassen kann, wenn ein effizienter Algorithmus für eine Verfeinerung von $R$ existiert. Das lässt sich zum Beispiel formal über die Idee der funktionalen Orakel umsetzen, ähnlich wie bei der Selbstreduzierbarkeit nach unten (S.~\pageref{page:self-reducibility}). Insbesondere dürfen hierbei mehrere Orakelfragen gestellt werden. (Eine Beschränkung auf höchstens eine Orakelfrage wäre äquivalent zur Levin-Reduzierbarkeit.) 
 
 Klar ist, dass diese Turing-Reduzierbarkeit auf Suchproblemen die Lösbarkeit nach unten überträgt. Zum Beispiel lässt sich $\mathtt{rFACTORIZATION}$ auf $\mathtt{rFACTOR}$ Turing-reduzieren: gegeben $n$, frage nach einem Primfaktor $p_1$ von $n$, frage dann nach einem Primfaktor $p_2$ von $n/p_1$, usw. Damit folgt
 $\mathtt{rFACTOR}\inc \FP \implies \mathtt{rFACTORIZATION}\inc\FP$, womit dann auch die angegebenen Äquivalenzen auf S.~\pageref{page:lösbarkeit} gelten. 
 
 \subsection*{Karp- vs. Levin-Reduktionen}
 
-Die bekannten NP-Relationen $R$ mit $\leqmp$-vollständiger Projektion $\Proj(R)\in\NP$ sind auch Levin-vollständig. Typische Präsentationen von $\leqmp$-Vollständigkeit erfolgten über die $\leqmp$-Reduktion von einer bereits bekannten $\leqmp$-vollständige Menge, z.B. $\mathtt{SAT}\leqmp \mathtt{CLIQUE}$. Diese Beweise geben uns üblicherweise nicht nur eine $\leqmp$-Reduktionsfunktion $f$ von Instanzen $x$ der einen Menge zu Instanzen $f(x)$ der anderen Menge, sondern beinhalten meist im Beweis eine (implizit mitgedachte) effiziente Übersetzung von Zertifikaten von $x$ nach $f(x)$ und umgekehrt. 
+Die bekannten NP-Relationen $R$ mit $\leqmp$-vollständiger Projektion $\Proj(R)\in\NP$ sind auch Levin-vollständig. Typische Präsentationen von $\leqmp$-Vollständigkeit erfolgten über die $\leqmp$-Reduktion von einer bereits bekannten NP-vollständige Menge, z.B. $\mathtt{SAT}\leqmp \mathtt{CLIQUE}$. Diese Beweise geben uns üblicherweise nicht nur eine $\leqmp$-Reduktionsfunktion $f$ von Instanzen $x$ der einen Menge zu Instanzen $f(x)$ der anderen Menge, sondern beinhalten meist im Beweis eine (implizit mitgedachte) effiziente Übersetzung von Zertifikaten von $x$ nach $f(x)$ und umgekehrt. 
 Die Reduktionsfunktion $f$ mit der Rückübersetzung der  Zertifikate für $f(x)$ nach Zertifikaten für $x$ reichen dann aus, um eine $\leqlp$-Reduktion zu realisieren, und damit Levin-Vollständigkeit zu zeigen.
 
 \begin{marginfigure}[-4cm]
@@ -533,7 +537,7 @@ Die Reduktionsfunktion $f$ mit der Rückübersetzung der  Zertifikate für $f(x)
 \caption{Schema der Reduktion von $\mathtt{SAT}$ auf $\mathtt{CLIQUE}$, hier für die CNF-Formel $\smash{\phi=(a\lor b\lor c) \land (\overline{a} \lor\overline{b}\lor c)} \land \smash{(b\lor\overline{c} \lor d)}$. Diese wird auf eine $\mathtt{CLIQUE}$-Instanz $f(\phi)=(G, 3)$ reduziert. Die Knoten von $G$ entsprechen hierbei den Literalen der Klauseln, und genau dann inzident wenn diese in unterschiedlichen Klauseln sind, außer $x$ und $\overline{x}$. Damit hat $G$ eine Clique $C$ der Größe 3 genau dann wenn $\phi$ erfüllbar ist. Aus der Konstruktion wird klar, dass sich aus jeder solchen Clique $C$ auch eine erfüllende Belegung für $\phi$ bestimmen lassen kann, je nach dem welche Knoten bzw. Klauseln in $C$ enthalten sind.}\label{fig:sat-to-clique}
 \end{marginfigure}
 
-Im Lehrbuch-Beweis von $\mathtt{SAT}\leqmp \mathtt{CLIQUE}$ (siehe Abbildung~\ref{fig:sat-to-clique}) wäre das beispielsweise, dass einerseits jede erfüllende Belegung $w$ der (CNF-)Formel $\phi$ einer Clique $C$ im Graph der Instanz $f(\phi)$ entspricht, und umgekehrt lässt sich an jeder Clique $C$ eine erfüllende Belegung $w$ für $\phi$ trivial ablesen. Damit lässt sich leicht eine entsprechende Translationsfunktion $g$ angeben, sodass $f,g$ die Levin-Reduktion $\mathtt{rSAT}\leqlp\mathtt{rCLIQUE}$ auf den entsprechenden NP-Relationen realisieren. 
+Beispielsweise gilt im Lehrbuch-Beweis von $\mathtt{SAT}\leqmp \mathtt{CLIQUE}$ (siehe Abbildung~\ref{fig:sat-to-clique}), dass einerseits jede erfüllende Belegung $w$ der (CNF-)Formel $\phi$ einer Clique $C$ im Graph der Instanz $f(\phi)$ entspricht, und umgekehrt lässt sich an jeder Clique $C$ eine erfüllende Belegung $w$ für $\phi$ trivial ablesen. Damit lässt sich leicht eine entsprechende Translationsfunktion $g$ angeben, sodass $f,g$ die Levin-Reduktion $\mathtt{rSAT}\leqlp\mathtt{rCLIQUE}$ auf den entsprechenden NP-Relationen realisieren. 
 
 
 Nach \textcite[104]{goldreich_computational_2008} sind die folgenden NP-Relationen jedenfalls definitiv $\leq_\mathrm{L,1,i}^\mathrm p$-vollständig: $\mathtt{rSAT}$, $\mathtt{rSETCOVER}$, $\mathtt{rCLIQUE}$, $\mathtt{rVERTEXCOVER}$, $\mathtt{r3COLORABILITY}$.
@@ -616,13 +620,13 @@ Auf NP-Relationen lässt sich sein Reduktionsbegriff aber formal präzise formul
     \[ |\fset{}Q(x)|=|\fset{}R(f(x))|. \qedhere \]
 \end{definition}
 
-Beachte, dass sparsame Reduktionen immer eine Many-one-Reduktion realisieren: wir haben 
+Beachte, dass sparsame Reduktionen eine Many-one-Reduktion realisieren: wir haben 
 \[ x\in\Proj(Q) \iff |\fset{}Q(x)|>0 \iff |\fset{}R(f(x))|>0 \iff f(x)\in\Proj(R). \]
 Sparsame Reduktionen wurden insbesondere in der Komplexitätstheorie des Zählens aufgegriffen \parencites{simon_central_1975}{valiant_complexity_1979}. Typische algorithmische Probleme sind z.B. „\emph{wie viele Belegungen $w$ erfüllen die aussagenlogische Formel $\phi$}“ oder, kanonischer, „\emph{Auf wie vielen Rechenwegen akzeptiert die Berechnung $N(x)$ der NPTM $N$?}“. Es ist einfach zu sehen, dass sich sparsame Reduktionen $\mathtt{rSAT}\leq_\mathrm{pars}^\mathrm p \mathtt{rKAN}$ und $\mathtt{rKAN}\leq_\mathrm{pars}^\mathrm p \mathtt{rSAT}$ angeben lassen können. Damit kann das Zählproblem zur $\mathtt{rSAT}$-Instanz $x$ als $\mathtt{rKAN}$-Instanz $f(x)$ repräsentiert werden und umgekehrt – die beiden Zählprobleme sind relativ zum jeweils anderem gleich schwer. Tatsächlich sind $\mathtt{rSAT}$ und $\mathtt{rKAN}$ sogar $\leq_\mathrm{pars}^\mathrm p$-vollständig für $\FNP$. Auf eine weitere Präsentation der Komplexitätstheorie des Zählens muss hier aber verzichtet werden \parencites(siehe)()[Kap.~7]{wechsung_vorlesungen_2000}[Chap.~17]{arora_computational_2009}.
 
 Beachte, dass sparsame Reduktionen nicht mit Levin-Reduktionen vergleichbar sind. Levin-Reduktionen erhalten im Allgemeinen nicht die Anzahl an Zertifikaten, während umgekehrt sparsame Reduktionen keine effektive Übersetzung zwischen den Zertifikaten für $f(x)$ auf Zertifikate für $x$ zulassen.
 
-An dieser Stelle sei noch auf zwei weitere verwandte Arbeiten verwiesen, die hier nur kurz skizziert werden sollen: zum einen gehen \textcite{wiedermann_witness-isomorphic_1995} noch einen Schritt über sparsame Reduktionen hinaus, und erforschen \emph{„witness-isomorphic reductions“} zwischen NP-Relationen. Hier erhält die Reduktionsfunktion $A\to B$ auf den Instanzen nicht nur die \emph{Anzahl} der Zertifikate, sondern es werden zusätzlich die Zertifikate für $x\in A$ mit den Zertifikaten für $f(x)\in B$ in eine effiziente in Polynomialzeit berechenbare und invertierbare Eins-zu-Eins-Korrespondenz gesetzt. Damit sind sind \emph{witness-isomorphic reductions} insbesondere eine Verstärkung von Levin-Reduktionen und sparsamen Reduktionen.
+An dieser Stelle sei noch auf zwei weitere verwandte Arbeiten verwiesen, die hier nur kurz skizziert werden sollen: zum einen gehen \textcite{wiedermann_witness-isomorphic_1995} noch einen Schritt über sparsame Reduktionen hinaus, und erforschen \emph{„witness-isomorphic reductions“} zwischen NP-Relationen. Hier erhält die Reduktionsfunktion von den $A$-Instanzen auf die $B$-Instanzen nicht nur die \emph{Anzahl} der Zertifikate, sondern es werden zusätzlich die $A$-Zertifikate für $x\in\Proj(A)$ mit den $B$-Zertifikaten für $f(x)\in \Proj(B)$ in eine effiziente in Polynomialzeit berechenbare und invertierbare Eins-zu-Eins-Korrespondenz gesetzt. Damit sind sind \emph{witness-isomorphic reductions} insbesondere eine Verstärkung von Levin-Reduktionen und sparsamen Reduktionen.
 
 \begin{figure}[tb]
     \centering\includegraphics[page=2]{figures.pdf}
@@ -666,7 +670,7 @@ An dieser Stelle muss aber kritisch hervorgehoben werden, dass dieses Gegenbeisp
 Das Problem löst sich auf, wenn anstelle der naiven Formulierung von $\mathtt{rMAXCUT}$ folgende Verfeinerung gewählt wird:
 \[ \begin{split} \mathtt{rMAXCUT'} \defeq \{ ((G, r), w) \mid {}&\text{$G$ ist Graph mit Knotenmenge $\{0,1,\dots,n-1\}$,} \\ &\text{$w\in\Sigma^n$ ist ein Schnitt mit Gewicht $\geq r$, und startet mit $0$.} \}.\end{split} \]
 In anderen Worten, ein Schnitt für eine $\mathtt{rMAXCUT'}$-Instanz hat immer den Knoten $0\in V_0$.
-Dann ist auch möglich, eine sparsame Reduktion von $\mathtt{rSAT}$ auf $\mathtt{rMAXCUT'}$ anzugeben.
+Dann ist auch möglich, eine sparsame Reduktion von $\mathtt{rSAT}$ auf $\mathtt{rMAXCUT'}$ anzugeben.\marginnote{\todo{prüfen! Vgl. Garey, Johnson, Stockmeyer}}
 
 Ein filigraneres Beispiel ist Kantenfärbung:  Wir werden zeigen dass das Problem der 4-Kantenfärbung nicht vollständig unter sparsamen Reduktionen ist, außer $\P=\NP$.
 
@@ -674,7 +678,7 @@ Zu einem Graphen $G$ mit Kantenmenge $\{0,1,\dots, m-1\}$ können wir eine $k$-\
 Wir wollen im Folgenden die Anzahl der möglichen Kantenfärbungen \emph{als Partitionierung} zählen, und sind dabei insbesondere nicht an redundanten Lösungen interessiert, die aus reiner Permutation der Farben entsteht. Ähnlich zu $\mathtt{rMAXCUT}'$ setzen wir für eine \emph{gültige} Färbung $w$ daher voraus, dass $w$ die unter Permutationen lexikographisch kleinste Färbung ist, in dem Sinne dass keine Permutation $\pi$ auf $\{1,2,\dots,k\}$ existiert sodass $\pi(w)$ lexikographisch kleiner ist als $w$. (Beachte: wir suchen \emph{nicht} nach einer „global“ lexikographisch kleinsten Färbung von $G$.)
 Definiere nun
 \[ \begin{split} \mathtt{r4CHROMINDEX} \defeq \{ ((G, k), w) \mid {}&\text{$G$ ist Graph mit Kantenmenge $\{0,1,\dots,m-1\}$} \\& \text{$G$ hat maximalem Grad 4,} \\ &\text{und $w\in\{1,2, 3,4\}^m$ ist gültige Färbung mit 4 Farben} \}.\end{split} \]
-\begin{theorem}[{\cite{cai_complexity_2020} nach Edward und Welsh\protect\footnotemark}]\ifbook\def\a{\footnotetext[-5cm]}\expandafter\a\else\expandafter\footnotetext\fi{Dieses Beispiel geht auf ein unpubliziertes Preprint von Edward und Welsh mit dem Titel „On the Complexity of Uniqueness Problems“ welches offenbar in den 1980ern zirkuliert ist; viele der Arbeiten aus diesem Abschnitt nehmen auf genau dieses Preprint Bezug. Tatsächlich ist überliefert, dass dieses Preprint über die Kantenfärbbarkeit sogar ein „Gegenbeispiel“ zur Berman–Hartmanis-Isomorphievermutung gefunden hätte. Hierbei gingen Edward und Welsh aber von einer wesentlichen stärkeren abweichenden Interpretation der Isomorphievermutung aus: neben der Isomorphie zwischen allen NP-vollständigen Entscheidungsproblemen würde diese Interpretation der Isomorphievermutung auch eine Isomorphie auf den jeweiligen Zertifikatsmengen umfassen. Das würde (mindestens) eine sparsame Interreduzierbarkeit zwischen allen NP-vollständigen Suchproblemen implizieren. Diese Aussage ist nun aber so stark, dass diese durch eben das Beispiel der Kantenfärbbarkeit widerlegt werden kann.\par Vgl. \textcites{hemaspaandra_take-home_1998}{wiedermann_witness-isomorphic_1995}{cai_complexity_2020}[118]{welsh_complexity_1993}.}
+\begin{theorem}[{\cite{cai_complexity_2020} nach Edward und Welsh\protect\footnotemark}]\ifbook\def\a{\footnotetext[-5cm]}\expandafter\a\else\expandafter\footnotetext\fi{Dieses Beispiel geht auf ein unpubliziertes Preprint von Edward und Welsh mit dem Titel „On the Complexity of Uniqueness Problems“ welches offenbar in den 1980ern zirkuliert ist; viele der Arbeiten aus diesem Abschnitt nehmen auf genau dieses Preprint Bezug. Tatsächlich ist überliefert, dass die Autoren über die Kantenfärbbarkeit sogar ein „Gegenbeispiel“ zur Berman–Hartmanis-Isomorphievermutung gefunden hätte. Hierbei gingen Edward und Welsh aber von einer wesentlichen stärkeren abweichenden Interpretation der Isomorphievermutung aus: neben der Isomorphie zwischen allen NP-vollständigen Entscheidungsproblemen würde ihre Interpretation der Isomorphievermutung auch eine Isomorphie auf den jeweiligen Zertifikatsmengen umfassen. Das würde (mindestens) eine sparsame Interreduzierbarkeit zwischen allen NP-vollständigen Suchproblemen implizieren. Diese Aussage ist nun aber so stark, dass diese durch eben das Beispiel der Kantenfärbbarkeit widerlegt werden kann.\par Vgl. \textcites{hemaspaandra_take-home_1998}{wiedermann_witness-isomorphic_1995}{cai_complexity_2020}[118]{welsh_complexity_1993}.}
     Die NP-Relation {\normalfont\texttt{r4CHROMINDEX}} ist nicht $\leq_\mathrm{pars}^\mathrm p$-vollständig, außer $\P=\NP$.
 \end{theorem}
 \begin{proof}[Skizze.]
@@ -711,12 +715,12 @@ Definiere nun
     und damit $\mathtt{SAT}\in\P$.
 \end{proof}
 
-\textcite{leven_np_1983} zeigen, dass die Menge $\Proj(\mathtt{r4CHROMINDEX})\in\NP$ $\leqmp$-vollständig ist. 
+\textcite{leven_np_1983} zeigen, dass die Menge $\Proj(\mathtt{r4CHROMINDEX})$ $\leqmp$-vollständig für $\NP$ ist. 
 Mit den Konstruktionen aus deren Beweis ist es leicht zu sehen, dass die NP-Relation \texttt{r4CHROMINDEX} auch $\leqlp$-vollständig ist. 
 Es ist auch leicht zu sehen, dass $\Proj(\mathtt{r4CHROMINDEX})$ paddable ist, also  auch $\P$-isomorph zu $\mathtt{SAT}$ ist.
 Wir kommen zum Resultat:
-\begin{observation}
+\begin{corollary}
     Die NP-Relation $\mathtt{r4CHROMINDEX}$ ist $\leqlp$-vollständig für $\FNP$, und die zugehörige Projektion  $\Proj(\mathtt{r4CHROMINDEX})$ ist $\leqmp$-vollständig für $\NP$, und $\P$-isomorph zu $\mathtt{SAT}$.
     Diese NP-Relation ist insbesondere nicht $\leq_\mathrm{pars}^\mathrm p$-vollständig für $\FNP$, außer $\P=\NP$.
-\end{observation}
+\end{corollary}
 
