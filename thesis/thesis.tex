@@ -18,18 +18,27 @@
 \ifbook
 \directlua{require('fixmathfont')}
 \setmainfont{Gentium Plus}
-\newcommand\cyrfont[1]{#1}
 \setmathfont{TeX Gyre Pagella Math}
 \setmathfont[range=it, RawFeature={\DeclareTopAccent `\s=430\relax}]{Gentium Plus Italic}
 \setmathfont[range=up/{num}]{Gentium Plus}
 \setmathfont[range=cal]{TeX Gyre Chorus}
 \setmathfont{TeX Gyre Pagella Math}[range={}]
 \setmathfontface\mathsf{Noto Sans}[Scale=MatchUppercase]
+\def\fixprimes{\directlua{
+local n=tex.nest[tex.nest.ptr].tail
+if (n.id==18 and n.nucleus.id == 23 and n.nucleus.char == 102) % glyph
+then
+tex.print("\string\\kern.9pt")
+end
+}}
+\makeatletter\ExplSyntaxOn\AtBeginDocument{%
+\let\fix\__um_nprimes_select:nn
+\cs_set:Nn \__um_nprimes_select:nn {\fixprimes\fix{#1}{#2}}%
+}\makeatother\ExplSyntaxOff
+
+\newcommand\cyrfont[1]{#1}
 \setsansfont[Scale=MatchUppercase, BoldFont={Jost Medium}]{Jost}
 \setmonofont[Scale=MatchUppercase,HyphenChar={-}]{Latin Modern Mono}
-\makeatletter\ExplSyntaxOn\AtBeginDocument{%
-\cs_set:Nn \__um_nprimes_select:nn {\kern 1pt#1}%
-}\makeatother\ExplSyntaxOff
 
 \setlength{\baselineskip}{12pt}
 \lineskiplimit=-2pt
@@ -383,7 +392,6 @@
 
 \title{Komplexität von Suchproblemen und Beweissystemen}
 \author{Anton Ehrmanntraut}
-
 
 \begin{document}
 
