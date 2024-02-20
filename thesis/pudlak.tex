@@ -16,12 +16,7 @@ erstens, nähern wir uns in Abschnitt~\ref{sec:karp-vs-levin} erneut der Frage z
 Zweitens, in Abschnitt~\ref{sec:q-vs-search}, verallgemeinern wir Charakterisierungen von $\hQ$, die sich insbesondere auf Suchprobleme und deren assoziierte Beweissysteme beziehen.
 Insbesondere zeigen wir für die vollständigen NP-Suchprobleme $R$ dass das zu $R$ assoziierte \emph{Standardbeweissystem} ($(x,y)$ mit $(x,y)\in R$ ist ein Standardbeweis für $x\in\Proj(R)$) $\P$-optimal ist, genau dann wenn $\hQ$ gilt. Damit wird die $\P$-Optimalität des entsprechenden Standardbeweissystems zu einer Invariante, die entweder für \emph{alle} vollständigen NP-Suchprobleme zutrifft, oder für \emph{keins}.
 
-%erstens werden wir weitere Hypothesenzu Suchproblemen, welche sich im Verlauf dieser Arbeit ergeben, in das Pudláksche Programm einordnen, insbesondere $\hQ$ und $\mathsf{KvL}$ bzw. die Frage nach Levin- vs. Karp-Vollständigkeit.
-%Im Speziellen ergänzen wir das Abbildung~\ref{fig:pudlak} der Beziehungen zwischen den Pudlákschen Hypothesen aus der Einleitung um weitere Hypothesen, und erreichen Abbildung~\ref{}. Die Beweise 
 
-%Zweitens eine Verallgemeinerung der Charakterisierung $\hQ$, die sich insbesondere auf Suchprobleme und deren Beweissysteme bzw. „Zertifikatsschemata“ beziehen.
-
-\looseness=1
 Drittens ergänzen wir im gesamten Verlauf dieses Kapitels das Pudláksche Programm um weitere Hypothesen ($\mathsf{KvL}, \hQ, \dots$), sodass Abbildung~\ref{fig:pudlak-small} der Beziehungen zwischen den Pudlákschen Hypothesen vergrößert und verfeinert wird. Wir erreichen damit den Stand, der in Abbildung~\ref{fig:figure-implications} dargestellt wird.
 Damit einher wird abschließend ein Überblick über existierende Orakelkonstruktionen angegeben, welche Hypothesen des Pudlákschen Programms (ergänzt um $\hQ, \mathsf{KvL}, \dots$) trennen.
 
@@ -215,7 +210,7 @@ Mit dieser Charakterisierung folgt auch unmittelbar, dass $\hQ$ hinreichend für
 
 Was sind natürliche notwendige Bedingungen für die Hypothese $\mathsf{KvL}$? Diese Frage erscheint tatsächlich wesentlich schwieriger als gedacht. Insbesondere scheint es unklar, ob aus irgend einer von Pudláks Hypothesen die Aussage $\mathsf{KvL}$ folgt.
 
-Um uns dieser Frage dennoch zu nähern, beginnen wir zunächst, die Hypothese $\mathsf{KvL}$ auf weitere Weisen zu charakterisieren. Es ist intuitiv ersichtlich, dass für eine feste Sprache $L$ die NP-Relationen für $L$, die ehrlichen Beweissysteme für $L$, und die NPTMs, welche $L$ entscheiden, alle im breitesten Sinn „Zertifikatsschemata“ sind, und alle diese Berechnungsmodelle untereinander umgeschrieben werden können: jede NP-Relation $R$ induziert ein ehrliches Beweissystem $\mathit{std}_R$, jedes ehrliche Beweissystem $h$ induziert eine NPTM $N$ mit $L(N)=L$ (rate einen $h$-Beweis polynomieller Länge), und jede NPTM $N$ mit $L(N)=L$ induziert eine NP-Relation für $L$ ($w$ ist eine Lösung für $x$ wenn $w$ ein akzeptierender Rechenweg auf $N(x)$ ist).
+Um uns dieser Frage dennoch zu nähern, beginnen wir zunächst, die Hypothese $\mathsf{KvL}$ auf weitere Weisen zu charakterisieren. Es ist intuitiv ersichtlich, dass für eine feste Sprache $L$ die NP-Relationen für $L$, die ehrlichen Beweissysteme für $L$, und die NPTMs, welche $L$ entscheiden, alle im breitesten Sinn „Zertifikatsschemata“ sind, und alle diese Berechnungsmodelle untereinander umgeschrieben werden können: jede NP-Relation $R$ induziert ein ehrliches Beweissystem $\mathit{std}_R$, jedes ehrliche Beweissystem $h$ induziert eine NPTM $N$ mit $L(N)=L$ (rate einen $h$-Beweis polynomieller Länge), und jede NPTM $N$ mit $L(N)=L$ induziert eine NP-Relation für $L$ ($w$ ist eine Lösung für $x$ wenn $w$ ein akzeptierender Rechenweg auf $N(x)$ ist). Insbesondere ist für ein ehrliches Beweissystem $h$ die Umkehrrelation $h^{-1}=\{(x,w) \mid h(w)=x \} $ eine NP-Relation für $\img(h)$.
 
 Wir wollen nun die existierende $\leqlp$-Ordnung auf den NP-Relationen aufgreifen, und diese auf die ehrlichen Beweissysteme übertragen. Wir definieren hierfür eine abgeschwächte Variante der $\P$-Simulation, welche der $\leqlp$-Reduktion nachempfunden ist.
 \begin{definition}
@@ -232,71 +227,82 @@ Die $\P$-Quasi-Simulation ist reflexiv und transitiv, und sie
 liegt insbesondere zwischen Simulation und $\P$-Simulation: $\P$-Simulation impliziert $\P$-Quasi-Simulation impliziert Simulation.
 Ferner ist diese Art von Simulation \emph{effektiv}, in dem Sinn dass die $\P$-invertierbaren Beweissysteme selbst unter $\P$-Quasi-Simulation abgeschlossen sind.
 
+Es ist intuitiv ersichtlich, dass $\P$-quasi-Simulation auf ehrlichen Beweissystemen das Analog der $\leqlp$-Reduktion auf NP-Relationen darstellt. Wir können folgende Beobachtung festhalten:
+\begin{observation}\label{obs:p-quasi-sim-vs-leqlp}
+    Sei $L\in\NP$, seien $h, h'$ zwei ehrliche Beweissysteme für $L$, und seien $R, R'$ zwei NP-Relationen für $L$.
+    \begin{enumerate}
+        \item $h^{-1}\leqlp h'^{-1} \iff \text{$h$ kann $h'$ $\P$-quasi-simulieren.}$
+        \item $R\leqlp R' \iff \text{$\mathit{std}_R$ kann $\mathit{std}_{R'}$ $\P$-quasi-simulieren.}$
+    \end{enumerate}
+\end{observation}
+\begin{proof}
+    \begin{prooflist}
+    \item Zu (1): Wir haben
+        \begin{gather*}
+            h^{-1}\leqlp h'^{-1} \iff \exists f,g\in\FP.\, [(f(x), w)\in h'^{-1} \rightarrow (x, g(x, w))\in h^{-1}]\\
+            \iff \exists f,g\in\FP.\, [h'(w)=f(x) \rightarrow h(g(x, w))=x]\\
+            \iff \text{$h$ kann $h'$ $\P$-quasi-simulieren,}
+        \end{gather*}
+        wobei hier die existentizell quantifizierte Variable $f$ nur über Reduktionsfunktionen von $L$ auf $L$ reichen soll.
+    \item Zu (2): Ähnlich wie (1), nur etwas aufwändiger. Wir haben
+        \begin{gather*}
+            R\leqlp R' \iff \exists f,g\in\FP.\, [(f(x), w)\in R' \rightarrow (x, g(x, w))\in R]\\
+            \iff \exists f,g\in\FP.\, [\mathit{std}_{R'}(f(x), w)=f(x) \rightarrow \mathit{std}_R(x, g(x, w))=x\\
+            \iff \exists f,g'\in\FP.\, [\mathit{std}_{R'}(w')=f(x) \rightarrow \mathit{std}_R(g'(x, w'))=x\\
+            \iff \text{$\mathit{std}_{R}$ kann $\mathit{std}_{R'}$ $\P$-quasi-simulieren,}
+        \end{gather*}
+        wobei wieder die existentizell quantifizierte Variable $f$ nur über Reduktionsfunktionen von $L$ auf $L$ reichen soll.
+    \end{prooflist}
+\end{proof}
 
-Die intuitive Aussage von $\neg\mathsf{KvL}$ „Alle NP-Relationen für NP-vollständige Sprache $L$ sind im Wesentlichen gleich“ überträgt sich nun auch auf \emph{ehrliche} Beweissysteme:
+Die intuitive Aussage von $\neg\mathsf{KvL}$ „Alle NP-Relationen für NP-vollständige Sprache $L$ sind im Wesentlichen gleich“ überträgt sich nun auch auf ehrliche Beweissysteme:
 \begin{theorem}\label{thm:kvl-ps}
-    Sei $R$ eine $\leqlp$-vollständige NP-Relation.
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
         \item Aussage $\neg\mathsf{KvL}$.
-        \item Für alle ehrlichen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
-\[ R \leqlp R_{h}\defeq  \{ (x, w) \mid  \text{$h(w)=x$}\}, \]
-        \item Für alle NPTM $N$ mit $L(N)=\Proj(R)$ gilt
-            \[ R \leqlp R_N \defeq  \{ (x, w) \mid  \text{$N(x)$ akz. auf Rechenweg $\alpha$}\}. \]
-        \item Für alle ehrlichen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
-    \[  \text{$\mathit{std}_R$ $\P$-quasi-simuliert $h$}. \]
+        \item Für jede $\leqmp$-vollständige Menge $L\in\NP$ gilt: Wenn $R, R'$ zwei NP-Relationen für $L$ sind, dann
+            \[ R \leqlp R'. \]
+        \item Für jede $\leqmp$-vollständige Menge $L\in\NP$ gilt: Wenn $h, h'$ zwei ehrliche Beweissysteme für $L$ sind, dann
+            \[  \text{$h$ $\P$-quasi-simuliert $h'$}. \]
+        \item Für eine $\leqlp$-vollständige NP-Relation $R$ gilt: Wenn $R'$ eine NP-Relation für $\Proj(R)$ ist, dann
+            \[ R \leqlp R'. \]
     \end{enumerate}
 \end{theorem}
 \begin{proof}
     \begin{prooflist}
-    \item (1)$\implies$(2): Klar, denn die Relation $R_h$ ist eine NP-Relation und es gilt $\Proj(R_h)=\Proj(R)$ und damit die Projektion von $R_h$ $\leqmp$-vollständig für $\NP$. Nach Aussage (1) gilt also nun, dass $R\leqlp R_N$, wie gewünscht.
-
-    \item (2)$\implies$(1): Sei $Q$ eine NP-Relation, wobei $\Proj(Q)$ $\leqmp$-vollständig für $\NP$ ist. Wir werden zeigen, dass $R\leqlp Q$, wobei dann auch $Q$ $\leqlp$-vollständig ist (Beob.~\ref{lemma:fnp-completeness}), wie gewünscht.
+        \item (1)$\implies$(2): Klar, denn mit (1) ist $R'$ $\leqlp$-vollständig.
+        \item (2)$\implies$(4): Klar, ist ja $\mathtt{rSAT}$ $\leqlp$-vollständig.
+        \item (4)$\implies$(1): Sei $Q$ eine NP-Relation, wobei $\Proj(Q)$ $\leqmp$-vollständig für $\NP$ ist. Wir werden zeigen, dass $R\leqlp Q$, wobei dann auch $Q$ $\leqlp$-vollständig ist (Beob.~\ref{lemma:fnp-completeness}), wie gewünscht.
         Die Argumentation verläuft hierbei ähnlich wie bei Satz~\ref{thm:q-as-levin}. Sei $f\in\FP$ die Funktion, welche $\Proj(R)\leqmp \Proj(Q)$ realisiert.
         Sei nun
-        \[ h(w) \defeq \begin{cases} x & \text{falls $w=0\langle x, y\rangle$ und $(x,y)\in R$} \\ x & \text{falls $w=1\langle x, z\rangle$ und $(f(x), z)\in Q$} \\ \bot & \text{sonst}. \end{cases}\]
-Es lässt sich leicht zeigen, dass $h$ ein ehrliches Beweissystem für $\Proj(R)$ ist.
-
-        Nach (2) gilt nun $R \leqlp R_h$. Ebenso gilt $R_h\leqlp Q$, denn wir haben
-        \[ (f(x), z)\in Q \implies h(1\langle x,z\rangle )=x \implies (x, \underbrace{1\langle x,z\rangle}_{g(x,z)})\in R_h, \]
-        also realisiert $f$ als Reduktionsfunktion und $g(x,z)\defeq 1\langle x,z\rangle $ als Translationsfunktion die Levin-Reduktion $R_h\leqlp Q$. Damit gilt $R\leqlp R_h\leqlp Q$ wie gewünscht.
-
-    \item (2)$\iff$(3): Klar, denn jede NPTM $N$ induziert ein ehrliches Beweissystem $h_N$ (akz. Rechenweg von $N(x)$ ist $h_N$-Beweis für $x$), und jedes ehrliche Beweissystem induziert eine NPTM $N_h$ (rate Beweis, und akzeptiere falls korrekter $h$-Beweis). Es ist leicht zu sehen, dass $R_{N_h}\leqlp R_h$ und $R_h\leqlp R_{N_h}$.
-
-    \item (2)$\iff$(4): Sei $h$ ein ehrliches Beweissystem. 
-        Es gelten folgende Äquivalenzen
-        \begin{gather*}
-            R\leqlp R_h \iff \exists f,g\in\FP\, \left[ (f(x), z)\in R_h \rightarrow (x, g(x,z))\in R\right]\\
-            \iff \exists f,g\in\FP\, \left[ h(z)=f(x) \rightarrow \mathit{std}_R(x, g(x,z))=x \right]\\
-            \iff \exists f,g'\in\FP\, \left[ h(z)=f(x) \rightarrow \mathit{std}_R(g'(x,z))=x \right]\\
-            \iff \text{$\mathit{std}_R$ $\P$-quasi-simuliert $h$},
-        \end{gather*}
-        wobei hier die existentizell quantifizierte Variable $f$ nur über Reduktionsfunktionen von $\Proj(R)$ auf $\Proj(R)$ reichen soll, und die dritte Äquivalenz aus Beobachtung~\ref{obs:simulation-of-spps} folgt.\qedhere
-
-    %\item (2)$\implies$(3): Sei $h$ ein solches ehrliches Beweissystem, und $q$ so gewählt, dass $q(|h(w)|)\geq |w|$. Betrachte nun die NPTM $N$, welche auf Eingabe $x$ einen Beweis $w$ der Länge $\leq q(|x|)$ rät, und genau dann akzeptiert wenn $h(w)=x$.
-        %Es ist klar, dass $L(N)=\Proj(R)$, und nach (2) haben wir $R \leqlp  R_N$.
-        %%Seien $f, g\in\FP$ die Reduktions- bzw. Translationsfunktion, welche die obige $\leqlp$-Reduktion realisieren.
-
-        %Aus Ehrlichkeit von $h$ lässt sich leicht sehen, dass $R_h$ tatsächlich eine NP-Relation (mit Zertifikatsschranke $q$) ist.
-        %Ferner lässt sich leicht die Reduktion $R_N \leqlp R_h$ angeben: wenn $(x,w)\in R_h$, dann auch $(x, \alpha_w)\in R_N$, wobei $\alpha_w$ jener Rechenweg ist, welcher den Beweis $w$ rät.
-        %Damit gilt $R\leqlp R_N \leqlp R_h$, wie gewünscht.
-
-    %\item (3)$\implies$(2): Analog, denn eine NPTM $N$ induziert ein ehrliches Beweissystem $h$ sodass $R_h\leqlp R_N$.
-
-    %\item (3)$\implies$(4): Sei $h$ ein ehrliches Beweissystem. 
-        %Nach (3) gilt $R\leqlp R_h$, via $f,g\in\FP$. Ferner haben wir
-        %\[ (f(x), w)\in R_h \rightarrow (x,g(x,w))\in R, \]
-        %also 
-        %\[ h(w)=f(x) \rightarrow \mathit{std}_R(\underbrace{x,g(x,w)}_{g'(x,w)})=x, \]
-        %also realisiert $f$ und $g'(x,w)=(x,g(x,w))$ die $\P$-quasi-Simulation von $h$ durch $\mathit{std}_R$.
-
-    %\item (4)$\implies$(3): Analog. Sei $h$ ein ehrliches Beweissystem. Das Beweissystem $\mathit{std}_R$ kann nach (4) das Beweissystem $h$ $\P$-quasi-simulieren, via $f,g\in\FP$. 
-        %Wir behaupten dass $R\leqlp R_h$, mit Reduktionsfunktion $f$. Hierfür zeigen wir, gegeben $w$ mit $(f(x),w)\in R_h$, wie wir $w$ effizient in eine $R$-Lösung für $x$ übersetzen können.
-        %Es gilt $h(w)=f(x)$ und nach Quasi-Simultation also $\mathit{std}_R(g(x,w))=x$. Dann können wir $g(x,w)$ schreiben als $(x, y)$ für ein $y\in\Sigma^*$. Insbesondere gilt dann $(x, y)\in R$, heißt $y$ ist eine gesuchte $R$-Lösung für $x$.
+        \[ R' = \{ (x, 0y) \mid (x,y)\in R \} \cup \{ (x, 1z) \mid (f(x), z)\in Q \}. \]
+        Es lässt sich leicht zeigen, dass $R'$ eine NP-Relation für $\Proj(R)$ ist.
+        Nach (4) gilt nun $R \leqlp R'$. Ebenso gilt $R'\leqlp Q$, denn wir haben
+\[ (f(x), z)\in Q \implies (x, \underbrace{1z}_{\mathclap{g(x,z)}})\in R', \]
+        also realisiert $f$ als Reduktionsfunktion und $g(x,z)\defeq 1z$ als Translationsfunktion die Levin-Reduktion $R'\leqlp Q$. Damit gilt $R\leqlp R'\leqlp Q$ wie gewünscht.
+        \item (2)$\iff$(3): Einfach mit Beobachtung~\ref{obs:p-quasi-sim-vs-leqlp} nachweisbar.
     \end{prooflist}
 \end{proof}
 
-Unter dieser Charakterisierung erhalten wir einen zweiten trivialen Beweis von Korollar~\ref{cor:kvl-implies-q}: $\hQ$ ist hinreichend für $\neg\mathsf{KvL}$, denn unter Annahme von $\hQ$ ist jedes ehrliche Beweissystem $\P$-optimal, heißt auch das Standardbeweissystem $\mathit{std}_{\mathtt{rKAN}}$ für $\mathtt{KAN}$ ist $\P$-optimal (Satz~\ref{thm:q-simulation}), kann also insbesondere auch alle ehrlichen Beweissysteme $h$ $\P$-quasi-simulieren. Damit auch $\neg\mathsf{KvL}$ (Satz~\ref{thm:kvl-ps}).
+Als Korollar erhalten wir dabei insbesondere folgende Aussage, welche $\mathsf{KvL}$ mit Standardbeweissystemen von $\leqlp$-vollständigen NP-Relationen in Beziehung setzt:
+\begin{corollary}\label{cor:kvl-spps}
+    Sei $R$ eine NP-Relation, sodass $R$ $\leqlp$-vollständig ist.
+    Folgende Aussagen sind äquivalent:
+    \begin{enumerate}
+        \item Aussage $\neg\mathsf{KvL}$.
+        \item Für alle ehrlichen Beweissysteme $h$ mit $\img(h)=\Proj(R)$ gilt
+        \[  \text{$\mathit{std}_R$ $\P$-quasi-simuliert $h$}. \]
+    \end{enumerate}
+\end{corollary}
+\begin{proof}
+    \begin{prooflist}
+    \item (1)$\implies$(2): Klar, denn $\mathit{std}_R$ ist ehrlich, und mit Satz~\ref{thm:kvl-ps}(3) kann $\mathit{std}_R$ damit $h$ auch $\P$-quasi-simulieren.
+
+    \item (2)$\implies$(1): Wir zeigen die Aussage von Satz~\ref{thm:kvl-ps}(4), womit auch $\neg\mathsf{KvL}$ bzw (1) gilt. Sei hierfür $R'$ eine NP-Relation für $\Proj(R)$. Mit (2) wissen wir dass $\mathit{std}_R$ das Beweissystem $\mathit{std}_{R'}$ $\P$-quasi-simulieren kann. Mit Beobachtung~\ref{obs:p-quasi-sim-vs-leqlp}(2) folgt $R\leqlp R'$.
+    \end{prooflist}
+\end{proof}
+
+Unter dieser Charakterisierung erhalten wir einen zweiten trivialen Beweis von Korollar~\ref{cor:kvl-implies-q}: $\hQ$ ist hinreichend für $\neg\mathsf{KvL}$, denn unter Annahme von $\hQ$ ist jedes ehrliche Beweissystem $\P$-optimal, heißt auch das Standardbeweissystem $\mathit{std}_{\mathtt{rKAN}}$ für $\mathtt{KAN}$ ist $\P$-optimal (Satz~\ref{thm:q-simulation}), kann also insbesondere auch alle ehrlichen Beweissysteme $h$ $\P$-quasi-simulieren. Damit auch $\neg\mathsf{KvL}$ (Korollar~\ref{cor:kvl-spps}).
 
 Mittels unserem Begriff der $\P$-Quasi-Simulation können wir nun auch die Hypothese $\hSAT$ auf natürliche Weise verstärken:
 \begin{conjecture}[$\mathsf{SAT^{q}}$]
@@ -314,15 +320,15 @@ Wir sehen nun, dass $\mathsf{SAT^{q}}$ eine Verstärkung von sowohl $\hSAT$ als 
     \end{enumerate}
 \end{corollary}
 \begin{proof}
-Für (1) haben wir bereits argumentiert. Wir zeigen nur noch (2) mittels Kontraposition. Unter $\neg\mathsf{KvL}$ folgt mit der Formulierung aus Satz~\ref{thm:kvl-ps}(4), dass jede $\leqlp$-vollständige NP-Relation $R$ das Standardbeweissystem $\mathit{std}_R$ alle ehrlichen Beweissysteme für $\Proj(R)$ $\P$-quasi-simulieren kann. Das gilt dann insbesondere auch für die $\leqlp$-vollständige NP-Relation $\mathtt{rKAN}$, also hat die $\leqmp$-vollständige Menge $\mathtt{KAN}$ \emph{ein} Beweissystem, welches alle ehrlichen Beweissysteme $\P$-quasi-simulieren kann.
+    Für (1) haben wir bereits argumentiert. Wir zeigen nur noch (2) mittels Kontraposition. Unter $\neg\mathsf{KvL}$ folgt mit der Formulierung aus Korollar~\ref{cor:kvl-spps}(2), dass das Standardbeweissystem der $\leqlp$-vollständigen NP-Relation $\mathtt{rSAT}$ alle ehrlichen Beweissysteme $\P$-quasi-simulieren kann. Also hat die Menge $\mathtt{KAN}$ \emph{ein} Beweissystem, welches alle ehrlichen Beweissysteme $\P$-quasi-simulieren kann.
 \end{proof}
 
-Wir haben damit also je eine notwendige ($\neg\hQ$) und eine hinreichende Hypothese ($\mathsf{SAT^{q}}$) für $\mathsf{KvL}$. Durch die Charakterisierung von $\neg\mathsf{KvL}$ über Beweissysteme ergibt sich durch Satz~\ref{thm:kvl-ps} eine interessante Ähnlichkeit zur Hypothese $\hQ$. Wir wollen diese beiden Hypothesen im Folgenden kurz gegenüberstellen.
+Wir haben damit also je eine notwendige ($\neg\hQ$) und eine hinreichende Hypothese ($\mathsf{SAT^{q}}$) für $\mathsf{KvL}$. Durch die Charakterisierung von $\neg\mathsf{KvL}$ über Beweissysteme ergibt sich durch Korollar~\ref{cor:kvl-spps} eine interessante Ähnlichkeit zur Hypothese $\hQ$. Wir wollen diese beiden Hypothesen im Folgenden kurz gegenüberstellen.
 Zur Anschaulichkeit beziehe ich mich hierbei auf die NP-Relation $\mathtt{rSAT}$. (Durch Ergebnisse im nächsten Abschnitt wird klar, dass sich dieses Argument auch auf $\mathtt{rKAN}$ relativierend überträgt.)
 Wir haben
 \begin{itemize}[midpenalty=10000]
     \item $\hQ$ genau dann wenn $\mathit{sat}$ jedes ehrliche Beweissystem $\P$-simulieren kann (Satz~\ref{thm:q-fenner}),\sidenote{Satz~\ref{thm:q-fenner} macht zwar nur Aussagen über NPTMs, aber es ist leicht zu sehen, dass diese mit den ehrlichen Beweissystemen identifiziert werden können. Vgl. auch Satz~\ref{thm:q-fenner-generalized}.}
-    \item $\neg\mathsf{KvL}$ genau dann wenn $\mathit{sat}$ jedes ehrliche Beweissystem $\P$-quasi-simulieren kann (Satz~\ref{thm:kvl-ps}).
+    \item $\neg\mathsf{KvL}$ genau dann wenn $\mathit{sat}$ jedes ehrliche Beweissystem $\P$-quasi-simulieren kann (Korollar~\ref{cor:kvl-spps}).
 \end{itemize}
 Damit wird deutlich, dass die die Hypothesen $\hQ$ und $\neg\mathsf{KvL}$ äquivalent sind, falls die $\P$-Quasi-Simulation genauso stark ist, wie die $\P$-Simulation.
 
