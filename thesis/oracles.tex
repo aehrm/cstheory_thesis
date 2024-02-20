@@ -228,7 +228,7 @@ Für unsere Zwecke definieren wir uns folgende Funktionenklasse $\mathcal T$. Di
     \item $t$ injektiv auf den positiven Funktionswerten ist, also $t(\tau)=t(\tau')>0 \implies \tau=\tau'$.
 \end{itemize}
 Die intendierte Interpretation ist nun wie folgt: wenn $t$ so gewählt ist dass $t(\tau^3_a)=m>0$, dann soll damit notiert werden dass Task $\tau^3_a$ die Ebenen der Menge $H_m$ für die Zeugensprache $C_m$ reserviert hat, also in jede diese Ebenen der Wortlänge $n$ nur höchstens ein Wort der Länge $n$ eingesetzt werden darf. Analog für $\tau^2_{a,b}$.
-Die Inkeitivität sichert, dass die Tasks paarweise disjunkte Ebenenmengen zugewiesen bekommen.
+Die Injektivität sichert, dass die Tasks paarweise disjunkte Ebenenmengen zugewiesen bekommen.
 
 Wir setzen nun für diese Konstruktion folgenden Begriff von Gültigkeit fest.
 Ein Orakel $w\in\Sigma^*$ ist $t$-gültig wenn $t\in\mathcal T$ und Folgendes gilt:
@@ -774,7 +774,7 @@ und definiere $\mathrm{NP}k\mathrm{V}$ als diejenige Teilmenge der Multifunktion
 \end{corollary}
 \begin{proof}
 Es ist klar, dass sich aus Satz~\ref{thm:myoracle} unmittelbar (14), (18) und (19) ergeben.
-Die Aussagen (3), (5), (13), (15--17), (20--27) erschließen sich sofort mit Zuhilfenahme der in Abbildung~\ref{fig:figure-implications} eingezeichneten Äquivalenzen und Implikationen, zusammen mit Satz~\ref{thm:figure-implications}.
+Die Aussagen (3), (5), (13), (15–17), (20–27) erschließen sich sofort mit Zuhilfenahme der in Abbildung~\ref{fig:figure-implications} eingezeichneten Äquivalenzen und Implikationen, zusammen mit Satz~\ref{thm:figure-implications}.
 
 Folgende Aussagen bleiben noch offen:
 \begin{prooflist}[nosep,midpenalty=0]
@@ -783,7 +783,7 @@ Folgende Aussagen bleiben noch offen:
 \item Zu (4): Angenommen $\UP\subseteq\coNP$, dann wäre $\UP\subseteq \NP\cap\coNP=\P$, was ein Widerspruch zu (1) ist.
 \item Zu (6): Ist nach \textcite[Thm.~4]{fenner_inverting_2003} äquivalent zu (14).
 \item Zu (7): Ist nach \textcite[Thm.~14]{fenner_inverting_2003} äquivalent zu (6).
-\item Zu (8): Nach Satz~\ref{thm:q-orig}.
+\item Zu (8): Nach Satz~\ref{thm:q-orig} äquivalent zu (14).
 \item Zu (9)–(10): Aus (8) folgt insbesondere $\NPMVt\subseteqc \FP_\mathrm{t}$ und $\FP_\mathrm{t}\subseteq \NPSVt, \TFNP$.
 \item Zu (11): Es ist leicht zu sehen, dass (relativ zu jedem Orakel) eine kanonische $\leqmp$-vollständige Multifunktion $f$ für $\NPMV$ existiert. Angenommen $\mathrm{NPMV} \subseteq_{\mathrm{c}} \NPSV$, dann wäre auch $f\inc \NPSV$ und die Verfeinerung insbesondere auch $\leqmp$-vollständig für $\NPSV$.
     Das widerspricht (20). 

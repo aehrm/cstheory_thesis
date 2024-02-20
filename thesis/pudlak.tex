@@ -6,7 +6,7 @@ In der Einleitung dieser Arbeit wurde bereits angedeutet, dass die Hypothese $\h
 In diesem Kapitel werden wir diese Beziehungen näher erarbeiten. Zur Erinnerung:
 
 \begin{reptheorem}{Vermutung}{conj:q}[$\hQ$]
-    Für jede totale NPTM $N$ (d.h. $L(N)=\Sigma^*$) existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ ein akzeptierender Rechenweg von $N(x)$ ist. 
+    Für jede totale NPTM $N$ (d.h. $L(N)=\Sigma^*$) existiert eine Funktion $g\in\FP$ sodass für alle $x\in\Sigma^*$ das Bild $g(x)$ ein akzeptierender Rechenweg von $N(x)$ ist. 
 \end{reptheorem}
 
 
@@ -76,9 +76,8 @@ Beachte, dass sich aufgrund der speziellen Form der Beweise von Standardbeweissy
     Sei $R$ eine NP-Relation, und $h$ ein Beweissystem für $\Proj(R)$. Folgende Aussagen sind äquivalent:
     \begin{enumerate}
         \item $\mathit{std}_R$ $\P$-simuliert $h$.
-        \item Es existiert eine polynomiell längenbeschränkte Funktion $g\in\FP$, sodass
-            \[ h(w)=x \implies \mathit{std}_R(x, g(w))=x \quad\text{(bzw. äquivalent $(x, g(w))\in R$)} \]
-            gilt.
+        \item Es existiert Funktion $g\in\FP$, sodass
+            \[ h(w)=x \implies \mathit{std}_R(x, g(w))=x \quad\text{(bzw. äquivalent $(x, g(w))\in R$)}. \]
     \end{enumerate}
 \end{observation}
 \begin{proof}
@@ -108,7 +107,7 @@ Bevor wir nun mit einer Diskussion zwischen Karp-Vollständigkeit und Levin-Voll
 Betrachte folgende Multifunktion $f$:
 \[ \fset{}f(w) \defeq  \{ y \mid \exists y\in\Sigma^{\leq q(|w|)}, g(w)=h(y) \}. \]
 Es lässt sich leicht zeigen, dass $f\in\NPMV$, über einen geeigneten NPTM-Transduktor. 
-Es ist sogar $f\in\NPMV_t$, denn für jedes $w$ mindestens $\pi(w)\in \fset{}f(w)$.
+Es ist sogar $f\in\NPMV_t$, denn für jedes $w\in\Sigma^*$ gilt mindestens $\pi(w)\in \fset{}f(w)$.
 
 Mit $\hQ$ gilt nach Satz~\ref{thm:q-orig} also $f\in\NPMV_t\subseteqc \FP$, also existiert eine Funktion $f'\in\FP$ welche eine Verfeinerung von $f$ ist. Diese Funktion übersetzt $g$-Beweise $w$ für $x$ effizient in $h$-Beweise für $x$: 
 Sei $g(w)=x$, dann gilt
@@ -243,7 +242,7 @@ Es ist intuitiv ersichtlich, dass $\P$-quasi-Simulation auf ehrlichen Beweissyst
             \iff \exists f,g\in\FP.\, [h'(w)=f(x) \rightarrow h(g(x, w))=x]\\
             \iff \text{$h$ kann $h'$ $\P$-quasi-simulieren,}
         \end{gather*}
-        wobei hier die existentizell quantifizierte Variable $f$ nur über Reduktionsfunktionen von $L$ auf $L$ reichen soll.
+        wobei hier die existenziell quantifizierte Variable $f$ nur über Reduktionsfunktionen von $L$ auf $L$ reichen soll.
     \item Zu (2): Ähnlich wie (1), nur etwas aufwändiger. Wir haben
         \begin{gather*}
             R\leqlp R' \iff \exists f,g\in\FP.\, [(f(x), w)\in R' \rightarrow (x, g(x, w))\in R]\\
@@ -251,7 +250,7 @@ Es ist intuitiv ersichtlich, dass $\P$-quasi-Simulation auf ehrlichen Beweissyst
             \iff \exists f,g'\in\FP.\, [\mathit{std}_{R'}(w')=f(x) \rightarrow \mathit{std}_R(g'(x, w'))=x\\
             \iff \text{$\mathit{std}_{R}$ kann $\mathit{std}_{R'}$ $\P$-quasi-simulieren,}
         \end{gather*}
-        wobei wieder die existentizell quantifizierte Variable $f$ nur über Reduktionsfunktionen von $L$ auf $L$ reichen soll.
+        wobei wieder die existenziell quantifizierte Variable $f$ nur über Reduktionsfunktionen von $L$ auf $L$ reichen soll.
     \end{prooflist}
 \end{proof}
 
@@ -330,7 +329,7 @@ Wir haben
     \item $\hQ$ genau dann wenn $\mathit{sat}$ jedes ehrliche Beweissystem $\P$-simulieren kann (Satz~\ref{thm:q-fenner}),\sidenote{Satz~\ref{thm:q-fenner} macht zwar nur Aussagen über NPTMs, aber es ist leicht zu sehen, dass diese mit den ehrlichen Beweissystemen identifiziert werden können. Vgl. auch Satz~\ref{thm:q-fenner-generalized}.}
     \item $\neg\mathsf{KvL}$ genau dann wenn $\mathit{sat}$ jedes ehrliche Beweissystem $\P$-quasi-simulieren kann (Korollar~\ref{cor:kvl-spps}).
 \end{itemize}
-Damit wird deutlich, dass die die Hypothesen $\hQ$ und $\neg\mathsf{KvL}$ äquivalent sind, falls die $\P$-Quasi-Simulation genauso stark ist, wie die $\P$-Simulation.
+Damit wird deutlich, dass die die Hypothesen $\hQ$ und $\neg\mathsf{KvL}$ äquivalent sind, falls die $\P$-Quasi-Simulation genauso stark ist wie die $\P$-Simulation.
 
 %Insbesondere vermute ich, dass möglicherweise sogar $\hQ\Leftrightarrow\neg\mathsf{KvL}$ gelten könnte. Die Richtung von links nach rechts haben wir bereits in Korollar~\ref{cor:kvl-implies-q} gesehen, und ist ferner in der hier genannten Charakterisierung trivial. Für die Richtung von rechts nach links möchte ich nun plausibilisieren, dass $\neg\mathsf{KvL}\land\neg\hQ$ zu einem Widerspruch führt.
 
@@ -349,7 +348,7 @@ Damit wird deutlich, dass die die Hypothesen $\hQ$ und $\neg\mathsf{KvL}$ äquiv
 
 Dennoch bleiben weitere Fragen offen, die wir hier aus Platzgründen nicht weiter verfolgen werden. 
 Zum einen zur Charakterisierung von $\mathsf{KvL}$:
-Wir konnten zwar $\mathsf{KvL}$ u.a. als Aussage über Beweissysteme formulieren, aber sind auch noch weitere äquivalente Charakterisierungen möglich, z.B. ähnlich wie bei $\hQ$?
+Wir konnten zwar $\mathsf{KvL}$ unter anderem als Aussage über Beweissysteme formulieren, aber sind auch noch weitere äquivalente Charakterisierungen möglich, z.B. ähnlich wie bei $\hQ$?
 
 Zum anderen die Beziehungen zwischen $\mathsf{KvL}$ und anderen Hypothesen bzw. Annahmen.
 Gibt es natürliche (z.B. kryptographische) Annahmen, welche hinreichend für $\mathsf{KvL}$ sind? Wie ist die Beziehung zu den anderen Pudlákschen Hypothesen? Wie verhält sich insbesondere $\hSAT$ zu $\mathsf{SAT^{q}}$? 
@@ -407,7 +406,7 @@ Das ist für den zweiten Satz~\ref{thm:q-messner} ohne weitere zusätzliche Bedi
 
 
 Die andere Charakterisierung von \citeauthor{fenner_inverting_2003} ist umfangreicher.
-Zunächst ist klar, dass „$h\leqmp\mathit{std}_R$ für alle ehrlichen Beweissysteme“ schwächer ist als „$h\leqmp\mathit{std}_R$ für alle Beweissysyteme“, was ja nach vorigem Satz äquivalent zu $\hQ$ ist.
+Zunächst ist klar, dass „$h\leqmp\mathit{std}_R$ für alle ehrlichen Beweissysteme“ schwächer ist als „$h\leqmp\mathit{std}_R$ für alle Beweissysteme“, was ja nach vorigem Satz äquivalent zu $\hQ$ ist.
 Tatsächlich gilt die Umkehrung scheinbar nicht für alle $\leqlp$-vollständigen NP-Relationen $R$. 
 Die Autoren zeigen diese Umkehrung für die NP-Relation $\mathtt{rSAT}$, und nutzen hierbei die Eigenschaft aus, dass die entsprechenden Reduktionsfunktionen alle $\P$-invertierbar sind, bzw. in anderen Worten, die $\leq_\mathrm{L,1,i}^\mathrm p$-Vollständigkeit von $\mathtt{rSAT}$.
 
@@ -524,8 +523,8 @@ Folgendes Lemma zeigt nun, dass Levin-Paddability unter den vollständigen Relat
     %und nach Definition der Translationsfunktion $g$ gilt dann
     %\[(x, g(x, \mathit{padsol}(f(x), 1^{|x|}, z)))\in Q,\]
     %und das ist genau $(x, g'(x, z))\in Q$, wie gewünscht.
-    Wir zeigen nun, wie sich aus $R$-Zertifikaten für $f'(x)$ wieder $Q$-Zertifikate für $x$ ausrechen lassen können.
-    Sei hierfür ein $z$ gegeben mit $(f'(x), z)\in R$.
+    Wir zeigen nun, wie sich aus $R$-Zertifikaten für $f'(x)$ wieder $Q$-Zertifikate für $x$ ausrechnen lassen können.
+    Sei hierfür ein $z\in\Sigma^*$ gegeben mit $(f'(x), z)\in R$.
     Nach Definition gilt also $(\mathit{pad}(f(x), 1^{|x|}), z)\in R$, also gilt nach Levin-Paddability dass \[(f(x), \underbrace{\mathit{padsol}(f(x), 1^{|x|}, z)}_w)\in R,\] 
     und nach Definition der Translationsfunktion $g$ gilt dann
     \[(x, \underbrace{g(x, w)}_{g(x,z)})\in Q,\]
@@ -622,7 +621,7 @@ Beachte dass diese Charakterisierungen relativieren.
 \begin{theorem}[Äquivalente Formulierungen der Hypothese $\hQ$]\label{thm:q}
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}[midpenalty=0]
-        \item Hypothese $\hQ$: Für jede totale NPTM $N$  existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ ein akzeptierender Rechenweg von $N(x)$ ist.
+        \item Hypothese $\hQ$: Für jede totale NPTM $N$  existiert eine Funktion $g\in\FP$ sodass für alle $x\in\Sigma^*$ das Bild $g(x)$ ein akzeptierender Rechenweg von $N(x)$ ist.
         \item $\TFNP\subseteqc \FP$
         \item $\mathrm{NPMV}_t\subseteqc \FP$
         \item $\P=\NP\cap\coNP$ und $\mathrm{NPMV}_t\subseteqc \mathrm{NPSV}_t$
@@ -681,7 +680,7 @@ Zum Schluss wird noch angegeben, welche der Hypothesen im (vergrößertem) Pudl�
 Zunächst führen wir noch eine abgeschwächte Variante von $\hQ$ ein, die von \textcite{fenner_inverting_2003} in ihrer Untersuchung zur Hypothese $\hQ$ vorgeschlagen wurde.
 
 \begin{conjecture}[$\hQ'$, \cite{fenner_inverting_2003}]
-    Für jede totale NPTM $N$ existiert eine Funktion $g\in\FP$, $\img(g)\subseteq\{0,1\}$ sodass für alle $x$ das Bild $g(x)\in\{0,1\}$ das erste Bit eines akzeptierenden Rechenwegs von $N(x)$ ist. 
+    Für jede totale NPTM $N$ existiert eine Funktion $g\in\FP$, $\img(g)\subseteq\{0,1\}$ sodass für alle $x\in\Sigma^*$ das Bild $g(x)\in\{0,1\}$ das erste Bit eines akzeptierenden Rechenwegs von $N(x)$ ist. 
 \end{conjecture}
 Die Hypothese $\hQ'$ lässt eine einfache komplexitätstheoretische Charakterisierung zu: es gilt $\hQ'$ genau dann wenn alle disjunkten $\coNP$-Paare $\P$-separierbar sind.
 
@@ -741,8 +740,8 @@ Der verbleibende Beweis ist eine Generalisierung eines Beweises von \textcite{di
     %Nach Voraussetzung können wir in $\NP$ testen, ob ein Wort $x$ im Urbild einer beliebigen $\NPMV$-Multifunktion liegt.
     %Es gilt $\mathtt{KAN}\in\NP$ und damit $\mathtt{KAN}\in\coNP$. Insbesondere ist dann die Menge
     Betrachte die Menge
-\[ \begin{split} U \defeq  \{ (T, x, 1^n) \mid \,&\text{$T$ ist NTM-Transduktor} \\ &\text{und für jeden Rechenweg $\alpha$ von $T(x)$ der Länge $\leq n$ gilt:} \\& \text{$\alpha$ ist nicht terminierend oder $\alpha$ terminiert ablehnend} \}. \end{split}  \]
-    Nach Definition ist klar, dass $U\in\coNP$: $(T, x, 1^n)\not\in U$ wenn ein Rechenweg $\alpha$ der Länge $\leq n$ existiert sodass $T(x)$ auf $\alpha$ akzeptiert. Nach Voraussetzung gilt also $U\in\NP$ und es existiert eine NPTM $N_U$ welche $U$ entscheidet, und zwar in Laufzeit $q(|(T, x, 1^n)|)$ für geeignetes Polynom $q$.
+\[ \begin{split} U \defeq  \{ (T, x, 1^n) \mid \,&\text{$T$ ist NTM-Transduktor} \\ &\text{und für jeden Rechenweg $\alpha$ von $T(x)$ mit $\leq n$ Schritten gilt:} \\& \text{$\alpha$ ist nicht terminierend oder $\alpha$ terminiert ablehnend} \}. \end{split}  \]
+    Nach Definition ist klar, dass $U\in\coNP$: $(T, x, 1^n)\not\in U$ wenn ein Rechenweg $\alpha$ mit $\leq n$ Schritten existiert, sodass $T(x)$ auf $\alpha$ akzeptiert. Nach Voraussetzung gilt also $U\in\NP$ und es existiert eine NPTM $N_U$ welche $U$ entscheidet, und zwar in Laufzeit $q(|(T, x, 1^n)|)$ für geeignetes Polynom $q$.
 
     Zur Erinnerung: wir sagen für eine NTM $N$, dass ein Rechenweg $\alpha$ einer Berechnung $N(x)$ ein \emph{terminierender} Rechenweg ist, wenn kein weiterer legaler Rechenschritt (bzgl. $N$) mehr an $\alpha$ angehängt werden kann. Der Rechenweg $\alpha$ akzeptiert, wenn $\alpha$ terminiert und in der letzten Konfiguration in einem akzeptierendem Zustand steht.
 
@@ -751,14 +750,14 @@ Der verbleibende Beweis ist eine Generalisierung eines Beweises von \textcite{di
         \If{$T$ kein NTM-Transduktor ist}{Gebe $\epsilon$ aus}
     %\end{algorithm}
     %\begin{algorithm}[H]\setcounter{AlgoLine}{2}
-        Rate nichtdeterministisch einen Rechenweg $\alpha$ von $T(x)$ der Länge $\leq n$\;
-        Rate nichtdeterministisch einen Rechenweg $\beta$ von $N_U(T, x, 1^n)$ der Länge $\leq q(|(T, x, 1^n)|)$\;
+        Rate nichtdeterministisch einen Rechenweg $\alpha$ von $T(x)$ mit $\leq n$ Schritten\;
+        Rate nichtdeterministisch einen Rechenweg $\beta$ von $N_U(T, x, 1^n)$ mit $\leq q(|(T, x, 1^n)|)$ Schritten\;
         %\If{$\alpha$ die Länge $<n$ hat, und nicht terminiert}
         %{
             %Lehne ab\;
         %}
         %\tcc{Ab hier ist $\alpha$ immer terminierend oder hat Länge $n$}
-        \uIf{$\alpha$ hat Länge $n$ und $\alpha$ nicht terminiert}
+        \uIf{$\alpha$ genau $n$ Schritte hat, und nicht terminiert}
         {
             Gebe $\epsilon$ aus\;
         }
@@ -785,12 +784,12 @@ Der verbleibende Beweis ist eine Generalisierung eines Beweises von \textcite{di
     \begin{enumerate}[label=\arabic*.]
         \item Es existiert ein Rechenweg von $T(x)$ mit $>n$ Schritten. In diesem Fall existiert dann auch Rechenweg $\alpha$ mit genau $n$ Schritten, welcher nicht terminiert. Damit terminiert $F$ auf mindestens einem Rechenweg in Z.~6 und wir haben $\epsilon\in \fset{f}(T, x, 1^n)$.
         \item Jeder Rechenweg von $T(x)$ hat nur $\leq n$ viele Schritte, und $\fset{T}(x)=\emptyset$. 
-            Dann wird jeder Rechenweg der Länge $n$ von $T(x)$ terminieren, heißt $F$ wird definitiv nicht in Z.~6 eine Ausgabe tätigen.
-            Gleichzeitig wird kein Rechenweg der Länge $\leq n$ von $T(x)$ akzeptieren, heißt $F$ wird auch nicht in Z.~9 eine Ausgabe tätigen.
+            Dann wird jeder Rechenweg von $T(x)$ mit genau $n$ Schritten terminieren, heißt $F$ wird definitiv nicht in Z.~6 eine Ausgabe tätigen.
+            Gleichzeitig wird kein Rechenweg von $T(x)$ akzeptieren, heißt $F$ wird auch nicht in Z.~9 eine Ausgabe tätigen.
             Zusätzlich gilt $(T, x, 1^n)\in U$, heißt $F$ wird auf mindestens einem Rechenweg in Z.~11 mit Ausgabe $\epsilon$ akzeptieren.
             Es gilt also $\fset{f}(T, x, 1^n)=\{\epsilon\}$.
         \item Jeder Rechenweg von $T(x)$ hat nur $\leq n$ viele Schritte, und $\fset{T}(x)\neq\emptyset$. 
-            Wieder gilt, dass jeder Rechenweg der Länge $n$ von $T(x)$ terminiert, heißt $F$ wird definitiv nicht in Z.~6 eine Ausgabe tätigen.
+            Wieder gilt, dass jeder Rechenweg $T(x)$ mit genau $n$ Schritten auch terminiert, heißt $F$ wird definitiv nicht in Z.~6 eine Ausgabe tätigen.
             Gleichzeitig existiert für jedes $y\in \fset{T}(x)$ ein akzeptierender Rechenweg $\alpha_y$ mit $\leq n$ Schritten, welcher auf $T(x)$ den Output $y$ macht. Dieser ist insbesondere terminierend. Damit wird auch $F$ dieses $y$ in Z.~9 ausgeben.
             Zusätzlich gilt $(T, x, 1^n)\not\in U$, heißt Z.~11 wird daher niemals erreicht.
             Es gilt also $\fset{f}(T, x, 1^n)=\fset{T}(x)$.

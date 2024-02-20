@@ -44,7 +44,6 @@ Auf dem ersten Blick erscheint dieser Schwerpunkt unnatürlich. In der Praxis si
 Für diese Fokussierung auf Entscheidungsprobleme gibt es durchaus Gründe. Zum einen ist klar, dass das Suchproblem nicht einfacher sein kann, als das zugehörige Entscheidungsproblem. Die Unberechenbarkeit eines Entscheidungsproblems schließt also auch die Berechenbarkeit des Suchproblems aus. Das entspricht genau der historischen Forschungsentwicklung zum „\emph{Hilbertschen Entscheidungsproblem}“ (9$'$), worauf Turing das \emph{Halteproblem} (10$'$) reduziert hat. Mit der Unentscheidbarkeit des  Halteproblems folgt die Unentscheidbarkeit des Entscheidungsproblems (9$'$), und damit der Unentscheidbarkeit des entsprechenden Suchproblems (9). 
 Das Argument lässt sich auch auf die potentiell effizient lösbaren Entscheidungsprobleme übertragen. Die Komplexitätstheorie gibt Indizien, dass die Entscheidungsprobleme (4$'$), (6$'$)–(8$'$) wahrscheinlich nicht in Polynomialzeit lösbar sind, womit unmittelbar folgt, dass auch die Suchprobleme (4)–(8) nicht in Polynomialzeit lösbar sind.
 
-\pagebreak[3]
 Für die Fokussierung auf Entscheidungsprobleme innerhalb der Komplexitätstheorie gibt es zweitens auch fachgeschichtliche Gründe: zunächst war die Trennung \emph{Entscheidungsproblem vs. Suchproblem} innerhalb der Berechenbarkeitstheorie meist nicht strikt notwendig, da „Berechenbarkeit“ zwischen den beiden Varianten meist äquivalent war. So ist die Berechenbarkeit des Hilbertschen Entscheidungsproblems (9$'$) tatsächlich äquivalent zur Berechenbarkeit des Suchproblems (9). (Falls der Entscheidungsalgorithmus „$\phi$ ist gültig“ ausgibt, dann enumeriere so lange alle Sequenzbeweise, bis einer $\phi$ beweist. Das terminiert nach Vollständigkeit des Sequenzkalküls.)
 Dann stand die Komplexitätstheorie der späten 1950er Jahre nah an der Automatentheorie und der Theorie der formalen Sprachen, als diese einen ersten Vorschlag zur Unterteilung 
  der berechenbaren Aufgaben in „einfach“ und „schwer“ machten \parencite[vgl.][]{koucky_automata_2023}. Eine zentrale Unterteilung in „Schwierigkeit“ bzw. Komplexität war z.B. die Hierarchie der formalen Sprachen von Chomsky (die Regulären als sehr einfach, die Kontextfreien als etwas komplexer, die Kontextsensitiven als noch komplexer). 
@@ -59,7 +58,7 @@ So kann zum Beispiel die P-NP-Frage äquivalent als Frage über Entscheidungspro
 \vspace{0pt plus 2ex}
 \subsection*{NP-Suchprobleme als Forschungsgegenstand}
 
-Diese Arbeit setzt genau an dieser Fokussierung an Entscheidungsproblemen an. Die zentrale Motivation dieser Arbeit besteht darin, diese identifizierte Leerstelle aufseiten der Suchprobleme zu adressieren.  Vor diesem Hintergrund wird sich diese Arbeit in vier Forschungsdesideraen den \emph{NP-Suchproblemen} im Gegensatz zu den sonst üblichen NP-Entscheidungsproblemen nähern.
+Diese Arbeit setzt genau an dieser Fokussierung an Entscheidungsproblemen an. Die zentrale Motivation dieser Arbeit besteht darin, diese identifizierte Leerstelle aufseiten der Suchprobleme zu adressieren.  Vor diesem Hintergrund wird sich diese Arbeit in vier Forschungsdesideraten den \emph{NP-Suchproblemen} im Gegensatz zu den sonst üblichen NP-Entscheidungsproblemen nähern.
 Diese können als die Suchprobleme verstanden werden, die zu NP-Sprachen korrespondieren. Als Suchprobleme lässt sich eine einfache Charakterisierung formulieren: NP-Suchprobleme sind solche Suchprobleme, bei denen 
 \begin{itemize}
     \item die Lösung – falls sie existieren sollte – höchstens polynomiell länger als die Eingabe ist, und 
@@ -88,7 +87,7 @@ Das trifft zum Beispiel auf das Suchproblem (1) der Faktorisierung zu. Beachte, 
 \textcite{fenner_inverting_2003} können die Vermutung „alle totalen NP-Suchprobleme sind effizient lösbar“ in verschiedenen äquivalenten Formulierungen charakterisieren, so zum Beispiel als Invertierbarkeit von surjektiven Funktionen, oder als das effiziente Lösen des Suchproblems (7) unter Angabe einer nichtdeterministischen Turing-Maschine, welche die Menge $\mathtt{SAT}$ der erfüllbaren aussagenlogischen Formeln erkennt.
 Sie fassen diese jeweils äquivalenten Charakterisierungen unter der Hypothese $\hQ$ zusammen. Erste Nennungen finden sich bereits in Arbeiten von \textcite{fortnow_separability_1993}. Für diese Arbeit wird hier folgende Formulierung von  $\hQ$ angewendet, die über nichtdeterministische Turing-Maschinen spricht, welche jede Eingabe akzeptieren:
 \begin{conjecture}[$\hQ$]\label{conj:q}
-    Für jede nichtdeterministische Turing-Maschine $N$ mit polynomieller Laufzeitbeschränkung, und $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ eine akzeptierender Rechenweg von $N(x)$ ist. 
+    Für jede nichtdeterministische Turing-Maschine $N$ mit polynomieller Laufzeitbeschränkung, und $L(N)=\Sigma^*$ existiert eine Funktion $g\in\FP$ sodass für alle $x\in\Sigma^*$ das Bild $g(x)$ eine akzeptierender Rechenweg von $N(x)$ ist. 
 \end{conjecture}
 In dieser Formulierung wird auch die Schwierigkeit dieser Vermutung klar: wir bekommen zwar versprochen, dass $N(x)$ akzeptiert, wir wissen aber nicht, \emph{welcher} nichtdeterministische Rechenweg $x$ akzeptiert, und nicht wie wir einen solchen Rechenweg effizient berechnen könnten.
 
@@ -131,7 +130,7 @@ Die Existenz von optimalen Beweissystemen bzw. $\P$-optimalen (d.h. optimal in d
 \textcite{beyersdorff_nondeterministic_2009} und \textcite{pudlak_incompleteness_2017} zeigen ferner analoge Verbindungen zu den Funktionenklassen $\NPMVt$ und $\TFNP$.
 
 \begin{figure}[tb]
-    \centering\includegraphics[page=8]{figures.pdf}
+    \centering\includegraphics[page=8]{figures.pdf}\vspace*{-.5cm}
     \caption{Implikationen zwischen Pudláks Hypothesen \parencite*{pudlak_incompleteness_2017}. Beachte dass diese Implikationen relativieren.}\label{fig:pudlak-small}
 \end{figure}
 
@@ -148,7 +147,7 @@ Motiviert durch Fragen der endlichen Widerspruchsfreiheit von Theorien und \emph
 \end{tabular}\par
 \footnotetext{In der Notation von Pudlák $\mathsf{CON}$ bzw. $\mathsf{CON^N}$ für die nichtuniforme Variante. Beachte auch, dass Pudlák die Hypothese $\hTAUT$ nicht so wie hier formuliert hat, sondern als Aussage über die Nicht-Existenz eines $\P$-optimalen aussagenlogischen Beweissystems (also speziell für die Menge $\mathtt{TAUT}$), genau wie anfangs des Abschnitts gefragt wurde. Die beiden Charakterisierungen sind aber äquivalent. Gesagtes gilt analog auch für $\hSAT$ und $\mathsf{TAUT^N}$, vgl. Abschnitt~\ref{sec:prelim-ps}.}
 \medskip\noindent
-Seien an dieser Stelle auch schon die folgenden zwei wichtigen natürlichen Mengen definiert:
+Seien an dieser Stelle auch schon die folgenden zwei wichtigen natürlichen Mengen definiert:\pagebreak[3]
 \begin{alignat*}{2}
     &\mathtt{SAT} &&\defeq \{ \phi \mid \text{$\phi$ ist eine erfüllbare aussagenlogische Formel} \},\\
     &\mathtt{TAUT} &&\defeq \{ \phi \mid \text{$\phi$ ist eine gültige aussagenlogische Formel} \}.

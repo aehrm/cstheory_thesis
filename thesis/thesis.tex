@@ -106,14 +106,14 @@ end
 \CatchFileDef\gitdescribe{"| git describe --always"}{}
 
 \setlength{\emergencystretch}{2em}
-\AtBeginDocument{\widowpenalty10000\clubpenalty10000}
+\AtBeginDocument{\widowpenalties 2 10000 0\clubpenalties 2 10000 0}
 \ifbook
 \AtBeginDocument{\setlength{\abovedisplayskip}{5pt plus 5pt}\setlength{\abovedisplayshortskip}{3pt plus 4pt}%
 \setlength{\belowdisplayskip}{5pt plus 5pt}\setlength{\belowdisplayshortskip}{3pt plus 4pt}}
 \fi
 \AtBeginDocument{\frenchspacing}
 \directlua{require('hyphenateall')}
-\directlua{require('checklineheight')}
+%\directlua{require('checklineheight')}
 %\directlua{require('fixlineheight')}
 \hbadness=2000
 

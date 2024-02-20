@@ -123,7 +123,7 @@ Herbei soll \emph{„ungültig“} ein String sein, welcher eine Lösung darstel
 \end{definition}
 Hierzu gehören die oben genannten Varianten $\mathtt{rFACTORIZATION}'$ und $\mathtt{rFACTOR}'$.
 Für \citeauthor{megiddo_total_1991} befinden sich in $\mathrm{TFNP}$ eine Vielzahl von interessanten und schwierigen Suchproblemen, bei denen die Frage der Lösbarkeit in Polynomialzeit noch offen ist.
-Das betrifft u.a. zahlentheoretische Probleme aus der Kryptographie wie Faktorisierung oder diskreter Logarithmus. Beachte, dass $\TFNP$ nicht identisch ist zur Klasse $\NPMVt$: Die Klasse $\TFNP$ ist eine Teilmenge von $\NPMVt$ jener totalen Multifunktionen $f\in\NPMVt$, für die der (der Graph) $f$ in $\P$ liegt. Man könnte also $\TFNP$ äquivalent als $\mathrm{(NPMV_{t})_{g}}$ schreiben.
+Das betrifft unter anderem zahlentheoretische Probleme aus der Kryptographie wie Faktorisierung oder diskreter Logarithmus. Beachte, dass $\TFNP$ nicht identisch ist zur Klasse $\NPMVt$: Die Klasse $\TFNP$ ist eine Teilmenge von $\NPMVt$ jener totalen Multifunktionen $f\in\NPMVt$, für die der (der Graph) $f$ in $\P$ liegt. Man könnte also $\TFNP$ äquivalent als $\mathrm{(NPMV_{t})_{g}}$ schreiben.
 Beachte, dass $\mathrm{TFNP}$ sogar eine echte Teilmenge von $\NPMVt$ ist, außer $\P=\NP$:
 \begin{observation}[{\cite[vgl.][Prop.~5]{fenner_inverting_2003}}]\label{obs:npmvt-properin-tfnp}
     Wenn für alle $f\in\NPMVt$ auch (der Graph) $f\in \P$ ist, dann gilt $\P=\NP$.
@@ -141,7 +141,7 @@ Wie in der Einleitung angesprochen, lässt sich die Aussage „alle Suchprobleme
 \begin{observation}[\cite{fenner_inverting_2003}]\label{obs:tfnp-q}
     Folgende Aussagen sind äquivalent:
     \begin{enumerate}
-        \item Aussage $\hQ$: für jede totale NPTM $N$ (d.h. $L(N)=\Sigma^*$) existiert eine Funktion $g\in\FP$ sodass für alle $x$ das Bild $g(x)$ ein akzeptierender Rechenweg von $N(x)$ ist. 
+        \item Aussage $\hQ$: für jede totale NPTM $N$ (d.h. $L(N)=\Sigma^*$) existiert eine Funktion $g\in\FP$ sodass für alle $x\in\Sigma^*$ das Bild $g(x)$ ein akzeptierender Rechenweg von $N(x)$ ist. 
         \item $\TFNP\subseteqc \FP$.
     \end{enumerate}
 \end{observation}
@@ -611,7 +611,7 @@ In stärkster Ausprägung ist das z.B. die (Berman–Hartmanis-\nolinebreak)\lin
 Diese Forschung betrachtete aber insbesondere primär die NP-Entscheidungsprobleme, und nicht NP-Suchprobleme.
 Nichtsdestotrotz wurde intuitiv aber die Beobachtung gemacht, dass auch viele der entsprechenden \emph{Suchprobleme} eine inhärente strukturelle Ähnlichkeit untereinander haben, auch wenn diese oft nicht explizit mitgedacht wurden \parencite[vgl. auch die Diskussion von][]{hemaspaandra_take-home_1998}.
 
-Hieraus entwickelte sich u.a. der Begriff der sparsamen Reduktionen.
+Hieraus entwickelte sich unter anderem der Begriff der sparsamen Reduktionen.
 \textcite[83]{simon_central_1975} machte beispielsweise die Beobachtung, dass die ihm bekannten Reduktionsfunktionen $f\colon A\to B$ in den Beweisen zur NP-Vollständigkeit so gebaut sind, dass die Instanz $x$ genau $k$ „Lösungen“ bezüglich $A$ hat genau dann wenn $f(x)$ genau $k$ „Lösungen“ bezüglich $B$ hat. „Lösung“ hier in Anführungszeichen weil auf Mengen überhaupt kein Begriff von Lösungen bzw. Zertifikaten existiert; \citeauthor{simon_central_1975} dachte in seinen Überlegungen die zugrunde liegende kombinatorischen (Such-)Probleme zu $A$ und $B$ nur unausgesprochen mit.
 
 Auf NP-Relationen lässt sich sein Reduktionsbegriff aber formal präzise formulieren:
