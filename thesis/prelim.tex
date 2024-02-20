@@ -138,7 +138,7 @@ Auf Basis der Turing-Maschinen als Berechnungsmodell können die üblichen Kompl
     \mathrm{E} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ mit $L=L(M)$, ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{c|x|}$ für alle $x$} \},\\
     \mathrm{EE} &\defeq \{ L\subseteq\Sigma^* \mid \text{ex. TM $M$ mit $L=L(M)$, ex. $c>0$ mit $\mathrm{time}_M(x) \leq 2^{2^{c|x|}}$ für alle $x$} \}.
 \end{align*}\egroup
-Die nichtdeterministischen Varianten $\mathrm{NE}, \mathrm{NEE}$ und Komplementklassen $\mathrm{coNE}, \mathrm{coNEE}, \mathrm{coUP}$ sind analog definiert.
+Die nichtdeterministischen Varianten $\mathrm{NE}, \mathrm{NEE}$ und Komplementklassen $\mathrm{coNE}$, $ \mathrm{coNEE}$, $ \mathrm{coUP}$ sind analog definiert.
 
 Die Funktionenklassen $\FP, \mathrm{NPMV}, \mathrm{NPSV}$ ist analog definiert \parencite{selman_taxonomy_1994}:
 \bgroup\setlength{\mathindent}{0pt}
@@ -186,7 +186,7 @@ Insbesondere für zwei Funktionen $g,h\in\FP$ gilt
 \begin{itemize}
     \item $g\leqmp h$ wenn eine Funktion $f\in\FP$ existiert mit $g(x)=h(f(x))$.
 \end{itemize}
-Auf den Paaren aus $\DisjNP$ und $\DisjCoNP$ hat sich folgender Begriff von Reduzierbarkeit herausgebildet.\footnote{Vgl. insb. \textcites{glaser_disjoint_2004}{glaser_reductions_2005} für einen ausführlichen Vergleich und Diskussion der Reduktions- und Vollständigkeitsbegriffe. Insgesamt zeigen die Arbeiten,  dass dieser schwache Begriff von Reduktion geeignet gewählt ist, denn er ist insbesondere äquivalent zu alternativen stärker wirkenden Reduktionsbegriffen ist.}
+Auf den Paaren aus $\DisjNP$ und $\DisjCoNP$ hat sich folgender Begriff von Reduzierbarkeit herausgebildet.\footnote[][-2cm]{Vgl. insb. \textcites{glaser_disjoint_2004}{glaser_reductions_2005} für einen ausführlichen Vergleich und Diskussion der Reduktions- und Vollständigkeitsbegriffe. Insgesamt zeigen die Arbeiten,  dass dieser schwache Begriff von Reduktion geeignet gewählt ist, denn er ist insbesondere äquivalent zu alternativen stärker wirkenden Reduktionsbegriffen ist.}
 Seien $(A,B), (C,D)$ zwei disjunkte NP-Paare (bzw. zwei disjunkte coNP-Paare):
 \begin{itemize}
     \item $(A,B)\leqmpp(C,D)$ wenn eine Funktion $f\in\FP$ existiert mit $f(A)\subseteq B$ und $f(B)\subseteq C$.

@@ -23,7 +23,7 @@ Das wird später beim Einsatz in der Konstruktion näher erläutert.
 Die zweite Idee besteht intuitiv darin, von einem PSPACE-vollständigem Orakel $D$ auszugehen und dieses zu modifizieren, um die gewünschten Eigenschaften zu erhalten. Durch geschicktes Rückgreifen auf $D$ lassen sich dann gewisse nichttriviale Berechnungen effizient umsetzen. Diese Idee geht auf \textcite{baker_relativizations_1975} zurück, die ein Orakel konstruiert haben, relativ zu diesem $\P=\NP\cap\coNP\neq\NP$. Hierbei wird das PSPACE-vollständige Orakel $D$ mit einem zweiten, speziell konstruierten Orakel $B$ kombiniert; in der Originalfassung zu $D\cup B$. Das Orakel $B$ sorgt für die Trennung zwischen $\P$ und $\NP$, ist aber gleichzeitig so einfach zu entscheiden, dass ein komplementär akzeptierendes Maschinenpaar einer Sprache $L\in\NP\cap\coNP$ eine relevante Portion von $B$ entscheiden kann, und dann mittels dem PSPACE-vollständige Orakel $D$ dann abfragen kann, ob $x\in L$ gilt.
 
 Wir werden im Folgenden etwas Ähnliches mittels \emph{Relativierungen} von Orakelkonstruktionen umsetzen.
-In der Literatur hat es sich als dienlich gezeigt, anstelle mit einem konkreten PSPACE-vollständigem Orakel zu starten und zu ergänzen, stattdessen mit der \emph{Annahme} $\P=\mathrm{PSPACE}$ zu starten. (Dieses Vorgehen findet sich zum Beispiel bei \cites{blum_generic_1987}{fortnow_separability_2002}{fenner_oracle_2003}.) 
+In der Literatur hat es sich als dienlich gezeigt, anstelle mit einem konkreten PSPACE-vollständigem Orakel zu starten und zu ergänzen, stattdessen mit der \emph{Annahme} $\P=\mathrm{PSPACE}$ zu starten. (Dieses Vorgehen findet sich zum Beispiel bei \pagebreak \cites{blum_generic_1987}{fortnow_separability_2002}{fenner_oracle_2003}.) 
 Wir können dann mit den gewohnten Methoden ein Orakel $E$ konstruieren, relativ zu diesem die oberen Eigenschaften gelten. Im Verlauf dieses Kapitels zeigen wir die folgende Implikation:
 \begin{theorem}\label{thm:myoracle-work}
     Angenommen $\P=\mathrm{PSPACE}$. Dann existiert ein Orakel $E$ sodass folgende Aussagen gelten:
@@ -57,6 +57,7 @@ Im folgenden Abschnitt~\ref{sec:oracle-relativization} erarbeiten wir detaillier
 Anschließend spezifizieren wir in Abschnitt~\ref{sec:oracle-notation} noch einige spezielle Notationen, die wir zur Orakelkonstruktion benötigen.
 Aufbauend auf der obigen Skizze können wir dann in Abschnitt~\ref{sec:oracle-definition} die konkrete Konstruktionsvorschrift des Orakels formulieren.
 In Abschnitt~\ref{sec:oracle-correctness} wird abschließend nachgewiesen, dass diese Konstruktionsvorschrift zum einen wohldefiniert ist, und zum anderen, dass sich hieraus die gewünschten Eigenschaften aus Satz~\ref{thm:myoracle-work} ergeben.
+\pagebreak
 
 
 \section{Relativierende Orakelkonstruktionen}\label{sec:oracle-relativization}
@@ -103,7 +104,6 @@ Zunächst seien $\{M_i\}_{i\in \mathbb N}$, $\{N_i\}_{i\in \mathbb N}$, $\{F_i\}
     \item Für jede Orakel-PTM $M$ existiert ein $i$ sodass $L(M^D_i)=L(M^D)$, 
         für jede Orakel-NPTM $N$ existiert ein $i$ sodass $L(N^D_i)=L(N^D)$, und
         für jeden Orakel-PTM-Transduktor $F$ existiert ein $i$ sodass $F^D(x)=F_i^D(x)$.
-
         Insbesondere kann jeder akzeptierender Rechenweg $\alpha$ der Berechnung $N_i(x)$ in einen akzeptierenden Rechenweg $\alpha'$ der Berechnung $N(x)$ effizient übersetzt werden.
 \end{enumerate}
 Solche Standardaufzählungen existieren. Eine Möglichkeit, diese zu konstruieren, ist beispielsweise, jede nichtdeterministische TM mit einem Timer auszustatten, die nach polynomieller Laufzeit die Berechnung abbricht. Konkret: gegeben $i$, sei zunächst $N$ die nichtdeterministische TM mit Codierung $i$. Die TM $N_i$ führt dann auf Eingabe $x$ parallel zur Rechnung $N(x)$ auf jedem Rechenweg einen Timer aus, der nach $>|x|^i+i$ Schritten den Rechenweg ablehnend abbricht.
@@ -119,9 +119,10 @@ Diese Interpretation von finiten Wörtern $w$ als Orakel macht es einfacher, uns
 
 Wir können TMs relativ zu partiell definierten Orakeln auch rechnen lassen. Für $w\in\Sigma^*$ definieren wir $M^w(x)$ entsprechend als $M^{\{i\mid w(i)=1\}}(x)$ (heißt, Orakelanfragen, für die $w$ nicht definiert ist, werden negativ beantwortet).
 Dies ermöglicht es uns auch, folgende Schreibweise zu definieren: Wir sagen, dass (N)TM $M^w(x)$ \emph{definit} ist, wenn für alle Anfragen $q$ auf allen Rechenwegen $q<|w|$ gilt (oder äquivalent: $w[q]$ ist für alle Anfragen $q$ auf allen Rechenwegen definiert); wir sagen, dass $M^w(x)$ \emph{definitiv akzeptiert} (bzw. \emph{definitiv ablehnt}), wenn $M^w(x)$ definit ist und akzeptiert (bzw. ablehnt). Intuitiv beschreibt der Begriff „definit“ Berechnungen, für die alle Anfragen durch das Orakel schon final spezifiziert sind, die sich also nicht ändern, wenn das jeweilige partiell definierte Orakel erweitert wird.
+
 \begin{observation}\label{obs:partialoracles}
     Sei $w\in\Sigma^*$ und $v\in\Sigma^*\cup\Sigma^\omega$, und $N$ eine O(N)TM.
-    \begin{enumerate}
+    \begin{enumerate}[midpenalty=0]
         \item Wenn $M^w(x)$ eine definite Berechnung ist und $v\sqsupseteq w$ ist, dann ist $M^v(x)$ definit. Die Berechnung $M^v(x)$ akzeptiert genau dann, wenn $M^w(x)$ akzeptiert.
         \item Wenn $w$ für alle Wörter der Länge $p_i(|x|)=|x|^i+i$ definiert ist, dann ist $M_i^w(x)$, $N_i^w(x)$, $F_i^w(x)$ definit.
         \item Wenn $M^w(x)$ auf einem Rechenweg mit der Menge $Q$ an Orakelanfragen akzeptiert, und $w$, $v$ auf $Q$ übereinstimmen, dann akzeptiert $M^v(x)$ auf dem gleichen Rechenweg und mit der gleichen Menge an Anfragen $Q$.
@@ -233,17 +234,17 @@ Die Injektivität sichert, dass die Tasks paarweise disjunkte Ebenenmengen zugew
 Wir setzen nun für diese Konstruktion folgenden Begriff von Gültigkeit fest.
 Ein Orakel $w\in\Sigma^*$ ist $t$-gültig wenn $t\in\mathcal T$ und Folgendes gilt:
 \begin{enumerate}[label={V\arabic*},midpenalty=0]
-    \item Wenn $x<|w|$ und $|x|\not\in \img(e)$, dann gilt $x\not\in w$.\par
+    \item Wenn $x<|w|$ und $|x|\not\in \img(e)$, dann gilt $x\not\in w$.\par\nopagebreak
         (Bedeutung: Orakel $w$ enthält keine Wörter der Länge $\neq e(\cdot)$.)
-    \item Für alle $i$ gilt $|w\cap \Sigma^{e(i)}|\leq 2$.\par
+    \item Für alle $i$ gilt $|w\cap \Sigma^{e(i)}|\leq 2$.\par\nopagebreak
         (Bedeutung: Orakel $w$ ist dünn auf den Ebenen der Länge $e(\cdot)$.)
-    \item Wenn $t(\tau^1_j)=0$, dann existiert ein $z$ sodass $N_j^w(z)$ definitiv ablehnt.\par
+    \item Wenn $t(\tau^1_j)=0$, dann existiert ein $z$ sodass $N_j^w(z)$ definitiv ablehnt.\par\nopagebreak
         ($L(N_j)\neq \Sigma^*$ relativ zum finalen Orakel.)
-    \item Wenn $t(\tau^2_{a,b})=0$, dann existiert ein $z$ sodass $M_a^w(z)$ und $M_b^w(z)$ definitiv akzeptieren.\par
+    \item Wenn $t(\tau^2_{a,b})=0$, dann existiert ein $z$ sodass $M_a^w(z)$ und $M_b^w(z)$ definitiv akzeptieren.\par\nopagebreak
         (Bedeutung: wenn $t(\tau^2_{a,b})=0$, dann $L(M_a)\cap L(M_b)\neq \emptyset$ relativ zum finalen Orakel.)
-    \item Wenn $0<t(\tau^2_{a,b})=m$, dann gilt für alle $n\in H_m$ dass $|\Sigma^{n}\cap w|\leq 1$.\par
+    \item Wenn $0<t(\tau^2_{a,b})=m$, dann gilt für alle $n\in H_m$ dass $|\Sigma^{n}\cap w|\leq 1$.\par\nopagebreak
         (Bedeutung: wenn $0<t(\tau^2_{a,b})=m$, dann $(A_m,B_m)\in\DisjNP$ relativ zum finalen Orakel.)
-    \item Wenn $t(\tau^3_{a})=0$, dann existiert ein $z$ sodass $M_a^w(z)$ definitiv auf zwei Rechenwegen akzeptiert.\par
+    \item Wenn $t(\tau^3_{a})=0$, dann existiert ein $z$ sodass $M_a^w(z)$ definitiv auf zwei Rechenwegen akzeptiert.\par\nopagebreak
         (Bedeutung: wenn $t(\tau^3_{a})=0$, dann $L(M_a)\not\in \UP$ relativ zum finalen Orakel.)
     \item Wenn $0<t(\tau^3_{a})=m$, dann gilt für alle $n\in H_m$ dass $|\Sigma^n\cap w|\leq 1$.\par
         (Bedeutung: wenn $0<t(\tau^3_{a})=m$, dann $C_m\in\UP$ relativ zum finalen Orakel.)
@@ -775,7 +776,6 @@ und definiere $\mathrm{NP}k\mathrm{V}$ als diejenige Teilmenge der Multifunktion
 \begin{proof}
 Es ist klar, dass sich aus Satz~\ref{thm:myoracle} unmittelbar (14), (18) und (19) ergeben.
 Die Aussagen (3), (5), (13), (15–17), (20–27) erschließen sich sofort mit Zuhilfenahme der in Abbildung~\ref{fig:figure-implications} eingezeichneten Äquivalenzen und Implikationen, zusammen mit Satz~\ref{thm:figure-implications}.
-
 Folgende Aussagen bleiben noch offen:
 \begin{prooflist}[nosep,midpenalty=0]
 \item Zu (1): $\P=\UP\cap\coUP=\NP\cap\coNP\subsetneq\UP$ klar aus der Abbildung, die Echtheit der Inklusion $\UP\subsetneq\NP$ folgt daraus, dass $\NP$ eine vollständige Menge hat, $\UP$ aber nicht, nach (18).
