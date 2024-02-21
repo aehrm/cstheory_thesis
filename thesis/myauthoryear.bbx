@@ -107,7 +107,7 @@
   \renewbibmacro*{date+extradate}{%
     \iffieldundef{labelyear}
       {}
-      {\printtext[parens]{\printlabeldateextra}}}%
+      {\setunit{\addperiod\space}{\printlabeldateextra}}}%
   \renewbibmacro*{bbx:ifmergeddate}{%
     \ifboolexpr{
       test {\iflabeldateisdate}
