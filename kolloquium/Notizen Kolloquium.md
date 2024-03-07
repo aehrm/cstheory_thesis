@@ -38,7 +38,9 @@
   
   * Beispiele durchgehen: SAT, CLIQUE sind Levin-vollständig
   
-  * offene Frage: gilt das für alle (natürlichen) NP-Suchprobleme; KvL definieren; unter IC gibt es zumindest für jede NP-vollständige Menge L eine FNP-vollständige Relation für L 
+  * offene Frage: gilt das für alle (natürlichen) NP-Suchprobleme; KvL definieren; <mark>ganz stark machen!</mark>
+  
+  * unter IC gibt es zumindest für jede NP-vollständige Menge L eine FNP-vollständige Relation für L
 
 ## NP-Suchprobleme und Q
 
@@ -48,7 +50,7 @@
 
 * neu: können Q als Aussage über Reduzierbarkeiten definieren Proj(A) auf Proj(B) Karp-reduzierbar gdw. A auf B Levin-reduzierbar ist
 
-* Damit Q eine Verstärkung von -KvL; wir können Q und -KvL mittels Beweissystemen und P-(Quasi)-Simulation gegenüberstellen (ggf. nur Teaser?)
+* Damit Q eine Verstärkung von -KvL; wir können Q und -KvL mittels Beweissystemen und P-(Quasi)-Simulation gegenüberstellen (ggf. nur Teaser, <mark>oder doch stärker machen</mark>?)
 
 ## Beweissysteme und Q
 
