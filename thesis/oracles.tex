@@ -612,8 +612,9 @@ Wir starten mit einer Beobachtung über den groben Aufbau von $E$, der sich sofo
     Mit Beobachtung~\ref{obs:partialoracles}(1) erhalten wir dann, dass $M_a(F_r(0^n))$ relativ zu $E$ ablehnt. Also auch $F^E_r(0^n)\not\in U_1$. Dies widerspricht der Annahme, dass $F_r^E$ die Reduktion realisiert, denn wir haben ja $0^n\in A_m^E$.
 \end{proof}
 
-Damit erfüllt $E$ schon die Aussagen (1) und (2) von Satz~\ref{thm:myoracle}. Die letzte Aussage (3) ist aufwändiger zu beweisen.
-Folgende Behauptung sagt aus, dass totale NPTM $N_j$ relativ zu $E$ „besonders total“ sind. Nimmt man (ab hinreichender Länge) Wörter der Länge $=e(\cdot)$ aus $E$ weg, und erhält $T\subseteq E$, bleibt $N_j$ relativ zu $T$ immer noch total. Das ergibt auch Sinn, denn in der Bearbeitung von Task $\tau^1_j$ wurden sämtlichen geeigneten Erweiterungen ausprobiert, welche die Totalität von $N_j$ zerstören würden. Da keine solche Erweiterung existiert, wird auch $T$ nicht die Totalität von $N_j$ zerstören können.
+Damit erfüllt $E$ schon die Aussagen (1) und (2) von Satz~\ref{thm:myoracle}. Die letzte Aussage (3) ist aufwändiger zu beweisen. Der Beweis hierzu verwendet eine Technik von \textcite[vgl.][Thm.~2.5]{fortnow_separability_2002}.
+
+Folgende Behauptung sagt zunächst aus, dass totale NPTM $N_j$ relativ zu $E$ „besonders total“ sind. Nimmt man (ab hinreichender Länge) Wörter der Länge $=e(\cdot)$ aus $E$ weg, und erhält $T\subseteq E$, bleibt $N_j$ relativ zu $T$ immer noch total. Das ergibt auch Sinn, denn in der Bearbeitung von Task $\tau^1_j$ wurden sämtlichen geeigneten Erweiterungen ausprobiert, welche die Totalität von $N_j$ zerstören würden. Da keine solche Erweiterung existiert, wird auch $T$ nicht die Totalität von $N_j$ zerstören können.
 
 \begin{claim}\label{claim:myoracle-totality}
     Sei $N_j$ eine totale NPTM, d.h. $L(N_j^E)=\Sigma^*$.
